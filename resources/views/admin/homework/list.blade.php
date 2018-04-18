@@ -57,7 +57,7 @@
                     <tbody>
                         @foreach ($homeworks as $homework)
                             <tr>
-                                <td>{{ $loop->index ++}}</td>
+                                <td>{{ $loop->index}}</td>
                                 <td>{{ $homework->created_at->diffForHumans() }}</td>
                                 <td>{{ $homework->classes->name }}</td>
                                 <td>{{ $homework->sectionTypes->name }}</td>
