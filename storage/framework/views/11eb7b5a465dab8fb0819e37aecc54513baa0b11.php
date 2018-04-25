@@ -150,8 +150,8 @@
                 <li></li>
                 <li><a href="<?php echo e(route('admin.feeAcount.list')); ?>"><i class="fa fa-circle-o"></i>Fee Accounts </a></li>
                 <li><a href="<?php echo e(route('admin.feeStructure.list')); ?>"><i class="fa fa-circle-o"></i>Fee Structure </a></li> 
-                <li><a href="<?php echo e(route('admin.feeStructureLastDate.list')); ?>"><i class="fa fa-circle-o"></i>Fee Fine Scheme </a></li>                 
-                <li><a href="<?php echo e(route('admin.fineScheme.list')); ?>"><i class="fa fa-circle-o"></i>Fee Structure Last Date </a></li> 
+                <li><a href="<?php echo e(route('admin.feeStructureLastDate.list')); ?>"><i class="fa fa-circle-o"></i>Fee Structure Last Date </a></li>                 
+                <li><a href="<?php echo e(route('admin.fineScheme.list')); ?>"><i class="fa fa-circle-o"></i>Fee Fine Scheme </a></li> 
                 <li><a href="<?php echo e(route('admin.classFeeStructure.list')); ?>"><i class="fa fa-circle-o"></i> Class Fee Structure </a></li> 
             </ul>
         </li>

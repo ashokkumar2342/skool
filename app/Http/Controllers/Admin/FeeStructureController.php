@@ -15,7 +15,8 @@ class FeeStructureController extends Controller
      */
     public function index()
     {
-        //
+        $feeStructures = FeeStructure::latest('created_at')->paginate(20);
+        return view('admin.finance.fee_structure',compact('feeStructures'));
     }
 
     /**
@@ -36,7 +37,24 @@ class FeeStructureController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+        
+            'code' => 'required|max:3|unique:fee_accounts', 
+            'name' => 'required|max:30|unique:fee_accounts', 
+            'description' => 'max:100', 
+              
+        ]);
+        if ($validator->fails()) {                    
+             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
+
+        } else {
+            $feeStructure = new FeeStructure();
+            $feeStructure->code = $request->code;
+            $feeStructure->name = $request->name;
+            $feeStructure->description = $request->description;
+            $feeStructure->save();
+            return response()->json([$feeStructure,'class'=>'success','message'=>'Fee Account Created Successfully']);
+        }
     }
 
     /**
@@ -81,6 +99,8 @@ class FeeStructureController extends Controller
      */
     public function destroy(FeeStructure $feeStructure)
     {
-        //
+        $feeStructure = FeeStructure::findOrFail($request->id);
+        $feeStructure->delete();
+        return  response()->json([$feeStructure,'message'=>'Fee Structure Delete Successfully','class'=>'success']);
     }
 }

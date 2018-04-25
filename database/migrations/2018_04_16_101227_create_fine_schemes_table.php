@@ -18,11 +18,11 @@ class CreateFineSchemesTable extends Migration
             $table->string('code')->unique();
             $table->string('name')->unique();
             $table->decimal('fine_amount1');
-            $table->decimal('fine_amount2');
-            $table->decimal('fine_amount3');
-            $table->decimal('days_after1');
-            $table->decimal('days_after2');
-            $table->decimal('fine_periad');
+            $table->decimal('fine_amount2')->nullable();
+            $table->decimal('fine_amount3')->nullable();
+            $table->integer('day_after1');
+            $table->integer('day_after2');
+            $table->unsignedInteger('fine_period_id');
             $table->softDeletes();        
             $table->timestamps();
             $table->boolean('status')->default('1');

@@ -5,13 +5,11 @@
       <ol class="breadcrumb">
       </ol>
 </section>
-
     <section class="content">
         <div class="box">             
             <!-- /.box-header -->
-            <div class="box-body">
-             
-                 <div class="col-md-12">                                          
+            <div class="box-body">             
+                <div class="col-md-12">                                          
                    <div class="col-lg-2">                         
                       <div class="form-group">
                           {!! Form::select('class',$classes, '', ['class'=>'form-control', 'id'=>'class' ,'placeholder'=>'Select Class','required']) !!}
@@ -40,44 +38,44 @@
           </div>
           <!-- /.box -->
 
-          <div class="box">             
+            <div class="box">             
               <!-- /.box-header -->
-              <div class="box-body">
-                <table id="homework_table" class="display table">                     
-                    <thead>
-                        <tr>
-                            <th>Sn</th>
-                            <th>Time</th>
-                            <th>Class</th>
-                            <th>Section</th>
-                            <th>Homework</th>
-                            <th>Action</th>                             
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($homeworks as $homework)
+                <div class="box-body">
+                    <table id="homework_table" class="display table">                     
+                        <thead>
                             <tr>
-                                <td>{{ $loop->index}}</td>
-                                <td>{{ $homework->created_at->diffForHumans() }}</td>
-                                <td>{{ $homework->classes->name }}</td>
-                                <td>{{ $homework->sectionTypes->name }}</td>
-                                <td>{{ $homework->homework }}</td>
-                                <td>
-                                    <button type="button" class="btn_parents_image btn btn-info btn-xs" data-toggle="modal" data-id="{{ $homework->id }}" data-target="#image_parent"><i class="fa fa-eye"></i> </button>
-
-                                    <button type="button" class="homework_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $homework->id }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
-
-                                    <button class="btn_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $homework->id }}"  ><i class="fa fa-trash"></i></button>
-                                </td>
-                            
+                                <th>Sn</th>
+                                <th>Time</th>
+                                <th>Class</th>
+                                <th>Section</th>
+                                <th>Homework</th>
+                                <th>Action</th>                             
                             </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($homeworks as $homework)
+                                <tr>
+                                    <td>{{ ++$loop->index}}</td>
+                                    <td>{{ $homework->created_at ==null?$homework->created_at :$homework->created_at->diffForHumans() }}</td>
+                                    <td>{{ $homework->classes->name }}</td>
+                                    <td>{{ $homework->sectionTypes->name }}</td>
+                                    <td>{{ $homework->homework }}</td>
+                                    <td>
+                                        <button type="button" class="btn_parents_image btn btn-info btn-xs" data-toggle="modal" data-id="{{ $homework->id }}" data-target="#image_parent"><i class="fa fa-eye"></i> </button>
 
-                        @endforeach
-                    </tbody>
-                         {{ $homeworks->links() }} 
+                                        <button type="button" class="homework_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $homework->id }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
 
-                </table>
-              </div>
+                                        <button class="btn_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $homework->id }}"  ><i class="fa fa-trash"></i></button>
+                                    </td>
+                                
+                                </tr>
+
+                            @endforeach
+                        </tbody>
+                             {{ $homeworks->links() }} 
+
+                    </table>
+                </div>
             </div>    
 
           <!-- Trigger the modal with a button --> 
@@ -176,8 +174,7 @@
             console.log("complete");
         });
         
-    });
-    
+    });   
     
 </script>
 
