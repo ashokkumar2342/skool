@@ -1,7 +1,6 @@
 <?php
-
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('admin.login');
- 
+Route::get('/', 'Auth\LoginController@index')->name('admin.home');
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('admin.login'); 
 Route::get('admin-password/reset', 'Auth\ForgetPasswordController@sendResetLinkEmail')->name('admin.password.email');
 Route::get('admin-password/reset', 'Auth\ForgetPasswordController@showLinkRequestForm')->name('admin.password.request');
 Route::get('logout', 'Auth\LoginController@logout')->name('admin.logout.get');
@@ -221,6 +220,13 @@ Route::group(['middleware' => 'admin'], function() {
 		    Route::delete('delete', 'FeeAccountController@destroy')->name('admin.feeAcount.delete');
 		    Route::put('update', 'FeeAccountController@update')->name('admin.feeAcount.update');
 		 });
+		
+		Route::group(['prefix' => 'fine-scheme'], function() {
+		    Route::get('/', 'FineSchemeController@index')->name('admin.fineScheme.list');	 	
+		    Route::post('add', 'FineSchemeController@store')->name('admin.fineScheme.post');
+		    Route::delete('delete', 'FineSchemeController@destroy')->name('admin.fineScheme.delete');
+		    Route::put('update', 'FineSchemeController@update')->name('admin.fineScheme.update');
+		 });
 		Route::group(['prefix' => 'fee-structure'], function() {
 		    Route::get('/', 'FeeStructureController@index')->name('admin.feeStructure.list');	 	
 		    Route::post('add', 'FeeStructureController@store')->name('admin.feeStructure.post');
@@ -230,16 +236,14 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::group(['prefix' => 'fee-structure-last-date'], function() {
 	        Route::get('/', 'FeeStructureLastDateController@index')->name('admin.feeStructureLastDate.list');	 	
 	        Route::post('add', 'FeeStructureLastDateController@store')->name('admin.feeStructureLastDate.post');
+	        Route::delete('delete', 'FeeStructureLastDateController@destroy')->name('admin.feeStructureLastDate.delete');
+	        Route::put('update', 'FeeStructureLastDateController@update')->name('admin.feeStructureLastDate.update');
 	     });
-	    Route::group(['prefix' => 'fine-scheme'], function() {
-	        Route::get('/', 'FineSchemeController@index')->name('admin.fineScheme.list');	 	
-	        Route::post('add', 'FineSchemeController@store')->name('admin.fineScheme.post');
-	        Route::delete('delete', 'FineSchemeController@destroy')->name('admin.fineScheme.delete');
-	        Route::put('update', 'FineSchemeController@update')->name('admin.fineScheme.update');
-	     });
+	    
 	    Route::group(['prefix' => 'class-fee-structure'], function() {
 	        Route::get('/', 'ClassFeeStructureController@index')->name('admin.classFeeStructure.list');	 	
 	        Route::post('add', 'ClassFeeStructureController@store')->name('admin.classFeeStructure.post');
+	        Route::post('isApplicable', 'ClassFeeStructureController@isApplicable')->name('admin.classFeeStructure.isApplicable');
 	        Route::delete('delete', 'ClassFeeStructureController@destroy')->name('admin.classFeeStructure.delete');
 	     });
 	 });

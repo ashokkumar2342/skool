@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Fee Structure </h1>
+    <h1>Class Fee Structure </h1>
       <ol class="breadcrumb">
       </ol>
 </section>
@@ -10,44 +10,38 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="form-vertical" id="form_fee_structure">                                                     
-	                   <div class="col-lg-2">                                             
-	                       <div class="form-group">
-                           {{ Form::label('code','Code',['class'=>'form-label']) }}
-	                         {{ Form::text('code','',['class'=>'form-control','id'=>'code', 'placeholder'=>'Enter Fee Structure Code']) }}
-	                         <p class="errorCode text-center alert alert-danger hidden"></p>
-	                       </div>                                         
-	                    </div>
-	                     <div class="col-lg-2">                                             
-	                       <div class="form-group">
-                           {{ Form::label('name','name',['class'=>'form-label']) }}                          
-	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter Fee Structure Name']) }}
-	                         <p class="errorName text-center alert alert-danger hidden"></p>
-	                       </div>                                         
-	                    </div>                     
-	                    <div class="col-lg-2">                           
+	                <form class="form-vertical" id="form_class_fee_structure">
+                         <div class="col-lg-2">                           
                              <div class="form-group">
-                              {{ Form::label('fee_account_id','Fee Account',['class'=>' control-label']) }}
-                               {{ Form::select('fee_account_id',$feeAccount,null,['class'=>'form-control']) }}
-                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
-                             </div>    
-	                    </div>
-                        <div class="col-lg-2">                           
-                             <div class="form-group">
-                              {{ Form::label('fine_scheme_id','Fine Scheme',['class'=>' control-label']) }}
-                               {{ Form::select('fine_scheme_id',$fineScheme,null,['class'=>'form-control']) }}
+                              {{ Form::label('fee_structure_id','Fee Structure',['class'=>' control-label']) }}
+                               {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
-                        <div class="col-lg-2">                           
+                         <div class="col-lg-2">                           
                              <div class="form-group">
-                              {{ Form::label('is_refundable','Is Refundable',['class'=>' control-label']) }}
-                               {{ Form::select('is_refundable',['0'=>'No','1'=>'yes'],null,['class'=>'form-control']) }}
+                              {{ Form::label('class_id','Class',['class'=>' control-label']) }}
+                               {{ Form::select('class_id',$classess,null,['class'=>'form-control']) }}
+                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
+                             </div>    
+                        </div> 
+                      {{--    <div class="col-lg-2">                           
+                             <div class="form-group">
+                              {{ Form::label('class_id','Fee Structure',['class'=>' control-label']) }}
+                               {{ Form::select('class_id',$classess,null,['class'=>'form-control']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
+ --}}                        <div class="col-lg-2">                           
+                             <div class="form-group">
+                              {{ Form::label('is_applicable','Is Applicable',['class'=>' control-label']) }}
+                                {{ Form::select('is_applicable',['0'=>'No','1'=>'yes'],null,['class'=>'form-control','id'=>'edit_is_applicable']) }} 
+                             </div>    
+                        </div>
+                         
+                                         
 	                     <div class="col-lg-2" style="padding-top: 20px;">                                             
-	                     <button class="btn btn-success" type="button" id="btn_fee_structure_create">Create</button> 
+	                     <button class="btn btn-success" type="button" id="btn_class_fee_structure_create">Create</button> 
 	                    </div>                     
 	                </form> 
                 </div> 
@@ -59,31 +53,30 @@
             <div class="box">             
               <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="fee_structure_table" class="display table">                     
+                    <table id="class_fee_structure_table" class="display table">                     
                         <thead>
                             <tr>
                                 <th>Sn</th>
-                                <th>Code</th>
-                                <th>Name</th>
-                                <th>Fee Account</th>
-                                <th>Fine Scheme</th>
-                                <th>Refundable</th>                                                            
+                                 
+                                <th>Fee Structure</th>
+                                <th>Class</th>
+                                <th>Is Applicable</th>                                        
                                 <th>Action</th>                                                            
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ($feeStructures as $feeStructure)
+                        @foreach ($classFeeStructures as $classFeeStructure)
                         	<tr>
                         		<td>{{ ++$loop->index }}</td>
-                        		<td>{{ $feeStructure->code }}</td>
-                        		<td>{{ $feeStructure->name }}</td>
-                                <td>{{ $feeStructure->feeAccounts->name }}</td>
-                                <td>{{ $feeStructure->fineSchemes->name }}</td>
-                        		<td>{{ $feeStructure->is_refundable == 1 ?'yes':'No' }}</td>
+                        		<td>{{ $classFeeStructure->feeStructures->name}}</td>
+                        		  
+                            <td>{{ $classFeeStructure->classess->alias }}</td>
+                        		<td><button class="btn_is_applicable btn {{ $classFeeStructure->is_applicable == 1 ? 'btn-success':'btn-danger'  }}  btn-xs" data-id="{{ $classFeeStructure->id }}">{{ $classFeeStructure->is_applicable == 1 ? 'Yes':'No' }}</button></td>
                         		<td> 
-                        			<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $feeStructure->id }}"  data-code="{{ $feeStructure->code }}" data-name="{{ $feeStructure->name }}" data-feeaccount="{{ $feeStructure->fee_account_id }}" data-finescheme="{{ $feeStructure->fine_scheme_id }}" data-refundable="{{ $feeStructure->is_refundable }}"><i class="fa fa-edit"></i> </button>
-
-                        			<button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $feeStructure->id }}"  ><i class="fa fa-trash"></i></button>
+                                    <button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $classFeeStructure->id }}"><i class="fa fa-trash"></i></button>
+                                </td>
+                        		{{-- 	<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $classFeeStructure->id }}"  data-code="{{ $classFeeStructure->code }}" data-name="{{ $classFeeStructure->name }}"  data-finescheme="{{ $classFeeStructure->fine_scheme_id }}" data-refundable="{{ $classFeeStructure->is_refundable }}"><i class="fa fa-edit"></i> </button>
+                        			<button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $classFeeStructure->id }}"><i class="fa fa-trash"></i></button> --}}
                         		</td>
                         	</tr>  	 
                         @endforeach	
@@ -98,7 +91,7 @@
           <!-- Trigger the modal with a button --> 
           <!--- Model parents      -->     
               <!-- Modal -->
-             <div id="fee_structure_model" class="modal fade" role="dialog">
+             <div id="fee_structure_last_date_model" class="modal fade" role="dialog">
                  <div class="modal-dialog">
                   <!-- Modal content-->
                      <div class="modal-content">
@@ -108,7 +101,7 @@
                           </div>
                           <div class="modal-body">
                             <form id="form_model_fee_structure"> 
-                        		<input type="hidden" name="id" id="edit_id">
+                        	{{-- 	<input type="hidden" name="id" id="edit_id">
                                <div class="form-group">
                                 {{ Form::label('code','Code',['class'=>' control-label']) }}
                                  {{ Form::text('code','',['class'=>'form-control','id'=>'edit_code', 'placeholder'=>'Enter fee structure code']) }}
@@ -121,17 +114,17 @@
                                </div>      
                                <div class="form-group">
                                 {{ Form::label('fee_account','Fee Account',['class'=>' control-label']) }}
-                                {{ Form::select('fee_account',$feeAccount,null,['class'=>'form-control','id'=>'edit_fee_account']) }}
+                                {{ Form::select('fee_account',$feeStructur,null,['class'=>'form-control','id'=>'edit_fee_account']) }}
                                </div>  
                                 <div class="form-group">
                                 {{ Form::label('fine_scheme','Fine Scheme',['class'=>' control-label']) }}
-                                {{ Form::select('fine_scheme',$fineScheme,null,['class'=>'form-control','id'=>'edit_fine_scheme']) }}
+                                {{ Form::select('fine_scheme',$acardemicYear,null,['class'=>'form-control','id'=>'edit_fine_scheme']) }}
                                </div> 
                                <div class="form-group">
                                 {{ Form::label('is_refundable','Is Refundable',['class'=>' control-label']) }}
                                  {{ Form::select('is_refundable',['0'=>'No','1'=>'yes'],null,['class'=>'form-control','id'=>'edit_Is_refundable']) }}
                                  <p class="errorAmount1 text-center alert alert-danger hidden"></p>
-                               </div>   
+                               </div> --}}   
                                                       
                             </form> 
                          </div>
@@ -149,20 +142,30 @@
 @endsection
 @push('links')
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"> 
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush 
  @push('scripts')
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+ <script>
+ 
+    $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
+    
+ 
+ </script>
   <script>
-  	$('#btn_fee_structure_create').click(function(event) {  		  
+  	$('#btn_class_fee_structure_create').click(function(event) {  		  
   		$.ajaxSetup({
   		          headers: {
   		          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   		          }
   		      });
 	     $.ajax({
-           url: '{{ route('admin.feeStructure.post') }}',
+           url: '{{ route('admin.classFeeStructure.post') }}',
            type: 'POST',       
-           data: $('#form_fee_structure').serialize() ,
+           data: $('#form_class_fee_structure').serialize() ,
 	    })
   		.done(function(data) {
   			if (data.class === 'error') {                 
@@ -172,8 +175,8 @@
   			}
   			  else {                 
   			    toastr[data.class](data.message)  
-  			    $("#form_fee_structure")[0].reset(); 
-  			    $("#fee_structure_table").load(location.href + ' #fee_structure_table'); 
+  			    $("#form_class_fee_structure")[0].reset(); 
+  			    $("#class_fee_structure_table").load(location.href + ' #class_fee_structure_table'); 
   			} 
   		})
   		.fail(function() {
@@ -182,8 +185,34 @@
   		.always(function() {
   			console.log("complete");
   		}); 
-  	});/////////////////delete///////////////////
-  	$('#fee_structure_table').on('click', '.btn_delete', function(event) {
+  	});/////////////////isapplicable///////////////////
+    $('#class_fee_structure_table').on('click', '.btn_is_applicable', function(event) { 
+         event.preventDefault();  
+         console.log('test');
+         var id = $(this).data("id");
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+             }
+         });      
+         $.ajax({
+             url: '{{ route('admin.classFeeStructure.isApplicable') }}',
+             type: 'post',
+             data: {id: id},
+         })
+         .done(function(data) {
+             toastr[data.class](data.message)
+             $("#class_fee_structure_table").load(location.href + ' #class_fee_structure_table'); 
+         })
+         .fail(function() {
+             console.log("error");
+         })
+         .always(function() {
+             console.log("complete");
+         });  
+    });
+    /////////////////delete///////////////////
+  	$('#class_fee_structure_table').on('click', '.btn_delete', function(event) {
   		var cm = confirm("Are you Sure Delete!");
   		if (cm == true) {
   		     event.preventDefault();  
@@ -194,13 +223,13 @@
   		         }
   		     });      
   		     $.ajax({
-  		         url: '{{ route('admin.feeStructure.delete') }}',
+  		         url: '{{ route('admin.classFeeStructure.delete') }}',
   		         type: 'delete',
   		         data: {id: id},
   		     })
   		     .done(function(data) {
   		         toastr[data.class](data.message)
-  		         $("#fee_structure_table").load(location.href + ' #fee_structure_table'); 
+  		         $("#class_fee_structure_table").load(location.href + ' #class_fee_structure_table'); 
   		     })
   		     .fail(function() {
   		         console.log("error");
@@ -213,7 +242,7 @@
   		}
   	    
   	});///////////////////edit//////////// 
-  	 $('#fee_structure_table').on('click', '.btn_edit', function(event) {
+  	 $('#fee_structure_last_date').on('click', '.btn_edit', function(event) {
   	     event.preventDefault();  
   	     $('.modal-title').text('Edit');
          $('#edit_id').val($(this).data('id'));        
@@ -232,7 +261,7 @@
   		          }
   		      });
 	     $.ajax({
-           url: '{{ route('admin.feeStructure.update') }}',
+           url: '{{ route('admin.feeStructureLastDate.update') }}',
            type: 'put',       
            data: $('#form_model_fee_structure').serialize() ,
 	    })
@@ -244,10 +273,10 @@
   			}
   			  else {                 
   			    toastr[data.class](data.message)  
-  			    $("#form_model_fee_structure")[0].reset();
-  			    $('#fee_structure_model').modal('hide');
+  			    $("#form_model_fee_structure_last_date")[0].reset();
+  			    $('#fee_structure_last_date_model').modal('hide');
 
-  			    $("#fee_structure_table").load(location.href + ' #fee_structure_table'); 
+  			    $("#fee_structure_last_date_table").load(location.href + ' #fee_structure_last_date_table'); 
   			} 
   		})
   		.fail(function() {

@@ -17,9 +17,9 @@ class CreateFeeStructureLastDatesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('fee_structure_id');
             $table->unsignedInteger('academic_year_id');
-            $table->decimal('amount', 6, 2);
+            $table->unsignedInteger('for_session_month_id');  
+            $table->decimal('amount');
             $table->date('last_date');
-            $table->string('for_session_month');            
             $table->softDeletes();        
             $table->timestamps();
             $table->boolean('status')->default('1');

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class FineScheme extends Model
 {
       protected $fillable = [
-        'id', 
+      
         'code', 
         'name', 
         'day_after1',       

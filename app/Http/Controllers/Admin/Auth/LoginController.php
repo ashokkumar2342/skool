@@ -42,6 +42,7 @@ class LoginController extends Controller
 
     public function index(){
         return redirect()->route('admin.login');
+        
     }
     
     

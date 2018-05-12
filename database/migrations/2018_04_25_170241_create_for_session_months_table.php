@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAcademicYearsTable extends Migration
+class CreateForSessionMonthsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateAcademicYearsTable extends Migration
      */
     public function up()
     {
-        Schema::create('academic_years', function (Blueprint $table) {
+        Schema::create('for_session_months', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->text('description'); 
-            $table->softDeletes();        
+            $table->integer('month');
+            $table->integer('times');
+            $table->softDeletes();   
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateAcademicYearsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('academic_years');
+        Schema::dropIfExists('for_session_months');
     }
 }

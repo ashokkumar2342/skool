@@ -34,7 +34,7 @@
             }
             });
             var snapshot = camera.capture();
-             snapshot.show();
+             console.log(snapshot.toString());
  
           snapshot.upload({
             api_url: "{{ route('admin.student.profilepic.webupdate',$student->id) }}"
