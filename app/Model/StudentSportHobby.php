@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class StudentSportHobby extends Model
 {
+	
      protected $fillable = [
        'student_id', 
        'sports_activity_name', 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FeeStructureLastDate extends Model
 {
+  
      protected $fillable = [
        
        'fee_structure_id', 

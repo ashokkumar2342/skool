@@ -1,7 +1,6 @@
-@extends('admin.layout.base')
-@section('body')
+<?php $__env->startSection('body'); ?>
 <section class="content-header">
-    <h1>Class Fee Structure </h1>
+    <h1>Fee Structure Last Date </h1>
       <ol class="breadcrumb">
       </ol>
 </section>
@@ -10,31 +9,46 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="form-vertical" id="form_class_fee_structure">
+	                <form class="form-vertical" id="form_fee_structure_last_date">
                          <div class="col-lg-2">                           
                              <div class="form-group">
-                              {{ Form::label('fee_structure_id','Fee Structure',['class'=>' control-label']) }}
-                               {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control']) }}
+                              <?php echo e(Form::label('academic_year_id','Academic Year',['class'=>' control-label'])); ?>
+
+                               <?php echo e(Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control'])); ?>
+
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
                          <div class="col-lg-2">                           
                              <div class="form-group">
-                              {{ Form::label('class_id','Class',['class'=>' control-label']) }}
-                               {{ Form::select('class_id',$classess,null,['class'=>'form-control','placeholder'=>'Select Class']) }}
+                              <?php echo e(Form::label('fee_structure_id','Fee Structure',['class'=>' control-label'])); ?>
+
+                               <?php echo e(Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control'])); ?>
+
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div> 
-                        <div class="col-lg-2">                           
+	                     <div class="col-lg-2">                                             
+	                       <div class="form-group">
+                           <?php echo e(Form::label('amount','Amount',['class'=>'form-label'])); ?>                          
+	                         <?php echo e(Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>4, 'placeholder'=>'Enter Amount'])); ?>
+
+	                         <p class="errorName text-center alert alert-danger hidden"></p>
+	                       </div>                                         
+	                    </div>
+                     
+
+	                    <div class="col-lg-2">                           
                              <div class="form-group">
-                              {{ Form::label('is_applicable','Is Applicable',['class'=>' control-label']) }}
-                                {{ Form::select('is_applicable',['0'=>'No','1'=>'yes'],null,['class'=>'form-control','id'=>'edit_is_applicable']) }} 
+                              <?php echo e(Form::label('for_session_month_id','For Session/Month',['class'=>' control-label'])); ?>
+
+                               <?php echo e(Form::select('for_session_month_id',$forSessionMonth,null,['class'=>'form-control'])); ?>
+
+                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
-                        </div>
-                         
-                                         
+	                    </div>                         
 	                     <div class="col-lg-2" style="padding-top: 20px;">                                             
-	                     <button class="btn btn-success" type="button" id="btn_class_fee_structure_create">Create</button> 
+	                     <button class="btn btn-success" type="button" id="btn_fee_structure_last_date_create">Create</button> 
 	                    </div>                     
 	                </form> 
                 </div> 
@@ -46,38 +60,44 @@
             <div class="box">             
               <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="class_fee_structure_table" class="display table">                     
+                    <table id="fee_structure_last_date_table" class="display table">                     
                         <thead>
                             <tr>
                                 <th>Sn</th>
-                                 
+                                <th>Academic Year</th>
                                 <th>Fee Structure</th>
-                                <th>Class</th>
-                                <th>Is Applicable</th>                                        
+                                <th>Amount</th>
+                                <th>Last Date</th>
+                                <th>Month</th>                                                            
+                                <th>For Session/Month</th>                                                            
                                 <th>Action</th>                                                            
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ($classFeeStructures as $classFeeStructure)
+                        <?php $__currentLoopData = $feeStructureLastDstes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feeStructureLastDste): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         	<tr>
-                        		<td>{{ ++$loop->index }}</td>
-                        		<td>{{ $classFeeStructure->feeStructures->name}}</td>
-                        		  
-                            <td>{{ $classFeeStructure->classess->alias }}</td>
-                        		<td><button class="btn_is_applicable btn {{ $classFeeStructure->is_applicable == 1 ? 'btn-success':'btn-danger'  }}  btn-xs" data-id="{{ $classFeeStructure->id }}">{{ $classFeeStructure->is_applicable == 1 ? 'Yes':'No' }}</button></td>
+                        		<td width="30px"><?php echo e(++$loop->index); ?>  </td>
+                        		<td><?php echo e($feeStructureLastDste->feeStructures->name); ?></td>
+                        		<td><?php echo e($feeStructureLastDste->academicYears->name); ?></td>
+                                
+                                <td><?php echo e($feeStructureLastDste->amount); ?></td>
+                                <td><?php echo e(Carbon\Carbon::parse($feeStructureLastDste->last_date)->format('d-m-Y')); ?></td>
+                                <td> <?php echo e(Carbon\Carbon::parse($feeStructureLastDste->last_date)->format(' F ')); ?> </td>
+                        		<td> <?php echo e($feeStructureLastDste->forSessionMonths->name); ?> </td>
                         		<td> 
-                                    <button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $classFeeStructure->id }}"><i class="fa fa-trash"></i></button>
-                                </td>
-                        		{{-- 	<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $classFeeStructure->id }}"  data-code="{{ $classFeeStructure->code }}" data-name="{{ $classFeeStructure->name }}"  data-finescheme="{{ $classFeeStructure->fine_scheme_id }}" data-refundable="{{ $classFeeStructure->is_refundable }}"><i class="fa fa-edit"></i> </button>
-                        			<button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $classFeeStructure->id }}"><i class="fa fa-trash"></i></button> --}}
+                        			
+
+                        			<button class="btn_delete btn btn-danger btn-xs"  data-id="<?php echo e($feeStructureLastDste->id); ?>"  ><i class="fa fa-trash"></i></button>
                         		</td>
                         	</tr>  	 
-                        @endforeach	
-                           
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>	
+                                                            
                         </tbody>
-                             
-
+                        
                     </table>
+                    <?php echo e($feeStructureLastDstes->links()); ?>
+
+
                 </div>
             </div>    
 
@@ -94,30 +114,39 @@
                           </div>
                           <div class="modal-body">
                             <form id="form_model_fee_structure"> 
-                        	{{-- 	<input type="hidden" name="id" id="edit_id">
+                        		<input type="hidden" name="id" id="edit_id">
                                <div class="form-group">
-                                {{ Form::label('code','Code',['class'=>' control-label']) }}
-                                 {{ Form::text('code','',['class'=>'form-control','id'=>'edit_code', 'placeholder'=>'Enter fee structure code']) }}
+                                <?php echo e(Form::label('code','Code',['class'=>' control-label'])); ?>
+
+                                 <?php echo e(Form::text('code','',['class'=>'form-control','id'=>'edit_code', 'placeholder'=>'Enter fee structure code'])); ?>
+
                                  <p class="errorCode text-center alert alert-danger hidden"></p>
                                </div>       
                                <div class="form-group">
-                                {{ Form::label('name','Name',['class'=>' control-label']) }}                                
-                                 {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee structure name']) }}
+                                <?php echo e(Form::label('name','Name',['class'=>' control-label'])); ?>                                
+                                 <?php echo e(Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee structure name'])); ?>
+
                                  <p class="errorName text-center alert alert-danger hidden"></p>
                                </div>      
                                <div class="form-group">
-                                {{ Form::label('fee_account','Fee Account',['class'=>' control-label']) }}
-                                {{ Form::select('fee_account',$feeStructur,null,['class'=>'form-control','id'=>'edit_fee_account']) }}
+                                <?php echo e(Form::label('fee_account','Fee Account',['class'=>' control-label'])); ?>
+
+                                <?php echo e(Form::select('fee_account',$feeStructur,null,['class'=>'form-control','id'=>'edit_fee_account'])); ?>
+
                                </div>  
                                 <div class="form-group">
-                                {{ Form::label('fine_scheme','Fine Scheme',['class'=>' control-label']) }}
-                                {{ Form::select('fine_scheme',$acardemicYear,null,['class'=>'form-control','id'=>'edit_fine_scheme']) }}
+                                <?php echo e(Form::label('fine_scheme','Fine Scheme',['class'=>' control-label'])); ?>
+
+                                <?php echo e(Form::select('fine_scheme',$acardemicYear,null,['class'=>'form-control','id'=>'edit_fine_scheme'])); ?>
+
                                </div> 
                                <div class="form-group">
-                                {{ Form::label('is_refundable','Is Refundable',['class'=>' control-label']) }}
-                                 {{ Form::select('is_refundable',['0'=>'No','1'=>'yes'],null,['class'=>'form-control','id'=>'edit_Is_refundable']) }}
+                                <?php echo e(Form::label('is_refundable','Is Refundable',['class'=>' control-label'])); ?>
+
+                                 <?php echo e(Form::select('is_refundable',['0'=>'No','1'=>'yes'],null,['class'=>'form-control','id'=>'edit_Is_refundable'])); ?>
+
                                  <p class="errorAmount1 text-center alert alert-danger hidden"></p>
-                               </div> --}}   
+                               </div>   
                                                       
                             </form> 
                          </div>
@@ -132,14 +161,14 @@
  
     </section>
     <!-- /.content -->
-@endsection
-@push('links')
+<?php $__env->stopSection(); ?>
+<?php $__env->startPush('links'); ?>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"> 
    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
-@endpush 
- @push('scripts')
+<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+<?php $__env->stopPush(); ?> 
+ <?php $__env->startPush('scripts'); ?>
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
  <script>
@@ -149,16 +178,16 @@
  
  </script>
   <script>
-  	$('#btn_class_fee_structure_create').click(function(event) {  		  
+  	$('#btn_fee_structure_last_date_create').click(function(event) {  		  
   		$.ajaxSetup({
   		          headers: {
   		          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   		          }
   		      });
 	     $.ajax({
-           url: '{{ route('admin.classFeeStructure.post') }}',
+           url: '<?php echo e(route('admin.feeStructureLastDate.post')); ?>',
            type: 'POST',       
-           data: $('#form_class_fee_structure').serialize() ,
+           data: $('#form_fee_structure_last_date').serialize() ,
 	    })
   		.done(function(data) {
   			if (data.class === 'error') {                 
@@ -168,8 +197,8 @@
   			}
   			  else {                 
   			    toastr[data.class](data.message)  
-  			    $("#form_class_fee_structure")[0].reset(); 
-  			    $("#class_fee_structure_table").load(location.href + ' #class_fee_structure_table'); 
+  			    $("#form_fee_structure_last_date")[0].reset(); 
+  			    $("#fee_structure_last_date_table").load(location.href + ' #fee_structure_last_date_table'); 
   			} 
   		})
   		.fail(function() {
@@ -178,34 +207,8 @@
   		.always(function() {
   			console.log("complete");
   		}); 
-  	});/////////////////isapplicable///////////////////
-    $('#class_fee_structure_table').on('click', '.btn_is_applicable', function(event) { 
-         event.preventDefault();  
-         console.log('test');
-         var id = $(this).data("id");
-         $.ajaxSetup({
-             headers: {
-                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-             }
-         });      
-         $.ajax({
-             url: '{{ route('admin.classFeeStructure.isApplicable') }}',
-             type: 'post',
-             data: {id: id},
-         })
-         .done(function(data) {
-             toastr[data.class](data.message)
-             $("#class_fee_structure_table").load(location.href + ' #class_fee_structure_table'); 
-         })
-         .fail(function() {
-             console.log("error");
-         })
-         .always(function() {
-             console.log("complete");
-         });  
-    });
-    /////////////////delete///////////////////
-  	$('#class_fee_structure_table').on('click', '.btn_delete', function(event) {
+  	});/////////////////delete///////////////////
+  	$('#fee_structure_last_date_table').on('click', '.btn_delete', function(event) {
   		var cm = confirm("Are you Sure Delete!");
   		if (cm == true) {
   		     event.preventDefault();  
@@ -216,13 +219,13 @@
   		         }
   		     });      
   		     $.ajax({
-  		         url: '{{ route('admin.classFeeStructure.delete') }}',
+  		         url: '<?php echo e(route('admin.feeStructureLastDate.delete')); ?>',
   		         type: 'delete',
   		         data: {id: id},
   		     })
   		     .done(function(data) {
   		         toastr[data.class](data.message)
-  		         $("#class_fee_structure_table").load(location.href + ' #class_fee_structure_table'); 
+  		         $("#fee_structure_last_date_table").load(location.href + ' #fee_structure_last_date_table'); 
   		     })
   		     .fail(function() {
   		         console.log("error");
@@ -254,7 +257,7 @@
   		          }
   		      });
 	     $.ajax({
-           url: '{{ route('admin.feeStructureLastDate.update') }}',
+           url: '<?php echo e(route('admin.feeStructureLastDate.update')); ?>',
            type: 'put',       
            data: $('#form_model_fee_structure').serialize() ,
 	    })
@@ -281,4 +284,5 @@
  	});
      
   </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('admin.layout.base', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

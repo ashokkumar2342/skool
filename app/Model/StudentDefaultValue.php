@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class StudentDefaultValue extends Model
 {
+    
       public function genders(){
         return $this->hasOne('App\Model\Gender','id','gender_id');
     }

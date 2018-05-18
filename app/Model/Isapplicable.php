@@ -4,8 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MinuType extends Model
+class Isapplicable extends Model
 {
-	
     //
 }

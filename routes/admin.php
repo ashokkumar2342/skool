@@ -241,7 +241,10 @@ Route::group(['middleware' => 'admin'], function() {
 	     });
 	    
 	    Route::group(['prefix' => 'class-fee-structure'], function() {
-	        Route::get('/', 'ClassFeeStructureController@index')->name('admin.classFeeStructure.list');	 	
+	        // Route::get('/', 'ClassFeeStructureController@index')->name('admin.classFeeStructure.list');	 	
+	        Route::get('form', 'ClassFeeStructureController@form')->name('admin.classFeeStructureForm');	 	
+	        Route::post('search', 'ClassFeeStructureController@search')->name('admin.classFeeStructure.search');	 	
+	        Route::post('stores', 'ClassFeeStructureController@stores')->name('admin.classFeeStructure.stores');	 	
 	        Route::post('add', 'ClassFeeStructureController@store')->name('admin.classFeeStructure.post');
 	        Route::post('isApplicable', 'ClassFeeStructureController@isApplicable')->name('admin.classFeeStructure.isApplicable');
 	        Route::delete('delete', 'ClassFeeStructureController@destroy')->name('admin.classFeeStructure.delete');

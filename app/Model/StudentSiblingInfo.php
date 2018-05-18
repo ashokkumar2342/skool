@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class StudentSiblingInfo extends Model
 {
+	
       protected $fillable = [
        'student_id', 
        'student_sibling_id',

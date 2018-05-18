@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Fee Structure </h1>
+    <h1>Fee Structure Last Date </h1>
       <ol class="breadcrumb">
       </ol>
 </section>
@@ -32,13 +32,13 @@
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>
-                        <div class="col-lg-2">                                             
+                     {{--    <div class="col-lg-2">                                             
                            <div class="form-group">
                            {{ Form::label('last_date','Last Date',['class'=>'form-label']) }}                          
                              {{ Form::text('last_date','',['class'=>'form-control datepicker']) }}
                              <p class="errorName text-center alert alert-danger hidden"></p>
                            </div>                                         
-                        </div>
+                        </div> --}}
 
 	                    <div class="col-lg-2">                           
                              <div class="form-group">
@@ -68,6 +68,7 @@
                                 <th>Fee Structure</th>
                                 <th>Amount</th>
                                 <th>Last Date</th>
+                                <th>Month</th>                                                            
                                 <th>For Session/Month</th>                                                            
                                 <th>Action</th>                                                            
                             </tr>
@@ -75,13 +76,14 @@
                         <tbody>
                         @foreach ($feeStructureLastDstes as $feeStructureLastDste)
                         	<tr>
-                        		<td>{{ ++$loop->index }}</td>
+                        		<td width="30px">{{ ++$loop->index }}  </td>
                         		<td>{{ $feeStructureLastDste->feeStructures->name}}</td>
                         		<td>{{ $feeStructureLastDste->academicYears->name }}</td>
                                 
                                 <td>{{ $feeStructureLastDste->amount }}</td>
-                                <td>{{ $feeStructureLastDste->last_date }}</td>
-                        		<td>{{ $feeStructureLastDste->forSessionMonths->name }}</td>
+                                <td>{{ Carbon\Carbon::parse($feeStructureLastDste->last_date)->format('d-m-Y') }}</td>
+                                <td> {{ Carbon\Carbon::parse($feeStructureLastDste->last_date)->format(' F ') }} </td>
+                        		<td> {{ $feeStructureLastDste->forSessionMonths->name }} </td>
                         		<td> 
                         			{{-- <button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $feeStructureLastDste->id }}"  data-code="{{ $feeStructureLastDste->code }}" data-name="{{ $feeStructureLastDste->name }}"  data-finescheme="{{ $feeStructureLastDste->fine_scheme_id }}" data-refundable="{{ $feeStructureLastDste->is_refundable }}"><i class="fa fa-edit"></i> </button> --}}
 
@@ -89,11 +91,12 @@
                         		</td>
                         	</tr>  	 
                         @endforeach	
-                           
+                                                            
                         </tbody>
-                             
-
+                        
                     </table>
+                    {{ $feeStructureLastDstes->links()  }}
+
                 </div>
             </div>    
 

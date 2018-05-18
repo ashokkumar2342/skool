@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FeeStructure extends Model
 {
+   
     protected $fillable = [
       
       'code', 

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Minu extends Model
 {
+	
 	use SoftDeletes;
     Public function admins(){
     	return $this->belongsTo('App\Model\Admin');

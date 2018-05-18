@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class StudentSubject extends Model
 {
+	
     protected $fillable = ['subject_type_id' , 'student_id' , 'session_id'    ];
 
 

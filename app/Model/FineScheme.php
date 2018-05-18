@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FineScheme extends Model
 {
+    
       protected $fillable = [
       
         'code', 

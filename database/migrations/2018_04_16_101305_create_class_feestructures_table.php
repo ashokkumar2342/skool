@@ -17,7 +17,7 @@ class CreateClassFeestructuresTable extends Migration
            $table->increments('id');
             $table->unsignedInteger('fee_structure_id');
             $table->unsignedInteger('class_id');
-           $table->boolean('is_applicable');
+           $table->boolean('isapplicable_id');
            $table->softDeletes();        
            $table->timestamps();
            $table->boolean('status')->default('1');
