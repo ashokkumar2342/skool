@@ -19,8 +19,8 @@ class CreateStudentMedicalInfosTable extends Migration
             $table->date('ondate');            
             $table->unsignedInteger('bloodgroup_id');            
             $table->string('hb')->nullable();            
-            $table->string('weight')nullable();              
-            $table->string('height')nullable();              
+            $table->string('weight')->nullable();              
+            $table->string('height')->nullable();              
             $table->string('narration')->nullable();              
             $table->string('vision')->nullable();            
             $table->string('complextion')->nullable();            

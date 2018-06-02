@@ -30,9 +30,11 @@ class FeeStructureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function amount(Request $request)
     {
-        //
+            
+         $feeStructures = FeeStructure::where('id',$request->id)->join('class_types','class_types.id','=','class_fees.class_id')->get(['class_types.id','class_types.name','class_types.alias']);
+        return response()->json($classFee); 
     }
 
     /**

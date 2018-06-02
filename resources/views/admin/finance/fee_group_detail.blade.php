@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Class Fee Structure </h1>
+    <h1>Fee Group Detail</h1>
       <ol class="breadcrumb">
       </ol>
 </section>
@@ -10,22 +10,21 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="form-vertical" id="form_class_fee_structure">                     
+                  <form class="form-vertical" id="form_class_fee_structure">                     
                          <div class="col-lg-2">                           
                              <div class="form-group">
-                              {{ Form::label('class_id','Class',['class'=>' control-label']) }}
-                               {{ Form::select('class_id',$classess,null,['class'=>'form-control','placeholder'=>'Select Class']) }}
+                              {{ Form::label('fee_group_id','Fee Group',['class'=>' control-label']) }}
+                               {{ Form::select('fee_group_id',$feeGroup,null,['class'=>'form-control','placeholder'=>'Select Fee Group']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>          
-	                                         
-	                </form> 
+                                           
+                  </form> 
                 </div> 
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
-
             <div class="box">             
               <!-- /.box-header -->
                 <div class="box-body">
@@ -33,8 +32,8 @@
                         {{ csrf_field() }}
                          <table class="table table-bordered">
                             <thead>                             
-                            <tr> 
-                                <th> <input  class="checked_all" type="checkbox" style="display:none"> </th>
+                            <tr>
+                                <th width="100px;"> <input  class="checked_all" type="checkbox" style="display:none"> </th>
                                 <th>Fee Structure Name</th>  
                                 <th><button type="button" data-click="yes" class="btn btn-success btn-xs"><i class="fa fa-check"></i> Is Applicable</button> </th>
                              <th ><button type="button" data-click="no" class="btn btn-warning btn-xs"><i class="fa fa-check"></i> Is Applicable</button>  </th>  
@@ -45,8 +44,7 @@
                             </tbody>
                            <tfoot>
                              <tr>
-                                <td colspan="7">
-                                    
+                                <td colspan="7">                                    
                                  <div class="row">                              
                                   <div class="col-md-12 text-center">
                                     <button class="btn btn-success " id="btn_save_classFeeStructure">Save</button>
@@ -96,7 +94,7 @@
          });       
  </script>
   <script>
-    $("#class_id").change(function(e){ 
+    $("#fee_group_id").change(function(e){ 
         $.ajaxSetup({
                   headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -106,7 +104,7 @@
         $('#searchResult').html('Searching ...');
         $.ajax({
           method: "post",
-          url: "{{ route('admin.classFeeStructure.search') }}",
+          url: "{{ route('admin.feeGroupDetail.search') }}",
           data: $(this).serialize(),
         })
         .done(function(response) {            
@@ -134,8 +132,8 @@
          e.preventDefault();
          $.ajax({
            method: "post",
-           url: "{{ route('admin.classFeeStructure.post') }}",
-           data: $(this).serialize()+'&class_id='+'&class_id='+$("#class_id").val(),
+           url: "{{ route('admin.feeGroupDetail.post') }}",
+           data: $(this).serialize()+'&fee_group_id='+'&fee_group_id='+$("#fee_group_id").val(),
          })
          .done(function( response ) { 
              toastr.success('Save Succesfully')
@@ -145,95 +143,71 @@
         })
      });    
 
-  	$('#btn_class_fee_structure_create').click(function(event) {  		  
-  		$.ajaxSetup({
-  		          headers: {
-  		          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  		          }
-  		      });
-	     $.ajax({
-           url: '{{ route('admin.classFeeStructure.post') }}',
+    $('#btn_class_fee_structure_create').click(function(event) {        
+      $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+       $.ajax({
+           url: '{{ route('admin.feeGroupDetail.post') }}',
            type: 'POST',       
            data: $('#form_class_fee_structure').serialize() ,
-	    })
-  		.done(function(data) {
-  			if (data.class === 'error') {                 
-  			     $.each(data.errors, function(index, val) {
-  			         toastr[data.class](val) 
-  			     }); 
-  			}
-  			  else {                 
-  			    toastr[data.class](data.message)  
-  			    $("#form_class_fee_structure")[0].reset(); 
-  			    $("#class_fee_structure_table").load(location.href + ' #class_fee_structure_table'); 
-  			} 
-  		})
-  		.fail(function() {
-  			console.log("error");
-  		})
-  		.always(function() {
-  			console.log("complete");
-  		}); 
-  	});/////////////////isapplicable///////////////////
-    $('#class_fee_structure_table').on('click', '.btn_is_applicable', function(event) { 
-         event.preventDefault();  
-         console.log('test');
-         var id = $(this).data("id");
-         $.ajaxSetup({
-             headers: {
-                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-             }
-         });      
-         $.ajax({
-             url: '{{ route('admin.classFeeStructure.isApplicable') }}',
-             type: 'post',
-             data: {id: id},
-         })
-         .done(function(data) {
-             toastr[data.class](data.message)
-             $("#class_fee_structure_table").load(location.href + ' #class_fee_structure_table'); 
-         })
-         .fail(function() {
-             console.log("error");
-         })
-         .always(function() {
-             console.log("complete");
-         });  
-    });
+      })
+      .done(function(data) {
+        if (data.class === 'error') {                 
+             $.each(data.errors, function(index, val) {
+                 toastr[data.class](val) 
+             }); 
+        }
+          else {                 
+            toastr[data.class](data.message)  
+            $("#form_class_fee_structure")[0].reset(); 
+            $("#class_fee_structure_table").load(location.href + ' #class_fee_structure_table'); 
+        } 
+      })
+      .fail(function() {
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      }); 
+    });/////////////////isapplicable///////////////////
+ 
     /////////////////delete///////////////////
-  	$('#class_fee_structure_table').on('click', '.btn_delete', function(event) {
-  		var cm = confirm("Are you Sure Delete!");
-  		if (cm == true) {
-  		     event.preventDefault();  
-  		     var id = $(this).data("id");
-  		     $.ajaxSetup({
-  		         headers: {
-  		             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  		         }
-  		     });      
-  		     $.ajax({
-  		         url: '{{ route('admin.classFeeStructure.delete') }}',
-  		         type: 'delete',
-  		         data: {id: id},
-  		     })
-  		     .done(function(data) {
-  		         toastr[data.class](data.message)
-  		         $("#class_fee_structure_table").load(location.href + ' #class_fee_structure_table'); 
-  		     })
-  		     .fail(function() {
-  		         console.log("error");
-  		     })
-  		     .always(function() {
-  		         console.log("complete");
-  		     });
-  		} else {
-  		    console.log("cancel");
-  		}
-  	    
-  	});///////////////////edit//////////// 
-  	 $('#fee_structure_last_date').on('click', '.btn_edit', function(event) {
-  	     event.preventDefault();  
-  	     $('.modal-title').text('Edit');
+    $('#class_fee_structure_table').on('click', '.btn_delete', function(event) {
+      var cm = confirm("Are you Sure Delete!");
+      if (cm == true) {
+           event.preventDefault();  
+           var id = $(this).data("id");
+           $.ajaxSetup({
+               headers: {
+                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               }
+           });      
+           $.ajax({
+               url: '{{ route('admin.feeGroupDetail.delete') }}',
+               type: 'delete',
+               data: {id: id},
+           })
+           .done(function(data) {
+               toastr[data.class](data.message)
+               $("#class_fee_structure_table").load(location.href + ' #class_fee_structure_table'); 
+           })
+           .fail(function() {
+               console.log("error");
+           })
+           .always(function() {
+               console.log("complete");
+           });
+      } else {
+          console.log("cancel");
+      }
+        
+    });///////////////////edit//////////// 
+     $('#fee_structure_last_date').on('click', '.btn_edit', function(event) {
+         event.preventDefault();  
+         $('.modal-title').text('Edit');
          $('#edit_id').val($(this).data('id'));        
          $('#edit_code').val($(this).data('code'));        
          $('#edit_name').val($(this).data('name'));        
@@ -241,41 +215,9 @@
          $('#edit_fine_scheme').val($(this).data('finescheme'));        
          $('#edit_Is_refundable').val($(this).data('refundable')); 
          $('#fee_structure_model').modal('show');
-  	});////////////////update/////////////
- 	 $('#fee_structure_model').on('click', '.btn_update', function(event) {
- 	     event.preventDefault(); 
- 	     $.ajaxSetup({
-  		          headers: {
-  		          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  		          }
-  		      });
-	     $.ajax({
-           url: '{{ route('admin.feeStructureLastDate.update') }}',
-           type: 'put',       
-           data: $('#form_model_fee_structure').serialize() ,
-	    })
-  		.done(function(data) {
-  			if (data.class === 'error') {                 
-  			     $.each(data.errors, function(index, val) {
-  			         toastr[data.class](val) 
-  			     }); 
-  			}
-  			  else {                 
-  			    toastr[data.class](data.message)  
-  			    $("#form_model_fee_structure_last_date")[0].reset();
-  			    $('#fee_structure_last_date_model').modal('hide');
-
-  			    $("#fee_structure_last_date_table").load(location.href + ' #fee_structure_last_date_table'); 
-  			} 
-  		})
-  		.fail(function() {
-  			console.log("error");
-  		})
-  		.always(function() {
-  			console.log("complete");
-  		});  
- 	});
-     
+    });////////////////update/////////////
+    
+   
   </script>
   <script>
    $( function() {

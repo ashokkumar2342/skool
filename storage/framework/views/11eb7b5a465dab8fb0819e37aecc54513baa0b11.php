@@ -52,6 +52,29 @@
                 <li><a href="<?php echo e(route('admin.student.excel.import')); ?>"><i class="fa fa-circle-o"></i> Excel Import</a></li>
             </ul>
         </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-rupee text-danger"></i>                
+                <span>Finance</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li></li>
+                <li><a href="<?php echo e(route('admin.feeAcount.list')); ?>"><i class="fa fa-circle-o"></i>Fee Accounts </a></li>
+                <li><a href="<?php echo e(route('admin.feeStructure.list')); ?>"><i class="fa fa-circle-o"></i>Fee Structure </a></li> 
+                <li><a href="<?php echo e(route('admin.feeStructureAmount.list')); ?>"><i class="fa fa-circle-o"></i>Fee Structure Amount </a></li> 
+                <li><a href="<?php echo e(route('admin.feeStructureLastDate.list')); ?>"><i class="fa fa-circle-o"></i>Fee Structure Last Date </a></li>                 
+                <li><a href="<?php echo e(route('admin.fineScheme.list')); ?>"><i class="fa fa-circle-o"></i>Fee Fine Scheme </a></li> 
+                
+                <li><a href="<?php echo e(route('admin.classFeeStructureForm')); ?>"><i class="fa fa-circle-o"></i> Class Fee Structure Form </a></li> 
+                <li><a href="<?php echo e(route('admin.feeGroup.list')); ?>"><i class="fa fa-circle-o"></i>Fee Group </a></li>
+                <li><a href="<?php echo e(route('admin.feeGroupDetail.list')); ?>"><i class="fa fa-circle-o"></i>Fee Group Detail </a></li> 
+                <li><a href="<?php echo e(route('admin.concession.list')); ?>"><i class="fa fa-circle-o"></i>Concession </a></li>                 
+                <li><a href="<?php echo e(route('admin.studentFeeDetail.list')); ?>"><i class="fa fa-circle-o"></i>Student Fee Detail </a></li> 
+            </ul>
+        </li>
          <li class="treeview">
             <a href="#">
                 <i class="fa fa-sticky-note text-primary"></i>
@@ -68,6 +91,7 @@
             </ul>
         </li>
         <?php endif; ?>
+
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-cogs text-danger"></i>
@@ -138,24 +162,7 @@
                 <li><a href="<?php echo e(route('admin.student.certificateIssu.list')); ?>"><i class="fa fa-circle-o"></i> Apply List </a></li>
             </ul>
         </li>
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-rupee text-danger"></i>                
-                <span>Finance</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-            </a>
-            <ul class="treeview-menu">
-                <li></li>
-                <li><a href="<?php echo e(route('admin.feeAcount.list')); ?>"><i class="fa fa-circle-o"></i>Fee Accounts </a></li>
-                <li><a href="<?php echo e(route('admin.feeStructure.list')); ?>"><i class="fa fa-circle-o"></i>Fee Structure </a></li> 
-                <li><a href="<?php echo e(route('admin.feeStructureLastDate.list')); ?>"><i class="fa fa-circle-o"></i>Fee Structure Last Date </a></li>                 
-                <li><a href="<?php echo e(route('admin.fineScheme.list')); ?>"><i class="fa fa-circle-o"></i>Fee Fine Scheme </a></li> 
-                
-                <li><a href="<?php echo e(route('admin.classFeeStructureForm')); ?>"><i class="fa fa-circle-o"></i> Class Fee Structure Form </a></li> 
-            </ul>
-        </li>
+        
         
      
 </section>

@@ -1,6 +1,6 @@
 <?php $__env->startSection('body'); ?>
 <section class="content-header">
-    <h1>Fee Account </h1>
+    <h1>Concession </h1>
       <ol class="breadcrumb">
       </ol>
 </section>
@@ -9,30 +9,32 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="form-horizontal" id="form_fee_account">                                                     
-	                   <div class="col-lg-2">                                             
+	                <form class="form-horizontal" id="form_concession">                                                     
+	                   
+	                     <div class="col-lg-3">                                             
 	                       <div class="form-group">
-	                         <?php echo e(Form::text('code','',['class'=>'form-control','id'=>'code', 'placeholder'=>'Enter Fee Account Code'])); ?>
-
-	                         <p class="errorCode text-center alert alert-danger hidden"></p>
-	                       </div>                                         
-	                    </div>
-	                     <div class="col-lg-2">                                             
-	                       <div class="form-group">
-	                         <?php echo e(Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter Fee Account Name'])); ?>
+	                         <?php echo e(Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter  Name'])); ?>
 
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>                     
-	                    <div class="col-lg-6">                         
+	                    <div class="col-lg-3">                         
 	                        <div class="form-group">
-	                          <?php echo e(Form::textarea('description','',['class'=>'form-control','id'=>'description','rows'=>1, 'placeholder'=>'Enter Description'])); ?>
+	                          <?php echo e(Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>1, 'placeholder'=>'Enter Amount'])); ?>
 
 	                          <p class="errorDescription text-center alert alert-danger hidden"></p>
 	                        </div>
 	                    </div>
-	                     <div class="col-lg-2">                                             
-	                     <button class="btn btn-success" type="button" id="btn_fee_account_create">Create</button> 
+                      <div class="col-lg-3">                         
+                          <div class="form-group">
+                            <?php echo e(Form::text('percentage','',['class'=>'form-control','id'=>'percentage','rows'=>1, 'placeholder'=>'Enter Percentage'])); ?>
+
+                            <p class="errorDescription text-center alert alert-danger hidden"></p>
+                          </div>
+                      </div>
+
+	                     <div class="col-lg-3">                                             
+	                     <button class="btn btn-success" type="button" id="btn_concession_create">Create</button> 
 	                    </div>                     
 	                </form> 
                 </div> 
@@ -44,27 +46,27 @@
             <div class="box">             
               <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="fee_account_table" class="display table">                     
+                    <table id="concession_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>
-                                <th>Code</th>
+                                <th>Sn</th>                                 
                                 <th>Name</th>
-                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Percentage</th>
                                 <th>Action</th>                                                            
                             </tr>
                         </thead>
                         <tbody>
-                        <?php $__currentLoopData = $feeAccounts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feeAccount): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php $__currentLoopData = $concessions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $concession): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         	<tr>
-                        		<td><?php echo e(++$loop->index); ?></td>
-                        		<td><?php echo e($feeAccount->code); ?></td>
-                        		<td><?php echo e($feeAccount->name); ?></td>
-                        		<td><?php echo e($feeAccount->description); ?></td>
+                        		<td><?php echo e(++$loop->index); ?></td>                        		 
+                        		<td><?php echo e($concession->name); ?></td>
+                            <td><?php echo e($concession->amount); ?></td>
+                        		<td><?php echo e($concession->percentage?$concession->percentage.'%':''); ?></td>
                         		<td> 
-                        			<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="<?php echo e($feeAccount->id); ?>"  data-code="<?php echo e($feeAccount->code); ?>" data-name="<?php echo e($feeAccount->name); ?>" data-description="<?php echo e($feeAccount->description); ?>" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
+                        			<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="<?php echo e($concession->id); ?>"   data-name="<?php echo e($concession->name); ?>" data-amount="<?php echo e($concession->amount); ?>" data-percentage="<?php echo e($concession->percentage); ?>" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
 
-                        			<button class="btn_delete btn btn-danger btn-xs"  data-id="<?php echo e($feeAccount->id); ?>"  ><i class="fa fa-trash"></i></button>
+                        			<button class="btn_delete btn btn-danger btn-xs"  data-id="<?php echo e($concession->id); ?>"  ><i class="fa fa-trash"></i></button>
                         		</td>
                         	</tr>  	 
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>	
@@ -79,7 +81,7 @@
           <!-- Trigger the modal with a button --> 
           <!--- Model parents      -->     
               <!-- Modal -->
-             <div id="fee_account_model" class="modal fade" role="dialog">
+             <div id="concession_model" class="modal fade" role="dialog">
                  <div class="modal-dialog">
                   <!-- Modal content-->
                      <div class="modal-content">
@@ -88,23 +90,24 @@
                               <h4 class="modal-title"> Update</h4>
                           </div>
                           <div class="modal-body">
-                            <form id="form_model_fee_account"> 
+                            <form id="form_model_concession"> 
                             		<input type="hidden" name="id" id="edit_id">
-                                   <div class="form-group">
-                                     <?php echo e(Form::text('code','',['class'=>'form-control','id'=>'edit_code', 'placeholder'=>'Enter fee account code'])); ?>
-
-                                     <p class="errorCode text-center alert alert-danger hidden"></p>
-                                   </div>       
+                                         
                                    <div class="form-group">
                                      <?php echo e(Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee account name'])); ?>
 
                                      <p class="errorName text-center alert alert-danger hidden"></p>
                                    </div>      
-                                    <div class="form-group">
-                                      <?php echo e(Form::textarea('description','',['class'=>'form-control','id'=>'edit_description','rows'=>1, 'placeholder'=>'Enter Description'])); ?>
+                                  <div class="form-group">
+                                      <?php echo e(Form::text('amount','',['class'=>'form-control','id'=>'edit_amount','rows'=>1, 'placeholder'=>'Enter Amount'])); ?>
 
                                       <p class="errorDescription text-center alert alert-danger hidden"></p> 
-                                </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <?php echo e(Form::text('percentage','',['class'=>'form-control','id'=>'edit_percentage','rows'=>1, 'placeholder'=>'Enter percentage'])); ?>
+
+                                      <p class="errorDescription text-center alert alert-danger hidden"></p> 
+                                  </div>
                                                       
                             </form> 
                          </div>
@@ -126,16 +129,16 @@
 <?php $__env->stopPush(); ?> 
  <?php $__env->startPush('scripts'); ?>
   <script>
-  	$('#btn_fee_account_create').click(function(event) {  		  
+  	$('#btn_concession_create').click(function(event) {  		  
   		$.ajaxSetup({
   		          headers: {
   		          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   		          }
   		      });
 	     $.ajax({
-           url: '<?php echo e(route('admin.feeAcount.post')); ?>',
+           url: '<?php echo e(route('admin.concession.post')); ?>',
            type: 'POST',       
-           data: $('#form_fee_account').serialize() ,
+           data: $('#form_concession').serialize() ,
 	    })
   		.done(function(data) {
   			if (data.class === 'error') {                 
@@ -145,8 +148,8 @@
   			}
   			  else {                 
   			    toastr[data.class](data.message)  
-  			    $("#form_fee_account")[0].reset(); 
-  			    $("#fee_account_table").load(location.href + ' #fee_account_table'); 
+  			    $("#form_concession")[0].reset(); 
+  			    $("#concession_table").load(location.href + ' #concession_table'); 
   			} 
   		})
   		.fail(function() {
@@ -156,7 +159,7 @@
   			console.log("complete");
   		}); 
   	});/////////////////delete///////////////////
-  	$('#fee_account_table').on('click', '.btn_delete', function(event) {
+  	$('#concession_table').on('click', '.btn_delete', function(event) {
   		var cm = confirm("Are you Sure Delete!");
   		if (cm == true) {
   		     event.preventDefault();  
@@ -167,13 +170,13 @@
   		         }
   		     });      
   		     $.ajax({
-  		         url: '<?php echo e(route('admin.feeAcount.delete')); ?>',
+  		         url: '<?php echo e(route('admin.concession.delete')); ?>',
   		         type: 'delete',
   		         data: {id: id},
   		     })
   		     .done(function(data) {
   		         toastr[data.class](data.message)
-  		         $("#fee_account_table").load(location.href + ' #fee_account_table'); 
+  		         $("#concession_table").load(location.href + ' #concession_table'); 
   		     })
   		     .fail(function() {
   		         console.log("error");
@@ -186,17 +189,18 @@
   		}
   	    
   	});///////////////////edit//////////// 
-  	 $('#fee_account_table').on('click', '.btn_edit', function(event) {
+  	 $('#concession_table').on('click', '.btn_edit', function(event) {
   	     event.preventDefault();  
   	     $('.modal-title').text('Edit');
          $('#edit_id').val($(this).data('id'));        
-         $('#edit_code').val($(this).data('code'));        
+                 
          $('#edit_name').val($(this).data('name'));        
-         $('#edit_description').val($(this).data('description'));        
+         $('#edit_amount').val($(this).data('amount'));        
+         $('#edit_percentage').val($(this).data('percentage'));        
                
-         $('#fee_account_model').modal('show');
+         $('#concession_model').modal('show');
   	});////////////////update/////////////
- 	 $('#fee_account_model').on('click', '.btn_update', function(event) {
+ 	 $('#concession_model').on('click', '.btn_update', function(event) {
  	     event.preventDefault(); 
  	     $.ajaxSetup({
   		          headers: {
@@ -204,9 +208,9 @@
   		          }
   		      });
 	     $.ajax({
-           url: '<?php echo e(route('admin.feeAcount.update')); ?>',
+           url: '<?php echo e(route('admin.concession.update')); ?>',
            type: 'put',       
-           data: $('#form_model_fee_account').serialize() ,
+           data: $('#form_model_concession').serialize() ,
 	    })
   		.done(function(data) {
   			if (data.class === 'error') {                 
@@ -216,10 +220,10 @@
   			}
   			  else {                 
   			    toastr[data.class](data.message)  
-  			    $("#form_model_fee_account")[0].reset();
-  			    $('#fee_account_model').modal('hide');
+  			    $("#form_model_concession")[0].reset();
+  			    $('#concession_model').modal('hide');
 
-  			    $("#fee_account_table").load(location.href + ' #fee_account_table'); 
+  			    $("#concession_table").load(location.href + ' #concession_table'); 
   			} 
   		})
   		.fail(function() {

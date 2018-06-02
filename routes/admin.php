@@ -214,24 +214,35 @@ Route::group(['middleware' => 'admin'], function() {
 	 });
 	//------------------------- Finance ---------------------------------
 	Route::group(['prefix' => 'finance'], function() {
+		//------------------------- fee acoout ---------------------------------
 		Route::group(['prefix' => 'fee-account'], function() {
 		    Route::get('/', 'FeeAccountController@index')->name('admin.feeAcount.list');	 	
 		    Route::post('add', 'FeeAccountController@store')->name('admin.feeAcount.post');
 		    Route::delete('delete', 'FeeAccountController@destroy')->name('admin.feeAcount.delete');
 		    Route::put('update', 'FeeAccountController@update')->name('admin.feeAcount.update');
 		 });
-		
+		//------------------------- Fine scheme ---------------------------------
 		Route::group(['prefix' => 'fine-scheme'], function() {
 		    Route::get('/', 'FineSchemeController@index')->name('admin.fineScheme.list');	 	
 		    Route::post('add', 'FineSchemeController@store')->name('admin.fineScheme.post');
 		    Route::delete('delete', 'FineSchemeController@destroy')->name('admin.fineScheme.delete');
 		    Route::put('update', 'FineSchemeController@update')->name('admin.fineScheme.update');
 		 });
+		//------------------------- fee structure ---------------------------------
 		Route::group(['prefix' => 'fee-structure'], function() {
-		    Route::get('/', 'FeeStructureController@index')->name('admin.feeStructure.list');	 	
+		    Route::get('/', 'FeeStructureController@index')->name('admin.feeStructure.list');		     	 	
 		    Route::post('add', 'FeeStructureController@store')->name('admin.feeStructure.post');
 		    Route::delete('delete', 'FeeStructureController@destroy')->name('admin.feeStructure.delete');
 		    Route::put('update', 'FeeStructureController@update')->name('admin.feeStructure.update');
+		 });
+		//------------------------- fee structure amount ---------------------------------
+		Route::group(['prefix' => 'fee-structure-amount'], function() {
+		    Route::get('/', 'FeeStructureAmountController@index')->name('admin.feeStructureAmount.list');
+		    Route::get('amount', 'FeeStructureAmountController@amount')->name('admin.feeStructureAmount.amount');
+		    Route::get('search', 'FeeStructureAmountController@search')->name('admin.feeStructureAmount.search'); 	
+		    Route::post('add', 'FeeStructureAmountController@store')->name('admin.feeStructureAmount.post');
+		    Route::delete('delete', 'FeeStructureAmountController@destroy')->name('admin.feeStructureAmount.delete');
+		    Route::put('update', 'FeeStructureAmountController@update')->name('admin.feeStructureAmount.update');
 		 });
 	    Route::group(['prefix' => 'fee-structure-last-date'], function() {
 	        Route::get('/', 'FeeStructureLastDateController@index')->name('admin.feeStructureLastDate.list');	 	
@@ -243,12 +254,38 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::group(['prefix' => 'class-fee-structure'], function() {
 	        // Route::get('/', 'ClassFeeStructureController@index')->name('admin.classFeeStructure.list');	 	
 	        Route::get('form', 'ClassFeeStructureController@form')->name('admin.classFeeStructureForm');	 	
-	        Route::post('search', 'ClassFeeStructureController@search')->name('admin.classFeeStructure.search');	 	
+	        	 	
 	        Route::post('stores', 'ClassFeeStructureController@stores')->name('admin.classFeeStructure.stores');	 	
 	        Route::post('add', 'ClassFeeStructureController@store')->name('admin.classFeeStructure.post');
 	        Route::post('isApplicable', 'ClassFeeStructureController@isApplicable')->name('admin.classFeeStructure.isApplicable');
 	        Route::delete('delete', 'ClassFeeStructureController@destroy')->name('admin.classFeeStructure.delete');
 	     });
-	 });
+	    Route::group(['prefix' => 'fee-group'], function() {
+		    Route::get('/', 'FeeGroupController@index')->name('admin.feeGroup.list');	 	
+		    Route::post('add', 'FeeGroupController@store')->name('admin.feeGroup.post');
+		    Route::delete('delete', 'FeeGroupController@destroy')->name('admin.feeGroup.delete');
+		    Route::put('update', 'FeeGroupController@update')->name('admin.feeGroup.update');
+		 });
+        Route::group(['prefix' => 'fee-group-detail'], function() {
+    	    Route::get('/', 'FeeGroupDetailController@index')->name('admin.feeGroupDetail.list');	 
+	        Route::post('search', 'FeeGroupDetailController@search')->name('admin.feeGroupDetail.search');	 	
+    	    	
+    	    Route::post('add', 'FeeGroupDetailController@store')->name('admin.feeGroupDetail.post');
+    	    Route::delete('delete', 'FeeGroupDetailController@destroy')->name('admin.feeGroupDetail.delete');
+    	    Route::put('update', 'FeeGroupDetailController@update')->name('admin.feeGroupDetail.update');
+    	 });
+        Route::group(['prefix' => 'concession'], function() {
+    	    Route::get('/', 'ConcessionController@index')->name('admin.concession.list');	 	
+    	    Route::post('add', 'ConcessionController@store')->name('admin.concession.post');
+    	    Route::delete('delete', 'ConcessionController@destroy')->name('admin.concession.delete');
+    	    Route::put('update', 'ConcessionController@update')->name('admin.concession.update');
+    	 });
+        Route::group(['prefix' => 'student-fee-detail'], function() {
+    	    Route::get('/', 'StudentFeeDetailController@index')->name('admin.studentFeeDetail.list');	 	
+    	    Route::post('add', 'StudentFeeDetailController@store')->name('admin.studentFeeDetail.post');
+    	    Route::delete('delete', 'StudentFeeDetailController@destroy')->name('admin.studentFeeDetail.delete');
+    	    Route::put('update', 'StudentFeeDetailController@update')->name('admin.studentFeeDetail.update');
+    	 });
+ });
 
 });

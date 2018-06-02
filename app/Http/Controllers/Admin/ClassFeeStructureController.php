@@ -81,9 +81,9 @@ class ClassFeeStructureController extends Controller
     {
         $feeStructurs = FeeStructure::all();
         foreach ($feeStructurs as $feeStructur) {
-            $checked = (\App\Model\ClassFeeStructure::where(['fee_structure_id'=>$feeStructur->id,'class_id'=>$request->class_id])->count())?'checked':'';
+            $checked = (\App\Model\ClassFeeStructure::count())?'checked':'checked';
             $row = '<tr> 
-            <td> '.'<input type="checkbox" class="checkbox" '.$checked.' name="fee_structure_id[]" value="'.$feeStructur->id.'">'.  '</td>
+            <td> '.'<input hidden="checkbox" type="checkbox" class="checkbox" '.$checked.' name="fee_structure_id[]" value="'.$feeStructur->id.'" style="display:none">'.  '</td>
             <td>'.$feeStructur->name.'</td>             
             ';
             foreach(\App\Model\Isapplicable::all() as $applicable){

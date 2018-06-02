@@ -35,8 +35,8 @@
 
                          <table class="table table-bordered">
                             <thead>                             
-                            <tr>
-                                <th> <input  class="checked_all" type="checkbox"> Select All</th>
+                            <tr> 
+                                <th> <input  class="checked_all" type="checkbox" style="display:none"> </th>
                                 <th>Fee Structure Name</th>  
                                 <th><button type="button" data-click="yes" class="btn btn-success btn-xs"><i class="fa fa-check"></i> Is Applicable</button> </th>
                              <th ><button type="button" data-click="no" class="btn btn-warning btn-xs"><i class="fa fa-check"></i> Is Applicable</button>  </th>  

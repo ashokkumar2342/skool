@@ -18,9 +18,8 @@ class FeeStructureLastDateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $feeStructureLastDstes = FeeStructureLastDate::OrderBy('last_date')->paginate(10);         
+    public function index()    {
+        $feeStructureLastDstes = FeeStructureLastDate::OrderBy('last_date')->paginate(20);         
         $acardemicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(), 'name', 'id');
         $feeStructur = array_pluck(FeeStructure::get(['id','name'])->toArray(),'name', 'id');
         $forSessionMonth = array_pluck(ForSessionMonth::get(['id','name'])->toArray(),'name', 'id');
@@ -72,7 +71,7 @@ class FeeStructureLastDateController extends Controller
                 if ($data == 1) {                 
                    $feeStructureLastDate->last_date=$date;
                 }elseif ($data == 4){
-                   $i==0?'':date_add($date, date_interval_create_from_date_string('4 month'));                      
+                   $i==0?'':date_add($date, date_interval_create_from_date_string('3 month'));                      
                    $feeStructureLastDate->last_date=date_format($date, 'Y-m-d'); 
                 }
                 else {
