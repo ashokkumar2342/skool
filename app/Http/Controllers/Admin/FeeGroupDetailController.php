@@ -68,29 +68,24 @@ class FeeGroupDetailController extends Controller
     /////////////////////////search////////////////
     public function search(Request $request)
     {
-        // $feeStructurs = FeeStructure::all();
-        // foreach ($feeStructurs as $feeStructur) {
-        //     $checked = (\App\Model\FeeGroupDetail::where(['fee_structure_id'=>$feeStructur->id,'fee_group_id'=>$request->fee_group_id])->count())?'checked':'checked'; 
-        //     $row = '<tr> 
-        //     <td> '.'<input type="checkbox" class="checkbox" '.$checked.' name="fee_structure_id[]" value="'.$feeStructur->id.'" style="display:none">'.  '</td>
-        //     <td>'.$feeStructur->name.'</td>
+        $feeStructurs = FeeStructure::all();
+        foreach ($feeStructurs as $feeStructur) {
+            $checked = (\App\Model\FeeGroupDetail::where(['fee_structure_id'=>$feeStructur->id,'fee_group_id'=>$request->fee_group_id])->count())?'checked':'checked'; 
+            $row = '<tr> 
+            <td> '.'<input type="checkbox" class="checkbox" '.$checked.' name="fee_structure_id[]" value="'.$feeStructur->id.'" style="display:none">'.  '</td>
+            <td>'.$feeStructur->name.'</td>
 
-        //     ';
-        //     foreach(\App\Model\Isapplicable::all() as $applicable){
-        //         $checked = (\App\Model\FeeGroupDetail::where(['fee_structure_id'=>$feeStructur->id,'isapplicable_id'=>$applicable->id,'fee_group_id'=>$request->fee_group_id])->count())?'checked':'';
-        //               $row .='<td >
-        //               <label class="radio-inline"><input type="radio" '.$checked.' name="value['.$feeStructur->id.']" class="'. str_replace(' ', '_', strtolower($applicable->name)).'"   value="'. $applicable->id .'"> '. $applicable->name .' </label>
-        //               </td>';
-        //     }           
-        //     $row .= '</tr>';
-        //     $options[] = [$row];
-        // }   
-        // return response()->json($options); 
-
-       
-         
-          
-             
+            ';
+            foreach(\App\Model\Isapplicable::all() as $applicable){
+                $checked = (\App\Model\FeeGroupDetail::where(['fee_structure_id'=>$feeStructur->id,'isapplicable_id'=>$applicable->id,'fee_group_id'=>$request->fee_group_id])->count())?'checked':'';
+                      $row .='<td >
+                      <label class="radio-inline"><input type="radio" '.$checked.' name="value['.$feeStructur->id.']" class="'. str_replace(' ', '_', strtolower($applicable->name)).'"   value="'. $applicable->id .'"> '. $applicable->name .' </label>
+                      </td>';
+            }           
+            $row .= '</tr>';
+            $options[] = [$row];
+        }   
+        return response()->json($options); 
         
     }
 

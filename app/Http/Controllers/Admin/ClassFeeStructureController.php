@@ -77,6 +77,19 @@ class ClassFeeStructureController extends Controller
        return response()->json(['message'=>'Save Succesfully', 'class'=>'sucess']);
     }
 
+    public function saveshow(Request $request){
+        $feeStructurs = FeeStructure::all();
+        foreach ($feeStructurs as $feeStructur) {
+            $classFeeStructure = ClassFeeStructure::where(['class_id'=>$request->class_id,'fee_structure_id'=>$feeStructur->id])->firstOrNew(['fee_structure_id'=>$feeStructur->id]);
+            $classFeeStructure->fee_structure_id = $feeStructur->id;
+            $classFeeStructure->isapplicable_id = 0;
+            $classFeeStructure->class_id = $request->class_id;
+            return $classFeeStructure;
+            // $classFeeStructure->save();            
+        }
+        return response()->json(['message'=>'Save Succesfully', 'class'=>'sucess']);
+    }
+
     public function search(Request $request)
     {
         $feeStructurs = FeeStructure::all();

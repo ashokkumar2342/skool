@@ -108,7 +108,7 @@
         e.preventDefault();
         $('#searchResult').html('Searching ...');
         $.ajax({
-          method: "post",
+          method: "get",
           url: "<?php echo e(route('admin.classFeeStructure.search')); ?>",
           data: $(this).serialize(),
         })

@@ -20,6 +20,9 @@ class CreateStudentFeeDetailsTable extends Migration
            $table->unsignedInteger('concession_id'); 
            $table->decimal('fee_amount'); 
            $table->decimal('concession_amount'); 
+           $table->date('last_date'); 
+           $table->date('from_date'); 
+           $table->date('to_date'); 
            $table->boolean('paid'); 
            $table->boolean('refundable')->default('0'); 
            $table->softDeletes();        

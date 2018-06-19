@@ -1,5 +1,4 @@
-@extends('admin.layout.base')
-@section('body')
+<?php $__env->startSection('body'); ?>
 <section class="content-header">
     <h1>Class Fee Structure </h1>
       <ol class="breadcrumb">
@@ -10,15 +9,18 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="form-vertical" id="form_class_fee_structure">                     
+	                <form class="form-vertical" id="form_class_fee_structure">
+                      
                          <div class="col-lg-2">                           
                              <div class="form-group">
-                              {{ Form::label('class_id','Class',['class'=>' control-label']) }}
-                               {{ Form::select('class_id',$classess,null,['class'=>'form-control','placeholder'=>'Select Class']) }}
+                              <?php echo e(Form::label('class_id','Class',['class'=>' control-label'])); ?>
+
+                               <?php echo e(Form::select('class_id',$classess,null,['class'=>'form-control','placeholder'=>'Select Class'])); ?>
+
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
-                        </div>          
-	                                         
+                        </div>                     
+                                          
 	                </form> 
                 </div> 
             </div>
@@ -29,51 +31,76 @@
             <div class="box">             
               <!-- /.box-header -->
                 <div class="box-body">
-                     <form id="saveClassFeeStructure" action="javascript:;">
-                        {{ csrf_field() }}
-                         <table class="table table-bordered">
-                            <thead>                             
-                            <tr> 
-                                <th> <input  class="checked_all" type="checkbox" style="display:none"> </th>
-                                <th>Fee Structure Name</th>  
-                                <th><button type="button" data-click="yes" class="btn btn-success btn-xs"><i class="fa fa-check"></i> Is Applicable</button> </th>
-                             <th ><button type="button" data-click="no" class="btn btn-warning btn-xs"><i class="fa fa-check"></i> Is Applicable</button>  </th>  
+                    <table id="class_fee_structure_table" class="display table">                     
+                        <thead>
+                            <tr>
+                                <th>Sn</th>
+                                 
+                                <th>Fee Structure</th>
+                                <th>Class</th>
+                                <th>Is Applicable</th>                                        
+                                <th>Action</th>                                                            
                             </tr>
-                            </thead>
-                            <tbody id="searchResult">
-                              
-                            </tbody>
-                           <tfoot>
-                             <tr>
-                                <td colspan="7">
-                                    
-                                 <div class="row">                              
-                                  <div class="col-md-12 text-center">
-                                    <button class="btn btn-success " id="btn_save_classFeeStructure">Save</button>
-
-                                  </div>
-                                 </div>  
+                        </thead>
+                        <tbody>
+                        <?php $__currentLoopData = $classFeeStructures; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $classFeeStructure): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        	<tr>
+                        		<td><?php echo e(++$loop->index); ?></td>
+                        		<td><?php echo e($classFeeStructure->feeStructures->name); ?></td>
+                        		  
+                            <td><?php echo e($classFeeStructure->classess->alias); ?></td>
+                        		<td><button class="btn_is_applicable btn <?php echo e($classFeeStructure->isapplicable_id == 1 ? 'btn-success':'btn-danger'); ?>  btn-xs" data-id="<?php echo e($classFeeStructure->id); ?>"><?php echo e($classFeeStructure->isapplicable_id == 1 ? 'Yes':'No'); ?></button></td>
+                        		<td> 
+                                    <button class="btn_delete btn btn-danger btn-xs"  data-id="<?php echo e($classFeeStructure->id); ?>"><i class="fa fa-trash"></i></button>
                                 </td>
-                            </tr>
-                           </tfoot>
-                            
-                            
-                          </tbody>
-                      </table>
-                    {{ Form::close() }}
+                        		
+                        		</td>
+                        	</tr>  	 
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>	
+                           
+                        </tbody>
+                             
+
+                    </table>
                 </div>
-            </div> 
+            </div>    
+
+          <!-- Trigger the modal with a button --> 
+          <!--- Model parents      -->     
+              <!-- Modal -->
+             <div id="fee_structure_last_date_model" class="modal fade" role="dialog">
+                 <div class="modal-dialog">
+                  <!-- Modal content-->
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title"> Update</h4>
+                          </div>
+                          <div class="modal-body">
+                            <form id="form_model_fee_structure"> 
+                        	   
+                                                      
+                            </form> 
+                         </div>
+                         <div class="modal-footer">
+                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                             <button type="button" class="btn_update btn btn-success">Update</button>
+                            
+                         </div>
+                     </div>
+                </div>
+             </div>
  
     </section>
     <!-- /.content -->
-@endsection
-@push('links')
+<?php $__env->stopSection(); ?>
+<?php $__env->startPush('links'); ?>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"> 
    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
-@endpush 
- @push('scripts')
+<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+<?php $__env->stopPush(); ?> 
+ <?php $__env->startPush('scripts'); ?>
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
  <script>
@@ -82,21 +109,8 @@
     
  
  </script>
- <script type="text/javascript">
-         $('.checked_all').on('change', function() {     
-                 $('.checkbox').prop('checked', $(this).prop("checked"));              
-         });
-         //deselect "checked all", if one of the listed checkbox product is unchecked amd select "checked all" if all of the listed checkbox product is checked
-         $('.checkbox').change(function(){ //".checkbox" change 
-             if($('.checkbox:checked').length == $('.checkbox').length){
-                    $('.checked_all').prop('checked',true);
-             }else{
-                    $('.checked_all').prop('checked',false);
-             }
-         });       
- </script>
   <script>
-    $("#class_id").change(function(e){ 
+    $("#class_id").change(function(e){      
         $.ajaxSetup({
                   headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -106,7 +120,7 @@
         $('#searchResult').html('Searching ...');
         $.ajax({
           method: "get",
-          url: "{{ route('admin.classFeeStructure.search') }}",
+          url: "<?php echo e(route('admin.classFeeStructure.saveShow')); ?>",
           data: $(this).serialize(),
         })
         .done(function(response) {            
@@ -130,21 +144,6 @@
         });
         
      }); 
-   $('#saveClassFeeStructure').submit(function(e){     
-         e.preventDefault();
-         $.ajax({
-           method: "post",
-           url: "{{ route('admin.classFeeStructure.post') }}",
-           data: $(this).serialize()+'&class_id='+'&class_id='+$("#class_id").val(),
-         })
-         .done(function( response ) { 
-             toastr.success('Save Succesfully')
-         })
-         .fail(function() {
-            toastr.dange('Something Went Wrong');
-        })
-     });    
-
   	$('#btn_class_fee_structure_create').click(function(event) {  		  
   		$.ajaxSetup({
   		          headers: {
@@ -152,7 +151,7 @@
   		          }
   		      });
 	     $.ajax({
-           url: '{{ route('admin.classFeeStructure.post') }}',
+           url: '<?php echo e(route('admin.classFeeStructure.post')); ?>',
            type: 'POST',       
            data: $('#form_class_fee_structure').serialize() ,
 	    })
@@ -185,7 +184,7 @@
              }
          });      
          $.ajax({
-             url: '{{ route('admin.classFeeStructure.isApplicable') }}',
+             url: '<?php echo e(route('admin.classFeeStructure.isApplicable')); ?>',
              type: 'post',
              data: {id: id},
          })
@@ -212,7 +211,7 @@
   		         }
   		     });      
   		     $.ajax({
-  		         url: '{{ route('admin.classFeeStructure.delete') }}',
+  		         url: '<?php echo e(route('admin.classFeeStructure.delete')); ?>',
   		         type: 'delete',
   		         data: {id: id},
   		     })
@@ -250,7 +249,7 @@
   		          }
   		      });
 	     $.ajax({
-           url: '{{ route('admin.feeStructureLastDate.update') }}',
+           url: '<?php echo e(route('admin.feeStructureLastDate.update')); ?>',
            type: 'put',       
            data: $('#form_model_fee_structure').serialize() ,
 	    })
@@ -277,15 +276,5 @@
  	});
      
   </script>
-  <script>
-   $( function() {
-     
-     $('button').click(function(){
-         $('#searchResult input:radio:checked').filter(':checked').click(function () {
-           $(this).prop('checked', false);
-         });
-         $('.'+$(this).attr('data-click')).prop('checked', true);
-       });
-     });
-   </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('admin.layout.base', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

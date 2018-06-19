@@ -29,7 +29,7 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini" id="body_id">
     <!-- Site wrapper -->
     <div class="wrapper">
       @include('admin.include.header')
@@ -66,6 +66,8 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('admin_asset/dist/js/demo.js') }}"></script>
     <script src="{{ asset('admin_asset/dist/js/toastr.min.js') }}"></script>
+    <script src={!! asset('admin_asset/dist/js/validation/common.js?ver=1') !!}></script>
+    <script src={!! asset('admin_asset/dist/js/customscript.js?ver=1') !!}></script>
 {{--     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> --}}
 
       {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> --}}

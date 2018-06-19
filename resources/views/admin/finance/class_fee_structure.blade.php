@@ -11,31 +11,15 @@
             <div class="box-body">             
                 <div class="col-md-12"> 
 	                <form class="form-vertical" id="form_class_fee_structure">
-                         <div class="col-lg-2">                           
-                             <div class="form-group">
-                              {{ Form::label('fee_structure_id','Fee Structure',['class'=>' control-label']) }}
-                               {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control']) }}
-                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
-                             </div>    
-                        </div>
+                      
                          <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('class_id','Class',['class'=>' control-label']) }}
                                {{ Form::select('class_id',$classess,null,['class'=>'form-control','placeholder'=>'Select Class']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
-                        </div> 
-                        <div class="col-lg-2">                           
-                             <div class="form-group">
-                              {{ Form::label('is_applicable','Is Applicable',['class'=>' control-label']) }}
-                                {{ Form::select('is_applicable',['0'=>'No','1'=>'yes'],null,['class'=>'form-control','id'=>'edit_is_applicable']) }} 
-                             </div>    
-                        </div>
-                         
-                                         
-	                     <div class="col-lg-2" style="padding-top: 20px;">                                             
-	                     <button class="btn btn-success" type="button" id="btn_class_fee_structure_create">Create</button> 
-	                    </div>                     
+                        </div>                     
+                                          
 	                </form> 
                 </div> 
             </div>
@@ -64,7 +48,7 @@
                         		<td>{{ $classFeeStructure->feeStructures->name}}</td>
                         		  
                             <td>{{ $classFeeStructure->classess->alias }}</td>
-                        		<td><button class="btn_is_applicable btn {{ $classFeeStructure->is_applicable == 1 ? 'btn-success':'btn-danger'  }}  btn-xs" data-id="{{ $classFeeStructure->id }}">{{ $classFeeStructure->is_applicable == 1 ? 'Yes':'No' }}</button></td>
+                        		<td><button class="btn_is_applicable btn {{ $classFeeStructure->isapplicable_id == 1 ? 'btn-success':'btn-danger'  }}  btn-xs" data-id="{{ $classFeeStructure->id }}">{{ $classFeeStructure->isapplicable_id == 1 ? 'Yes':'No' }}</button></td>
                         		<td> 
                                     <button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $classFeeStructure->id }}"><i class="fa fa-trash"></i></button>
                                 </td>
@@ -149,6 +133,40 @@
  
  </script>
   <script>
+    $("#class_id").change(function(e){      
+        $.ajaxSetup({
+                  headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });               
+        e.preventDefault();
+        $('#searchResult').html('Searching ...');
+        $.ajax({
+          method: "get",
+          url: "{{ route('admin.classFeeStructure.saveShow') }}",
+          data: $(this).serialize(),
+        })
+        .done(function(response) {            
+            if(response.length>0){
+                $('#searchResult').html('');
+                for (var i = 0; i < response.length; i++) {
+                  $('#searchResult').append(response[i]);
+                  
+                } 
+            }
+            else{
+                $('#searchResult').html('<tr><td colspan="7"><h4 class="text-danger text-center">Record not found</h4></td></tr>');
+            }
+            
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+        
+     }); 
   	$('#btn_class_fee_structure_create').click(function(event) {  		  
   		$.ajaxSetup({
   		          headers: {

@@ -9,44 +9,45 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-                  <form class="form-vertical" id="form_fee_structure_last_date">
+                  <form class="form-vertical" id="form_student_fee_detail">
                          <div class="col-lg-2">                           
                              <div class="form-group">
                               <?php echo e(Form::label('academic_year_id','Academic Year',['class'=>' control-label'])); ?>
 
-                               <?php echo e(Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control'])); ?>
+                               <?php echo e(Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control','placeholder'=>"Select Academic Year"])); ?>
 
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
                          <div class="col-lg-2">                           
                              <div class="form-group">
-                              <?php echo e(Form::label('fee_structure_id','Fee Structure Last Date',['class'=>' control-label'])); ?>
+                              <?php echo e(Form::label('class_id','Class',['class'=>' control-label'])); ?>
 
-                               <?php echo e(Form::select('fee_structure_id',$feeStructurLastDate,null,['class'=>'form-control'])); ?>
+                               <?php echo e(Form::select('class_id',$classess,null,['class'=>'form-control','placeholder'=>"Select Class"])); ?>
 
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
                          <div class="col-lg-2">                           
                              <div class="form-group">
-                              <?php echo e(Form::label('fee_structure_id','Concession',['class'=>' control-label'])); ?>
+                              <?php echo e(Form::label('from_date','From Date',['class'=>' control-label'])); ?>
 
-                               <?php echo e(Form::select('fee_structure_id',$concession,null,['class'=>'form-control'])); ?>
+                               <?php echo e(Form::text('from_date','',['class'=>'form-control datepicker','placeholder'=>"dd-mm-yyyy"])); ?>
 
-                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
+                               <p class="from_date text-center alert alert-danger hidden"></p>
                              </div>    
                         </div> 
-                       <div class="col-lg-2">                                             
-                         <div class="form-group">
-                           <?php echo e(Form::label('amount','Amount',['class'=>'form-label'])); ?>                          
-                           <?php echo e(Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>4, 'placeholder'=>'Enter Amount'])); ?>
+                         <div class="col-lg-2">                           
+                             <div class="form-group">
+                              <?php echo e(Form::label('to_date','To Date',['class'=>' control-label '])); ?>
 
-                           <p class="errorName text-center alert alert-danger hidden"></p>
-                         </div>                                         
-                      </div>                                               
+                               <?php echo e(Form::text('to_date','',['class'=>'form-control datepicker','placeholder'=>"dd-mm-yyyy"])); ?>
+
+                               <p class="to_date text-center alert alert-danger hidden"></p>
+                             </div>    
+                        </div>                                                                     
                        <div class="col-lg-2" style="padding-top: 20px;">                                             
-                       <button class="btn btn-success" type="button" id="btn_fee_structure_last_date_create">Create</button> 
+                       <button class="btn btn-success" type="button" id="btn_student_fee_detail_create">Create</button> 
                       </div>                     
                   </form> 
                 </div> 
@@ -58,48 +59,12 @@
             <div class="box">             
               <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="fee_structure_last_date_table" class="display table">                     
-                        <thead>
-                            <tr>
-                                <th>Sn</th>
-                                <th>Academic Year</th>
-                                <th>Fee Structure</th>
-                                <th>Amount</th>
-                                <th>Last Date</th>
-                                <th>Month</th>                                                            
-                                <th>For Session/Month</th>                                                            
-                                <th>Action</th>                                                            
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php $__currentLoopData = $studentFeeDetails; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $studentFeeDetail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                          <tr>
-                            <td width="30px"><?php echo e(++$loop->index); ?>  </td>
-                            <td><?php echo e($studentFeeDetail->feeStructures->name); ?></td>
-                            <td><?php echo e($studentFeeDetail->academicYears->name); ?></td>
-                                
-                                <td><?php echo e($studentFeeDetail->amount); ?></td>
-                                <td><?php echo e(Carbon\Carbon::parse($studentFeeDetail->last_date)->format('d-m-Y')); ?></td>
-                                <td> <?php echo e(Carbon\Carbon::parse($studentFeeDetail->last_date)->format(' F ')); ?> </td>
-                            <td> <?php echo e($studentFeeDetail->forSessionMonths->name); ?> </td>
-                            <td> 
-                              
-
-                              <button class="btn_delete btn btn-danger btn-xs"  data-id="<?php echo e($studentFeeDetail->id); ?>"  ><i class="fa fa-trash"></i></button>
-                            </td>
-                          </tr>    
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
-                                                            
-                        </tbody>
-                        
-                    </table>
-                    <?php echo e($studentFeeDetails->links()); ?>
-
+               
 
                 </div>
             </div>    
 
-          
+           
  
     </section>
     <!-- /.content -->
@@ -113,23 +78,21 @@
  <?php $__env->startPush('scripts'); ?>
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
- <script>
- 
-    $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
-    
+ <script> 
+    $( ".datepicker").datepicker({dateFormat:'dd-mm-yy'});   
  
  </script>
   <script>
-    $('#btn_fee_structure_last_date_create').click(function(event) {        
+    $('#btn_student_fee_detail_create').click(function(event) {        
       $.ajaxSetup({
                 headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
        $.ajax({
-           url: '<?php echo e(route('admin.feeStructureLastDate.post')); ?>',
+           url: '<?php echo e(route('admin.studentFeeDetail.post')); ?>',
            type: 'POST',       
-           data: $('#form_fee_structure_last_date').serialize() ,
+           data: $('#form_student_fee_detail').serialize() ,
       })
       .done(function(data) {
         if (data.class === 'error') {                 
@@ -139,8 +102,8 @@
         }
           else {                 
             toastr[data.class](data.message)  
-            $("#form_fee_structure_last_date")[0].reset(); 
-            $("#fee_structure_last_date_table").load(location.href + ' #fee_structure_last_date_table'); 
+            $("#form_student_fee_detail")[0].reset(); 
+            $("#student_fee_detail_table").load(location.href + ' #student_fee_detail_table'); 
         } 
       })
       .fail(function() {
@@ -150,7 +113,7 @@
         console.log("complete");
       }); 
     });/////////////////delete///////////////////
-    $('#fee_structure_last_date_table').on('click', '.btn_delete', function(event) {
+    $('#student_fee_detail_table').on('click', '.btn_delete', function(event) {
       var cm = confirm("Are you Sure Delete!");
       if (cm == true) {
            event.preventDefault();  
@@ -167,7 +130,7 @@
            })
            .done(function(data) {
                toastr[data.class](data.message)
-               $("#fee_structure_last_date_table").load(location.href + ' #fee_structure_last_date_table'); 
+               $("#student_fee_detail_table").load(location.href + ' #student_fee_detail_table'); 
            })
            .fail(function() {
                console.log("error");
@@ -180,7 +143,7 @@
       }
         
     });///////////////////edit//////////// 
-     $('#fee_structure_last_date').on('click', '.btn_edit', function(event) {
+     $('#student_fee_detail').on('click', '.btn_edit', function(event) {
          event.preventDefault();  
          $('.modal-title').text('Edit');
          $('#edit_id').val($(this).data('id'));        
@@ -211,10 +174,10 @@
         }
           else {                 
             toastr[data.class](data.message)  
-            $("#form_model_fee_structure_last_date")[0].reset();
-            $('#fee_structure_last_date_model').modal('hide');
+            $("#form_model_student_fee_detail")[0].reset();
+            $('#student_fee_detail_model').modal('hide');
 
-            $("#fee_structure_last_date_table").load(location.href + ' #fee_structure_last_date_table'); 
+            $("#student_fee_detail_table").load(location.href + ' #student_fee_detail_table'); 
         } 
       })
       .fail(function() {

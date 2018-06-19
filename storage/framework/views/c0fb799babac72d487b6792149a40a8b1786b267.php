@@ -29,7 +29,7 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini" id="body_id">
     <!-- Site wrapper -->
     <div class="wrapper">
       <?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
@@ -66,6 +66,8 @@
     <!-- AdminLTE for demo purposes -->
     <script src="<?php echo e(asset('admin_asset/dist/js/demo.js')); ?>"></script>
     <script src="<?php echo e(asset('admin_asset/dist/js/toastr.min.js')); ?>"></script>
+    <script src=<?php echo asset('admin_asset/dist/js/validation/common.js?ver=1'); ?>></script>
+    <script src=<?php echo asset('admin_asset/dist/js/customscript.js?ver=1'); ?>></script>
 
 
       
