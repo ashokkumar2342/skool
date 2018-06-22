@@ -285,12 +285,12 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::post('add', 'StudentFeeDetailController@store')->name('admin.studentFeeDetail.post');
     	    Route::delete('delete', 'StudentFeeDetailController@destroy')->name('admin.studentFeeDetail.delete');
     	    Route::put('update', 'StudentFeeDetailController@update')->name('admin.studentFeeDetail.update');
-    	 });//------------------------- fee structure amount ---------------------------------
+    	 });//------------------------- StudentFeeGroupDetail --------------------------------- 
     	Route::group(['prefix' => 'fee-group-wise'], function() {
-    	    Route::get('/', 'StudentFeeDetailController@index2')->name('admin.studentFeeDetail.list');	 	
-    	    Route::post('add', 'StudentFeeDetailController@store2')->name('admin.studentFeeDetail.post');
-    	    Route::delete('delete', 'StudentFeeDetailController@destroy')->name('admin.studentFeeDetail.delete');
-    	    Route::put('update', 'StudentFeeDetailController@update')->name('admin.studentFeeDetail.update');
+    	    Route::get('/', 'StudentFeeGroupDetailController@index')->name('admin.studentFeeGroupDetail.list');	 	
+    	    Route::post('add', 'StudentFeeGroupDetailController@store')->name('admin.studentFeeGroupDetail.post');
+    	    Route::delete('delete', 'StudentFeeGroupDetailController@destroy')->name('admin.studentFeeGroupDetail.delete');
+    	    Route::put('update', 'StudentFeeGroupDetailController@update')->name('admin.studentFeeGroupDetail.update');
     	 });
 	 });
 

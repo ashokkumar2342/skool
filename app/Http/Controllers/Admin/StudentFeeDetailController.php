@@ -147,31 +147,5 @@ class StudentFeeDetailController extends Controller
         //
     }
 
-    public function index2()
-    { 
-        $studentFeeDetails = StudentFeeDetail::latest('created_at')->paginate(20);        
-        $acardemicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(), 'name', 'id');
-        $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
-        $classess = array_pluck(ClassType::get(['id','name'])->toArray(), 'name', 'id');
-        $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id');
-        
-        
-        return view('admin.finance.student_fee_detail2',compact('studentFeeDetails','acardemicYear','feeStructurLastDate','concession','classess'));
-    }
-
     
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store2(Request $request)
-    {
-        return $request->all(); 
-      
-
-       
-    }
 }

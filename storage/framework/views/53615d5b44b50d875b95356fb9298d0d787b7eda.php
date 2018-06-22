@@ -1,6 +1,6 @@
 <?php $__env->startSection('body'); ?>
 <section class="content-header">
-    <h1>Fee Account </h1>
+    <h1>Fee Group </h1>
       <ol class="breadcrumb">
       </ol>
 </section>

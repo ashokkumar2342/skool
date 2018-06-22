@@ -73,6 +73,7 @@
                 <li><a href="<?php echo e(route('admin.feeGroupDetail.list')); ?>"><i class="fa fa-circle-o"></i>Fee Group Detail </a></li> 
                 <li><a href="<?php echo e(route('admin.concession.list')); ?>"><i class="fa fa-circle-o"></i>Concession </a></li>                 
                 <li><a href="<?php echo e(route('admin.studentFeeDetail.list')); ?>"><i class="fa fa-circle-o"></i>Student Fee Detail </a></li> 
+                <li><a href="<?php echo e(route('admin.studentFeeGroupDetail.list')); ?>"><i class="fa fa-circle-o"></i>Fee Group Wise </a></li> 
             </ul>
         </li>
          <li class="treeview">
