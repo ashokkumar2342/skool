@@ -206,12 +206,24 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::post('store', 'CertificateIssueRemarkController@store')->name('admin.remark.add');
 	     
 	 });
-	
+	// ---------------Homework----------------------------------------  
 	Route::group(['prefix' => 'homework'], function() {
 	    Route::get('/', 'HomeworkController@index')->name('admin.homework.list');	 	
 	    Route::post('add', 'HomeworkController@store')->name('admin.homework.post');
 	    Route::delete('delete', 'HomeworkController@destroy')->name('admin.homework.delete');
 	 });
+	// ---------------Attendance---------------------------------------- 
+	 //------------------------Attendace-------------------------------------------
+	Route::group(['prefix' => 'attendance'], function() {
+	    Route::group(['prefix' => 'student'], function() {
+	        Route::get('/', 'StudentAttendanceController@index')->name('admin.attendance.student.form');
+	        Route::post('search', 'StudentAttendanceController@search')->name('admin.attendance.student.search');
+	        Route::post('add', 'StudentAttendanceController@store')->name('admin.attendance.student.save');
+	        Route::get('{attendance}/edit', 'StudentAttendanceController@edit')->name('admin.attendance.student.edit');
+	        Route::post('{attendance}update', 'StudentAttendanceController@update')->name('admin.attendance.student.update');
+	        Route::get('{attendance}/delete', 'StudentAttendanceController@destroy')->name('admin.attendance.student.delete');
+	    });
+	});
 	//------------------------- Finance ---------------------------------
 	Route::group(['prefix' => 'finance'], function() {
 		//------------------------- fee acoout ---------------------------------

@@ -149,6 +149,18 @@
             <ul class="treeview-menu">
                 <li><a href="<?php echo e(route('admin.homework.list')); ?>"><i class="fa fa-circle-o"></i> List </a></li>  
             </ul>
+        </li>  
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-sticky-note text-primary"></i>
+                <span>Attendance</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="<?php echo e(route('admin.attendance.student.form')); ?>"><i class="fa fa-circle-o"></i> Student </a></li>  
+            </ul>
         </li>
         <li class="treeview">
             <a href="#">
