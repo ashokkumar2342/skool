@@ -50,7 +50,7 @@
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>                          
-                                                    {{ Form::text('date',date('d-h-Y'),array('class' => 'form-control','data-inputmask'=>"'alias': 'dd/mm/yyyy'", 'id="datepicker"', 'required' )) }}
+                                                    {{ Form::text('date',date('d-m-Y'),array('class' => 'form-control','data-inputmask'=>"'alias': 'dd/mm/yyyy'", 'id="datepicker"', 'required' )) }}
                                                     </div>
                                                     <p class="text-danger">{{ $errors->first('date') }}</p>
                                                 </div>

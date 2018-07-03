@@ -54,7 +54,7 @@
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>                          
-                                                    <?php echo e(Form::text('date',date('d-h-Y'),array('class' => 'form-control','data-inputmask'=>"'alias': 'dd/mm/yyyy'", 'id="datepicker"', 'required' ))); ?>
+                                                    <?php echo e(Form::text('date',date('d-m-Y'),array('class' => 'form-control','data-inputmask'=>"'alias': 'dd/mm/yyyy'", 'id="datepicker"', 'required' ))); ?>
 
                                                     </div>
                                                     <p class="text-danger"><?php echo e($errors->first('date')); ?></p>

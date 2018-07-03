@@ -34,6 +34,20 @@
                 <li><a href="<?php echo e(route('admin.account.list')); ?>"><i class="fa fa-circle-o"></i> List</a></li>
                 <li><a href="<?php echo e(route('admin.userClass.list')); ?>"><i class="fa fa-circle-o"></i> User + Class</a></li>                
             </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-user text-danger"></i>
+                <span>Master</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="<?php echo e(route('admin.academicYear.list')); ?>"><i class="fa fa-circle-o"></i> Academic Year </a></li>
+                <li><a href="<?php echo e(route('admin.paymentMode.list')); ?>"><i class="fa fa-circle-o"></i> List</a></li>
+                               
+            </ul>
         </li> 
         <?php if(Auth::guard('admin')->user()->minus()->where('minu_id',1)->first()->status == 1): ?>
         <li class="treeview">
@@ -152,7 +166,7 @@
         </li>  
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-sticky-note text-primary"></i>
+                <i class="fa fa-clock-o text-success"></i>
                 <span>Attendance</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>

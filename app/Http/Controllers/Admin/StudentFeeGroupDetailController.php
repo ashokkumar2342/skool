@@ -42,15 +42,41 @@ class StudentFeeGroupDetailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        $students = Student::where('class_id',$request->class_id)->get(['id','name','registration_no']);
+        
+        
+    }
+
+
+    public function search(Request $request)
+    {
+        $students = Student::where('class_id',$request->class_id)
+                            ->where('section_id',$request->section)
+                            ->get(['id','name','registration_no']);
+        $studentFeeGroups = FeeGroup::all();                    
         if (!$students->isEmpty()) { 
              foreach ($students as $key => $student) {
                 $row = '<tr>
                 <td>'.$student->id.'</td>
                 <td>'.$student->name.'</td>
                 <td>'.$student->registration_no.'</td>
+                <td>'.
+                    '<select name="old_group" class="form-control">
+                            @foreach($studentFeeGroups as $studentFeeGroup)
+                                <option value="">$studentFeeGroup</option>
+
+                              @endforeach
+                                
+                    </select>'
+                .'</td>
+                <td>'.
+                    '<select name="old_group" class="form-control">
+                                <option value=""></option>
+                                
+                    </select>'
+                .'</td>
                 ';
 
                 $row .= '</tr>';

@@ -30,9 +30,9 @@
                         </div>
                          <div class="col-lg-2">                           
                              <div class="form-group">
-                              <?php echo e(Form::label('from_date','From Date',['class'=>' control-label'])); ?>
+                              <?php echo e(Form::label('from_date2','From Date',['class'=>' control-label'])); ?>
 
-                               <?php echo e(Form::text('from_date','',['class'=>'form-control datepicker','placeholder'=>"dd-mm-yyyy"])); ?>
+                               <?php echo e(Form::text('from_date','',['class'=>'form-control datepicker','id'=>'from_date','placeholder'=>"dd-mm-yyyy"])); ?>
 
                                <p class="from_date text-center alert alert-danger hidden"></p>
                              </div>    
@@ -45,7 +45,8 @@
 
                                <p class="to_date text-center alert alert-danger hidden"></p>
                              </div>    
-                        </div>                                                                     
+                        </div>  
+                                                                                           
                        <div class="col-lg-2" style="padding-top: 20px;">                                             
                        <button class="btn btn-success" type="button" id="btn_student_fee_detail_create">Create</button> 
                       </div>                     
@@ -79,7 +80,7 @@
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
  <script> 
-    $( ".datepicker").datepicker({dateFormat:'dd-mm-yy'});   
+    $( ".datepicker").datepicker();   
  
  </script>
   <script>
@@ -187,6 +188,29 @@
         console.log("complete");
       });  
   });
+ 
+   $('#academic_year_id').change(function(event) {
+     
+     event.preventDefault();
+   
+     $.ajax({
+         url: '<?php echo e(route('admin.academic.year.search')); ?>',
+         type: 'get', 
+         data: {academic_year_id: $('#academic_year_id').val()},
+     })
+     .done(function(data) {
+
+         $("#from_date").val(data.start_date);
+         $("#to_date").val(data.end_date);
+     })
+     .fail(function() {
+         console.log("error");
+     })
+     .always(function() {
+         console.log("complete");
+     });
+   
+   });
      
   </script>
 <?php $__env->stopPush(); ?>

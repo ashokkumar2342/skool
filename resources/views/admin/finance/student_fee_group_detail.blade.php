@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Student Fee Details </h1>
+    <h1>Student Fee Group Wise </h1>
       <ol class="breadcrumb">
       </ol>
 </section>
@@ -22,9 +22,16 @@
                          <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('class_id','Class',['class'=>' control-label']) }}
-                               {{ Form::select('class_id',$classess,null,['class'=>'form-control']) }}
+                               {{ Form::select('class_id',$classess,null,['class'=>'form-control','placeholder'=>'Select Class']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
+                        </div>
+                        <div class="col-lg-3">                         
+                            <div class="form-group">
+                                {{ Form::label('section','Section',['class'=>' control-label']) }}
+                                {!! Form::select('section',[], null, ['class'=>'form-control','placeholder'=>'Select Section','required']) !!}
+                                <p class="text-danger">{{ $errors->first('session') }}</p>
+                            </div>
                         </div>
                                                                                          
                        <div class="col-lg-2" style="padding-top: 20px;">                                             
@@ -78,7 +85,26 @@
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
  <script> 
-    $( ".datepicker").datepicker({dateFormat:'dd-mm-yy'});   
+    $( ".datepicker").datepicker({dateFormat:'dd-mm-yy'}); 
+    $("#class_id").change(function(){
+        $('#section').html('<option value="">Searching ...</option>');
+        $.ajax({
+          method: "get",
+          url: "{{ route('admin.manageSection.search') }}",
+          data: { id: $(this).val() }
+        })
+        .done(function( response ) {            
+            if(response.length>0){
+                $('#section').html('<option value="">Select Section</option>');
+                for (var i = 0; i < response.length; i++) {
+                    $('#section').append('<option value="'+response[i].id+'">'+response[i].name+'</option>');
+                } 
+            }
+            else{
+                $('#section').html('<option value="">Not found</option>');
+            }            
+        });
+    });  
  
  </script>
   <script>
@@ -89,7 +115,7 @@
                 }
             });
        $.ajax({
-           url: '{{ route('admin.studentFeeGroupDetail.post') }}',
+           url: '{{ route('admin.studentFeeGroupDetail.search') }}',
            type: 'POST',       
            data: $('#form_student_fee_group_detail').serialize() ,
       })

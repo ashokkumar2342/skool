@@ -23,6 +23,19 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('minu/{account}', 'AccountController@minu')->name('admin.account.minu');				
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 
 	});
+	//---------------master-----------------------------------------	
+	Route::prefix('master-minu')->group(function () {
+		Route::prefix('academic-year')->group(function () {
+		    Route::get('list', 'AcademicYearController@index')->name('admin.academicYear.list');
+		     
+		});
+		Route::prefix('payment-mode')->group(function () {
+		    Route::get('list', 'PaymentModeController@index')->name('admin.paymentMode.list');
+		     
+		});
+	 
+	     
+	});
 		//---------------minu-----------------------------------------	
 	Route::prefix('minu')->group(function () {
 	    
@@ -212,7 +225,16 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::post('add', 'HomeworkController@store')->name('admin.homework.post');
 	    Route::delete('delete', 'HomeworkController@destroy')->name('admin.homework.delete');
 	 });
-	// ---------------Attendance---------------------------------------- 
+	
+	 
+	 //------------------------- Academic Year --------------------------------- 
+	Route::group(['prefix' => 'academic-year'], function() {
+	    Route::get('/', 'AcademicYearController@index')->name('admin.academic.year.list');	 	
+	    Route::get('search', 'AcademicYearController@search')->name('admin.academic.year.search');	 	
+	    Route::post('add', 'AcademicYearController@store')->name('admin.academic.year.post');
+	    Route::delete('delete', 'AcademicYearController@destroy')->name('admin.academic.year.delete');
+	    Route::put('update', 'AcademicYearController@update')->name('admin.academic.year.update');
+	 });
 	 //------------------------Attendace-------------------------------------------
 	Route::group(['prefix' => 'attendance'], function() {
 	    Route::group(['prefix' => 'student'], function() {
@@ -301,6 +323,7 @@ Route::group(['middleware' => 'admin'], function() {
     	Route::group(['prefix' => 'fee-group-wise'], function() {
     	    Route::get('/', 'StudentFeeGroupDetailController@index')->name('admin.studentFeeGroupDetail.list');	 	
     	    Route::post('add', 'StudentFeeGroupDetailController@store')->name('admin.studentFeeGroupDetail.post');
+    	    Route::post('search', 'StudentFeeGroupDetailController@search')->name('admin.studentFeeGroupDetail.search');
     	    Route::delete('delete', 'StudentFeeGroupDetailController@destroy')->name('admin.studentFeeGroupDetail.delete');
     	    Route::put('update', 'StudentFeeGroupDetailController@update')->name('admin.studentFeeGroupDetail.update');
     	 });
