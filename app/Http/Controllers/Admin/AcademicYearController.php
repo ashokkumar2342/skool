@@ -15,7 +15,8 @@ class AcademicYearController extends Controller
      */
     public function index()
     {
-        //
+        $academicYears = AcademicYear::all();
+        return view('admin.master.academicyear.list',compact('academicYears'));
     }
 
     /**
@@ -36,7 +37,25 @@ class AcademicYearController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+        
+            'name' => 'required|max:3', 
+            'start_date' => 'required|max:30', 
+            'end_date' => 'required|max:30', 
+             
+              
+        ]);
+        if ($validator->fails()) {                    
+             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
+
+        }
+       $academicYears = new AcademicYear();
+       $academicYears->name = $request->academic_year;
+       $academicYears->start_date = date('Y-m-d',strtotime($request->start_date)) ;
+       $academicYears->end_date = date('Y-m-d',strtotime($request->end_date));
+       $academicYears->description = $request->description; 
+       $academicYears->save();
+       return response()->json([$academicYears,'class'=>'success','message'=>'AcademicYear Created Successfully']);
     }
      public function search(Request $request)
     {

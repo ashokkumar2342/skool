@@ -64,9 +64,11 @@ class ConcessionController extends Controller
      * @param  \App\Model\Concession  $concession
      * @return \Illuminate\Http\Response
      */
-    public function show(Concession $concession)
+    public function search(Request $request)
     {
-        //
+        $concession = Concession::find($request->concession);
+         
+        return response()->json($concession);
     }
 
     /**

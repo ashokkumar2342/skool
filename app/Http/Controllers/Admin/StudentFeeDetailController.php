@@ -75,7 +75,7 @@ class StudentFeeDetailController extends Controller
                        foreach ($classFeeStructures as $classFeeStructure) { 
                            $FeeStructureLastDates = FeeStructureLastDate::where('academic_year_id',$request->academic_year_id)->where('fee_structure_id',$classFeeStructure->fee_structure_id)->get();
                             foreach ($FeeStructureLastDates as $FeeStructureLastDate) {
-                                $studentFeeDetail = new StudentFeeDetail();  
+                                $studentFeeDetail = StudentFeeDetail::firstOrNew(['student_id'=>$student->id,'fee_structure_last_date_id'=>$FeeStructureLastDate->id]);  
                                 $studentFeeDetail->student_id = $student->id;
                                 $studentFeeDetail->fee_structure_last_date_id = $FeeStructureLastDate->id;
                                 $studentFeeDetail->concession_id = 0;
@@ -96,10 +96,26 @@ class StudentFeeDetailController extends Controller
                     return response()->json(['class'=>'success','message'=>'Student not found this class record']);
                }
             return response()->json(['class'=>'success','message'=>'Fee Student Details Created Successfully']);
-            } 
-            
+            }  
+    }
 
-       
+    public function feeassignlist(Request $request)
+    {
+                 
+        $studentFeeDetails = StudentFeeDetail::latest('created_at')->paginate(20);        
+        $students = array_pluck(Student::get(['id','registration_no'])->toArray(),'registration_no', 'id');
+        $acardemicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(), 'name', 'id');
+        $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
+        $classess = array_pluck(ClassType::get(['id','name'])->toArray(), 'name', 'id');
+        $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
+        return view('admin.finance.student_fee_assign',compact('studentFeeDetails','acardemicYear','feeStructurLastDate','concession','classess','students'));   
+    }
+
+
+    public function feeassignstore(Request $request)
+    {
+       $studentFeeDetails = StudentFeeDetail::where('student_id')->get();
+       return $studentFeeDetails; 
     }
 
     /**
@@ -108,9 +124,19 @@ class StudentFeeDetailController extends Controller
      * @param  \App\Model\StudentFeeDetail  $studentFeeDetail
      * @return \Illuminate\Http\Response
      */
-    public function show(StudentFeeDetail $studentFeeDetail)
+    public function feeassignshow(Request $request,StudentFeeDetail $studentFeeDetail)
     {
-        //
+        $studentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)->get(); 
+
+         
+
+
+        $students = array_pluck(Student::get(['id','registration_no'])->toArray(),'registration_no', 'id');
+        $acardemicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(), 'name', 'id');
+        $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
+        $classess = array_pluck(ClassType::get(['id','name'])->toArray(), 'name', 'id');
+        $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
+        return view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','acardemicYear','feeStructurLastDate','concession','classess','students'));  
     }
 
     /**

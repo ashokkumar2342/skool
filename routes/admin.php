@@ -27,6 +27,7 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::prefix('master-minu')->group(function () {
 		Route::prefix('academic-year')->group(function () {
 		    Route::get('list', 'AcademicYearController@index')->name('admin.academicYear.list');
+		    Route::post('store', 'AcademicYearController@store')->name('admin.academicYear.store');
 		     
 		});
 		Route::prefix('payment-mode')->group(function () {
@@ -313,12 +314,16 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::post('add', 'ConcessionController@store')->name('admin.concession.post');
     	    Route::delete('delete', 'ConcessionController@destroy')->name('admin.concession.delete');
     	    Route::put('update', 'ConcessionController@update')->name('admin.concession.update');
+    	    Route::get('search', 'ConcessionController@search')->name('admin.concession.search');
     	 });//------------------------- student-fee-detail ---------------------------------
         Route::group(['prefix' => 'student-fee-detail'], function() {
-    	    Route::get('/', 'StudentFeeDetailController@index')->name('admin.studentFeeDetail.list');	 	
+    	    Route::get('/', 'StudentFeeDetailController@index')->name('admin.studentFeeDetail.list'); 
     	    Route::post('add', 'StudentFeeDetailController@store')->name('admin.studentFeeDetail.post');
     	    Route::delete('delete', 'StudentFeeDetailController@destroy')->name('admin.studentFeeDetail.delete');
     	    Route::put('update', 'StudentFeeDetailController@update')->name('admin.studentFeeDetail.update');
+    	    Route::get('assign', 'StudentFeeDetailController@feeassignlist')->name('admin.studentFeeAssign.list');
+    	    Route::get('assign/show', 'StudentFeeDetailController@feeassignshow')->name('admin.studentFeeAssign.show');
+    	    Route::post('assign/store', 'StudentFeeDetailController@feeassignstore')->name('admin.studentFeeAssign.post');
     	 });//------------------------- StudentFeeGroupDetail --------------------------------- 
     	Route::group(['prefix' => 'fee-group-wise'], function() {
     	    Route::get('/', 'StudentFeeGroupDetailController@index')->name('admin.studentFeeGroupDetail.list');	 	
