@@ -45,7 +45,7 @@
             </a>
             <ul class="treeview-menu">
                 <li><a href="{{ route('admin.academicYear.list') }}"><i class="fa fa-circle-o"></i> Academic Year </a></li>
-                <li><a href="{{ route('admin.paymentMode.list') }}"><i class="fa fa-circle-o"></i> List</a></li>
+                <li><a href="{{ route('admin.paymentMode.list') }}"><i class="fa fa-circle-o"></i> Payment Mode</a></li>
                                
             </ul>
         </li> 

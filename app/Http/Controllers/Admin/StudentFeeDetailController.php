@@ -125,18 +125,14 @@ class StudentFeeDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function feeassignshow(Request $request,StudentFeeDetail $studentFeeDetail)
-    {
-        $studentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)->get(); 
-
-         
-
-
-        $students = array_pluck(Student::get(['id','registration_no'])->toArray(),'registration_no', 'id');
-        $acardemicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(), 'name', 'id');
+    {   
+        $student = Student::find($request->student_id);
+        $studentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)->get();  
+        
         $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
-        $classess = array_pluck(ClassType::get(['id','name'])->toArray(), 'name', 'id');
+         
         $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
-        return view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','acardemicYear','feeStructurLastDate','concession','classess','students'));  
+        return view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','feeStructurLastDate','concession','student'));  
     }
 
     /**
@@ -148,6 +144,10 @@ class StudentFeeDetailController extends Controller
     public function edit(StudentFeeDetail $studentFeeDetail)
     {
         //
+    }
+    public function assignstore(Request $request,StudentFeeDetail $studentFeeDetail)
+    {
+        dd($request->all());
     }
 
     /**
@@ -170,7 +170,7 @@ class StudentFeeDetailController extends Controller
      */
     public function destroy(StudentFeeDetail $studentFeeDetail)
     {
-        //
+        return $studentFeeDetail;
     }
 
     

@@ -14,7 +14,7 @@
                          <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
-                               {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control','placeholder'=>"Select Academic Year",'required']) }}
+                               {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control','required']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
@@ -43,13 +43,7 @@
           </div>
           <!-- /.box -->
 
-            <div class="box">             
-              <!-- /.box-header -->
-                <div class="box-body">
-               
-
-                </div>
-            </div>    
+          
 
            
  

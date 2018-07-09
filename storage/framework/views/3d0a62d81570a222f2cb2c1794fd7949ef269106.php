@@ -14,7 +14,7 @@
                              <div class="form-group">
                               <?php echo e(Form::label('academic_year_id','Academic Year',['class'=>' control-label'])); ?>
 
-                               <?php echo e(Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control','placeholder'=>"Select Academic Year",'required'])); ?>
+                               <?php echo e(Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control','required'])); ?>
 
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
@@ -40,13 +40,7 @@
           </div>
           <!-- /.box -->
 
-            <div class="box">             
-              <!-- /.box-header -->
-                <div class="box-body">
-               
-
-                </div>
-            </div>    
+          
 
            
  

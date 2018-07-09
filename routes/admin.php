@@ -32,6 +32,7 @@ Route::group(['middleware' => 'admin'], function() {
 		});
 		Route::prefix('payment-mode')->group(function () {
 		    Route::get('list', 'PaymentModeController@index')->name('admin.paymentMode.list');
+		    Route::post('store', 'PaymentModeController@store')->name('admin.paymentMode.store');
 		     
 		});
 	 
@@ -319,18 +320,28 @@ Route::group(['middleware' => 'admin'], function() {
         Route::group(['prefix' => 'student-fee-detail'], function() {
     	    Route::get('/', 'StudentFeeDetailController@index')->name('admin.studentFeeDetail.list'); 
     	    Route::post('add', 'StudentFeeDetailController@store')->name('admin.studentFeeDetail.post');
-    	    Route::delete('delete', 'StudentFeeDetailController@destroy')->name('admin.studentFeeDetail.delete');
+    	    Route::get('delete/{studentFeeDetail}', 'StudentFeeDetailController@destroy')->name('admin.studentFeeDetail.delete');
     	    Route::put('update', 'StudentFeeDetailController@update')->name('admin.studentFeeDetail.update');
     	    Route::get('assign', 'StudentFeeDetailController@feeassignlist')->name('admin.studentFeeAssign.list');
     	    Route::get('assign/show', 'StudentFeeDetailController@feeassignshow')->name('admin.studentFeeAssign.show');
-    	    Route::post('assign/store', 'StudentFeeDetailController@feeassignstore')->name('admin.studentFeeAssign.post');
-    	 });//------------------------- StudentFeeGroupDetail --------------------------------- 
+    	    Route::post('assign/store', 'StudentFeeDetailController@assignstore')->name('admin.studentFeeAssign.post');
+    	 });
+    	 //------------------------- StudentFeeGroupDetail --------------------------------- 
     	Route::group(['prefix' => 'fee-group-wise'], function() {
     	    Route::get('/', 'StudentFeeGroupDetailController@index')->name('admin.studentFeeGroupDetail.list');	 	
+    	    Route::get('show', 'StudentFeeGroupDetailController@show')->name('admin.studentFeeGroupDetail.show');	 	
     	    Route::post('add', 'StudentFeeGroupDetailController@store')->name('admin.studentFeeGroupDetail.post');
     	    Route::post('search', 'StudentFeeGroupDetailController@search')->name('admin.studentFeeGroupDetail.search');
     	    Route::delete('delete', 'StudentFeeGroupDetailController@destroy')->name('admin.studentFeeGroupDetail.delete');
     	    Route::put('update', 'StudentFeeGroupDetailController@update')->name('admin.studentFeeGroupDetail.update');
+    	 });
+
+    	 //------------------------- Student Search --------------------------------- 
+    	Route::group(['prefix' => 'search'], function() {
+    	    Route::get('/', 'StudentSearchController@index')->name('admin.student.search.form');	 	
+    	    Route::post('data', 'StudentSearchController@search')->name('admin.student.search');	 	
+    	    Route::get('find', 'StudentSearchController@find')->name('admin.student.find');	 	
+    	    
     	 });
 	 });
 

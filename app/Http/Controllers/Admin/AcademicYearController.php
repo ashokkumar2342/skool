@@ -39,7 +39,7 @@ class AcademicYearController extends Controller
     {
         $validator = Validator::make($request->all(), [
         
-            'name' => 'required|max:3', 
+            'name' => 'required', 
             'start_date' => 'required|max:30', 
             'end_date' => 'required|max:30', 
              

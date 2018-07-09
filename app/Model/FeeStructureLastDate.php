@@ -21,6 +21,11 @@ class FeeStructureLastDate extends Model
     	return $this->hasOne('App\Model\FeeStructure','id','fee_structure_id');
     }
 
+    public function feeStructuresMany(){
+      return $this->hasMany('App\Model\FeeStructure','id','fee_structure_id');
+    }
+    
+
     public function academicYears(){
     	return $this->hasOne('App\Model\AcademicYear','id','academic_year_id');
     }

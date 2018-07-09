@@ -64,8 +64,8 @@
                         <thead>
                             <tr>
                                 <th>Sn</th>
+                                <th>Fee Structure</th> 
                                 <th>Academic Year</th>
-                                <th>Fee Structure</th>
                                 <th>Amount</th>
                                 <th>Last Date</th>
                                 <th>Month</th>                                                            

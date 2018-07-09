@@ -56,6 +56,7 @@ class StudentAttendanceController extends Controller
      */
     public function store(Request $request)
     {
+         
         $this->validate($request,['date'=>'required|date','value'=>'required']);
         foreach ($request->value as $key => $value) {
 

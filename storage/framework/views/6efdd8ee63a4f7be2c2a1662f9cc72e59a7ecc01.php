@@ -9,7 +9,7 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-                  <form class="form-vertical" id="form_student_fee_group_detail" class="form_class"> 
+                  <form action="<?php echo e(route('admin.studentFeeGroupDetail.show')); ?>" class="form-vertical" id="form_student_fee_group_detail" method="get" class="form_class"> 
                       <?php echo e(csrf_field()); ?>
 
                          <div class="col-lg-2">                           
@@ -41,8 +41,8 @@
                         </div>
                                                                                          
                        <div class="col-lg-2" style="padding-top: 20px;">                                             
-                       <button class="btn btn-success" type="button" id="btn_student_fee_detail_create">Show</button> 
                        
+                       <input type="submit"   class="btn btn-success mr-10 mb-30" id="submit" value="show"/>
                       </div>                     
                   </form> 
                 </div> 
@@ -51,31 +51,7 @@
           </div>
           <!-- /.box -->
 
-            <div class="box">             
-              <!-- /.box-header -->
-                <div class="box-body">
-                    <table id="student_fee_detail_table" class="display table">                     
-                        <thead>
-                            <tr>
-                                <th>Sn</th>
-                                <th>Student Name</th>
-                                <th>Registration No</th>
-                                 
-                                <th>Concession Amount</th>                               
-                                <th>Action</th>                                                            
-                            </tr>
-                        </thead>
-                        <tbody id="searchResult">
-                         
-                                                            
-                        </tbody>
-                        
-                    </table>
-                   
-
-                </div>
-            </div>    
-
+         
           
  
     </section>
@@ -114,45 +90,45 @@
  
  </script>
   <script>
-    $('#btn_student_fee_detail_create').click(function(event) {        
-      $.ajaxSetup({
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-       $.ajax({
-           url: '<?php echo e(route('admin.studentFeeGroupDetail.search')); ?>',
-           type: 'POST',       
-           data: $('#form_student_fee_group_detail').serialize() ,
-      })
-      .done(function(response) {
-       if(response.length>0){
-           $('#searchResult').html(''); 
-           for (var i = 0; i < response.length; i++) {
-             $('#searchResult').append(response[i]);
+    // $('#btn_student_fee_detail_create').click(function(event) {        
+    //   $.ajaxSetup({
+    //             headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             }
+    //         });
+    //    $.ajax({
+    //        url: '',
+    //        type: 'POST',       
+    //        data: $('#form_student_fee_group_detail').serialize() ,
+    //   })
+    //   .done(function(response) {
+    //    if(response.length>0){
+    //        $('#searchResult').html(''); 
+    //        for (var i = 0; i < response.length; i++) {
+    //          $('#searchResult').append(response[i]);
              
-           } 
-       }
-       else{
-           $('#searchResult').html('<tr><td colspan="7"><h4 class="text-danger text-center">Record not found</h4></td></tr>');
-       }
-        // if (response.class === 'error') {                 
-        //      $.each(response.errors, function(index, val) {
-        //          toastr[response.class](val) 
-        //      }); 
-        // }
-        //   else {                 
-        //     toastr[response.class](response.message)  
+    //        } 
+    //    }
+    //    else{
+    //        $('#searchResult').html('<tr><td colspan="7"><h4 class="text-danger text-center">Record not found</h4></td></tr>');
+    //    }
+    //     // if (response.class === 'error') {                 
+    //     //      $.each(response.errors, function(index, val) {
+    //     //          toastr[response.class](val) 
+    //     //      }); 
+    //     // }
+    //     //   else {                 
+    //     //     toastr[response.class](response.message)  
             
-        // } 
-      })
-      .fail(function() {
-        console.log("error");
-      })
-      .always(function() {
-        console.log("complete");
-      }); 
-    });
+    //     // } 
+    //   })
+    //   .fail(function() {
+    //     console.log("error");
+    //   })
+    //   .always(function() {
+    //     console.log("complete");
+    //   }); 
+    // });
  
      
   </script>

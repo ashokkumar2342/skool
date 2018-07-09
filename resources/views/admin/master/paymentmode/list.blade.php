@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Academic Year</h1>
+    <h1>Payment Mode List</h1>
       <ol class="breadcrumb">
       </ol>
 </section>
@@ -13,32 +13,12 @@
                   <form class="form-vertical" id="form_academic_year">                     
                         <div class="col-lg-2">                           
                              <div class="form-group">
-                              {{ Form::label('academic_year','Academic Year',['class'=>' control-label']) }}
-                               {{ Form::text('academic_year',null,['class'=>'form-control','placeholder'=>'Enter Academic Year']) }}
+                              {{ Form::label('name','Payment Mode',['class'=>' control-label']) }}
+                               {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Enter Payment Mode Name']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
-                         <div class="col-lg-2">                           
-                             <div class="form-group">
-                              {{ Form::label('start_date','Start Date',['class'=>' control-label']) }}
-                               {{ Form::text('start_date','',['class'=>'form-control datepicker','id'=>'start_date','placeholder'=>"dd-mm-yyyy"]) }}
-                               <p class="start_date text-center alert alert-danger hidden"></p>
-                             </div>    
-                        </div> 
-                         <div class="col-lg-2">                           
-                             <div class="form-group">
-                              {{ Form::label('end_date','End Date',['class'=>' control-label ']) }}
-                               {{ Form::text('end_date','',['class'=>'form-control datepicker','placeholder'=>"dd-mm-yyyy"]) }}
-                               <p class="end_date text-center alert alert-danger hidden"></p>
-                             </div>    
-                        </div>
-                        <div class="col-lg-2">                           
-                             <div class="form-group">
-                              {{ Form::label('description','Description',['class'=>' control-label']) }}
-                               {{ Form::text('description',null,['class'=>'form-control','placeholder'=>'Enter Description']) }}
-                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
-                             </div>    
-                        </div>
+                         
                         <div class="col-lg-2">                           
                              <div class="form-group" style="padding-top: 20px;">
                               <button class="btn btn-success" type="button" id="btn_academic_year_create">Create</button> 
@@ -57,18 +37,14 @@
                         <thead>
                             <tr>
                                 <th>Academic Year</th>
-                                <th>Start date</th>
-                                <th>End date</th>
-                                <th>Description date</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($academicYears as $academicYear) 
+                            @foreach ($paymentmodes as $paymentmode) 
                                 <tr>
-                                    <td>{{ $academicYear->name }}</td>
-                                    <td>{{ date('d-m-Y',strtotime($academicYear->start_date)) }}</td>
-                                    <td>{{ date('d-m-Y',strtotime($academicYear->end_date))  }}</td>
-                                    <td>{{ $academicYear->description }}</td>
+                                    <td>{{ $paymentmode->name }}</td>
+                                   
                                 </tr>
                              @endforeach
                         </tbody>
@@ -103,7 +79,7 @@
                 }
             });
        $.ajax({
-           url: '{{ route('admin.academicYear.store') }}',
+           url: '{{ route('admin.paymentMode.store') }}',
            type: 'POST',       
            data: $('#form_academic_year').serialize() ,
       })
@@ -168,9 +144,7 @@
          $('#edit_fine_scheme').val($(this).data('finescheme'));        
          $('#edit_Is_refundable').val($(this).data('refundable')); 
          $('#fee_structure_model').modal('show');
-    });////////////////update/////////////
-    
-   
+    });////////////////update///////////// 
   </script>
   <script>
    $( function() {

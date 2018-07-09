@@ -97,9 +97,14 @@ class StudentFeeGroupDetailController extends Controller
      * @param  \App\Model\StudentFeeGroupDetail  $studentFeeGroupDetail
      * @return \Illuminate\Http\Response
      */
-    public function show(StudentFeeGroupDetail $studentFeeGroupDetail)
+    public function show(Request $request,StudentFeeGroupDetail $studentFeeGroupDetail)
     {
-        //
+       $students = Student::where('class_id',$request->class_id)
+                           ->where('section_id',$request->section)
+                           ->get(['id','name','registration_no']);
+       $feeGroups = FeeGroup::all();      
+       return view('admin.finance.student_fee_group_detail_show',compact('feeGroups','students')); 
+
     }
 
     /**

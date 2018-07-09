@@ -3,6 +3,7 @@
     <h1>Student Fee Details </h1>
       <ol class="breadcrumb">
       </ol>
+      
 </section>
     <section class="content">
         <div class="box">             
@@ -56,14 +57,7 @@
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
-
-            <div class="box">             
-              <!-- /.box-header -->
-                <div class="box-body">
-               
-
-                </div>
-            </div>    
+   
 
            
  

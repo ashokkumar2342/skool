@@ -6,11 +6,11 @@
       </ol>
 </section>
     <section class="content">
-        <div class="box">             
-            <!-- /.box-header -->
+        {{-- <div class="box">             
+            
             <div class="box-body">             
                 <div class="col-md-12"> 
-                  <form action="{{ route('admin.studentFeeGroupDetail.show') }}" class="form-vertical" id="form_student_fee_group_detail" method="get" class="form_class"> 
+                  <form class="form-vertical" id="form_student_fee_group_detail" class="form_class"> 
                       {{ csrf_field() }}
                          <div class="col-lg-2">                           
                              <div class="form-group">
@@ -35,17 +35,17 @@
                         </div>
                                                                                          
                        <div class="col-lg-2" style="padding-top: 20px;">                                             
-                       {{-- <button class="btn btn-success" type="button" id="btn_student_fee_detail_create">Show</button>  --}}
-                       <input type="submit"   class="btn btn-success mr-10 mb-30" id="submit" value="show"/>
+                       <button class="btn btn-success" type="button" id="btn_student_fee_detail_create">Show</button> 
+                        
                       </div>                     
                   </form> 
                 </div> 
             </div>
             <!-- /.box-body -->
-          </div>
+          </div> --}}
           <!-- /.box -->
 
-         {{--    <div class="box">             
+            <div class="box">             
               <!-- /.box-header -->
                 <div class="box-body">
                     <table id="student_fee_detail_table" class="display table">                     
@@ -55,12 +55,35 @@
                                 <th>Student Name</th>
                                 <th>Registration No</th>
                                  
-                                <th>Concession Amount</th>                               
-                                <th>Action</th>                                                            
+                                <th>Old Fee Group</th>                               
+                                <th>New Fee Group</th>                                                            
                             </tr>
                         </thead>
                         <tbody id="searchResult">
-                         
+                          @foreach ($students as $student)  
+                          <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $student->name }}</td>
+                            <td>{{ $student->registration_no}}</td> 
+                            <td>
+                              <input type="" name="old_fee_group" value="" class="form-control">
+                             {{--  <select name="old_fee_group" class="form-control">
+                                @foreach ($feeGroups as $feeGroup)
+                                <option value=""></option> 
+                                @endforeach
+                                 
+                              </select> --}}
+                            </td>
+                            <td>
+                              <select name="old_fee_group" class="form-control">
+                                @foreach ($feeGroups as $feeGroup)
+                                <option value="">{{ $feeGroup->name }}</option> 
+                                @endforeach
+                                 
+                              </select>
+                            </td>
+                          </tr>
+                          @endforeach
                                                             
                         </tbody>
                         
@@ -69,7 +92,7 @@
 
                 </div>
             </div>    
- --}}
+
           
  
     </section>
@@ -108,45 +131,45 @@
  
  </script>
   <script>
-    // $('#btn_student_fee_detail_create').click(function(event) {        
-    //   $.ajaxSetup({
-    //             headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //             }
-    //         });
-    //    $.ajax({
-    //        url: '',
-    //        type: 'POST',       
-    //        data: $('#form_student_fee_group_detail').serialize() ,
-    //   })
-    //   .done(function(response) {
-    //    if(response.length>0){
-    //        $('#searchResult').html(''); 
-    //        for (var i = 0; i < response.length; i++) {
-    //          $('#searchResult').append(response[i]);
+    $('#btn_student_fee_detail_create').click(function(event) {        
+      $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+       $.ajax({
+           url: '{{ route('admin.studentFeeGroupDetail.search') }}',
+           type: 'POST',       
+           data: $('#form_student_fee_group_detail').serialize() ,
+      })
+      .done(function(response) {
+       if(response.length>0){
+           $('#searchResult').html(''); 
+           for (var i = 0; i < response.length; i++) {
+             $('#searchResult').append(response[i]);
              
-    //        } 
-    //    }
-    //    else{
-    //        $('#searchResult').html('<tr><td colspan="7"><h4 class="text-danger text-center">Record not found</h4></td></tr>');
-    //    }
-    //     // if (response.class === 'error') {                 
-    //     //      $.each(response.errors, function(index, val) {
-    //     //          toastr[response.class](val) 
-    //     //      }); 
-    //     // }
-    //     //   else {                 
-    //     //     toastr[response.class](response.message)  
+           } 
+       }
+       else{
+           $('#searchResult').html('<tr><td colspan="7"><h4 class="text-danger text-center">Record not found</h4></td></tr>');
+       }
+        // if (response.class === 'error') {                 
+        //      $.each(response.errors, function(index, val) {
+        //          toastr[response.class](val) 
+        //      }); 
+        // }
+        //   else {                 
+        //     toastr[response.class](response.message)  
             
-    //     // } 
-    //   })
-    //   .fail(function() {
-    //     console.log("error");
-    //   })
-    //   .always(function() {
-    //     console.log("complete");
-    //   }); 
-    // });
+        // } 
+      })
+      .fail(function() {
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      }); 
+    });
  
      
   </script>
