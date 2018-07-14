@@ -21,9 +21,10 @@ class StudentSearchController extends Controller
  	       ->orWhere('mother_name', 'like', '%'.$search.'%')
  	       ->orWhere('father_mobile', 'like', '%'.$search.'%')
  	       ->orWhere('dob', 'like', '%'.$search.'%')
- 	       ->take(13)->get();
- 	       
-  		return response()->json(['students'=>$students]);
+ 	       ->take(8)->get();
+ 	       $data = view('admin.finance.feecollection.stuentSearchTable',compact('students'))->render();
+           return response()->json($data);
+  		// return response()->json(['students'=>$students]);
  	    }
       
     public function viewmember($id){

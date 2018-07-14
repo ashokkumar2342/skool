@@ -89,6 +89,7 @@
                 <li><a href="{{ route('admin.studentFeeDetail.list') }}"><i class="fa fa-circle-o"></i>Student Fee Detail </a></li> 
                 <li><a href="{{ route('admin.studentFeeGroupDetail.list') }}"><i class="fa fa-circle-o"></i>Fee Group Wise </a></li> 
                 <li><a href="{{ route('admin.studentFeeAssign.list') }}"><i class="fa fa-circle-o"></i> Student Fee Assign </a></li>
+                <li><a href="{{ route('admin.studentFeeCollection.list') }}"><i class="fa fa-circle-o"></i> Fee Collection </a></li>
             </ul>
         </li>
          <li class="treeview">

@@ -59,26 +59,16 @@
                              <?php $__currentLoopData = $studentFeeDetails; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $studentFeeDetail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                <tr>
-                                  <td><input type="checkbox" name="id[]" value="<?php echo e($studentFeeDetail->id); ?>"></td> 
+                                  <td><?php echo e($studentFeeDetail->id); ?></td> 
                                   <td><?php echo e($studentFeeDetail->feeStructureLastDates->feeStructures->name); ?> </td> 
                                    
-                                  <td><input type="text" class="form-control" name="value[]" value="<?php echo e($studentFeeDetail->fee_amount); ?>"> </td> 
-                                  <td>  
-                                     <?php echo Form::select('concession',$concession, null, ['class'=>'form-control concession','placeholder'=>'Select Concession','required']); ?>
-
-                                    </td> 
-                                  <td>  
-                                       <input type="text" class="form-control" name="concession_amount" id="concession_amount" value="<?php echo e($studentFeeDetail->concession_amount); ?>"> 
-                                    </td>   
-                                  
-                                  <td><input type="text" class="form-control" name="value[]" value="<?php echo e(Carbon\Carbon::parse( $studentFeeDetail->last_date)->format(' F ')); ?>"> </td> 
-
-                                  <td>
+                                  <td><?php echo e($studentFeeDetail->fee_amount); ?></td> 
+                                  <td>   <?php echo e($studentFeeDetail->concession_id); ?> </td> 
+                                  <td><?php echo e($studentFeeDetail->concession_amount); ?></td>  
+                                  <td><?php echo e(Carbon\Carbon::parse( $studentFeeDetail->last_date)->format(' F ')); ?> </td> <td>
                                      <a class="btn_delete btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data ?')"   href="<?php echo e(route('admin.studentFeeDetail.delete', $studentFeeDetail->id  )); ?>"  ><i class="fa fa-trash"></i></a>
                                      <a href="#" data-id="<?php echo e($studentFeeDetail->feeStructureLastDates->id); ?>" id="add_show" class="btn btn-success btn-xs" data-toggle="modal" data-target="#student_fee_detail_model"><i class="fa fa-plus"></i></a>
-                                 </td> 
-                                   
-                                    
+                                 </td>  
                                </tr>   
                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
                          </tbody>

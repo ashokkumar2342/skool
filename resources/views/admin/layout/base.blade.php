@@ -78,5 +78,8 @@
       {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> --}}
       @include('admin.include.message')
     @stack('scripts')
+    <script>
+      $( ".datepicker").datepicker(); 
+    </script>
 </body>
 </html>

@@ -335,6 +335,17 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::delete('delete', 'StudentFeeGroupDetailController@destroy')->name('admin.studentFeeGroupDetail.delete');
     	    Route::put('update', 'StudentFeeGroupDetailController@update')->name('admin.studentFeeGroupDetail.update');
     	 });
+    	 //------------------------- Fee Collection --------------------------------- 
+    	Route::group(['prefix' => 'fee-collection'], function() {
+    	    Route::get('/', 'Fee\FeeCollectionController@index')->name('admin.studentFeeCollection.list');	 	
+    	    Route::get('show', 'Fee\FeeCollectionController@show')->name('admin.studentFeeCollection.show');
+    	    Route::get('show-fee-detail', 'Fee\FeeCollectionController@showfeedetail')->name('admin.studentFeeCollection.showFeeDetail');
+
+    	    Route::post('add', 'Fee\FeeCollectionController@store')->name('admin.studentFeeCollection.post');
+    	    Route::get('fee-detail', 'Fee\FeeCollectionController@feeDetail')->name('admin.studentFeeCollection.search');
+    	    Route::delete('delete', 'Fee\FeeCollectionController@destroy')->name('admin.studentFeeCollection.delete');
+    	    Route::put('update', 'Fee\FeeCollectionController@update')->name('admin.studentFeeCollection.update');
+    	 });
 
     	 //------------------------- Student Search --------------------------------- 
     	Route::group(['prefix' => 'search'], function() {

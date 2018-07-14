@@ -78,5 +78,8 @@
       
       <?php echo $__env->make('admin.include.message', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <?php echo $__env->yieldPushContent('scripts'); ?>
+    <script>
+      $( ".datepicker").datepicker(); 
+    </script>
 </body>
 </html>

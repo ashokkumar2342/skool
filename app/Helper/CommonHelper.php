@@ -1,5 +1,4 @@
-<?php 
-
+ <?php  
 use App\Model\StudentAttendance;
 // Total count Presrnt student
 function presentStudent(){
