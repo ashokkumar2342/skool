@@ -26,20 +26,27 @@
   <div class="form-group">
     <input type="hidden" name="student_id" value="{{ $student->id }}">
     <label for="email">Fee Paid Upto:</label> 
-    {{-- <input type="text" class="form-control datepicker" id="email" value="{{ date('m-Y') }}"> --}}
-    <select name="month" class="form-control">
-      <option value="1">Jan</option>
-      <option value="2">Feb</option>
-      <option value="3">March</option>
-      <option value="4">April</option>
-      <option value="5">May</option>
-      <option value="6">Jun</option>
-      <option value="7">July</option> 
-    </select>
-     <select name="year" class="form-control">
-      <option value="2018">2018</option>
-      <option value="2019">2019</option> 
-    </select>
+    {!! Form::select('month',[
+    	'1'=>'Jan',
+    	'2'=>'Feb',
+    	'3'=>'March',
+    	'4'=>'April',
+    	'5'=>'May',
+    	'6'=>'Jun',
+    	'7'=>'July',
+    	'8'=>'Aug',
+    	'9'=>'Sep',
+    	'10'=>'Oct',
+    	'11'=>'Nov',
+    	'12'=>'Dec',
+    	], $defultDate->month, ['class'=>'form-control','placeholder'=>'Select Month','required']) !!}
+   
+      
+    {!! Form::select('year',[
+    	'2018'=>'2018',
+    	'2019'=>'2019',
+    	
+    	], $defultDate->year, ['class'=>'form-control','placeholder'=>'Select Year','required']) !!}
   </div> 
   <button type="button" class="btn btn-warning" onclick="callAjax()">Show</button>
 </form>

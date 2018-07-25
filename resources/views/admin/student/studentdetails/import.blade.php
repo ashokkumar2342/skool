@@ -6,7 +6,7 @@
 <section class="content-header">
     <h1> Student Add <small>Details</small> </h1>
       <ol class="breadcrumb">
-       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>        
+       <li><a href="{{ asset('sample.csv') }}"><i class="fa fa-download"></i> Download Sample</a></li>        
       </ol>
 </section>
     <section class="content">        

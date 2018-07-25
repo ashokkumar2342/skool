@@ -11,7 +11,7 @@
             <div class="box-body"> 
                 <div class="row">  
                     <div class="col-md-12"> 
-                      <form class="form-vertical fee_collection_form"> 
+                        <form class="form-vertical fee_collection_form"> 
                             <div class="col-lg-2">                           
                                  <div class="form-group">
                                   {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
@@ -22,10 +22,19 @@
                            <div class="col-lg-1" style="padding-top: 20px;"> 
                            <button class="btn btn-success" type="button" id="btn_student_registration_show">Show</button>
                           </div>                     
-                      </form> 
-                      <div class="col-md-2" style="padding-top: 20px;">
+                        </form> 
+                      <div class="col-md-1" style="padding-top: 20px;">
                            <button class="btn btn-warning" type="button" id="btn_student_registration_show" data-toggle="modal" data-target="#myModal">Search</button>
                            
+                      </div>
+                      <div class="col-md-1" style="padding-top: 20px;">
+                           <button class="btn btn-info" type="button" id="btn_student_ledger">Ledger</button> 
+                      </div>
+                      <div class="col-md-2" style="padding-top: 20px;">
+                           <button class="btn btn-primary" type="button" id="btn_student_ledger">Previous Reciept</button> 
+                      </div>
+                      <div class="col-md-2" style="padding-top: 20px;">
+                           <button class="btn btn-danger" type="button" id="btn_student_ledger">Cancel Reciept</button> 
                       </div>
                     </div> 
 
@@ -50,8 +59,7 @@
 
             <!-- Modal -->
             <div id="myModal" class="modal fade" role="dialog">
-              <div class="modal-dialog">
-
+              <div class="modal-dialog"> 
                 <!-- Modal content-->
                 <div class="modal-content">
                   <div class="modal-header">
@@ -77,8 +85,7 @@
                                 <th>Name</th>
                                 <th>Registration No</th> 
                                 <th>Father's Name</th>                               
-                                <th>Mother's Name</th>                               
-                                                            
+                                <th>Mother's Name</th>      
                                 <th>Action</th>                                                            
                             </tr>
                         </thead>
@@ -91,12 +98,7 @@
                 </div>
 
               </div>
-            </div>
-
-          
-
-           
- 
+            </div> 
     </section>
     <!-- /.content -->
 @endsection
@@ -164,13 +166,24 @@
 
           if ($('#siblig_chk').is(":checked")) {
               $("#siblig_div").show();
+              $('.checkbox').prop('checked', $(this).prop("checked")); 
                
           } else {
               $("#siblig_div").hide();
              
           }
-        
+          $('.checked_all').on('change', function() {     
+                  $('.checkbox').prop('checked', $(this).prop("checked"));              
+          }); 
     } 
+    function paymentmode(value){
+        if(value==1){
+            $('#payment_mode_detail').hide(500);
+        }else{
+            $('#payment_mode_detail').show(500);
+        }
+       
+    }
 
     function studentSearch(){
         $.ajaxSetup({
@@ -210,7 +223,7 @@
             data: {student_id:studentId} ,
        })
        .done(function(response) {
-          $('#fee_detail').html(response);
+          $('#fee_collection_detail').html(response);
           $("#myModal").modal("hide");
           $("#searchResult" ).empty();
           $("#search_form").trigger( "reset" );
@@ -224,11 +237,62 @@
        });   
     }
 
+    function feeCollectionSubmit(){
+        $.ajaxSetup({
+                  headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+         $.ajax({
+             url: '{{ route('admin.studentFeeCollection.post') }}',
+             type: 'post',       
+             data: $('#fee_collection_submit_form').serialize() ,
+        })
+        .done(function(response) {
+            
+        })
+        .fail(function() {
+          console.log("error");
+        })
+        .always(function() {
+          console.log("complete");
+        }); 
+    }
+    //fee Collection Print
+    function feeCollectionPrint(){
+        $.ajaxSetup({
+                  headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+         $.ajax({
+             url: '{{ route('admin.studentFeeCollection.print') }}',
+             type: 'post',       
+             data: $('#fee_collection_submit_form').serialize() ,
+        })
+        .done(function(response) {
+            
+            // window.open('http://www.google.com');
+            // window.location.attr(href) = 'http://www.google.com'
+            // window.open('http://www.google.com', '_blank');
+        })
+        .fail(function() {
+          console.log("error");
+        })
+        .always(function() {
+          console.log("complete");
+        }); 
+    }
+
+
+
   </script>
   <script>
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function() {
         $('.student_list_select').select2();
+
     });
+
   </script>
 @endpush

@@ -23,6 +23,8 @@ class CreateStudentDefaultValuesTable extends Migration
             $table->string('state'); 
             $table->string('city'); 
             $table->string('pincode'); 
+            $table->smallInt('month'); 
+            $table->smallInt('year'); 
             $table->softDeletes();        
             $table->timestamps();
             $table->boolean('status')->default('1');

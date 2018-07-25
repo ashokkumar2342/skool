@@ -342,10 +342,18 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::get('show-fee-detail', 'Fee\FeeCollectionController@showfeedetail')->name('admin.studentFeeCollection.showFeeDetail');
 
     	    Route::post('add', 'Fee\FeeCollectionController@store')->name('admin.studentFeeCollection.post');
+    	    Route::post('print', 'Fee\FeeCollectionController@print')->name('admin.studentFeeCollection.print');
+    	    Route::post('print2', 'Fee\FeeCollectionController@print')->name('admin.studentFeeCollection.print2');
     	    Route::get('fee-detail', 'Fee\FeeCollectionController@feeDetail')->name('admin.studentFeeCollection.search');
     	    Route::delete('delete', 'Fee\FeeCollectionController@destroy')->name('admin.studentFeeCollection.delete');
     	    Route::put('update', 'Fee\FeeCollectionController@update')->name('admin.studentFeeCollection.update');
     	 });
+    	 //------------------------- Fee Collection --------------------------------- 
+    	Route::group(['prefix' => 'cashbook'], function() {
+    	    Route::get('/', 'Fee\CashbookController@index')->name('admin.cashbook.list');	 	
+    	    Route::get('print/{student_id}', 'Fee\CashbookController@printReciept')->name('admin.cashbook.print'); 
+    	 });
+     
 
     	 //------------------------- Student Search --------------------------------- 
     	Route::group(['prefix' => 'search'], function() {

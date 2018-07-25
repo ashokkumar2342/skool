@@ -4,9 +4,9 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StudentLedger extends Model
+class BalanceAmount extends Model
 {
-      protected $fillable = [
+       protected $fillable = [
          'student_id' ,
     ];
 }

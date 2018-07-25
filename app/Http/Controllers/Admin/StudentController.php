@@ -506,8 +506,10 @@ class StudentController extends Controller
         })->get();
 
        
-        foreach ($results as $key => $value) {                
+        foreach ($results as $key => $value) {  
+
              if ($value->registration_no!=null) {
+                    // dd($value); 
                 $admin_id = Auth::guard('admin')->user()->id;
                 $username = str_random('10');
                 $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );

@@ -1,22 +1,21 @@
-<?php $__env->startSection('body'); ?>
+@extends('admin.layout.base')
+@section('body')
 <section class="content-header">
-    <h1>Student Fee Collection </h1>
+    <h1>Cashbook </h1>
       <ol class="breadcrumb">
       </ol>
 </section>
     <section class="content">
         <div class="box">             
             <!-- /.box-header -->
-            <div class="box-body"> 
+          {{--   <div class="box-body"> 
                 <div class="row">  
                     <div class="col-md-12"> 
                       <form class="form-vertical fee_collection_form"> 
                             <div class="col-lg-2">                           
                                  <div class="form-group">
-                                  <?php echo e(Form::label('student_id','Registration No',['class'=>' control-label'])); ?>
-
-                                   <?php echo e(Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required',])); ?>
-
+                                  {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
+                                   {{ Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required',]) }}
                                    <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                                  </div>    
                             </div>                                                             
@@ -32,14 +31,60 @@
 
                  </div>  
             </div>
-            <!-- /.box-body -->
+           
          </div>
-          <!-- /.box -->
+ --}}          <!-- /.box -->
           <div class="box">             
               <!-- /.box-header -->
               <div class="box-body">             
                   <div class="col-md-12" id="fee_collection_detail"> 
-                     
+                     <table class="table">
+                         
+                         <thead>
+                             <tr>
+                                 <th> receipt no</th>
+                                 <th>student name</th>
+                                 <th>class</th>
+                                 <th>roll no</th>
+                                 <th>registration no</th>
+                                 <th> father name</th>
+                                 <th>receipt date</th>
+                                 <th>receipt amount</th>
+                                 <th>deposit amount</th>
+                                 <th>balance amount</th>
+                                 <th>payment mode</th>
+                                 <th>payment mode date</th>
+                                 <th>bank name</th>
+                                 <th>on account</th>
+                                 <th>Action</th>
+                                
+                             </tr>
+                         </thead>
+                         <tbody>
+                            @foreach ($cashbooks as $cashbook)
+                               <tr>
+                                   <td>{{ $cashbook->receipt_no }}</td>
+                                   <td>{{ $cashbook->student_name }}</td>
+                                   <td>{{ $cashbook->class }}</td>
+                                   <td>{{ $cashbook->roll_no }}</td>
+                                   <td>{{ $cashbook->registration_no }}</td>
+                                   <td>{{ $cashbook->father_name }}</td>
+                                   <td>{{ $cashbook->receipt_date }}</td>
+                                   <td>{{ $cashbook->receipt_amount }}</td>
+                                   <td>{{ $cashbook->deposit_amount }}</td>
+                                   <td>{{ $cashbook->balance_amount }}</td>
+                                   <td>{{ $cashbook->payment_mode }}</td>
+                                   <td>{{ $cashbook->payment_mode_date }}</td>
+                                   <td>{{ $cashbook->bank_name }}</td>
+                                   <td>{{ $cashbook->on_account }}</td> 
+                                   <td>
+                                    <a href="{{ route('admin.cashbook.print',$cashbook->id) }}" target="blank" class="btn btn-success btn-xs" title="print">print</a>
+                                   </td>
+                               </tr>  
+                            @endforeach
+                             
+                         </tbody>
+                     </table>
                   </div>  
                   <div class="col-md-12" id="fee_detail"> 
                      
@@ -51,8 +96,7 @@
 
             <!-- Modal -->
             <div id="myModal" class="modal fade" role="dialog">
-              <div class="modal-dialog">
-
+              <div class="modal-dialog"> 
                 <!-- Modal content-->
                 <div class="modal-content">
                   <div class="modal-header">
@@ -66,7 +110,7 @@
                           <i class="fa fa-search"></i>
                         </div>
                          <input type="text" class="form-control" onkeyup="studentSearch()" name="search" id="search">
-                         <?php echo e(csrf_field()); ?> 
+                         {{ csrf_field() }} 
                       </div>    
                     </form>
                   </div>
@@ -78,8 +122,7 @@
                                 <th>Name</th>
                                 <th>Registration No</th> 
                                 <th>Father's Name</th>                               
-                                <th>Mother's Name</th>                               
-                                                            
+                                <th>Mother's Name</th>      
                                 <th>Action</th>                                                            
                             </tr>
                         </thead>
@@ -92,146 +135,29 @@
                 </div>
 
               </div>
-            </div>
-
-          
-
-           
- 
+            </div> 
     </section>
     <!-- /.content -->
-<?php $__env->stopSection(); ?>
-<?php $__env->startPush('links'); ?>
+@endsection
+@push('links')
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"> 
    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-   
+   {{-- <link rel="stylesheet" href="{{ asset('admin_asset/plugins/select2/select2.min.css') }}"> --}}
  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
 
-<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
-<?php $__env->stopPush(); ?> 
- <?php $__env->startPush('scripts'); ?>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endpush 
+ @push('scripts')
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
- 
+ {{-- <script src="{{ asset('admin_asset/plugins/select2/select2.full.min.js') }}"></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> 
  
-  <script>
-    $('#btn_student_registration_show').click(function(event) {        
-      $.ajaxSetup({
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-       $.ajax({
-           url: '<?php echo e(route('admin.studentFeeCollection.show')); ?>',
-           type: 'get',       
-           data: $('.fee_collection_form').serialize() ,
-      })
-      .done(function(response) {
-         $('#fee_collection_detail').html(response);
-      })
-      .fail(function() {
-        console.log("error");
-      })
-      .always(function() {
-        console.log("complete");
-      }); 
-    }); 
-/////////////////////shwo fee detaila//////////////
-    // $('#show_fee_btn').click(function(event) {  
-      function callAjax(){ 
-      $.ajaxSetup({
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-       $.ajax({
-           url: '<?php echo e(route('admin.studentFeeCollection.search')); ?>',
-           type: 'get',       
-           data: $('#show_fee_detail_form').serialize() ,
-      })
-      .done(function(response) {
-         $('#fee_detail').html(response);
-      })
-      .fail(function() {
-        console.log("error");
-      })
-      .always(function() {
-        console.log("complete");
-      }); 
-    }  
-
-    function showHide(){ 
-
-          if ($('#siblig_chk').is(":checked")) {
-              $("#siblig_div").show();
-               
-          } else {
-              $("#siblig_div").hide();
-             
-          }
-        
-    } 
-
-    function studentSearch(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $('#searchResult').show()
-        var search = $('#search').val();
-         
-        $.ajax({
-            url: '<?php echo e(route('admin.student.search')); ?>',
-            type: 'post',
-           
-            data: {'search':search},
-        })
-        .done(function(response) {
-             $('#searchResult').html(response);
-        })
-        .fail(function() {
-            console.log("error");
-        })
-        .always(function() {
-            console.log("complete");
-        });
-    }
-
-    function studentDetail(studentId){
-       $.ajaxSetup({
-                 headers: {
-                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                 }
-             });
-        $.ajax({
-            url: '<?php echo e(route('admin.studentFeeCollection.show')); ?>',
-            type: 'get',       
-            data: {student_id:studentId} ,
-       })
-       .done(function(response) {
-          $('#fee_detail').html(response);
-          $("#myModal").modal("hide");
-          $("#searchResult" ).empty();
-          // $("#search_form" ).reset();
-          $("#search_form").trigger( "reset" );
-
-       })
-       .fail(function() {
-         console.log("error");
-       })
-       .always(function() {
-         console.log("complete");
-       });   
-    }
-
-  </script>
+   
   <script>
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function() {
         $('.student_list_select').select2();
     });
   </script>
-<?php $__env->stopPush(); ?>
-<?php echo $__env->make('admin.layout.base', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+@endpush

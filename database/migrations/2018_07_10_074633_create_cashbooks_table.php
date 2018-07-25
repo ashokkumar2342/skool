@@ -21,7 +21,10 @@ class CreateCashbooksTable extends Migration
             $table->decimal('receipt_amount');
             $table->decimal('deposit_amount');
             $table->decimal('balance_amount');
-            $table->string('payment_mode_id');
+            $table->string('payment_mode');
+            $table->string('refrence_no')->nullable();
+            $table->string('payment_mode_date')->nullable();
+            $table->string('bank_name')->nullable();
             $table->string('on_account');
             $table->string('student_name');
             $table->string('class');
