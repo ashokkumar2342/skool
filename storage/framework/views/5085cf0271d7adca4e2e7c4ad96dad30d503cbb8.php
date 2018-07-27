@@ -1,5 +1,5 @@
- @foreach ($cashbooks as $key => $datas) 
-    @foreach ($datas as $cashbook)
+ <?php $__currentLoopData = $cashbooks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $datas): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+    <?php $__currentLoopData = $datas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cashbook): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
        
    
 <div>
@@ -24,13 +24,13 @@
                                         <span id="lblRegistraionFees0" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Receipt No : </span>
                                     </td>
                                     <td class="style4">
-                                        <span id="lblReceiptNo" style="font-size:Small;">{{ $cashbook->receipt_no }}</span>
+                                        <span id="lblReceiptNo" style="font-size:Small;"><?php echo e($cashbook->receipt_no); ?></span>
                                     </td>
                                     <td align="left" style="font-weight: bold; font-size: small;">
                                         <span id="lblRegistraionFees4" style="font-family:Arial;font-size:Small;text-align: left;">Date :</span>
                                     </td>
                                     <td>
-                                        <span id="lblReceiptDate" style="font-size:Small;">{{ $cashbook->receipt_date }}</span>
+                                        <span id="lblReceiptDate" style="font-size:Small;"><?php echo e($cashbook->receipt_date); ?></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -38,13 +38,13 @@
                                         <span id="lblRegistraionFees1" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Student Id : </span>
                                     </td>
                                     <td class="style4">
-                                        <span id="lblStudentId" style="font-size:Small;">{{ $cashbook->registration_no }}</span>
+                                        <span id="lblStudentId" style="font-size:Small;"><?php echo e($cashbook->registration_no); ?></span>
                                     </td>
                                     <td align="left" style="font-weight: bold; font-size: small;">
                                         <span id="lblRegistraionFees5" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Class : </span>
                                     </td>
                                     <td>
-                                        <span id="lblClass" style="font-size:Small;">{{ $cashbook->class }}</span>
+                                        <span id="lblClass" style="font-size:Small;"><?php echo e($cashbook->class); ?></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -52,7 +52,7 @@
                                         <span id="lblStudentName" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Name: </span>
                                     </td>
                                     <td>
-                                        <span id="lblName" style="font-size:Small;">{{ $cashbook->name }}</span>
+                                        <span id="lblName" style="font-size:Small;"><?php echo e($cashbook->name); ?></span>
                                     </td>
                                     <td align="left" style="font-weight: bold; font-size: small;">
                                         <span id="lblRegistraionFees6" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Section:</span>
@@ -66,7 +66,7 @@
                                         <span id="lblRegistraionFees3" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Father's Name:</span>
                                     </td>
                                     <td>
-                                        <span id="lblFather" style="font-size:Small;">{{ $cashbook->father_name }}</span>
+                                        <span id="lblFather" style="font-size:Small;"><?php echo e($cashbook->father_name); ?></span>
                                     </td>
                                     <td class="style1">
                                         
@@ -281,5 +281,5 @@
 <div style="padding-top: 300px;">
     
 </div>
- @endforeach
-@endforeach
+ <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

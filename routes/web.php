@@ -16,7 +16,7 @@ Route::get('/', function () {
     return view('front.home');
 });
 
-Auth::routes();
+// Auth::routes();
 
 
 

@@ -11,18 +11,22 @@ use App\Model\StudentLedger;
 use App\Model\StudentSiblingInfo;
 use App\Student;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\increment;
 use Illuminate\Http\Request;
+use App\Events\SmsEvent;
  
 
 class FeeCollectionController extends Controller
 {
     public function index(){
+        
     	$students = array_pluck(Student::get(['id','registration_no']), 'registration_no','id');
     	return view('admin.finance.feecollection.fee_collection_form',compact('students'));
     }
 
     // show main form show search stuent form
     public function show(Request $request,Student $student){ 
+
     	$student = Student::find($request->student_id); 
        $defultDate = StudentDefaultValue::find(1);
 
@@ -52,8 +56,10 @@ class FeeCollectionController extends Controller
             $StudentFeeDetails = StudentFeeDetail::where('student_id',$student->id)->whereMonth('from_date' , $request->month)->whereYear('from_date' , $request->year)->get();
 
             $cashbook = new Cashbook();
-            $cashbook->student_id = $student->id;
-            $cashbook->receipt_no = date('Y').$student->id.time();
+            $cashbook->student_id = $student->id; 
+            $rn = (int)Cashbook::orderBy('id', 'desc')->first()->receipt_no; 
+            $cashbook->receipt_no = $rn+1 ;
+          
             $cashbook->receipt_date = date('Y-m-d');
             $cashbook->receipt_amount = $StudentFeeDetails->sum('fee_amount')-$StudentFeeDetails->sum('concession_amount');
             $cashbook->deposit_amount = $request->deposit_amount;
@@ -62,7 +68,7 @@ class FeeCollectionController extends Controller
             $cashbook->refrence_no = $request->refrence_no;
             $cashbook->payment_mode_date = $request->payment_mode_date;
             $cashbook->bank_name = $request->bank_name;
-            $cashbook->on_account = 'on_account';
+            $cashbook->on_account = 1;
             $cashbook->student_name = $student->name;
             $cashbook->class = $student->classes->name;
             $cashbook->roll_no = $student->roll_no;
@@ -90,10 +96,16 @@ class FeeCollectionController extends Controller
             $balanceAmount->receipt_no = $cashbook->receipt_no;
             $balanceAmount->receipt_date = $cashbook->receipt_date;
             $balanceAmount->balance_amount = $cashbook->balance_amount;
-            $balanceAmount->save(); 
+            $balanceAmount->save();  
+            //sms send fee details
+             $message = $student->name.' Fee Amount Paid '.'RS-'. $cashbook->deposit_amount;
+            event(new SmsEvent($student->father_mobile,$message));
+            $cashbooks[] = [$cashbook];
         }
-
-        return response()->json(['message'=>'Successfully','status'=>'success']);
+             
+        // return response()->json(['message'=>'Successfully','status'=>'success']);
+        $data = view('admin.finance.feecollection.print',compact('cashbooks'))->render();
+        return response()->json($data);
        
     }
 

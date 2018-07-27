@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Fee;
 
-use App\Model\Cashbook;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Cashbook;
+use App\Model\ClassType;
+use App\Model\StudentDefaultValue;
+use Illuminate\Http\Request;
 
 class CashbookController extends Controller
 {
@@ -15,8 +17,10 @@ class CashbookController extends Controller
      */
     public function index()
     {
-        $cashbooks = Cashbook::get();
-        return view('admin.finance.cashbook.list',compact('cashbooks'));
+        // $cashbooks = Cashbook::get();
+        $classes = array_pluck(ClassType::get(['name','alias'])->toArray(),'alias', 'name');
+        $default = StudentDefaultValue::find(1); 
+        return view('admin.finance.cashbook.list',compact('classes','default'));
     }
 
     /**
@@ -30,6 +34,24 @@ class CashbookController extends Controller
         $cashbook = Cashbook::find($id);
          
        return view('admin.finance.cashbook.print',compact('cashbook'));
+    }
+
+    public function daterange(Request $request)
+    {
+         
+        $date  = explode('-',$request->daterange);// dateRange is you string
+        $dateFrom = date( 'Y-m-d', strtotime($date[0]));
+        $dateTo = date( 'Y-m-d', strtotime($date[1])); 
+
+        $cashbooks = Cashbook::whereBetween('created_at', [$dateFrom, $dateTo])
+                                ->orWhere('class',$request->class)
+                                ->get();
+        $response['data'] = view('admin.finance.cashbook.daterange_result',compact('cashbooks'))->render();
+        $response['status'] = 1; 
+         
+        return response()->json($response);
+         
+       // return view('admin.finance.cashbook.print',compact('cashbook'));
     }
 
     /**

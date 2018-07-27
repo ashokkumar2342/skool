@@ -1,4 +1,5 @@
 <?php
+ 
 Route::get('/', 'Auth\LoginController@index')->name('admin.home');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('admin.login'); 
 Route::get('admin-password/reset', 'Auth\ForgetPasswordController@sendResetLinkEmail')->name('admin.password.email');
@@ -351,6 +352,7 @@ Route::group(['middleware' => 'admin'], function() {
     	 //------------------------- Fee Collection --------------------------------- 
     	Route::group(['prefix' => 'cashbook'], function() {
     	    Route::get('/', 'Fee\CashbookController@index')->name('admin.cashbook.list');	 	
+    	    Route::post('daterange', 'Fee\CashbookController@daterange')->name('admin.cashbook.daterange');	 	
     	    Route::get('print/{student_id}', 'Fee\CashbookController@printReciept')->name('admin.cashbook.print'); 
     	 });
      

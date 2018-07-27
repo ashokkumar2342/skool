@@ -68,7 +68,11 @@ function callJqueryDefault(divId){
 				if(formObj.getAttribute('data-table'))
 				{
 				$("#"+formObj.getAttribute('data-table')).DataTable({
-					'iDisplayLength': 10,
+					'paging':   false,
+					dom: 'Bfrtip',
+						buttons: [
+							'copy', 'csv', 'excel', 'pdf', 'print'
+						]
 				});
 				}
 				else if(formObj.getAttribute('data-table-without-pagination'))
