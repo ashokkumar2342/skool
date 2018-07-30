@@ -106,8 +106,9 @@ function callJqueryDefault(divId){
 						  });
 				}
 		}else{
+			
 			$('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button><strong>Success!</strong> '+response.msg+'</div>').insertAfter(formObj);
-		}
+		}	
 		if(formObj.getAttribute('no-reset')!="true"){
 			formObj.reset();
 			$(formObj).find('.multiselect').selectpicker("refresh");

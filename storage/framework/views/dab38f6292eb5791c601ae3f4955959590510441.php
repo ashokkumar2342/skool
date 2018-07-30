@@ -1,4 +1,4 @@
-
+ 
 <form  method="post" id="fee_collection_submit_form" accept-charset="utf-8">
 
 <div class="panel panel-default" style="margin-top: 20px">
@@ -110,12 +110,17 @@
  		</div> 
   </div>
   <div class="panel-footer text-center">
-   	<button type="button" class="btn btn-success" onclick="feeCollectionSubmit()">Submit</button> 
-   	<button type="button" class="btn btn-success" onclick="feeCollectionPrint()">Print</button> 
+  	 <?php if($StudentFeeDetail->paid==0): ?>
+  	 	 <button type="button" class="btn btn-success" onclick="feeCollectionSubmit()">Submit</button> 
+   	
    	  
-   	    <input type="checkbox" autocomplete="off"> Print
+   	    <input type="checkbox" name="print" autocomplete="off"> Print
 
    	  </label>
+   	  <?php else: ?>
+   	   <button type="button" disabled="" class="btn btn-success">Paid</button>
+  	 <?php endif; ?>
+   	
    	  
   </div>
 </div>

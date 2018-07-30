@@ -13,5 +13,9 @@ class StudentFeeDetail extends Model
         // return $this->hasManyThrough('App\Model\FeeStructure', 'App\Model\FeeStructureLastDate','fee_structure_id,fee_structure_last_date_id','id','id');
 
     }
+
+    public function students(){
+    	return $this->hasOne('App\Student','id','student_id');
+    }
     
 }

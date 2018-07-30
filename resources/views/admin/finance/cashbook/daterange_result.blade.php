@@ -39,7 +39,8 @@
                  <td>{{ $cashbook->bank_name }}</td>
                  <td>{{ $cashbook->on_account }}</td> 
                  <td>
-                  <a href="{{ route('admin.cashbook.print',$cashbook->id) }}" target="blank" class="btn btn-success btn-xs" title="print">print</a>
+                  <a href="{{ route('admin.cashbook.print',$cashbook->id) }}" target="blank" class="btn btn-success btn-xs" title="print"><i class="fa fa-print "></i></a>
+                  <a onclick="callAjaxUrl('{{ route('admin.cashbook.cancel',$cashbook->id) }}')" href="javascript:"   class="btn btn-danger btn-xs" title="Reciept Cancel"><i class="fa fa-window-close "></i></a>
                  </td>
              </tr>  
           @endforeach

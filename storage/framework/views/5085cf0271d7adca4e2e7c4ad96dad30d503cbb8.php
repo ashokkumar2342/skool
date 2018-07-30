@@ -74,7 +74,7 @@
                                     </td>
                                     <td>
                                         
-                                        <span id="lblMother1" style="font-size:Small;">KANCHAN</span>
+                                        <span id="lblMother1" style="font-size:Small;"><?php echo e($cashbook->mother_name); ?></span>
                                     </td>
                                 </tr>
                             </table>
@@ -90,117 +90,38 @@
                                         Amount
                                     </td>
                                 </tr>
-                                <tr>
+                               <?php $StudentFeeDetails = App\Model\StudentFeeDetail::where('student_id',$cashbook->student_id)->whereMonth('from_date' , $request->month)->whereYear('from_date' , $request->year)->get(); ?>
+                                <?php $__currentLoopData = $StudentFeeDetails; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $StudentFeeDetail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                     <tr>
+                                         <td align="left" style="font-weight: bold; font-size: small;">
+                                             <span id="lblRegistraionFees" style="display:inline-block;font-family:Arial;font-size:Small;text-align: left;"><?php echo e($StudentFeeDetail->feeStructureLastDates->feeStructures->name); ?></span>
+                                         </td>
+                                         <td align="right" style="font-size: small;">
+                                             <span id="lblRegFees" style="font-family:Arial;font-size:Small;"><?php echo e($StudentFeeDetail->fee_amount); ?></span>
+                                         </td>
+                                     </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($StudentFeeDetails->sum('concession_amount') !=0 ): ?>
+                                     <tr>
                                     <td align="left" style="font-weight: bold; font-size: small;">
-                                        <span id="lblRegistraionFees" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Registration Fee</span>
+                                        <span id="lblAdmissionFee" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Concession (-)</span>
                                     </td>
                                     <td align="right" style="font-size: small;">
-                                        <span id="lblRegFees" style="font-family:Arial;font-size:Small;">0</span>
+                                        <span id="lblAdmissionFees" style="font-family:Arial;font-size:Small;"><?php echo e($StudentFeeDetails->sum('concession_amount')); ?></span>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-weight: bold; font-size: small;">
-                                        <span id="lblAdmissionFee" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Admission Fee</span>
-                                    </td>
-                                    <td align="right" style="font-size: small;">
-                                        <span id="lblAdmissionFees" style="font-family:Arial;font-size:Small;">0</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-weight: bold; font-size: small;">
-                                        <span id="lblAdmissionFee" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Admission Form Fee</span>
-                                    </td>
-                                    <td align="right" style="font-size: small;">
-                                        <span id="lblAdmissionFees" style="font-family:Arial;font-size:Small;">0</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-weight: bold; font-size: small;">
-                                        <span id="lblDevelopmentCharges" style="display:inline-block;font-family:Arial;font-size:Small;width:220px;text-align: left;">Annual Development Charges</span>
-                                    </td>
-                                    <td align="right" style="font-size: small;">
-                                        <span id="lblAnnualCharges" style="font-family:Arial;font-size:Small;">0</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-weight: bold; font-size: small;">
-                                        <span id="lblCaution" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Caution Money</span>
-                                    </td>
-                                    <td align="right" style="font-size: small;">
-                                        <span id="lblCautionMoney" style="font-family:Arial;font-size:Small;">0</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-weight: bold; font-size: small;">
-                                        Tuition Fee
-                                    </td>
-                                    <td align="right" style="font-size: small;">
-                                        <span id="lblTutionFees" style="font-family:Arial;font-size:Small;">5970</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-weight: bold; font-size: small;">
-                                        Smart Class
-                                    </td>
-                                    <td align="right" style="font-size: small;">
-                                        <span id="lblSmartClass" style="font-family:Arial;font-size:Small;">750</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-weight: bold; font-size: small;">
-                                        SMS
-                                    </td>
-                                    <td align="right" style="font-size: small;">
-                                        <span id="lblSMS" style="font-size:Small;">240</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-weight: bold; font-size: small;">
-                                        Activity Charges
-                                    </td>
-                                    <td align="right" style="font-size: small;">
-                                        <span id="lblActivity" style="font-family:Arial;font-size:Small;">750</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-weight: bold; font-size: small;">
-                                        Transport Maintenance Charges
-                                    </td>
-                                    <td align="right" style="font-size: small;">
-                                        <span id="lblTransport" style="font-family:Arial;font-size:Small;">0</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-weight: bold; font-size: small;">
-                                        <span id="lblLateFeeFine" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;"></span>
-                                    </td>
-                                    <td align="right" style="font-size: small;">
-                                        <span id="lblFineAmt" style="font-family:Arial;font-size:Small;"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-weight: bold; font-size: small;">
-                                    </td>
-                                    <td align="right" style="font-size: small;">
-                                    </td>
-                                </tr>
+                                </tr> 
+                                <?php endif; ?>
+                                
                                 <tr>
                                     <td align="Right" style="font-weight: bold; font-size: small;">
                                         <span id="lblSSDiscount1" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Payable Fee</span>
                                     </td>
                                     <td align="right" style="border-style: solid none none none; font-size: small;">
-                                        <span id="lblPayableFees" style="font-family:Arial;font-size:Small;">7710</span>
+                                        <span id="lblPayableFees" style="font-family:Arial;font-size:Small;"><?php echo e($netamount=$StudentFeeDetails->sum('fee_amount') - $StudentFeeDetails->sum('concession_amount')); ?></span>
                                     </td>
                                 </tr>
                                 
-                                <tr>
-                                    <td align="Right" style="font-weight: bold; font-size: small;">
-                                        <span id="lblSSDiscount0" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;"></span>
-                                    </td>
-                                    <td align="right">
-                                        <span id="lblPreviousBalance" style="font-family:Arial;font-size:Small;"></span>
-                                    </td>
-                                </tr>
+                              
                                 <tr>
                                     <td align="Right" style="font-weight: bold; font-size: small;">
                                         <span id="lblSSDiscount" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;"></span>
@@ -209,30 +130,26 @@
                                         <span id="lblSiblingStaff" style="font-family:Arial;font-size:Small;"></span>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td align="Right" style="font-weight: bold; font-size: small;">
-                                        <span id="lblSSDiscount2" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Discount (-)</span>
-                                    </td>
-                                    <td align="right">
-                                        <span id="lblOtherDiscount" style="font-family:Arial;font-size:Small;">0</span>
-                                    </td>
-                                </tr>
+                                 
                                 <tr>
                                     <td align="Right" style="font-weight: bold; font-size: small;">
                                         <span id="lblSSDiscount3" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Received Amount </span>
                                     </td>
                                     <td align="right" style="border-style: solid none Solid none; font-size: small;">
-                                        <span id="lblNetPaid" style="font-family:Arial;font-size:Small;">7710</span>
+                                        <span id="lblNetPaid" style="font-family:Arial;font-size:Small;"><?php echo e($cashbook->deposit_amount); ?></span>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td align="Right" style="font-weight: bold; font-size: small;">
-                                        <span id="lblLessLbl" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Balance Fee </span>
+                                 <?php if($cashbook->balance_amount !=0): ?>
+                                <tr>  
+                                   <td align="Right" style="font-weight: bold; font-size: small;">
+                                        <span id="lblLessLbl" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Balance Amount </span>
                                     </td>
+                                   
+                                    
                                     <td align="right" style=" font-size: small;">
-                                        <span id="lblLess" style="font-family:Arial;font-size:Small;">0</span>
+                                        <span id="lblLess" style="font-family:Arial;font-size:Small;"><?php echo e($cashbook->balance_amount); ?></span>
                                     </td>
-                                </tr>
+                                </tr> <?php endif; ?>
                             </table>
                             <hr />
                         </div>
@@ -278,7 +195,7 @@
         </center>
     
 </div>
-<div style="padding-top: 300px;">
+<div style="padding-top: 500px;">
     
 </div>
  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

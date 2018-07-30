@@ -16,6 +16,7 @@ class CreateCashbooksTable extends Migration
         Schema::create('cashbooks', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('student_id');
+            $table->unsignedInteger('user_id');
             $table->string('receipt_no');
             $table->date('receipt_date');
             $table->decimal('receipt_amount');

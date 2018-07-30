@@ -91,6 +91,7 @@
                 <li><a href="<?php echo e(route('admin.studentFeeAssign.list')); ?>"><i class="fa fa-circle-o"></i> Student Fee Assign </a></li>
                 <li><a href="<?php echo e(route('admin.studentFeeCollection.list')); ?>"><i class="fa fa-circle-o"></i> Fee Collection </a></li>
                 <li><a href="<?php echo e(route('admin.cashbook.list')); ?>"><i class="fa fa-circle-o"></i> Cashbook </a></li>
+                <li><a href="<?php echo e(route('admin.feeDue.list')); ?>"><i class="fa fa-circle-o"></i> Fee Due List </a></li>
             </ul>
         </li>
          <li class="treeview">

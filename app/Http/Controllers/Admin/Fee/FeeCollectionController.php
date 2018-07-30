@@ -19,7 +19,7 @@ use App\Events\SmsEvent;
 class FeeCollectionController extends Controller
 {
     public function index(){
-        
+       
     	$students = array_pluck(Student::get(['id','registration_no']), 'registration_no','id');
     	return view('admin.finance.feecollection.fee_collection_form',compact('students'));
     }
@@ -57,7 +57,12 @@ class FeeCollectionController extends Controller
 
             $cashbook = new Cashbook();
             $cashbook->student_id = $student->id; 
-            $rn = (int)Cashbook::orderBy('id', 'desc')->first()->receipt_no; 
+            $data = Cashbook::first();
+            if (empty($data)) { 
+             $rn=0; 
+            }else{
+               $rn = (int)Cashbook::orderBy('id', 'desc')->first()->receipt_no; 
+            } 
             $cashbook->receipt_no = $rn+1 ;
           
             $cashbook->receipt_date = date('Y-m-d');
@@ -74,6 +79,10 @@ class FeeCollectionController extends Controller
             $cashbook->roll_no = $student->roll_no;
             $cashbook->registration_no = $student->registration_no;
             $cashbook->father_name = $student->father_name;
+            $cashbook->mother_name = $student->mother_name;
+            $cashbook->month = $request->month;
+            $cashbook->year = $request->year;
+            $cashbook->user_id = userId();
             $cashbook->save();
 
             //paid fee details 1
@@ -102,9 +111,10 @@ class FeeCollectionController extends Controller
             event(new SmsEvent($student->father_mobile,$message));
             $cashbooks[] = [$cashbook];
         }
+        
              
         // return response()->json(['message'=>'Successfully','status'=>'success']);
-        $data = view('admin.finance.feecollection.print',compact('cashbooks'))->render();
+        $data = view('admin.finance.feecollection.print',compact('cashbooks','request'))->render();
         return response()->json($data);
        
     }

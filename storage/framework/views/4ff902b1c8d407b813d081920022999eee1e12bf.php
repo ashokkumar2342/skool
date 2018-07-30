@@ -10,7 +10,7 @@
             <div class="box-body"> 
                 <div class="row">  
                     <div class="col-md-12">  
-                        <form  class="add_form" method="post" action="<?php echo e(route('admin.cashbook.daterange')); ?>" success-content-id="result_div_id" no-reset="true" data-table-without-pagination="result_table_id">
+                        <form  class="add_form" method="post" action="<?php echo e(route('admin.feeDue.filter')); ?>" success-content-id="result_div_id" no-reset="true" data-table-without-pagination="result_table_id">
                         <?php echo e(csrf_field()); ?>
 
                         <div class="col-lg-2" style="padding-top: 20px;"> 
@@ -27,27 +27,7 @@
                                <?php echo Form::select('class',$classes, null, ['class'=>'form-control','placeholder'=>'Select Class']); ?> 
                            </div> 
                         </div>
-                        <div class="col-lg-2" style="padding-top: 20px;"> 
-                           <div class="form-group">
-                               <?php echo e(Form::label('user','User',['class'=>' control-label'])); ?>
-
-                               <?php echo Form::select('user',$users, null, ['class'=>'form-control','placeholder'=>'Select User']); ?> 
-                           </div> 
-                        </div>  
-                        <div class="col-lg-2" style="padding-top: 20px;"> 
-                           <div class="form-group">
-                               <?php echo e(Form::label('paymentMode','Payment Mode',['class'=>' control-label'])); ?>
-
-                               <?php echo Form::select('paymentMode',$paymentModes, null, ['class'=>'form-control','placeholder'=>'Select Payment Mode']); ?> 
-                           </div> 
-                        </div> 
-                        <div class="col-lg-2" style="padding-top: 20px;"> 
-                           <div class="form-group">
-                               <?php echo e(Form::label('account','Account',['class'=>' control-label'])); ?>
-
-                               <?php echo Form::select('account',$accounts, null, ['class'=>'form-control','placeholder'=>'Select User']); ?> 
-                           </div> 
-                        </div>                                           
+                                                             
                          <div class="col-lg-1" style="padding-top: 40px;"> 
                          <input class="btn btn-success" type="submit" value="show">
                         </div>                     

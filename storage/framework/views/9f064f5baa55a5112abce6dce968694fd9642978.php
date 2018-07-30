@@ -39,7 +39,8 @@
                  <td><?php echo e($cashbook->bank_name); ?></td>
                  <td><?php echo e($cashbook->on_account); ?></td> 
                  <td>
-                  <a href="<?php echo e(route('admin.cashbook.print',$cashbook->id)); ?>" target="blank" class="btn btn-success btn-xs" title="print">print</a>
+                  <a href="<?php echo e(route('admin.cashbook.print',$cashbook->id)); ?>" target="blank" class="btn btn-success btn-xs" title="print"><i class="fa fa-print "></i></a>
+                  <a onclick="callAjaxUrl('<?php echo e(route('admin.cashbook.cancel',$cashbook->id)); ?>')" href="javascript:"   class="btn btn-danger btn-xs" title="Reciept Cancel"><i class="fa fa-window-close "></i></a>
                  </td>
              </tr>  
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

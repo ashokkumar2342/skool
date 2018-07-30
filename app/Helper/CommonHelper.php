@@ -26,3 +26,7 @@ function totalStudent(){
 	$students = App\Student::where('status',1)->count(); 
 	return $students;
 }
+// Total count absent student
+function userId(){
+	 return Auth::guard('admin')->user()->id;
+}

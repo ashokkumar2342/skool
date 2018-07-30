@@ -349,11 +349,19 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::delete('delete', 'Fee\FeeCollectionController@destroy')->name('admin.studentFeeCollection.delete');
     	    Route::put('update', 'Fee\FeeCollectionController@update')->name('admin.studentFeeCollection.update');
     	 });
-    	 //------------------------- Fee Collection --------------------------------- 
+    	 //------------------------- Fee Cashbook --------------------------------- 
     	Route::group(['prefix' => 'cashbook'], function() {
     	    Route::get('/', 'Fee\CashbookController@index')->name('admin.cashbook.list');	 	
     	    Route::post('daterange', 'Fee\CashbookController@daterange')->name('admin.cashbook.daterange');	 	
     	    Route::get('print/{student_id}', 'Fee\CashbookController@printReciept')->name('admin.cashbook.print'); 
+    	    Route::get('cancel/{cashbook}', 'Fee\CashbookController@cancelRecietp')->name('admin.cashbook.cancel'); 
+    	 });
+    	 //------------------------- Fee Due filder --------------------------------- 
+    	Route::group(['prefix' => 'fee-due'], function() {
+    	    Route::get('/', 'Fee\FeeDueController@index')->name('admin.feeDue.list');	 	
+    	    Route::post('filter', 'Fee\FeeDueController@filter')->name('admin.feeDue.filter');	 	
+    	      
+    	    
     	 });
      
 

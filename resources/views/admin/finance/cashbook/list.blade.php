@@ -16,19 +16,36 @@
                         <div class="col-lg-2" style="padding-top: 20px;"> 
                           <div class="form-group">
                                        {{ Form::label('daterange','Date Range',['class'=>' control-label']) }}
-                           <input type="text" name="daterange" class="form-control" />
+                           <input type="text" name="daterange" class="form-control" value="" />
                          </div>
                         </div> 
                         <div class="col-lg-2" style="padding-top: 20px;"> 
                            <div class="form-group">
                                {{ Form::label('class','Class',['class'=>' control-label']) }}
                                {!! Form::select('class',$classes, null, ['class'=>'form-control','placeholder'=>'Select Class']) !!} 
-                           </div>
-                             
-                                                                               
-                           <div class="col-lg-1" style="padding-top: 20px;"> 
-                           <input class="btn btn-success" type="submit">
-                          </div>                     
+                           </div> 
+                        </div>
+                        <div class="col-lg-2" style="padding-top: 20px;"> 
+                           <div class="form-group">
+                               {{ Form::label('user','User',['class'=>' control-label']) }}
+                               {!! Form::select('user',$users, null, ['class'=>'form-control','placeholder'=>'Select User']) !!} 
+                           </div> 
+                        </div>  
+                        <div class="col-lg-2" style="padding-top: 20px;"> 
+                           <div class="form-group">
+                               {{ Form::label('paymentMode','Payment Mode',['class'=>' control-label']) }}
+                               {!! Form::select('paymentMode',$paymentModes, null, ['class'=>'form-control','placeholder'=>'Select Payment Mode']) !!} 
+                           </div> 
+                        </div> 
+                        <div class="col-lg-2" style="padding-top: 20px;"> 
+                           <div class="form-group">
+                               {{ Form::label('account','Account',['class'=>' control-label']) }}
+                               {!! Form::select('account',$accounts, null, ['class'=>'form-control','placeholder'=>'Select User']) !!} 
+                           </div> 
+                        </div>                                           
+                         <div class="col-lg-1" style="padding-top: 40px;"> 
+                         <input class="btn btn-success" type="submit" value="show">
+                        </div>                     
                       </form> 
                        
                     </div> 
@@ -96,7 +113,10 @@
   
   <script> 
 $(function() { 
-  $('input[name="daterange"]').daterangepicker();
+  $('input[name="daterange"]').daterangepicker({
+     autoUpdateInput: true,
+       
+  });
   $('#result_table_id').DataTable();
   $('#table').DataTable();
 });
