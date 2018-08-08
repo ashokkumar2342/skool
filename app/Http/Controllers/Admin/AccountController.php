@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Admin;
-use App\Model\Role;
-use App\Model\Minu;
-use App\Model\UserClass;
+use App\Http\Controllers\Controller;
 use App\Model\ClassType;
+use App\Model\Minu;
+use App\Model\MinuType;
+use App\Model\Role;
+use App\Model\UserClass;
 use App\Model\UserClassType;
 use Auth;
+use Illuminate\Http\Request;
 class AccountController extends Controller
 {
     Public function index(){
@@ -132,6 +133,23 @@ class AccountController extends Controller
         return view('admin.account.minu',compact('account','roles','minus')); 
     }
 
+    Public function access(Request $request, Admin $account){
+            $menus = MinuType::all();
+             
+            $users = array_pluck(Admin::get(['id','first_name'])->toArray(),'first_name', 'id');   
+        return view('admin.account.access',compact('menus','users')); 
+    } 
+    Public function menuTable(Request $request){
+                $id = $request->id;
+            $menus = MinuType::all();
+            $usersmenus = Minu::where('admin_id',$request->id)->get();
+
+             
+              
+        $data= view('admin.account.menuTable',compact('menus','usersmenus','id'))->render(); 
+        return response($data);
+    }
+
 
     Public function userClass(){
         $classes = ClassType::all();
@@ -157,7 +175,30 @@ class AccountController extends Controller
             $classUser->save();             
         }
 
-            return redirect()->back()->with(['class'=>'success','message'=>'User Class Successfully']);   
+        return redirect()->back()->with(['class'=>'success','message'=>'User Class Successfully']);  
+    }
+
+    // User access Store
+    Public function accessStore(Request $request){
+      // return $request;
+        $this->validate($request,[
+            'menu_id' => 'required|max:199',             
+            'user' => 'required|max:199',             
+            ]);
+        // foreach ($variable as $key => $value) {
+        //     # code...
+        // }
+        $data = $request->except('_token');        
+        $user_count = count($data['menu_id']);
+        for ($i=0; $i < $user_count; $i++) { 
+            $menu =  Minu::updateOrCreate(['admin_id'=>$request->user,'minu_id'=>$data['menu_id'][$i]]);
+            $menu->minu_id = $data['menu_id'] [$i];
+            $menu->admin_id = $data['user'];
+
+            $menu->save();             
+        }
+
+        return response()->json(['status'=>'1','msg'=>'User Access Save Successfully']);   
 
         
         

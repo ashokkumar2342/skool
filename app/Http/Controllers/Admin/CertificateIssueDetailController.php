@@ -173,11 +173,15 @@ class CertificateIssueDetailController extends Controller
     {
         //
     }
+
+    //download
     public function download(CertificateIssueDetail $certificate)
     { 
         $path = storage_path('app/student/document/'.$certificate->attachment);
          return response()->download($path);
     }
+
+    //verify
     public function verify(Request $request, CertificateIssueDetail $certificate)
     { 
          
@@ -188,6 +192,8 @@ class CertificateIssueDetailController extends Controller
         return redirect()->back()->with(['message'=>'Something went wrong','class'=>'danger']); 
 
     }
+
+    //aproval
     public function approval(Request $request, CertificateIssueDetail $certificate)
     { 
          $certificate->status = 3;
@@ -195,5 +201,44 @@ class CertificateIssueDetailController extends Controller
               return redirect()->back()->with(['message'=>'Approval Successfully','class'=>'success']);       
             }   
         return redirect()->back()->with(['message'=>'Something went wrong','class'=>'danger']); 
+    }
+
+    //Tution fee certificate
+    public function tuitionFeeShowForm()
+    { 
+        $students = array_pluck(Student::get(['id','registration_no'])->toArray(), 'registration_no', 'id');
+         return view('admin.certificate.tuitionfee.form',compact('students'));
+    }
+
+    //show result
+    //Tution fee certificate
+    public function tuitionFeeShowResult(Request $request)
+    {  
+        $student = Student::find($request->student_id);
+         
+         $data= view('admin.certificate.tuitionfee.result',compact('student'))->render();
+         return response()->json($data);
+    }
+
+    //pdf print 
+    public function tuitionPrint($id)
+    {     
+         
+        $student = Student::find($id);
+
+     $pdf = PDF::loadView('admin.certificate.tuitionfee.print',compact('student')); 
+     // $data = new HistoryCertificateIssue();
+     // $data = HistoryCertificateIssue::firstOrNew(['student_id'=> $certificate->student_id,'certificate_type'=>$certificate->certificate_type]);
+
+     // $filename = date('d_m_Y_h_i_s'). '.' . 'pdf'; 
+     // $file_name = date('d_m_Y_h_i_s'); 
+
+     // $data->student_id = $certificate->student_id;
+     // $data->certificate_type = $certificate->certificate_type;
+     // $data->file_name = $file_name;
+     // $data->save();
+     // file_put_contents("certificate/$filename", $pdf->output()); 
+     return $pdf->stream('invoice.pdf');
+    
     }
 }

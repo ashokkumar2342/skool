@@ -16,10 +16,13 @@ class SendMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
-    {
-        //
-    }
+   public $email;
+   public $message;
+   public function __construct($email, $message)
+   {
+       $this->email = $email;
+       $this->message = $message;
+   }
 
     /**
      * Build the message.

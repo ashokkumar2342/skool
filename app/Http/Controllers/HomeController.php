@@ -25,11 +25,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        Mail::send(new SendMail());
-        // Mail::send(['text'=>'email'],['name','ashok'],function($message){
+        // Mail::send(new SendMail('email@ashok.com','otp'));
+        // Mail::send('mail',['name','ashok'],function($message){
         //     $message->to('ashok@gmail.com','To Ashok')->subject('test email');
         //     $message->from('ashok@gmail.com','Ashoka');
         // } );
+        $data = array( 'email' => 'sample@sample.com', 'otp' => 'Lar', 'from' => 'sample@sample.comt', 'from_name' => 'Vel' );
+
+        Mail::send( 'mail', $data, function( $message ) use ($data)
+        {
+            $message->to( $data['email'] )->from( $data['from'], $data['otp'] )->subject( 'Welcome!' );
+        });
         return 'done';
         // return view('home');
     }

@@ -1,4 +1,5 @@
-<?php $__env->startSection('body'); ?>
+@extends('admin.layout.base')
+@section('body')
 <section class="content-header">
     <h1>Student Fee Collection </h1>
       <ol class="breadcrumb">
@@ -13,10 +14,8 @@
                         <form class="form-vertical fee_collection_form"> 
                             <div class="col-lg-2">                           
                                  <div class="form-group">
-                                  <?php echo e(Form::label('student_id','Registration No',['class'=>' control-label'])); ?>
-
-                                   <?php echo e(Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required',])); ?>
-
+                                  {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
+                                   {{ Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required',]) }}
                                    <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                                  </div>    
                             </div>                                                             
@@ -28,15 +27,7 @@
                            <button class="btn btn-warning" type="button" id="btn_student_registration_show" data-toggle="modal" data-target="#myModal">Search</button>
                            
                       </div>
-                      <div class="col-md-1" style="padding-top: 20px;">
-                           <button class="btn btn-info" type="button" id="btn_student_ledger">Ledger</button> 
-                      </div>
-                      <div class="col-md-2" style="padding-top: 20px;">
-                           <button class="btn btn-primary" type="button" id="btn_student_ledger">Previous Reciept</button> 
-                      </div>
-                      <div class="col-md-2" style="padding-top: 20px;">
-                           <button class="btn btn-danger" type="button" id="btn_student_ledger">Cancel Reciept</button> 
-                      </div>
+                     
                     </div> 
 
                  </div>  
@@ -77,7 +68,7 @@
                           <i class="fa fa-search"></i>
                         </div>
                          <input type="text" class="form-control" onkeyup="studentSearch()" name="search" id="search">
-                         <?php echo e(csrf_field()); ?> 
+                         {{ csrf_field() }} 
                       </div>    
                     </form>
                   </div>
@@ -105,19 +96,19 @@
             </div> 
     </section>
     <!-- /.content -->
-<?php $__env->stopSection(); ?>
-<?php $__env->startPush('links'); ?>
+@endsection
+@push('links')
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"> 
    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-   
+   {{-- <link rel="stylesheet" href="{{ asset('admin_asset/plugins/select2/select2.min.css') }}"> --}}
  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
 
-<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
-<?php $__env->stopPush(); ?> 
- <?php $__env->startPush('scripts'); ?>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endpush 
+ @push('scripts')
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
- 
+ {{-- <script src="{{ asset('admin_asset/plugins/select2/select2.full.min.js') }}"></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> 
  
   <script>
@@ -128,7 +119,7 @@
                 }
             });
        $.ajax({
-           url: '<?php echo e(route('admin.studentFeeCollection.show')); ?>',
+           url: '{{ route('admin.student.certificateIssu.tuition.result') }}',
            type: 'get',       
            data: $('.fee_collection_form').serialize() ,
       })
@@ -151,7 +142,7 @@
                 }
             });
        $.ajax({
-           url: '<?php echo e(route('admin.studentFeeCollection.search')); ?>',
+           url: '{{ route('admin.studentFeeCollection.search') }}',
            type: 'get',       
            data: $('#show_fee_detail_form').serialize() ,
       })
@@ -199,7 +190,7 @@
         var search = $('#search').val();
          
         $.ajax({
-            url: '<?php echo e(route('admin.student.search')); ?>',
+            url: '{{ route('admin.student.search') }}',
             type: 'post',
            
             data: {'search':search},
@@ -222,7 +213,7 @@
                  }
              });
         $.ajax({
-            url: '<?php echo e(route('admin.studentFeeCollection.show')); ?>',
+            url: '{{ route('admin.studentFeeCollection.show') }}',
             type: 'get',       
             data: {student_id:studentId} ,
        })
@@ -248,7 +239,7 @@
                   }
               });
          $.ajax({
-             url: '<?php echo e(route('admin.studentFeeCollection.post')); ?>',
+             url: '{{ route('admin.studentFeeCollection.post') }}',
              type: 'post',       
              data: $('#fee_collection_submit_form').serialize() ,
         })
@@ -278,7 +269,7 @@
                   }
               });
          $.ajax({
-             url: '<?php echo e(route('admin.studentFeeCollection.print')); ?>',
+             url: '{{ route('admin.studentFeeCollection.print') }}',
              type: 'post',       
              data: $('#fee_collection_submit_form').serialize() ,
         })
@@ -307,5 +298,4 @@
     });
 
   </script>
-<?php $__env->stopPush(); ?>
-<?php echo $__env->make('admin.layout.base', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+@endpush

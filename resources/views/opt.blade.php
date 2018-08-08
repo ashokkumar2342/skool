@@ -4,6 +4,6 @@
 	<title></title>
 </head>
 <body>
-<h1>Welcome to My website Name: <?php echo e($otp); ?> </h1>
+<h1>Verification Otp : {{$otp}} </h1>
 </body>
 </html>

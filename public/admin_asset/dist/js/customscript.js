@@ -170,6 +170,10 @@ function changeJurisdiction(obj){
 
 }
 
+function successMsg(msg){  
+ toastr.success(msg);
+}
+
 
 function callchildTable(url,divId,tableId){
 	$('#'+divId).html('Please Wait......'); 

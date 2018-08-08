@@ -73,9 +73,10 @@
                 </div>
                 <div class="gt_hdr_3_ui_element">
                     <ul>
-                        <li><i class="fa fa-phone"></i>+124 456 7858</li>
+                         
                         <li><i class="fa fa-envelope-o"></i><a href="#">info@kidscenter.com</a></li>
                         <li><i class="fa fa-user"></i><a href="{{ route('admin.login') }}">Login</a></li>
+                        <li><i class="fa fa-user"></i><a href="{{ route('student.resitration.firststep') }}">Registration</a></li>
                     </ul>
                 </div>
                 <div class="gt_hdr3_search">

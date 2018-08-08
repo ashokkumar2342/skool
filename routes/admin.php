@@ -14,6 +14,9 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('form', 'AccountController@form')->name('admin.account.form');
 	    Route::post('store', 'AccountController@store')->name('admin.account.post');
 		Route::get('list', 'AccountController@index')->name('admin.account.list');
+		Route::get('access', 'AccountController@access')->name('admin.account.access');
+		Route::get('menuTable', 'AccountController@menuTable')->name('admin.account.menuTable');
+		Route::post('access-store', 'AccountController@accessStore')->name('admin.userAccess.add');
 		Route::get('edit/{account}', 'AccountController@edit')->name('admin.account.edit');
 		Route::post('update/{account}', 'AccountController@update')->name('admin.account.edit.post');
 		Route::get('delete/{account}', 'AccountController@destroy')->name('admin.account.delete');
@@ -215,6 +218,19 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('download/{certificate}', 'CertificateIssueDetailController@download')->name('admin.student.attachment.download');
 	     Route::get('verify/{certificate}', 'CertificateIssueDetailController@verify')->name('admin.student.attachment.virify');
 	     Route::get('approval/{certificate}', 'CertificateIssueDetailController@approval')->name('admin.student.attachment.approval');
+	 });
+	   // ---------------Tuition Fee Certificate----------------------------------------
+	 Route::group(['prefix' => 'certificate-tuition'], function() {
+	     Route::get('/', 'CertificateIssueDetailController@tuitionFeeShowForm')->name('admin.student.certificateIssu.tuition');	 
+	     Route::get('result', 'CertificateIssueDetailController@tuitionFeeShowResult')->name('admin.student.certificateIssu.tuition.result');	 	
+	     Route::get('show/{id}', 'CertificateIssueDetailController@tuitionPrint')->name('admin.student.certificateIssu.tuition.print');
+	     // Route::post('store', 'CertificateIssueDetailController@store')->name('admin.student.certificateIssu.post');
+	     // Route::get('edit', 'CertificateIssueDetailController@edit')->name('admin.student.certificateIssu.edit');
+	     // Route::get('show/{certificate}', 'CertificateIssueDetailController@show')->name('admin.student.certificateIssu.show');
+	     // Route::get('delete', 'CertificateIssueDetailController@edit')->name('admin.student.certificateIssu.delete');
+	     // Route::get('download/{certificate}', 'CertificateIssueDetailController@download')->name('admin.student.attachment.download');
+	     // Route::get('verify/{certificate}', 'CertificateIssueDetailController@verify')->name('admin.student.attachment.virify');
+	     // Route::get('approval/{certificate}', 'CertificateIssueDetailController@approval')->name('admin.student.attachment.approval');
 	 });
 	 	   // ---------------Remarks----------------------------------------
 	Route::group(['prefix' => 'Remarks'], function() {
