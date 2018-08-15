@@ -32,11 +32,7 @@
       </div>
       <div class="row">
         <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox" name="remember" value="1"> Remember Me
-            </label>
-          </div>
+          <p><a href="{{ route('parent.login.form') }}" title="">Login</a></p> 
         </div>
         <!-- /.col -->
         <div class="col-xs-4">

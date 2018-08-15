@@ -75,7 +75,8 @@
                     <ul>
                          
                         <li><i class="fa fa-envelope-o"></i><a href="#">info@kidscenter.com</a></li>
-                        <li><i class="fa fa-user"></i><a href="<?php echo e(route('admin.login')); ?>">Login</a></li>
+                        <li><i class="fa fa-user"></i><a href="<?php echo e(route('admin.login')); ?>">admin</a></li>
+                        <li><i class="fa fa-user"></i><a href="<?php echo e(route('parent.login.form')); ?>">Login</a></li>
                         <li><i class="fa fa-user"></i><a href="<?php echo e(route('student.resitration.firststep')); ?>">Registration</a></li>
                     </ul>
                 </div>

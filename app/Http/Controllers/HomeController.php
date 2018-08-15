@@ -3,7 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendMail;
+ 
+use App\Events\SmsEvent;
+use App\Http\Controllers\Controller;
+use App\Model\Category;
+use App\Model\ClassType;
+use App\Model\Gender;
+use App\Model\ParentRegistration;
+use App\Model\Religion;
+use App\Model\SessionDate;
+use App\Model\StudentDefaultValue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
@@ -30,13 +41,23 @@ class HomeController extends Controller
         //     $message->to('ashok@gmail.com','To Ashok')->subject('test email');
         //     $message->from('ashok@gmail.com','Ashoka');
         // } );
-        $data = array( 'email' => 'sample@sample.com', 'otp' => 'Lar', 'from' => 'sample@sample.comt', 'from_name' => 'Vel' );
 
-        Mail::send( 'mail', $data, function( $message ) use ($data)
-        {
-            $message->to( $data['email'] )->from( $data['from'], $data['otp'] )->subject( 'Welcome!' );
-        });
-        return 'done';
+        // $data = array( 'email' => 'sample@sample.com', 'otp' => 'Lar', 'from' => 'sample@sample.comt', 'from_name' => 'Vel' );
+
+        // Mail::send( 'mail', $data, function( $message ) use ($data)
+        // {
+        //     $message->to( $data['email'] )->from( $data['from'], $data['otp'] )->subject( 'Welcome!' );
+        // });
+        // return 'done';
+
         // return view('home');
+        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
+        $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
+        $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
+        $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
+        $default = StudentDefaultValue::find(1); 
+           
+        return view('front.registration.form',compact('classes','sessions','default','genders','religions','categories'));
     }
 }

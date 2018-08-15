@@ -8,7 +8,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">OTP Verification</p>
     {{-- {{ Auth::user()->name }} --}}
-    @if ($parentRegistration->email_verify!=1)
+    @if ($parentRegistration->mobile_verify !=1)
     {!! Form::open(['route'=>'student.resitration.verifyMobile']) !!}
        
       <div class="form-group has-feedback">
@@ -36,7 +36,7 @@
       </div>
       @endif
     {!! Form::close() !!}
-    @if ($parentRegistration->email_verify!=1)
+    @if ($parentRegistration->email_verify !=1)
           {!! Form::open(['route'=>'student.resitration.verifyEmail']) !!}
           <div class="form-group has-feedback">
             {!! Form::hidden('email', $parentRegistration->email, ['class'=>'form-control', 'placeholder'=>'mail']) !!}

@@ -4,7 +4,13 @@ namespace App\Http\Controllers\Front;
 
 use App\Events\SmsEvent;
 use App\Http\Controllers\Controller;
+use App\Model\Category;
+use App\Model\ClassType;
+use App\Model\Gender;
 use App\Model\ParentRegistration;
+use App\Model\Religion;
+use App\Model\SessionDate;
+use App\Model\StudentDefaultValue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
@@ -13,9 +19,15 @@ class ParentRegistrationController extends Controller
 {
     /**
      * Display a listing of the resource.
+
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         //
@@ -30,6 +42,25 @@ class ParentRegistrationController extends Controller
     {
         return view('front.registration.firststep');
     }
+    public function login()
+    {
+        return view('front.registration.login');
+    }
+
+    public function resitrationForm()
+    {
+        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
+        $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
+        $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
+        $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
+        $default = StudentDefaultValue::find(1); 
+           
+        return view('front.registration.form',compact('classes','sessions','default','genders','religions','categories'));
+       
+    }
+    
+
 
     /**
      * Store a newly created resource in storage.
@@ -97,7 +128,11 @@ class ParentRegistrationController extends Controller
         }else{
              $parentRegistration->mobile_verify=1;                                        
              $parentRegistration->save() ;
+             if ($parentRegistration->email_verify==1 && $parentRegistration->mobile_verify==1) {
+               return redirect()->route('parent.login.form')->with(['class'=>'success','message'=>'Mobile Otp Verify']);  
+            }else{
              return redirect()->back()->with(['class'=>'success','message'=>'Mobile Otp Verify']);
+            }
 
         }
                                            
@@ -118,16 +153,22 @@ class ParentRegistrationController extends Controller
            ]);
         
        $parentRegistration= ParentRegistration::where('email',$request->email)
-                                                   ->where('mobile_otp',$request->email_otp)
+                                                   ->where('email_otp',$request->email_otp)
                                                    ->first();
        if ($parentRegistration==null) {
            return redirect()->back()->with(['class'=>'error','message'=>'Email Otp Not Match']);      
        }else{
             $parentRegistration->email_verify=1;                                        
             $parentRegistration->save() ;
-            return redirect()->back()->with(['class'=>'success','message'=>'Email Otp Verify']);
+            if ($parentRegistration->email_verify==1 && $parentRegistration->mobile_verify==1) {
+               return redirect()->route('parent.login.form')->with(['class'=>'success','message'=>'Email Otp Verify']);  
+            }else{
+               return redirect()->back()->with(['class'=>'success','message'=>'Email Otp Verify']); 
+            }
+            
 
        }
+
 
     }
 

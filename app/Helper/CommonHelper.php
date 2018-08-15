@@ -1,35 +1,35 @@
  <?php  
 use App\Model\StudentAttendance;
 // Total count Presrnt student
-function presentStudent(){
-	$date = date('Y-m-d');
-	$present = StudentAttendance::where('attendance_type_id',1)
-				->Where('date',$date)
-				->OrWhere('attendance_type_id',3)
-				->OrWhere('attendance_type_id',4)
+// function presentStudent(){
+// 	$date = date('Y-m-d');
+// 	$present = StudentAttendance::where('attendance_type_id',1)
+// 				->Where('date',$date)
+// 				->OrWhere('attendance_type_id',3)
+// 				->OrWhere('attendance_type_id',4)
 				
-				->count();
-	return $present;
-}
+// 				->count();
+// 	return $present;
+// }
 // Total count absent student
-function absentStudent(){
-	$date = date('Y-m-d');
-	$absent = StudentAttendance::where('attendance_type_id',2) 
-			->Where('date',$date)
-			->count();
-	return $absent;
-}
+// function absentStudent(){
+// 	$date = date('Y-m-d');
+// 	$absent = StudentAttendance::where('attendance_type_id',2) 
+// 			->Where('date',$date)
+// 			->count();
+// 	return $absent;
+// }
 
 // Total count absent student
-function totalStudent(){
-	$date = date('Y-m-d');
-	$students = App\Student::where('status',1)->count(); 
-	return $students;
-}
+// function totalStudent(){
+// 	$date = date('Y-m-d');
+// 	$students = App\Student::where('status',1)->count(); 
+// 	return $students;
+// }
 // Total count absent student
-function userId(){
-	 return Auth::guard('admin')->user()->id;
-}
+// function userId(){
+// 	 return Auth::guard('admin')->user()->id;
+// }
 
 function roleId(){
 	return Auth::guard('admin')->user()->roles->id;
@@ -38,31 +38,7 @@ function userMenu(){
 	return Auth::guard('admin')->user()->minus;
 }
 
-function menus(){
-	// $mm = roleId()==1 || roleId()==2?'<li>
-	// 	 	<a href="'.route('lawrbit.UserMaster.add').'">Add User </a>
-	// 	 </li>':'';
-	// $country = roleId()==1?'<li> 
-	// 		<a href="'.route('lawrbit.country.list').'" data-toggle="collapse" data-target="#dashboard_dr"><div class="pull-left"><i class="zmdi zmdi-map mr-20"></i><span class="right-nav-text">Country</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a> 
- // 		</li> ':'';		 
-	// $add_user = roleId()==1?'<li>
-	// 	 	<a href="'.route('lawrbit.UserMaster.add').'">Add User </a>
-	// 	 </li>':'';
-	// $add_act = roleId()==1 || roleId()==2?'<li>
-	// 				<a href="'.route('lawrbit.actMaster.add').'">Add Act</a>
-	// 			</li>':'';	
-	// $add_act_defination = roleId()==1 || roleId()==2?'<li>
-	// 				<a href="'.route('lawrbit.actDefination.add').'">Add</a>
-	// 			</li>':'';
-	// $add_compliance_master = roleId()==1 || roleId()==2?'<li>
-	// 				<a href="'.route('lawrbit.complianceMaster.add').'">Add</a>
-	// 			</li>':'';
-	// $add_document = roleId()==1 || roleId()==2?'<li>
-	// 				<a href="'.route('lawrbit.documentMaster.add').'">Add</a>
-	// 			</li>':'';
-	// $add_news = roleId()==1 || roleId()==2?'<li>
-	// 				<a href="'.route('lawrbit.newsFeed.add').'">Add</a>
-	// 			</li>':'';							 
+function menus(){ 	 
 
 	$urls=[ 
  		 
@@ -255,12 +231,13 @@ function menus(){
 	 
 
 	foreach ($urls as $key => $value) {
-		// $data = explode(',', userType()->menu_access);
-		foreach (userMenu() as $menu) {
-			if ($menu->minu_id==$key) {
-		  	echo $value;
-		  }
-		}
+	
+    		foreach (userMenu() as $menu) {
+    			if ($menu->minu_id==$key)
+                 {
+    		  	   echo $value;
+    		      }
+		      }
 	 
 		  
 	}

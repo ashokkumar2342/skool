@@ -14,7 +14,7 @@
          </ol>
        </section>
 
-     <!-- Main content -->
+    {{--  <!-- Main content -->
      <section class="content">
        <!-- Small boxes (Stat box) -->
        <div class="row">
@@ -348,10 +348,10 @@
              </div>
            </div>
 
-         </section>
+         </section> --}}
          <!-- /.Left col -->
          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-         <section class="col-lg-5 connectedSortable">
+        {{--  <section class="col-lg-5 connectedSortable">
 
            <!-- Map box -->
            <div class="box box-solid bg-light-blue-gradient">
@@ -426,7 +426,7 @@
                <i class="fa fa-calendar"></i>
 
                <h3 class="box-title">Calendar</h3>
-               <!-- tools box -->
+               tools box
                <div class="pull-right box-tools">
                  <!-- button with a dropdown -->
                  <div class="btn-group">
@@ -500,8 +500,8 @@
       
 
      </section>
-     <!-- /.content -->
-   </div>
+     <!-- /.content --> --}}
+   {{-- </div> --}}
    <!-- /.content-wrapper -->
   
 @endsection

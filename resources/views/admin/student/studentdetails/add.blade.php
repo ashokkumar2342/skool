@@ -10,7 +10,7 @@
       </ol>
 </section>
     <section class="content">        
-        {{Form::close()}}
+      
       	<div class="box">        
             <!-- /.box-header -->
             <div class="box-body">
