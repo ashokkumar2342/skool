@@ -1,5 +1,9 @@
 <?php
 
+use App\Helper\MyFuncs;
+
+ 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,7 +14,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/func', function () {
+    return MyFuncs::full_name("John","Doe");
+});
 
 Route::get('/', function () {
     return view('front.home');
