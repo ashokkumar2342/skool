@@ -1,0 +1,38 @@
+[15-Aug-2018 03:40:19 UTC] PHP Fatal error:  Out of memory (allocated 352329728) (tried to allocate 16777224 bytes) in phar:///opt/cpanel/composer/bin/composer/src/Composer/DependencyResolver/RuleSet.php on line 84
+[15-Aug-2018 04:00:47 UTC] PHP Warning:  Uncaught ErrorException: require(/home/mailinco/public_html/vendor/composer/../../App/Helper/CommonHelper.php): failed to open stream: No such file or directory in /home/mailinco/public_html/vendor/composer/autoload_real.php:66
+Stack trace:
+#0 /home/mailinco/public_html/vendor/composer/autoload_real.php(66): Composer\Util\ErrorHandler::handle(2, 'require(/home/m...', '/home/mailinco/...', 66, Array)
+#1 /home/mailinco/public_html/vendor/composer/autoload_real.php(66): require()
+#2 /home/mailinco/public_html/vendor/composer/autoload_real.php(56): composerRequire372eb5cb80ff426710b3667831516a59('b199139328e475e...', '/home/mailinco/...')
+#3 /home/mailinco/public_html/vendor/autoload.php(7): ComposerAutoloaderInit372eb5cb80ff426710b3667831516a59::getLoader()
+#4 /home/mailinco/public_html/vendor/laravel/framework/src/Illuminate/Foundation/ComposerScripts.php(43): require_once('/home/mailinco/...')
+#5 phar:///opt/cpanel/composer/bin/composer/src/Composer/EventDispatcher/EventDispatcher.php(282): Illuminate\Foundati in /home/mailinco/public_html/vendor/composer/autoload_real.php on line 66
+[15-Aug-2018 04:00:47 UTC] PHP Fatal error:  composerRequire372eb5cb80ff426710b3667831516a59(): Failed opening required '/home/mailinco/public_html/vendor/composer/../../App/Helper/CommonHelper.php' (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/mailinco/public_html/vendor/composer/autoload_real.php on line 66
+[15-Aug-2018 04:06:06 UTC] PHP Warning:  Uncaught ErrorException: require(/home/mailinco/public_html/vendor/composer/../../app/Helpers/Helper.php): failed to open stream: No such file or directory in /home/mailinco/public_html/vendor/composer/autoload_real.php:66
+Stack trace:
+#0 /home/mailinco/public_html/vendor/composer/autoload_real.php(66): Composer\Util\ErrorHandler::handle(2, 'require(/home/m...', '/home/mailinco/...', 66, Array)
+#1 /home/mailinco/public_html/vendor/composer/autoload_real.php(66): require()
+#2 /home/mailinco/public_html/vendor/composer/autoload_real.php(56): composerRequire372eb5cb80ff426710b3667831516a59('8fde5feda9697fe...', '/home/mailinco/...')
+#3 /home/mailinco/public_html/vendor/autoload.php(7): ComposerAutoloaderInit372eb5cb80ff426710b3667831516a59::getLoader()
+#4 /home/mailinco/public_html/vendor/laravel/framework/src/Illuminate/Foundation/ComposerScripts.php(43): require_once('/home/mailinco/...')
+#5 phar:///opt/cpanel/composer/bin/composer/src/Composer/EventDispatcher/EventDispatcher.php(282): Illuminate\Foundation\Co in /home/mailinco/public_html/vendor/composer/autoload_real.php on line 66
+[15-Aug-2018 04:06:06 UTC] PHP Fatal error:  composerRequire372eb5cb80ff426710b3667831516a59(): Failed opening required '/home/mailinco/public_html/vendor/composer/../../app/Helpers/Helper.php' (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/mailinco/public_html/vendor/composer/autoload_real.php on line 66
+[15-Aug-2018 04:59:00 UTC] PHP Warning:  Uncaught ErrorException: require(/home/mailinco/public_html/vendor/composer/../../app/helpers.php): failed to open stream: No such file or directory in /home/mailinco/public_html/vendor/composer/autoload_real.php:66
+Stack trace:
+#0 /home/mailinco/public_html/vendor/composer/autoload_real.php(66): Composer\Util\ErrorHandler::handle(2, 'require(/home/m...', '/home/mailinco/...', 66, Array)
+#1 /home/mailinco/public_html/vendor/composer/autoload_real.php(66): require()
+#2 /home/mailinco/public_html/vendor/composer/autoload_real.php(56): composerRequire372eb5cb80ff426710b3667831516a59('b4e3f29b106af37...', '/home/mailinco/...')
+#3 /home/mailinco/public_html/vendor/autoload.php(7): ComposerAutoloaderInit372eb5cb80ff426710b3667831516a59::getLoader()
+#4 /home/mailinco/public_html/vendor/laravel/framework/src/Illuminate/Foundation/ComposerScripts.php(43): require_once('/home/mailinco/...')
+#5 phar:///opt/cpanel/composer/bin/composer/src/Composer/EventDispatcher/EventDispatcher.php(282): Illuminate\Foundation\ComposerS in /home/mailinco/public_html/vendor/composer/autoload_real.php on line 66
+[15-Aug-2018 04:59:00 UTC] PHP Fatal error:  composerRequire372eb5cb80ff426710b3667831516a59(): Failed opening required '/home/mailinco/public_html/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/mailinco/public_html/vendor/composer/autoload_real.php on line 66
+[15-Aug-2018 04:59:33 UTC] PHP Warning:  Uncaught ErrorException: require(/home/mailinco/public_html/vendor/composer/../../app/helpers.php): failed to open stream: No such file or directory in /home/mailinco/public_html/vendor/composer/autoload_real.php:66
+Stack trace:
+#0 /home/mailinco/public_html/vendor/composer/autoload_real.php(66): Composer\Util\ErrorHandler::handle(2, 'require(/home/m...', '/home/mailinco/...', 66, Array)
+#1 /home/mailinco/public_html/vendor/composer/autoload_real.php(66): require()
+#2 /home/mailinco/public_html/vendor/composer/autoload_real.php(56): composerRequire372eb5cb80ff426710b3667831516a59('b4e3f29b106af37...', '/home/mailinco/...')
+#3 /home/mailinco/public_html/vendor/autoload.php(7): ComposerAutoloaderInit372eb5cb80ff426710b3667831516a59::getLoader()
+#4 /home/mailinco/public_html/vendor/laravel/framework/src/Illuminate/Foundation/ComposerScripts.php(43): require_once('/home/mailinco/...')
+#5 phar:///opt/cpanel/composer/bin/composer/src/Composer/EventDispatcher/EventDispatcher.php(282): Illuminate\Foundation\ComposerS in /home/mailinco/public_html/vendor/composer/autoload_real.php on line 66
+[15-Aug-2018 04:59:33 UTC] PHP Fatal error:  composerRequire372eb5cb80ff426710b3667831516a59(): Failed opening required '/home/mailinco/public_html/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/mailinco/public_html/vendor/composer/autoload_real.php on line 66
+[15-Aug-2018 05:06:45 UTC] PHP Fatal error:  Out of memory (allocated 352329728) (tried to allocate 16777224 bytes) in phar:///opt/cpanel/composer/bin/composer/src/Composer/DependencyResolver/RuleSet.php on line 84
