@@ -10,7 +10,7 @@
     <meta name="keywords" content="child,children,school,childcare,colorful">
     <meta name="author" content="2goodtheme">
 
-    <title>KidCenter - Education Template</title>
+    <title>Welcome To Our School</title>
     <!-- Swiper Slider CSS -->
     <link href="{{asset('front_asset/css/swiper.css')}}" rel="stylesheet">
 	<!-- Custom Main StyleSheet CSS -->
