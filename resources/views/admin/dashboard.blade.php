@@ -51,7 +51,7 @@
            <!-- small box -->
            <div class="small-box bg-yellow">
              <div class="inner">
-               <h3>{{ totalStudent() }}</h3> 
+               <h3>500</h3> 
                <p>Students</p>
              </div>
              <div class="icon">
@@ -364,8 +364,8 @@
              </div>
              <div class="box-body">
                   <div id="piechart_3d" style="width: 100%; height: 290px;"></div>
-                  <input type="hidden" name="present" id="present" value="{{ presentStudent() }}">
-                  <input type="hidden" name="absent" id="absent" value="{{ absentStudent() }}"> 
+                  <input type="hidden" name="present" id="present" value="50">
+                  <input type="hidden" name="absent" id="absent" value="40"> 
              </div>
              <!-- /.box-body-->
               
