@@ -1,13 +1,13 @@
  <?php  
-<<<<<<< HEAD
+
  
-use App\Model\StudentAttendance;
+//use App\Model\StudentAttendance;
  
  
 
-function menus(){ 	 
- return "hello";
-=======
+// function menus(){ 	 
+//  return "hello";
+ 
 // use App\Model\StudentAttendance;
  
 // function presentStudent(){
@@ -239,6 +239,6 @@ function menus(){
 	 
 
 // 	foreach ($urls as $key => $value) {
->>>>>>> 59ea5573237d93e6452b6826478ff539b5706156
+ 
 	
-}
+// }

@@ -26,15 +26,10 @@
             "database/seeds",
             "database/factories"
         ],
-        
         "psr-4": {
             "App\\": "app/"
         }
-<<<<<<< HEAD
-         
-=======
         
->>>>>>> 59ea5573237d93e6452b6826478ff539b5706156
     },
     "autoload-dev": {
         "psr-4": {
