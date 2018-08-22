@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Front;
 
 use App\Events\SmsEvent;
 use App\Http\Controllers\Controller;
+use App\Model\AcademicYear;
+use App\Model\BloodGroup;
 use App\Model\Category;
 use App\Model\ClassType;
 use App\Model\Gender;
@@ -11,7 +13,9 @@ use App\Model\ParentRegistration;
 use App\Model\Religion;
 use App\Model\SessionDate;
 use App\Model\StudentDefaultValue;
+use App\Model\Tongue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 
@@ -44,20 +48,24 @@ class ParentRegistrationController extends Controller
         return view('front.registration.firststep');
     }
     public function login()
-    {
+    {        
         return view('front.registration.login');
     }
 
-    public function resitrationForm()
+    public function resitrationForm($id=null)
     {
+       $pr = ParentRegistration::find(Crypt::decrypt($id));
         $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
         $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
+        $tongues = array_pluck(Tongue::get(['id','name'])->toArray(),'name', 'id');
+        $bloodGroups = array_pluck(BloodGroup::get(['id','name'])->toArray(),'name', 'id');
+        $academicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
         $default = StudentDefaultValue::find(1); 
            
-        return view('front.registration.form',compact('classes','sessions','default','genders','religions','categories'));
+        return view('front.registration.form',compact('classes','sessions','default','genders','religions','categories','tongues','bloodGroups','academicYear','pr'));
        
     }
     
@@ -179,10 +187,111 @@ class ParentRegistrationController extends Controller
      * @param  \App\ParentRegistration  $parentRegistration
      * @return \Illuminate\Http\Response
      */
-    public function edit(ParentRegistration $parentRegistration)
-    {
-        //
+    public function student(Request $request)
+    { 
+      
+        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]);
+        $parentRegistration->parent_id=Auth::user()->id;
+        $parentRegistration->aadhaar_no=$request->aadhaar_no;
+        $parentRegistration->academic_year_id=$request->academic_year;
+        $parentRegistration->blood_group=$request->blood_group;
+        $parentRegistration->category_id=$request->category;
+        $parentRegistration->class_id=$request->class;
+        $parentRegistration->dob=$request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob)); 
+        $parentRegistration->email=$request->email;
+        $parentRegistration->name=$request->first_name;
+        $parentRegistration->gender_id=$request->gender;
+        $parentRegistration->last_name=$request->last_name;
+        $parentRegistration->locality=$request->locality;
+        $parentRegistration->nick_name=$request->nick_name;
+        $parentRegistration->religion_id=$request->religion;
+        $parentRegistration->staff_ward=$request->staff_ward;
+        $parentRegistration->tongue=$request->tongue;
+        $parentRegistration->mobile=$request->mobile;
+        
+        $parentRegistration->save();
+         $response=['status'=>1,'msg'=>'Save Success'];
+        return response()->json($response); 
+
+
     }
+
+    public function previousSchool(Request $request)
+    {     
+        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+        $parentRegistration->last_school=$request->last_school;
+        $parentRegistration->leaving_date=$request->leaving_date;
+        $parentRegistration->reason_change_school=$request->reason_change_school; 
+        $parentRegistration->save();
+         $response=['status'=>1,'msg'=>'Save Success'];
+        return response()->json($response);  
+    }
+
+     public function address(Request $request)
+    {    
+        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]);
+        $parentRegistration->c_address=$request->c_address; 
+        $parentRegistration->pincode=$request->pincode; 
+        $parentRegistration->phone=$request->phone; 
+        $parentRegistration->p_address=$request->p_address; 
+        $parentRegistration->p_pincode=$request->p_pincode; 
+        $parentRegistration->p_phone=$request->p_phone; 
+
+        $parentRegistration->save();
+        $response=['status'=>1,'msg'=>'Save Success'];
+        return response()->json($response);  
+    }
+
+     public function father(Request $request)
+    {       
+        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+        $parentRegistration->save();
+        return redirect()->back()->with(['class'=>'success','message'=>'Success']);  
+    }
+
+     public function mother(Request $request)
+    {       
+        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+        $parentRegistration->save();
+        return redirect()->back()->with(['class'=>'success','message'=>'Success']);  
+    }
+
+     public function guardian(Request $request)
+    {       
+        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+        $parentRegistration->save();
+        return redirect()->back()->with(['class'=>'success','message'=>'Success']);  
+    }
+
+     public function sibling(Request $request)
+    {       
+        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+        $parentRegistration->save();
+        return redirect()->back()->with(['class'=>'success','message'=>'Success']);  
+    }
+
+     public function career(Request $request)
+    {       
+        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+        $parentRegistration->save();
+        return redirect()->back()->with(['class'=>'success','message'=>'Success']);  
+    }
+
+     public function other(Request $request)
+    {       
+        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+        $parentRegistration->save();
+        return redirect()->back()->with(['class'=>'success','message'=>'Success']);  
+    }
+
+     public function declaration(Request $request)
+    {       
+        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+        $parentRegistration->save();
+        return redirect()->back()->with(['class'=>'success','message'=>'Success']);  
+    }
+
+   
 
     /**
      * Update the specified resource in storage.

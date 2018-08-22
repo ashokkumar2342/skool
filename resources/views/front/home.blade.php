@@ -10,10 +10,10 @@
     <meta name="keywords" content="child,children,school,childcare,colorful">
     <meta name="author" content="2goodtheme">
 
-    <title>Welcome To Our School</title>
+    <title>KidCenter - Education Template</title>
     <!-- Swiper Slider CSS -->
     <link href="{{asset('front_asset/css/swiper.css')}}" rel="stylesheet">
-	<!-- Custom Main StyleSheet CSS -->
+    <!-- Custom Main StyleSheet CSS -->
     <link href="{{asset('front_asset/style.css')}}" rel="stylesheet">
     <!-- Color CSS -->
     <link href="{{asset('front_asset/css/color.css')}}" rel="stylesheet">
@@ -66,18 +66,18 @@
                 <div class="gt_top3_scl_icon">
                     <ul class="gt_hdr3_scl_icon">
                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                         
                     </ul>
                 </div>
                 <div class="gt_hdr_3_ui_element">
-                    <ul>
+                        <ul>
                          
+                        <li><i class="fa fa-phone"></i>+124 456 7858</li>
                         <li><i class="fa fa-envelope-o"></i><a href="#">info@kidscenter.com</a></li>
                         <li><i class="fa fa-user"></i><a href="{{ route('admin.login') }}">admin</a></li>
                         <li><i class="fa fa-user"></i><a href="{{ route('parent.login.form') }}">Login</a></li>
                         <li><i class="fa fa-user"></i><a href="{{ route('student.resitration.firststep') }}">Registration</a></li>
+                        <li><i class="fa fa-user"></i><a href="{{ route('admin.login') }}">Login</a></li>
                     </ul>
                 </div>
                 <div class="gt_hdr3_search">
@@ -262,7 +262,7 @@
         <!--Offer Wrap start-->
         <section class="gt_wht_offer_bg">
             <div class="container">
-            	<div class="gt_hdg_1">
+                <div class="gt_hdg_1">
                     <h3>WHAT WE OFFER</h3>
                     <p>Aenean commodo ligula eget dolor. Aenean massa. <span>elit, eget nibh etlibura.</span>
                     </p>
@@ -1121,15 +1121,15 @@
     <!--Pretty Photo JavaScript-->
     <script src="{{asset('front_asset/js/jquery.prettyPhoto.js')}}"></script>
     <!--Owl Carousel JavaScript-->
-	<script src="{{asset('front_asset/js/owl.carousel.js')}}"></script>
+    <script src="{{asset('front_asset/js/owl.carousel.js')}}"></script>
     <!--Number Count (Waypoint) JavaScript-->
-	<script src="{{asset('front_asset/js/waypoints-min.js')}}"></script>
+    <script src="{{asset('front_asset/js/waypoints-min.js')}}"></script>
     <!--Filter able JavaScript-->
-	<script src="{{asset('front_asset/js/jquery-filterable.js')}}"></script>
+    <script src="{{asset('front_asset/js/jquery-filterable.js')}}"></script>
     <!--WOW JavaScript-->
     <script src="{{asset('front_asset/js/wow.min.js')}}"></script>
     <!--Custom JavaScript-->
-	<script src="{{asset('front_asset/js/custom.js')}}"></script>
+    <script src="{{asset('front_asset/js/custom.js')}}"></script>
 
   </body>
  

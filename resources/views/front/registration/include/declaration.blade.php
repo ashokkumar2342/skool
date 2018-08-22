@@ -64,9 +64,9 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-10 col-md-offset-1 text-center" style="margin-bottom:30px;">
-                                        <input type="button" id="btnSave" value="Final Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" onclick="return fPostData();" />
-                                        <input type="submit" id="btnPrint" value="Print Form" class="btn btn-primary btn-size-md" style="width:85px" onclick="return fGetPrintform();" />
-                                        <input type="submit" id="btnAck" value="Ack Receipt" class="btn btn-primary btn-size-md" style="width:95px" onclick="return fGetAckReciptCRYSTAL();" />
+                                        <input type="button" id="btnSave" value="Final Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0"  />
+                                        <input type="submit" id="btnPrint" value="Print Form" class="btn btn-primary btn-size-md" style="width:85px" " />
+                                        <input type="submit" id="btnAck" value="Ack Receipt" class="btn btn-primary btn-size-md" style="width:95px"  />
                                         
 
                                     </div>

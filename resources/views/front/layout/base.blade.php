@@ -75,7 +75,7 @@
     <script src={!! asset('admin_asset/dist/js/customscript.js?ver=1') !!}></script>
 {{--     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> --}}
 
-      {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> --}}
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
       @include('front.include.message')
     @stack('scripts')
     <script>

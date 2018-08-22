@@ -49,12 +49,34 @@ class LoginController extends Controller
     public function showLoginForm(){
         return view('admin.auth.login');
     }
-
-    protected function credentials(Request $request)
-    {
-        // return $request->only($this->username(), 'password');
-        return ['email'=>$request->{$this->username()},'password'=>$request->password,'status'=>'1'];
+    public function login(Request $request){ 
+     
+          $this->validate($request, [
+              'email' => 'required', 
+              'password' => 'required', 
+          ]);
+          $credentials = [
+                     'email' => $request['email'],
+                     'password' => $request['password'],
+                     'status' => 1,
+                 ]; 
+            if(auth()->guard('admin')->attempt($credentials)) {
+                if (Auth::guard('admin')->user()->user_type==1) {
+                    return redirect()->route('admin.dashboard');
+                }else{
+                    return redirect()->route('admin.dashboard');
+                }
+                   
+            } 
+            return Redirect()->back()->withErrors($error="Invalid User or Password"); 
+        
+       
     }
+    // protected function credentials(Request $request)
+    // {
+    //     // return $request->only($this->username(), 'password');
+    //     return ['email'=>$request->{$this->username()},'password'=>$request->password,'status'=>'1'];
+    // }
   
 
     // Logout method with guard logout for admin only

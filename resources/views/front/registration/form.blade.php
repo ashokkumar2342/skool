@@ -1,7 +1,14 @@
  @extends('front.layout.base')
  @push('links')
  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+   <style type="text/css" media="screen">
+       .fa-asterisk{
+        color:red;
+       }
+   </style>
  @endpush
+ 
 @section('body')
    <section class="content-header">
          <h1>
@@ -79,9 +86,8 @@
   
 @endsection
 @push('scripts')
- 
- 
-</body>
-
-
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <script>
+       $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
+   </script>
 @endpush

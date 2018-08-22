@@ -37,8 +37,22 @@ Route::prefix('resitration')->group(function () {
 
 Auth::routes();
 
-Route::get('resitration-form', 'Front\ParentRegistrationController@resitrationForm')->name('student.resitration.resitrationForm'); 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('resitration-form/{id}', 'Front\ParentRegistrationController@resitrationForm')->name('student.resitration.resitrationForm'); 
+
+Route::get('/home', 'HomeController@index')->name('home'); 
+Route::post('/student', 'Front\ParentRegistrationController@student')->name('student');
+Route::post('/previous-school', 'Front\ParentRegistrationController@previousSchool')->name('previous.school');
+Route::post('/address', 'Front\ParentRegistrationController@address')->name('address');
+Route::post('/father', 'Front\ParentRegistrationController@father')->name('father');
+Route::post('/mother', 'Front\ParentRegistrationController@mother')->name('mother');
+Route::post('/guardian', 'Front\ParentRegistrationController@guardian')->name('guardian');
+Route::post('/sibling', 'Front\ParentRegistrationController@sibling')->name('sibling');
+Route::post('/career', 'Front\ParentRegistrationController@career')->name('career');
+Route::post('/other', 'Front\ParentRegistrationController@other')->name('other');
+Route::post('/declaration', 'Front\ParentRegistrationController@declaration')->name('declaration');
+ 
+
+ 
 
 
 // facebook

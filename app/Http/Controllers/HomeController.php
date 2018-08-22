@@ -50,14 +50,14 @@ class HomeController extends Controller
         // });
         // return 'done';
 
-        // return view('home');
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
-        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
-        $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
-        $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
-        $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
-        $default = StudentDefaultValue::find(1); 
+        return view('front.registration.dashboard');
+        // $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+        // $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
+        // $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
+        // $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
+        // $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
+        // $default = StudentDefaultValue::find(1); 
            
-        return view('front.registration.form',compact('classes','sessions','default','genders','religions','categories'));
+        // return view('front.registration.form',compact('classes','sessions','default','genders','religions','categories'));
     }
 }
