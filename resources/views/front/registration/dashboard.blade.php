@@ -41,7 +41,7 @@
                            
                             <tr>
                                 <td>{{ $parent->id }}</td>
-                                <td>data</td>
+                                <td>{{ $parent->registration_no }}</td>
                                 <td>
                                     <a href="{{ route('student.resitration.resitrationForm',Crypt::encrypt($parent->id)) }}" title="">Go to Form</a>
                                 </td>

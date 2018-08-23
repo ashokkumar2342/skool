@@ -49,7 +49,7 @@
                                                 <div class="box-body">
                                                     <div class="form-group">
                                                         <div class="col-sm-12">
-                                                            <input type="text" name="first_name" class="form-control input-sm" id="txtFName" style="text-transform:uppercase;" autocomplete="off" maxlength="50" onkeypress="return Restrict_Name(event);" required />
+                                                            <input type="text" name="first_name"  class="form-control input-sm" id="txtFName" style="text-transform:uppercase;" autocomplete="off" maxlength="50"  required />
                                                             <b class="floating-lable">First Name <b class="fa fa-asterisk"></b> </b>
                                                         </div>
                                                     </div>

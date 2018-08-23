@@ -245,23 +245,76 @@ class ParentRegistrationController extends Controller
      public function father(Request $request)
     {       
         $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+        $parentRegistration->f_title=$request->m_title;
+        $parentRegistration->father_name=$request->father_name;
+        $parentRegistration->f_qualification=$request->f_qualification;
+        $parentRegistration->f_occupation=$request->f_occupation;
+        $parentRegistration->f_designation=$request->f_designation;
+        $parentRegistration->f_college=$request->f_college;
+        $parentRegistration->f_residence_telephone=$request->f_residence_telephone;
+        $parentRegistration->f_office_telephone=$request->f_office_telephone;
+        $parentRegistration->f_annual_income=$request->f_annual_income;
+        $parentRegistration->f_organization=$request->f_organization;
+        $parentRegistration->f_organization_address=$request->f_organization_address;
+        $parentRegistration->f_pin_code=$request->f_pin_code;
+        $parentRegistration->f_phone_no=$request->f_phone_no;
+        $parentRegistration->f_email=$request->f_email;
+        $parentRegistration->father_mobile=$request->father_mobile;
+        $parentRegistration->f_fax=$request->f_fax;
         $parentRegistration->save();
-        return redirect()->back()->with(['class'=>'success','message'=>'Success']);  
+        $response=['status'=>1,'msg'=>'Save Success'];
+        return response()->json($response);  
     }
 
      public function mother(Request $request)
     {       
         $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+        $parentRegistration->m_title=$request->m_title;
+        $parentRegistration->mother_name=$request->mother_name;
+        $parentRegistration->m_qualification=$request->m_qualification;
+        $parentRegistration->m_occupation=$request->m_occupation;
+        $parentRegistration->m_designation=$request->m_designation;
+        $parentRegistration->m_college=$request->m_college;
+        $parentRegistration->m_residence_telephone=$request->m_residence_telephone;
+        $parentRegistration->m_office_telephone=$request->m_office_telephone;
+        $parentRegistration->m_annual_income=$request->m_annual_income;
+        $parentRegistration->m_organization=$request->m_organization;
+        $parentRegistration->m_organization_address=$request->m_organization_address;
+        $parentRegistration->m_pin_code=$request->m_pin_code;
+        $parentRegistration->m_phone_no=$request->m_phone_no;
+        $parentRegistration->m_email=$request->m_email;
+        $parentRegistration->mother_mobile=$request->mother_mobile;
+        $parentRegistration->m_fax=$request->m_fax;
         $parentRegistration->save();
-        return redirect()->back()->with(['class'=>'success','message'=>'Success']);  
+        $response=['status'=>1,'msg'=>'Save Success'];
+        return response()->json($response);  
     }
 
      public function guardian(Request $request)
     {       
         $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+        $parentRegistration->g_title=$request->g_title;
+        $parentRegistration->guardian_name=$request->guardian_name;
+        $parentRegistration->g_qualification=$request->g_qualification;
+        $parentRegistration->g_occupation=$request->g_occupation;
+        $parentRegistration->g_designation=$request->g_designation;
+        $parentRegistration->g_college=$request->g_college;
+        $parentRegistration->g_residence_telephone=$request->g_residence_telephone;
+        $parentRegistration->g_office_telephone=$request->g_office_telephone;
+        $parentRegistration->g_annual_income=$request->g_annual_income;
+        $parentRegistration->g_organization=$request->g_organization;
+        $parentRegistration->g_organization_address=$request->g_organization_address;
+        $parentRegistration->g_pin_code=$request->g_pin_code;
+        $parentRegistration->g_phone_no=$request->g_phone_no;
+        $parentRegistration->g_email=$request->g_email;
+        $parentRegistration->guardian_mobile=$request->guardian_mobile;
+        $parentRegistration->g_fax=$request->g_fax;
+        $parentRegistration->g_relation=$request->g_relation;
         $parentRegistration->save();
-        return redirect()->back()->with(['class'=>'success','message'=>'Success']);  
+        $response=['status'=>1,'msg'=>'Save Success'];
+        return response()->json($response);  
     }
+ 
 
      public function sibling(Request $request)
     {       

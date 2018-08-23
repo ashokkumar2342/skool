@@ -1,76 +1,148 @@
 <div class="row">
+           <form action="{{ route('guardian') }}" method="post" class="add_form"  accept-charset="utf-8"  >
+        {{ csrf_field() }}                          
+        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
 
-                                    <div class="col-md-12">
-
-                                        <div class="col-lg-6 b-r">
-                                            <div class="form-horizontal">
-                                                <div class="box-body">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <input type="text" name="guardian_names" class="form-control input-sm" style="text-transform:uppercase;" id="GuardianNames" maxlength="40" onkeypress="return Restrict_Name(event);" required />
-                                                            <b class="floating-lable">Name of the Local Guardian (If any) </b>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <input type="text" name="guardian_mobile" class="form-control input-sm" id="GuardianMobileNo" style="text-transform:uppercase;" autocomplete="off" maxlength="10" onkeypress="return Restrict_Pincode(event);" required />
-                                                            <b class="floating-lable">Mobile No</b>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="col-sm-12">
-                                                            <select class="form-control input-sm" data-val="true" data-val-number="The field NalID must be a number." id="NalID" name="NalID" required="required"><option value=""> </option>
-                                                            <option value="14">AFGHANISTANI</option>
-                                                            <option value="2">AMERICAN</option>
-                                                            <option value="7">AUSTRALIAN</option>
-                                                            <option value="9">BRITISH</option>
-                                                            <option value="5">CANADIAN</option>
-                                                            <option value="18">HUNGARIAN</option>
-                                                            <option value="1">INDIAN</option>
-                                                            <option value="8">INDONESIAN</option>
-                                                            <option value="19">JAPANESE</option>
-                                                            <option value="3">KOREAN</option>
-                                                            <option value="6">MALAYSIAN</option>
-                                                            <option value="4">MEXICAN</option>
-                                                            <option value="20">OVERSEAS CITIZEN OF INDIA</option>
-                                                            <option value="15">PERUVIAN</option>
-                                                            <option value="13">RUSSIAN</option>
-                                                            <option value="12">SOUTH AFRICAN</option>
-                                                            <option value="11">SPANISH</option>
-                                                            <option value="10">TURKISH</option>
-                                                            <option value="16">UKRAINIAN</option>
-                                                            <option value="17">VENEZUELAN</option>
-                                                            </select>
-                                                            <b class="floating-lable">Select Nationality</b>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <input type="text" name="emergency_phone" class="form-control input-sm" id="EmergencyphoneNo" style="text-transform:uppercase;" autocomplete="off" maxlength="10" onkeypress="return Restrict_Pincode(event);" required />
-                                                            <b class="floating-lable">Person to Contact in case of Emergency,phone No. </b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /.box-body -->
-                                                <!-- /.box-footer -->
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <div class="form-horizontal">
-                                                <div class="box-body">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <textarea rows="2" name="address" cols="53" id="GuardAddr" class="form-control input-sm" style="text-transform:uppercase;" autocomplete="off" maxlength="120" required></textarea>
-                                                            <small class="floating-lable">Address</small>
-                                                        </div>
-                                                    </div>
-                                                    
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+            <div class="col-lg-6 b-r">
+                <div class="form-horizontal">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="col-md-3" style="padding: 0px 3px 0px 0px">
+                                    {!! Form::select('g_title',['MR.'=>'MR.','DR.'=>'DR.','COL.'=>'COL.','FR'=>'FR','LATE'=>'LATE'], $pr->g_title, ['class'=>'form-control','placeholder'=>'Select Locality','required']) !!}
+                              
+                                    <b class="floating-lable">Title </b>
                                 </div>
+                                <div class="col-md-9" style="padding: 0px">
+                                    <input type="text" name="guardian_name" value="{{ $pr->guardian_name }}" class="form-control input-sm" style="text-transform:uppercase;" id="Mother" maxlength="40"  required />
+                                    <b class="floating-lable">Guardian's Name<b class="fa fa-asterisk"></b>  </b>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="text" name="g_qualification" value="{{ $pr->g_qualification }}" class="form-control input-sm" style="text-transform:uppercase;" id="Mother" maxlength="40"  required />
+                                <b class="floating-lable">Select Qualification  </b>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="text" name="g_occupation" value="{{ $pr->g_occupation }}" class="form-control input-sm" style="text-transform:uppercase;"   maxlength="40"  required />
+                          
+                                <b class="floating-lable">Occupation </b>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="text" name="g_designation" value="{{ $pr->g_designation }}" class="form-control input-sm" style="text-transform:uppercase;"   maxlength="40"  required />
+                                <b class="floating-lable">Designation </b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="text" name="g_college" value="{{ $pr->g_college }}" id="MCollegeUniversity" class="form-control input-sm" style="text-transform:uppercase;" maxlength="150"  required />
+                                <b class="floating-lable">College/University</b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="text" name="g_residence_telephone" value="{{ $pr->g_residence_telephone }}" id="MTelelphone" class="form-control input-sm" style="text-transform:uppercase;" maxlength="12"   tabindex="0" required />
+                                <b class="floating-lable">Residence Telephone No</b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="text" name="g_office_telephone" value="{{ $pr->g_office_telephone }}" id="MOfficeTelelphone" class="form-control input-sm" style="text-transform:uppercase;" maxlength="12"  tabindex="0" required />
+                                <b class="floating-lable">Office Telephone No</b>
+                            </div>
+                        </div>
+
+                        <div class="form-group" >
+                            <div class="col-md-12">
+                                <input type="text" name="g_annual_income" value="{{ $pr->g_office_telephone }}" id="MIncome" class="form-control input-sm" style="text-transform:uppercase;" maxlength="16"   tabindex="0" required />
+                                <b class="floating-lable">Annual Income</b>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+                    <!-- /.box-footer -->
+                </div>
+            </div>
+
+
+            <div class="col-lg-6">
+                <div class="form-horizontal">
+                    <div class="box-body">
+
+
+                        
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="text" name="g_organization" value="{{ $pr->g_organization }}" id="MOrgName" class="form-control input-sm" style="text-transform:uppercase;" maxlength="120"   required />
+                                <b class="floating-lable">Organization </b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <textarea rows="2" name="g_organization_address" 
+                                 cols="53" id="MOrgAddress" class="form-control input-sm" style="text-transform:uppercase;" autocomplete="off" maxlength="120" required>{{ $pr->g_organization_address }}</textarea>
+                                <small class="floating-lable">Organization Address<b class="fa fa-asterisk"></b><small></small></small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="text" name="g_pin_code" value="{{ $pr->g_pin_code }}" class="form-control input-sm" id="MPincode" style="text-transform:uppercase;" autocomplete="off" maxlength="6"   required />
+                                <b class="floating-lable">Pin code</b>
+                            </div>
+                        </div>
+                        
+
+                        <div class="form-group" >
+                            <div class="col-md-12">
+                                <input type="text" name="g_phone_no" value="{{ $pr->g_phone_no }}"  id="MTelelphone" class="form-control input-sm" style="text-transform:uppercase;" maxlength="60"   required />
+                                <b class="floating-lable">Phone No</b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="text" name="g_email" value="{{ $pr->g_email }}" id="MEmail" class="form-control input-sm" maxlength="60" required />
+                                <b class="floating-lable">Email Id <b class="fa fa-asterisk"></b></b>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="text" name="guardian_mobile" value="{{ $pr->guardian_mobile }}" id="MMobileNo" class="form-control input-sm" style="text-transform:uppercase;" maxlength="10"   tabindex="0" required />
+                                <b class="floating-lable">Mobile No <b class="fa fa-asterisk"></b></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="text" name="g_fax" value="{{ $pr->g_fax }}" class="form-control input-sm" id="MFax" style="text-transform:uppercase;" autocomplete="off" maxlength="60"  required />
+                                <b class="floating-lable">Fax</b>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="text" name="g_relation" value="{{ $pr->g_relation }}" class="form-control input-sm" id="MFax" style="text-transform:uppercase;" autocomplete="off" maxlength="60"  required />
+                                <b class="floating-lable">Relation</b>
+                            </div>
+                        </div>
+
+                        
+
+                    </div>
+                    <!-- /.box-body -->
+                    <!-- /.box-footer -->
+                    <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
