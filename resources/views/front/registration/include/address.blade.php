@@ -76,7 +76,8 @@
         </div>
     </div>
     <div class="text-center">
-      <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" /> 
+      <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />  
+      <a data-toggle="tab"  class="btn btn-primary menu3" style="width:85px" href="#menu4">Next</a>
         
     </div>
 </form>

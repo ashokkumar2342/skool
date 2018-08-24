@@ -141,6 +141,10 @@
                     <!-- /.box-body -->
                     <!-- /.box-footer -->
                     <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />
+                    <a data-toggle="tab"  class="btn btn-primary btn-size-md menu6" style="width:85px" href="#menu7">Next</a>
+
+
+
                 </div>
             </div>
         </div>

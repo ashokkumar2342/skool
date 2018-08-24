@@ -208,6 +208,7 @@ class ParentRegistrationController extends Controller
         $parentRegistration->staff_ward=$request->staff_ward;
         $parentRegistration->tongue=$request->tongue;
         $parentRegistration->mobile=$request->mobile;
+        $parentRegistration->status=1;
         
         $parentRegistration->save();
          $response=['status'=>1,'msg'=>'Save Success'];
@@ -222,6 +223,7 @@ class ParentRegistrationController extends Controller
         $parentRegistration->last_school=$request->last_school;
         $parentRegistration->leaving_date=$request->leaving_date;
         $parentRegistration->reason_change_school=$request->reason_change_school; 
+        $parentRegistration->status=2;
         $parentRegistration->save();
          $response=['status'=>1,'msg'=>'Save Success'];
         return response()->json($response);  
@@ -236,6 +238,7 @@ class ParentRegistrationController extends Controller
         $parentRegistration->p_address=$request->p_address; 
         $parentRegistration->p_pincode=$request->p_pincode; 
         $parentRegistration->p_phone=$request->p_phone; 
+        $parentRegistration->status=3;
 
         $parentRegistration->save();
         $response=['status'=>1,'msg'=>'Save Success'];
@@ -261,6 +264,7 @@ class ParentRegistrationController extends Controller
         $parentRegistration->f_email=$request->f_email;
         $parentRegistration->father_mobile=$request->father_mobile;
         $parentRegistration->f_fax=$request->f_fax;
+        $parentRegistration->status=4;
         $parentRegistration->save();
         $response=['status'=>1,'msg'=>'Save Success'];
         return response()->json($response);  
@@ -285,6 +289,7 @@ class ParentRegistrationController extends Controller
         $parentRegistration->m_email=$request->m_email;
         $parentRegistration->mother_mobile=$request->mother_mobile;
         $parentRegistration->m_fax=$request->m_fax;
+        $parentRegistration->status=5;
         $parentRegistration->save();
         $response=['status'=>1,'msg'=>'Save Success'];
         return response()->json($response);  
@@ -310,6 +315,7 @@ class ParentRegistrationController extends Controller
         $parentRegistration->guardian_mobile=$request->guardian_mobile;
         $parentRegistration->g_fax=$request->g_fax;
         $parentRegistration->g_relation=$request->g_relation;
+        $parentRegistration->status=6;
         $parentRegistration->save();
         $response=['status'=>1,'msg'=>'Save Success'];
         return response()->json($response);  

@@ -23,21 +23,26 @@
 
      <!-- Main content -->
     <section class="content">
-        <div class="box">             
+        <div class="box">
+          @php
+            $active = $pr->status+1;
+            $menu =$pr->status;
+            $btn = 'address';
+          @endphp             
             <!-- /.box-header -->
             <div class="box-body">  
                 <div class="col-md-12">
                    <ul class="nav nav-tabs">
-                     <li class="active"><a data-toggle="tab" href="#menu1">Student Details</a></li> 
-                     <li><a data-toggle="tab" href="#menu2">Previous School</a></li> 
-                     <li><a data-toggle="tab" href="#menu3">Address</a></li> 
-                     <li><a data-toggle="tab" href="#menu4">Father Details</a></li> 
-                     <li><a data-toggle="tab" href="#menu5">Mother Details</a></li> 
-                     <li><a data-toggle="tab" href="#menu6">Guardian Details</a></li> 
-                     <li><a data-toggle="tab" href="#menu7">Sibling</a></li> 
-                     <li><a data-toggle="tab" href="#menu8">Career Considered</a></li> 
-                     <li><a data-toggle="tab" href="#menu9">Other Details</a></li> 
-                     <li><a data-toggle="tab" href="#menu10">Declaration</a></li> 
+                     <li id="mm1" class="{{ $active==1?'active':'' }}"><a data-toggle="tab" href="#menu1">Student Details </a></li> 
+                     <li id="mm2" class="{{ $active==2?'active':'' }}"><a data-toggle="tab" href="#menu2">Previous School </a></li> 
+                     <li class="{{ $active==3?'active':'' }}"><a data-toggle="tab" href="#menu3">Address</a></li> 
+                     <li class="{{ $active==4?'active':'' }}"><a data-toggle="tab" href="#menu4">Father Details</a></li> 
+                     <li class="{{ $active==5?'active':'' }}"><a data-toggle="tab" href="#menu5">Mother Details</a></li> 
+                     <li class="{{ $active==6?'active':'' }}"><a data-toggle="tab" href="#menu6">Guardian Details</a></li> 
+                     <li class="{{ $active==7?'active':'' }}"><a data-toggle="tab" href="#menu7">Sibling</a></li> 
+                     <li class="{{ $active==8?'active':'' }}"><a data-toggle="tab" href="#menu8">Career Considered</a></li> 
+                     <li class="{{ $active==9?'active':'' }}"><a data-toggle="tab" href="#menu9">Other Details</a></li> 
+                     <li class="{{ $active==10?'active':'' }}"><a data-toggle="tab" href="#menu10">Declaration</a></li> 
            
                    </ul>
 
@@ -89,5 +94,16 @@
    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
    <script>
        $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
+      $( document ).ready(function() {
+
+        $( ".menu{{ $menu }}" ).trigger( "click" );
+         
+    });
+      function test(){
+         
+        $('#mm2').addClass('active');
+        $('#mm1').removeClass('active');
+         
+      }
    </script>
 @endpush

@@ -36,6 +36,7 @@
                 <!-- /.box-footer -->
                 <div class="text-center">
                    <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" /> 
+                    <a data-toggle="tab"  class="btn btn-primary btn-size-md" style="width:85px" href="#menu3">Next</a>
                 </div>
                  
             </div>
