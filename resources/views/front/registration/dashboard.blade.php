@@ -33,6 +33,7 @@
                                 <th>Sr</th>
                                 <th>Registration No</th>
                                 <th>Form</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,6 +46,7 @@
                                 <td>
                                     <a href="{{ route('student.resitration.resitrationForm',Crypt::encrypt($parent->id)) }}" title="">Go to Form</a>
                                 </td>
+                                <td></td>
                             </tr>
                              @endforeach
                         </tbody>

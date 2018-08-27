@@ -10,6 +10,7 @@ use App\Model\Category;
 use App\Model\ClassType;
 use App\Model\Gender;
 use App\Model\ParentRegistration;
+use App\Model\RegSibling;
 use App\Model\Religion;
 use App\Model\SessionDate;
 use App\Model\StudentDefaultValue;
@@ -18,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
+use Validator;
 
 class ParentRegistrationController extends Controller
 {
@@ -189,11 +191,27 @@ class ParentRegistrationController extends Controller
      */
     public function student(Request $request)
     { 
+        $rules=[
+        'first_name' => 'required',
+        'mobile' => 'required|numeric|digits:10',
+        'aadhaar_no' => 'required|numeric|digits:12',
+        'email' => 'required|email',
+        'image' => 'nullable|mimes:jpeg,jpg,png|max:100',
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
       
         $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]);
         $parentRegistration->parent_id=Auth::user()->id;
         $parentRegistration->aadhaar_no=$request->aadhaar_no;
-        $parentRegistration->academic_year_id=$request->academic_year;
+        $parentRegistration->name=$request->academic_year;
         $parentRegistration->blood_group=$request->blood_group;
         $parentRegistration->category_id=$request->category;
         $parentRegistration->class_id=$request->class;
@@ -208,6 +226,13 @@ class ParentRegistrationController extends Controller
         $parentRegistration->staff_ward=$request->staff_ward;
         $parentRegistration->tongue=$request->tongue;
         $parentRegistration->mobile=$request->mobile;
+        if ($request->file('image')!=null) {
+             $file = $request->file('image');
+             $file->store('student/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->image=$fileName;
+        }
+        
         $parentRegistration->status=1;
         
         $parentRegistration->save();
@@ -323,18 +348,65 @@ class ParentRegistrationController extends Controller
  
 
      public function sibling(Request $request)
-    {       
-        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
-        $parentRegistration->save();
-        return redirect()->back()->with(['class'=>'success','message'=>'Success']);  
+    {    
+       $rules=[
+       'admission_no' => 'required',
+       'name' => 'required|string',
+       'class' => 'required',
+       'school_name' => 'required|string', 
+       ];
+
+       $validator = Validator::make($request->all(),$rules);
+       if ($validator->fails()) {
+           $errors = $validator->errors()->all();
+           $response=array();
+           $response["status"]=0;
+           $response["msg"]=$errors[0];
+           return response()->json($response);// response as json
+       }
+       
+       $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+      
+       $parentRegistration->status=7; 
+       $parentRegistration->save();
+         $regSibling = new RegSibling(); 
+       $regSibling->parent_registration_id=$parentRegistration->id;
+       $regSibling->admission_no=$request->admission_no;
+       $regSibling->name=$request->name; 
+       $regSibling->class=$request->class;
+       $regSibling->school_name=$request->school_name;
+       $regSibling->save();
+        $response=['status'=>1,'msg'=>'Save Success'];
+       return response()->json($response);   
     }
 
      public function career(Request $request)
-    {       
-        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
-        $parentRegistration->save();
-        return redirect()->back()->with(['class'=>'success','message'=>'Success']);  
-    }
+    {    
+   
+
+       $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+     
+       $parentRegistration->sport=$request->sport;
+       $parentRegistration->is_medical=$request->is_medical;
+       $parentRegistration->medical_history=$request->medical_history;
+       $parentRegistration->is_evidence_learning=$request->is_evidence_learning;
+       $parentRegistration->is_scholarship=$request->is_scholarship;
+       $parentRegistration->scholarship=$request->scholarship;
+       if ($request->co_curricular !=null) {
+            $parentRegistration->co_curricular=implode(',', $request->co_curricular);
+       }  
+       if ($request->music !=null) {
+            $parentRegistration->music=implode(',', $request->music);
+       }
+      
+      
+       $parentRegistration->status=8; 
+       
+       $parentRegistration->save();
+          
+        $response=['status'=>1,'msg'=>'Save Success'];
+       return response()->json($response);   
+   }
 
      public function other(Request $request)
     {       

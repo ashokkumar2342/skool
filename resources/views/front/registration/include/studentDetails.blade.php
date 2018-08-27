@@ -32,7 +32,7 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <input type="text" name="nick_name" value="{{ $pr->nick_name }}"   class="form-control input-sm" id="txtMName" style="text-transform:uppercase;" autocomplete="off" maxlength="50"  required />
-                            <b class="floating-lable">Nic Name</b>
+                            <b class="floating-lable">Nick Name</b>
                         </div>
                     </div>
 
@@ -138,8 +138,13 @@
                     <div class="form-group">
                         <div class="col-md-12">
                             {!! Form::select('locality',['0 - 2 Km'=>'0 - 2 Km','Between 2 Km - 5 Km'=>'Between 2 Km - 5 Km','Between 10 Km -15 KM'=>'Between 10 Km -15 KM'], $pr->locality, ['class'=>'form-control','placeholder'=>'Select Locality','required']) !!}
-                             
-                             
+                            </select>
+                            <b class="floating-lable">Locality <b class="fa fa-asterisk"></b></b>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            {!! Form::file('image','', ['class'=>'form-control','placeholder'=>'Select Locality','required']) !!}
                             </select>
                             <b class="floating-lable">Locality <b class="fa fa-asterisk"></b></b>
                         </div>
@@ -149,10 +154,13 @@
                 </div>
                 <!-- /.box-body -->
                 <!-- /.box-footer -->
-                 <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />
-                  <a data-toggle="tab"  class="btn btn-primary btn-size-md" onclick="test()" style="width:85px" href="#menu2">Next</a>
+                
             </div>
         </div>
     </div>
+     <div class="text-center">
+          <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />
+         <a data-toggle="tab"  class="btn btn-primary btn-size-md" onclick="test()" style="width:85px" href="#menu2">Next</a>
+     </div>
 </form>  
 </div>

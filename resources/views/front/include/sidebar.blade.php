@@ -20,7 +20,7 @@
         <!-- /.search form -->
     <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
-        <li ><a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li> 
+        <li ><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li> 
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-user text-warning"></i>

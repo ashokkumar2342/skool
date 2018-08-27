@@ -71,20 +71,10 @@
 
                    
                 </div>
-
-
-              {{--   <div id="Regpopup1" style="display:none; margin-top:63px; ">
-                    <div id="Regclose1" onclick="return fCloseMessageDiv1()">X</div>
-
-
-                    <div class="panel-body" style="overflow-x:hidden; height: 400px;">
-                        <div id="gvLocalityData" style="width:95%;" align="center">
-                            
-                        </div>
-                    </div>
-                </div> --}}
+ 
 
 
             </div>
     </div>
+</div>
 </div>

@@ -105,5 +105,14 @@
         $('#mm1').removeClass('active');
          
       }
+     
+      $("#SiblingYes").click(function() {
+        $('#tdSibling').show(400); 
+    
+    }); 
+     $("#SiblingNo").click(function() {
+        $('#tdSibling').hide(400); 
+    
+    }); 
    </script>
 @endpush

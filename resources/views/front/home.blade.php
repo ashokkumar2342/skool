@@ -77,7 +77,7 @@
                         <li><i class="fa fa-user"></i><a href="{{ route('admin.login') }}">admin</a></li>
                         <li><i class="fa fa-user"></i><a href="{{ route('parent.login.form') }}">Login</a></li>
                         <li><i class="fa fa-user"></i><a href="{{ route('student.resitration.firststep') }}">Registration</a></li>
-                        <li><i class="fa fa-user"></i><a href="{{ route('admin.login') }}">Login</a></li>
+                        
                     </ul>
                 </div>
                 <div class="gt_hdr3_search">
