@@ -49,6 +49,7 @@ Route::post('/guardian', 'Front\ParentRegistrationController@guardian')->name('g
 Route::post('/sibling', 'Front\ParentRegistrationController@sibling')->name('sibling');
 Route::post('/career', 'Front\ParentRegistrationController@career')->name('career');
 Route::post('/other', 'Front\ParentRegistrationController@other')->name('other');
+Route::post('/document', 'Front\ParentRegistrationController@document')->name('document');
 Route::post('/declaration', 'Front\ParentRegistrationController@declaration')->name('declaration');
  
 

@@ -33,16 +33,17 @@
             <div class="box-body">  
                 <div class="col-md-12">
                    <ul class="nav nav-tabs">
-                     <li id="mm1" class="{{ $active==1?'active':'' }}"><a data-toggle="tab" href="#menu1">Student Details </a></li> 
-                     <li id="mm2" class="{{ $active==2?'active':'' }}"><a data-toggle="tab" href="#menu2">Previous School </a></li> 
-                     <li class="{{ $active==3?'active':'' }}"><a data-toggle="tab" href="#menu3">Address</a></li> 
-                     <li class="{{ $active==4?'active':'' }}"><a data-toggle="tab" href="#menu4">Father Details</a></li> 
-                     <li class="{{ $active==5?'active':'' }}"><a data-toggle="tab" href="#menu5">Mother Details</a></li> 
-                     <li class="{{ $active==6?'active':'' }}"><a data-toggle="tab" href="#menu6">Guardian Details</a></li> 
-                     <li class="{{ $active==7?'active':'' }}"><a data-toggle="tab" href="#menu7">Sibling</a></li> 
-                     <li class="{{ $active==8?'active':'' }}"><a data-toggle="tab" href="#menu8">Career Considered</a></li> 
-                     <li class="{{ $active==9?'active':'' }}"><a data-toggle="tab" href="#menu9">Other Details</a></li> 
-                     <li class="{{ $active==10?'active':'' }}"><a data-toggle="tab" href="#menu10">Declaration</a></li> 
+                     <li id="mm1" ><a data-toggle="tab" href="#menu1">Student Details </a></li> 
+                     <li id="mm2" ><a data-toggle="tab" href="#menu2">Previous School </a></li> 
+                     <li id="mm3"><a data-toggle="tab" href="#menu3">Address</a></li> 
+                     <li id="mm4" ><a data-toggle="tab" href="#menu4">Father Details</a></li> 
+                     <li id="mm5" ><a data-toggle="tab" href="#menu5">Mother Details</a></li> 
+                     <li id="mm6" ><a data-toggle="tab" href="#menu6">Guardian Details</a></li> 
+                     <li id="mm7" ><a data-toggle="tab" href="#menu7">Sibling</a></li> 
+                     <li id="mm8" ><a data-toggle="tab" href="#menu8">Career Considered</a></li> 
+                     <li id="mm9" ><a data-toggle="tab" href="#menu9">Other Details</a></li> 
+                     <li id="mm10" ><a data-toggle="tab" href="#menu10">Document Upload</a></li> 
+                     <li id="mm11" ><a data-toggle="tab" href="#menu11">Declaration</a></li> 
            
                    </ul>
 
@@ -75,6 +76,9 @@
                         @include('front.registration.include.other') 
                      </div>
                      <div id="menu10" class="tab-pane fade">
+                        @include('front.registration.include.document') 
+                     </div> 
+                     <div id="menu11" class="tab-pane fade">
                         @include('front.registration.include.declaration') 
                      </div> 
                    </div> 
@@ -99,10 +103,14 @@
         $( ".menu{{ $menu }}" ).trigger( "click" );
          
     });
-      function test(){
-         
-        $('#mm2').addClass('active');
-        $('#mm1').removeClass('active');
+      function menu(val){         
+        var array = val.split("mm"); 
+        var lastEl = array[array.length-1];
+          finaldata = lastEl-1;
+             
+        $('#mm'+finaldata+'').removeClass('active');    
+        $('#'+val+'').addClass('active');    
+       
          
       }
      
@@ -114,5 +122,8 @@
         $('#tdSibling').hide(400); 
     
     }); 
+     
+     
+
    </script>
 @endpush

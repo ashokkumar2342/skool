@@ -1,5 +1,5 @@
 <div class="row">
-           <form action="{{ route('father') }}" method="post" class="add_form" accept-charset="utf-8"  >
+           <form action="{{ route('father') }}" method="post" no-reset="true" class="add_form" accept-charset="utf-8"  >
         {{ csrf_field() }}                          
         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
 
@@ -9,7 +9,7 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <div class="col-md-3" style="padding: 0px 3px 0px 0px">
-                                    {!! Form::select('f_title',['MR.'=>'MR.','DR.'=>'DR.','COL.'=>'COL.','FR'=>'FR','LATE'=>'LATE'], $pr->m_title, ['class'=>'form-control','placeholder'=>'Select Locality','required']) !!}
+                                    {!! Form::select('f_title',['MR.'=>'MR.','DR.'=>'DR.','COL.'=>'COL.','FR'=>'FR','LATE'=>'LATE'], $pr->f_title, ['class'=>'form-control','placeholder'=>'Select Locality','required']) !!}
                               
                                     <b class="floating-lable">Title </b>
                                 </div>
@@ -128,14 +128,23 @@
                                 <b class="floating-lable">Fax</b>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                {!! Form::file('father_image','', ['class'=>'form-control']) !!}
+                                </select>
+                                <b class="floating-lable">Image <b class="fa fa-asterisk"></b> Passport size100kb</b>
+                            </div>
+                       </div>
 
                         
 
                     </div>
                     <!-- /.box-body -->
                     <!-- /.box-footer -->
+                    @if ($pr->status!=11)
                     <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />
-                         <a data-toggle="tab"  class="btn btn-primary btn-size-md menu5" style="width:85px" href="#menu5">Next</a>
+                    @endif
+                    <a data-toggle="tab"  class="btn btn-primary btn-size-md menu4" onclick="menu('mm5')" style="width:85px" href="#menu5">Next</a>
                 </div>
             </div>
         </div>

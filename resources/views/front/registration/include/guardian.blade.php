@@ -1,5 +1,5 @@
 <div class="row">
-           <form action="{{ route('guardian') }}" method="post" class="add_form"  accept-charset="utf-8"  >
+           <form action="{{ route('guardian') }}" method="post" no-reset="true" class="add_form"  accept-charset="utf-8"  >
         {{ csrf_field() }}                          
         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
 
@@ -68,6 +68,13 @@
 
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                {!! Form::file('guardian_image','', ['class'=>'form-control']) !!}
+                                </select>
+                                <b class="floating-lable">Image <b class="fa fa-asterisk"></b> Passport size100kb</b>
+                            </div>
+                       </div>
 
                     </div>
                     <!-- /.box-body -->
@@ -140,13 +147,19 @@
                     </div>
                     <!-- /.box-body -->
                     <!-- /.box-footer -->
-                    <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />
-                    <a data-toggle="tab"  class="btn btn-primary btn-size-md menu6" style="width:85px" href="#menu7">Next</a>
-
-
+                    
 
                 </div>
             </div>
+        </div>
+          <div class="clearfix">
+            
+        </div>
+        <div class="text-center">
+             @if ($pr->status!=11)
+                    <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />
+                    @endif
+                    <a data-toggle="tab"  class="btn btn-primary btn-size-md menu6" onclick="menu('mm7')" style="width:85px" href="#menu7">Next</a>
         </div>
     </form>
     </div>

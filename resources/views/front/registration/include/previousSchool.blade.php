@@ -1,5 +1,5 @@
 <div class="row">
-    <form action="{{ route('previous.school') }}" method="post" class="add_form" accept-charset="utf-8"  novalidate>
+    <form action="{{ route('previous.school') }}" no-reset="true" method="post" class="add_form" no-reset="true" accept-charset="utf-8"  >
         {{ csrf_field() }}
     <div class="col-md-12">
 
@@ -10,7 +10,7 @@
 
                     <div class="form-group">
                         <div class="col-md-9">
-                            <input type="text" name="last_school" value="{{ $pr->last_school }}" class="form-control input-sm" id="LastSchools" style="text-transform:uppercase;" autocomplete="off" maxlength="50" onkeypress="return Restrict_Name(event);" required />
+                            <input type="text" name="last_school" value="{{ $pr->last_school }}" class="form-control input-sm" id="LastSchools" style="text-transform:uppercase;" autocomplete="off" maxlength="50" required />
                             <b class="floating-lable">Last School</b>
                         </div>
 
@@ -35,8 +35,10 @@
                 <!-- /.box-body -->
                 <!-- /.box-footer -->
                 <div class="text-center">
+                    @if ($pr->status!=11)
                    <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" /> 
-                    <a data-toggle="tab"  class="btn btn-primary btn-size-md" style="width:85px" href="#menu3">Next</a>
+                   @endif
+                    <a data-toggle="tab"  class="btn btn-primary btn-size-md menu2" onclick="menu('mm3')" style="width:85px" href="#menu3">Next</a>
                 </div>
                  
             </div>

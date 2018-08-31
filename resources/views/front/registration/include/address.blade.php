@@ -1,5 +1,5 @@
 <div class="row">
-    <form action="{{ route('address') }}" method="post" class="add_form" accept-charset="utf-8"  novalidate>
+    <form action="{{ route('address') }}" no-reset="true" method="post" class="add_form" accept-charset="utf-8"  novalidate>
 {{ csrf_field() }}
 
     <div class="col-md-12">
@@ -76,8 +76,11 @@
         </div>
     </div>
     <div class="text-center">
-      <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />  
-      <a data-toggle="tab"  class="btn btn-primary menu3" style="width:85px" href="#menu4">Next</a>
+        @if ($pr->status!=11)
+           <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />  
+        @endif
+      
+      <a data-toggle="tab"  class="btn btn-primary menu3" onclick="menu('mm4')" style="width:85px" href="#menu4">Next</a>
         
     </div>
 </form>

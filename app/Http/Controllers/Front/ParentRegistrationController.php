@@ -271,9 +271,26 @@ class ParentRegistrationController extends Controller
     }
 
      public function father(Request $request)
-    {       
+    {    $rules=[
+        'father_name' => 'required',
+        'father_mobile' => 'required|numeric|digits:10',
+        'f_phone_no' => 'required|numeric|digits:11',
+        'f_pin_code' => 'required|numeric|digits:6',
+         
+        'f_email' => 'required|email',
+        'father_image' => 'nullable|mimes:jpeg,jpg,png|max:100',
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }   
         $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
-        $parentRegistration->f_title=$request->m_title;
+        $parentRegistration->f_title=$request->f_title;
         $parentRegistration->father_name=$request->father_name;
         $parentRegistration->f_qualification=$request->f_qualification;
         $parentRegistration->f_occupation=$request->f_occupation;
@@ -290,13 +307,37 @@ class ParentRegistrationController extends Controller
         $parentRegistration->father_mobile=$request->father_mobile;
         $parentRegistration->f_fax=$request->f_fax;
         $parentRegistration->status=4;
+        if ($request->file('father_image')!=null) {
+             $file = $request->file('father_image');
+             $file->store('student/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->father_image=$fileName;
+        }
         $parentRegistration->save();
         $response=['status'=>1,'msg'=>'Save Success'];
         return response()->json($response);  
     }
 
      public function mother(Request $request)
-    {       
+    {   
+    $rules=[
+           'mother_name' => 'required',
+           'mother_mobile' => 'required|numeric|digits:10',
+            
+           'm_email' => 'required|email',
+           'mother_image' => 'nullable|mimes:jpeg,jpg,png|max:100',
+           'm_phone_no' => 'required|numeric|digits:11',
+           'm_pin_code' => 'required|numeric|digits:6',
+           ];
+
+           $validator = Validator::make($request->all(),$rules);
+           if ($validator->fails()) {
+               $errors = $validator->errors()->all();
+               $response=array();
+               $response["status"]=0;
+               $response["msg"]=$errors[0];
+               return response()->json($response);// response as json
+           }       
         $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
         $parentRegistration->m_title=$request->m_title;
         $parentRegistration->mother_name=$request->mother_name;
@@ -315,13 +356,37 @@ class ParentRegistrationController extends Controller
         $parentRegistration->mother_mobile=$request->mother_mobile;
         $parentRegistration->m_fax=$request->m_fax;
         $parentRegistration->status=5;
+          if ($request->file('mother_image')!=null) {
+             $file = $request->file('mother_image');
+             $file->store('student/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->mother_image=$fileName;
+        }
         $parentRegistration->save();
         $response=['status'=>1,'msg'=>'Save Success'];
         return response()->json($response);  
     }
 
      public function guardian(Request $request)
-    {       
+    {    
+    $rules=[
+            'guardian_name' => 'required',
+            'guardian_mobile' => 'required|numeric|digits:10',
+             
+            'g_email' => 'required|email',
+            'guardian_image' => 'nullable|mimes:jpeg,jpg,png|max:100',
+            'g_phone_no' => 'required|numeric|digits:11',
+        'g_pin_code' => 'required|numeric|digits:6',
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }      
         $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
         $parentRegistration->g_title=$request->g_title;
         $parentRegistration->guardian_name=$request->guardian_name;
@@ -341,6 +406,12 @@ class ParentRegistrationController extends Controller
         $parentRegistration->g_fax=$request->g_fax;
         $parentRegistration->g_relation=$request->g_relation;
         $parentRegistration->status=6;
+          if ($request->file('guardian_image')!=null) {
+             $file = $request->file('guardian_image');
+             $file->store('student/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->guardian_image=$fileName;
+        }
         $parentRegistration->save();
         $response=['status'=>1,'msg'=>'Save Success'];
         return response()->json($response);  
@@ -409,17 +480,111 @@ class ParentRegistrationController extends Controller
    }
 
      public function other(Request $request)
-    {       
+    {        
+        
+
+         
+        
         $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
-        $parentRegistration->save();
-        return redirect()->back()->with(['class'=>'success','message'=>'Success']);  
+        
+        $parentRegistration->passport_no=$request->passport_no; 
+        $parentRegistration->date_of_issued_passport=$request->date_of_issued_passport == null ? $request->date_of_issued_passport : date('Y-m-d',strtotime($request->date_of_issued_passport));  
+       
+        $parentRegistration->passport_issue_place=$request->passport_issue_place; 
+        $parentRegistration->passport_expiry_date=$request->passport_expiry_date == null ? $request->passport_expiry_date : date('Y-m-d',strtotime($request->passport_expiry_date));    
+        $parentRegistration->school_bus=$request->school_bus; 
+        $parentRegistration->status=9; 
+       
+        $parentRegistration->save();         
+         $response=['status'=>1,'msg'=>'Save Success'];
+        return response()->json($response);    
     }
 
-     public function declaration(Request $request)
-    {       
+    public function document(Request $request)
+    {   $rules=[
+            
+            'marksheet' => 'nullable|mimes:pdf|max:100',
+            'leaving_certificate' => 'nullable|mimes:pdf|max:100',
+            'leaving_certificate' => 'nullable|mimes:pdf|max:100',
+            'income_certificate' => 'nullable|mimes:pdf|max:100',
+            'cortt_certificate' => 'nullable|mimes:pdf|max:100',
+            'aadhaar_card' => 'nullable|mimes:pdf|max:100',
+            'birth_certificate' => 'nullable|mimes:pdf|max:100',
+            'domicile_certificate' => 'nullable|mimes:pdf|max:100',
+            'rashan_card' => 'nullable|mimes:pdf|max:100',
+           
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }          
         $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+        if ($request->file('marksheet')!=null) {
+             $file = $request->file('marksheet');
+             $file->store('student/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->marksheet=$fileName;
+        } 
+        if ($request->file('leaving_certificate')!=null) {
+             $file = $request->file('leaving_certificate');
+             $file->store('student/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->leaving_certificate=$fileName;
+        }  
+        if ($request->file('income_certificate')!=null) {
+             $file = $request->file('income_certificate');
+             $file->store('student/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->income_certificate=$fileName;
+        }   
+        if ($request->file('cortt_certificate')!=null) {
+             $file = $request->file('cortt_certificate');
+             $file->store('student/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->cortt_certificate=$fileName;
+        }
+          if ($request->file('aadhaar_card')!=null) {
+             $file = $request->file('aadhaar_card');
+             $file->store('student/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->aadhaar_card=$fileName;
+        }
+          if ($request->file('birth_certificate')!=null) {
+             $file = $request->file('birth_certificate');
+             $file->store('student/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->birth_certificate=$fileName;
+        }
+          if ($request->file('domicile_certificate')!=null) {
+             $file = $request->file('domicile_certificate');
+             $file->store('student/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->domicile_certificate=$fileName;
+        }
+          if ($request->file('rashan_card')!=null) {
+             $file = $request->file('rashan_card');
+             $file->store('student/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->rashan_card=$fileName;
+        } 
+        $parentRegistration->status=10; 
+        $parentRegistration->save(); 
+        $response=['status'=>1,'msg'=>'Save Success'];
+        return response()->json($response);     
+    }
+     public function declaration(Request $request)
+    {        
+        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
+        
+        $parentRegistration->status=11; 
         $parentRegistration->save();
-        return redirect()->back()->with(['class'=>'success','message'=>'Success']);  
+       
+         return redirect()->back()->with(['class'=>'success','message'=>'Final Submit Successfully']);    
     }
 
    

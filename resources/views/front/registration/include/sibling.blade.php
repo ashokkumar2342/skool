@@ -1,5 +1,5 @@
 <div class="row">
-    <form action="{{ route('sibling') }}" method="post" class="add_form" accept-charset="utf-8"  >
+    <form action="{{ route('sibling') }}" method="post" no-reset="true" class="add_form" accept-charset="utf-8"  >
         {{ csrf_field() }} 
             <div class="col-md-12">
                 <div class="form-group">
@@ -92,10 +92,16 @@
 
                   
             </div>
-             <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />
+            <div class="text-center">
+             @if ($pr->status!=11)
+                    <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />
+                    @endif
+                    <a data-toggle="tab"  class="btn btn-primary btn-size-md menu7" onclick="menu('mm8')" style="width:85px" href="#menu8">Next</a>
+        </div>
+             
                             </form>
         </div>
-        <div class="row" style="display: none">
+        {{-- <div class="row" style="display: none">
             <form action="{{ route('sibling') }}" method="post" class="add_form" accept-charset="utf-8"  >
         {{ csrf_field() }} 
             <div class="col-md-12">
@@ -156,6 +162,6 @@
             <div class="text-center">
           <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />
          <a data-toggle="tab"  class="btn btn-primary btn-size-md" onclick="test()" style="width:85px" href="#menu8">Next</a>
-     </div>
-        </form>
-        </div>
+     </div> --}}
+        {{-- </form> --}}
+        {{-- </div> --}}

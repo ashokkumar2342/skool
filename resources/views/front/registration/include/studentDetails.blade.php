@@ -1,5 +1,5 @@
 <div class="row">
-      <form action="{{ route('student') }}" method="post" class="add_form" accept-charset="utf-8"  novalidate>
+      <form action="{{ route('student') }}" method="post" no-reset="true" class="add_form" accept-charset="utf-8"  novalidate>
         {{ csrf_field() }}
         
                                          
@@ -72,6 +72,14 @@
                             <b class="floating-lable">Email</b>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            {!! Form::file('image','', ['class'=>'form-control','placeholder'=>'Select Locality']) !!}
+                            </select>
+                            <b class="floating-lable">Image <b class="fa fa-asterisk"></b> Passport size100kb</b>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
@@ -142,14 +150,7 @@
                             <b class="floating-lable">Locality <b class="fa fa-asterisk"></b></b>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            {!! Form::file('image','', ['class'=>'form-control','placeholder'=>'Select Locality','required']) !!}
-                            </select>
-                            <b class="floating-lable">Locality <b class="fa fa-asterisk"></b></b>
-                        </div>
-                    </div>
-
+                 
                 
                 </div>
                 <!-- /.box-body -->
@@ -159,8 +160,10 @@
         </div>
     </div>
      <div class="text-center">
+        @if ($pr->status!=11)
           <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />
-         <a data-toggle="tab"  class="btn btn-primary btn-size-md" onclick="test()" style="width:85px" href="#menu2">Next</a>
+          @endif
+         <a data-toggle="tab"  class="btn btn-primary btn-size-md menu1" onclick="menu('mm2')" style="width:85px" href="#menu2">Next</a>
      </div>
 </form>  
 </div>
