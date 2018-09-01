@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth; 
-use App\User;
 use App\Admin;
-
+use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Socialite;
 
 class LoginController extends Controller
@@ -43,6 +43,38 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+
+    public function login(Request $request){ 
+     
+          $this->validate($request, [
+              'email' => 'required', 
+              'password' => 'required', 
+          ]);
+          $credentials = [
+                     'email' => $request['email'],
+                     'password' => $request['password'],
+                     'mobile_verify' => 1,
+                     'email_verify' => 1,
+                 ];
+        $credentials2 = [
+                     'mobile' => $request['email'],
+                     'password' => $request['password'],
+                     'mobile_verify' => 1,
+                     'email_verify' => 1,
+                 ]; 
+            if(Auth::attempt($credentials ) || Auth::attempt($credentials2 )) {
+                 
+                    return redirect('/home');
+                 
+                   
+            } 
+            // 
+
+            return Redirect()->back()->withErrors($error="Invalid User or Password"); 
+        
+       
     }
  
     public function redirectToProvider()

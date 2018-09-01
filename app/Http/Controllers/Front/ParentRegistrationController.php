@@ -15,6 +15,7 @@ use App\Model\Religion;
 use App\Model\SessionDate;
 use App\Model\StudentDefaultValue;
 use App\Model\Tongue;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -87,16 +88,25 @@ class ParentRegistrationController extends Controller
             'password' => 'required|min:6',
             'password_confirm' => 'required_with:password|same:password|min:6'            
             ]);
-        $accounts = new ParentRegistration();
-        
+        $parent = new ParentRegistration();
+        $accounts = new User(); 
         $accounts->email = $request->email;
         $accounts->email_otp = mt_rand(100000,999999);
         $accounts->mobile_otp = mt_rand(100000,999999);
         $accounts->password = bcrypt($request['password']);
         $accounts->mobile = $request->mobile;
+        $accounts->registration_no = 'REG'.mt_rand(100000,999999);
+        
+
+       
+
        
         if ($accounts->save())
          {
+            $parent->registration_no=$accounts->registration_no;
+            $parent->parent_id=$accounts->id;
+            $parent->save();
+            
             event(new SmsEvent($accounts->mobile,$accounts->mobile_otp));
             $data = array( 'email' => $accounts->email, 'otp' => $accounts->email_otp, 'from' => 'school@iskool.com', 'from_name' => 'school' );
 
@@ -120,7 +130,7 @@ class ParentRegistrationController extends Controller
      */
     public function verification($id)
     {
-       $parentRegistration= ParentRegistration::find(Crypt::decrypt($id));
+       $parentRegistration= User::find(Crypt::decrypt($id));
          return view('front.registration.verification',compact('parentRegistration'));
     }
 
@@ -131,7 +141,7 @@ class ParentRegistrationController extends Controller
             'mobile_otp' => 'required|numeric',  
             ]);
          
-        $parentRegistration= ParentRegistration::where('mobile',$request->mobile)
+        $parentRegistration= User::where('mobile',$request->mobile)
                                                     ->where('mobile_otp',$request->mobile_otp)
                                                     ->first();
         if ($parentRegistration==null) {
@@ -163,7 +173,7 @@ class ParentRegistrationController extends Controller
            'email_otp' => 'required|numeric',  
            ]);
         
-       $parentRegistration= ParentRegistration::where('email',$request->email)
+       $parentRegistration= User::where('email',$request->email)
                                                    ->where('email_otp',$request->email_otp)
                                                    ->first();
        if ($parentRegistration==null) {
