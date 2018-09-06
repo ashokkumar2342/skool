@@ -388,6 +388,17 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::get('find', 'StudentSearchController@find')->name('admin.student.find');	 	
     	    
     	 });
+    	  //------------------------- online Form list --------------------------------- 
+    	Route::group(['prefix' => 'registration-form'], function() {
+    	    Route::get('/', 'Registration\RegistrationController@index')->name('admin.onlineForm.list');	 	
+    	    Route::get('cancel/{id}', 'Registration\RegistrationController@statusCancel')->name('registration.cancel');	 	
+    	    Route::get('rejcet/{id}', 'Registration\RegistrationController@statusReject')->name('registration.reject');	 	
+    	    Route::get('approved/{id}', 'Registration\RegistrationController@statusApproved')->name('registration.approved');	 	
+    	    Route::post('/', 'Registration\RegistrationController@remarkAdd')->name('registration.remark.add');	 	
+    	    Route::get('show-remark', 'Registration\RegistrationController@remarkShow')->name('registration.remark.show');	 	
+    	    	
+    	    
+    	 });
 	 });
 
 });

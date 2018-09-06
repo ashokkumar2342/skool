@@ -39,6 +39,7 @@
     <div class="wrapper">
       @include('front.include.header')
         @include('front.include.sidebar')
+        
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @yield('body')
@@ -55,9 +56,10 @@
         <!-- Add the sidebar's background. This div must be placed
         immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
+        
     </div>
     <!-- ./wrapper -->
-
+@include('front.include.model')
     <!-- jQuery 2.2.3 -->
     <script src="{{ asset('admin_asset/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
     <!-- Bootstrap 3.3.6 -->

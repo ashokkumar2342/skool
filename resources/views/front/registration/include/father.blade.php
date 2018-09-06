@@ -129,10 +129,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 {!! Form::file('father_image','', ['class'=>'form-control']) !!}
                                 </select>
                                 <b class="floating-lable">Image <b class="fa fa-asterisk"></b> Passport size100kb</b>
+                            </div>
+                              <div class="col-md-6">
+                                {!! Form::file('f_signature','', ['class'=>'form-control']) !!}
+                                </select>
+                                <b class="floating-lable">Signature <b class="fa fa-asterisk"></b> size100kb</b>
                             </div>
                        </div>
 
@@ -141,12 +146,19 @@
                     </div>
                     <!-- /.box-body -->
                     <!-- /.box-footer -->
-                    @if ($pr->status!=11)
+
+                    
+                </div>
+            </div>
+        </div>
+         <div class="clearfix">
+            
+        </div>
+           <div class="text-center">
+             @if ($pr->status!=11)
                     <input type="submit" id="btnSave" value="Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" />
                     @endif
                     <a data-toggle="tab"  class="btn btn-primary btn-size-md menu4" onclick="menu('mm5')" style="width:85px" href="#menu5">Next</a>
-                </div>
-            </div>
         </div>
     </form>
     </div>

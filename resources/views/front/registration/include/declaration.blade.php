@@ -52,6 +52,8 @@
             <input type="submit" id="btnSave" value="Final Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" onclick="return confirm('Final Save Can not change')"  />  
             @endif
               <a data-toggle="tab"  class="menu11" onclick="menu('mm11')" style="width:85px" href="#menu11"></a>
+              {{-- <a    class="btn btn-info btn-size-md"   style="width:85px" href="#menu11">preview</a> --}}
+              <button type="button" style="width:85px" onclick="callPopupLarge(this,'{{ route('preview',Crypt::encrypt($pr->id)) }}')" class="btn btn-primary btn-size-md" data-toggle="modal"  >Preview </button>
         </div>
             
      </div>
@@ -62,3 +64,4 @@
  
 </form>
 </div>
+<!-- Trigger the modal with a button -->

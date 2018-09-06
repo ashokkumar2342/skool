@@ -1,4 +1,4 @@
- @extends('front.layout.base')
+ @extends('admin.layout.base')
  @push('links')
  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
@@ -27,12 +27,13 @@
             <!-- /.box-header -->
             <div class="box-body">  
                 <div class="col-md-12">
-                    <table class="table"> 
+                    <table class="table" > 
                         <thead>
                             <tr>
                                 <th>Sr</th>
                                 <th>Registration No</th>
                                 
+                                <th>Remark</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -57,8 +58,16 @@
                                   @endif
 
                                 </td>
+                                 <td><button class="btn_add_remarks btn btn-success btn-xs" onclick="modelShow({{ $parent->id }})" data-id="{{ $parent->id }}">Remarks</button></td>
                                 <td>
-                                    <a href="{{ route('student.resitration.resitrationForm',Crypt::encrypt($parent->id)) }}" class="btn btn-success" title="">Go to Form</a>
+                                    
+                                 
+                                     <a class="btn btn-warning btn-xs"  href="{{ route('registration.cancel',$parent->id) }}">Cancel</a>
+                   <a class="btn btn-danger btn-xs"  href="{{ route('registration.reject',$parent->id) }}">Reject</a>
+
+                   <a class="btn btn-success btn-xs"  href="{{ route('registration.approved',$parent->id) }}">Approved</a> 
+
+                      <button type="button"   onclick="callPopupLarge(this,'{{ route('preview',Crypt::encrypt($parent->id)) }}')" class="btn btn-info btn-xs" data-toggle="modal"  ><i class="fa fa-eye"></i> View </button>
                                 </td>
                             </tr>
                              @endforeach
@@ -70,11 +79,12 @@
                  
             </div>
         </div> 
-
+@include('admin.registration.remarks') 
      </section>
      <!-- /.content -->
    </div>
    <!-- /.content-wrapper -->
+   
   
 @endsection
 @push('scripts')

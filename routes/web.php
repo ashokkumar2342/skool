@@ -51,6 +51,7 @@ Route::post('/career', 'Front\ParentRegistrationController@career')->name('caree
 Route::post('/other', 'Front\ParentRegistrationController@other')->name('other');
 Route::post('/document', 'Front\ParentRegistrationController@document')->name('document');
 Route::post('/declaration', 'Front\ParentRegistrationController@declaration')->name('declaration');
+Route::get('/preivew/{id}', 'Front\ParentRegistrationController@preview')->name('preview');
  
 
  

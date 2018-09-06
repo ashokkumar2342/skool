@@ -16,8 +16,7 @@
            <small>Control panel</small>
          </h1>
          <ol class="breadcrumb">
-           <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-           <li class="active">Dashboard</li>
+           <li><button type="button"   onclick="callPopupLarge(this,'{{ route('preview',Crypt::encrypt($pr->id)) }}')" class="btn btn-primary btn-size-xs" data-toggle="modal"  >Preview </button></li> 
          </ol>
        </section>
 
@@ -42,7 +41,7 @@
                      <li id="mm7" ><a data-toggle="tab" href="#menu7">Sibling</a></li> 
                      <li id="mm8" ><a data-toggle="tab" href="#menu8">Career Considered</a></li> 
                      <li id="mm9" ><a data-toggle="tab" href="#menu9">Other Details</a></li> 
-                     <li id="mm10" ><a data-toggle="tab" href="#menu10">Document Upload</a></li> 
+                     <li id="mm10" ><a data-toggle="tab" href="#menu10">Document</a></li> 
                      <li id="mm11" ><a data-toggle="tab" href="#menu11">Declaration</a></li> 
            
                    </ul>
@@ -99,9 +98,7 @@
    <script>
        $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
       $( document ).ready(function() {
-
-        $( ".menu{{ $menu }}" ).trigger( "click" );
-         
+        $( ".menu{{ $menu }}" ).trigger("click");         
     });
       function menu(val){         
         var array = val.split("mm"); 

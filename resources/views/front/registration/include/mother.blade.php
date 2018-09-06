@@ -129,10 +129,15 @@
                             </div>
                         </div>
                           <div class="form-group">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 {!! Form::file('mother_image','', ['class'=>'form-control']) !!}
                                 </select>
                                 <b class="floating-lable">Image <b class="fa fa-asterisk"></b> Passport size100kb</b>
+                            </div>
+                              <div class="col-md-6">
+                                {!! Form::file('m_signature','', ['class'=>'form-control']) !!}
+                                </select>
+                                <b class="floating-lable">Signature <b class="fa fa-asterisk"></b>  size100kb</b>
                             </div>
                        </div>
 
@@ -155,5 +160,5 @@
                     <a data-toggle="tab"  class="btn btn-primary btn-size-md menu5" onclick="menu('mm6')" style="width:85px" href="#menu6">Next</a>
         </div>
     </form>
-    </div>
+</div>
  

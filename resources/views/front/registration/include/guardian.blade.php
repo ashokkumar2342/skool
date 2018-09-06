@@ -69,10 +69,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 {!! Form::file('guardian_image','', ['class'=>'form-control']) !!}
                                 </select>
                                 <b class="floating-lable">Image <b class="fa fa-asterisk"></b> Passport size100kb</b>
+                            </div>
+                               <div class="col-md-6">
+                                {!! Form::file('g_signature','', ['class'=>'form-control']) !!}
+                                </select>
+                                <b class="floating-lable">signature <b class="fa fa-asterisk"></b> size100kb</b>
                             </div>
                        </div>
 

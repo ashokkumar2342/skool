@@ -238,7 +238,7 @@ class ParentRegistrationController extends Controller
         $parentRegistration->mobile=$request->mobile;
         if ($request->file('image')!=null) {
              $file = $request->file('image');
-             $file->store('student/profile');
+             $file->store('public/profile');
              $fileName = $file->hashName();
             $parentRegistration->image=$fileName;
         }
@@ -319,9 +319,15 @@ class ParentRegistrationController extends Controller
         $parentRegistration->status=4;
         if ($request->file('father_image')!=null) {
              $file = $request->file('father_image');
-             $file->store('student/profile');
+             $file->store('public/profile');
              $fileName = $file->hashName();
             $parentRegistration->father_image=$fileName;
+        }
+          if ($request->file('f_signature')!=null) {
+             $file = $request->file('f_signature');
+             $file->store('public/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->f_signature=$fileName;
         }
         $parentRegistration->save();
         $response=['status'=>1,'msg'=>'Save Success'];
@@ -368,9 +374,15 @@ class ParentRegistrationController extends Controller
         $parentRegistration->status=5;
           if ($request->file('mother_image')!=null) {
              $file = $request->file('mother_image');
-             $file->store('student/profile');
+             $file->store('public/profile');
              $fileName = $file->hashName();
             $parentRegistration->mother_image=$fileName;
+        }
+          if ($request->file('m_signature')!=null) {
+             $file = $request->file('m_signature');
+             $file->store('public/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->m_signature=$fileName;
         }
         $parentRegistration->save();
         $response=['status'=>1,'msg'=>'Save Success'];
@@ -418,9 +430,15 @@ class ParentRegistrationController extends Controller
         $parentRegistration->status=6;
           if ($request->file('guardian_image')!=null) {
              $file = $request->file('guardian_image');
-             $file->store('student/profile');
+             $file->store('public/profile');
              $fileName = $file->hashName();
             $parentRegistration->guardian_image=$fileName;
+        }
+          if ($request->file('g_signature')!=null) {
+             $file = $request->file('g_signature');
+             $file->store('public/profile');
+             $fileName = $file->hashName();
+            $parentRegistration->g_signature=$fileName;
         }
         $parentRegistration->save();
         $response=['status'=>1,'msg'=>'Save Success'];
@@ -536,49 +554,49 @@ class ParentRegistrationController extends Controller
         $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
         if ($request->file('marksheet')!=null) {
              $file = $request->file('marksheet');
-             $file->store('student/profile');
+             $file->store('public/profile');
              $fileName = $file->hashName();
             $parentRegistration->marksheet=$fileName;
         } 
         if ($request->file('leaving_certificate')!=null) {
              $file = $request->file('leaving_certificate');
-             $file->store('student/profile');
+             $file->store('public/profile');
              $fileName = $file->hashName();
             $parentRegistration->leaving_certificate=$fileName;
         }  
         if ($request->file('income_certificate')!=null) {
              $file = $request->file('income_certificate');
-             $file->store('student/profile');
+             $file->store('public/profile');
              $fileName = $file->hashName();
             $parentRegistration->income_certificate=$fileName;
         }   
         if ($request->file('cortt_certificate')!=null) {
              $file = $request->file('cortt_certificate');
-             $file->store('student/profile');
+             $file->store('public/profile');
              $fileName = $file->hashName();
             $parentRegistration->cortt_certificate=$fileName;
         }
           if ($request->file('aadhaar_card')!=null) {
              $file = $request->file('aadhaar_card');
-             $file->store('student/profile');
+             $file->store('public/profile');
              $fileName = $file->hashName();
             $parentRegistration->aadhaar_card=$fileName;
         }
           if ($request->file('birth_certificate')!=null) {
              $file = $request->file('birth_certificate');
-             $file->store('student/profile');
+             $file->store('public/profile');
              $fileName = $file->hashName();
             $parentRegistration->birth_certificate=$fileName;
         }
           if ($request->file('domicile_certificate')!=null) {
              $file = $request->file('domicile_certificate');
-             $file->store('student/profile');
+             $file->store('public/profile');
              $fileName = $file->hashName();
             $parentRegistration->domicile_certificate=$fileName;
         }
           if ($request->file('rashan_card')!=null) {
              $file = $request->file('rashan_card');
-             $file->store('student/profile');
+             $file->store('public/profile');
              $fileName = $file->hashName();
             $parentRegistration->rashan_card=$fileName;
         } 
@@ -595,6 +613,23 @@ class ParentRegistrationController extends Controller
         $parentRegistration->save();
        
          return redirect()->back()->with(['class'=>'success','message'=>'Final Submit Successfully']);    
+    }
+    //preview
+    public function preview($id)
+    {
+         $pr = ParentRegistration::find(Crypt::decrypt($id));
+        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
+        $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
+        $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
+        $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
+        $tongues = array_pluck(Tongue::get(['id','name'])->toArray(),'name', 'id');
+        $bloodGroups = array_pluck(BloodGroup::get(['id','name'])->toArray(),'name', 'id');
+        $academicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
+        $default = StudentDefaultValue::find(1); 
+      
+      
+        return  view('front.registration.include.preview',compact('classes','sessions','default','genders','religions','categories','tongues','bloodGroups','academicYear','pr'))->render();
     }
 
    
