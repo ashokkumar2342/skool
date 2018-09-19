@@ -75,7 +75,7 @@
                     <div class="form-group">
                         <div class="col-md-12">
                             {!! Form::file('image','', ['class'=>'form-control','placeholder'=>'Select Locality']) !!}
-                            </select>
+                             
                             <b class="floating-lable">Image <b class="fa fa-asterisk"></b> Passport size100kb</b>
                         </div>
                     </div>

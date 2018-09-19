@@ -111,7 +111,7 @@
                         
                            <div class="form-group">
                                <div class="col-sm-12 bd">
-                                 <p>Class:<b> {{ $pr->classes->name }} </b></p> 
+                                 <p>Class:<b> {{ $pr->classes->name or '' }} </b></p> 
                                </div>
                            </div>
 

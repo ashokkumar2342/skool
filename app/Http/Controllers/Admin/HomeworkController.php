@@ -47,16 +47,31 @@ class HomeworkController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $validator = Validator::make(Input::all(), $this->rules);
-                if ($validator->fails()) {                    
-                     return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
+    { 
+          $rules=[
+        
+        'homework_doc' => 'nullable|mimes:pdf|max:2048',
+        ];
 
-                } else {
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }  else {
                     $homework = new Homework();
                     $homework->class_id = $request->class;
                     $homework->section_id = $request->section;
                     $homework->homework = $request->homework;
+                    $homework->date = $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
+                     if ($request->file('homework_doc')!=null) {
+                         $file = $request->file('homework_doc');
+                         $file->store('public/homework');
+                         $fileName = $file->hashName();
+                        $homework->homework_doc=$fileName;
+                    }
                     $homework->save();
                     return response()->json([$homework,'class'=>'success','message'=>'Homework Created Successfully']);
                 }

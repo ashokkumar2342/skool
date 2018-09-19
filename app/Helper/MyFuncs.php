@@ -203,7 +203,7 @@ class MyFuncs {
             </li>',
               '13'=>' <li class="treeview">
                 <a href="#">                
-                    <i class="fa fa-news text-warning"></i>
+                    <i class="fa fa-users text-warning"></i>
                     <span>Registration Form</span>
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
@@ -211,6 +211,24 @@ class MyFuncs {
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="'. route('admin.onlineForm.list').'"><i class="fa fa-circle-o"></i> List</a></li>              
+                    
+                </ul>
+            </li>',
+            '14'=>' <li class="treeview">
+                <a href="#">                
+                    <i class="fa fa-users text-warning"></i>
+                    <span>Transport</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="'. route('admin.transport.list').'"><i class="fa fa-circle-o"></i> Transport</a></li> 
+                    <li><a href="'. route('admin.vehicle.list').'"><i class="fa fa-circle-o"></i> Vehicle</a></li> 
+                    <li><a href="'. route('admin.vehicleType.list').'"><i class="fa fa-circle-o"></i> Vehicle Type</a></li> 
+                    <li><a href="'. route('admin.onlineForm.list').'"><i class="fa fa-circle-o"></i> Drivier</a></li>  
+                    <li><a href="'. route('admin.onlineForm.list').'"><i class="fa fa-circle-o"></i> Helper</a></li>              
+                    <li><a href="'. route('admin.onlineForm.list').'"><i class="fa fa-circle-o"></i> Route</a></li>              
                     
                 </ul>
             </li>',

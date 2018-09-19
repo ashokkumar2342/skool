@@ -395,10 +395,34 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::get('rejcet/{id}', 'Registration\RegistrationController@statusReject')->name('registration.reject');	 	
     	    Route::get('approved/{id}', 'Registration\RegistrationController@statusApproved')->name('registration.approved');	 	
     	    Route::post('/', 'Registration\RegistrationController@remarkAdd')->name('registration.remark.add');	 	
-    	    Route::get('show-remark', 'Registration\RegistrationController@remarkShow')->name('registration.remark.show');	 	
-    	    	
+    	    Route::get('show-remark', 'Registration\RegistrationController@remarkShow')->name('registration.remark.show'); 
     	    
-    	 });
-	 });
+    	 	});
+		 });
+
+		Route::group(['prefix' => 'transport'], function() {
+			//------------------------- Transport ---------------------------------
+			Route::group(['prefix' => 'transport'], function() {
+			    Route::get('/', 'Transport\TransportController@index')->name('admin.transport.list');	 	
+			    Route::post('add', 'Transport\TransportController@store')->name('admin.transport.post');
+			    Route::get('delete/{id}', 'Transport\TransportController@destroy')->name('admin.transport.delete');
+			    Route::put('update', 'Transport\TransportController@update')->name('admin.transport.update');
+			 });
+			 //------------------------- vehicle ---------------------------------
+			Route::group(['prefix' => 'vehicle'], function() {
+			    Route::get('/', 'Transport\VehicleController@index')->name('admin.vehicle.list');	 	
+			    Route::post('add', 'Transport\VehicleController@store')->name('admin.vehicle.post');
+			    Route::get('delete/{id}', 'Transport\VehicleController@destroy')->name('admin.vehicle.delete');
+			    Route::put('update', 'Transport\VehicleController@update')->name('admin.vehicle.update');
+			 });
+			 	 //------------------------- vehicle Type ---------------------------------
+			Route::group(['prefix' => 'vehicle-type'], function() {
+			    Route::get('/', 'Transport\VehicleController@list')->name('admin.vehicleType.list');	 	
+			    Route::post('add', 'Transport\VehicleController@vehicleTypestore')->name('admin.vehicleType.post');
+			    Route::get('delete/{id}', 'Transport\VehicleController@vehicleTypedestroy')->name('admin.vehicleType.delete');
+			    
+			 });
+
+		});	
 
 });

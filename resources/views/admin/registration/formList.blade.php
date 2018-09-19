@@ -1,4 +1,5 @@
- @extends('admin.layout.base')
+@extends('admin.layout.base')
+ 
  @push('links')
  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
@@ -22,12 +23,19 @@
        </section>
 
      <!-- Main content -->
-    <section class="content">
-        <div class="box">             
+       <section class="content">
+      <div class="row">
+        <div class="col-xs-12">          
+            <!-- /.box-header -->            
+          <div class="box">
+            <div class="box-header">
+              
+            </div>
+              
+
             <!-- /.box-header -->
-            <div class="box-body">  
-                <div class="col-md-12">
-                    <table class="table" > 
+            <div class="box-body">
+                    <table class="table"> 
                         <thead>
                             <tr>
                                 <th>Sr</th>
@@ -39,7 +47,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (App\Model\ParentRegistration::where('parent_id',Auth::user()->id)->get() as $parent)
+                            @foreach ($parents as $parent)
                            
                            
                             <tr>
@@ -74,16 +82,19 @@
                         </tbody>
                     </table>
                     
-                </div>
-
-                 
-            </div>
-        </div> 
+                      </div>
 @include('admin.registration.remarks') 
-     </section>
+                      <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+              </section>
+              <!-- /.content -->
      <!-- /.content -->
-   </div>
-   <!-- /.content-wrapper -->
+ 
    
   
 @endsection

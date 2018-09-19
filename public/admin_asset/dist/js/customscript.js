@@ -173,6 +173,9 @@ function changeJurisdiction(obj){
 function successMsg(msg){  
  toastr.success(msg);
 }
+function errorMsg(msg){  
+ toastr.error(msg);
+}
 
 
 function callchildTable(url,divId,tableId){

@@ -29,7 +29,8 @@ class RegistrationController extends Controller
     
     public function index()
     {
-        return view('admin.registration.formList');
+        $parents =ParentRegistration::latest()->get();
+        return view('admin.registration.formList',compact('parents'));
     }
 
     public function remarkAdd(Request $request)
