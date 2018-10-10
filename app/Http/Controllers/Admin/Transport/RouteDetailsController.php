@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Admin\Transport;
 
 use App\Http\Controllers\Controller;
+use App\Model\Transport\BoardingPoint;
 use App\Model\Transport\Route;
+use App\Model\Transport\RouteDetails;
 use App\Model\Transport\Transport;
 use App\Model\Transport\Vehicle;
 use App\Model\Transport\VehicleType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
-class RouteController extends Controller
+class RouteDetailsController extends Controller
 {
       /**
      * Display a listing of the resource.
@@ -19,9 +21,11 @@ class RouteController extends Controller
      */
     public function index()
     {
-    	 
-        $routes  = Route::latest('created_at')->paginate(20);
-        return view('admin.transport.route',compact('routes'));
+         $routes = Route::get(['id','name']);
+    	 $boardingPoints = array_pluck(BoardingPoint::get(['id','name'])->toArray(),'name', 'id'); 
+         $vehicles = array_pluck(Vehicle::get(['id','registration_no'])->toArray(),'registration_no', 'id'); 
+        $routesDetails  = RouteDetails::latest('created_at')->paginate(20);
+        return view('admin.transport.route-details',compact('routesDetails','routes','vehicles','boardingPoints'));
     }
 
     /**
@@ -29,9 +33,13 @@ class RouteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function getBoardingPoint(Request $request)
+    {       
+         $route_id  = $request->route_id;
+         $boardingPoints  = BoardingPoint::get();
+         $routesDetail  = RouteDetails::where('route_id',$route_id)->first();
+           
+         return view('admin.transport.boarding-point-result',compact('boardingPoints','route_id','routesDetail'))->render();
     }
 
     /**
@@ -41,30 +49,51 @@ class RouteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-    	$rules=[
-    	'name' => 'required|max:30', 
-            'description' => 'nullable|string', 
-          
-    	];
+    {    
+            $rules=[
+            'route_id' => 'required', 
+             'boarding_point_id' => 'required', 
+                 
+            ];
 
-    	$validator = Validator::make($request->all(),$rules);
-    	if ($validator->fails()) {
-    	    $errors = $validator->errors()->all();
-    	    $response=array();
-    	    $response["status"]=0;
-    	    $response["msg"]=$errors[0];
-    	    return response()->json($response);// response as json
-    	}
-         else {
-            $route = new Route(); 
-            $route->name = $request->name;
-            $route->description = $request->description; 
-    
-            $route->save();
-             $response=['status'=>1,'msg'=>'Created Successfully'];
-            return response()->json($response); 
-        }
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+             else {
+                   $route = RouteDetails::firstOrNew(['route_id'=>$request->route_id]);
+                          
+                  $route->boarding_point_id = implode(',', $request->boarding_point_id);
+                  $route->route_id = $request->route_id; 
+                  
+                  $route->morning_time = $request->morning;
+                  $route->evening_time = $request->evening;
+                
+                  $route->save();
+                 $response=['status'=>1,'msg'=>'Save Successfully'];
+                return response()->json($response); 
+            }
+
+           
+        //  foreach ($request->value as $key => $value) {
+          
+        //    $route = RouteDetails::where(['route_id'=>$request->route_id,'boarding_point_id'=>$key])->firstOrNew(['boarding_point_id'=>$key]);
+           
+        //    $route->boarding_point_id = $key;
+        //    $route->route_id = $request->route_id; 
+           
+        //    $route->morning_time = $value;
+         
+        //    $route->save();
+
+        // }
+              
+          
+         
     }
 
     /**

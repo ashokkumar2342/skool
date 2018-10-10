@@ -422,6 +422,44 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('delete/{id}', 'Transport\VehicleController@vehicleTypedestroy')->name('admin.vehicleType.delete');
 			    
 			 });
+			 	 //------------------------- Driver ---------------------------------
+			Route::group(['prefix' => 'driver'], function() {
+			    Route::get('/', 'Transport\DriverController@index')->name('admin.driver.list');	 	
+			    Route::post('add', 'Transport\DriverController@store')->name('admin.driver.post');
+			    Route::get('delete/{id}', 'Transport\DriverController@destroy')->name('admin.driver.delete'); 
+			 });
+			 //------------------------- Helper ---------------------------------
+			Route::group(['prefix' => 'helper'], function() {
+			    Route::get('/', 'Transport\HelperController@index')->name('admin.helper.list');	 	
+			    Route::post('add', 'Transport\HelperController@store')->name('admin.helper.post');
+			    Route::get('delete/{id}', 'Transport\HelperController@destroy')->name('admin.helper.delete'); 
+			 });
+			  //------------------------- Helper ---------------------------------
+			Route::group(['prefix' => 'route'], function() {
+			    Route::get('/', 'Transport\RouteController@index')->name('admin.route.list');	 	
+			    Route::post('add', 'Transport\RouteController@store')->name('admin.route.post');
+			    Route::get('delete/{id}', 'Transport\RouteController@destroy')->name('admin.route.delete'); 
+			 });
+			   //------------------------- Helper ---------------------------------
+			Route::group(['prefix' => 'boarding-point'], function() {
+			    Route::get('/', 'Transport\BoardingPointController@index')->name('admin.boardingPoint.list');	 	
+			    Route::post('add', 'Transport\BoardingPointController@store')->name('admin.boardingPoint.post');
+			    Route::get('delete/{id}', 'Transport\BoardingPointController@destroy')->name('admin.boardingPoint.delete'); 
+			 });
+			   //------------------------- Helper ---------------------------------
+			Route::group(['prefix' => 'route-details'], function() {
+			    Route::get('/', 'Transport\RouteDetailsController@index')->name('admin.routeDetails.list');	 	
+			    Route::post('add', 'Transport\RouteDetailsController@store')->name('admin.routeDetails.post');
+			    Route::get('get', 'Transport\RouteDetailsController@getBoardingPoint')->name('admin.routeDetails.get');
+			    Route::get('delete/{id}', 'Transport\RouteDetailsController@destroy')->name('admin.routesDetail.delete'); 
+			 }); 
+			 
+			  //------------------------- Transport Registration ---------------------------------
+			Route::group(['prefix' => 'transport-registration'], function() {
+			    Route::get('/', 'Transport\TransportRegistrationController@index')->name('admin.transportRegistration.list');	 	
+			    Route::post('add', 'Transport\TransportRegistrationController@store')->name('admin.transportRegistration.post');
+			    Route::get('delete/{id}', 'Transport\TransportRegistrationController@destroy')->name('admin.transportRegistration.delete'); 
+			 });
 
 		});	
 

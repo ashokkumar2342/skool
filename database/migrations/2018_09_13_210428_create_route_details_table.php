@@ -15,11 +15,11 @@ class CreateRouteDetailsTable extends Migration
     {
         Schema::create('route_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('route_id'); 
-            $table->unsignedInteger('vehicle_id'); 
+            $table->unsignedInteger('route_id')->nullable(); 
+            
             $table->unsignedInteger('boarding_point_id'); 
-            $table->date('morning_time'); 
-            $table->date('evening_time'); 
+            $table->string('morning_time')->nullable(); 
+            $table->string('evening_time')->nullable(); 
             $table->timestamps();
         });
     }

@@ -226,9 +226,12 @@ class MyFuncs {
                     <li><a href="'. route('admin.transport.list').'"><i class="fa fa-circle-o"></i> Transport</a></li> 
                     <li><a href="'. route('admin.vehicle.list').'"><i class="fa fa-circle-o"></i> Vehicle</a></li> 
                     <li><a href="'. route('admin.vehicleType.list').'"><i class="fa fa-circle-o"></i> Vehicle Type</a></li> 
-                    <li><a href="'. route('admin.onlineForm.list').'"><i class="fa fa-circle-o"></i> Drivier</a></li>  
-                    <li><a href="'. route('admin.onlineForm.list').'"><i class="fa fa-circle-o"></i> Helper</a></li>              
-                    <li><a href="'. route('admin.onlineForm.list').'"><i class="fa fa-circle-o"></i> Route</a></li>              
+                    <li><a href="'. route('admin.driver.list').'"><i class="fa fa-circle-o"></i> Drivier</a></li>  
+                    <li><a href="'. route('admin.helper.list').'"><i class="fa fa-circle-o"></i> Helper</a></li> 
+                    <li><a href="'. route('admin.boardingPoint.list').'"><i class="fa fa-circle-o"></i>  Boarding Point</a></li>              
+                    <li><a href="'. route('admin.route.list').'"><i class="fa fa-circle-o"></i> Route</a></li>
+                    <li><a href="'. route('admin.routeDetails.list').'"><i class="fa fa-circle-o"></i> Route Details</a></li>
+                    <li><a href="'. route('admin.transportRegistration.list').'"><i class="fa fa-circle-o"></i> Transport Registration</a></li>              
                     
                 </ul>
             </li>',

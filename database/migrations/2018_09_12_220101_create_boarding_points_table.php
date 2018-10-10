@@ -15,7 +15,7 @@ class CreateBoardingPointsTable extends Migration
     {
         Schema::create('boarding_points', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('boarding_point_name');
+            $table->string('name');
             $table->string('address');
             $table->string('single_side_fee_amount');
             $table->string('both_side_fee_amount'); 

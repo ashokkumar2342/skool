@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Admin\Transport;
 
 use App\Http\Controllers\Controller;
-use App\Model\Transport\DriverHelper;
+use App\Model\Transport\Driver;
 use App\Model\Transport\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
-class HelperController extends Controller
+class DriverController extends Controller
 {
      public function index()
     {
     	$vehicles = array_pluck(Vehicle::get(['id','registration_no'])->toArray(),'registration_no', 'id');
-        $helpers  = DriverHelper::latest('created_at')->paginate(20);
-        return view('admin.transport.helper',compact('helpers','vehicles'));
+        $drivers  = Driver::latest('created_at')->paginate(20);
+        return view('admin.transport.driver',compact('drivers','vehicles'));
     }
 
     /**
@@ -54,16 +54,16 @@ class HelperController extends Controller
     	    return response()->json($response);// response as json
     	}
          else {
-            $Helper = new DriverHelper();            
-            $Helper->name = $request->name;
-            $Helper->mobile = $request->mobile;
-            $Helper->contact_no = $request->contact_no;         
-            $Helper->license_number = $request->license_number;            
-            $Helper->address = $request->address;
-            $Helper->p_address = $request->p_address;
-            $Helper->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
-            $Helper->vehicle_id = $request->vehicle_id;
-            $Helper->save();
+            $Driver = new Driver();            
+            $Driver->name = $request->name;
+            $Driver->mobile = $request->mobile;
+            $Driver->contact_no = $request->contact_no;         
+            $Driver->license_number = $request->license_number;            
+            $Driver->address = $request->address;
+            $Driver->p_address = $request->p_address;
+            $Driver->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
+            $Driver->vehicle_id = $request->vehicle_id;
+            $Driver->save();
              $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response); 
         }
@@ -72,10 +72,10 @@ class HelperController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Model\Helper  $Helper
+     * @param  \App\Model\Driver  $Driver
      * @return \Illuminate\Http\Response
      */
-    public function show(Helper $Helper)
+    public function show(Driver $Driver)
     {
         //
     }
@@ -83,10 +83,10 @@ class HelperController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Model\Helper  $Helper
+     * @param  \App\Model\Driver  $Driver
      * @return \Illuminate\Http\Response
      */
-    public function edit(Helper $Helper)
+    public function edit(Driver $Driver)
     {
         //
     }
@@ -95,10 +95,10 @@ class HelperController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Helper  $Helper
+     * @param  \App\Model\Driver  $Driver
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Helper $Helper)
+    public function update(Request $request, Driver $Driver)
     {
         // return $request;
         $validator = Validator::make($request->all(), [
@@ -112,27 +112,27 @@ class HelperController extends Controller
              return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
 
         } else {
-            $Helper =  Helper::find($request->id);
-            // return $Helper;
-            $Helper->code = $request->code;
-            $Helper->name = $request->name;
-            $Helper->description = $request->description;
-            $Helper->save();
-            return response()->json([$Helper,'class'=>'success','message'=>'Fee Account Created Successfully']);
+            $Driver =  Driver::find($request->id);
+            // return $Driver;
+            $Driver->code = $request->code;
+            $Driver->name = $request->name;
+            $Driver->description = $request->description;
+            $Driver->save();
+            return response()->json([$Driver,'class'=>'success','message'=>'Fee Account Created Successfully']);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Model\Helper  $Helper
+     * @param  \App\Model\Driver  $Driver
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
 
-        $Helper = DriverHelper::findOrFail(Crypt::decrypt($id));
-        $Helper->delete();
+        $Driver = Driver::findOrFail(Crypt::decrypt($id));
+        $Driver->delete();
         return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
 }

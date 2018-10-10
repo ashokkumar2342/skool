@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Admin\Transport;
 
 use App\Http\Controllers\Controller;
+use App\Model\Transport\BoardingPoint;
 use App\Model\Transport\Route;
+use App\Model\Transport\RouteDetails;
 use App\Model\Transport\Transport;
 use App\Model\Transport\Vehicle;
 use App\Model\Transport\VehicleType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
-class RouteController extends Controller
+class  BoardingPointController extends Controller
 {
       /**
      * Display a listing of the resource.
@@ -20,8 +22,8 @@ class RouteController extends Controller
     public function index()
     {
     	 
-        $routes  = Route::latest('created_at')->paginate(20);
-        return view('admin.transport.route',compact('routes'));
+        $BoardingPoints  = BoardingPoint::latest('created_at')->paginate(20);
+        return view('admin.transport.boarding-point',compact('BoardingPoints'));
     }
 
     /**
@@ -43,8 +45,11 @@ class RouteController extends Controller
     public function store(Request $request)
     {
     	$rules=[
-    	'name' => 'required|max:30', 
-            'description' => 'nullable|string', 
+    	'name' => 'required|max:100', 
+        'address' => 'required|string', 
+        'single_side_fee_amount' => 'required|numeric', 
+        'single_side_fee_amount' => 'required|numeric', 
+         
           
     	];
 
@@ -57,11 +62,13 @@ class RouteController extends Controller
     	    return response()->json($response);// response as json
     	}
          else {
-            $route = new Route(); 
-            $route->name = $request->name;
-            $route->description = $request->description; 
+            $BoardingPoint = new BoardingPoint(); 
+            $BoardingPoint->name = $request->name;
+            $BoardingPoint->address = $request->address; 
+            $BoardingPoint->single_side_fee_amount = $request->single_side_fee_amount; 
+            $BoardingPoint->both_side_fee_amount = $request->both_side_fee_amount; 
     
-            $route->save();
+            $BoardingPoint->save();
              $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response); 
         }
@@ -98,24 +105,7 @@ class RouteController extends Controller
      */
     public function update(Request $request, Vehicle $Vehicle)
     {
-        // return $request;
-        $validator = Validator::make($request->all(), [
-        
-            
-            'name' => 'required|max:30|unique:fee_accounts', 
-            'description' => 'max:100', 
-              
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
-
-        } else {
-           $route = new Route(); 
-         $route->name = $request->name;
-         $route->description = $request->description;  
-         $route->save();
-           return response()->json([$Vehicle,'class'=>'success','message'=>'Update Successfully']);
-        }
+         
     }
 
     /**
@@ -127,8 +117,8 @@ class RouteController extends Controller
     public function destroy($id)
     {
 
-        $Vehicle = Route::findOrFail(Crypt::decrypt($id));
-        $Vehicle->delete();
+        $BoardingPoint = BoardingPoint::findOrFail(Crypt::decrypt($id));
+        $BoardingPoint->delete();
         return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
 

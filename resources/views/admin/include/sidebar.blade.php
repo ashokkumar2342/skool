@@ -8,7 +8,7 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <!-- Sidebar user panel -->
                             <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
+    {{--     <form action="#" method="get" class="sidebar-form">
           <div class="input-group">
             <input type="text" name="q" class="form-control" placeholder="Search...">
                 <span class="input-group-btn">
@@ -16,10 +16,10 @@
                   </button>
                 </span>
           </div>
-        </form>
+        </form> --}}
         <!-- /.search form -->
     <ul class="sidebar-menu">
-        <li class="header">MAIN NAVIGATION</li>
+        {{-- <li class="header">MAIN NAVIGATION</li> --}}
         <li ><a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
         
          {{  App\Helper\MyFuncs::menus() }}
