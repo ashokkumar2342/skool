@@ -453,6 +453,13 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('get', 'Transport\RouteDetailsController@getBoardingPoint')->name('admin.routeDetails.get');
 			    Route::get('delete/{id}', 'Transport\RouteDetailsController@destroy')->name('admin.routesDetail.delete'); 
 			 }); 
+			    //------------------------- Helper ---------------------------------
+			Route::group(['prefix' => 'route-vehicle'], function() {
+			    Route::get('/', 'Transport\RouteVehicleController@index')->name('admin.routeVehicle.list');	 	
+			    Route::post('add', 'Transport\RouteVehicleController@store')->name('admin.routeVehicle.post');
+			    Route::get('get', 'Transport\RouteVehicleController@getVehicle')->name('admin.routeVehicle.get');
+			    Route::get('delete/{id}', 'Transport\RouteVehicleController@destroy')->name('admin.routesDetail.delete'); 
+			 }); 
 			 
 			  //------------------------- Transport Registration ---------------------------------
 			Route::group(['prefix' => 'transport-registration'], function() {

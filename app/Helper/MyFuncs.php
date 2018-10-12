@@ -231,6 +231,7 @@ class MyFuncs {
                     <li><a href="'. route('admin.boardingPoint.list').'"><i class="fa fa-circle-o"></i>  Boarding Point</a></li>              
                     <li><a href="'. route('admin.route.list').'"><i class="fa fa-circle-o"></i> Route</a></li>
                     <li><a href="'. route('admin.routeDetails.list').'"><i class="fa fa-circle-o"></i> Route Details</a></li>
+                    <li><a href="'. route('admin.routeVehicle.list').'"><i class="fa fa-circle-o"></i> Route Vehicle</a></li>
                     <li><a href="'. route('admin.transportRegistration.list').'"><i class="fa fa-circle-o"></i> Transport Registration</a></li>              
                     
                 </ul>

@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Route Details </h1>
+    <h1>Route Vehicle </h1>
       <ol class="breadcrumb">
       </ol>
 </section>
@@ -10,13 +10,13 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="form add_form" content-refresh="route_table" action="{{ route('admin.routeDetails.post') }}" method="post" no-reset="true">              
+	                <form class="form add_form" content-refresh="route_table" action="{{ route('admin.routeVehicle.post') }}" method="post" no-reset="true">              
                   {{ csrf_field() }}                                       
 	                   <div class="col-lg-3">                                             
                         <div class="form-group">
                           
                           {{ Form::label('route_id','Route',['class'=>' control-label']) }}
-                              <select name="route_id" id="route_id" class="form-control"  onchange="callAjaxUrl('{{ route('admin.routeDetails.get') }}'+'?route_id='+this.value+'','searchResult')">
+                              <select name="route_id" id="route_id" class="form-control"  onchange="callAjaxUrl('{{ route('admin.routeVehicle.get') }}'+'?route_id='+this.value+'','searchResult')">
                                 <option selected disabled value="">Select Route</option>
                                 @foreach($routes as $route)
                                 <option value="{{ $route->id }}">{{ $route->name }}</option>
@@ -29,7 +29,8 @@
                             <tr>
                                 <th style="width: 10px">id</th>
                                 <th> <input  class="checked_all" type="checkbox"></th>
-                               <td><b>Boarding Point Name</b></td>                         
+                               <td><b>Vehicle Type</b></td>                         
+                               <td><b>Vehicle Registration No</b></td>                         
                                     
                             </tr>
                             </thead>
