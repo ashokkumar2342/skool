@@ -467,6 +467,18 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('add', 'Transport\TransportRegistrationController@store')->name('admin.transportRegistration.post');
 			    Route::get('delete/{id}', 'Transport\TransportRegistrationController@destroy')->name('admin.transportRegistration.delete'); 
 			 });
+			  //------------------------- Exam Test ---------------------------------
+			Route::group(['prefix' => 'class-test'], function() {
+			    Route::get('/', 'Exam\ClassTestController@index')->name('admin.exam.test');	 	
+			    Route::post('store', 'Exam\ClassTestController@store')->name('admin.exam.classtest.store');	 	
+			    Route::get('delete/{id}', 'Exam\ClassTestController@destroy')->name('admin.exam.classtest.delete');	 	
+			    
+			 });
+			   //------------------------- Exam Test Details ---------------------------------
+			Route::group(['prefix' => 'class-detail'], function() {
+			    Route::get('/', 'Exam\ClassTestDetailController@index')->name('admin.exam.test.details');	 	
+			    
+			 });
 
 		});	
 

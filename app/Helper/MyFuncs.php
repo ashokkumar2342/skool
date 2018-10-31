@@ -216,7 +216,7 @@ class MyFuncs {
             </li>',
             '14'=>' <li class="treeview">
                 <a href="#">                
-                    <i class="fa fa-users text-warning"></i>
+                    <i class="fa fa-bus text-info"></i>
                     <span>Transport</span>
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
@@ -236,22 +236,30 @@ class MyFuncs {
                     
                 </ul>
             </li>',
+              '15'=>' <li class="treeview">
+                <a href="#">                
+                    <i class="fa fa-sticky-note text-warning"></i>
+                    <span>Exam</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="'. route('admin.exam.test').'"><i class="fa fa-circle-o"></i> Class Test</a></li>  
+                    <li><a href="'. route('admin.exam.test.details').'"><i class="fa fa-circle-o"></i> Class Test Details</a></li>             
+                    
+                </ul>
+            </li>',
      		 
-    		];
-
-    		 
-    	 
-
+    		]; 
     	foreach ($urls as $key => $value) {
     	
-        		foreach (Auth::guard('admin')->user()->minus as $menu) {
-        			if ($menu->minu_id==$key)
-                     {
-        		  	   echo $value;
-        		      }
+    		foreach (Auth::guard('admin')->user()->minus as $menu) {
+    			if ($menu->minu_id==$key)
+                 {
+    		  	   echo $value;
     		      }
-    	 
-    		  
+		    } 
     	}
     	
     }
