@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Exam;
 
-use App\Model\Exam\ClassTestDetail;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Exam\ClassTest;
+use App\Model\Exam\ClassTestDetail;
+use App\Student;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Validator;
 
 class ClassTestDetailController extends Controller
 {
@@ -15,7 +19,11 @@ class ClassTestDetailController extends Controller
      */
     public function index()
     {
-        //
+        $classTests = ClassTest::all();
+        $students = Student::all();
+        $classTestDetails = ClassTestDetail::all();
+         
+        return view('admin.exam.class_test_details',compact('classTestDetails','students','classTests'));
     }
 
     /**
@@ -35,8 +43,40 @@ class ClassTestDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {  
+        $rules=[
+        'classTest' => 'required|max:30', 
+        'student' => 'required|max:30', 
+        'marksobt' => 'required|max:30',          
+        'percentile' => 'required|max:10', 
+        'rank' => 'required|max:10', 
+        'sylabus' => 'nullable|mimes:pdf|max:2048',             
+          
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+            
+        $classTestDetail = new ClassTestDetail();
+        $classTestDetail->class_test_id = $request->classTest;
+        $classTestDetail->student_id = $request->student;
+        $classTestDetail->marksobt = $request->marksobt;      
+        $classTestDetail->percentile = $request->percentile;
+        $classTestDetail->rank = $request->rank;
+        $classTestDetail->grade = $request->grade;
+        $classTestDetail->any_remarks = $request->any_remarks;
+   
+        $classTestDetail->save(); 
+        $response = array();
+        $response['msg'] = 'Submit Successfully';
+        $response['status'] = 1;
+        return response()->json($response);
     }
 
     /**
@@ -79,8 +119,10 @@ class ClassTestDetailController extends Controller
      * @param  \App\Model\Exam\ClassTestDetail  $classTestDetail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ClassTestDetail $classTestDetail)
-    {
-        //
-    }
+   public function destroy($id)
+   { 
+       $ClassTestDetail = ClassTestDetail::findOrFail(Crypt::decrypt($id));
+       $ClassTestDetail->delete();
+       return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+   }
 }

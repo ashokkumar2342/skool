@@ -477,6 +477,8 @@ Route::group(['middleware' => 'admin'], function() {
 			   //------------------------- Exam Test Details ---------------------------------
 			Route::group(['prefix' => 'class-detail'], function() {
 			    Route::get('/', 'Exam\ClassTestDetailController@index')->name('admin.exam.test.details');	 	
+			    Route::post('store', 'Exam\ClassTestDetailController@store')->name('admin.exam.classdetail.store');	
+			    Route::get('delete/{id}', 'Exam\ClassTestDetailController@destroy')->name('admin.exam.classdetail.delete');	 	
 			    
 			 });
 
