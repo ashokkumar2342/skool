@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Class Test </h1>
+    <h1>Class Test Details </h1>
       <ol class="breadcrumb">
       </ol>
 </section>
@@ -10,20 +10,19 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="add_form" content-refresh="route_table" action="{{ route('admin.exam.classdetail.store') }}" method="post">              
-                  {{ csrf_field() }}                  
-                   <div class="col-lg-3">                         
+	                               
+                   <div class="col-lg-12">                         
                       <div class="form-group">
                           {{ Form::label('class','Class Test',['class'=>' control-label']) }}
-                           <select name="classTest" class="form-control">
-                             <option value="" selected disabled>Select ClassTest</option>
+                           <select name="classTest" class="form-control" onchange="callAjaxUrl('{{ route('admin.classdetail.studentSearch') }}'+'?class_test_id='+this.value+'','student_details_Result')">
+                             <option value="" selected disabled>Select Class Test</option>
                              @foreach ($classTests as $classTest)
-                                <option value="{{ $classTest->id }}">{{ $classTest->classes->name }}</option>
+                                <option value="{{ $classTest->id }}">Class: {{ $classTest->classes->name }}, &nbsp;&nbsp;&nbsp;Section : {{ $classTest->sectionTypes->name }},&nbsp;&nbsp;&nbsp; Subject: {{ $classTest->subjects->name }}</option>
                              @endforeach 
                            </select>
                       </div>
                   </div>
-                   <div class="col-lg-3">                         
+                  {{--  <div class="col-lg-3">                         
                       <div class="form-group">
                           {{ Form::label('student','Student',['class'=>' control-label']) }}
                            <select name="student" class="form-control">
@@ -72,7 +71,7 @@
                        
 	                     <div class="col-lg-12 text-center">                                             
 	                     <button class="btn btn-success" type="submit" id="btn_fee_account_create">Submit</button> 
-	                    </div>                     
+	                    </div>   --}}                   
 	                </form> 
                 </div> 
             </div>
@@ -83,49 +82,35 @@
             <div class="box">             
               <!-- /.box-header -->
                 <div class="box-body">
+                
+                    <form class="add_form" content-refresh="route_table" action="{{ route('admin.exam.classdetail.store') }}" method="post">              
+                  {{ csrf_field() }}  
+                  
                     <table id="route_table" class="display table">                     
                         <thead>
                             <tr>
                                 <th>Sn</th>
                                
-                                <th>class_test_id</th> 
+                                 
                                 <th>student Name</th> 
                                 <th>student Registration No</th> 
-                                <th>marks obt</th>                                                            
-                                <th>Rank</th>                                                            
-                                <th>Percentile</th>                                                            
-                                <th>any_remarks</th>                                                            
-                                <th>grade</th>                                                           
+                                                                                            
+                                <th>Marks</th>                                                            
+                                                                                             
+                                <th>any remarks</th>                                                            
                                                                                           
-                                <th>Action</th>                                                            
+                                                                                           
                             </tr>
                         </thead>
-                        <tbody>
-                        @foreach ($classTestDetails as $classTestDetail)
-                        	<tr>
-                        		<td>{{ ++$loop->index }}</td>
-                        	 
-                            <td>{{ $classTestDetail->class_test_id or ''}}</td>
-                            <td>{{ $classTestDetail->students->name or '' }}</td>
-                            <td>{{ $classTestDetail->students->registration_no or '' }}</td>
-                            <td>{{ $classTestDetail->marksobt }}</td>
-                            <td>{{ $classTestDetail->rank }}</td>
-                            <td>{{ $classTestDetail->percentile }}</td>
-                            <td>{{ $classTestDetail->any_remarks }}</td>
-                            <td>{{ $classTestDetail->grade }}</td>
-                            <td>{{ $classTestDetail->average_marks }}</td>
-                          
-                            
-                        		<td>  
-                        			<a href="{{ route('admin.exam.classdetail.delete',Crypt::encrypt($classTestDetail->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
-                        		</td>
-                        	</tr>  	 
-                        @endforeach	
+                        <tbody id="student_details_Result">
+                        
                            
                         </tbody>
                              
 
                     </table>
+<input type="submit" value="submit">
+                    </form>
                 </div>
             </div>    
 

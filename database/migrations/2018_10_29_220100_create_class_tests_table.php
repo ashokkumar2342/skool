@@ -21,6 +21,7 @@ class CreateClassTestsTable extends Migration
             $table->string('test_date')->nullable();   
             $table->string('max_marks')->nullable();   
             $table->string('sylabus')->nullable();   
+            $table->text('remarks')->nullable();   
             $table->string('highest_marks')->nullable();   
             $table->string('avg_marks')->nullable();   
             $table->string('is_include_term_exam');   

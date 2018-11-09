@@ -44,20 +44,13 @@
                           {{ Form::label('max_marks','Max Marks',['class'=>' control-label']) }}
                            {{ Form::text('max_marks','',['class'=>'form-control', 'placeholder'=>'  Max Marks']) }} 
                          </div>                                         
-                      </div>
-                      
-                      <div class="col-lg-3">                                             
-	                       <div class="form-group">
-                          {{ Form::label('highest_marks','Highest Marks',['class'=>' control-label']) }}
-	                         {{ Form::text('highest_marks','',['class'=>'form-control', 'placeholder'=>'  Highest Marks']) }} 
-	                       </div>                                         
-	                    </div>
-                      <div class="col-lg-3">                                             
+                      </div> 
+                      <div class="col-lg-6">                                             
                          <div class="form-group">
-                          {{ Form::label('avg_marks','Average Marks',['class'=>' control-label']) }}
-                           {{ Form::text('avg_marks','',['class'=>'form-control', 'placeholder'=>'  Average Marks']) }} 
+                          {{ Form::label('discription','Discription',['class'=>' control-label']) }}
+                           {{ Form::textarea('discription','',['class'=>'form-control', 'placeholder'=>' Discription','rows'=>1]) }} 
                          </div>                                         
-                      </div>
+                      </div> 
                        <div class="col-lg-3">                                             
                          <div class="form-group">
                           {{ Form::label('sylabus','Sylabus',['class'=>' control-label']) }}
@@ -88,9 +81,8 @@
                                 <th>Section</th> 
                                 <th>Subject</th>                                                            
                                 <th>Test Date</th>                                                            
-                                <th>Max marks</th>                                                            
-                                <th>Highest Marks</th>                                                            
-                                <th>Average Marks</th>                                                            
+                                <th>Max marks</th>                                                             
+                                <th>Discription</th>                                                             
                                 <th>Action</th>                                                            
                             </tr>
                         </thead>
@@ -103,12 +95,12 @@
                             <td>{{ $classTest->sectionTypes->name or '' }}</td>
                             <td>{{ $classTest->subjects->name }}</td>
                             <td>{{ $classTest->test_date }}</td>
-                            <td>{{ $classTest->max_marks }}</td>
-                            <td>{{ $classTest->highest_marks }}</td>
-                            <td>{{ $classTest->avg_marks }}</td>
-                            
+                            <td>{{ $classTest->max_marks }}</td> 
+                            <td>{{ $classTest->discription }}</td> 
                         		<td>  
-                        			<a href="{{ route('admin.exam.classtest.delete',Crypt::encrypt($classTest->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
+                        			<a href="{{ route('admin.exam.classtest.delete',Crypt::encrypt($classTest->id)) }}"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
+
+                              <a href="{{ url('storage/class_test/'.$classTest->sylabus) }}" {{ $classTest->sylabus==null?'disabled':'' }} target="_blank"  class="btn btn-info btn-xs"    ><i class="fa fa-download"></i></a>
                         		</td>
                         	</tr>  	 
                         @endforeach	

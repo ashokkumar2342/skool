@@ -49,7 +49,7 @@ class RouteDetailsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {    
+    {    return $reqeust;
             $rules=[
             'route_id' => 'required', 
              'boarding_point_id' => 'required', 
@@ -70,9 +70,8 @@ class RouteDetailsController extends Controller
                   $route->boarding_point_id = implode(',', $request->boarding_point_id);
                   $route->route_id = $request->route_id; 
                   
-                  $route->morning_time = $request->morning;
-                  $route->evening_time = $request->evening;
-                
+                  $route->morning_time = implode(',', $request->morning_time);
+                  $route->evening_time = implode(',', $request->evening_time);                
                   $route->save();
                  $response=['status'=>1,'msg'=>'Save Successfully'];
                 return response()->json($response); 
@@ -102,9 +101,13 @@ class RouteDetailsController extends Controller
      * @param  \App\Model\Vehicle  $Vehicle
      * @return \Illuminate\Http\Response
      */
-    public function show(Vehicle $Vehicle)
+    public function show(Request $request)
     {
-        //
+      $route_id  = $request->route_id; 
+      $boardingPoints  = BoardingPoint::get();
+      $routesDetail   = RouteDetails::where('route_id',$route_id)->first();
+        
+      return view('admin.transport.route-details-view',compact('boardingPoints','route_id','routesDetail'))->render();  
     }
 
     /**
@@ -156,7 +159,7 @@ class RouteDetailsController extends Controller
     public function destroy($id)
     {
 
-        $Vehicle = Route::findOrFail(Crypt::decrypt($id));
+        $Vehicle = RouteDetails::findOrFail(Crypt::decrypt($id));
         $Vehicle->delete();
         return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }

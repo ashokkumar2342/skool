@@ -15,8 +15,7 @@ class CreateRouteDetailsTable extends Migration
     {
         Schema::create('route_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('route_id')->nullable(); 
-            
+            $table->unsignedInteger('route_id')->nullable();             
             $table->text('boarding_point_id'); 
             $table->string('morning_time')->nullable(); 
             $table->string('evening_time')->nullable(); 

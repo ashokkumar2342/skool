@@ -31,9 +31,11 @@ class ClassTestDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function searchStudent(Request $request)
     {
-        //
+         $classTest = CLassTest::find($request->class_test_id);
+         $students = Student::where('class_id',$classTest->class_id)->where('section_id',$classTest->section_id)->get();
+         return view('admin.exam.student_details',compact('students','classTest'))->render();
     }
 
     /**
@@ -43,7 +45,7 @@ class ClassTestDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  
+    {  return $request;
         $rules=[
         'classTest' => 'required|max:30', 
         'student' => 'required|max:30', 

@@ -451,6 +451,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'Transport\RouteDetailsController@index')->name('admin.routeDetails.list');	 	
 			    Route::post('add', 'Transport\RouteDetailsController@store')->name('admin.routeDetails.post');
 			    Route::get('get', 'Transport\RouteDetailsController@getBoardingPoint')->name('admin.routeDetails.get');
+			     Route::get('show', 'Transport\RouteDetailsController@show')->name('admin.routeDetailsView.get');
 			    Route::get('delete/{id}', 'Transport\RouteDetailsController@destroy')->name('admin.routesDetail.delete'); 
 			 }); 
 			    //------------------------- Helper ---------------------------------
@@ -458,7 +459,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'Transport\RouteVehicleController@index')->name('admin.routeVehicle.list');	 	
 			    Route::post('add', 'Transport\RouteVehicleController@store')->name('admin.routeVehicle.post');
 			    Route::get('get', 'Transport\RouteVehicleController@getVehicle')->name('admin.routeVehicle.get');
-			    Route::get('delete/{id}', 'Transport\RouteVehicleController@destroy')->name('admin.routesDetail.delete'); 
+			    Route::get('delete/{id}', 'Transport\RouteVehicleController@destroy')->name('admin.routesVehicle.delete'); 
 			 }); 
 			 
 			  //------------------------- Transport Registration ---------------------------------
@@ -479,6 +480,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'Exam\ClassTestDetailController@index')->name('admin.exam.test.details');	 	
 			    Route::post('store', 'Exam\ClassTestDetailController@store')->name('admin.exam.classdetail.store');	
 			    Route::get('delete/{id}', 'Exam\ClassTestDetailController@destroy')->name('admin.exam.classdetail.delete');	 	
+			    Route::get('search', 'Exam\ClassTestDetailController@searchStudent')->name('admin.classdetail.studentSearch');	 	
 			    
 			 });
 

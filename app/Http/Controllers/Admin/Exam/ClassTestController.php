@@ -46,10 +46,7 @@ class ClassTestController extends Controller
         $rules=[
         'class' => 'required|max:30', 
         'section' => 'required|max:30', 
-        'test_date' => 'required|max:30', 
-        'max_marks' => 'required|max:10', 
-        'highest_marks' => 'required|max:10', 
-        'avg_marks' => 'required|max:10', 
+        'test_date' => 'required|max:30',  
         'sylabus' => 'nullable|mimes:pdf|max:2048',
               
           
@@ -63,20 +60,27 @@ class ClassTestController extends Controller
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
         }
-        $file = $request->file('sylabus');
 
-        $file->store('public/class_test');
+        $file = $request->file('sylabus'); 
+        if (!$file==null) {
+           $file->store('public/class_test'); 
+        }
+        
   
         $classTest = new ClassTest();
         $classTest->class_id = $request->class;
         $classTest->section_id = $request->section;
         $classTest->test_date = $request->test_date;
-        $classTest->highest_marks = $request->highest_marks;
+         
         $classTest->max_marks = $request->max_marks;
         $classTest->subject_id = $request->subject;
-        $classTest->avg_marks = $request->avg_marks;
+        $classTest->discription = $request->discription;
+         
         $classTest->is_include_term_exam = 1;
-        $classTest->sylabus = $file->hashName();
+        if (!$file==null) {
+           $classTest->sylabus = $file->hashName();
+        }
+        
         $classTest->save();
 
         $response = array();

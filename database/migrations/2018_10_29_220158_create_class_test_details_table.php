@@ -20,7 +20,7 @@ class CreateClassTestDetailsTable extends Migration
             $table->string('marksobt')->nullable();   
             $table->string('rank')->nullable();   
             $table->string('percentile')->nullable();   
-            $table->string('any_remarks')->nullable();   
+            $table->string('discription')->nullable();   
             $table->string('grade')->nullable();  
             $table->string('created_by')->nullable();   
             $table->softDeletes();        

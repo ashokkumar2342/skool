@@ -30,7 +30,8 @@
                                 <th style="width: 10px">id</th>
                                 <th> <input  class="checked_all" type="checkbox"></th>
                                <td><b>Boarding Point Name</b></td>                         
-                                    
+                               <td><b>Morning</b></td>                         
+                               <td><b>Evening</b></td>              
                             </tr>
                             </thead>
                             <tbody id="searchResult">                      
@@ -56,51 +57,29 @@
           </div>
           <!-- /.box -->
 
-            {{-- <div class="box">              --}}
+            <div class="box">             
               <!-- /.box-header -->
-                {{-- <div class="box-body">
-                    <table id="route_table" class="display table">                     
-                        <thead>
-                            <tr>
-                                <th>Sn</th>
-                               
-                                
-                                <th>Route Name</th> 
-                                <th>Boarding Points</th> 
-                      
-                                
-                                <th>Morning Time</th> 
-                                <th>Evening Time</th> 
-                                <th>Action</th>                                                            
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($routesDetails as $routesDetail)
-                        	<tr>
-                        		<td>{{ ++$loop->index }}</td>
-                        	 
-                            
-                            <td>{{ $routesDetail->routes->name }}</td>
-                            <td>{{ $routesDetail->boardingPoints->name }}</td>
+                <div class="box-body">
+                                                       
+                     <div class="col-lg-3">                                             
+                        <div class="form-group">
                           
-                            <td>{{ $routesDetail->morning_time }} AM</td>
-                            <td>{{ $routesDetail->evening_time }}PM</td>
-                             
-                         
-                        		<td> 
-                        			{{-- <button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $transport->id }}"  data-code="{{ $transport->code }}" data-name="{{ $transport->name }}" data-description="{{ $transport->description }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button> --}}
+                          {{ Form::label('route_id','Route',['class'=>' control-label']) }}
+                              <select name="route_id" id="route_id" class="form-control"  onchange="callAjaxUrl('{{ route('admin.routeDetailsView.get') }}'+'?route_id='+this.value+'','route_details_view_Result')">
+                                <option selected disabled value="">Select Route</option>
+                                @foreach($routes as $route)
+                                <option value="{{ $route->id }}">{{ $route->name }}</option>
+                                @endforeach
+                              </select>
+                        </div>                                         
+                     </div> 
+                        <div id="route_details_view_Result">
+                                          
+                          </div>                
+                 
 
-                        			{{-- <a href="{{ route('admin.routesDetail.delete',Crypt::encrypt($routesDetail->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a> --}}
-                   {{--      		</td>
-                        	</tr>  	 
-                        @endforeach	
-                           
-                        </tbody>
-                             
-
-                    </table>
-                </div>  --}} 
-            {{-- </div>     --}}
+                </div>   
+             </div>    
 
            
  

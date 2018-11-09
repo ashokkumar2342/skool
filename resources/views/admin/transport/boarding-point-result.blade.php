@@ -4,28 +4,16 @@
 $data = explode(',',$routesDetail->boarding_point_id); 
 @endphp
 @foreach ($boardingPoints as $boardingPoint)
-
-<tr>
+<tr style="{{ in_array($boardingPoint->id, $data)?'display: none':'' }}" >
 	<td>{{ ++$loop->index }}</td>
 	<td><input type="checkbox" class="checkbox" name="boarding_point_id[]"   {{ in_array($boardingPoint->id, $data)?'checked':'' }} value="{{ $boardingPoint->id }}"></td>
 
 	<td>{{ $boardingPoint->name }}</td> 
+	<td><input type="time" value="09:00" name="morning_time[]"></td> 
+	<td><input type="time" value="14:30" name="evening_time[]"></td> 
 </tr>
 @endforeach
-<tr>
-	<td>
-		<td colspan="2" class="text-left">   
-	     <div class="checkbox">
-	     	<label><input type="checkbox" name="morning" {{ $routesDetail->morning_time=='morning'?'checked':'' }} value="morning">Morning</label>
-	     	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		  <label><input type="checkbox" name="evening" {{ $routesDetail->evening_time=='evening'?'checked':'' }} value="evening">Evening</label>
-		  
-		</div>
-		 
-		</td>
-		 
-	</td>
-</tr> 
+ 
 @else
  @foreach ($boardingPoints as $boardingPoint)
 
@@ -34,21 +22,11 @@ $data = explode(',',$routesDetail->boarding_point_id);
  	<td><input type="checkbox" class="checkbox" name="boarding_point_id[]" value="{{ $boardingPoint->id }}"></td>
 
  	<td>{{ $boardingPoint->name }}</td> 
+ 	<td><input type="time" value="09:00" name="morning_time[]"></td> 
+ 	<td><input type="time" value="14:30" name="evening_time[]"></td>
  </tr>
  @endforeach
- <tr>
- 	<td>
- 		<td colspan="2" class="text-left">   
- 	     <div class="checkbox">
- 	     	<label><input type="checkbox" name="morning" value="morning">Morning</label>
- 	     	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
- 		  <label><input type="checkbox" name="evening" value="evening">Evening</label>
- 		  
- 		</div>
- 		 
- 		</td>
- 		 
- 	</td>
- </tr>
+  
 @endif
+
 
