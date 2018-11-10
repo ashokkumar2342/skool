@@ -34,8 +34,9 @@ class ClassTestDetailController extends Controller
     public function searchStudent(Request $request)
     {
          $classTest = CLassTest::find($request->class_test_id);
+         $classTestDetails = ClassTestDetail::where('class_test_id',$request->class_test_id)->get();
          $students = Student::where('class_id',$classTest->class_id)->where('section_id',$classTest->section_id)->get();
-         return view('admin.exam.student_details',compact('students','classTest'))->render();
+         return view('admin.exam.student_details',compact('students','classTest','classTestDetails'))->render();
     }
 
     /**
@@ -45,15 +46,11 @@ class ClassTestDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  return $request;
+    {   
         $rules=[
-        'classTest' => 'required|max:30', 
-        'student' => 'required|max:30', 
-        'marksobt' => 'required|max:30',          
-        'percentile' => 'required|max:10', 
-        'rank' => 'required|max:10', 
-        'sylabus' => 'nullable|mimes:pdf|max:2048',             
-          
+        'class_test_id' => 'required|max:30', 
+        'student_id' => 'required|max:30', 
+        'marksobt' => 'required|max:30',  
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -64,17 +61,15 @@ class ClassTestDetailController extends Controller
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
         }
-            
-        $classTestDetail = new ClassTestDetail();
-        $classTestDetail->class_test_id = $request->classTest;
-        $classTestDetail->student_id = $request->student;
-        $classTestDetail->marksobt = $request->marksobt;      
-        $classTestDetail->percentile = $request->percentile;
-        $classTestDetail->rank = $request->rank;
-        $classTestDetail->grade = $request->grade;
-        $classTestDetail->any_remarks = $request->any_remarks;
-   
-        $classTestDetail->save(); 
+        foreach ($request->student_id as $key => $value) {
+          $classTestDetail = ClassTestDetail::firstOrNew(['student_id'=>$value,'class_test_id'=>$request->class_test_id[$key]]);
+          $classTestDetail->class_test_id = $request->class_test_id[$key];
+          $classTestDetail->student_id = $value;
+          $classTestDetail->marksobt = $request->marksobt[$key];     
+          $classTestDetail->any_remarks = $request->any_remarks[$key]; 
+          $classTestDetail->save();      
+        }  
+        
         $response = array();
         $response['msg'] = 'Submit Successfully';
         $response['status'] = 1;

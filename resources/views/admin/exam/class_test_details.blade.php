@@ -22,56 +22,7 @@
                            </select>
                       </div>
                   </div>
-                  {{--  <div class="col-lg-3">                         
-                      <div class="form-group">
-                          {{ Form::label('student','Student',['class'=>' control-label']) }}
-                           <select name="student" class="form-control">
-                             <option value="" selected disabled>Select Registration No</option>
-                             @foreach ($students as $student)
-                                <option value="{{ $student->id }}">{{ $student->registration_no }}</option>
-                             @endforeach 
-                           </select>
-                      </div>
-                  </div>
-
-                                 
-	                   <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          {{ Form::label('marksobt','Marks OBT',['class'=>' control-label']) }}
-                           {{ Form::text('marksobt','',['class'=>'form-control']) }} 
-                         </div>                                         
-                      </div>
-                    
-                      
-                      <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          {{ Form::label('rank','Rank',['class'=>' control-label']) }}
-                           {{ Form::text('rank','',['class'=>'form-control']) }} 
-                         </div>                                         
-                      </div>
-                       <div class="col-lg-3">                                             
-	                       <div class="form-group">
-                          {{ Form::label('grade','Grade',['class'=>' control-label']) }}
-	                         {{ Form::text('grade','',['class'=>'form-control']) }} 
-	                       </div>                                         
-	                    </div>
-                      <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          {{ Form::label('percentile','Percentile',['class'=>' control-label']) }}
-                           {{ Form::text('percentile','',['class'=>'form-control']) }} 
-                         </div>                                         
-                      </div>
-                       <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          {{ Form::label('any_remarks','Any Remarks',['class'=>' control-label']) }}
-                           {{ Form::textarea('any_remarks','',['class'=>'form-control','rows'=>1]) }} 
-                         </div>                                         
-                      </div>
-	                 
-                       
-	                     <div class="col-lg-12 text-center">                                             
-	                     <button class="btn btn-success" type="submit" id="btn_fee_account_create">Submit</button> 
-	                    </div>   --}}                   
+                   
 	                </form> 
                 </div> 
             </div>
@@ -89,17 +40,11 @@
                     <table id="route_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>
-                               
-                                 
+                                <th>Sn</th>  
                                 <th>student Name</th> 
-                                <th>student Registration No</th> 
-                                                                                            
-                                <th>Marks</th>                                                            
-                                                                                             
-                                <th>any remarks</th>                                                            
-                                                                                          
-                                                                                           
+                                <th>student Registration No</th>                             
+                                <th>Marks</th>                                               
+                                <th>any remarks</th>                                        
                             </tr>
                         </thead>
                         <tbody id="student_details_Result">
@@ -109,7 +54,9 @@
                              
 
                     </table>
-<input type="submit" value="submit">
+                    <div class="text-center">
+                      <input type="submit" class="btn btn-success btn-xs" value="submit">
+                    </div>
                     </form>
                 </div>
             </div>    

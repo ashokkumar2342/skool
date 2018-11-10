@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ClassTestDetail extends Model
 {
+  protected $fillable = ['student_id','class_test_id','marksobt','any_remarks'];
    public function classes(){
        return $this->hasOne('App\Model\ClassType','id','class_id');
    }
