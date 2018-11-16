@@ -21,8 +21,7 @@ class ClassTestDetailController extends Controller
     {
         $classTests = ClassTest::all();
         $students = Student::all();
-        $classTestDetails = ClassTestDetail::all();
-         
+        $classTestDetails = ClassTestDetail::all();         
         return view('admin.exam.class_test_details',compact('classTestDetails','students','classTests'));
     }
 

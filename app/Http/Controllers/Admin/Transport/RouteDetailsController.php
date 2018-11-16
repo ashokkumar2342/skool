@@ -49,7 +49,7 @@ class RouteDetailsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {    return $reqeust;
+    {     
             $rules=[
             'route_id' => 'required', 
              'boarding_point_id' => 'required', 
@@ -65,14 +65,22 @@ class RouteDetailsController extends Controller
                 return response()->json($response);// response as json
             }
              else {
-                   $route = RouteDetails::firstOrNew(['route_id'=>$request->route_id]);
+                    foreach ($request->boarding_point_id as $key => $value) {
+                      $routeDetail = RouteDetails::firstOrNew(['route_id'=>$request->route_id,'boarding_point_id'=>$value]);
+                      $routeDetail->boarding_point_id = $value;
+                      $routeDetail->route_id = $request->route_id;
+                      $routeDetail->morning_time = $request->morning_time[$key];     
+                      $routeDetail->evening_time = $request->evening_time[$key]; 
+                      $routeDetail->save();      
+                    }  
+                  //  $route = RouteDetails::firstOrNew(['route_id'=>$request->route_id]);
                           
-                  $route->boarding_point_id = implode(',', $request->boarding_point_id);
-                  $route->route_id = $request->route_id; 
+                  // $route->boarding_point_id = implode(',', $request->boarding_point_id);
+                  // $route->route_id = $request->route_id; 
                   
-                  $route->morning_time = implode(',', $request->morning_time);
-                  $route->evening_time = implode(',', $request->evening_time);                
-                  $route->save();
+                  // $route->morning_time = implode(',', $request->morning_time);
+                  // $route->evening_time = implode(',', $request->evening_time);                
+                  // $route->save();
                  $response=['status'=>1,'msg'=>'Save Successfully'];
                 return response()->json($response); 
             }

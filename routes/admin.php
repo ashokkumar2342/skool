@@ -468,6 +468,8 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('add', 'Transport\TransportRegistrationController@store')->name('admin.transportRegistration.post');
 			    Route::get('delete/{id}', 'Transport\TransportRegistrationController@destroy')->name('admin.transportRegistration.delete'); 
 			 });
+		});
+		Route::group(['prefix' => 'exam'], function() {	
 			  //------------------------- Exam Test ---------------------------------
 			Route::group(['prefix' => 'class-test'], function() {
 			    Route::get('/', 'Exam\ClassTestController@index')->name('admin.exam.test');	 	
@@ -482,6 +484,31 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('delete/{id}', 'Exam\ClassTestDetailController@destroy')->name('admin.exam.classdetail.delete');	 	
 			    Route::get('search', 'Exam\ClassTestDetailController@searchStudent')->name('admin.classdetail.studentSearch');	 	
 			    
+			 });
+			  //------------------------- Exam Term ---------------------------------
+			Route::group(['prefix' => 'exam-term'], function() {
+			    Route::get('/', 'Exam\ExamTermController@index')->name('admin.exam.term');	 	
+			    Route::post('store', 'Exam\ExamTermController@store')->name('admin.exam.term.store');	 	
+			    Route::get('delete/{id}', 'Exam\ExamTermController@destroy')->name('admin.exam.term.delete');
+			 });
+			  //------------------------- Exam Schedule ---------------------------------
+			Route::group(['prefix' => 'exam-schedule'], function() {
+			    Route::get('/', 'Exam\ExamScheduleController@index')->name('admin.exam.schedule');	 	
+			    Route::post('store', 'Exam\ExamScheduleController@store')->name('admin.exam.schedule.store');	 	
+			    Route::get('delete/{id}', 'Exam\ExamScheduleController@destroy')->name('admin.exam.schedule.delete');
+			 });
+			  //------------------------- Exam marks details ---------------------------------
+			Route::group(['prefix' => 'exam-marks-details'], function() {
+			    Route::get('/', 'Exam\MarkDetailController@index')->name('admin.exam.mark.detail');	 	
+			    Route::post('store', 'Exam\MarkDetailController@store')->name('admin.exam.mark.detail.store');	 	
+			    Route::get('delete/{id}', 'Exam\MarkDetailController@destroy')->name('admin.exam.mark.detail.delete');
+			    Route::get('search', 'Exam\MarkDetailController@searchStudent')->name('admin.mark.detail.studentSearch');
+			 });
+			  //------------------------- Exam marks details ---------------------------------
+			Route::group(['prefix' => 'grade-details'], function() {
+			    Route::get('/', 'Exam\GradeDetailController@index')->name('admin.exam.grade.detail');	 	
+			    Route::post('store', 'Exam\GradeDetailController@store')->name('admin.exam.grade.detail.store');	 	
+			    Route::get('delete/{id}', 'Exam\GradeDetailController@destroy')->name('admin.exam.mark.grade.delete');
 			 });
 
 		});	

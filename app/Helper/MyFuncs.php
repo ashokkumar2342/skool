@@ -246,7 +246,12 @@ class MyFuncs {
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="'. route('admin.exam.test').'"><i class="fa fa-circle-o"></i> Class Test</a></li>  
-                    <li><a href="'. route('admin.exam.test.details').'"><i class="fa fa-circle-o"></i> Class Test Details</a></li>             
+                    <li><a href="'. route('admin.exam.test.details').'"><i class="fa fa-circle-o"></i> Class Test Details</a></li>                    
+                    <li><a href="'. route('admin.exam.term').'"><i class="fa fa-circle-o"></i> Exam Term  </a></li>
+                    <li><a href="'. route('admin.exam.schedule').'"><i class="fa fa-circle-o"></i> Exam Schedule</a></li>
+                    <li><a href="'. route('admin.exam.mark.detail').'"><i class="fa fa-circle-o"></i> Exam Marks Details  </a></li> 
+                    <li><a href="'. route('admin.exam.grade.detail').'"><i class="fa fa-circle-o"></i>Grade Details   </a></li> 
+
                     
                 </ul>
             </li>',

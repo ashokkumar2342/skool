@@ -55,7 +55,7 @@
 
                     </table>
                     <div class="text-center">
-                      <input type="submit" class="btn btn-success btn-xs" value="submit">
+                      <input type="submit" class="btn btn-success " value="submit">
                     </div>
                     </form>
                 </div>
