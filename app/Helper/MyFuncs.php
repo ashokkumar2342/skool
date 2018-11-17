@@ -31,7 +31,7 @@ class MyFuncs {
                     <li><a href="'.route('admin.account.form').'"><i class="fa fa-circle-o"></i> Add </a></li>
                     <li><a href="'.route('admin.account.list').'"><i class="fa fa-circle-o"></i> List</a></li>
                     <li><a href="'.route('admin.account.access').'"><i class="fa fa-circle-o"></i>User Access</a></li>
-                    <li><a href="'.route('admin.userClass.list').'"><i class="fa fa-circle-o"></i> User + Class</a></li>                
+                    <li><a href="'.route('admin.userClass.list').'"><i class="fa fa-circle-o"></i> User  Class</a></li>                
                 </ul>
             </li>',
      		'2'=>' <li class="treeview">

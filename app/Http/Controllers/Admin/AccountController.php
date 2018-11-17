@@ -12,6 +12,7 @@ use App\Model\UserClass;
 use App\Model\UserClassType;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 class AccountController extends Controller
 {
     Public function index(){
@@ -27,6 +28,26 @@ class AccountController extends Controller
     } 
 
     Public function store(Request $request){
+        $rules=[
+        'first_name' => 'required|min:3|max:20',
+            'last_name' => 'nullable|min:3|max:20',
+            'email' => 'required|email',
+            "mobile" => 'required|digits:10',
+            "role_id" => 'required',
+            "password" => 'required', 
+              
+          
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+       
     	   	 
     	$accounts = new Admin();
     	$accounts->first_name = $request->first_name;
@@ -35,14 +56,11 @@ class AccountController extends Controller
     	$accounts->email = $request->email;
     	$accounts->password = bcrypt($request['password']);
     	$accounts->mobile = $request->mobile;
-    	$accounts->dob = $request->dob;
-    	if ($accounts->save())
-    	 {
-    	  return redirect()->route('admin.account.list')->with(['message'=>'Account created Successfully.','class'=>'success']);    	
-    	}
-    	else{
-    		return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
-    		}
+    	$accounts->dob = $request->dob; 
+    	 $accounts->save(); 
+        $response['msg'] = 'Account created Successfully';
+        $response['status'] = 1;
+        return response()->json($response);    
     }
 
     Public function edit(Request $request, Admin $account){

@@ -11,7 +11,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <form action="{{ route('admin.account.post') }}" method="post">
+                <form action="{{ route('admin.account.post') }}" method="post" class="add_form">
                 {{ csrf_field() }}
                     <div class="box-body">
                         <div class="row">
@@ -61,7 +61,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Date Of Birth</label>
-                                  <input type="text" Name="dob" class="form-control"  placeholder="Enter name">
+                                  <input type="date" Name="dob" class="form-control"  placeholder="Enter name">
                                 </div>                                
                             </div>
                         </div>                     

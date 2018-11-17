@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Model\MinuType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,6 +24,6 @@ class Minu extends Model
     	return $this->belongsTo('App\Admin','admin_id','id');
     }
     public function minutypes(){
-        return $this->hasOne('App\Model\Minutype','id','minu_id');
+        return $this->hasOne(MinuType::class,'id','minu_id');
     }
 }

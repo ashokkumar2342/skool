@@ -17,11 +17,12 @@
                 <thead>
                 <tr>
                   <th>Sn</th>
-                  <th>Date</th>
+                   
                   <th>Name</th>
                   <th>Mobile</th>
                   <th>Role</th>
                   <th>Email Id</th>
+                   
                   <th>R - W - D</th>                  
                   <th>Status</th>                  
                   <th>Menu</th>                  
@@ -32,7 +33,7 @@
                 @foreach($accounts as $account)
                 <tr>
                   <td>{{ $account->id }}</td>
-                  <td> {{ $account->created_at->format('d-m-Y') }} </td>
+                  
                   <td>{{ $account->first_name }} {{ $account->first_last}}</td>
                   <td>{{ $account->mobile }}</td>
                   <td>{{ $account->roles->name }}</td>
