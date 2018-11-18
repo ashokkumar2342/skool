@@ -17,10 +17,11 @@ use App\Helper\MyFuncs;
 Route::get('/func', function () {
     return MyFuncs::full_name("John","Doe");
 });
-
-Route::get('ashok', function () {
-    return ashok();
+Route::get('/', function () {
+    return view('front.home');
+ 
 });
+ 
 Route::prefix('parent')->group(function () {
     Route::get('login', 'Front\ParentRegistrationController@login')->name('parent.login.form'); 
 });
