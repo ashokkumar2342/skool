@@ -29,12 +29,12 @@ class AccountController extends Controller
 
     Public function store(Request $request){
         $rules=[
-        'first_name' => 'required|min:3|max:20',
-            'last_name' => 'nullable|min:3|max:20',
-            'email' => 'required|email',
-            "mobile" => 'required|digits:10',
+        'first_name' => 'required|string|min:3|max:20',
+            'last_name' => 'nullable|string|min:3|max:20',
+            'email' => 'required|email|unique:admins',
+            "mobile" => 'required|numeric|digits:10',
             "role_id" => 'required',
-            "password" => 'required', 
+            "password" => 'required|min:5|max:15', 
               
           
         ];
@@ -56,7 +56,7 @@ class AccountController extends Controller
     	$accounts->email = $request->email;
     	$accounts->password = bcrypt($request['password']);
     	$accounts->mobile = $request->mobile;
-    	$accounts->dob = $request->dob; 
+    	$accounts->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
     	 $accounts->save(); 
         $response['msg'] = 'Account created Successfully';
         $response['status'] = 1;
@@ -73,16 +73,24 @@ class AccountController extends Controller
 
     Public function update(Request $request, Admin $account){
 
-                 
+       $this->validate($request,[
+           'first_name' => 'required|string|min:3|max:20',
+               'last_name' => 'nullable|string|min:3|max:20',
+               
+               "mobile" => 'required|numeric|digits:10',
+               "role_id" => 'required',
+               "password" => 'nullable|min:5|max:15',             
+           ]);          
         
         
         $account->first_name = $request->first_name;
         $account->last_name = $request->last_name;
-        $account->role_id = $request->role_id;
-        $account->email = $request->email;
-        $account->password = bcrypt($request['password']);
+        $account->role_id = $request->role_id; 
+        if ($request['password']!=null) {
+            $account->password = bcrypt($request['password']);
+        } 
         $account->mobile = $request->mobile;
-        $account->dob = $request->dob;
+        $account->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
         if ($account->save())
          {
           return redirect()->route('admin.account.list')->with(['message'=>'Account Updated Successfully.','class'=>'success']);        
@@ -220,6 +228,11 @@ class AccountController extends Controller
 
         
         
+    }
+
+    public function role(){
+        $roles = Role::all();
+        return view('admin.account.roleList',compact('roles'));
     }
 
 

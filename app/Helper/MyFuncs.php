@@ -28,6 +28,7 @@ class MyFuncs {
                     </span>
                 </a>
                 <ul class="treeview-menu">
+                    <li><a href="'.route('admin.account.role').'"><i class="fa fa-circle-o"></i> Role </a></li>
                     <li><a href="'.route('admin.account.form').'"><i class="fa fa-circle-o"></i> Add </a></li>
                     <li><a href="'.route('admin.account.list').'"><i class="fa fa-circle-o"></i> List</a></li>
                     <li><a href="'.route('admin.account.access').'"><i class="fa fa-circle-o"></i>User Access</a></li>

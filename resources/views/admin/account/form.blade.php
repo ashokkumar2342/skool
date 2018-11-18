@@ -18,13 +18,13 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">First Name</label>
-                                  <input Name="first_name" class="form-control"  placeholder="Enter first name">
+                                  <input Name="first_name" class="form-control"  placeholder="Enter First Name" required="">
                                 </div>                                
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Last Name</label>
-                                  <input Name="last_name" class="form-control"  placeholder="Enter last name">
+                                  <input Name="last_name" class="form-control"  placeholder="Enter Last Name">
                                 </div>                                
                             </div>
                             <div class="col-lg-6">
@@ -43,7 +43,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Email Id</label>
-                                  <input type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                  <input type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Email">
                                 </div>                                
                             </div>
                             <div class="col-lg-6">
@@ -55,13 +55,13 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Mobile</label>
-                                  <input type="text" Name="mobile" class="form-control"  placeholder="Enter name">
+                                  <input type="text" Name="mobile" class="form-control" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Enter Mobile Number">
                                 </div>                                
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Date Of Birth</label>
-                                  <input type="date" Name="dob" class="form-control"  placeholder="Enter name">
+                                  <input type="text" Name="dob" class="form-control datepicker"  placeholder="Enter Dateo Of Birth">
                                 </div>                                
                             </div>
                         </div>                     
@@ -83,4 +83,20 @@
     <!-- /.content -->
 
 @endsection
+@push('links')
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
+@endpush
+ @push('scripts')
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
+ <script> 
+ $( function() {
+    $( "#min" ).datepicker({dateFormat:'dd-mm-yy'});
+    $( "#max" ).datepicker({dateFormat:'dd-mm-yy'});   
+});  
 
+ </script>
+
+@endpush

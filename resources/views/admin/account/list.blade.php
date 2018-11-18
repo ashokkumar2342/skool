@@ -16,13 +16,11 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Sn</th>
-                   
+                  <th>Sn</th> 
                   <th>Name</th>
-                  <th>Mobile</th>
-                  <th>Role</th>
+                  <th>Mobile</th> 
                   <th>Email Id</th>
-                   
+                  <th>Role</th> 
                   <th>R - W - D</th>                  
                   <th>Status</th>                  
                   <th>Menu</th>                  
@@ -32,12 +30,11 @@
                 <tbody>
                 @foreach($accounts as $account)
                 <tr>
-                  <td>{{ $account->id }}</td>
-                  
+                  <td>{{ $account->id }}</td> 
                   <td>{{ $account->first_name }} {{ $account->first_last}}</td>
-                  <td>{{ $account->mobile }}</td>
-                  <td>{{ $account->roles->name }}</td>
+                  <td>{{ $account->mobile }}</td> 
                   <td>{{ $account->email }}</td>
+                  <td>{{ $account->roles->name }}</td>
                   <td>
                    
                   <a href="{{ route('admin.account.r_status',$account->id) }}" data-parent="tr" class="label {{ ($account->r_status == 1) ?'btn-success':'btn-danger'}} btn btn-xs">{{ ($account->r_status == 1)? 'A' : 'D' }}</a>
@@ -51,13 +48,14 @@
                   <td>
                   <a href="{{ route('admin.account.minu',[$account->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-bars"></i></a>
                   </td>                
-                  <td>
+                  <td> 
                   @if(Auth::guard('admin')->user()->w_status == 1)
                   <a href="{{ route('admin.account.edit',[$account->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></a>
                   @endif
                   @if(Auth::guard('admin')->user()->d_status == 1)
 
                   <a  href="{{ route('admin.account.delete',$account->id) }}" onclick="return confirm('Are you sure to delete this data ?')"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                   
                   @endif
                   </td>
                 </tr> 

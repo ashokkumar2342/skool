@@ -25,6 +25,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('w-status/{account}', 'AccountController@wstatus')->name('admin.account.w_status');	 
 		Route::get('d-status/{account}', 'AccountController@dstatus')->name('admin.account.d_status');
 		Route::get('minu/{account}', 'AccountController@minu')->name('admin.account.minu');				
+		Route::get('role', 'AccountController@role')->name('admin.account.role');				
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 
 	});
 	//---------------master-----------------------------------------	
