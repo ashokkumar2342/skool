@@ -5,8 +5,9 @@
  
  
 
-// function menus(){ 	 
-//  return "hello";
+function ashok(){ 	 
+ return "ashok";
+}
  
 // use App\Model\StudentAttendance;
  

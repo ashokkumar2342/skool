@@ -18,8 +18,8 @@ Route::get('/func', function () {
     return MyFuncs::full_name("John","Doe");
 });
 
-Route::get('/', function () {
-    return view('front.home');
+Route::get('ashok', function () {
+    return ashok();
 });
 Route::prefix('parent')->group(function () {
     Route::get('login', 'Front\ParentRegistrationController@login')->name('parent.login.form'); 
