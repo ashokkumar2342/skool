@@ -27,6 +27,10 @@ class Admin extends Authenticatable
         return $this->hasOne('App\Model\Role','id','role_id');
     } 
     Public function minus(){
+        return $this->hasMany('App\Model\Minu');
+    }
+
+    Public function subMenus(){
         return $this->hasMany('App\Model\Minu','sub_menu_id');
     }
 

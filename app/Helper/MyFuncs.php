@@ -2,6 +2,8 @@
 
 namespace App\Helper;
 
+use App\Model\Minu;
+use App\Model\SubMenu;
 use Illuminate\Support\Facades\Auth;
 
 class MyFuncs {
@@ -16,18 +18,34 @@ class MyFuncs {
     
 
     public static function menus(){ 
-    $accountMenu1 = '
-                   <li><a href="'.route('admin.account.role').'"><i class="fa fa-circle-o"></i> Role </a></li>
-                   ';
 
+    $account = '';
 
-     $accountMenu2 = '
-                    
-                   <li><a href="'.route('admin.account.form').'"><i class="fa fa-circle-o"></i> Add </a></li>
-                   <li><a href="'.route('admin.account.list').'"><i class="fa fa-circle-o"></i> List</a></li>
-                   <li><a href="'.route('admin.account.access').'"><i class="fa fa-circle-o"></i>User Access</a></li>
-                   <li><a href="'.route('admin.userClass.list').'"><i class="fa fa-circle-o"></i> User  Class</a></li> ';
-              
+   
+    $account .= '<li><a href="'.route('admin.account.role').'"><i class="fa fa-circle-o"></i> Role </a></li>';
+    $account .= '<li><a href="'.route('admin.account.form').'"><i class="fa fa-circle-o"></i> Add </a></li>';
+    $account .= '<li><a href="'.route('admin.account.list').'"><i class="fa fa-circle-o"></i> List</a></li>';
+    $account .= '<li><a href="'.route('admin.account.access').'"><i class="fa fa-circle-o"></i>User Access</a></li>';
+    $account .= '<li><a href="'.route('admin.userClass.list').'"><i class="fa fa-circle-o"></i> User  Class</a></li> ';
+     
+     $subMenuUrls =[
+        '1'=>'<li><a href="'.route('admin.account.role').'"><i class="fa fa-circle-o"></i> Role </a></li>',
+        '2'=>'<li><a href="'.route('admin.account.form').'"><i class="fa fa-circle-o"></i> Add </a></li>',
+        '3'=>'<li><a href="'.route('admin.account.list').'"><i class="fa fa-circle-o"></i> List</a></li>',
+        '4'=>'<li><a href="'.route('admin.account.access').'"><i class="fa fa-circle-o"></i>User Access</a></li>',
+        '5'=>'<li><a href="'.route('admin.userClass.list').'"><i class="fa fa-circle-o"></i> User  Class</a></li>',
+        
+    ]  ;
+        $result = ''; 
+                foreach($subMenuUrls as $key => $value)
+                {
+                    foreach (Minu::where('admin_id',Auth::guard('admin')->user()->id)
+                            ->where('sub_menu_id',$key)->get() as $subMenu) {
+                        if ($subMenu->sub_menu_id==$key) {
+                              $result.=$value; 
+                         } 
+                    }  
+                }     
                     
 
     	$urls=[ 
@@ -41,8 +59,8 @@ class MyFuncs {
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                     '.$accountMenu1.'              
-                     '.$accountMenu2.'              
+                     '.$result.'              
+                                   
                 </ul>
             </li>',
      		'2'=>' <li class="treeview">
@@ -270,11 +288,12 @@ class MyFuncs {
     		]; 
     	foreach ($urls as $key => $value) {
     	
-    		foreach (Auth::guard('admin')->user()->minus as $menu) {
-    			if ($menu->minu_id==$key)
-                 {
+    		foreach (Minu::where('admin_id',Auth::guard('admin')->user()->id)
+                    ->where('minu_id',$key)->distinct()
+                    ->get(['minu_id']) as $menu) {
+    			 
     		  	   echo $value;
-    		      }
+    		      
 		    } 
     	}
     	

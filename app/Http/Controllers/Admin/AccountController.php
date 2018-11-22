@@ -235,14 +235,16 @@ class AccountController extends Controller
         for ($i=0; $i < $user_count; $i++) { 
             $menu =  Minu::updateOrCreate(['admin_id'=>$request->user,'sub_menu_id'=>$data['sub_menu'][$i]]);
             $menu->sub_menu_id = $data['sub_menu'] [$i];
+             $menuData =SubMenu::find($data['sub_menu'] [$i]);
+            $menu->minu_id = $menuData->menu_type_id;
             $menu->admin_id = $data['user'];
 
             $menu->save();             
         }
 
         $response['msg'] = 'Access Save Successfully';
-             $response['status'] = 1;
-             return response()->json($response);  
+         $response['status'] = 1;
+         return response()->json($response);  
 
         
         

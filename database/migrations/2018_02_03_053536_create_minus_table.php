@@ -17,6 +17,7 @@ class CreateMinusTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('admin_id')->nullable();
             $table->string('minu');
+            $table->string('sub_menu_id');
             $table->boolean('r_status')->default('1');
             $table->boolean('w_status')->default('1');
             $table->boolean('d_status')->default('1');
