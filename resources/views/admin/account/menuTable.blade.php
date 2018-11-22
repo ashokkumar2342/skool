@@ -1,14 +1,14 @@
-    
-                              @php($i=1)
-                              @foreach($menus as $menu)
-                               <?php $checked = (\App\Model\Minu::where(['minu_id'=>$menu->id,'admin_id'=>$id])->count())?'checked':''; ?>  
-                              <tr> 
-                                  <td><input type="checkbox" {{ $checked }}   class="checkbox" name="menu_id[]" value="{{$menu->id}}"></td>
-                               
-                                  <td>{{$i}}</td>
-                                  <td>{{$menu->name}}</td>
-                              </tr>
-                              @php($i++) 
-                            
-                              @endforeach
-                           
+ {{ Form::label('sub_menu','Menu',['class'=>' control-label']) }} 
+<select class="form-control" multiple  name="sub_menu[]" multiselect-form="true" id="menu_list"> 
+  @foreach ($menus as $menu) 
+    <optgroup label="{{ $menu->name }}">
+      @foreach ($subMenus as $subMenu)
+      @if ($menu->id==$subMenu->menu_type_id )
+          <option value="{{ $subMenu->id }}">{{ $subMenu->name }}</option> 
+      @endif
+       
+       @endforeach 
+    </optgroup>
+  @endforeach  
+     
+</select>

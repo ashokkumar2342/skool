@@ -12,7 +12,32 @@
 
             <!-- /.box-header -->
             <div class="box-body">
-              <div class="col-md-4"> 
+               {!! Form::open(['route'=>'admin.userAccess.add','class'=>"form-horizontal add_form" ]) !!}
+              <div class="col-md-4">
+                <div class="form-group col-md-12">
+                  {{ Form::label('User','User',['class'=>' control-label']) }}                         
+                  <div class="form-group">  
+                         <select class="form-control"  name="user"  onchange="callAjax(this,'{{route('admin.account.menuTable')}}'+'?id='+this.value,'menu_list')" > 
+                          <option value="" disabled selected>Select User</option>
+                         @foreach ($users as $user)
+                              <option value="{{ $user->id }}">{{ $user->email }}</option> 
+                          @endforeach  
+                         </select> 
+                    
+                    </div>
+                </div> 
+              </div>
+              <div class="col-md-4" id="menu_list">  
+
+              </div>
+              <div class="col-md-4" id="menu_list">  
+                <button type="submit" class="btn btn-primary"> Save</button>
+
+              </div>
+
+              {!! Form::close() !!}
+
+              {{-- <div class="col-md-12"> 
                  {!! Form::open(['route'=>'admin.userAccess.add','class'=>"form-horizontal add_form" ]) !!}
                     <div class="form-group col-md-12">
                       {{ Form::label('User','User',['class'=>' control-label']) }}                         
@@ -25,7 +50,8 @@
                                 <tr>
                                   <td><input  class="checked_all" type="checkbox"> All</td>
                                   <th>S.N</th>
-                                  <th>Class</th>
+                                  <th>Menu</th>
+                                  <th>Sub Menu</th>
                                  </tr>
                             </thead>
                             <tbody  id="show_table_menu">
@@ -38,27 +64,8 @@
               
                 </div> 
                    {!! Form::close() !!}
-            </div>
-            <div class="col-md-8">
-                 <table id="dataTable" class="table dataTable table-bordered table-striped">
-                   <thead>
-                   <tr>
-                     <th>Sn</th>
-                     <th>User</th>
-                     <th>Menu</th>                 
-                   </tr>
-                   </thead>
-                   <tbody>
-                   @foreach(App\Model\Minu::all() as $menu)
-                   <tr>
-                     <td>{{ $menu->id }}</td>                 
-                     <td>{{ $menu->admins->email }}</td>                 
-                     <td>{{ $menu->minutypes->name}}</td> 
-                    </tr>
-                    @endforeach
-                </tbody>
-                </table>
-            </div>
+            </div> --}}
+             
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
@@ -84,35 +91,6 @@
       
  </script>
 <script type="text/javascript">
-        $('.checked_all').on('change', function() {     
-                $('.checkbox').prop('checked', $(this).prop("checked"));              
-        });
-        //deselect "checked all", if one of the listed checkbox product is unchecked amd select "checked all" if all of the listed checkbox product is checked
-        $('.checkbox').change(function(){ //".checkbox" change 
-            if($('.checkbox:checked').length == $('.checkbox').length){
-                   $('.checked_all').prop('checked',true);
-            }else{
-                   $('.checked_all').prop('checked',false);
-            }
-        });    
-
-   $('#user_select').change(function(event) {
-     $.ajax({
-       url: '{{ route('admin.account.menuTable') }}',
-       type: 'get',
-        
-       data: {id: $('#user_select').val()},
-     })
-     .done(function(response) {
-        $('#show_table_menu').html(response)
-     })
-     .fail(function() {
-       console.log("error");
-     })
-     .always(function() {
-       console.log("complete");
-     });
-     
-   });        
+            
 </script>
 @endpush

@@ -8,6 +8,7 @@ use App\Model\ClassType;
 use App\Model\Minu;
 use App\Model\MinuType;
 use App\Model\Role;
+use App\Model\SubMenu;
 use App\Model\UserClass;
 use App\Model\UserClassType;
 use Auth;
@@ -162,17 +163,18 @@ class AccountController extends Controller
     Public function access(Request $request, Admin $account){
             $menus = MinuType::all();
              
-            $users = array_pluck(Admin::get(['id','first_name'])->toArray(),'first_name', 'id');   
+            $users = Admin::all();   
         return view('admin.account.access',compact('menus','users')); 
     } 
     Public function menuTable(Request $request){
                 $id = $request->id;
             $menus = MinuType::all();
+            $subMenus = SubMenu::all();
             $usersmenus = Minu::where('admin_id',$request->id)->get();
 
              
               
-        $data= view('admin.account.menuTable',compact('menus','usersmenus','id'))->render(); 
+        $data= view('admin.account.menuTable',compact('menus','subMenus','usersmenus','id'))->render(); 
         return response($data);
     }
 
@@ -206,25 +208,41 @@ class AccountController extends Controller
 
     // User access Store
     Public function accessStore(Request $request){
-      // return $request;
-        $this->validate($request,[
-            'menu_id' => 'required|max:199',             
-            'user' => 'required|max:199',             
-            ]);
-        // foreach ($variable as $key => $value) {
-        //     # code...
-        // }
+
+            $rules=[
+            'sub_menu' => 'required|max:199',             
+            'user' => 'required|max:199',  
+            ]; 
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }     
+            // $menu =  new Minu();
+            //  $menu->sub_minu_id = implode(",", $request->sub_menu);
+            //  $menu->admin_id = $request->user; 
+            //  $menu->save(); 
+            // $response['msg'] = 'Access Save Successfully';
+            // $response['status'] = 1;
+            // return response()->json($response); 
+      
+         
         $data = $request->except('_token');        
-        $user_count = count($data['menu_id']);
+        $user_count = count($data['sub_menu']);
         for ($i=0; $i < $user_count; $i++) { 
-            $menu =  Minu::updateOrCreate(['admin_id'=>$request->user,'minu_id'=>$data['menu_id'][$i]]);
-            $menu->minu_id = $data['menu_id'] [$i];
+            $menu =  Minu::updateOrCreate(['admin_id'=>$request->user,'sub_menu_id'=>$data['sub_menu'][$i]]);
+            $menu->sub_menu_id = $data['sub_menu'] [$i];
             $menu->admin_id = $data['user'];
 
             $menu->save();             
         }
 
-        return response()->json(['status'=>'1','msg'=>'User Access Save Successfully']);   
+        $response['msg'] = 'Access Save Successfully';
+             $response['status'] = 1;
+             return response()->json($response);  
 
         
         

@@ -4,7 +4,7 @@ function callJqueryDefault(divId){
 	$("#"+divId).find(".alert").remove();
 	var formObj=this;
 	var pleaseWait=$("<div>please wait.......</div>");
-	var uploadProgress=$("<div id='upload-progress'><div class='progress-bar'></div></div>");
+	var uploadProgress=$("<div class='upload-progress'><div class='progress-bar'></div></div>");
 	pleaseWait.insertAfter(this);
     var post_url = this.action; //get form action url
     var request_method = 'POST'; //get form GET/POST method
@@ -33,7 +33,7 @@ function callJqueryDefault(divId){
                     percent = Math.ceil(position / total * 100);
                 }
 				//console.log(2);
-				$("#upload-progress .progress-bar").css("width", + percent +"%");
+				uploadProgress.css("width", + percent +"%");
 				//console.log(3);
             }, true);
         }
@@ -46,15 +46,13 @@ function callJqueryDefault(divId){
 	
 	if(response.status==0){
 		if(formObj.getAttribute('import')=="true"){
-			errorMsg(response.msg)
-			//$('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button> <strong>'+response.msg+'</strong>'+response.data+'</div>').insertAfter(formObj);
+			$('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button> <strong>'+response.msg+'</strong>'+response.data+'</div>').insertAfter(formObj);
 			formObj.reset();
 		}else{
 			if(formObj.getAttribute('error-id')){
 				$('#'+formObj.getAttribute('error-id')).html(response.msg);
 			}else{
-				errorMsg(response.msg)
-				//$(formObj).append($('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button><strong>Warning!</strong> '+response.msg+'</div>'));
+				$(formObj).append($('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button><strong>Warning!</strong> '+response.msg+'</div>'));
 
 			}
 		}
@@ -63,22 +61,11 @@ function callJqueryDefault(divId){
 				$('#'+formObj.getAttribute('success-id')).html(response.msg);
 		}else if(formObj.getAttribute('success-popup')){
 			console.log(response.msg);
-			// callSuccessPopup(response.msg);
-			successMsg(response.msg)
+			callSuccessPopup(response.msg);
 		}else if(formObj.getAttribute('profile-pic')){
 			$('.'+formObj.getAttribute('profile-pic')).attr( 'src', response.msg + '?dt=' + (+new Date()) );
 		}else if(formObj.getAttribute('success-content-id')){
 				$('#'+formObj.getAttribute('success-content-id')).html(response.data);
-				if(formObj.getAttribute('x-table'))
-				{
-				$.fn.editable.defaults.mode = 'inline';
-				$.ajaxSetup({
-					      headers: {
-					          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					      }
-					  });
-				$('.update').editable();
-				}
 				if(formObj.getAttribute('data-table'))
 				{
 				$("#"+formObj.getAttribute('data-table')).DataTable({
@@ -98,7 +85,6 @@ function callJqueryDefault(divId){
 				else if(formObj.getAttribute('child-table'))
 				{
 									var table = $("#"+formObj.getAttribute('child-table')).DataTable({});
-									stateSave: true;
 
 						  // Add event listener for opening and closing details
 						  $("#"+formObj.getAttribute('child-table')).on('click', 'td.details-control', function () {
@@ -115,20 +101,9 @@ function callJqueryDefault(divId){
 								  tr.addClass('shown');
 							  }
 						  });
-						    // Add event listener for opening and closing details
-						    $("#"+formObj.getAttribute('child-table')).on('click', '#checkAll', function () {
-						  	  // Get all rows with search applied
-						  	        var rows = table.rows({ 'search': 'applied' }).nodes();
-						  	        // Check/uncheck checkboxes for all rows in the table
-						  	        // $('input[type="checkbox"]', rows).prop('checked', this.checked); 
-						  	        // only checked show page data
-						  	        $('input:checkbox').not(this).prop('checked', this.checked);
-
-						    });
 				}
 		}else{
-			successMsg(response.msg)
-			// $(formObj).append($('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button><strong>Success!</strong> '+response.msg+'</div>'));
+			$(formObj).append($('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button><strong>Success!</strong> '+response.msg+'</div>'));
 		}
 		
 		if(formObj.getAttribute('call-back'))
@@ -179,14 +154,8 @@ function callJqueryDefault(divId){
 		if(formObj.getAttribute('no-reset')!="true"){
 			formObj.reset();
 			$(formObj).find('.multiselect').selectpicker("refresh");
-			$(formObj).find('.summernote').shouldInitialize = function () {
-				$(formObj).find('.summernote').summernote("reset");
-				};
+			 
 		}
-		if(formObj.getAttribute('call-jquery-default')!=""){
-					callJqueryDefault(formObj.getAttribute('call-jquery-default'));
-					
-				}
 			
 	}
     });
@@ -377,17 +346,15 @@ function searchForm(formObj){
 	
 	if(response.status==0){
 		if(formObj.getAttribute('import')=="true"){
-			errorMsg(response.msg)
-			//$('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button> <strong>'+response.msg+'</strong>'+response.data+'</div>').insertAfter(formObj);
+			$('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button> <strong>'+response.msg+'</strong>'+response.data+'</div>').insertAfter(formObj);
 			formObj.reset();
 		}
 		else{
 			if(formObj.getAttribute('error-id')){
 				$('#'+formObj.getAttribute('error-id')).html(response.msg);
 			}else{
-				errorMsg(response.msg)
 				
-				//$(formObj).append($('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button><strong>Warning!</strong> '+response.msg+'</div>'));
+				$(formObj).append($('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button><strong>Warning!</strong> '+response.msg+'</div>'));
 			}
 		}
 	}else if(response){

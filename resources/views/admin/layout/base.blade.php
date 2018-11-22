@@ -19,7 +19,10 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/skins/_all-skins.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/skins/_all-skins.min.css')}}">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <link href={!! asset('admin_asset/bootstrap-select/dist/css/bootstrap-select.min.css') !!} rel="stylesheet" type="text/css">
+   
   
   <style type="text/css" media="screen">
     th {
@@ -74,6 +77,8 @@
     <script src="{{ asset('admin_asset/dist/js/toastr.min.js') }}"></script>
     <script src={!! asset('admin_asset/dist/js/validation/common.js?ver=1') !!}></script>
     <script src={!! asset('admin_asset/dist/js/customscript.js?ver=1') !!}></script>
+    <script src={!! asset('admin_asset/bootstrap-select/dist/js/bootstrap-select.js')!!}> 
+    </script>
 {{--     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> --}}
 
       {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> --}}
@@ -82,6 +87,7 @@
     @stack('scripts')
     <script>
       $( ".datepicker").datepicker(); 
+       $('.multiselect').selectpicker();
     </script>
 </body>
 </html>
