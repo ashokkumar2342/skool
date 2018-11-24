@@ -32,6 +32,33 @@
                 @endforeach
               </table>
             </div>
+                <form action="{{ route('admin.roleAccess.subMenu') }}" method="post" class="add_form form-horizontal" accept-charset="utf-8"> 
+                  {{ csrf_field() }}
+               <div class="col-md-4">
+                 <div class="form-group col-md-12">
+                   {{ Form::label('role','Role',['class'=>' control-label']) }}                         
+                   <div class="form-group">  
+                          <select class="form-control"  name="role"  onchange="callAjax(this,'{{route('admin.account.menuTable')}}'+'?id='+this.value,'menu_list')" > 
+                           <option value="" disabled selected>Select Role</option>
+                          @foreach($roles as $role)
+                               <option value="{{ $role->id }}">{{ $role->name }}</option> 
+                           @endforeach  
+                          </select> 
+                     
+                     </div>
+                 </div> 
+               </div>
+
+               <div class="col-md-4" id="menu_list">  
+                  
+               </div>
+               <div class="col-md-4">  
+                  <br>
+                 <button type="submit" class="btn btn-primary"> Save</button>
+
+               </div>
+
+            </form>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->

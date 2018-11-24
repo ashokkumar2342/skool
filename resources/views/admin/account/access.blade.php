@@ -11,8 +11,10 @@
             </div>             
 
             <!-- /.box-header -->
-            <div class="box-body">
-               {!! Form::open(['route'=>'admin.userAccess.add','class'=>"form-horizontal add_form" ]) !!}
+            <div class="box-body"> 
+                
+               <form action="{{ route('admin.userAccess.add') }}" method="post" class="add_form form-horizontal" accept-charset="utf-8"> 
+                 {{ csrf_field() }}
               <div class="col-md-4">
                 <div class="form-group col-md-12">
                   {{ Form::label('User','User',['class'=>' control-label']) }}                         
@@ -20,22 +22,24 @@
                          <select class="form-control"  name="user"  onchange="callAjax(this,'{{route('admin.account.menuTable')}}'+'?id='+this.value,'menu_list')" > 
                           <option value="" disabled selected>Select User</option>
                          @foreach ($users as $user)
-                              <option value="{{ $user->id }}">{{ $user->email }}</option> 
+                              <option value="{{ $user->id }}">{{ $user->email }} &nbsp;&nbsp;&nbsp;&nbsp;( {{ $user->first_name }} )</option> 
                           @endforeach  
                          </select> 
                     
                     </div>
                 </div> 
               </div>
-              <div class="col-md-4" id="menu_list">  
 
-              </div>
               <div class="col-md-4" id="menu_list">  
+                 
+              </div>
+              <div class="col-md-4">  
+
                 <button type="submit" class="btn btn-primary"> Save</button>
 
               </div>
 
-              {!! Form::close() !!}
+           </form>
 
               {{-- <div class="col-md-12"> 
                  {!! Form::open(['route'=>'admin.userAccess.add','class'=>"form-horizontal add_form" ]) !!}
@@ -89,6 +93,15 @@
         $('#dataTable').DataTable();
     });
       
+ </script>
+ <script>
+     $(function() {
+         $('#ms').change(function() {
+             console.log($(this).val());
+         }).multipleSelect({
+             width: '100%'
+         });
+     });
  </script>
 <script type="text/javascript">
             

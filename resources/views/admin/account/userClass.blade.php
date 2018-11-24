@@ -15,8 +15,13 @@
               <div class="col-md-4"> 
                  {!! Form::open(['route'=>'admin.userClass.add','class'=>"form-horizontal" ]) !!}
                     <div class="form-group col-md-12">
-                      {{ Form::label('User','User',['class'=>' control-label']) }}                         
-                      {!! Form::select('user',$users, null, ['class'=>'form-control','placeholder'=>'---choose User---','required']) !!}
+                      {{ Form::label('User','User',['class'=>' control-label']) }}
+                      <select class="form-control"  name="user"  > 
+                       <option value="" disabled selected>Select User</option>
+                      @foreach ($users as $user)
+                           <option value="{{ $user->id }}">{{ $user->email }} &nbsp;&nbsp;&nbsp;&nbsp;( {{ $user->first_name }} )</option> 
+                       @endforeach  
+                      </select> 
                       <p class="text-danger">{{ $errors->first('user') }}</p>
                     </div> 
                     <div class="col-md-12">

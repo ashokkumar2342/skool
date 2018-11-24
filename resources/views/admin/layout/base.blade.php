@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/skins/_all-skins.min.css')}}">
   <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/skins/_all-skins.min.css')}}">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-  <link href={!! asset('admin_asset/bootstrap-select/dist/css/bootstrap-select.min.css') !!} rel="stylesheet" type="text/css">
+  <link href={!! asset('admin_asset/dist/css/multiple-select.css') !!} rel="stylesheet" type="text/css">
    
   
   <style type="text/css" media="screen">
@@ -77,7 +77,7 @@
     <script src="{{ asset('admin_asset/dist/js/toastr.min.js') }}"></script>
     <script src={!! asset('admin_asset/dist/js/validation/common.js?ver=1') !!}></script>
     <script src={!! asset('admin_asset/dist/js/customscript.js?ver=1') !!}></script>
-    <script src={!! asset('admin_asset/bootstrap-select/dist/js/bootstrap-select.js')!!}> 
+    <script src={!! asset('admin_asset/dist/js/multiple-select.js')!!}> 
     </script>
 {{--     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> --}}
 
@@ -88,6 +88,9 @@
     <script>
       $( ".datepicker").datepicker(); 
        $('.multiselect').selectpicker();
+
+        $('select').multipleSelect();
+    
     </script>
 </body>
 </html>

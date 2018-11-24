@@ -59,10 +59,28 @@ class AccountController extends Controller
     	$accounts->mobile = $request->mobile;
     	$accounts->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
     	 $accounts->save(); 
+         $this->defaultMenuAccess($accounts->role_id,$accounts->id);
         $response['msg'] = 'Account created Successfully';
         $response['status'] = 1;
         return response()->json($response);    
     }
+
+    public function defaultMenuAccess($roleId,$userId){
+        $role =Role::find($roleId); 
+        $subMenus = explode(',',$role->sub_menu_id);
+
+        foreach ($subMenus as $key => $value) {
+          $menu =  new Minu();
+          $menu->admin_id = $userId;   
+          $menuData= SubMenu::find($value); 
+          $menu->minu_id = $menuData->menu_type_id; 
+          $menu->sub_menu_id = $value;
+          $menu->save();
+        }
+
+        
+
+    } 
 
     Public function edit(Request $request, Admin $account){
         $roles = Role::all();
@@ -182,7 +200,7 @@ class AccountController extends Controller
     Public function userClass(){
         $classes = ClassType::all();
         $userClass = UserClassType::all();
-        $users = array_pluck(Admin::get(['id','first_name'])->toArray(),'first_name', 'id');     
+        $users = Admin::get(['id','first_name','email']);     
 
         return view('admin.account.userClass',compact('users','classes','userClass'));
        
@@ -254,6 +272,29 @@ class AccountController extends Controller
         $roles = Role::all();
         return view('admin.account.roleList',compact('roles'));
     }
+
+    public function roleMenuStore(Request $request){  
+           $rules=[
+           'sub_menu' => 'required|max:199',             
+           'role' => 'required|max:199',  
+           ]; 
+           $validator = Validator::make($request->all(),$rules);
+           if ($validator->fails()) {
+               $errors = $validator->errors()->all();
+               $response=array();
+               $response["status"]=0;
+               $response["msg"]=$errors[0];
+               return response()->json($response);// response as json
+           }     
+        $role =Role::find($request->role); 
+        $role->sub_menu_id = implode($request->sub_menu, ',');   
+        $role->save(); 
+        $response['msg'] = 'Save Successfully';
+        $response['status'] = 1;
+        return response()->json($response);  
+         
+    }
+
 
 
 
