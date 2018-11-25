@@ -17,6 +17,9 @@ use App\Helper\MyFuncs;
 Route::get('/func', function () {
     return MyFuncs::full_name("John","Doe");
 });
+Route::get('/ashok', function () {
+    return test();
+});
 Route::get('/', function () {
     return view('front.home');
  
