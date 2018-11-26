@@ -1,4 +1,4 @@
  <?php  
-function test(){
-	return 'ashok';
+function mailTo(){
+	return 'ashokkumar2342@gmail.com';
   }

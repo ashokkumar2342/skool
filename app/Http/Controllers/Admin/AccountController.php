@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Admin;
+use App\Helpers\MailHelper;
+use Mail;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Minu;
@@ -14,6 +16,7 @@ use App\Model\UserClassType;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpKernel\DataCollector\collect;
 class AccountController extends Controller
 {
     Public function index(){
@@ -60,6 +63,8 @@ class AccountController extends Controller
     	$accounts->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
     	 $accounts->save(); 
          $this->defaultMenuAccess($accounts->role_id,$accounts->id);
+         $MailHelper = new MailHelper();
+        $MailHelper->activationmail($accounts->id);
         $response['msg'] = 'Account created Successfully';
         $response['status'] = 1;
         return response()->json($response);    
@@ -185,13 +190,11 @@ class AccountController extends Controller
         return view('admin.account.access',compact('menus','users')); 
     } 
     Public function menuTable(Request $request){
+
                 $id = $request->id;
             $menus = MinuType::all();
             $subMenus = SubMenu::all();
-            $usersmenus = Minu::where('admin_id',$request->id)->get();
-
-             
-              
+           $usersmenus = array_pluck(Minu::where('admin_id',$id)->get(['sub_menu_id'])->toArray(), 'sub_menu_id'); 
         $data= view('admin.account.menuTable',compact('menus','subMenus','usersmenus','id'))->render(); 
         return response($data);
     }
@@ -271,6 +274,16 @@ class AccountController extends Controller
     public function role(){
         $roles = Role::all();
         return view('admin.account.roleList',compact('roles'));
+    }
+
+    Public function roleMenuTable(Request $request){
+
+                $id = $request->id;
+            $menus = MinuType::all();
+            $subMenus = SubMenu::all();
+           $roles = Role::find($id); 
+        $data= view('admin.account.roleMenuTable',compact('menus','subMenus','roles','id'))->render(); 
+        return response($data);
     }
 
     public function roleMenuStore(Request $request){  

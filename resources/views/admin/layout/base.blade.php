@@ -87,9 +87,9 @@
     @stack('scripts')
     <script>
       $( ".datepicker").datepicker(); 
-       $('.multiselect').selectpicker();
+       //$('.multiselect').selectpicker();
 
-        $('select').multipleSelect();
+        $('multiselect').multipleSelect();
     
     </script>
 </body>

@@ -26,6 +26,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('d-status/{account}', 'AccountController@dstatus')->name('admin.account.d_status');
 		Route::get('minu/{account}', 'AccountController@minu')->name('admin.account.minu');				
 		Route::get('role', 'AccountController@role')->name('admin.account.role');				
+		Route::get('role-menu', 'AccountController@roleMenuTable')->name('admin.account.roleMenuTable');				
 		Route::post('role-menu-store', 'AccountController@roleMenuStore')->name('admin.roleAccess.subMenu');				
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 
 	});

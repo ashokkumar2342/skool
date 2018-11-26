@@ -230,6 +230,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'MyFuncs' => App\Helpers\MyFuncs::class,
+        'MailHelper' => App\Helpers\MailHelper::class,
 
     ],
 

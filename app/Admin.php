@@ -37,6 +37,33 @@ class Admin extends Authenticatable
     Public function classes(){
         return $this->hasMany('App\Model\UserClassType');
     }
+
+    public function getdetailbyuserid($user_id){
+    try {
+    return $this->where("id",$user_id)
+    ->first();
+    } catch (QueryException $e) {
+    return $e; 
+    }
+    }
+
+    public function updateuserdetail($updArr,$user_id){
+    try {
+    return $this->where('id',$user_id)
+    ->update($updArr);
+    } catch (QueryException $e) {
+    return $e; 
+    }
+    }
+
+    public function getdetailbyemail($email){
+    try {
+    return $this->where("email",$email)
+    ->first();
+    } catch (QueryException $e) {
+    return $e; 
+    }
+    }
     
 
     /**

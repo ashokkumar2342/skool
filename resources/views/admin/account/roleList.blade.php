@@ -38,7 +38,7 @@
                  <div class="form-group col-md-12">
                    {{ Form::label('role','Role',['class'=>' control-label']) }}                         
                    <div class="form-group">  
-                          <select class="form-control"  name="role"  onchange="callAjax(this,'{{route('admin.account.menuTable')}}'+'?id='+this.value,'menu_list')" > 
+                          <select class="form-control"  name="role"  onchange="callAjax(this,'{{route('admin.account.roleMenuTable')}}'+'?id='+this.value,'menu_list')" > 
                            <option value="" disabled selected>Select Role</option>
                           @foreach($roles as $role)
                                <option value="{{ $role->id }}">{{ $role->name }}</option> 
@@ -60,6 +60,7 @@
 
             </form>
             <!-- /.box-body -->
+            
           </div>
           <!-- /.box -->
         </div>

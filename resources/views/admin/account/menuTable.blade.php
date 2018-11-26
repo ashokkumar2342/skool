@@ -4,7 +4,7 @@
     <optgroup label="{{ $menu->name }}"> 
       @foreach ($subMenus as $subMenu)
       @if ($menu->id==$subMenu->menu_type_id )
-          <option value="{{ $subMenu->id }}">{{ $subMenu->name }}</option> 
+          <option value="{{ $subMenu->id }}" {{ in_array($subMenu->id, $usersmenus)?'selected':'' }} >{{ $subMenu->name }}</option> 
       @endif
        
        @endforeach 
