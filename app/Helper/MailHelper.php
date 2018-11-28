@@ -33,9 +33,7 @@ class MailHelper
 
     public function activationmail($user_id)
 	{
-		$AppUsers=new Admin();
-		 
-
+		$AppUsers=new Admin(); 
 		$up_u=array();
 		$up_u['token'] = str_random(64);
 		$up_u['otp'] = mt_rand(100000,999999);
@@ -48,6 +46,23 @@ class MailHelper
 		$up_u['link']=url("passwordreset/".$u_detail->token);
 
 
+		$this->mailsend('emails.userActivation',$up_u,'No-Reply','Account Activation',$user,mailTo(),20);
+	}
+	public function welcomemail($user_id,$array)
+	{
+			$AppUsers=new Admin(); 
+		$up_u=array();
+		$up_u['token'] = str_random(64);
+		$up_u['otp'] = mt_rand(100000,999999);
+		$AppUsers->updateuserdetail($up_u,$user_id);
+		$u_detail=$AppUsers->getdetailbyuserid($user_id);
+		$up_u['name']=$u_detail->name;
+		$user=$u_detail->email;
+		$up_u['otp']=$u_detail->otp;
+		$up_u['logo']=url("img/logo.png");
+		$up_u['link']=url("admin/login");
+		$up_u['email']=$array['email']; 
+		$up_u['password']=$array['password']; 
 		$this->mailsend('emails.userActivation',$up_u,'No-Reply','Account Activation',$user,mailTo(),20);
 	}
 

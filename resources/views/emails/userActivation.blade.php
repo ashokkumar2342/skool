@@ -37,9 +37,10 @@
 	</br>
 	<p>Dear {{$name}},</p>
 	<p>Congratulations, you have been added as user in this school <strong></strong>.</p>
-	<p>To finish your account activation, click on following link, use OTP and set up your password.</br>
+	<p>Login account , click on following link.</br>
 	  <a href="{{$link}}">{{$link}}</a></p>
-	<p>OTP: <strong>{{$otp}}</strong></p>
+	<p>User Name: <strong>{{$email}}</strong></p>
+	<p>Password: <strong>{{$password}}</strong></p>
 	<p>Notes:</p>
 	<ul>
 	<li>Above link expires in 24 hours.</li>

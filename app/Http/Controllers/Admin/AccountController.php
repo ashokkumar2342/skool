@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Admin;
+use App\Events\SmsEvent;
 use App\Helpers\MailHelper;
-use Mail;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Minu;
@@ -16,6 +16,7 @@ use App\Model\UserClassType;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Mail;
 use Symfony\Component\HttpKernel\DataCollector\collect;
 class AccountController extends Controller
 {
@@ -62,9 +63,13 @@ class AccountController extends Controller
     	$accounts->mobile = $request->mobile;
     	$accounts->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
     	 $accounts->save(); 
-         $this->defaultMenuAccess($accounts->role_id,$accounts->id);
+        $this->defaultMenuAccess($accounts->role_id,$accounts->id);
          $MailHelper = new MailHelper();
-        $MailHelper->activationmail($accounts->id);
+         $array = array();
+         $array['email'] = $request->email;
+         $array['password'] = $request->password;
+        $MailHelper->welcomemail($accounts->id,$array);
+        event(new SmsEvent($request->mobile,'User Id Your Email and Password:'.$request->password));
         $response['msg'] = 'Account created Successfully';
         $response['status'] = 1;
         return response()->json($response);    
