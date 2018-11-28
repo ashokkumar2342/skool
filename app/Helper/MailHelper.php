@@ -63,7 +63,7 @@ class MailHelper
 		$up_u['link']=url("admin/login");
 		$up_u['email']=$array['email']; 
 		$up_u['password']=$array['password']; 
-		$this->mailsend('emails.userActivation',$up_u,'No-Reply','Account Activation',$user,mailTo(),20);
+		$this->mailsend('emails.userActivation',$up_u,'No-Reply','Account Activation',$user,env('MAIL_USERNAME'),20);
 	}
 
 	 
