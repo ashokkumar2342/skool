@@ -2,8 +2,8 @@
  	$datas =explode(',', $roles->sub_menu_id);
  @endphp
 
- {{ Form::label('sub_menu','Menu',['class'=>' control-label']) }} 
-<select class="form-control multiselect" multiple="multiple"  name="sub_menu[]" multiselect-form="true" id="menu_list" > 
+ {{ Form::label('sub_menu','Menu',['class'=>' control-label']) }} <br>
+<select class="multiselect" multiple="multiple"  name="sub_menu[]" > 
   @foreach ($menus as $menu) 
     <optgroup label="{{ $menu->name }}"> 
       @foreach ($subMenus as $subMenu)

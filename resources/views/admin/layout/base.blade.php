@@ -21,7 +21,8 @@
   <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/skins/_all-skins.min.css')}}">
   <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/skins/_all-skins.min.css')}}">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-  <link href={!! asset('admin_asset/dist/css/multiple-select.css') !!} rel="stylesheet" type="text/css">
+  <link href={!! asset('admin_asset/dist/css/bootstrap-multiselect.css') !!} rel="stylesheet" type="text/css">
+  
    
   
   <style type="text/css" media="screen">
@@ -77,8 +78,9 @@
     <script src="{{ asset('admin_asset/dist/js/toastr.min.js') }}"></script>
     <script src={!! asset('admin_asset/dist/js/validation/common.js?ver=1') !!}></script>
     <script src={!! asset('admin_asset/dist/js/customscript.js?ver=1') !!}></script>
-    <script src={!! asset('admin_asset/dist/js/multiple-select.js')!!}> 
+    <script src={!! asset('admin_asset/dist/js/bootstrap-multiselect.js')!!}> 
     </script>
+   
 {{--     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> --}}
 
       {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> --}}
@@ -87,9 +89,16 @@
     @stack('scripts')
     <script>
       $( ".datepicker").datepicker(); 
-       //$('.multiselect').selectpicker();
-
-        $('multiselect').multipleSelect();
+       //$('.multiselect').selectpicker(); 
+        
+       $('multiselect').multiselect({
+       
+            includeSelectAllOption: true,
+            maxHeight: 400,
+            dropUp: true,
+              enableFiltering: true
+       
+           });
     
     </script>
 </body>

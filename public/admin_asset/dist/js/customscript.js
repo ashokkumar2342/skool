@@ -12,7 +12,13 @@ function callAjax(obj,url,divId,callback){
 			if(obj.getAttribute('no-add-form')!="true")
 				callJqueryDefault(divId);
 			if(obj.getAttribute('multiselect-form')=="true")
-				$("#"+divId).find('.multiselect').selectpicker();
+				$("#"+divId).find('.multiselect').multiselect({
+					includeSelectAllOption: true,
+           			 maxHeight: 400, 
+            		buttonWidth: 300,
+            
+             	 enableFiltering: true
+				});
 			if(callback)
 				callback();
 			if(obj.getAttribute('data-table'))
@@ -135,7 +141,7 @@ function callPopupLarge(obj,url){
 
 			if(obj.getAttribute('multi-select')=="true")
 				{
-					$("#"+divId).find('.multiselect').selectpicker();
+					$("#"+divId).find('.multiselect').multiselect();
 				}
 			if(obj.getAttribute('button-click'))
 			{ 
@@ -228,7 +234,7 @@ function callPopupLevel2(obj,url){
 			}
 			if(obj.getAttribute('multi-select')=="true")
 				{
-					$("#"+divId).find('.multiselect').selectpicker();
+					$("#"+divId).find('.multiselect').multiselect();
 				}
 				
 			}

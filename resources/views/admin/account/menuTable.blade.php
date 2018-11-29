@@ -1,5 +1,5 @@
- {{ Form::label('sub_menu','Menu',['class'=>' control-label']) }} 
-<select class="form-control" multiple  name="sub_menu[]" multiselect-form="true" id="menu_list" size="30" style="height: 100%;"> 
+ {{ Form::label('sub_menu','Menu',['class'=>' control-label']) }} <br>
+<select class="multiselect" multiple="multiple"  name="sub_menu[]" > 
   @foreach ($menus as $menu) 
     <optgroup label="{{ $menu->name }}"> 
       @foreach ($subMenus as $subMenu)
