@@ -43,7 +43,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Email Id</label>
-                                  <input type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Email">
+                                  <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Email">
                                 </div>                                
                             </div>
                             <div class="col-lg-6">
@@ -61,7 +61,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Date Of Birth</label>
-                                  <input type="text" Name="dob" class="form-control datepicker"  placeholder="Enter Dateo Of Birth">
+                                  <input type="text" Name="dob" class="form-control datepicker"  placeholder="Enter Date Of Birth">
                                 </div>                                
                             </div>
                         </div>                     

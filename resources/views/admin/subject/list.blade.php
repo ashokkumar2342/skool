@@ -3,7 +3,7 @@
     <section class="content">
       	<div class="box">
             <div class="box-header">
-              <h3 class="box-title">Class List</h3>
+              <h3 class="box-title">Subjects List</h3>
               <span style="float: right"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_class">Add Subject</button></span>
 
 

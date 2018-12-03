@@ -26,8 +26,10 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('d-status/{account}', 'AccountController@dstatus')->name('admin.account.d_status');
 		Route::get('minu/{account}', 'AccountController@minu')->name('admin.account.minu');				
 		Route::get('role', 'AccountController@role')->name('admin.account.role');				
-		Route::get('role-menu', 'AccountController@roleMenuTable')->name('admin.account.roleMenuTable');				
-		Route::post('role-menu-store', 'AccountController@roleMenuStore')->name('admin.roleAccess.subMenu');				
+		Route::get('role-menu', 'AccountController@roleMenuTable')->name('admin.account.roleMenuTable'); 
+		Route::post('role-menu-store', 'AccountController@roleMenuStore')->name('admin.roleAccess.subMenu');
+		Route::get('class-access', 'AccountController@classAccess')->name('admin.account.classAccess'); 
+						
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 
 	});
 	//---------------master-----------------------------------------	
@@ -35,6 +37,8 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::prefix('academic-year')->group(function () {
 		    Route::get('list', 'AcademicYearController@index')->name('admin.academicYear.list');
 		    Route::post('store', 'AcademicYearController@store')->name('admin.academicYear.store');
+		    Route::get('document-type', 'DocumentTypeController@index')->name('admin.document.type');
+		    Route::post('document-store', 'DocumentTypeController@store')->name('admin.document.store');
 		     
 		});
 		Route::prefix('payment-mode')->group(function () {

@@ -36,7 +36,7 @@
                          
                         <thead>
                             <tr>
-                                <th>Academic Year</th>
+                                <th>Payment Mode</th>
                                 
                             </tr>
                         </thead>

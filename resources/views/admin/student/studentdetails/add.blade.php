@@ -6,7 +6,7 @@
 <section class="content-header">
     <h1> Student Add <small>Details</small> </h1>
       <ol class="breadcrumb">
-       <li><a href="{{ route('admin.defaultValue.list') }}" class="btn btn-success"> Add Default Value</a></li>        
+       <li><a href="{{ route('admin.defaultValue.list') }}" class="btn btn-success" style="color:#fff"> Add Default Value</a></li> 
       </ol>
 </section>
     <section class="content">        
@@ -38,21 +38,21 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('registration_no','Registration no',['class'=>' control-label ']) }}                         
-                                                    {{ Form::text('registration_no','',['class'=>'form-control',' required']) }}
+                                                    {{ Form::text('registration_no','',['class'=>'form-control',' required','maxlength'=>'20']) }}
                                                     <p class="text-danger">{{ $errors->first('registration_no') }}</p>
                                                 </div>
                                             </div>
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('admission_no','Admission No',['class'=>' control-label']) }}
-                                                    {{ Form::text('admission_no','',['class'=>'form-control',' required']) }}
+                                                    {{ Form::text('admission_no','',['class'=>'form-control',' required','maxlength'=>'20']) }}
                                                     <p class="text-danger">{{ $errors->first('admission_no') }}</p>
                                                 </div>
                                             </div>
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('roll_no','Roll No',['class'=>' control-label']) }}
-                                                    {{ Form::text('roll_no','',['class'=>'form-control',' required']) }}
+                                                    {{ Form::text('roll_no','',['class'=>'form-control',' required','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'4']) }}
                                                     <p class="text-danger">{{ $errors->first('roll_no') }}</p>
                                                 </div>
                                             </div> 
@@ -104,43 +104,44 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('student_name','Student Name',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('student_name','',['class'=>'form-control',' required']) }}
+                                                    {{ Form::text('student_name','',['class'=>'form-control',' required','maxlength'=>'50']) }}
                                                     <p class="text-danger">{{ $errors->first('student_name') }}</p>
                                                 </div>
                                             </div>  
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('nick_name','Nick Name',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('nick_name','',['class'=>'form-control']) }}
+                                                    {{ Form::text('nick_name','',['class'=>'form-control','maxlength'=>'50']) }}
                                                     <p class="text-danger">{{ $errors->first('nick_name') }}</p>
                                                 </div>
                                             </div>
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('father_name','Father Name',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('father_name','',['class'=>'form-control',' required']) }}
+                                                    <label>Father's Name</label>                         
+                                                    {{ Form::text('father_name','',['class'=>'form-control',' required','maxlength'=>'50']) }}
                                                     <p class="text-danger">{{ $errors->first('father_name') }}</p>
                                                 </div>
                                             </div>
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('mother_name','Mother Name',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('mother_name','',['class'=>'form-control ',' required']) }}
+                                                    <label>Mother's Name</label>                        
+                                                    {{ Form::text('mother_name','',['class'=>'form-control ',' required','maxlength'=>'50']) }}
                                                     <p class="text-danger">{{ $errors->first('mother_name') }}</p>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('father_mobile','Father Mobile Number',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('father_mobile','',['class'=>'form-control ',' required']) }}
+                                                     <label>Father's Mobile Number</label>   
+                                                    {{ Form::text('father_mobile','',['class'=>'form-control ',' required','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'10']) }}
                                                     <p class="text-danger">{{ $errors->first('father_mobile') }}</p>
                                                      
                                                 </div>
                                             </div>
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('mother_mobile','Mother Mobile Number',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('mother_mobile','',['class'=>'form-control ',' required']) }}
+                                                     
+                                                    <label>Mother's Mobile Number</label>                       
+                                                    {{ Form::text('mother_mobile','',['class'=>'form-control ',' required','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'10']) }}
                                                     <p class="text-danger">{{ $errors->first('mother_mobile') }}</p>
                                                 </div>
                                             </div>
@@ -225,7 +226,7 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('pincode','Pincode',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('pincode',$default->pincode,array('class' => 'form-control' )) }}
+                                                    {{ Form::text('pincode',$default->pincode,array('class' => 'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'6' )) }}
                                                     <p class="text-danger">{{ $errors->first('pincode') }}</p>
                                                 </div>
                                             </div>  

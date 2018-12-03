@@ -12,64 +12,28 @@
 
             <!-- /.box-header -->
             <div class="box-body">
+               {!! Form::open(['route'=>'admin.userClass.add','class'=>"form-horizontal add_form" ]) !!}
               <div class="col-md-4"> 
-                 {!! Form::open(['route'=>'admin.userClass.add','class'=>"form-horizontal" ]) !!}
-                    <div class="form-group col-md-12">
-                      {{ Form::label('User','User',['class'=>' control-label']) }}
-                      <select class="form-control"  name="user"  > 
-                       <option value="" disabled selected>Select User</option>
-                      @foreach ($users as $user)
-                           <option value="{{ $user->id }}">{{ $user->email }} &nbsp;&nbsp;&nbsp;&nbsp;( {{ $user->first_name }} )</option> 
-                       @endforeach  
-                      </select> 
-                      <p class="text-danger">{{ $errors->first('user') }}</p>
-                    </div> 
-                    <div class="col-md-12">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                  <td><input  class="checked_all" type="checkbox"> All</td>
-                                  <th>S.N</th>
-                                  <th>Class</th>
-                                 </tr>
-                            </thead>
-                            <tbody>
-                              @php($i=1)
-                              @foreach($classes as $class)
-                              <tr>
-                                  <td><input type="checkbox"  class="checkbox" name="class_id[]" value="{{$class->id}}"></td>
-                                  <td>{{$i}}</td>
-                                  <td>{{$class->name}}</td>
-                              </tr>
-                              @php($i++)
-                              @endforeach
-                              </tbody>
-                        </table>   
-                         <p class="text-danger">{{ $errors->first('class_id') }}</p>
-                     <button type="submit" class="btn btn-primary "> Save</button>
-                 {!! Form::close() !!}
+               
+                 
+                  {{ Form::label('User','User',['class'=>' control-label']) }}
+                  <select class="form-control"  multiselect-form="true"  name="user"  onchange="callAjax(this,'{{route('admin.account.classAccess')}}'+'?id='+this.value,'class_list')" > 
+                   <option value="" disabled selected>Select User</option>
+                  @foreach ($users as $user)
+                       <option value="{{ $user->id }}">{{ $user->email }} &nbsp;&nbsp;&nbsp;&nbsp;( {{ $user->first_name }} )</option> 
+                   @endforeach  
+                  </select> 
+                  <p class="text-danger">{{ $errors->first('user') }}</p>
                 </div> 
-            </div>
-            <div class="col-md-8">
-                 <table id="dataTable" class="table dataTable table-bordered table-striped">
-                   <thead>
-                   <tr>
-                     <th>Sn</th>
-                     <th>User</th>
-                     <th>Class</th>                 
-                   </tr>
-                   </thead>
-                   <tbody>
-                   @foreach($userClass as $data)
-                   <tr>
-                     <td>{{ $data->id }}</td>                 
-                     <td>{{ $data->admins->first_name }}</td>                 
-                     <td>{{ $data->classes->name}}</td>
-                          
-                    </tr>
-                    @endforeach
-                </tbody>
-                </table>
+                <div class="col-md-4" id="class_list">
+                  
+                </div>
+                 <div class="col-md-4" style="padding-top: 5px">
+                  <br>
+                  <input type="submit" value="Save" class="btn btn-success btn-sm">
+                </div>
+
+             </form>        
             </div>
             <!-- /.box-body -->
           </div>

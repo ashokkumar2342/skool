@@ -10,6 +10,7 @@ use App\Model\ClassType;
 use App\Model\Minu;
 use App\Model\MinuType;
 use App\Model\Role;
+use App\Model\Section;
 use App\Model\SubMenu;
 use App\Model\UserClass;
 use App\Model\UserClassType;
@@ -214,22 +215,39 @@ class AccountController extends Controller
        
     }
 
-    Public function userClassStore(Request $request){
-        $this->validate($request,[
-            'class_id' => 'required|max:199',             
-            'user' => 'required|max:199',             
-            ]);
-        $data = $request->except('_token');        
-        $class_count = count($data['class_id']);
-        for ($i=0; $i < $class_count; $i++) { 
-            $classUser =  new UserClassType();
-            $classUser->class_id = $data['class_id'] [$i];
-            $classUser->admin_id = $data['user'];
+    Public function classAccess(Request $request){
+         $user_id = $request->id;   
+         $classes = ClassType::all();
+         $sections = Section::all();
+         $usersClasses = Admin::find($user_id);
+         $data= view('admin.account.classSelect',compact('classes','sections','user_id','usersClasses'))->render(); 
+        return response($data);
 
-            $classUser->save();             
+    }
+
+     Public function userClassStore(Request $request){
+        
+        $rules=[
+         'section' => 'required|max:199',             
+            'user' => 'required|max:199',  
+        ]; 
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
         }
-
-        return redirect()->back()->with(['class'=>'success','message'=>'User Class Successfully']);  
+        $user =Admin::find($request->user); 
+        $user->section_id = implode($request->section, ',');  
+        $user->save(); 
+        foreach ($request->section as $key => $value) {
+             
+        }
+        $response['msg'] = 'Save Successfully';
+        $response['status'] = 1;
+        return response()->json($response);  
     }
 
     // User access Store

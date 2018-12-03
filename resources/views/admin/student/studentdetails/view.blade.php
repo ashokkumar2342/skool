@@ -120,7 +120,7 @@ b{
                                 <td>{{ $parents->relationType->name or ''}}</td>
                                 <td>{{ $parents->education }}</td>
                                 <td>{{ $parents->occupation }}</td>
-                                <td>{{ $parents->incomes->name }}</td>
+                                <td>{{ $parents->incomes->name or ''}}</td>
                                 <td>{{ $parents->mobile }}</td>
                                 <td>{{ $parents->email }}</td>
                                 <td>{{ $parents->bob }}</td>
@@ -308,7 +308,7 @@ b{
                       <thead>
                           <tr>
                               <th>Document Type Name</th>
-                              <th>Doc Nmae</th>
+                              <th>Doc Name</th>
                               <th>Action</th>
                           </tr>
                       </thead>

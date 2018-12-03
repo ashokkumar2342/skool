@@ -19,11 +19,11 @@ class MyFuncs {
 
     public static function menus(){  
      $accountSubMenuUrls =[
-        '1'=>'<li><a href="'.route('admin.account.role').'"><i class="fa fa-circle-o"></i> Role </a></li>',
-        '2'=>'<li><a href="'.route('admin.account.form').'"><i class="fa fa-circle-o"></i> Add </a></li>',
-        '3'=>'<li><a href="'.route('admin.account.list').'"><i class="fa fa-circle-o"></i> List</a></li>',
-        '4'=>'<li><a href="'.route('admin.account.access').'"><i class="fa fa-circle-o"></i>User Access</a></li>',
-        '5'=>'<li><a href="'.route('admin.userClass.list').'"><i class="fa fa-circle-o"></i> User  Class</a></li>'
+        '1'=>'<li><a href="'.route('admin.account.role').'"><i class="fa fa-circle-o"></i> Default User Role </a></li>',
+        '2'=>'<li><a href="'.route('admin.account.form').'"><i class="fa fa-circle-o"></i> Add User  </a></li>',
+        '3'=>'<li><a href="'.route('admin.account.list').'"><i class="fa fa-circle-o"></i> List User </a></li>',
+        '4'=>'<li><a href="'.route('admin.account.access').'"><i class="fa fa-circle-o"></i>Menu Assign</a></li>',
+        '5'=>'<li><a href="'.route('admin.userClass.list').'"><i class="fa fa-circle-o"></i> Class Assign</a></li>'
         ];
         $adminId = Auth::guard('admin')->user()->id;               
         $accounResult = ''; 
@@ -36,7 +36,8 @@ class MyFuncs {
             }
      $masterSubMenuUrls =[
         '6'=>'<li><a href="'.route('admin.academicYear.list').'"><i class="fa fa-circle-o"></i> Academic Year </a></li>',
-        '7'=>'<li><a href="'.route('admin.paymentMode.list').'"><i class="fa fa-circle-o"></i> Payment Mode</a></li>'
+        '7'=>'<li><a href="'.route('admin.paymentMode.list').'"><i class="fa fa-circle-o"></i> Payment Mode</a></li>',
+        '54'=>'<li><a href="'.route('admin.document.type').'"><i class="fa fa-circle-o"></i> Document Type</a></li>'
         ];
         $masterResult = ''; 
            foreach($masterSubMenuUrls as $key => $value)
@@ -100,7 +101,7 @@ class MyFuncs {
     $manageSubMenuUrls =[
         '26'=>'<li><a href="'.route('admin.class.list').'"><i class="fa fa-circle-o"></i> Add Class</a></li>',
         '27'=>'<li><a href="'.route('admin.section.list').'"><i class="fa fa-circle-o"></i> Add Section</a></li>',
-        '28'=>'<li><a href="'.route('admin.manageSection.list').'"><i class="fa fa-circle-o"></i> Manage Section</a></li>'
+        '28'=>'<li><a href="'.route('admin.manageSection.list').'"><i class="fa fa-circle-o"></i> Class Section</a></li>'
         ];
         $manageResult = ''; 
             foreach($manageSubMenuUrls as $key => $value)
@@ -112,8 +113,8 @@ class MyFuncs {
             }
 
     $subjectSubMenuUrls =[
-        '29'=>'<li><a href="'. route('admin.subjectType.list').'"><i class="fa fa-circle-o"></i> Subject Type </a></li>',
-        '30'=>'<li><a href="'. route('admin.subject.manageSubject').'"><i class="fa fa-circle-o"></i> Manage Subject </a></li>', 
+        '29'=>'<li><a href="'. route('admin.subjectType.list').'"><i class="fa fa-circle-o"></i> Subjects</a></li>',
+        '30'=>'<li><a href="'. route('admin.subject.manageSubject').'"><i class="fa fa-circle-o"></i> Class Subject </a></li>', 
         ];
         $subjectResult = ''; 
             foreach($subjectSubMenuUrls as $key => $value)
@@ -242,7 +243,7 @@ class MyFuncs {
      		'1'=>' <li class="treeview">
                 <a href="#">
                     <i class="fa fa-user text-danger"></i>
-                    <span>Account</span>
+                    <span>User Access</span>
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -254,14 +255,16 @@ class MyFuncs {
             </li>',
      		'2'=>' <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-user text-danger"></i>
-                    <span>Master</span>
+                    <i class="fa fa-gear text-info"></i>
+                    <span>Configration</span>
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu"> 
                 '.$masterResult.'
+                '.$manageResult.'
+                '.$subjectResult.'
                 </ul>
             </li> ',
             '3'=>' <li class="treeview">
@@ -275,6 +278,7 @@ class MyFuncs {
                 </a>
                 <ul class="treeview-menu">
                  '.$studentResult.' 
+                 '.$reportResult.' 
                 </ul>
             </li>',
             '4'=>' <li class="treeview">
@@ -290,42 +294,42 @@ class MyFuncs {
                      '.$financeResult.' 
                 </ul>
             </li>',
-            '5'=>' <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-sticky-note text-primary"></i>
-                    <span>Report</span>
-                    <span class="pull-right-container">                      
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                   '.$reportResult.' 
-                </ul>
-            </li>',
-            '6'=>' <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-cogs text-danger"></i>
-                    <span>Manage</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>            
-                <ul class="treeview-menu">
-                  '.$manageResult.'
-                </ul>
-            </li>   ',
-            '7'=>' <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-book text-info"></i>
-                    <span>Subject</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    '.$subjectResult.'
-                </ul>
-            </li>',
+            // '5'=>' <li class="treeview">
+            //     <a href="#">
+            //         <i class="fa fa-sticky-note text-primary"></i>
+            //         <span>Report</span>
+            //         <span class="pull-right-container">                      
+            //           <i class="fa fa-angle-left pull-right"></i>
+            //         </span>
+            //     </a>
+            //     <ul class="treeview-menu">
+            //        '.$reportResult.' 
+            //     </ul>
+            // </li>',
+            // '6'=>' <li class="treeview">
+            //     <a href="#">
+            //         <i class="fa fa-cogs text-danger"></i>
+            //         <span>Manage</span>
+            //         <span class="pull-right-container">
+            //           <i class="fa fa-angle-left pull-right"></i>
+            //         </span>
+            //     </a>            
+            //     <ul class="treeview-menu">
+                   
+            //     </ul>
+            // </li>   ',
+            // '7'=>' <li class="treeview">
+            //     <a href="#">
+            //         <i class="fa fa-book text-info"></i>
+            //         <span>Subject</span>
+            //         <span class="pull-right-container">
+            //           <i class="fa fa-angle-left pull-right"></i>
+            //         </span>
+            //     </a>
+            //     <ul class="treeview-menu">
+            //         '.$subjectResult.'
+            //     </ul>
+            // </li>',
               '8'=>' <li class="treeview">
                 <a href="#">
                     <i class="fa fa-sticky-note text-primary"></i>

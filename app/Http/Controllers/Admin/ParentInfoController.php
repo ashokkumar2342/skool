@@ -70,6 +70,10 @@ class ParentInfoController extends Controller
          
          $validator = Validator::make($request->all(), [
             'name' => 'required',               
+            'mobile' => 'required|digits:10',              
+            'education' => 'required',              
+            'relation_type_id' => 'required',              
+            'relation_type_id' => 'income',              
         ]);
 
         if ($validator->passes()) {
