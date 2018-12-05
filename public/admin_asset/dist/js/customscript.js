@@ -208,6 +208,35 @@ function callPopupsm(obj,url){
 
 }
 
+function callPopupMd(obj,url){
+	$('#ModalMdId').modal("show"); 
+	var divId='ModalMdContentId';
+	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center"></div>'); 
+    $.get(url,{},
+    function(response, status){
+        if(status=="success"){
+			$('#'+divId).html(response);
+			callJqueryDefault(divId);
+			if(obj.getAttribute('datatable-view-without-pagination')=="true")
+				if ( ! $.fn.DataTable.isDataTable('.datatablepopup') ) 
+			{
+				$("#"+divId).find('.datatablepopup').DataTable({
+				'paging':   false,
+				});
+			}
+			if(obj.getAttribute('datatable-view')=="true")
+				if ( ! $.fn.DataTable.isDataTable('.datatablepopup') ) 
+			{
+				$("#"+divId).find('.datatablepopup').DataTable({
+				'iDisplayLength': 10,
+			});
+			}
+				
+			}
+    });
+
+}
+
 
 function callPopupLevel2(obj,url){
 	$('#Modallevel2').modal("show"); 

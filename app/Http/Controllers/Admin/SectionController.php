@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Model\ClassFee;
+use App\Model\ClassType;
 use App\Model\Section;
 use App\Model\SectionType;
-use App\Model\ClassType;
-use App\Model\ClassFee;
 use App\Model\SessionDate;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class SectionController extends Controller
 {
@@ -30,6 +31,8 @@ class SectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+   
+
     public function search(Request $request)
     {
        
@@ -54,10 +57,20 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {        
-        $this->validate($request,[
-            'section_id' => 'required|max:199',
-            'class' => 'required|numeric'            
-        ]);
+        
+        $rules=[
+        'section_id' => 'required|max:199',
+            'class' => 'required|numeric'   
+        ]; 
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }  
+         
         $data = $request->except('_token');
         $section_count = count($data['section_id']);
          
@@ -68,7 +81,9 @@ class SectionController extends Controller
             $manageSection->class_id = $data['class'];
             $manageSection->save();
         }         
-        return redirect()->back()->with(['class'=>'success','message'=>'Manage Section created successfully ...']);
+       $response['msg'] = 'Save Successfully';
+        $response['status'] = 1;
+        return response()->json($response); 
          
     }
 

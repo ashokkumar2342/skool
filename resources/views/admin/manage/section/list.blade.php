@@ -53,7 +53,7 @@
           <div class="form-group">
           {!! Form::label('sectionName', 'Section Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
             <div class="col-sm-9">
-            {!! Form::text('sectionName', @$sectionType->name, ['class'=>"form-control",'placeholder'=>"Section Name",'autocomplete'=>'off']) !!}
+            {!! Form::text('sectionName', @$sectionType->name, ['class'=>"form-control",'placeholder'=>"Section Name",'autocomplete'=>'off','maxlength'=>'50',]) !!}
             <p class="text-danger">{{ $errors->first('sectionName') }}</p>
             </div>
           </div>

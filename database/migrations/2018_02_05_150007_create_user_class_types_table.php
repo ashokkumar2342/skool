@@ -17,6 +17,7 @@ class CreateUserClassTypesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('admin_id');            
             $table->unsignedInteger('class_id');
+            $table->unsignedInteger('section_id');
             $table->softDeletes();            
             $table->timestamps();
         });

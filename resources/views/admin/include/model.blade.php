@@ -40,6 +40,27 @@
   </div>
 </div>
 
+<div id="ModalMdId" class="modal fade" role="dialog" data-backdrop="static">
+  <div class="modal-dialog  modal-md" id="ModalMdContentId">
+
+  <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#Modallevel3">Open 2 Modal</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    
+
+  </div>
+</div>
+
 
 <div id="success-popup" class="modal fade" role="dialog" data-backdrop="static">
   <div class="modal-dialog  modal-small">

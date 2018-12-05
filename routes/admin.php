@@ -29,6 +29,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('role-menu', 'AccountController@roleMenuTable')->name('admin.account.roleMenuTable'); 
 		Route::post('role-menu-store', 'AccountController@roleMenuStore')->name('admin.roleAccess.subMenu');
 		Route::get('class-access', 'AccountController@classAccess')->name('admin.account.classAccess'); 
+		Route::get('class-all', 'AccountController@classAllSelect')->name('admin.account.classAllSelect'); 
 						
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 
 	});
@@ -37,13 +38,22 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::prefix('academic-year')->group(function () {
 		    Route::get('list', 'AcademicYearController@index')->name('admin.academicYear.list');
 		    Route::post('store', 'AcademicYearController@store')->name('admin.academicYear.store');
+		    Route::get('edit/{id}', 'AcademicYearController@edit')->name('admin.academicYear.edit');
+		    Route::post('update/{id}', 'AcademicYearController@update')->name('admin.academicYear.update');
+		    Route::get('delete/{id}', 'AcademicYearController@destroy')->name('admin.academicYear.delete');
 		    Route::get('document-type', 'DocumentTypeController@index')->name('admin.document.type');
 		    Route::post('document-store', 'DocumentTypeController@store')->name('admin.document.store');
+		    Route::get('document-edit/{id}', 'DocumentTypeController@edit')->name('admin.document.type.edit');
+		    Route::post('document-update/{id}', 'DocumentTypeController@update')->name('admin.document.type.update');
+		    Route::get('document-delete/{id}', 'DocumentTypeController@destroy')->name('admin.document.type.delete');
 		     
 		});
 		Route::prefix('payment-mode')->group(function () {
 		    Route::get('list', 'PaymentModeController@index')->name('admin.paymentMode.list');
 		    Route::post('store', 'PaymentModeController@store')->name('admin.paymentMode.store');
+		    Route::get('edit/{id}', 'PaymentModeController@edit')->name('admin.paymentMode.edit');
+		    Route::post('update/{id}', 'PaymentModeController@update')->name('admin.paymentMode.update');
+		    Route::get('delete/{id}', 'PaymentModeController@destroy')->name('admin.paymentMode.delete');
 		     
 		});
 	 
@@ -70,6 +80,7 @@ Route::group(['middleware' => 'admin'], function() {
 		//---------------Section Type create----------------------------------------
 	Route::group(['prefix' => 'section'], function() {
 	    Route::get('/', 'SectionTypeController@index')->name('admin.section.list');
+	    Route::get('select', 'SectionTypeController@selectList')->name('admin.section.selectList');
 	    Route::get('search', 'SectionTypeController@search')->name('admin.section.search');
 	    Route::post('add', 'SectionTypeController@store')->name('admin.section.add');
 	    Route::get('{sectionType}/edit', 'SectionTypeController@edit')->name('admin.section.edit');

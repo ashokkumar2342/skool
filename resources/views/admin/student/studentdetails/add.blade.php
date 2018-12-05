@@ -8,7 +8,7 @@
       <ol class="breadcrumb">
        <li><a href="{{ route('admin.defaultValue.list') }}" class="btn btn-success" style="color:#fff"> Add Default Value</a></li> 
       </ol>
-</section>
+</section>      
     <section class="content">        
       
       	<div class="box">        

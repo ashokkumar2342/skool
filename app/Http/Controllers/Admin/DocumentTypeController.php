@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\DocumentType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class DocumentTypeController extends Controller
@@ -26,10 +27,38 @@ class DocumentTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+  public function edit($id)
+  {   
+      $id =Crypt::decrypt($id); 
+      $document =DocumentType::find($id); 
+      return view('admin.master.document.edit',compact('document')); 
+      
+  }
+
+  public function update(Request $request,$id)
+  {    
+     $rules=[
+        'documentType' => 'required|string|min:2|max:50', 
+        ];
+      $validator = Validator::make($request->all(),$rules);
+      if ($validator->fails()) {
+          $errors = $validator->errors()->all();
+          $response=array();
+          $response["status"]=0;
+          $response["msg"]=$errors[0];
+          return response()->json($response);// response as json
+      }
+      
+    $id =Crypt::decrypt($id);   
+      $document = DocumentType::find($id);
+      $document->name = $request->documentType; 
+      $document->save(); 
+      $response = array();
+      $response['status'] = 1; 
+      $response['msg'] = 'Update Successfully'; 
+      return $response; 
+      
+  }
 
     /**
      * Store a newly created resource in storage.
@@ -39,26 +68,26 @@ class DocumentTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $rules=[
-                'documentType' => 'required|string|min:2|max:50', 
-                ];
+         $rules=[
+        'documentType' => 'required|string|min:2|max:50', 
+        ];
 
-                $validator = Validator::make($request->all(),$rules);
-                if ($validator->fails()) {
-                    $errors = $validator->errors()->all();
-                    $response=array();
-                    $response["status"]=0;
-                    $response["msg"]=$errors[0];
-                    return response()->json($response);// response as json
-                }
-               
-                     
-                $document = new DocumentType();
-                $document->name = $request->documentType; 
-                $document->save();  
-                $response['msg'] = 'Account created Successfully';
-                $response['status'] = 1;
-                return response()->json($response); 
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+       
+             
+        $document = new DocumentType();
+        $document->name = $request->documentType; 
+        $document->save();  
+        $response['msg'] = 'Account created Successfully';
+        $response['status'] = 1;
+        return response()->json($response); 
     }
      public function search(Request $request)
     {
@@ -84,22 +113,7 @@ class DocumentTypeController extends Controller
      * @param  \App\Model\AcademicYear  $academicYear
      * @return \Illuminate\Http\Response
      */
-    public function edit(AcademicYear $academicYear)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\AcademicYear  $academicYear
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, AcademicYear $academicYear)
-    {
-        //
-    }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -107,8 +121,13 @@ class DocumentTypeController extends Controller
      * @param  \App\Model\AcademicYear  $academicYear
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AcademicYear $academicYear)
+    public function destroy($id)
     {
-        //
+
+       $id =Crypt::decrypt($id);
+
+       $DocumentType =DocumentType::find($id);
+       $DocumentType->delete();
+        return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
 }

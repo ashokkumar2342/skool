@@ -68,21 +68,21 @@
           <div class="form-group">
           {!! Form::label('className', 'Class Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
             <div class="col-sm-9">
-            {!! Form::text('className', @$classType->name, ['class'=>"form-control",'placeholder'=>"Class Name",'autocomplete'=>'off']) !!}
+            {!! Form::text('className', @$classType->name, ['class'=>"form-control",'placeholder'=>"Class Name",'autocomplete'=>'off','maxlength'=>'50']) !!}
             <p class="text-danger">{{ $errors->first('className') }}</p>
             </div>
           </div>
           <div class="form-group">
           {!! Form::label('shortName', 'Short Name :', ['class'=>"col-sm-3 control-label"]) !!}
             <div class="col-sm-9">
-            {!! Form::text('shortName', @$classType->alias, ['class'=>"form-control",'placeholder'=>"Numeric Name",'autocomplete'=>'off']) !!}
+            {!! Form::text('shortName', @$classType->alias, ['class'=>"form-control",'placeholder'=>"Numeric Name",'autocomplete'=>'off','maxlength'=>'50']) !!}
             <p class="text-danger">{{ $errors->first('shortName') }}</p>
             </div>
           </div> 
           <div class="form-group">
           {!! Form::label('shorting_id', 'Shorting Order No :', ['class'=>"col-sm-3 control-label"]) !!}
             <div class="col-sm-9">
-            {!! Form::text('shorting_id', @$classType->shorting_id, ['class'=>"form-control",'placeholder'=>"Shorting id",'autocomplete'=>'off']) !!}
+            {!! Form::text('shorting_id', @$classType->shorting_id, ['class'=>"form-control",'placeholder'=>"Shorting id",'autocomplete'=>'off','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) !!}
             <p class="text-danger">{{ $errors->first('shorting_id') }}</p>
             </div>
           </div>    

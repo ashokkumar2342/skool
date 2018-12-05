@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Validator;
 
 class AcademicYearController extends Controller
 {
@@ -39,25 +41,56 @@ class AcademicYearController extends Controller
     {
         $validator = Validator::make($request->all(), [
         
-            'name' => 'required', 
-            'start_date' => 'required|max:30', 
-            'end_date' => 'required|max:30', 
-             
-              
+            'name' => 'required|max:30|unique:academic_years',
+            'start_date' => 'required|max:30|unique:academic_years', 
+            'end_date' => 'required|max:30|unique:academic_years', 
         ]);
         if ($validator->fails()) {                    
              return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
 
         }
        $academicYears = new AcademicYear();
-       $academicYears->name = $request->academic_year;
+       $academicYears->name = $request->name;
        $academicYears->start_date = date('Y-m-d',strtotime($request->start_date)) ;
        $academicYears->end_date = date('Y-m-d',strtotime($request->end_date));
        $academicYears->description = $request->description; 
        $academicYears->save();
-       return response()->json([$academicYears,'class'=>'success','message'=>'AcademicYear Created Successfully']);
+       return response()->json([$academicYears,'class'=>'success','message'=>'Academic Year Created Successfully']);
     }
-     public function search(Request $request)
+
+    public function edit($id)
+    {   
+        $id =Crypt::decrypt($id); 
+        $academicYear =AcademicYear::find($id); 
+        return view('admin.master.academicyear.edit',compact('academicYear')); 
+        
+    }
+
+    public function update(Request $request,$id)
+    {  
+         $validator = Validator::make($request->all(), [ 
+             'name' => 'required|max:30',
+             'start_date' => 'required|max:30', 
+             'end_date' => 'required|max:30', 
+         ]);
+         if ($validator->fails()) {                    
+              return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
+         }
+        $id =Crypt::decrypt($id);
+        $academicYears = AcademicYear::find($id);;
+        $academicYears->name = $request->name;
+        $academicYears->start_date = date('Y-m-d',strtotime($request->start_date)) ;
+        $academicYears->end_date = date('Y-m-d',strtotime($request->end_date));
+        $academicYears->description = $request->description; 
+        $academicYears->save(); 
+        $response = array();
+        $response['status'] = 1; 
+        $response['msg'] = 'Update Successfully'; 
+        return $response; 
+    }
+
+
+    public function search(Request $request)
     {
         $academic = AcademicYear::find($request->academic_year_id);
 
@@ -81,22 +114,7 @@ class AcademicYearController extends Controller
      * @param  \App\Model\AcademicYear  $academicYear
      * @return \Illuminate\Http\Response
      */
-    public function edit(AcademicYear $academicYear)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\AcademicYear  $academicYear
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, AcademicYear $academicYear)
-    {
-        //
-    }
+     
 
     /**
      * Remove the specified resource from storage.
@@ -104,8 +122,12 @@ class AcademicYearController extends Controller
      * @param  \App\Model\AcademicYear  $academicYear
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AcademicYear $academicYear)
-    {
-        //
+    public function destroy($id)
+    {  
+        $id =Crypt::decrypt($id);
+
+        $academicYear =AcademicYear::find($id);
+        $academicYear->delete();
+         return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
 }

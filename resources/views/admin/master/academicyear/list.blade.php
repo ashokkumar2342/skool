@@ -14,7 +14,7 @@
                         <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('academic_year','Academic Year',['class'=>' control-label']) }}
-                               {{ Form::text('academic_year',null,['class'=>'form-control','placeholder'=>'Enter Academic Year']) }}
+                               {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Enter Academic Year','maxlength'=>'50']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
@@ -60,6 +60,7 @@
                                 <th>Start date</th>
                                 <th>End date</th>
                                 <th>Description date</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,6 +70,11 @@
                                     <td>{{ date('d-m-Y',strtotime($academicYear->start_date)) }}</td>
                                     <td>{{ date('d-m-Y',strtotime($academicYear->end_date))  }}</td>
                                     <td>{{ $academicYear->description }}</td>
+                                    <td>
+                                      <?php $url = route('admin.academicYear.edit',Crypt::encrypt($academicYear->id)) ?>
+                                      <a class="btn btn-success btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a> 
+                                      <a href="{{ route('admin.academicYear.delete',Crypt::encrypt($academicYear->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                    </td>
                                 </tr>
                              @endforeach
                         </tbody>

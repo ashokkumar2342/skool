@@ -34,6 +34,7 @@
                         <th>Sn</th>
                          
                         <th>Document Type   Name</th>
+                        <th>Action</th>
                          </tr>
                       </thead>
                       <tbody>
@@ -42,6 +43,12 @@
                         <td>{{ $document->id }}</td>
                         
                         <td>{{ $document->name }} </td>
+                        <td> 
+                            <?php $url = route('admin.document.type.edit',Crypt::encrypt($document->id)) ?>
+                          <a class="btn btn-success btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a> 
+                         
+                          <a href="{{ route('admin.document.type.delete',Crypt::encrypt($document->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                        </td>
                        
                       </tr> 
                       @endforeach

@@ -215,21 +215,33 @@ class AccountController extends Controller
        
     }
 
-    Public function classAccess(Request $request){
+    Public function classAllSelect(Request $request){
          $user_id = $request->id;   
-         $classes = ClassType::all();
-         $sections = Section::all();
+         $classes = ClassType::all(); 
          $usersClasses = Admin::find($user_id);
-         $data= view('admin.account.classSelect',compact('classes','sections','user_id','usersClasses'))->render(); 
+         $data= view('admin.account.classAllSelect',compact('classes','user_id','usersClasses'))->render(); 
+        return response($data);
+
+    }
+
+    Public function classAccess(Request $request){
+
+         $user_id = $request->id; 
+         $classes = ClassType::where('id',$request->class_id)->get();
+         $sections = Section::where('class_id',$request->class_id)->get();
+         
+        $usersSections = array_pluck(UserClassType::where('admin_id',$request->user_id)->where('class_id',$request->class_id)->get(['section_id'])->toArray(), 'section_id');
+         $data= view('admin.account.classSelect',compact('classes','sections','user_id','usersSections'))->render(); 
         return response($data);
 
     }
 
      Public function userClassStore(Request $request){
-        
+       
         $rules=[
          'section' => 'required|max:199',             
-            'user' => 'required|max:199',  
+         'class_id' => 'required|max:199',             
+         'user' => 'required|max:199',  
         ]; 
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()) {
@@ -239,11 +251,14 @@ class AccountController extends Controller
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
         }
-        $user =Admin::find($request->user); 
-        $user->section_id = implode($request->section, ',');  
-        $user->save(); 
+         
         foreach ($request->section as $key => $value) {
-             
+        $section =UserClassType::firstOrNew(['class_id'=>$request->class_id,'admin_id'=>$request->user,'section_id'=>$value]); 
+           $section->class_id = $request->class_id;  
+           $section->admin_id = $request->user;  
+           $section->section_id = $value; 
+           $section->save(); 
+
         }
         $response['msg'] = 'Save Successfully';
         $response['status'] = 1;

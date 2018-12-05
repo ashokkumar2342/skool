@@ -17,7 +17,7 @@
                
                  
                   {{ Form::label('User','User',['class'=>' control-label']) }}
-                  <select class="form-control"  multiselect-form="true"  name="user"  onchange="callAjax(this,'{{route('admin.account.classAccess')}}'+'?id='+this.value,'class_list')" > 
+                  <select class="form-control"  multiselect-form="true"  name="user" id="user_id"  onchange="callAjax(this,'{{route('admin.account.classAllSelect')}}'+'?id='+this.value,'class_all')" > 
                    <option value="" disabled selected>Select User</option>
                   @foreach ($users as $user)
                        <option value="{{ $user->id }}">{{ $user->email }} &nbsp;&nbsp;&nbsp;&nbsp;( {{ $user->first_name }} )</option> 
@@ -25,12 +25,12 @@
                   </select> 
                   <p class="text-danger">{{ $errors->first('user') }}</p>
                 </div> 
-                <div class="col-md-4" id="class_list">
+                <div class="col-md-4" id="class_all">
                   
                 </div>
-                 <div class="col-md-4" style="padding-top: 5px">
-                  <br>
-                  <input type="submit" value="Save" class="btn btn-success btn-sm">
+                 <div class="col-md-4" id="class_list">
+                  
+                  
                 </div>
 
              </form>        

@@ -14,7 +14,7 @@
                         <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('name','Payment Mode',['class'=>' control-label']) }}
-                               {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Enter Payment Mode Name']) }}
+                               {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Enter Payment Mode Name','maxlength'=>'50']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
@@ -37,6 +37,7 @@
                         <thead>
                             <tr>
                                 <th>Payment Mode</th>
+                                <th>Action</th>
                                 
                             </tr>
                         </thead>
@@ -44,6 +45,12 @@
                             @foreach ($paymentmodes as $paymentmode) 
                                 <tr>
                                     <td>{{ $paymentmode->name }}</td>
+                                    <td> 
+                                        <?php $url = route('admin.paymentMode.edit',Crypt::encrypt($paymentmode->id)) ?>
+                                      <a class="btn btn-success btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a> 
+                                     
+                                      <a href="{{ route('admin.paymentMode.delete',Crypt::encrypt($paymentmode->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                    </td>
                                    
                                 </tr>
                              @endforeach
@@ -104,47 +111,7 @@
     });/////////////////isapplicable///////////////////
  
     /////////////////delete///////////////////
-    $('#table_academic_year').on('click', '.btn_delete', function(event) {
-      var cm = confirm("Are you Sure Delete!");
-      if (cm == true) {
-           event.preventDefault();  
-           var id = $(this).data("id");
-           $.ajaxSetup({
-               headers: {
-                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-               }
-           });      
-           $.ajax({
-               url: '{{ route('admin.feeGroupDetail.delete') }}',
-               type: 'delete',
-               data: {id: id},
-           })
-           .done(function(data) {
-               toastr[data.class](data.message)
-               $("#table_academic_year").load(location.href + ' #table_academic_year'); 
-           })
-           .fail(function() {
-               console.log("error");
-           })
-           .always(function() {
-               console.log("complete");
-           });
-      } else {
-          console.log("cancel");
-      }
-        
-    });///////////////////edit//////////// 
-     $('#fee_structure_last_date').on('click', '.btn_edit', function(event) {
-         event.preventDefault();  
-         $('.modal-title').text('Edit');
-         $('#edit_id').val($(this).data('id'));        
-         $('#edit_code').val($(this).data('code'));        
-         $('#edit_name').val($(this).data('name'));        
-        $('#edit_fee_account').val($(this).data('feeaccount'));   
-         $('#edit_fine_scheme').val($(this).data('finescheme'));        
-         $('#edit_Is_refundable').val($(this).data('refundable')); 
-         $('#fee_structure_model').modal('show');
-    });////////////////update///////////// 
+   
   </script>
   <script>
    $( function() {

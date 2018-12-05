@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Model\Section;
 use App\Model\SectionType;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class SectionTypeController extends Controller
 {
@@ -24,9 +25,13 @@ class SectionTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function selectList(Request $request)
     {
-        //
+        $sections = Section::find($request->id); 
+        $classSections = array_pluck(Section::where('class_id',$request->id)->get(['section_id'])->toArray(), 'section_id'); 
+        $sectionTypes = SectionType::all(); 
+        $data= view('admin.manage.section.selectList',compact('sectionTypes','classSections'))->render(); 
+        return response($data);
     }
 
     /**
