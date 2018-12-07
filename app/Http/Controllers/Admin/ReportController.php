@@ -50,7 +50,7 @@ class ReportController extends Controller
     	            Join('student_medical_infos', 'students.id', '=', 'student_medical_infos.student_id')    	             
     	            ->where('bloodgroup_id',$request->bloodgroup)
     	            ->get();
-    	   return view('admin.report.result',compact('results'));
+    	   return  $this->responseResult($results);
     	}
     	elseif ($request->report_for == 1 &&  $request->school_class == 2){ 
     		$results = Student::
@@ -60,40 +60,55 @@ class ReportController extends Controller
     		            ->where('bloodgroup_id',$request->bloodgroup)    		             
     		            ->get();
     		            
-    		return view('admin.report.result',compact('results'));  
+    		return  $this->responseResult($results);  
     	}    	
     	elseif ($request->report_for == 2 && $request->school_class == 1){       
     		$results = Student::where('category_id',$request->category)->get();
-                   return view('admin.report.result',compact('results'));
+                   return  $this->responseResult($results);
     	}
         elseif ($request->report_for == 2 &&  $request->school_class == 2){ 
             $results = Student::where(['class_id'=>$request->class,'section_id'=>$request->section])->where('category_id',$request->category)->get();
-                   return view('admin.report.result',compact('results'));
+                   return  $this->responseResult($results);
                         
-            return view('admin.report.result',compact('results'));  
+            return  $this->responseResult($results);  
         }
         elseif ($request->report_for == 3 && $request->school_class == 1){       
             $results = Student::where('religion_id',$request->religion)->get();
-                   return view('admin.report.result',compact('results'));
+                   return  $this->responseResult($results);
         }
         elseif ($request->report_for == 3 &&  $request->school_class == 2){ 
             $results = Student::where(['class_id'=>$request->class,'section_id'=>$request->section])->where('religion_id',$request->religion)->get();
-                   return view('admin.report.result',compact('results'));
+                   return  $this->responseResult($results);
                         
-            return view('admin.report.result',compact('results'));  
+            return  $this->responseResult($results);  
         }
         elseif ($request->report_for == 4 && $request->school_class == 1){       
             $results = Student::where('gender_id',$request->gender)->get();
-                   return view('admin.report.result',compact('results'));
+                   return  $this->responseResult($results);
         }
         elseif ($request->report_for == 4 &&  $request->school_class == 2){ 
             $results = Student::where(['class_id'=>$request->class,'section_id'=>$request->section])->where('gender_id',$request->gender)->get();
-                   return view('admin.report.result',compact('results'));
-                        
-            return view('admin.report.result',compact('results'));  
+                   return  $this->responseResult($results);
+             
+        } elseif ($request->report_for == 7 &&  $request->school_class == 1){ 
+            $results = Student::get();
+           return  $this->responseResult($results);
+             
+        } elseif ($request->report_for == 7 &&  $request->school_class == 2){ 
+            $results = Student::where(['class_id'=>$request->class,'section_id'=>$request->section])->get();
+                    return  $this->responseResult($results);
+             
         }
+
     	 else{
     	 	return redirect()->route('admin.student.report');
     	 }
+    }
+
+    public function responseResult($results){
+        $response =array();
+            $response['data']= view('admin.report.result',compact('results'))->render();
+            $response['status'] = 1;
+            return $response;
     }
 }

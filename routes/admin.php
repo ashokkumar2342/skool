@@ -221,7 +221,7 @@ Route::group(['middleware' => 'admin'], function() {
 	  // ---------------Report----------------------------------------
 	 Route::group(['prefix' => 'report'], function() {
 	     Route::get('/', 'ReportController@index')->name('admin.student.report');
-	     Route::get('search', 'ReportController@reportfilter')->name('admin.student.report.post');      
+	     Route::post('search', 'ReportController@reportfilter')->name('admin.student.report.post');      
          
 	 });
 	   // ---------------Certificate----------------------------------------

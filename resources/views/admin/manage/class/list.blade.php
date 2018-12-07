@@ -112,41 +112,10 @@
  @push('scripts')
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script type="text/javascript">
-     $(document).ready(function(){
-        $('#dataTable').DataTable();
-    });
+    
      @if(@$classType || $errors->first())
      $('#add_class').modal('show'); 
      @endif
  </script>
- <script type="text/javascript">
-   $(document).ready(function () {
-   
-      $(document).on("click", '.whatsapp', function () {
-   
-         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-   
-           var sText = "Text to share";
-   
-           var sUrl = "Link to share";
-   
-           var sMsg = encodeURIComponent(sText) + " - " + encodeURIComponent(sUrl);
-   
-           var whatsapp_url = "whatsapp://send?text=" + sMsg;
-   
-           window.location.href = whatsapp_url;
-   
-        }
-   
-        else {
-   
-           alert("Whatsapp client not available.");
-   
-        }
-   
-     });
-   
-   });
-
- </script>
+  
 @endpush

@@ -45,9 +45,9 @@ class ClassTypeController extends Controller
     {
         
         $this->validate($request,[
-            'className' => 'required|max:199',
-            'shortName' => 'required|max:199',
-            'shorting_id' => 'required|max:199'
+            'className' => 'required|max:50|unique:class_types',
+            'shortName' => 'required|max:50',
+            'shorting_id' => 'required|max:50'
             ]);
         $class = new ClassType();
         $class->name = $request->className;
