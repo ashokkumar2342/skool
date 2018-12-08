@@ -606,9 +606,19 @@ class StudentController extends Controller
         }
         return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
     }
+    //
     public function feeReceipt(StudentFee $studentFee)
     {
         return view('admin.student.studentdetails.feeReceipt',compact('studentFee'));
+    }
+
+    //birthday
+    Public function birthday(){
+         
+       $students = Student::whereMonth('dob',date('m'))
+                            ->whereDay('dob',date('d'))
+                            ->get();
+       return view('admin.student.birthday.list',compact('students'));                     
     }
     
    

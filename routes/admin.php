@@ -137,6 +137,7 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('export', 'StudentController@excelData')->name('admin.student.excel');
 	     Route::get('import-view', 'StudentController@importview')->name('admin.student.excel.import');	      
 	     Route::get('import-show', 'StudentController@importshow')->name('admin.student.excel.show');	      
+	     Route::get('birthday', 'StudentController@birthday')->name('admin.student.birthday.list');	      
 	     Route::post('import', 'StudentController@importStudent')->name('admin.student.excel.store');	      
 	     });
 	 	// ---------------Default Value----------------------------------------
