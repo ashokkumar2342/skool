@@ -22,6 +22,7 @@ use App\Model\Subject;
 use App\Model\SubjectType;
 use App\Student;
 use Auth;
+use PDF;
 use Carbon;
 use DB;
 use Excel;
@@ -619,6 +620,50 @@ class StudentController extends Controller
                             ->whereDay('dob',date('d'))
                             ->get();
        return view('admin.student.birthday.list',compact('students'));                     
+    }
+
+      //birthday
+    Public function birthdaySearch(Request $request){
+         
+     $from_month =date('m',strtotime($request->from_date));
+     $to_month =date('m',strtotime($request->to_date));
+     $from_day =date('d',strtotime($request->from_date));
+     $to_day =date('d',strtotime($request->to_date));
+
+     $students = Student::whereMonth('dob','>=',$from_month)
+                           ->whereMonth('dob','<=',$to_month)
+                           ->whereDay('dob','>=',$from_day)
+                           ->whereDay('dob','<=',$to_day)
+                           ->get(); 
+      
+    $response= array();                       
+    $response['status']= 1;                       
+    $response['data']=view('admin.student.birthday.search_result',compact('students'))->render();
+    return $response;
+
+    }
+
+    public function birthdayPrint($id){
+        
+        $student = Student::find($id);  
+        $pdf = PDF::loadView('admin.student.birthday.birthday_card', compact('student'));  
+         
+        return $pdf->download($student->registration_no.'_birthday_card.pdf');
+    }
+    public function birthdayPrintAll(Request $request){ 
+     
+        $this->validate($request,[ 
+            'student' => 'required', 
+        ]);   
+        $students = Student::find($request->student); 
+        $pdf = PDF::loadView('admin.student.birthday.birthday_card_all', compact('students')); 
+        $filename = date('d_m_Y_h_i_s'). '.' . 'pdf'; 
+        $file_name = date('d_m_Y_h_i_s');  
+        return $pdf->download('_birthday_card.pdf');
+        //  $pdf = PDF::loadView('admin.student.birthday.birthday_card', compact('student'));  
+        // $filename = date('d_m_Y_h_i_s'). '.' . 'pdf'; 
+        // $file_name = date('d_m_Y_h_i_s');  
+        // return $pdf->download($student->registration_no.'_birthday_card.pdf');
     }
     
    

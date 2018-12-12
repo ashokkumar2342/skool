@@ -138,6 +138,9 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('import-view', 'StudentController@importview')->name('admin.student.excel.import');	      
 	     Route::get('import-show', 'StudentController@importshow')->name('admin.student.excel.show');	      
 	     Route::get('birthday', 'StudentController@birthday')->name('admin.student.birthday.list');	      
+	     Route::post('birthday-search', 'StudentController@birthdaySearch')->name('admin.birthday.search'); 
+	     Route::get('birthday-card/{id}', 'StudentController@birthdayPrint')->name('admin.birthday.card.pdf'); 
+	     Route::post('birthday-card-all', 'StudentController@birthdayPrintAll')->name('admin.birthday.card.pdfAll');   
 	     Route::post('import', 'StudentController@importStudent')->name('admin.student.excel.store');	      
 	     });
 	 	// ---------------Default Value----------------------------------------

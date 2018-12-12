@@ -88,7 +88,7 @@
       @include('admin.include.model')
     @stack('scripts')
     <script>
-      $( ".datepicker").datepicker(); 
+      $( ".datepicker").datepicker({dateFormat:'dd-mm-yy'}); 
        //$('.multiselect').selectpicker(); 
         
        $('multiselect').multiselect({
