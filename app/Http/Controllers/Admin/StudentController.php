@@ -20,6 +20,7 @@ use App\Model\StudentFee;
 use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
+use App\Model\Template\BirthdayTemplate;
 use App\Student;
 use Auth;
 use PDF;
@@ -643,13 +644,16 @@ class StudentController extends Controller
 
     }
 
+    //birthday print one
     public function birthdayPrint($id){
-        
+        $template = BirthdayTemplate::find(1);
+        $viewUrl = 'admin.student.birthday.'.$template->name;
         $student = Student::find($id);  
-        $pdf = PDF::loadView('admin.student.birthday.birthday_card', compact('student'));  
-         
+        $pdf = PDF::loadView($viewUrl,compact('student'));  
         return $pdf->download($student->registration_no.'_birthday_card.pdf');
     }
+
+    //birthday print all
     public function birthdayPrintAll(Request $request){ 
      
         $this->validate($request,[ 
@@ -657,13 +661,9 @@ class StudentController extends Controller
         ]);   
         $students = Student::find($request->student); 
         $pdf = PDF::loadView('admin.student.birthday.birthday_card_all', compact('students')); 
-        $filename = date('d_m_Y_h_i_s'). '.' . 'pdf'; 
-        $file_name = date('d_m_Y_h_i_s');  
+       
         return $pdf->download('_birthday_card.pdf');
-        //  $pdf = PDF::loadView('admin.student.birthday.birthday_card', compact('student'));  
-        // $filename = date('d_m_Y_h_i_s'). '.' . 'pdf'; 
-        // $file_name = date('d_m_Y_h_i_s');  
-        // return $pdf->download($student->registration_no.'_birthday_card.pdf');
+        
     }
     
    

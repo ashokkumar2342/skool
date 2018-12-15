@@ -41,8 +41,9 @@
                                 <th>Sr</th>
                                 <th>Registration No</th>
                                 
-                                <th>Remark</th>
+                                
                                 <th>Status</th>
+                                <th>Remark</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

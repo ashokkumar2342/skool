@@ -70,7 +70,7 @@
                    		    <td>{{ $student->father_mobile }}</td>
                    		    <td>{{ $student->mother_mobile }}</td> 
                    		    <td>
-                   		    	<a href="{{ route('admin.birthday.card.pdf',$student->id) }}"  class="btn btn-info btn-xs"><i class="fa fa-print"></i> </a>
+                   		    	<a  href="{{ route('admin.birthday.card.pdf',$student->id) }}" target="blank"  class="btn btn-info btn-xs"><i class="fa fa-print"></i> </a>
                    		    </td> 
                    		  </tr>
                    		  @endforeach
