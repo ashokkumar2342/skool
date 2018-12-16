@@ -26,7 +26,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+    
     public function getdetailbyuserid($user_id){
     try {
     return $this->where("user_id",$user_id)
