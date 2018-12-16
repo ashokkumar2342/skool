@@ -50,7 +50,8 @@ class MyFuncs {
      $studentSubMenuUrls =[
         '7'=>'<li><a href="'.route('admin.student.form').'"><i class="fa fa-circle-o"></i> Add</a></li>',
         '8'=>'<li><a href="'.route('admin.student.show').'"><i class="fa fa-circle-o"></i> Show</a></li>',
-        '9'=>'<li><a href="'.route('admin.student.excel.import').'"><i class="fa fa-circle-o"></i> Excel Import</a></li>'
+        '9'=>'<li><a href="'.route('admin.student.excel.import').'"><i class="fa fa-circle-o"></i> Excel Import</a></li>',
+        '55'=>'<li><a href="'.route('admin.student.birthday.list').'"><i class="fa fa-circle-o"></i> Birthday</a></li>'
         ];
         $studentResult = ''; 
             foreach($studentSubMenuUrls as $key => $value)

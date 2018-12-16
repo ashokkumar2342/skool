@@ -1,9 +1,6 @@
 <?php
-
 use App\Helper\MyFuncs;
-
  
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,14 +30,10 @@ Route::prefix('resitration')->group(function () {
      Route::post('mobile-verify', 'Front\ParentRegistrationController@verifyMobile')->name('student.resitration.verifyMobile');
      Route::post('email-verify', 'Front\ParentRegistrationController@verifyEmail')->name('student.resitration.verifyEmail');
      Route::get('resitration-form', 'Front\ParentRegistrationController@resitrationForm')->name('student.resitration.resitrationForm'); 
-
  Route::get('resitration-form1', 'Front\ParentRegistrationController@resitrationForm')->name('student.resitration.resitrationForm'); 
 });
-
 Auth::routes();
-
 Route::get('resitration-form/{id}', 'Front\ParentRegistrationController@resitrationForm')->name('student.resitration.resitrationForm'); 
-
 Route::get('/home', 'HomeController@index')->name('home'); 
 Route::post('/student', 'Front\ParentRegistrationController@student')->name('student');
 Route::post('/previous-school', 'Front\ParentRegistrationController@previousSchool')->name('previous.school');
@@ -55,14 +48,10 @@ Route::post('/document', 'Front\ParentRegistrationController@document')->name('d
 Route::post('/declaration', 'Front\ParentRegistrationController@declaration')->name('declaration');
 Route::get('/preivew/{id}', 'Front\ParentRegistrationController@preview')->name('preview');
  
-
  
-
-
 // facebook
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 //google
 Route::get('login/google', 'Auth\LoginController@googleredirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginController@googlehandleProviderCallback');
-

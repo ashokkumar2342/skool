@@ -18,7 +18,7 @@ b{
     <section class="content">
         <div class="box">  
           <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-home"></i> Home</a></li>
+              <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-home"></i> Student Details</a></li>
               <li><a data-toggle="tab" href="#parent"><i class="fa fa-user-circle"></i> Parent Info</a></li>
               <li><a data-toggle="tab" href="#medical"><i class="fa fa-user-md"></i> Medical info</a></li>
               <li><a data-toggle="tab" href="#sibling"><i class="fa fa-users"></i> Siblling info</a></li>

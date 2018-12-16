@@ -48,6 +48,10 @@ return [
             'driver' => 'session',
             'provider' => 'students',
         ],
+           'parent' => [
+            'driver' => 'session',
+            'provider' => 'parents',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -73,10 +77,10 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Model\ParentRegistration::class,
-        ],
+        // 'users' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Model\ParentRegistration::class,
+        // ],
         'admins' => [
                     'driver' => 'eloquent',
                     'model' => App\Admin::class,
@@ -86,10 +90,10 @@ return [
                     'model' => App\Student::class,
                 ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'users' => [
+            'driver' => 'database',
+            'table' => 'users',
+        ],
     ],
 
     /*

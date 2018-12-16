@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Mail\SendMail;
  
 use App\Events\SmsEvent;
@@ -16,7 +14,6 @@ use App\Model\StudentDefaultValue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
-
 class HomeController extends Controller
 {
     /**
@@ -28,7 +25,6 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-
     /**
      * Show the application dashboard.
      *
@@ -41,15 +37,12 @@ class HomeController extends Controller
         //     $message->to('ashok@gmail.com','To Ashok')->subject('test email');
         //     $message->from('ashok@gmail.com','Ashoka');
         // } );
-
         // $data = array( 'email' => 'sample@sample.com', 'otp' => 'Lar', 'from' => 'sample@sample.comt', 'from_name' => 'Vel' );
-
         // Mail::send( 'mail', $data, function( $message ) use ($data)
         // {
         //     $message->to( $data['email'] )->from( $data['from'], $data['otp'] )->subject( 'Welcome!' );
         // });
         // return 'done';
-
         return view('front.registration.dashboard');
         // $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
         // $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');

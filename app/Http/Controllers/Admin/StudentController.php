@@ -20,8 +20,10 @@ use App\Model\StudentFee;
 use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
+use App\Model\Template\BirthdayTemplate;
 use App\Student;
 use Auth;
+use PDF;
 use Carbon;
 use DB;
 use Excel;
@@ -606,9 +608,62 @@ class StudentController extends Controller
         }
         return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
     }
+    //
     public function feeReceipt(StudentFee $studentFee)
     {
         return view('admin.student.studentdetails.feeReceipt',compact('studentFee'));
+    }
+
+    //birthday
+    Public function birthday(){
+         
+       $students = Student::whereMonth('dob',date('m'))
+                            ->whereDay('dob',date('d'))
+                            ->get();
+       return view('admin.student.birthday.list',compact('students'));                     
+    }
+
+      //birthday
+    Public function birthdaySearch(Request $request){
+         
+     $from_month =date('m',strtotime($request->from_date));
+     $to_month =date('m',strtotime($request->to_date));
+     $from_day =date('d',strtotime($request->from_date));
+     $to_day =date('d',strtotime($request->to_date));
+
+     $students = Student::whereMonth('dob','>=',$from_month)
+                           ->whereMonth('dob','<=',$to_month)
+                           ->whereDay('dob','>=',$from_day)
+                           ->whereDay('dob','<=',$to_day)
+                           ->get(); 
+      
+    $response= array();                       
+    $response['status']= 1;                       
+    $response['data']=view('admin.student.birthday.search_result',compact('students'))->render();
+    return $response;
+
+    }
+
+    //birthday print one
+    public function birthdayPrint($id){
+        $template = BirthdayTemplate::find(1);
+        $viewUrl = 'admin.student.birthday.'.$template->name;
+        $student = Student::find($id);  
+        $pdf = PDF::loadView($viewUrl,compact('student'));  
+        return $pdf->download($student->registration_no.'_birthday_card.pdf');
+    }
+
+    //birthday print all
+    public function birthdayPrintAll(Request $request){ 
+     
+        $this->validate($request,[ 
+            'student' => 'required', 
+        ]);   
+        $students = Student::find($request->student); 
+        $pdf = PDF::loadView('admin.student.birthday.birthday_card_all', compact('students')); 
+       
+        return $pdf->download('_birthday_card.pdf');
+        
     }
     
    

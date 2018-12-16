@@ -6,7 +6,7 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Registration Process</p>
+    <p class="login-box-msg">New Registration</p>
     {{-- {{ Auth::user()->name }} --}}
     {!! Form::open(['route'=>'student.resitration.firststep.store']) !!}
       <div class="form-group has-feedback">

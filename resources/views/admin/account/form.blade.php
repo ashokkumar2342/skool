@@ -61,7 +61,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Date Of Birth</label>
-                                  <input type="text" Name="dob" class="form-control datepicker"  placeholder="Enter Date Of Birth">
+                                  <input type="text" Name="dob" class="form-control"  id="dob"  placeholder="Enter Date Of Birth">
                                 </div>                                
                             </div>
                         </div>                     
@@ -93,8 +93,8 @@
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
  <script> 
  $( function() {
-    $( "#min" ).datepicker({dateFormat:'dd-mm-yy'});
-    $( "#max" ).datepicker({dateFormat:'dd-mm-yy'});   
+    $( "#dob" ).datepicker({dateFormat:'dd-mm-yy'});
+  
 });  
 
  </script>

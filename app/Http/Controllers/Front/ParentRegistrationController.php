@@ -83,8 +83,8 @@ class ParentRegistrationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'email' => 'required|email|max:199|unique:parent_registrations',             
-            'mobile' => 'required|numeric|digits:10|unique:parent_registrations',             
+            'email' => 'required|email|max:199|unique:users',             
+            'mobile' => 'required|numeric|digits:10|unique:users',             
             'password' => 'required|min:6',
             'password_confirm' => 'required_with:password|same:password|min:6'            
             ]);

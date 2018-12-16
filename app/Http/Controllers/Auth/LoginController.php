@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
-
 use App\Admin;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -9,7 +7,6 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Socialite;
-
 class LoginController extends Controller
 {
     /*
@@ -22,19 +19,15 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
     use AuthenticatesUsers;
     // use RegistersUsers;
     
-
-
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
     protected $redirectTo = '/home';
-
     /**
      * Create a new controller instance.
      *
@@ -44,8 +37,6 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
-
     public function login(Request $request){ 
      
           $this->validate($request, [
@@ -71,7 +62,6 @@ class LoginController extends Controller
                    
             } 
             // 
-
             return Redirect()->back()->withErrors($error="Invalid User or Password"); 
         
        
@@ -82,9 +72,7 @@ class LoginController extends Controller
         // return Socialite::driver('facebook')->get();
         return Socialite::driver('facebook')->redirect();
     }
-
   
-
     /**
      * Obtain the user information from GitHub.
      *
@@ -92,17 +80,13 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-
         $user = Socialite::driver('facebook')->user();
-
         return $user->user;
     }
-
     public function googleredirectToProvider()
     {
         return Socialite::driver('google')->redirect();
     }
-
     /**
      * Obtain the user information from GitHub.
      *

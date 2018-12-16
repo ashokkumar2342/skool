@@ -76,7 +76,7 @@ class SectionController extends Controller
          
         for($i=0; $i < $section_count; $i++){
         
-            $manageSection = new Section();
+            $manageSection = Section::firstOrNew(['class_id'=>$data['class'],'section_id'=>$data['section_id'][$i]]);
             $manageSection->section_id = $data['section_id'][$i];
             $manageSection->class_id = $data['class'];
             $manageSection->save();

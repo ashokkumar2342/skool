@@ -44,7 +44,7 @@ class SectionTypeController extends Controller
     {
       
         $this->validate($request,[
-            'sectionName' => 'required|max:199',             
+            'sectionName' => 'required|max:199|unique:section_types',             
             ]);
         $section = new SectionType();
         $section->name = $request->sectionName;        
