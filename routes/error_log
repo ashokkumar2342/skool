@@ -1,0 +1,24 @@
+[04-Dec-2018 23:55:35 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/mailinco/public_html/routes/admin.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/routes/admin.php on line 3
+[05-Dec-2018 00:34:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/mailinco/public_html/routes/api.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/routes/api.php on line 16
+[05-Dec-2018 00:36:31 UTC] PHP Fatal error:  Uncaught Error: Class 'Broadcast' not found in /home/mailinco/public_html/routes/channels.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/routes/channels.php on line 14
+[05-Dec-2018 00:37:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Artisan' not found in /home/mailinco/public_html/routes/console.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/routes/console.php on line 16
+[05-Dec-2018 01:24:39 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/mailinco/public_html/routes/student.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/routes/student.php on line 4
+[05-Dec-2018 01:26:31 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/mailinco/public_html/routes/web.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/routes/web.php on line 17

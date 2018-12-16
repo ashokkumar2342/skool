@@ -1,0 +1,4 @@
+[04-Dec-2018 12:23:13 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Auth\User' not found in /home/mailinco/public_html/app/Admin.php on line 9
+[04-Dec-2018 12:25:06 UTC] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/mailinco/public_html/app/IncomeRange.php on line 7
+[04-Dec-2018 12:27:03 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Auth\User' not found in /home/mailinco/public_html/app/Student.php on line 8
+[04-Dec-2018 12:44:17 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Auth\User' not found in /home/mailinco/public_html/app/User.php on line 8

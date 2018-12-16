@@ -1,0 +1,1 @@
+[04-Dec-2018 22:56:44 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Testing\TestCase' not found in /home/mailinco/public_html/tests/TestCase.php on line 7

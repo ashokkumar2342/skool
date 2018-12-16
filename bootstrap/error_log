@@ -1,0 +1,4 @@
+[04-Dec-2018 20:31:20 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/mailinco/public_html/bootstrap/app.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/bootstrap/app.php on line 14
