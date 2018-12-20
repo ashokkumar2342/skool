@@ -16,14 +16,14 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-12">
-                            <input type="text" class="form-control input-sm" value="{{ $pr->pincode }}" id="PresPinCodes" style="text-transform:uppercase;" name="pincode" autocomplete="off" maxlength="6"   required />
+                            <input type="text" class="form-control input-sm" value="{{ $pr->pincode }}" id="PresPinCodes"  name="pincode" autocomplete="off" maxlength="6" required />
                             <b class="floating-lable">Pin code</b>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-12">
-                            <input type="text" name="phone" value="{{ $pr->phone }}" class="form-control input-sm" id="PresTelephoneNos" style="text-transform:uppercase;" autocomplete="off" maxlength="12"   required />
+                            <input type="text" name="phone" value="{{ $pr->phone }}" class="form-control input-sm" id="PresTelephoneNos" style="text-transform:uppercase;" autocomplete="off" maxlength="11"   required />
                             <b class="floating-lable">Phone No. </b>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
 
                     <div class="form-group">
                         <div class="col-md-12">
-                            <input type="text" name="p_phone" value="{{ $pr->p_phone }}" class="form-control input-sm" id="PemTelephoneNos" style="text-transform:uppercase;" autocomplete="off" maxlength="12" required />
+                            <input type="text" name="p_phone" value="{{ $pr->p_phone }}" class="form-control input-sm" id="PemTelephoneNos" style="text-transform:uppercase;" autocomplete="off" maxlength="11" required />
                             <b class="floating-lable">Phone No. </b>
                         </div>
                     </div>

@@ -417,7 +417,8 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::get('rejcet/{id}', 'Registration\RegistrationController@statusReject')->name('registration.reject');	 	
     	    Route::get('approved/{id}', 'Registration\RegistrationController@statusApproved')->name('registration.approved');	 	
     	    Route::post('/', 'Registration\RegistrationController@remarkAdd')->name('registration.remark.add');	 	
-    	    Route::get('show-remark', 'Registration\RegistrationController@remarkShow')->name('registration.remark.show'); 
+    	    Route::get('show-remark', 'Registration\RegistrationController@remarkShow')->name('registration.remark.show');
+    	    Route::post('report', 'Registration\RegistrationController@report')->name('admin.registration.report.post'); 
     	    
     	 	});
 		 });

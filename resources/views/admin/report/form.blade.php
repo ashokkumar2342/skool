@@ -40,7 +40,7 @@
                     <div class="col-lg-12 ">                  
                         {{-- {{ Form::open(['route'=>'admin.student.excel.store']) 'method'=>'POST','files'=>'true' }} --}}
                         {{-- {!! Form::open(array('route' => 'admin.student.report.post','method'=>'get')) !!}  --}}
-                        <form action="{{ route('admin.student.report.post') }}" data-table-without-pagination="report_dataTable" success-content-id="report_result" method="post" no-reset="true" accept-charset="utf-8" id="report_form" class="add_form">
+                    <form action="{{ route('admin.student.report.post') }}" data-table-without-pagination="report_dataTable" success-content-id="report_result" method="post" no-reset="true" accept-charset="utf-8" id="report_form" class="add_form">
                             {{ csrf_field() }}
                         <div class="col-md-12">  
                             <div class="col-lg-3">                         
@@ -158,7 +158,7 @@
                 </div>
                 <div id="report_result">
                 
-            </div>
+                </div>
             </div>
             <!-- /.box-body -->
             
@@ -253,7 +253,14 @@
                 day = "Friday";
                 break;
             case '7':
-                day = "Saturday";
+                $("#cate").hide(); 
+                 $("#blood").hide();
+                 $("#bloodgroup").hide();  
+                 $("#category").hide(); 
+                 $("#rel").hide(); 
+                 $("#gen").hide();
+                 $("#religion").hide(); 
+                 $("#gender").hide();
         }    
        // if($("#report_for").val() == 1){
        //   $("#blood").show(); 

@@ -28,12 +28,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <input type="text" name="m_occupation" value="{{ $pr->m_occupation }}" class="form-control input-sm" style="text-transform:uppercase;"   maxlength="40"  required />
-                          
-                                <b class="floating-lable">Occupation </b>
-                            </div>
+                        <div class="form-group"> 
+                               <div class="col-md-12"> 
+                                   {!! Form::select('m_occupation',$professions, $pr->m_occupation, ['class'=>'form-control','placeholder'=>'Select Profession','required']) !!}
+                                   <b class="floating-lable">Profession</b>
+
+                               </div>
+                           
                         </div>
 
                         <div class="form-group">
@@ -62,8 +63,8 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-12">
-                                <input type="text" name="m_annual_income" value="{{ $pr->m_annual_income }}"  class="form-control input-sm" style="text-transform:uppercase;" maxlength="16"   tabindex="0" required />
+                            <div class="col-md-12"> 
+                                {!! Form::select('m_annual_income',$incomeRanges, $pr->m_annual_income, ['class'=>'form-control','placeholder'=>'Select Income','required']) !!}
                                 <b class="floating-lable">Annual Income</b>
 
                             </div>

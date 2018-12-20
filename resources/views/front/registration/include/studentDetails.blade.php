@@ -53,7 +53,7 @@
                         </div>
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <input id="DateBirth" name="dob" value="{{ $pr->dob }}" class="form-control datepicker input-sm" type="text"  maxlength="10"  required />
+                            <input id="DateBirth" name="dob" value="{{ date('d-m-Y',strtotime($pr->dob)) }}" class="form-control datepicker input-sm" type="text"  maxlength="10"  required />
                             <b class="floating-lable">Date of Birth <b class="fa fa-asterisk"></b></b>
                         </div>
 
@@ -137,9 +137,9 @@
                     </div> 
                     <div class="form-group">
                         <div class="col-md-12">
-                            {!! Form::select('staff_ward',['yes'=>'yes','no'=>'no'], $pr->staff_ward, ['class'=>'form-control','placeholder'=>'Select staff_ward','required']) !!}
+                            {!! Form::select('staff_ward',['yes'=>'yes','no'=>'no'], $pr->staff_ward, ['class'=>'form-control','placeholder'=>'Select staff Ward','required']) !!}
                            
-                            <b class="floating-lable">staff_ward</b>
+                            <b class="floating-lable">Staff Ward</b>
                         </div>
                     </div>
 
