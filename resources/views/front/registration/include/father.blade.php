@@ -50,13 +50,13 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">
-                                <input type="text" name="f_residence_telephone" value="{{ $pr->f_residence_telephone }}" id="MTelelphone" class="form-control input-sm" style="text-transform:uppercase;" maxlength="12"   tabindex="0" required />
+                                <input type="text" name="f_residence_telephone" value="{{ $pr->f_residence_telephone }}" id="MTelelphone" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control input-sm" style="text-transform:uppercase;" maxlength="12"   tabindex="0" required />
                                 <b class="floating-lable">Residence Telephone No</b>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">
-                                <input type="text" name="f_office_telephone" value="{{ $pr->f_office_telephone }}" id="MOfficeTelelphone" class="form-control input-sm" style="text-transform:uppercase;" maxlength="12"  tabindex="0" required />
+                                <input type="text" name="f_office_telephone" value="{{ $pr->f_office_telephone }}" id="MOfficeTelelphone" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control input-sm" style="text-transform:uppercase;" maxlength="12"  tabindex="0" required />
                                 <b class="floating-lable">Office Telephone No</b>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">
-                                <input type="text" name="f_pin_code" value="{{ $pr->f_pin_code }}" class="form-control input-sm" id="MPincode" style="text-transform:uppercase;" autocomplete="off" maxlength="6"   required />
+                                <input type="text" name="f_pin_code" value="{{ $pr->f_pin_code }}" class="form-control input-sm" id="MPincode" style="text-transform:uppercase;" autocomplete="off" maxlength="6" onkeypress='return event.charCode >= 48 && event.charCode <= 57'   required />
                                 <b class="floating-lable">Pin code</b>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
 
                         <div class="form-group">
                             <div class="col-md-12">
-                                <input type="text" name="father_mobile" value="{{ $pr->father_mobile }}" id="MMobileNo" class="form-control input-sm" style="text-transform:uppercase;" maxlength="10"   tabindex="0" required />
+                                <input type="text" name="father_mobile" value="{{ $pr->father_mobile }}" id="MMobileNo" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control input-sm" style="text-transform:uppercase;" maxlength="10"   tabindex="0" required />
                                 <b class="floating-lable">Mobile No <b class="fa fa-asterisk"></b></b>
                             </div>
                         </div>

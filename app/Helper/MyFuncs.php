@@ -23,7 +23,9 @@ class MyFuncs {
         '2'=>'<li><a href="'.route('admin.account.form').'"><i class="fa fa-circle-o"></i> Add User  </a></li>',
         '3'=>'<li><a href="'.route('admin.account.list').'"><i class="fa fa-circle-o"></i> List User </a></li>',
         '4'=>'<li><a href="'.route('admin.account.access').'"><i class="fa fa-circle-o"></i>Menu Assign</a></li>',
-        '5'=>'<li><a href="'.route('admin.userClass.list').'"><i class="fa fa-circle-o"></i> Class Assign</a></li>'
+        '5'=>'<li><a href="'.route('admin.userClass.list').'"><i class="fa fa-circle-o"></i> Class Assign</a></li>',
+        '56'=>'<li><a href="'.route('admin.incomeSlab.list').'"><i class="fa fa-circle-o"></i> Income Slab</a></li>',
+        '57'=>'<li><a href="'.route('admin.profession.list').'"><i class="fa fa-circle-o"></i> Profession</a></li>',
         ];
         $adminId = Auth::guard('admin')->user()->id;               
         $accounResult = ''; 

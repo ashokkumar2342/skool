@@ -91,7 +91,7 @@
 
                                 <div class="col-lg-12">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" value="SPORTS" {{ $pr->co_curricular ==='SPORTS'?'checked':'' }}  name="co_curricular[]" class="chkSCoCulr" id="1">SPORTS
+                                        <input type="checkbox" value="SPORTS" {{ in_array("SPORTS",explode(',',$pr->co_curricular))==true?'checked':'' }}  name="co_curricular[]" class="chkSCoCulr" id="1">SPORTS
                                     </label>
                                 </div>
                                
@@ -100,7 +100,7 @@
 
                                 <div class="col-lg-12">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" value="DEBATE" {{ $pr->co_curricular ==='DEBATE'?'checked':'' }} name="co_curricular[]" class="chkSCoCulr" id="2">DEBATE
+                                        <input type="checkbox" value="DEBATE"  {{ in_array("DEBATE",explode(',',$pr->co_curricular))==true?'checked':'' }} name="co_curricular[]" class="chkSCoCulr" id="2">DEBATE
                                     </label>
                                 </div>
                                
@@ -109,7 +109,7 @@
 
                                 <div class="col-lg-12">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" {{ $pr->co_curricular ==='MUSIC'?'checked':'' }} value="MUSIC" name="co_curricular[]" class="chkSCoCulr" id="3">MUSIC
+                                        <input type="checkbox" {{ in_array("MUSIC",explode(',',$pr->co_curricular))==true?'checked':'' }}   value="MUSIC" name="co_curricular[]" class="chkSCoCulr" id="3">MUSIC
                                     </label>
                                 </div>
                                
@@ -118,7 +118,7 @@
 
                                 <div class="col-lg-12">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" {{ $pr->co_curricular ==='ELOCUTION'?'checked':'' }} value="ELOCUTION" name="co_curricular[]" class="chkSCoCulr" id="4">ELOCUTION
+                                        <input type="checkbox"  {{ in_array("ELOCUTION",explode(',',$pr->co_curricular))==true?'checked':'' }}  value="ELOCUTION" name="co_curricular[]" class="chkSCoCulr" id="4">ELOCUTION
                                     </label>
                                 </div>
                                
@@ -127,7 +127,7 @@
 
                                 <div class="col-lg-12">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" {{ $pr->co_curricular ==='ACTING'?'checked':'' }} value="ACTING" name="co_curricular[]" class="chkSCoCulr" id="5">ACTING
+                                        <input type="checkbox" {{ in_array("ACTING",explode(',',$pr->co_curricular))==true?'checked':'' }}   value="ACTING" name="co_curricular[]" class="chkSCoCulr" id="5">ACTING
                                     </label>
                                 </div>
                                
@@ -136,7 +136,7 @@
 
                                 <div class="col-lg-12">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" {{ $pr->co_curricular ==='FINE ART'?'checked':'' }} value="FINE ART" name="co_curricular[]" class="chkSCoCulr" id="6">FINE ART
+                                        <input type="checkbox" {{ in_array("FINE ART",explode(',',$pr->co_curricular))==true?'checked':'' }}   value="FINE ART" name="co_curricular[]" class="chkSCoCulr" id="6">FINE ART
                                     </label>
                                 </div>
                                
@@ -145,7 +145,7 @@
 
                                 <div class="col-lg-12">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" {{ $pr->co_curricular ==='OTHERS'?'checked':'' }} value="OTHERS" name="co_curricular[]" class="chkSCoCulr" id="7">OTHERS
+                                        <input type="checkbox" {{ in_array("OTHERS",explode(',',$pr->co_curricular))==true?'checked':'' }}   value="OTHERS" name="co_curricular[]" class="chkSCoCulr" id="7">OTHERS
                                     </label>
                                 </div>
                                
@@ -176,7 +176,7 @@
 
                                 <div class="col-lg-12">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" {{ $pr->music ==='GUITAR'?'checked':'' }} value="GUITAR" name="music[]" class="chkSInstrument" id="1">GUITAR
+                                        <input type="checkbox" {{ in_array("GUITAR",explode(',',$pr->music))==true?'checked':'' }}   value="GUITAR" name="music[]" class="chkSInstrument" id="1">GUITAR
                                     </label>
                                 </div>
 
@@ -185,7 +185,7 @@
 
                                 <div class="col-lg-12">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" {{ $pr->music ==='PIANO'?'checked':'' }} value="PIANO" name="music[]" class="chkSInstrument" id="2">PIANO
+                                        <input type="checkbox" {{ in_array("PIANO",explode(',',$pr->music))==true?'checked':'' }}  value="PIANO" name="music[]" class="chkSInstrument" id="2">PIANO
                                     </label>
                                 </div>
 
@@ -194,7 +194,7 @@
 
                                 <div class="col-lg-12">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" {{ $pr->music ==='VIOLIN'?'checked':'' }} value="VIOLIN" name="music[]" class="chkSInstrument" id="3">VIOLIN
+                                        <input type="checkbox" {{ in_array("VIOLIN",explode(',',$pr->music))==true?'checked':'' }} value="VIOLIN" name="music[]" class="chkSInstrument" id="3">VIOLIN
                                     </label>
                                 </div>
 

@@ -533,7 +533,22 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('store', 'Exam\GradeDetailController@store')->name('admin.exam.grade.detail.store');	 	
 			    Route::get('delete/{id}', 'Exam\GradeDetailController@destroy')->name('admin.exam.mark.grade.delete');
 			 });
+			   //------------------------- Income ---------------------------------
+			Route::group(['prefix' => 'incomeSlab'], function() {
+			    Route::get('/', 'MasterController@incomeSlab')->name('admin.incomeSlab.list');	 	
+			    Route::post('store', 'MasterController@incomeSlabStore')->name('admin.incomeSlab.store'); });
+			    Route::get('edit/{id}', 'MasterController@incomeSlabEdit')->name('admin.incomeSlab.edit');
+			    Route::post('update/{id}', 'MasterController@incomeSlabUpdate')->name('admin.incomeSlab.update');
+			    Route::get('delete/{id}', 'MasterController@incomeSlabDestroy')->name('admin.incomeSlab.delete');
 
-		});	
+			});   //------------------------- Income ---------------------------------
+			Route::group(['prefix' => 'profession'], function() {
+			    Route::get('/', 'MasterController@profession')->name('admin.profession.list');	 	
+			    Route::post('store', 'MasterController@professionStore')->name('admin.profession.store');
+			    Route::get('edit/{id}', 'MasterController@professionEdit')->name('admin.profession.edit');
+			    Route::post('update/{id}', 'MasterController@professionUpdate')->name('admin.profession.update');
+			    Route::get('delete/{id}', 'MasterController@professionDestroy')->name('admin.profession.delete');
+
+			});	
 
 });
