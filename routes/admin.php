@@ -82,7 +82,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('/', 'SectionTypeController@index')->name('admin.section.list');
 	    Route::get('select', 'SectionTypeController@selectList')->name('admin.section.selectList');
 	    Route::get('search', 'SectionTypeController@search')->name('admin.section.search');
-	    Route::post('add', 'SectionTypeController@store')->name('admin.section.add');
+	    Route::post('add', 'SectionTypeController@store')->name('admin.sectionType.add');
 	    Route::get('{sectionType}/edit', 'SectionTypeController@edit')->name('admin.section.edit');
 	    Route::post('{sectionType}/update', 'SectionTypeController@update')->name('admin.section.update');
 	    Route::get('{sectionType}/delete', 'SectionTypeController@destroy')->name('admin.section.delete');

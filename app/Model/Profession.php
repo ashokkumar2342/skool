@@ -8,3 +8,4 @@ class Profession extends Model
 {
     //
 }
+

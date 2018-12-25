@@ -41,13 +41,13 @@ class SectionTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
       
         $this->validate($request,[
-            'sectionName' => 'required|max:199|unique:section_types',             
+            'name' => 'required|max:199|unique:section_types',             
             ]);
         $section = new SectionType();
-        $section->name = $request->sectionName;        
+        $section->name = $request->name;        
         if ($section->save()) {
             return redirect()->back()->with(['section'=>'success','message'=>'Section created success ...']);
         }
@@ -87,10 +87,10 @@ class SectionTypeController extends Controller
     public function update(Request $request, SectionType $sectionType)
     {
          $this->validate($request,[
-            'sectionName' => 'required|max:199',
+            'name' => 'required|max:199',
              
             ]);
-        $sectionType->name = $request->sectionName;
+        $sectionType->name = $request->name;
       
         if ($sectionType->save()) {
             return redirect()->route('admin.section.list')->with(['class'=>'success','message'=>'Section updated success ...']);
@@ -106,6 +106,8 @@ class SectionTypeController extends Controller
      */
     public function destroy(SectionType $sectionType)
     {
-        //
+        if ($sectionType->delete()) {
+            return redirect()->route('admin.section.list')->with(['class'=>'success','message'=>'Section Delete successfully']);
+        }
     }
 }
