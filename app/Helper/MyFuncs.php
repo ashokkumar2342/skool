@@ -16,7 +16,7 @@ class MyFuncs {
         // return $first_name . ', '. $last_name;   
         return $first_name . ', '. $last_name;   
     }
-    function hello(){
+    public static function hello(){
     	return 'hello';
     } 
 

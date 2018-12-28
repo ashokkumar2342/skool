@@ -8,7 +8,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('admin.logout.get');
 Route::post('login', 'Auth\LoginController@login');
  
 Route::group(['middleware' => 'admin'], function() {
-	Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard');
+	Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard'); 
+	Route::get('show-details', 'DashboardController@showStudentDetails')->name('admin.student.show.details');
 	//---------------account-----------------------------------------	
 	Route::prefix('account')->group(function () {
 	    Route::get('form', 'AccountController@form')->name('admin.account.form');
@@ -129,7 +130,7 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::post('{student}/profileupdate', 'StudentController@profileupdate')->name('admin.student.profileupdate');
 	     Route::post('list', 'StudentController@index')->name('admin.student.list'); 
 	     Route::get('show-form', 'StudentController@showForm')->name('admin.student.show');
-	     Route::get('jind', 'StudentController@jind')->name('admin.student.jind'); 
+	    
 	     Route::get('{student}/password-reset', 'StudentController@passwordReset')->name('admin.student.passwordreset'); 
 	     Route::get('image/{image}', 'StudentController@image')->name('admin.student.image');
 	     Route::post('image/{student}/update', 'StudentController@imageUpdate')->name('admin.student.profilepic.update');
