@@ -9,7 +9,9 @@ use App\Model\BloodGroup;
 use App\Model\Category;
 use App\Model\ClassType;
 use App\Model\Gender;
+use App\Model\IncomeRange;
 use App\Model\ParentRegistration;
+use App\Model\Profession;
 use App\Model\RegSibling;
 use App\Model\Religion;
 use App\Model\SessionDate;
@@ -59,6 +61,8 @@ class ParentRegistrationController extends Controller
     {
        $pr = ParentRegistration::find(Crypt::decrypt($id));
         $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+        $incomeRanges = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');    
+        $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id');    
         $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
@@ -68,7 +72,7 @@ class ParentRegistrationController extends Controller
         $academicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
         $default = StudentDefaultValue::find(1); 
            
-        return view('front.registration.form',compact('classes','sessions','default','genders','religions','categories','tongues','bloodGroups','academicYear','pr'));
+        return view('front.registration.form',compact('classes','sessions','default','genders','religions','categories','tongues','bloodGroups','academicYear','pr','incomeRanges','professions'));
        
     }
     
@@ -83,7 +87,7 @@ class ParentRegistrationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'email' => 'required|email|max:199|unique:users',             
+            'email' => 'required|email|max:50|unique:users',             
             'mobile' => 'required|numeric|digits:10|unique:users',             
             'password' => 'required|min:6',
             'password_confirm' => 'required_with:password|same:password|min:6'            
@@ -265,7 +269,21 @@ class ParentRegistrationController extends Controller
     }
 
      public function address(Request $request)
-    {    
+    {   
+        $rules=[
+            'c_address' => 'required',
+            'pincode' => 'required|digits:6',
+            'phone' => 'nullable|numeric', 
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            } 
         $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]);
         $parentRegistration->c_address=$request->c_address; 
         $parentRegistration->pincode=$request->pincode; 

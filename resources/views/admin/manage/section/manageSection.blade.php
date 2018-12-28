@@ -9,7 +9,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <form action="{{ route('admin.section.add') }}" method="post" class="add_form" accept-charset="utf-8">
+              <form action="{{ route('admin.section.add') }}" method="post" redirect-to="{{ route('admin.manageSection.list') }}" class="add_form" accept-charset="utf-8">
                {{ csrf_field() }} 
               
                {{-- {!! Form::open(['route'=>@($sectionType)?['',$sectionType->id]:'admin.section.add','class'=>"form-horizontal" ]) !!} --}}

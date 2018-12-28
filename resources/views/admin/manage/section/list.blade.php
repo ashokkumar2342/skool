@@ -43,7 +43,7 @@
 
     <!-- Modal content-->
     <div class="modal-content">
-    {!! Form::open(['route'=>@($sectionType)?['admin.section.update',$sectionType->id]:'admin.section.add','class'=>"form-horizontal" ]) !!}
+    {!! Form::open(['route'=>@($sectionType)?['admin.section.update',$sectionType->id]:'admin.sectionType.add','class'=>"form-horizontal" ]) !!}
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">@if(@$sectionType) Update @else Add @endif Section</h4>
@@ -51,10 +51,10 @@
       <div class="modal-body">
          <div class="col">             
           <div class="form-group">
-          {!! Form::label('sectionName', 'Section Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
+          {!! Form::label('name', 'Section Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
             <div class="col-sm-9">
-            {!! Form::text('sectionName', @$sectionType->name, ['class'=>"form-control",'placeholder'=>"Section Name",'autocomplete'=>'off','maxlength'=>'50',]) !!}
-            <p class="text-danger">{{ $errors->first('sectionName') }}</p>
+            {!! Form::text('name', @$sectionType->name, ['class'=>"form-control",'placeholder'=>"Section Name",'autocomplete'=>'off','maxlength'=>'50',]) !!}
+            <p class="text-danger">{{ $errors->first('name') }}</p>
             </div>
           </div>
            

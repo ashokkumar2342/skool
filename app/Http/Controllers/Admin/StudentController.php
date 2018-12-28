@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
  use App\Http\Controllers\Controller;
+use App\Helper\MyFuncs;
 use App\Model\BloodGroup;
 use App\Model\Category;
 use App\Model\ClassType;
@@ -23,12 +24,12 @@ use App\Model\SubjectType;
 use App\Model\Template\BirthdayTemplate;
 use App\Student;
 use Auth;
-use PDF;
 use Carbon;
 use DB;
 use Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use PDF;
 use Storage;
 
 class StudentController extends Controller
@@ -54,8 +55,8 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    { 
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+    {   
+        $classes = MyFuncs::getClasses();   
         $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');

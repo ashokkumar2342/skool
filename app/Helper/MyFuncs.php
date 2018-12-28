@@ -2,8 +2,12 @@
 
 namespace App\Helper;
 
+use App\Model\ClassType;
 use App\Model\Minu;
+use App\Model\Section;
+use App\Model\SectionType;
 use App\Model\SubMenu;
+use App\Model\UserClassType;
 use Illuminate\Support\Facades\Auth;
 
 class MyFuncs {
@@ -12,10 +16,31 @@ class MyFuncs {
         // return $first_name . ', '. $last_name;   
         return $first_name . ', '. $last_name;   
     }
-    function hello(){
+    public static function hello(){
     	return 'hello';
+    } 
+
+    public static function getUser(){
+       return $user = Auth::guard('admin')->user();  
     }
-    
+
+    public static function getUserId(){
+       return $user = Auth::guard('admin')->user()->id;  
+    }
+
+    public static function getClasses(){
+        $user = MyFuncs::getUser();
+        $userClass = UserClassType::where('admin_id',$user->id)->distinct()->get(['class_id']);
+        return $classes = array_pluck(ClassType::whereIn('id',$userClass)->get(['id','alias'])->toArray(),'alias', 'id');
+    }
+
+    public static function getSections($class_id){
+        $user = MyFuncs::getUser();
+        $userClass = UserClassType::where('admin_id',$user->id)->distinct()->get(['class_id']);
+        $userSections = UserClassType::where('admin_id',$user->id)->where('class_id',$class_id)->get(['section_id']);  
+       return SectionType::whereIn('id',$userSections)->get();
+       
+    }
 
     public static function menus(){  
      $accountSubMenuUrls =[
@@ -23,7 +48,8 @@ class MyFuncs {
         '2'=>'<li><a href="'.route('admin.account.form').'"><i class="fa fa-circle-o"></i> Add User  </a></li>',
         '3'=>'<li><a href="'.route('admin.account.list').'"><i class="fa fa-circle-o"></i> List User </a></li>',
         '4'=>'<li><a href="'.route('admin.account.access').'"><i class="fa fa-circle-o"></i>Menu Assign</a></li>',
-        '5'=>'<li><a href="'.route('admin.userClass.list').'"><i class="fa fa-circle-o"></i> Class Assign</a></li>'
+        '5'=>'<li><a href="'.route('admin.userClass.list').'"><i class="fa fa-circle-o"></i> Class Assign</a></li>',
+        
         ];
         $adminId = Auth::guard('admin')->user()->id;               
         $accounResult = ''; 
@@ -37,7 +63,9 @@ class MyFuncs {
      $masterSubMenuUrls =[
         '6'=>'<li><a href="'.route('admin.academicYear.list').'"><i class="fa fa-circle-o"></i> Academic Year </a></li>',
         '7'=>'<li><a href="'.route('admin.paymentMode.list').'"><i class="fa fa-circle-o"></i> Payment Mode</a></li>',
-        '54'=>'<li><a href="'.route('admin.document.type').'"><i class="fa fa-circle-o"></i> Document Type</a></li>'
+        '54'=>'<li><a href="'.route('admin.document.type').'"><i class="fa fa-circle-o"></i> Document Type</a></li>',
+        '56'=>'<li><a href="'.route('admin.incomeSlab.list').'"><i class="fa fa-circle-o"></i> Income Slab</a></li>',
+        '57'=>'<li><a href="'.route('admin.profession.list').'"><i class="fa fa-circle-o"></i> Profession</a></li>',
         ];
         $masterResult = ''; 
            foreach($masterSubMenuUrls as $key => $value)

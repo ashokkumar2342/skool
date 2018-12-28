@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\ClassFee;
 use App\Model\ClassType;
@@ -36,16 +37,14 @@ class SectionController extends Controller
     public function search(Request $request)
     {
        
-      $sections = Section::where('class_id',$request->id)->join('section_types','section_types.id','=','sections.section_id')->get(['section_types.id','section_id','section_types.name']); 
+      $sections =MyFuncs::getSections($request->id); 
         return response()->json($sections);
    
     }
      public function search2(Request $request)
-    {
-         
-       
-      $sections = Section::where('class_id',$request->id)->join('section_types','section_types.id','=','sections.section_id')->get(['section_types.id','section_id','section_types.name']); 
-        return response()->json(['section'=>$sections]);
+    {   
+      $sections =MyFuncs::getSections($request->id);
+      return response()->json(['section'=>$sections]);
    
     }
 

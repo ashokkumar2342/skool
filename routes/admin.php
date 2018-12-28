@@ -8,7 +8,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('admin.logout.get');
 Route::post('login', 'Auth\LoginController@login');
  
 Route::group(['middleware' => 'admin'], function() {
-	Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard');
+	Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard'); 
+	Route::get('show-details', 'DashboardController@showStudentDetails')->name('admin.student.show.details');
 	//---------------account-----------------------------------------	
 	Route::prefix('account')->group(function () {
 	    Route::get('form', 'AccountController@form')->name('admin.account.form');
@@ -82,7 +83,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('/', 'SectionTypeController@index')->name('admin.section.list');
 	    Route::get('select', 'SectionTypeController@selectList')->name('admin.section.selectList');
 	    Route::get('search', 'SectionTypeController@search')->name('admin.section.search');
-	    Route::post('add', 'SectionTypeController@store')->name('admin.section.add');
+	    Route::post('add', 'SectionTypeController@store')->name('admin.sectionType.add');
 	    Route::get('{sectionType}/edit', 'SectionTypeController@edit')->name('admin.section.edit');
 	    Route::post('{sectionType}/update', 'SectionTypeController@update')->name('admin.section.update');
 	    Route::get('{sectionType}/delete', 'SectionTypeController@destroy')->name('admin.section.delete');
@@ -129,7 +130,7 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::post('{student}/profileupdate', 'StudentController@profileupdate')->name('admin.student.profileupdate');
 	     Route::post('list', 'StudentController@index')->name('admin.student.list'); 
 	     Route::get('show-form', 'StudentController@showForm')->name('admin.student.show');
-	     Route::get('jind', 'StudentController@jind')->name('admin.student.jind'); 
+	    
 	     Route::get('{student}/password-reset', 'StudentController@passwordReset')->name('admin.student.passwordreset'); 
 	     Route::get('image/{image}', 'StudentController@image')->name('admin.student.image');
 	     Route::post('image/{student}/update', 'StudentController@imageUpdate')->name('admin.student.profilepic.update');
@@ -417,7 +418,8 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::get('rejcet/{id}', 'Registration\RegistrationController@statusReject')->name('registration.reject');	 	
     	    Route::get('approved/{id}', 'Registration\RegistrationController@statusApproved')->name('registration.approved');	 	
     	    Route::post('/', 'Registration\RegistrationController@remarkAdd')->name('registration.remark.add');	 	
-    	    Route::get('show-remark', 'Registration\RegistrationController@remarkShow')->name('registration.remark.show'); 
+    	    Route::get('show-remark', 'Registration\RegistrationController@remarkShow')->name('registration.remark.show');
+    	    Route::post('report', 'Registration\RegistrationController@report')->name('admin.registration.report.post'); 
     	    
     	 	});
 		 });
@@ -532,7 +534,22 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('store', 'Exam\GradeDetailController@store')->name('admin.exam.grade.detail.store');	 	
 			    Route::get('delete/{id}', 'Exam\GradeDetailController@destroy')->name('admin.exam.mark.grade.delete');
 			 });
+			   //------------------------- Income ---------------------------------
+			Route::group(['prefix' => 'incomeSlab'], function() {
+			    Route::get('/', 'MasterController@incomeSlab')->name('admin.incomeSlab.list');	 	
+			    Route::post('store', 'MasterController@incomeSlabStore')->name('admin.incomeSlab.store'); });
+			    Route::get('edit/{id}', 'MasterController@incomeSlabEdit')->name('admin.incomeSlab.edit');
+			    Route::post('update/{id}', 'MasterController@incomeSlabUpdate')->name('admin.incomeSlab.update');
+			    Route::get('delete/{id}', 'MasterController@incomeSlabDestroy')->name('admin.incomeSlab.delete');
 
-		});	
+			});   //------------------------- Income ---------------------------------
+			Route::group(['prefix' => 'profession'], function() {
+			    Route::get('/', 'MasterController@profession')->name('admin.profession.list');	 	
+			    Route::post('store', 'MasterController@professionStore')->name('admin.profession.store');
+			    Route::get('edit/{id}', 'MasterController@professionEdit')->name('admin.profession.edit');
+			    Route::post('update/{id}', 'MasterController@professionUpdate')->name('admin.profession.update');
+			    Route::get('delete/{id}', 'MasterController@professionDestroy')->name('admin.profession.delete');
+
+			});	
 
 });

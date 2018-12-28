@@ -81,7 +81,7 @@
       @include('front.include.message')
     @stack('scripts')
     <script>
-      $( ".datepicker").datepicker(); 
+        $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
     </script>
 </body>
 </html>
