@@ -70,7 +70,7 @@
                              {{ Form::label('class','Class',['class'=>' control-label']) }}
                                <select name="class" id="classgroup" class="form-control">
                                      <option value="">Select</option>  
-                                    @foreach (App\model\ClassType::all() as $class)
+                                    @foreach (App\Model\ClassType::all() as $class)
                                        <option value="{{ $class->id }}">{{ $class->name }}</option> 
                                      @endforeach 
                                </select>
@@ -81,7 +81,7 @@
                                     {{ Form::label('category','Category',['class'=>' control-label']) }}
                                     <select name="category" id="category" class="form-control">
                                         <option value="">Select</option>
-                                      @foreach (App\model\Category::all() as $category)                                            
+                                      @foreach (App\Model\Category::all() as $category)                                            
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>                                  
                                       @endforeach 
                                     </select>                                    
@@ -92,7 +92,7 @@
                                     {{ Form::label('religion','Religion',['class'=>' control-label']) }}
                                     <select name="religion" id="religion" class="form-control">
                                      {{ Form::label('religion','Religion',['class'=>' control-label']) }}
-                                     @foreach (App\model\Religion::all() as $religion)                                            
+                                     @foreach (App\Model\Religion::all() as $religion)                                            
                                            <option value="{{ $religion->id }}">{{ $religion->name }}</option>                                  
                                      @endforeach 
                                  </select> 
@@ -103,7 +103,7 @@
                                     {{ Form::label('gender','Gender',['class'=>' control-label']) }}
                                     <select name="gender" id="gender" class="form-control">
                                      {{ Form::label('gender','gender',['class'=>' control-label']) }}
-                                     @foreach (App\model\Gender::all() as $gender)                                            
+                                     @foreach (App\Model\Gender::all() as $gender)                                            
                                            <option value="{{ $gender->id }}">{{ $gender->genders }}</option>                                  
                                      @endforeach 
                                     </select> 
@@ -114,7 +114,7 @@
                                     {{ Form::label('incomeSlab','Income Slab',['class'=>' control-label']) }}
                                     <select name="incomeSlab" id="income" class="form-control">
                                       
-                                     @foreach (App\model\IncomeRange::all() as $range) 
+                                     @foreach (App\Model\IncomeRange::all() as $range) 
                                            <option value="{{ $range->id }}">{{ $range->range }}</option> 
                                      @endforeach 
                                     </select> 
@@ -125,7 +125,7 @@
                                     {{ Form::label('professions','Profession',['class'=>' control-label']) }}
                                     <select name="profession" id="profession" class="form-control">
                                       
-                                     @foreach (App\model\Profession::all() as $name) 
+                                     @foreach (App\Model\Profession::all() as $name) 
                                            <option value="{{ $name->id }}">{{ $name->name }}</option> 
                                      @endforeach 
                                     </select> 
