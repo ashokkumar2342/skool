@@ -265,7 +265,19 @@ class MyFuncs {
                        ->where('sub_menu_id',$key)->get() as $subMenu) { 
                          $examResult.=$value;  
                }  
-           }                                                          
+           } 
+    $smsUrls =[ 
+       '58'=>'<li><a href="'. route('admin.sms.form').'"><i class="fa fa-circle-o"></i> Send SMS </a></li> ', 
+       '59'=>'<li><a href="'. route('admin.sms.smsReport').'"><i class="fa fa-circle-o"></i> SMS Report</a></li> ', 
+       ];
+       $smsResult = ''; 
+           foreach($smsUrls as $key => $value)
+           {
+               foreach (Minu::where('admin_id',$adminId)
+                       ->where('sub_menu_id',$key)->get() as $subMenu) { 
+                         $smsResult.=$value;  
+               }  
+           }                                                                
 
     	$urls=[ 
      		 
@@ -447,7 +459,7 @@ class MyFuncs {
                     
                 </ul>
             </li>',
-              '15'=>' <li class="treeview">
+            '15'=>' <li class="treeview">
                 <a href="#">                
                     <i class="fa fa-sticky-note text-warning"></i>
                     <span>Exam</span>
@@ -457,6 +469,18 @@ class MyFuncs {
                 </a>
                 <ul class="treeview-menu">
                  '.$examResult.'
+                </ul>
+            </li>',
+            '16'=>' <li class="treeview">
+                <a href="#">                
+                    <i class="fa fa-envelope text-success"></i>
+                    <span>SMS</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                 '.$smsResult.'
                 </ul>
             </li>',
      		 
