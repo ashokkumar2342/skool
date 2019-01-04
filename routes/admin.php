@@ -555,7 +555,10 @@ Route::group(['middleware' => 'admin'], function() {
 			Route::group(['prefix' => 'sms'], function() {
 			    Route::get('/', 'Sms\SmsController@index')->name('admin.sms.form');	 	
 			    Route::post('send', 'Sms\SmsController@smsSend')->name('admin.sms.sendSms'); 
+			    Route::post('quick-sms', 'Sms\SmsController@quickSms')->name('admin.quick.sms'); 
 			    Route::get('send-report', 'Sms\SmsController@smsReport')->name('admin.sms.smsReport'); 
+			    Route::post('quick-email', 'Sms\SmsController@quickEmail')->name('admin.quick.email');
+
 			});	
 
 });

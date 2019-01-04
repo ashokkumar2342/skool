@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Sms;
 
 use App\Events\SmsEvent;
 use App\Helper\MyFuncs;
+use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Student;
 use Illuminate\Http\Request;
@@ -64,7 +65,62 @@ class SmsController extends Controller
     
     return $response;
     } 
-	//report
+	//quickSms
+    public function quickSms(Request $request){ 
+        $rules=[
+            'message' => 'required|max:1000', 
+            'number' => 'required', 
+        ]; 
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        } 
+        $message = $request->message;         
+        $mobile = $request->number;         
+        event(new smsEvent($mobile,$message));
+        $response = array();
+        $response['status'] = 1;
+        $response['msg'] = 'Message Sent successfully';
+        return $response;
+    }
+    //quickSms
+    public function quickEmail(Request $request){  
+        $rules=[
+            'message' => 'required|max:1000', 
+            'emailto' => 'required|email', 
+            'subject' => 'string|nullable', 
+        ]; 
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        } 
+
+       $message = $request->message;         
+        $emailto = $request->emailto;         
+        $subject = $request->subject; 
+        $up_u=array();
+         
+        $up_u['msg']=$message;
+        $up_u['subject']=$subject;
+                 
+        $mailHelper =new MailHelper();
+       
+        $mailHelper->mailsend('emails.message',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5);
+        $response = array();
+        $response['status'] = 1;
+        $response['msg'] = 'Message Sent successfully';
+        return $response;
+    }
+
+    //report
     public function smsReport(){
     	return view('admin.sms.smsReport');
     }
