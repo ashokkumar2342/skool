@@ -542,13 +542,22 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('update/{id}', 'MasterController@incomeSlabUpdate')->name('admin.incomeSlab.update');
 			    Route::get('delete/{id}', 'MasterController@incomeSlabDestroy')->name('admin.incomeSlab.delete');
 
-			});   //------------------------- Income ---------------------------------
+			});   //------------------------- Profession ---------------------------------
 			Route::group(['prefix' => 'profession'], function() {
 			    Route::get('/', 'MasterController@profession')->name('admin.profession.list');	 	
 			    Route::post('store', 'MasterController@professionStore')->name('admin.profession.store');
 			    Route::get('edit/{id}', 'MasterController@professionEdit')->name('admin.profession.edit');
 			    Route::post('update/{id}', 'MasterController@professionUpdate')->name('admin.profession.update');
 			    Route::get('delete/{id}', 'MasterController@professionDestroy')->name('admin.profession.delete');
+
+			});	
+			//------------------------- SMS ---------------------------------
+			Route::group(['prefix' => 'sms'], function() {
+			    Route::get('/', 'Sms\SmsController@index')->name('admin.sms.form');	 	
+			    Route::post('send', 'Sms\SmsController@smsSend')->name('admin.sms.sendSms'); 
+			    Route::post('quick-sms', 'Sms\SmsController@quickSms')->name('admin.quick.sms'); 
+			    Route::get('send-report', 'Sms\SmsController@smsReport')->name('admin.sms.smsReport'); 
+			    Route::post('quick-email', 'Sms\SmsController@quickEmail')->name('admin.quick.email');
 
 			});	
 
