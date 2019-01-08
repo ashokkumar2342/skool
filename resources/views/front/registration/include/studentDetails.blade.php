@@ -47,7 +47,7 @@
                       <div class="form-group">
                             <div class="col-sm-12">
                                 <input type="text" name="aadhaar_no" value="{{ $pr->aadhaar_no }}" id="AdharCard" class="form-control input-sm" style="text-transform:uppercase;" maxlength="12"  required />
-                                <b class="floating-lable">Aadhaar No. of Child</b>
+                                <b class="floating-lable">Aadhaar No. of Child<b class="fa fa-asterisk"></b></b>
                             </div>
 
                         </div>
@@ -69,14 +69,14 @@
                     <div class="form-group">
                         <div class="col-md-12">
                             <input type="text" name="email" value="{{ $pr->email }}" class="form-control input-sm" id="txtAddEmail" maxlength="60" autocomplete="off" required />
-                            <b class="floating-lable">Email</b>
+                            <b class="floating-lable">Email<b class="fa fa-asterisk"></b></b>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-12">
                             {!! Form::file('image','', ['class'=>'form-control','placeholder'=>'Select Locality']) !!}
                              
-                            <b class="floating-lable">Image <b class="fa fa-asterisk"></b> Passport size100kb</b>
+                            <b class="floating-lable">Student Photo <b class="fa fa-asterisk"></b> Passport size100kb</b>
                         </div>
                     </div>
 
@@ -115,7 +115,7 @@
                     <div class="form-group">
                             <div class="col-sm-12">
                                 {!! Form::select('blood_group',$bloodGroups, $pr->blood_group, ['class'=>'form-control','placeholder'=>'Select Blood Group','required']) !!}
-                                <b class="floating-lable">Select Blood Group <b class="fa fa-asterisk"></b> </b>
+                                <b class="floating-lable">Select Blood Group  </b>
                             </div>
                         </div>
 
@@ -131,7 +131,7 @@
 
                     <div class="form-group">
                         <div class="col-md-12">
-                            {!! Form::select('category',$categories,$pr->category_id, ['class'=>'form-control','placeholder'=>'Select Religion','required']) !!}
+                            {!! Form::select('category',$categories,$pr->category_id, ['class'=>'form-control','placeholder'=>'Select Category','required']) !!}
                             <b class="floating-lable">Select Category</b>
                         </div>
                     </div> 

@@ -47,6 +47,7 @@ Route::post('/other', 'Front\ParentRegistrationController@other')->name('other')
 Route::post('/document', 'Front\ParentRegistrationController@document')->name('document');
 Route::post('/declaration', 'Front\ParentRegistrationController@declaration')->name('declaration');
 Route::get('/preivew/{id}', 'Front\ParentRegistrationController@preview')->name('preview');
+Route::get('/download/{id}', 'Front\ParentRegistrationController@previewDownload')->name('preview.download');
  
  
 // facebook

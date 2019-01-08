@@ -28,11 +28,13 @@
     <div class="timeline-item">
         <div class="timeline-body">
             <div class="form-group" id="capture">
+                @if ($pr->status!=11)
                 <div class="col-md-10 col-md-offset-1 text-center">
                     <label style="text-align:left;color:#f32b07;font-size:14px">
-                        <input type="checkbox" value="chkAgree" style="color:orangered" tabindex="0" id="chkAgree" class="chk disableCL"> I Agree
+                        <input type="checkbox" value="chkAgree" onclick="chkagreeshowHide()" style="color:orangered" tabindex="0" id="chkAgree"  required=""> I Agree
                     </label>
                 </div>
+                @endif
             {{--     <div class="col-md-4 col-md-offset-4 text-center" style="margin-top: 10px; margin-bottom: 10px;">
                     <div class="pop_textbox text-center"> 
                          <b class="floating-lable">Enter Captcha Code</b>
@@ -49,7 +51,7 @@
      <div class="row">
         <div class="col-md-4 col-lg-offset-4 text-center">
             @if ($pr->status!=11)
-            <input type="submit" id="btnSave" value="Final Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" onclick="return confirm('Final Save Can not change')"  />  
+            <input type="submit" id="btn-final-Save" value="Final Save" class="btn btn-primary btn-size-md" style="width:85px" tabindex="0" disabled onclick="return confirm('Final Save Can not change')"  />  
             @endif
               <a data-toggle="tab"  class="menu11" onclick="menu('mm11')" style="width:85px" href="#menu11"></a>
               {{-- <a    class="btn btn-info btn-size-md"   style="width:85px" href="#menu11">preview</a> --}}
