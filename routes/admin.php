@@ -430,14 +430,16 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'Transport\TransportController@index')->name('admin.transport.list');	 	
 			    Route::post('add', 'Transport\TransportController@store')->name('admin.transport.post');
 			    Route::get('delete/{id}', 'Transport\TransportController@destroy')->name('admin.transport.delete');
-			    Route::put('update', 'Transport\TransportController@update')->name('admin.transport.update');
+			    Route::get('edit/{id}', 'Transport\TransportController@edit')->name('admin.transport.edit');
+			    Route::post('update/{id}', 'Transport\TransportController@update')->name('admin.transport.update');
 			 });
 			 //------------------------- vehicle ---------------------------------
 			Route::group(['prefix' => 'vehicle'], function() {
 			    Route::get('/', 'Transport\VehicleController@index')->name('admin.vehicle.list');	 	
 			    Route::post('add', 'Transport\VehicleController@store')->name('admin.vehicle.post');
 			    Route::get('delete/{id}', 'Transport\VehicleController@destroy')->name('admin.vehicle.delete');
-			    Route::put('update', 'Transport\VehicleController@update')->name('admin.vehicle.update');
+			     Route::get('edit/{id}', 'Transport\VehicleController@edit')->name('admin.vehicle.edit');
+			    Route::post('update/{id}', 'Transport\VehicleController@update')->name('admin.vehicle.update');
 			 });
 			 	 //------------------------- vehicle Type ---------------------------------
 			Route::group(['prefix' => 'vehicle-type'], function() {
