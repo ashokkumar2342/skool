@@ -117,11 +117,7 @@ class VehicleController extends Controller
        $rules=[
 
          'registration_no' => 'required|max:100', 
-     //        'mobile' => 'required|digits:10', 
-     //        'contact_no' => 'required|digits:10', 
-     //        'address' => 'required|string', 
-     //        'pincode' => 'required|digits:6', 
-        ];
+         ];
 
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()) {
@@ -205,5 +201,40 @@ class VehicleController extends Controller
         $Vehicle = VehicleType::findOrFail(Crypt::decrypt($id));
         $Vehicle->delete();
         return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+
+     public function vehicleTypeedit($id)
+    {
+
+        $vehicleTypes  = VehicleType::find(Crypt::decrypt($id));
+        return view('admin.transport.vehicletypeEdit',compact('vehicleTypes'));   
+   }
+        
+     public function vehicleTypeupdate(Request $request,$id)
+    {
+        $rules=[
+        'vehicle_type' => 'required|max:30', 
+            'description' => 'string|nullable', 
+            
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+         else {
+            $Vehicle = new VehicleType();
+            
+            $Vehicle->vehicle_type = $request->vehicle_type;
+            $Vehicle->description = $request->description;
+             
+            $Vehicle->save();
+             $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response); 
+        }
     }
 }

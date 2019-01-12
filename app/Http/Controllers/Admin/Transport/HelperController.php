@@ -14,7 +14,7 @@ class HelperController extends Controller
      public function index()
     {
     	$vehicles = array_pluck(Vehicle::get(['id','registration_no'])->toArray(),'registration_no', 'id');
-        $helpers  = DriverHelper::latest('created_at')->paginate(20);
+        $helpers  = DriverHelper::latest('created_at')->get();
         return view('admin.transport.helper',compact('helpers','vehicles'));
     }
 
@@ -86,10 +86,14 @@ class HelperController extends Controller
      * @param  \App\Model\Helper  $Helper
      * @return \Illuminate\Http\Response
      */
-    public function edit(Helper $Helper)
-    {
-        //
-    }
+    public function edit($id)
+    {   
+        $vehicles = array_pluck(Vehicle::get(['id','registration_no'])->toArray(),'registration_no', 'id');
+        $driverHelper = DriverHelper::findOrFail(Crypt::decrypt($id));
+        return view('admin.transport.helperedit',compact('driverHelper','vehicles'));
+         
+            
+    }    
 
     /**
      * Update the specified resource in storage.

@@ -96,8 +96,8 @@
                             <td>{{ $helper->vehicles->registration_no or '' }}</td>
                         		 
                         		<td> 
-                        			{{-- <button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $transport->id }}"  data-code="{{ $transport->code }}" data-name="{{ $transport->name }}" data-description="{{ $transport->description }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button> --}}
-
+                        			 <button onclick="callPopupLarge(this,'{{ route('admin.helper.edit',Crypt::encrypt($helper->id)) }}')" class="btn_edit btn btn-warning btn-xs"><i class="fa fa-edit"></i></button>
+                               
                         			<a href="{{ route('admin.helper.delete',Crypt::encrypt($helper->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
                         		</td>
                         	</tr>  	 
