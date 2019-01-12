@@ -62,36 +62,36 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
         }
          Public function incomes(){
-            return $this->hasOne('App\model\IncomeRange','id','income_id');
+            return $this->hasOne('App\Model\IncomeRange','id','income_id');
             
         }
         Public function bloodGroups(){
-            return $this->hasOne('App\model\BloodGroup','id','blood_group'); 
+            return $this->hasOne('App\Model\BloodGroup','id','blood_group'); 
         } 
         Public function academicYears(){
-            return $this->hasOne('App\model\AcademicYear','id','academic_year_id'); 
+            return $this->hasOne('App\Model\AcademicYear','id','academic_year_id'); 
         }
 
         Public function tongues(){
-            return $this->hasOne('App\model\Tongue','id','tongue'); 
+            return $this->hasOne('App\Model\Tongue','id','tongue'); 
         } 
         Public function f_professions(){
-            return $this->hasOne('App\model\Profession','id','f_occupation'); 
+            return $this->hasOne('App\Model\Profession','id','f_occupation'); 
         } 
         Public function m_professions(){
-            return $this->hasOne('App\model\Profession','id','m_occupation'); 
+            return $this->hasOne('App\Model\Profession','id','m_occupation'); 
         } 
         Public function g_professions(){
-            return $this->hasOne('App\model\Profession','id','g_occupation'); 
+            return $this->hasOne('App\Model\Profession','id','g_occupation'); 
         } 
          Public function f_incomeRange(){
-            return $this->hasOne('App\model\IncomeRange','id','f_annual_income'); 
+            return $this->hasOne('App\Model\IncomeRange','id','f_annual_income'); 
         } 
         Public function m_incomeRange(){
-            return $this->hasOne('App\model\IncomeRange','id','m_annual_income'); 
+            return $this->hasOne('App\Model\IncomeRange','id','m_annual_income'); 
         } 
         Public function g_incomeRange(){
-            return $this->hasOne('App\model\IncomeRange','id','g_annual_income'); 
+            return $this->hasOne('App\Model\IncomeRange','id','g_annual_income'); 
         } 
     }
  
