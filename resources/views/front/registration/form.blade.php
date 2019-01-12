@@ -17,6 +17,9 @@
          </h1>
          <ol class="breadcrumb">
            <li><button type="button"   onclick="callPopupLarge(this,'{{ route('preview',Crypt::encrypt($pr->id)) }}')" class="btn btn-primary btn-size-xs" data-toggle="modal"  >Preview </button></li> 
+           <li> 
+              <a href="{{ route('preview.download',Crypt::encrypt($pr->id)) }}" class="btn btn-info btn-size-xs" target="_blank" title="download">Download</a>
+           </li> 
          </ol>
        </section>
 
@@ -119,6 +122,14 @@
         $('#tdSibling').hide(400); 
     
     }); 
+
+     function chkagreeshowHide()
+     {   
+         if($('#chkAgree').is(":checked"))   
+             $("#btn-final-Save").attr("disabled", false);
+         else
+             $("#btn-final-Save").attr("disabled", true);
+     }
      
      
 

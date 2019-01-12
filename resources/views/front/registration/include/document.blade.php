@@ -2,7 +2,7 @@
            <form action="{{ route('document') }}" method="post" no-reset="true" class="add_form" accept-charset="utf-8"  >
         {{ csrf_field() }}                          
         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-
+            <h5><b>Upload Document Type PDF Only</b></h5>
             <div class="col-lg-6 b-r">
                 <div class="form-horizontal">
                     <div class="box-body">
@@ -10,28 +10,28 @@
                             <div class="col-md-12">
                                <div class="form-group">
                                    <div class="col-md-12">
-                                       {!! Form::file('marksheet','', ['class'=>'form-control']) !!}
+                                       {!! Form::file('marksheet', ['class'=>'form-control','accept'=>'application/pdf']) !!}
                                        </select>
                                        <b class="floating-lable">Marksheet </b>   file size 100kb</b>
                                    </div>
                                </div>
                                 <div class="form-group">
                                    <div class="col-md-12">
-                                       {!! Form::file('leaving_certificate','', ['class'=>'form-control']) !!}
+                                       {!! Form::file('leaving_certificate', ['class'=>'form-control','accept'=>'application/pdf']) !!}
                                        </select>
                                        <b class="floating-lable">Leaving Certificate </b>   file size 100kb</b>
                                    </div>
                                </div>
                                <div class="form-group">
                                    <div class="col-md-12">
-                                       {!! Form::file('income_certificate','', ['class'=>'form-control']) !!}
+                                       {!! Form::file('income_certificate', ['class'=>'form-control','accept'=>'application/pdf']) !!}
                                        </select>
                                        <b class="floating-lable">Income Certificate </b>   file size 100kb</b>
                                    </div>
                                </div>
                                <div class="form-group">
                                    <div class="col-md-12">
-                                       {!! Form::file('cortt_certificate','', ['class'=>'form-control']) !!}
+                                       {!! Form::file('cortt_certificate', ['class'=>'form-control','accept'=>'application/pdf']) !!}
                                        </select>
                                        <b class="floating-lable">Cortt Certificate </b>   file size 100kb</b>
                                    </div>
@@ -54,28 +54,28 @@
                     <div class="box-body"> 
                          <div class="form-group">
                             <div class="col-md-12">
-                                {!! Form::file('aadhaar_card','', ['class'=>'form-control']) !!}
+                                {!! Form::file('aadhaar_card', ['class'=>'form-control','accept'=>'application/pdf']) !!}
                                 </select>
                                 <b class="floating-lable">Aadhaar Card </b>   file size 100kb</b>
                             </div>
                         </div>
                          <div class="form-group">
                             <div class="col-md-12">
-                                {!! Form::file('birth_certificate','', ['class'=>'form-control']) !!}
+                                {!! Form::file('birth_certificate', ['class'=>'form-control','accept'=>'application/pdf']) !!}
                                 </select>
                                 <b class="floating-lable">Birth Certificate </b>   file size 100kb</b>
                             </div>
                         </div>
                          <div class="form-group">
                             <div class="col-md-12">
-                                {!! Form::file('domicile_certificate','', ['class'=>'form-control']) !!}
+                                {!! Form::file('domicile_certificate', ['class'=>'form-control','accept'=>'application/pdf']) !!}
                                 </select>
                                 <b class="floating-lable">Domicile Certificate </b>   file size 100kb</b>
                             </div>
                         </div>
                          <div class="form-group">
                             <div class="col-md-12">
-                                {!! Form::file('rashan_card','', ['class'=>'form-control']) !!}
+                                {!! Form::file('rashan_card', ['class'=>'form-control','accept'=>'application/pdf']) !!}
                                 </select>
                                 <b class="floating-lable">Rashan Card </b>   file size 100kb</b>
                             </div>

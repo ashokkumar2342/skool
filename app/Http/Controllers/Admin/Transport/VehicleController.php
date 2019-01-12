@@ -83,7 +83,7 @@ class VehicleController extends Controller
      * @param  \App\Model\Vehicle  $Vehicle
      * @return \Illuminate\Http\Response
      */
-    public function show(Vehicle $Vehicle)
+    public function show()
     {
         //
     }
@@ -94,9 +94,15 @@ class VehicleController extends Controller
      * @param  \App\Model\Vehicle  $Vehicle
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vehicle $Vehicle)
-    {
-        //
+    public function edit($id)
+
+    { 
+    $transports = array_pluck(Transport::get(['id','name'])->toArray(),'name', 'id'); 
+        $vehicleTypes = array_pluck(VehicleType::get(['id','vehicle_type'])->toArray(),'vehicle_type', 'id'); 
+         $vehicle = Vehicle::findOrFail(Crypt::decrypt($id));
+         
+        return view('admin.transport.VehicleEdit',compact('vehicle','transports','vehicleTypes'));
+         //return view('admin.transport.vehicle',compact('Vehicles','vehicleTypes','transports'));
     }
 
     /**
@@ -106,27 +112,37 @@ class VehicleController extends Controller
      * @param  \App\Model\Vehicle  $Vehicle
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vehicle $Vehicle)
+    public function update(Request $request,$id)
     {
-        // return $request;
-        $validator = Validator::make($request->all(), [
-        
-            'code' => 'required|max:3', 
-            // 'name' => 'required|max:30|unique:fee_accounts', 
-            // 'description' => 'max:100', 
-              
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
+       $rules=[
 
-        } else {
-            $Vehicle =  Vehicle::find($request->id);
-            // return $Vehicle;
-            $Vehicle->code = $request->code;
-            $Vehicle->name = $request->name;
-            $Vehicle->description = $request->description;
+         'registration_no' => 'required|max:100', 
+         ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+         else {
+            $Vehicle =Vehicle::find($id);
+            
+            $Vehicle->transport_id = $request->transport_id;
+            $Vehicle->vehicle_type_id = $request->vehicle_type_id;
+            $Vehicle->registration_no = $request->registration_no;
+            $Vehicle->chassis_no = $request->chassis_no;
+            $Vehicle->model_no = $request->model_no;
+            $Vehicle->engine_no = $request->engine_no;
+            $Vehicle->siting_capacity = $request->siting_capacity;
+            $Vehicle->average = $request->average;
+            
+    
             $Vehicle->save();
-            return response()->json([$Vehicle,'class'=>'success','message'=>'Fee Account Created Successfully']);
+             $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response); 
         }
     }
 
@@ -185,5 +201,40 @@ class VehicleController extends Controller
         $Vehicle = VehicleType::findOrFail(Crypt::decrypt($id));
         $Vehicle->delete();
         return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+
+     public function vehicleTypeedit($id)
+    {
+
+        $vehicleTypes  = VehicleType::find(Crypt::decrypt($id));
+        return view('admin.transport.vehicletypeEdit',compact('vehicleTypes'));   
+   }
+        
+     public function vehicleTypeupdate(Request $request,$id)
+    {
+        $rules=[
+        'vehicle_type' => 'required|max:30', 
+            'description' => 'string|nullable', 
+            
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+         else {
+            $Vehicle = new VehicleType();
+            
+            $Vehicle->vehicle_type = $request->vehicle_type;
+            $Vehicle->description = $request->description;
+             
+            $Vehicle->save();
+             $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response); 
+        }
     }
 }

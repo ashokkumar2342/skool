@@ -1,21 +1,10 @@
-
-
-<!-- Modal -->
-<style type="text/css" media="screen">
-  .bd{
-    border-bottom: #eee solid 1px;;
-  }
-  
-</style>
+ 
  
   <div class="modal-dialog" style="width:90%">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">All Details Preview</h4>
-      </div>
+       
       <div class="modal-body">
        <div class="row"> 
         <h4 align="center"><b>Student Details</b></h4><hr>                                             

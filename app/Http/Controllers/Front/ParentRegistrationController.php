@@ -18,6 +18,7 @@ use App\Model\SessionDate;
 use App\Model\StudentDefaultValue;
 use App\Model\Tongue;
 use App\User;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -271,12 +272,22 @@ class ParentRegistrationController extends Controller
      public function address(Request $request)
     {   
         $rules=[
-            'c_address' => 'required',
+            'c_address' => 'required|min:5|max:200',
+            'p_address' => 'required|min:5|max:200',
             'pincode' => 'required|digits:6',
             'phone' => 'nullable|numeric', 
+            'p_phone' => 'nullable|numeric', 
             ];
+        $message = array();
+        $message['c_address.min'] ='residential address minimum 5 character.';
+        $message['c_address.max'] ='residential address maximum 200 character.';
+        $message['c_address.required'] ='residential address required.';
+        $message['p_address.min'] ='permanent address minimum 5 character.';
+        $message['p_address.max'] ='permanent address maximum 200 character.';
+        $message['p_address.required'] ='permanent address required.';
+        $message['p_phone.numeric'] ='phone must be a number.';
 
-            $validator = Validator::make($request->all(),$rules);
+        $validator = Validator::make($request->all(),$rules,$message);
             if ($validator->fails()) {
                 $errors = $validator->errors()->all();
                 $response=array();
@@ -302,14 +313,21 @@ class ParentRegistrationController extends Controller
     {    $rules=[
         'father_name' => 'required',
         'father_mobile' => 'required|numeric|digits:10',
-        'f_phone_no' => 'required|numeric|digits:11',
-        'f_pin_code' => 'required|numeric|digits:6',
-         
+        'f_phone_no' => 'nullable|numeric',
+        'f_pin_code' => 'nullable|numeric|digits:6', 
         'f_email' => 'required|email',
-        'father_image' => 'nullable|mimes:jpeg,jpg,png|max:100',
+        'father_image' => 'nullable|mimes:jpeg,jpg,png|max:100', 
         ];
 
-        $validator = Validator::make($request->all(),$rules);
+        $message = array();
+        $message['f_phone_no.numeric'] ='father phone must be number .';
+        $message['f_pin_code.numeric'] ='father pin code must be number .';
+        $message['f_pin_code.digits'] ='father pin code must be 6 digits .';
+        $message['f_email.email'] ='The father email must be a valid email address .';
+        $message['f_email.required'] ='The father email field is required .';
+       
+
+        $validator = Validator::make($request->all(),$rules,$message);
         if ($validator->fails()) {
             $errors = $validator->errors()->all();
             $response=array();
@@ -360,11 +378,18 @@ class ParentRegistrationController extends Controller
             
            'm_email' => 'required|email',
            'mother_image' => 'nullable|mimes:jpeg,jpg,png|max:100',
-           'm_phone_no' => 'required|numeric|digits:11',
-           'm_pin_code' => 'required|numeric|digits:6',
+            
+           'm_pin_code' => 'nullable|numeric|digits:6',
            ];
 
-           $validator = Validator::make($request->all(),$rules);
+           $message = array();
+          
+           $message['m_pin_code.numeric'] ='mother pin code must be number .';
+           $message['m_pin_code.digits'] ='mother pin code must be 6 digits .';
+           $message['m_email.email'] ='The mother email must be a valid email address .';
+           $message['m_email.required'] ='The mother email field is required .';
+
+           $validator = Validator::make($request->all(),$rules,$message);
            if ($validator->fails()) {
                $errors = $validator->errors()->all();
                $response=array();
@@ -415,11 +440,16 @@ class ParentRegistrationController extends Controller
              
             'g_email' => 'required|email',
             'guardian_image' => 'nullable|mimes:jpeg,jpg,png|max:100',
-            'g_phone_no' => 'required|numeric|digits:11',
-        'g_pin_code' => 'required|numeric|digits:6',
+            'g_phone_no' => 'nullable|numeric|digits:10',
+            'g_pin_code' => 'nullable|numeric|digits:6',
             ];
-
-            $validator = Validator::make($request->all(),$rules);
+        $message = array();
+        $message['g_phone_no.numeric'] ='guardian phone must be number .';
+        $message['g_pin_code.numeric'] ='guardian pin code must be number .';
+        $message['g_pin_code.digits'] ='guardian pin code must be 6 digits .';
+        $message['g_email.email'] ='The guardian email must be a valid email address .';
+        $message['g_email.required'] ='The guardian email field is required .';
+            $validator = Validator::make($request->all(),$rules,$message);
             if ($validator->fails()) {
                 $errors = $validator->errors()->all();
                 $response=array();
@@ -648,6 +678,14 @@ class ParentRegistrationController extends Controller
       
       
         return  view('front.registration.include.preview',compact('classes','sessions','default','genders','religions','categories','tongues','bloodGroups','academicYear','pr'))->render();
+    }
+
+    public function previewDownload($id){
+        $pr = ParentRegistration::find(Crypt::decrypt($id));
+
+        $pdf = PDF::loadView('front.registration.include.previewDownload',compact('classes','sessions','default','genders','religions','categories','tongues','bloodGroups','academicYear','pr')); 
+        
+        return $pdf->download('download_registration_form.pdf');
     }
 
    

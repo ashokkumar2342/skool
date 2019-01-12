@@ -8,14 +8,14 @@
                 <div class="box-body">
                     <div class="form-group">
                         <div class="col-md-12">
-                            <input type="text" name="passport_no" value="{{ $pr->passport_no }}" class="form-control input-sm" style="text-transform:uppercase;" id="PassportNo" maxlength="50"  required />
+                            <input type="text" name="passport_no" value="{{ $pr->passport_no }}" class="form-control input-sm" style="text-transform:uppercase;" id="PassportNo"  maxlength="50"  accept="application/pdf,application/vnd" required />
                             <b class="floating-lable">Passport No </b>
                         </div>
 
                     </div>
                     <div class="form-group">
                         <div class="col-md-12">
-                            <input   name="date_of_issued_passport" value="{{ date('d-m-Y',strtotime($pr->date_of_issued_passport))}}" class="form-control input-sm datepicker" type="text"  maxlength="10"  required />
+                            <input   name="date_of_issued_passport" value="{{ $pr->date_of_issued_passport!=null? date('d-m-Y',strtotime($pr->date_of_issued_passport)):''}}" class="form-control input-sm datepicker" type="text"  maxlength="10"  accept="application/pdf,application/vnd" required />
                             <b class="floating-lable">Date of Issued Passport</b>
                         </div>
                     </div>                                                     
@@ -30,13 +30,13 @@
                 <div class="box-body">
                     <div class="form-group">
                         <div class="col-md-12">
-                            <input type="text" name="passport_issue_place" value="{{ $pr->passport_issue_place }}" class="form-control input-sm" style="text-transform:uppercase;" id="PassportIssuePlace" maxlength="40"  required />
+                            <input type="text" name="passport_issue_place" value="{{ $pr->passport_issue_place }}" class="form-control input-sm" style="text-transform:uppercase;" id="PassportIssuePlace" maxlength="40"  accept="application/pdf,application/vnd" required />
                             <b class="floating-lable">Passport Issue Place </b>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-12">
-                            <input id="PassportExpirydate" value="{{ date('d-m-Y',strtotime($pr->passport_expiry_date))}}" name="passport_expiry_date" class="form-control input-sm datepicker" type="text"  maxlength="10" required />
+                            <input id="PassportExpirydate" value="{{ $pr->date_of_issued_passport!=null? date('d-m-Y',strtotime($pr->passport_expiry_date)):''}}" name="passport_expiry_date" class="form-control input-sm datepicker" type="text"  maxlength="10" accept="application/pdf,application/vnd" required />
                             <b class="floating-lable">Passport Expiry date</b>
                         </div>
                     </div>      
