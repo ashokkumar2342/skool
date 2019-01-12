@@ -12,12 +12,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Transport Edit</h4>
+        <h4 class="modal-title">Helper Edit</h4>
       </div>
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12">
-            <form class="form-horizontal add_form" content-refresh="helpers_table" action="{{ route('admin.helper.update',1) }}" method="post">              
+            <form class="form-horizontal add_form" content-refresh="helpers_table" action="{{ route('admin.helper.update',$driverHelper->id) }}" method="post">              
                   {{ csrf_field() }}                                       
                      <div class="col-lg-3">                                             
                          <div class="form-group">

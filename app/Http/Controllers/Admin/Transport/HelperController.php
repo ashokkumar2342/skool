@@ -102,27 +102,37 @@ class HelperController extends Controller
      * @param  \App\Model\Helper  $Helper
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Helper $Helper)
+    public function update(Request $request,$id)
     {
-        // return $request;
-        $validator = Validator::make($request->all(), [
-        
-            'code' => 'required|max:3', 
-            // 'name' => 'required|max:30|unique:fee_accounts', 
-            // 'description' => 'max:100', 
-              
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
+        $rules=[
+        'name' => 'required|max:30', 
+            'mobile' => 'required|digits:10', 
+            'contact_no' => 'required|digits:10', 
+            'address' => 'required|string',  
+       
+        ];
 
-        } else {
-            $Helper =  Helper::find($request->id);
-            // return $Helper;
-            $Helper->code = $request->code;
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+         else {
+            $Helper =DriverHelper::find($id);           
             $Helper->name = $request->name;
-            $Helper->description = $request->description;
+            $Helper->mobile = $request->mobile;
+            $Helper->contact_no = $request->contact_no;         
+            $Helper->license_number = $request->license_number;            
+            $Helper->address = $request->address;
+            $Helper->p_address = $request->p_address;
+            $Helper->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
+            $Helper->vehicle_id = $request->vehicle_id;
             $Helper->save();
-            return response()->json([$Helper,'class'=>'success','message'=>'Fee Account Created Successfully']);
+             $response=['status'=>1,'msg'=>'Updated Successfully'];
+            return response()->json($response); 
         }
     }
 
