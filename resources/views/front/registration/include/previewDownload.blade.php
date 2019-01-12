@@ -308,7 +308,7 @@
 
                            <div class="form-group" >
                                <div class="col-md-12 bd"> 
-                                   Annual Income : <b> {{ $pr->f_incomeRange->range }}</b>
+                                   Annual Income : <b> {{ $pr->f_incomeRange->range or '' }}</b>
 
                                </div>
                            </div>
