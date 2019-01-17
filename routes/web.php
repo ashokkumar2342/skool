@@ -20,6 +20,7 @@ Route::get('/', function () {
  
 });
  
+ 
 Route::prefix('parent')->group(function () {
     Route::get('login', 'Front\ParentRegistrationController@login')->name('parent.login.form'); 
 });

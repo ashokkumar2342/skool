@@ -226,7 +226,7 @@ class ParentRegistrationController extends Controller
         $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]);
         $parentRegistration->parent_id=Auth::user()->id;
         $parentRegistration->aadhaar_no=$request->aadhaar_no;
-        $parentRegistration->name=$request->academic_year;
+        $parentRegistration->academic_year_id=$request->academic_year;
         $parentRegistration->blood_group=$request->blood_group;
         $parentRegistration->category_id=$request->category;
         $parentRegistration->class_id=$request->class;

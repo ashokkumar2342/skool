@@ -72,7 +72,7 @@
                             <td>{{ $boardingPoint->both_side_fee_amount }}</td>
                          
                         		<td> 
-                        			{{-- <button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $transport->id }}"  data-code="{{ $transport->code }}" data-name="{{ $transport->name }}" data-description="{{ $transport->description }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button> --}}
+                        			<a href="#" onclick="callPopupLarge(this,'{{ route('admin.boardingPoint.edit',Crypt::encrypt($boardingPoint->id)) }}')" class="btn_edit btn btn-info btn-xs"    ><i class="fa fa-edit"></i></a>
 
                         			<a href="{{ route('admin.boardingPoint.delete',Crypt::encrypt($boardingPoint->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
                         		</td>

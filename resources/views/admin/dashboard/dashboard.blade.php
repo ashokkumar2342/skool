@@ -22,13 +22,13 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <a href="#" onclick="callPopupLarge(this,'{{ route('admin.student.show.details') }}')" title="Students Details"><h3>{{ $students}}</h3> </a>
+              <a href="#" style="color:white" onclick="callPopupLarge(this,'{{ route('admin.student.show.details') }}')" title="Students Details"><h3>{{ $students}}</h3> </a>
               <p>Students</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="{{ route('admin.student.report') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('admin.student.report') }}"  class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -36,7 +36,8 @@
            <!-- small box -->
            <div class="small-box bg-aqua">
              <div class="inner">
-               <h3>{{ $newRegistraions->count() }}</h3> 
+              <a href="#" style="color:white" onclick="callPopupLarge(this,'{{ route('admin.student.Registration.details') }}')"  >
+               <h3>{{ $newRegistraions->count() }}</h3> </a>
                <p>New Registration</p>
              </div>
              <div class="icon">
@@ -50,7 +51,7 @@
            <!-- small box -->
            <div class="small-box bg-green">
              <div class="inner">
-               <h3>0</h3> 
+               <h3>{{ $feePaid }}</h3> 
                <p>Fee Paid</p>
              </div>
              <div class="icon">
@@ -65,7 +66,7 @@
            <!-- small box -->
            <div class="small-box bg-red">
              <div class="inner">
-               <h3>0</h3>
+               <h3>{{ $feeDues }}</h3>
 
                <p>Fee Due</p>
              </div>

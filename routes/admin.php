@@ -10,6 +10,7 @@ Route::post('login', 'Auth\LoginController@login');
 Route::group(['middleware' => 'admin'], function() {
 	Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard'); 
 	Route::get('show-details', 'DashboardController@showStudentDetails')->name('admin.student.show.details');
+	Route::get('registration-show-details', 'DashboardController@showStudentRegistrationDetails')->name('admin.student.Registration.details');
 	//---------------account-----------------------------------------	
 	Route::prefix('account')->group(function () {
 	    Route::get('form', 'AccountController@form')->name('admin.account.form');
@@ -87,6 +88,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('{sectionType}/edit', 'SectionTypeController@edit')->name('admin.section.edit');
 	    Route::post('{sectionType}/update', 'SectionTypeController@update')->name('admin.section.update');
 	    Route::get('{sectionType}/delete', 'SectionTypeController@destroy')->name('admin.section.delete');
+
 	});
 	// ---------------Section with class----------------------------------------
 	Route::group(['prefix' => 'manage-section'], function() {
@@ -96,7 +98,8 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::post('add', 'SectionController@store')->name('admin.section.add');
 	    Route::get('{manageSectionEdit}/edit', 'SectionController@edit')->name('admin.manageSection.edit');
 	    Route::post('{manageSection}/update', 'SectionController@update')->name('admin.manageSection.update');
-	    Route::get('{manageSection}/delete', 'SectionController@destroy')->name('admin.manageSection.delete');        
+	    Route::get('{manageSection}/delete', 'SectionController@destroy')->name('admin.manageSection.delete');
+	    Route::get('selectBoxSection', 'SectionController@sectionSelectBox')->name('admin.section.selectBox');        
 	});
 		// ---------------User with class----------------------------------------
 	Route::group(['prefix' => 'user-class'], function() {
@@ -416,10 +419,13 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::get('/', 'Registration\RegistrationController@index')->name('admin.onlineForm.list');	 	
     	    Route::get('cancel/{id}', 'Registration\RegistrationController@statusCancel')->name('registration.cancel');	 	
     	    Route::get('rejcet/{id}', 'Registration\RegistrationController@statusReject')->name('registration.reject');	 	
-    	    Route::get('approved/{id}', 'Registration\RegistrationController@statusApproved')->name('registration.approved');	 	
+    	    Route::get('approved/{id}', 'Registration\RegistrationController@statusApproved')->name('registration.approved');
+    	    Route::get('approved-show', 'Registration\RegistrationController@approvedShow')->name('registration.approved.show');	 	
     	    Route::post('/', 'Registration\RegistrationController@remarkAdd')->name('registration.remark.add');	 	
     	    Route::get('show-remark', 'Registration\RegistrationController@remarkShow')->name('registration.remark.show');
     	    Route::post('report', 'Registration\RegistrationController@report')->name('admin.registration.report.post'); 
+    	    Route::get('allowadmission/{id}', 'Registration\RegistrationController@allowadmission')->name('admin.registration.allowadmission'); 
+            Route::post('copy-registration-data/{id}', 'Registration\RegistrationController@copyRegistrationData')->name('admin.registration.copyToStudent'); 
     	    
     	 	});
 		 });
@@ -476,7 +482,9 @@ Route::group(['middleware' => 'admin'], function() {
 			Route::group(['prefix' => 'boarding-point'], function() {
 			    Route::get('/', 'Transport\BoardingPointController@index')->name('admin.boardingPoint.list');	 	
 			    Route::post('add', 'Transport\BoardingPointController@store')->name('admin.boardingPoint.post');
-			    Route::get('delete/{id}', 'Transport\BoardingPointController@destroy')->name('admin.boardingPoint.delete'); 
+			    Route::get('delete/{id}', 'Transport\BoardingPointController@destroy')->name('admin.boardingPoint.delete');
+			      Route::get('edit/{id}', 'Transport\BoardingPointController@edit')->name('admin.boardingPoint.edit');
+			       Route::post('update/{id}', 'Transport\BoardingPointController@update')->name('admin.boardingPoint.update'); 
 			 });
 			   //------------------------- Helper ---------------------------------
 			Route::group(['prefix' => 'route-details'], function() {
