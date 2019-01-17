@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
+use App\Model\ParentRegistration;
 use App\Model\StudentAttendance;
+use App\Model\StudentFeeDetail;
 use App\Student;
 use App\User;
 use Illuminate\Http\Request;
@@ -34,10 +36,12 @@ class DashboardController extends Controller
         
         $date = date('Y-m-d');
         $students = Student::where('status',1)->count();                        
-        $newRegistraions = User::get();                        
-        return view('admin/dashboard/dashboard',compact('students','present','absent','newRegistraions'));
+        $newRegistraions = ParentRegistration::get();  
+        $feeDues = StudentFeeDetail::where('paid',0)->get()->sum('fee_amount');                      
+         $feePaid = StudentFeeDetail::where('paid',1)->get()->sum('fee_amount');                      
+        return view('admin/dashboard/dashboard',compact('students','present','absent','newRegistraions','feeDues','feePaid'));
         
-    }
+    }  
 
     /**
      * Show the form for creating a new resource.
@@ -47,9 +51,15 @@ class DashboardController extends Controller
     public function showStudentDetails(Request $request)
     {
         $classes = ClassType::all();
-        $students = Student::all();
-
+        $students = Student::all(); 
         return view('admin/dashboard/studentDetails',compact('classes','students'))->render();
+    }
+    //show Student Registration Details 
+    public function showStudentRegistrationDetails(Request $request)
+    {
+        $classes = ClassType::all();
+       $students = ParentRegistration::all(); 
+        return view('admin/dashboard/studentRegistrationDetails',compact('classes','students'))->render();
     }
 
    

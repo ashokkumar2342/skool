@@ -3,9 +3,8 @@
    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
-   <style type="text/css" media="screen">
-       
-        #category{
+   <style type="text/css" media="screen"> 
+         #category{
         display:none;
        } 
         #religion{
@@ -17,9 +16,7 @@
         #class{
         display:none;
        }
-        #section{
-        display:none;
-       }
+        
    </style>
 @endpush
 @section('body')
@@ -34,126 +31,40 @@
         <div class="box">        
             <!-- /.box-header -->
             <div class="box-body">
+
                 <div class="row">
                     <div class="col-lg-12 ">                  
-                       
-                    <form action="{{ route('admin.registration.report.post') }}" data-table-without-pagination="report_dataTable" success-content-id="report_result" method="post" no-reset="true" accept-charset="utf-8" id="report_form" class="add_form">
-                            {{ csrf_field() }}
-                        <div class="col-md-12">  
-                            <div class="col-lg-3">                         
-                                <div class="form-group">
-                                    
-                                      {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
-                                         {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control']) }}
-                                        <p class="errorAmount1 text-center alert alert-danger hidden"></p>
-                                   </div>     
-                                </div>
-                                <div class="col-lg-3">                         
-                                <div class="form-group">
-                                    {{ Form::label('report_for','Report For',['class'=>' control-label']) }}
-                                    {!! Form::select('report_for',[                   
-                                                         
-                                                        1=>'Class',
-                                                        2=>'Category',
-                                                        3=>'Religion',
-                                                        4=>'Gender',
-                                                        5=>'Income Slab',
-                                                        6=>'Profession',
-                                                        
-                                        ], null, ['class'=>'form-control','placeholder'=>'Select','required']) !!}
-                                    <p class="text-danger">{{ $errors->first('report_for') }}</p>
-                                </div>
-                                 
-                            </div>
-                            <div class="col-lg-3" id="class">                         
-                                <div class="form-group">  
-                             {{ Form::label('class','Class',['class'=>' control-label']) }}
-                               <select name="class" id="classgroup" class="form-control">
-                                     <option value="">Select</option>  
-                                    @foreach (App\Model\ClassType::all() as $class)
-                                       <option value="{{ $class->id }}">{{ $class->name }}</option> 
-                                     @endforeach 
-                               </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-3" id="cate" >                                                   
-                                <div class="form-group">
-                                    {{ Form::label('category','Category',['class'=>' control-label']) }}
-                                    <select name="category" id="category" class="form-control">
-                                        <option value="">Select</option>
-                                      @foreach (App\Model\Category::all() as $category)                                            
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>                                  
-                                      @endforeach 
-                                    </select>                                    
-                                </div>
-                            </div> 
-                             <div class="col-lg-3" id="rel" style="display:none">                         
-                                <div class="form-group">
-                                    {{ Form::label('religion','Religion',['class'=>' control-label']) }}
-                                    <select name="religion" id="religion" class="form-control">
-                                     {{ Form::label('religion','Religion',['class'=>' control-label']) }}
-                                     @foreach (App\Model\Religion::all() as $religion)                                            
-                                           <option value="{{ $religion->id }}">{{ $religion->name }}</option>                                  
-                                     @endforeach 
-                                 </select> 
-                                 </div>
-                             </div> 
-                             <div class="col-lg-3" id="gen" style="display:none"> 
-                                <div class="form-group">
-                                    {{ Form::label('gender','Gender',['class'=>' control-label']) }}
-                                    <select name="gender" id="gender" class="form-control">
-                                     {{ Form::label('gender','gender',['class'=>' control-label']) }}
-                                     @foreach (App\Model\Gender::all() as $gender)                                            
-                                           <option value="{{ $gender->id }}">{{ $gender->genders }}</option>                                  
-                                     @endforeach 
-                                    </select> 
-                                 </div>
-                             </div> 
-                             <div class="col-lg-3" id="incomeSlab" style="display:none"> 
-                                <div class="form-group">
-                                    {{ Form::label('incomeSlab','Income Slab',['class'=>' control-label']) }}
-                                    <select name="incomeSlab" id="income" class="form-control">
-                                      
-                                     @foreach (App\Model\IncomeRange::all() as $range) 
-                                           <option value="{{ $range->id }}">{{ $range->range }}</option> 
-                                     @endforeach 
-                                    </select> 
-                                 </div>
-                             </div> 
-                             <div class="col-lg-3" id="professions" style="display:none"> 
-                                <div class="form-group">
-                                    {{ Form::label('professions','Profession',['class'=>' control-label']) }}
-                                    <select name="profession" id="profession" class="form-control">
-                                      
-                                     @foreach (App\Model\Profession::all() as $name) 
-                                           <option value="{{ $name->id }}">{{ $name->name }}</option> 
-                                     @endforeach 
-                                    </select> 
-                                 </div>
-                             </div> 
-                          
-                            <div class="col-lg-3" id="se" style="display:none">                         
-                                <div class="form-group">
-                                    {{ Form::label('section','Section',['class'=>' control-label']) }}
-                                      <select name="section" id="section" class="form-control"> 
-                                    </select>
-                                   
-                                </div>
-                            </div>
-                             <div class="col-lg-3" style="padding-top: 20px;">                         
-                                <div class="form-group">
-                                  <button class="btn btn-success" id="btn_submit" type="submit">Show</button>
-                                    
-                                </div>
-                            </div>
-                        </div>
+                      <ul class="nav nav-tabs">
+                          <li class="active"><a data-toggle="tab" href="#home">Registration Filter</a></li>
+                          <li><a data-toggle="tab" href="#approved_div" onclick="callAjax(this,'{{ route('registration.approved.show') }}','approved_div')">Approved</a></li>
+                          <li><a data-toggle="tab" href="#menu2">Pending</a></li>
+                          <li><a data-toggle="tab" href="#menu3">Reject</a></li>
+                        </ul>
 
-                        {{ Form::close() }}
+                        <div class="tab-content">
+                          <div id="home" class="tab-pane fade in active">
+                            @include('admin.registration.registrationList')
+                           <div id="report_result"> 
+                            </div>
+                          </div>
+                          <div id="approved_div" class="tab-pane fade">
+                             
+                          </div>
+                          <div id="menu2" class="tab-pane fade">
+                            @include('admin.registration.pending')
+                           
+         
+                          </div>
+                          <div id="menu3" class="tab-pane fade">
+                            @include('admin.registration.reject')
+                          
+                          </div>
+                        </div> 
+
+                    
                     </div>
                 </div>
-                <div id="report_result">
                 
-                </div>
             </div>
             <!-- /.box-body -->
             
@@ -306,6 +217,77 @@
  <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+ <script type="text/javascript">
+     $(document).ready(function() {
+     var text_max = 0;
+     $('#textarea_feedback').html(text_max + ' characters ');
+
+     $('#textarea').keyup(function() {
+         var text_length = $('#textarea').val().length;
+          
+
+         $('#textarea_feedback').html(text_length + ' characters');
+     });
+ }); 
+     function classWise(){
+       
+       if($('#class_wise').is(":checked")) {
+               $('.class_div').show(400);
+               $('.number_div').hide(400);
+       } else {
+           $('.class_div').hide(400);
+           $('.number_div').show(400);
+       }
+     }
+     function SectionWise(){
+       if($('#class_wise').is(":checked") && $('#section_wise').is(":checked")) {
+               $('.section_div').show();
+       } else {
+           $('.section_div').hide();
+       }
+     }
+  
+       $("#class").change(function(){ 
+         $('#section').html('<option value="">Searching ...</option>');
+         $.ajax({
+           method: "get",
+           url: "{{ route('admin.manageSection.search') }}",
+           data: { id: $(this).val() }
+         })
+         .done(function( response ) {            
+             if(response.length>0){
+                 $('#section').html('<option value="">Select Section</option>');
+                 for (var i = 0; i < response.length; i++) {
+                     $('#section').append('<option value="'+response[i].id+'">'+response[i].name+'</option>');
+                 } 
+             }
+             else{
+                 $('#section').html('<option value="">Not found</option>');
+             }            
+         });
+     }); 
+
+       function classChange(id){ alert(id);
+        $('#section').html('<option value="">Searching ...</option>');
+        $.ajax({
+          method: "get",
+          url: "{{ route('admin.manageSection.search') }}",
+          data: { id: id }
+        })
+        .done(function( response ) {            
+            if(response.length>0){
+                $('#section').html('<option value="">Select Section</option>');
+                for (var i = 0; i < response.length; i++) {
+                    $('#section').append('<option value="'+response[i].id+'">'+response[i].name+'</option>');
+                } 
+            }
+            else{
+                $('#section').html('<option value="">Not found</option>');
+            }            
+        });
+       }
+     
+ </script>
 
 @endpush
 

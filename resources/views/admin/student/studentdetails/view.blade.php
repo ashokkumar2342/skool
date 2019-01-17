@@ -33,7 +33,7 @@ b{
                              <div class="row" style="padding-top: 20px">
                                 <div class="col-md-6 border_bottom">
                                     <ul class="list-group">
-                                      <li class="list-group-item">Username :-<span class="fs">{{ $student->username }}</span></li>
+                                      <li class="list-group-item">User Name :-<span class="fs">{{ $student->username }}</span></li>
                                       <li class="list-group-item">Password :-<span class="fs">{{ $student->tem_pass }}</span></li>
                                       <li class="list-group-item">Name :-<span class="fs">{{ $student->name }}</span></li>
                                       <li class="list-group-item">Class :-<span class="fs">{{ $student->classes->name }}</span></li>
@@ -54,7 +54,7 @@ b{
                                     <ul class="list-group">
                                       <li class="list-group-item">Father's Name :-<span class="fs">{{ $student->father_name }}</span></li>
                                       <li class="list-group-item">Mother's Name :-<span class="fs">{{ $student->mother_name }}</span></li>
-                                      <li class="list-group-item">Father's Mobile :-<span class="fs">{{ $student->father_mobile }}</span></li>
+                                      <li class="list-group-item">Father's Mobile :-<span class="'onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'4']) fs">{{ $student->father_mobile }}</span></li>
                                       <li class="list-group-item">Mother's Mobile :-<span class="fs">{{ $student->mother_name }}</span></li>                                     
                                       
                                       <li class="list-group-item">Category :-<span class="fs">{{ $student->categories->name }}</span></li>

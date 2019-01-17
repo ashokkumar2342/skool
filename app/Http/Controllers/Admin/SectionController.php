@@ -48,6 +48,12 @@ class SectionController extends Controller
    
     }
 
+     public function sectionSelectBox(Request $request)
+    {  
+        $sections =MyFuncs::getSections($request->id); 
+          return view('admin.manage.section.selectBox',compact('sections'))->render();
+    }
+
     /**
      * Store a newly created resource in storage.
      *

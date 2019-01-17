@@ -104,7 +104,7 @@ class StudentController extends Controller
         $this->validate($request,[ 
             'class' => 'required|numeric|max:20',
             "section" => 'required|numeric|max:20',
-            "registration_no" => 'required||max:20|unique:students',
+            "registration_no" => 'required|max:20|unique:students',
             "admission_no" => 'max:20|unique:students',
             "roll_no" => 'max:20|unique:students',
             "date_of_admission" => 'required|date',

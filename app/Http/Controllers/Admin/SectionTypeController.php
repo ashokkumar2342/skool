@@ -110,4 +110,6 @@ class SectionTypeController extends Controller
             return redirect()->route('admin.section.list')->with(['class'=>'success','message'=>'Section Delete successfully']);
         }
     }
+
+     
 }
