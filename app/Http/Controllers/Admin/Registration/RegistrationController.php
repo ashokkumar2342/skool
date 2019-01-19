@@ -12,10 +12,12 @@ use App\Model\Category;
 use App\Model\ClassType;
 use App\Model\Gender;
 use App\Model\ParentRegistration;
+use App\Model\ParentsInfo;
 use App\Model\RegSibling;
 use App\Model\Religion;
 use App\Model\SessionDate;
 use App\Model\StudentDefaultValue;
+use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\Tongue;
 use App\Student;
@@ -170,10 +172,10 @@ class RegistrationController extends Controller
     }
     //copy data registration table to student table
     public function copyRegistrationData(Request $request,$registration_no)
-    {  
+    {   
     $rules=[
 
-      'registration_no' => 'required|max:20|unique:students', 
+      'registration_no' => 'nullable|max:20|unique:students', 
       ];
 
      $validator = Validator::make($request->all(),$rules);
@@ -191,17 +193,17 @@ class RegistrationController extends Controller
       $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
       $student->name =$parent->name;
       $student->nick_name =$parent->nick_name;
+      $student->admin_id =$admin_id;
       $student->registration_no =$parent->registration_no;
       $student->admission_no =$request->admission_no; 
       $student->session_id =$parent->academic_year_id;
       $student->class_id =$parent->class_id;
-      $student->section_id =$parent->section_id;
-      $student->date_of_admission =$parent->date_of_admission;  
+      $student->section_id =$request->section;
+      $student->date_of_admission =date('Y-m-d');  
       $student->email =$parent->email;
       $student->username =$username;
       $student->password =bcrypt($char);
-      $student->tem_pass = $char; 
-      $student->tem_pass =$parent->tem_pass;
+      $student->tem_pass = $char;  
       $student->father_name =$parent->father_name;
       $student->mother_name =$parent->mother_name;
       $student->dob =$parent->dob;
@@ -281,6 +283,11 @@ class RegistrationController extends Controller
           }
       
       }
+      $parent->active_status=4;
+      $parent->save();
+       $response['status'] = 1;
+       $response['msg'] = 'Admission Successfully';
+       return $response;
     }
 
      

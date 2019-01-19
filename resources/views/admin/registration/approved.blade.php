@@ -3,6 +3,7 @@
 		<tr>
 			<th>Registration No</th>
 			<th>Name</th>
+			<th>Class</th> 
 			<th>Father's Name</th>
 			<th>Mother's Name</th>
 			<th>Mobile No</th>
@@ -14,6 +15,7 @@
 		<tr>
 			<td>{{ $parentsApproved->registration_no }}</td>
 			<td>{{ $parentsApproved->name }}</td>
+			<td>{{ $parentsApproved->classes->name or ''}}</td> 
 			<td>{{ $parentsApproved->father_name }}</td>
 			<td>{{ $parentsApproved->mother_name }}</td>
 			<td>   {{ $parentsApproved->mobile }}</td>

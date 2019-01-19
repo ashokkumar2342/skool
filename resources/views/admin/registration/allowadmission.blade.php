@@ -17,7 +17,7 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12"> 
-          <form class=" add_form"  button-click="btn_close" content-refresh="boardingPoint_table" action="{{ route('admin.registration.copyToStudent',$parentsAllow->registration_no) }}" method="post">              
+          <form class=" add_form"  button-click="btn_close,btn_approved" content-refresh="boardingPoint_table" action="{{ route('admin.registration.copyToStudent',$parentsAllow->registration_no) }}" method="post">              
           {{ csrf_field() }}                                       
              <div class="col-lg-12">                                             
                  <div class="form-group">

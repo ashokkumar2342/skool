@@ -11,6 +11,8 @@
 	</thead>
 	<tbody>
 		@foreach ($parentsPendings as $parentsPending)
+		@if ($parentsPending->active_status==2) 
+		
 		<tr>
 			<td>{{ $parentsPending->registration_no }}</td>
 			<td>{{ $parentsPending->name }}</td>
@@ -20,6 +22,7 @@
 			<td>  
 			</td>
 		</tr> 
+		@endif
 		@endforeach
 		
 
