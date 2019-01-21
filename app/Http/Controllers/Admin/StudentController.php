@@ -29,6 +29,7 @@ use DB;
 use Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 use PDF;
 use Storage;
 
@@ -666,6 +667,75 @@ class StudentController extends Controller
         return $pdf->download('_birthday_card.pdf');
         
     }
-    
+
+     public function newAdmission(Request $request)
+    {
+        
+        $classes = MyFuncs::getClasses();  
+
+        return view('admin.student.newadmission.list',compact('classes'));
+    }
+    // newAdmissionStudentShow
+    public function newAdmissionStudentShow(Request $request)
+    {  
+       $students = Student::where('class_id',$request->class) 
+                                   ->where('section_id',$request->section)->get();
+          
+        $response= array();                       
+        $response['status']= 1;                       
+        $response['data']=view('admin.student.newadmission.student_list',compact('students'))->render();
+        return $response;
+         
+    }
+    public function resetRollNoshow(Request $request)
+    {  
+       $students = Student::where('class_id',$request->class) 
+                                   ->where('section_id',$request->section)->get();
+          
+        $response= array();                       
+        $response['status']= 1;                       
+        $response['data']=view('admin.student.newadmission.student_list_show',compact('students'))->render();
+        return $response;
+         
+    }
+
+  public function resetRollNoshowUpdate(Request $request) 
+  {   
+    $rules=[
+
+      'admission_no' => 'required|unique:students', 
+      ];
+
+     $validator = Validator::make($request->all(),$rules);
+     if ($validator->fails()) {
+         $errors = $validator->errors()->all();
+         $response=array();
+         $response["status"]=0;
+         $response["msg"]=$errors[0];
+         return response()->json($response);// response as json
+     }
+   foreach ($request->admission_no as $student_id => $admission_no) {
+       $student =Student::find($student_id);
+       $student->admission_no =$admission_no;
+       $student->save();
+      }   
    
+      
+       $response= array();                       
+       $response['status']= 1; 
+       $response['msg']= 'Update Adminssion No Successfully '; 
+
+       return  $response;
+
+  }
+
+
+
+    public function resetRollNo(Request $request)
+    {
+        $students = Student::all();
+        $classes = MyFuncs::getClasses();  
+    
+        return view('admin.student.newadmission.resetRollNo',compact('students','classes'));
+    }
 }

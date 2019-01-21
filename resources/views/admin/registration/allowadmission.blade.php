@@ -28,7 +28,7 @@
               <div class="col-lg-12">                                             
                   <div class="form-group">
                    <label>Admission No</label>
-                    <input type="text" name="adminssion_no" class="form-control" maxlength="50" required="">
+                    <input type="text" name="admission_no" class="form-control" maxlength="50" required="">
                   </div>                                         
                </div>
               <div class="col-lg-12">                         

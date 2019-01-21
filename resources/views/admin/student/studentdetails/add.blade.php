@@ -68,19 +68,8 @@
                                                     <p class="text-danger">{{ $errors->first('date_of_admission') }}</p>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">                         
-                                                <div class="form-group">
-                                                    {{ Form::label('date_of_leaving','Date of Leaving',['class'=>' control-label']) }}   
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>                          
-                                                    {{ Form::text('date_of_leaving','',array('class' => 'form-control datepicker' )) }}
-                                                    </div>
-                                                    <p class="text-danger">{{ $errors->first('date_of_leaving') }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">                         
+                                             
+                                            <div class="col-lg-6">                         
                                                 <div class="form-group">
                                                     {{ Form::label('date_of_activation','Date of Activation',['class'=>' control-label']) }}   
                                                     <div class="input-group">
@@ -159,7 +148,7 @@
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>                   
-                                                        {{ Form::text('date_of_birth','',['class'=>'form-control datepicker','required']) }}
+                                                       <input type="text" class="form-control" name="date_of_birth" id="date_of_birth" min='1899-01-01' max='2000-13-13' required>
                                                     </div>
                                                    
                                                     <p class="text-danger">{{ $errors->first('date_of_birth') }}</p>
@@ -256,8 +245,12 @@
 @endsection
  @push('scripts')
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
- <script type="text/javascript">
+ <script type="text/javascript"> 
     $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
+    $('#date_of_birth').datepicker({
+     dateFormat: "dd-mm-yy",
+     maxDate: new Date('{{ date('Y')-2 }}')
+    });
     $("#class").change(function(){
         $('#section').html('<option value="">Searching ...</option>');
         $.ajax({
