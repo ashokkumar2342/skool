@@ -8,9 +8,11 @@ use App\Model\AcademicYear;
 use App\Model\BloodGroup;
 use App\Model\Category;
 use App\Model\ClassType;
+use App\Model\DocumentType;
 use App\Model\Gender;
 use App\Model\IncomeRange;
 use App\Model\ParentRegistration;
+use App\Model\Parent\RegistrationDocument;
 use App\Model\Profession;
 use App\Model\RegSibling;
 use App\Model\Religion;
@@ -18,11 +20,11 @@ use App\Model\SessionDate;
 use App\Model\StudentDefaultValue;
 use App\Model\Tongue;
 use App\User;
-use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
+use PDF;
 use Validator;
 
 class ParentRegistrationController extends Controller
@@ -62,7 +64,8 @@ class ParentRegistrationController extends Controller
     {
        $pr = ParentRegistration::find(Crypt::decrypt($id));
         $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
-        $incomeRanges = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');    
+        $incomeRanges = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
+        $documentTypes = array_pluck(DocumentType::get(['id','name'])->toArray(),'name', 'id');    
         $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id');    
         $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
@@ -72,8 +75,9 @@ class ParentRegistrationController extends Controller
         $bloodGroups = array_pluck(BloodGroup::get(['id','name'])->toArray(),'name', 'id');
         $academicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
         $default = StudentDefaultValue::find(1); 
+        $registrationDocuments =RegistrationDocument::where('parent_registration_id',Auth::user()->id)->get();
            
-        return view('front.registration.form',compact('classes','sessions','default','genders','religions','categories','tongues','bloodGroups','academicYear','pr','incomeRanges','professions'));
+        return view('front.registration.form',compact('classes','sessions','default','genders','religions','categories','tongues','bloodGroups','academicYear','pr','incomeRanges','professions','documentTypes','registrationDocuments'));
        
     }
     
@@ -579,15 +583,9 @@ class ParentRegistrationController extends Controller
     public function document(Request $request)
     {   $rules=[
             
-            'marksheet' => 'nullable|mimes:pdf|max:100',
-            'leaving_certificate' => 'nullable|mimes:pdf|max:100',
-            'leaving_certificate' => 'nullable|mimes:pdf|max:100',
-            'income_certificate' => 'nullable|mimes:pdf|max:100',
-            'cortt_certificate' => 'nullable|mimes:pdf|max:100',
-            'aadhaar_card' => 'nullable|mimes:pdf|max:100',
-            'birth_certificate' => 'nullable|mimes:pdf|max:100',
-            'domicile_certificate' => 'nullable|mimes:pdf|max:100',
-            'rashan_card' => 'nullable|mimes:pdf|max:100',
+            
+            'document_type' => 'required',
+            'file' => 'required|mimes:pdf|max:200',
            
             ];
 
@@ -598,59 +596,20 @@ class ParentRegistrationController extends Controller
                 $response["status"]=0;
                 $response["msg"]=$errors[0];
                 return response()->json($response);// response as json
-            }          
-        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]); 
-        if ($request->file('marksheet')!=null) {
-             $file = $request->file('marksheet');
-             $file->store('public/profile');
-             $fileName = $file->hashName();
-            $parentRegistration->marksheet=$fileName;
-        } 
-        if ($request->file('leaving_certificate')!=null) {
-             $file = $request->file('leaving_certificate');
-             $file->store('public/profile');
-             $fileName = $file->hashName();
-            $parentRegistration->leaving_certificate=$fileName;
-        }  
-        if ($request->file('income_certificate')!=null) {
-             $file = $request->file('income_certificate');
-             $file->store('public/profile');
-             $fileName = $file->hashName();
-            $parentRegistration->income_certificate=$fileName;
-        }   
-        if ($request->file('cortt_certificate')!=null) {
-             $file = $request->file('cortt_certificate');
-             $file->store('public/profile');
-             $fileName = $file->hashName();
-            $parentRegistration->cortt_certificate=$fileName;
-        }
-          if ($request->file('aadhaar_card')!=null) {
-             $file = $request->file('aadhaar_card');
-             $file->store('public/profile');
-             $fileName = $file->hashName();
-            $parentRegistration->aadhaar_card=$fileName;
-        }
-          if ($request->file('birth_certificate')!=null) {
-             $file = $request->file('birth_certificate');
-             $file->store('public/profile');
-             $fileName = $file->hashName();
-            $parentRegistration->birth_certificate=$fileName;
-        }
-          if ($request->file('domicile_certificate')!=null) {
-             $file = $request->file('domicile_certificate');
-             $file->store('public/profile');
-             $fileName = $file->hashName();
-            $parentRegistration->domicile_certificate=$fileName;
-        }
-          if ($request->file('rashan_card')!=null) {
-             $file = $request->file('rashan_card');
-             $file->store('public/profile');
-             $fileName = $file->hashName();
-            $parentRegistration->rashan_card=$fileName;
-        } 
+            }        
+        $parentRegistration = ParentRegistration::firstOrNew(['parent_id'=>Auth::user()->id]);
+        $registrationDocument = new RegistrationDocument(); 
+        $registrationDocument->parent_registration_id =Auth::user()->id;
+        $registrationDocument->document_type_id =$request->document_type;
+        $file = $request->file('file');
+        $file->store('public/document');
+        $fileName = $file->hashName(); 
+        $registrationDocument->name =$fileName;
+        $registrationDocument->save();
+         
         $parentRegistration->status=10; 
         $parentRegistration->save(); 
-        $response=['status'=>1,'msg'=>'Save Success'];
+        $response=['status'=>1,'msg'=>'Upload Successfully'];
         return response()->json($response);     
     }
      public function declaration(Request $request)

@@ -9,7 +9,7 @@
         <div class="box">             
             <!-- /.box-header -->
           <div class="box-body"> 
-           <form action="{{ route('admin.student.reset.roll.no.show') }}" success-content-id="student_roll_show_div" method="post" class="add_form">
+           <form action="{{ route('admin.student.reset.roll.no.show') }}" success-content-id="student_roll_show_div" method="post" class="add_form" no-reset="true">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-lg-5">
@@ -35,9 +35,13 @@
                          </div>
                      </div>
                          
-                </form>  
+                </form>
+                <form action="{{ route('admin.student.reset.roll.no.update') }}" method="post" class="add_form" no-reset="true">
+                {{ csrf_field() }}
                 <div id="student_roll_show_div">
+             
              	 </div>
+                  </form>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->

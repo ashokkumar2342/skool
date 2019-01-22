@@ -2,9 +2,11 @@
 
 namespace App\Model;
 
+use App\Model\DocumentType;
+use App\Model\Parent\RegistrationDocument;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
      class ParentRegistration extends Authenticatable
     {
@@ -93,6 +95,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
         Public function g_incomeRange(){
             return $this->hasOne('App\Model\IncomeRange','id','g_annual_income'); 
         } 
+
+        
     }
  
   

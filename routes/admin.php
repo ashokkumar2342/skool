@@ -152,7 +152,10 @@ Route::group(['middleware' => 'admin'], function() {
 		 
 		Route::get('reset-roll-no', 'StudentController@resetRollNo')->name('admin.student.reset.roll');
 		Route::post('reset-roll-no-show', 'StudentController@resetRollNoshow')->name('admin.student.reset.roll.no.show');
-		Route::post('reset-roll-no-show.update', 'StudentController@resetRollNoshowUpdate')->name('admin.student.reset.roll.no.show.update');	  	      	      
+		Route::post('reset-roll-no-show-update', 'StudentController@resetRollNoshowUpdate')->name('admin.student.reset.roll.no.show.update');
+		Route::post('reset-roll-no-update', 'StudentController@resetRollNoUpdate')->name('admin.student.reset.roll.no.update');
+
+
 		});
 
 	 	// ---------------Default Value----------------------------------------

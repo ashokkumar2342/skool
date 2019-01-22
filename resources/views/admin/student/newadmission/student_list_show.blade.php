@@ -15,8 +15,11 @@
      <td>{{ $student->father_name }}</td>
      <td> {{ $student->admission_no }} </td>
      <td>{{ $student->registration_no }}</td>
-     <td><input type="text" value="{{ $student->roll_no }}" name="roll_no"></td>
+     <td><input type="text" value="{{ $student->roll_no }}" name="roll_no[{{ $student->id }}]"></td>
    </tr>
    @endforeach
 	</tbody>
 </table>
+<div class="text-center">
+	<input type="submit"  class="btn btn-success" value="Update">
+	</div>

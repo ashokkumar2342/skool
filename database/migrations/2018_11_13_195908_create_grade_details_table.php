@@ -16,7 +16,7 @@ class CreateGradeDetailsTable extends Migration
         Schema::create('grade_details', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('exam_schedule_id');   
-            $table->unsignedInteger('student_id');              
+            $table->unsignedInteger('parent_registration_id');              
             $table->unsignedInteger('subject_id');              
             $table->string('gradeobt')->nullable(); 
             $table->string('discription')->nullable();  

@@ -703,7 +703,7 @@ class StudentController extends Controller
   {   
     $rules=[
 
-      'admission_no' => 'required|unique:students', 
+      'admission_no' => 'required', 
       ];
 
      $validator = Validator::make($request->all(),$rules);
@@ -728,7 +728,36 @@ class StudentController extends Controller
        return  $response;
 
   }
+  // resetRoollno
+  public function resetRollNoUpdate(Request $request) 
+  {     
+    $rules=[
 
+      'roll_no' => 'required', 
+      ];
+
+     $validator = Validator::make($request->all(),$rules);
+     if ($validator->fails()) {
+         $errors = $validator->errors()->all();
+         $response=array();
+         $response["status"]=0;
+         $response["msg"]=$errors[0];
+         return response()->json($response);// response as json
+     }
+   foreach ($request->roll_no as $student_id => $roll_no) {
+       $student =Student::find($student_id);
+       $student->roll_no =$roll_no;
+       $student->save();
+      }   
+   
+      
+       $response= array();                       
+       $response['status']= 1; 
+       $response['msg']= 'Update roll Number Successfully '; 
+
+       return  $response;
+
+  }
 
 
     public function resetRollNo(Request $request)
