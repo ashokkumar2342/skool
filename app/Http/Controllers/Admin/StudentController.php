@@ -774,7 +774,7 @@ class StudentController extends Controller
     public function newAdmission(Request $request)
     {
         $students = Student::where('student_status_id',2)->get();     
-    return view('admin.student.newAdmission.list',compact('students'));
+    return view('admin.student.newadmission.list',compact('students'));
     }
 
     public function newAdmissionStatusChange($id)
