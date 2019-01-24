@@ -200,7 +200,7 @@ class RegistrationController extends Controller
         $student->registration_no =$parent->registration_no;
         $student->admission_no =$request->admission_no; 
         $student->session_id =$parent->academic_year_id;
-        $student->class_id =$requestclass_id;
+        $student->class_id =$request->class_id;
         $student->section_id =$request->section;
         $student->date_of_admission =date('Y-m-d');  
         $student->email =$parent->email;
