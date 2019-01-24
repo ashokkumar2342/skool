@@ -148,7 +148,9 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::post('import', 'StudentController@importStudent')->name('admin.student.excel.store');	      
 	     
 		 Route::get('new-admission', 'StudentController@newAdmission')->name('admin.student.new.adminssion');
-		 Route::post('new-admission-student-show', 'StudentController@newAdmissionStudentShow')->name('admin.student.new.adminssion.student.show');	      
+		 Route::get('new-admission-status-change/{id}', 'StudentController@newAdmissionStatusChange')->name('admin.new.student.status.change');
+		 Route::get('reset-admission', 'StudentController@resetAdmission')->name('admin.student.reset.adminssion');
+		 Route::post('reset-admission-student-show', 'StudentController@resetAdmissionStudentShow')->name('admin.student.reset.adminssion.student.show');	      
 		 
 		Route::get('reset-roll-no', 'StudentController@resetRollNo')->name('admin.student.reset.roll');
 		Route::post('reset-roll-no-show', 'StudentController@resetRollNoshow')->name('admin.student.reset.roll.no.show');

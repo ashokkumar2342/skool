@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1> New Admission  <small>List</small> </h1>
+    <h1> New Student  <small>List</small> </h1>
       <ol class="breadcrumb">
               
       </ol>
@@ -11,40 +11,35 @@
         <div class="box">             
             <!-- /.box-header -->
             <div class="box-body">
-            	<form action="{{ route('admin.student.new.adminssion.student.show') }}" success-content-id="student_list_div" method="post" no-reset="true" class="add_form">
-            	{{ csrf_field() }}
-            	<div class="row">
-            		<div class="col-lg-5">
-            			<label for="sel1">Class:</label>
-            			<select name="class" onchange="callAjax(this,'{{ route('admin.section.selectBox') }}','sectionSelectBox')" class="form-control" required="">
-            			 <option value="" selected disabled>Select Class</option>
-            			 @foreach ($classes as $key=>$value)
-            			    <option value="{{ $key }}">{{ $value }}</option>
-            			 @endforeach 
-            			 </select>   
-            		</div>
-            		<div class="col-lg-5" id="sectionSelectBox">                         
-		                 <div class="form-group"> 
-		                  <label>Section</label>
-		                    
-		                 </div>
-		             </div>
-             		<div class="col-lg-2" id="sectionSelectBox">                         
- 		                 <div class="form-group">
- 		                 <br>
- 		                   <input type="submit" class="btn btn-success" value="show">
- 		                    
- 		                 </div>
- 		             </div>
-             			 
-            	</form>  
-            	</div>	
-            <form action="{{ route('admin.student.reset.roll.no.show.update') }}" method="post" class="add_form" no-reset="true">
-            	{{ csrf_field() }}
-            	<div id="student_list_div">
-            		
-            	</div> 
-            </form>	
+                <table class="table"> 
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Father's Name</th>
+                            <th>Mother's Name</th>
+                            <th>Admissin No</th>
+                            <th>Registration No</th>
+                            <th>Action</th>
+                         
+                        </tr>
+                    </thead>
+                    <tbody>
+                         @foreach($students as $student)
+                   <tr> 
+                     <td>{{ $student->name }}</td>
+                     <td>{{ $student->classes->name or '' }}</td>
+                     <td>{{ $student->father_name }}</td>
+                     <td>{{ $student->mother_name }}</td>
+                     <td> {{ $student->admission_no }} </td>
+                     <td>{{ $student->registration_no }}</td>
+                     <td>
+                         <a href="{{ route('admin.new.student.status.change',Crypt::encrypt($student->id)) }}" class="btn btn-success">Final Admission</a>
+                     </td>
+                   </tr>
+                   @endforeach
+                    </tbody>
+                </table> 
            
             </div>
             <!-- /.box-body -->
@@ -65,7 +60,7 @@
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script type="text/javascript">
      $(document).ready(function(){
-        $('#dataTable').DataTable();
+        $('.table').DataTable();
     });
      
  </script>
