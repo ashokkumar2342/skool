@@ -36,7 +36,7 @@
                     <div class="col-lg-12 ">                  
                       <ul class="nav nav-tabs">
                           <li class="active"><a data-toggle="tab" href="#home">Registration Filter</a></li>
-                          <li><a data-toggle="tab" href="#approved_div" onclick="callAjax(this,'{{ route('registration.approved.show') }}','approved_div')">Approved</a></li>
+                          <li><a data-toggle="tab" id="btn_approved" href="#approved_div" onclick="callAjax(this,'{{ route('registration.approved.show') }}','approved_div')">Approved</a></li>
                           <li><a data-toggle="tab" href="#menu2">Pending</a></li>
                           <li><a data-toggle="tab" href="#menu3">Reject</a></li>
                         </ul>

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\admin;
-use Storage;
- use App\Http\Controllers\Controller;
+namespace App\Http\Controllers\Admin;
 use App\Model\Document;
- 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use Storage;
 
 class StudentDocumentController extends Controller
 {
@@ -37,26 +37,31 @@ class StudentDocumentController extends Controller
      */
     public function store(Request $request)
     {
-             
-          $this->validate($request,[
-         
-             "file" => "required|mimes:pdf|max:10000",
-             'document_type_id' => 'required',
-            
-         ]);
-              
+           
+          $rules=[
+            "file" => "required|mimes:pdf|max:10000",
+            'document_type_id' => 'required',
+          ];
 
+          $validator = Validator::make($request->all(),$rules);
+          if ($validator->fails()) {
+              $errors = $validator->errors()->all();
+              $response=array();
+              $response["status"]=0;
+              $response["msg"]=$errors[0];
+              return response()->json($response);// response as json
+          } 
          $file = $request->file('file');
-         $file->store('student/document');
+         $file->store('public/document');
          $document = new Document();
          $document->name = $file->hashName();        
          $document->student_id = $request->student_id;        
          $document->document_type_id = $request->document_type_id;        
 
-         if($document->save()){   
-            return redirect()->back()->with(['class'=>'success','message'=>' Upload document success ...']);
-        }
-        return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
+          $document->save();
+        $response=['status'=>1,'msg'=>'Upload Document Successfully'];
+        return response()->json($response);  
+    
 
 
     }

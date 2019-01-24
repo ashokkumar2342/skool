@@ -55,7 +55,7 @@ b{
                                       <li class="list-group-item">Father's Name :-<span class="fs">{{ $student->father_name }}</span></li>
                                       <li class="list-group-item">Mother's Name :-<span class="fs">{{ $student->mother_name }}</span></li>
                                       <li class="list-group-item">Father's Mobile :-<span class="'onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'4']) fs">{{ $student->father_mobile }}</span></li>
-                                      <li class="list-group-item">Mother's Mobile :-<span class="fs">{{ $student->mother_name }}</span></li>                                     
+                                      <li class="list-group-item">Mother's Mobile :-<span class="fs">{{ $student->mother_mobile}}</span></li>                                     
                                       
                                       <li class="list-group-item">Category :-<span class="fs">{{ $student->categories->name }}</span></li>
                                       <li class="list-group-item">Religion :-<span class="fs">{{ $student->religions->name }}</span></li>
@@ -116,7 +116,7 @@ b{
                            
                             @foreach (App\Model\ParentsInfo::where('student_id',$student->id)->get() as $parents) 
                             <tr>
-                                <td>{{ $parents->name }}</td>
+                                <td>{{ $parents->name }}a</td>
                                 <td>{{ $parents->relationType->name or ''}}</td>
                                 <td>{{ $parents->education }}</td>
                                 <td>{{ $parents->occupation }}</td>
@@ -317,7 +317,8 @@ b{
                           <tr>
                               <td>{{ $document->documentTypes->name }}</td>
                               <td>{{ $document->name }}</td>                             
-                              <td><a class="btn-success btn-xs"  href="{{ route('admin.document.download',$document->id) }}"  ><i class="fa fa-download"></i></a>
+                              <td> 
+                                <a href="{{ url('storage/document/'.$document->name) }}" target="blank" class="btn btn-success btn-xs"><i class="fa fa-download"></i></a>
                                 <a class="btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" href="{{ route('admin.document.delete',$document->id) }}"  ><i class="fa fa-trash"></i></a></td>
                           </tr>
                          @endforeach

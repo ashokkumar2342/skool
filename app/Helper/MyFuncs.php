@@ -79,7 +79,9 @@ class MyFuncs {
         '7'=>'<li><a href="'.route('admin.student.form').'"><i class="fa fa-circle-o"></i> Add</a></li>',
         '8'=>'<li><a href="'.route('admin.student.show').'"><i class="fa fa-circle-o"></i> Show</a></li>',
         '9'=>'<li><a href="'.route('admin.student.excel.import').'"><i class="fa fa-circle-o"></i> Excel Import</a></li>',
-        '55'=>'<li><a href="'.route('admin.student.birthday.list').'"><i class="fa fa-circle-o"></i> Birthday</a></li>'
+        '55'=>'<li><a href="'.route('admin.student.birthday.list').'"><i class="fa fa-circle-o"></i> Birthday</a></li>',
+        '61'=>'<li><a href="'.route('admin.student.reset.roll').'"><i class="fa fa-circle-o"></i> Reset Roll No</a></li>',
+        '62'=>'<li><a href="'.route('admin.student.reset.adminssion').'"><i class="fa fa-circle-o"></i> Reset Admission No</a></li>'
         ];
         $studentResult = ''; 
             foreach($studentSubMenuUrls as $key => $value)
@@ -90,6 +92,7 @@ class MyFuncs {
                 }  
             }
     $financeSubMenuUrls =[
+        '60'=>'<li><a href="'.route('admin.student.new.adminssion').'"><i class="fa fa-circle-o"></i>New Admission Show </a></li>',
         '10'=>'<li><a href="'.route('admin.feeAcount.list').'"><i class="fa fa-circle-o"></i>Fee Accounts </a></li>',
         '11'=>'<li><a href="'.route('admin.feeStructure.list').'"><i class="fa fa-circle-o"></i>Fee Structure </a></li>',
         '12'=>'<li><a href="'.route('admin.feeStructureAmount.list').'"><i class="fa fa-circle-o"></i>Fee Structure Amount </a></li>',

@@ -9,7 +9,7 @@
                      <h4 class="modal-title"> Add</h4>
                  </div>
                  <div class="modal-body">
-                   <form action="{{ route('admin.document.add') }}" id="document-form" method="post" enctype="multipart/form-data">
+                   <form action="{{ route('admin.document.add') }}" content-refresh="document_items" class="add_form" id="document-form" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                          {{ Form::label('document_type_id','Document Type',['class'=>' control-label']) }}
@@ -18,9 +18,10 @@
                     </div>
                      <input type="hidden" name="student_id" value="{{ $student->id }}">
                     <div class="form-group">
-                        {{ Form::label('file','File/ ONLY PDF',['class'=>' control-label']) }}                         
-                        {{ Form::file('file','',['class'=>'form-control',' required']) }}
-                        <p class="text-danger">{{ $errors->first('file') }}</p>
+                        {{ Form::label('file','File/ ONLY PDF',['class'=>' control-label']) }} 
+                         
+                         {!! Form::file('file', ['class'=>'form-control','accept'=>'application/pdf']) !!}
+                        
                     </div>  
                 </div>
                 <div class="modal-footer">

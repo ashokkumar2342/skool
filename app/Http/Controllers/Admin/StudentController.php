@@ -28,7 +28,9 @@ use Carbon;
 use DB;
 use Excel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 use PDF;
 use Storage;
 
@@ -42,7 +44,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
 
-        $students= Student::where(['class_id'=>$request->class,'section_id'=>$request->section])->get();
+        $students= Student::where(['class_id'=>$request->class,'section_id'=>$request->section,'student_status_id'=>1])->get();
         
         return view('admin.student.studentdetails.list',compact('students'));
     }
@@ -107,8 +109,7 @@ class StudentController extends Controller
             "registration_no" => 'required|max:20|unique:students',
             "admission_no" => 'max:20|unique:students',
             "roll_no" => 'max:20|unique:students',
-            "date_of_admission" => 'required|date',
-            "date_of_leaving" => 'date|nullable',
+            "date_of_admission" => 'required|date', 
             "date_of_activation" => 'required|date',
             "student_name" => 'required|max:199',
             "nick_name" => 'max:30|nullable',
@@ -143,8 +144,7 @@ class StudentController extends Controller
         $student->registration_no= $request->registration_no;     
         $student->admission_no= $request->admission_no;     
         $student->roll_no= $request->roll_no;     
-        $student->date_of_admission= $request->date_of_admission == null ? $request->date_of_admission : date('Y-m-d',strtotime($request->date_of_admission));
-        $student->date_of_leaving= $request->date_of_leaving == null ? $request->date_of_leaving : date('Y-m-d',strtotime($request->date_of_leaving)); 
+        $student->date_of_admission= $request->date_of_admission == null ? $request->date_of_admission : date('Y-m-d',strtotime($request->date_of_admission));        
         $student->date_of_activation= $request->date_of_activation == null ? $request->date_of_activation : date('Y-m-d',strtotime($request->date_of_activation));
         $student->name= $request->student_name;
         $student->nick_name= $request->nick_name;
@@ -225,7 +225,7 @@ class StudentController extends Controller
     }
     public function excelData(){
 
-        $students = Student::orderBy('center_id','session_id','class_id','section_id')->get();
+        $students = Student::orderBy('center_id','session_id','class_id','section_id')->where('student_status_id',1)->get();
         foreach($students as $student){
             $data[] =['id'=>$student->username,'name'=>$student->name,'center'=>$student->centers->name,'class'=>$student->classes->name,'section'=>$student->sections->name,'date of admission'=>Carbon\Carbon::parse( $student->date_of_admission)->format('d-m-Y'),'father name'=>$student->father_name,'mother name'=>$student->mother_name,'date of birthday'=>Carbon\Carbon::parse( $student->dob)->format('d-m-Y'),'religion'=>$student->religion,'category'=>$student->category,'address'=>$student->address,'state'=>$student->state,'city'=>$student->city,'pincode'=>$student->pincode,'mobile one'=>$student->mobile_one,'mobile two'=>$student->mobile_two,'mobile sms'=>$student->mobile_sms];
         }
@@ -580,7 +580,7 @@ class StudentController extends Controller
                      $parentsinfo->save();  
                 }  
              }else {    
-                    $students= Student::where('class_id',$request->class)->where('section_id',$request->section)->get();
+                    $students= Student::where('class_id',$request->class)->where('section_id',$request->section)->where('student_status_id',1)->get();
                     return view('admin.student.studentdetails.show',compact('students'));
      
              }
@@ -666,6 +666,122 @@ class StudentController extends Controller
         return $pdf->download('_birthday_card.pdf');
         
     }
-    
+
+     public function resetAdmission(Request $request)
+    {
+        
+        $classes = MyFuncs::getClasses();  
+
+        return view('admin.student.reset.list',compact('classes'));
+    }
+    // newAdmissionStudentShow
+    public function resetAdmissionStudentShow(Request $request)
+    {  
+       $students = Student::where('class_id',$request->class) 
+                                   ->where('section_id',$request->section)
+                                   ->where('student_status_id',1)
+                                   ->get();
+          
+        $response= array();                       
+        $response['status']= 1;                       
+        $response['data']=view('admin.student.reset.student_list',compact('students'))->render();
+        return $response;
+         
+    }
+    public function resetRollNoshow(Request $request)
+    {  
+       $students = Student::where('class_id',$request->class) 
+                                   ->where('section_id',$request->section)
+                                   ->where('student_status_id',1)
+                                   ->get();
+          
+        $response= array();                       
+        $response['status']= 1;                       
+        $response['data']=view('admin.student.reset.student_list_show',compact('students'))->render();
+        return $response;
+         
+    }
+
+  public function resetRollNoshowUpdate(Request $request) 
+  {   
+    $rules=[
+
+      'admission_no' => 'required', 
+      ];
+
+     $validator = Validator::make($request->all(),$rules);
+     if ($validator->fails()) {
+         $errors = $validator->errors()->all();
+         $response=array();
+         $response["status"]=0;
+         $response["msg"]=$errors[0];
+         return response()->json($response);// response as json
+     }
+   foreach ($request->admission_no as $student_id => $admission_no) {
+       $student =Student::find($student_id);
+       $student->admission_no =$admission_no;
+       $student->save();
+      }   
    
+      
+       $response= array();                       
+       $response['status']= 1; 
+       $response['msg']= 'Update Adminssion No Successfully '; 
+
+       return  $response;
+
+  }
+  // resetRoollno
+  public function resetRollNoUpdate(Request $request) 
+  {     
+    $rules=[
+
+      'roll_no' => 'required', 
+      ];
+
+     $validator = Validator::make($request->all(),$rules);
+     if ($validator->fails()) {
+         $errors = $validator->errors()->all();
+         $response=array();
+         $response["status"]=0;
+         $response["msg"]=$errors[0];
+         return response()->json($response);// response as json
+     }
+   foreach ($request->roll_no as $student_id => $roll_no) {
+       $student =Student::find($student_id);
+       $student->roll_no =$roll_no;
+       $student->save();
+      }   
+   
+      
+       $response= array();                       
+       $response['status']= 1; 
+       $response['msg']= 'Update roll Number Successfully '; 
+
+       return  $response;
+
+  }
+
+
+    public function resetRollNo(Request $request)
+    {
+        $students = Student::where('student_status_id',1)->get();
+        $classes = MyFuncs::getClasses();  
+    
+        return view('admin.student.reset.resetRollNo',compact('students','classes'));
+    }
+
+    public function newAdmission(Request $request)
+    {
+        $students = Student::where('student_status_id',2)->get();     
+    return view('admin.student.newAdmission.list',compact('students'));
+    }
+
+    public function newAdmissionStatusChange($id)
+    {
+        $student = Student::find(Crypt::decrypt($id));     
+        $student->student_status_id =1;
+        $student->save();
+    return redirect()->back()->with(['class'=>'success','message'=>'Final Addmission Successfully']);
+    }
 }
