@@ -67,16 +67,24 @@ class ParentInfoController extends Controller
      */
     public function store(Request $request)
     {
-         
-         $validator = Validator::make($request->all(), [
-            'name' => 'required',               
-            'mobile' => 'required|digits:10',              
-            'education' => 'required',              
-            'relation_type_id' => 'required',              
-            'relation_type_id' => 'income',              
-        ]);
+        $rules=[
+        'name' => 'required',               
+        'mobile' => 'required|digits:10',              
+        'education' => 'required',              
+        'relation_type_id' => 'required',              
+        'relation_type_id' => 'required', 
+        ];
 
-        if ($validator->passes()) {
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();                       
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+         
+          
 
         $parentsinfo = ParentsInfo::firstOrNew(['relation_type_id' => $request->relation_type_id, 'student_id' => $request->student_id]);
         $parentsinfo->student_id = $request->student_id;
@@ -92,10 +100,8 @@ class ParentInfoController extends Controller
         $parentsinfo->office_address = $request->office_address;
         $parentsinfo->islive = $request->islive;
         $parentsinfo->save();
-        return response()->json([$parentsinfo,'message'=>'success','class'=>'success']);
-        }
-
-        return response()->json(['message'=>$validator->errors()->all(),'class'=>'error']); 
+         $response=['status'=>1,'msg'=>'Parent Information Save Successfully'];
+        return response()->json($response); 
     }
 
     /**

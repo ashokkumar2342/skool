@@ -13,7 +13,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                          {{ Form::label('document_type_id','Document Type',['class'=>' control-label']) }}
-                         {!! Form::select('document_type_id',$documentTypes, null, ['class'=>'form-control','placeholder'=>'Select Document Type','required']) !!}
+                         {!! Form::select('document_type_id',$documentTypes, null, ['class'=>'form-control','placeholder'=>'Select Document Type','required','maxlength'=>'20']) !!}
                          <p class="text-danger">{{ $errors->first('parents') }}</p>
                     </div>
                      <input type="hidden" name="student_id" value="{{ $student->id }}">

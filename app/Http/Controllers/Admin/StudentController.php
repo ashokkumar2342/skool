@@ -14,6 +14,7 @@ use App\Model\IncomeRange;
 use App\Model\Isoptional;
 use App\Model\ParentsInfo;
 use App\Model\PaymentType;
+use App\Model\Profession;
 use App\Model\Religion;
 use App\Model\SessionDate;
 use App\Model\StudentDefaultValue;
@@ -219,9 +220,10 @@ class StudentController extends Controller
         $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $isoptionals = array_pluck(Isoptional::get(['id','name'])->toArray(),'name', 'id');
         $bloodgroups = array_pluck(BloodGroup::get(['id','name'])->toArray(),'name', 'id');
+        $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id');
 
          
-        return view('admin.student.studentdetails.view',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups'));
+        return view('admin.student.studentdetails.view',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions'));
     }
     public function excelData(){
 
