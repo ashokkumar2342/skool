@@ -60,8 +60,8 @@ b{
                                       <li class="list-group-item">Category :-<span class="fs">{{ $student->categories->name }}</span></li>
                                       <li class="list-group-item">Religion :-<span class="fs">{{ $student->religions->name }}</span></li>
                              
-                                      <li class="list-group-item">P Address : :-<span class="fs">{{ $student->p_address }}</span></li>
-                                      <li class="list-group-item">C Address :-<span class="fs">{{ $student->c_address }}</span></li>
+                                      <li class="list-group-item">Parmanent Address  :-<span class="fs">{{ $student->p_address }}</span></li>
+                                      <li class="list-group-item">Corespondance Address :-<span class="fs">{{ $student->c_address }}</span></li>
                                       <li class="list-group-item">City :-<span class="fs">{{ $student->city }}</span></li>
                                       <li class="list-group-item">State :-<span class="fs">{{ $student->state }}</span></li>
                                       <li class="list-group-item">Pincode :-<span class="fs">{{ $student->pincode }}</span></li>
