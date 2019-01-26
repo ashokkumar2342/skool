@@ -41,7 +41,7 @@ b{
                                       <li class="list-group-item">Registration No :-<span class="fs">{{ $student->registration_no }}</span></li>
                                       <li class="list-group-item">Addmission No :-<span class="fs">{{ $student->admission_no }}</span></li>
                                       <li class="list-group-item">Date Of Addmission :-<span class="fs">{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}</span></li>
-                                      <li class="list-group-item">Date Of Leaving :-<span class="fs">{{ Carbon\Carbon::parse($student->date_of_leaving)->format('d-m-Y') }}</span></li>
+                                      <li class="list-group-item">Date of Activation :-<span class="fs">{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}</span></li>
                                       <li class="list-group-item">Date Of Birth :-<span class="fs">{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}</span></li>
                                       <li class="list-group-item">Gender :-<span class="fs">{{ $student->genders->genders }}</span></li>
                                       
@@ -82,7 +82,7 @@ b{
                                        <img  src="{{ ($student->picture)? $profile : asset('profile-img/user.png') }}" style="width: 150px; height: 180px;  border: 2px solid #d1f7ec">
                                      </div>
                                     <div style="padding-left: 15px; padding-top: 5px;">
-                                       <a class="btn_change_image btn btn-success btn-xs" href="javascript:;">Change Image</a>                              
+                                       <a class="btn_change_image btn btn-success btn-xs" href="javascript:;">Upload Image </a>                              
                                        <a class="btn_web btn btn-default btn-xs" href="javascript:;"><i class="fa fa-camera"></i></a>                              
                                     </div>
                                 </div>                                  
@@ -144,11 +144,11 @@ b{
                                     
                                    {{--  <a href="{{ route('admin.parents.image',$parents->id) }}" title="" class="btn btn-success btn-xs"><i class="fa fa-image"></i></a> --}}
 
-                                    <button type="button" class="btn_parents_image btn btn-info btn-xs" data-toggle="modal" data-id="{{ $parents->id }}" data-target="#image_parent"><i class="fa fa-image"></i> </button>
+                                    <button type="button" title="Upload Image" class="btn_parents_image btn btn-info btn-xs" data-toggle="modal" data-id="{{ $parents->id }}" data-target="#image_parent"><i class="fa fa-image"></i> </button>
 
-                                    <button type="button" class="parents_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $parents->id }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
+                                    <button type="button" title="Edit" class="parents_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $parents->id }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
 
-                                    <button class="parents_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $parents->id }}"  ><i class="fa fa-trash"></i></button>
+                                    <button class="parents_delete btn btn-danger btn-xs" title="Delete" onclick="return confirm('Are you Sure delete')" data-id="{{ $parents->id }}"  ><i class="fa fa-trash"></i></button>
 
                                                      
                                 </td>                          
@@ -290,7 +290,7 @@ b{
                        <tbody>
                         @foreach (App\Model\StudentSportHobby::where('student_id',$student->id)->get() as $sportHobby) 
                            <tr>
-                               <td>{{ Carbon\Carbon::parse($sportHobby->sessions->date)->format('d-m-Y')   }}</td>
+                               <td>{{$sportHobby->sessions->date or ''  }}</td>
                                <td>{{ $sportHobby->sports_activity_name }}</td>
                                <td>
                                 <button class="btn_sport_hobby_edit btn btn-warning btn-xs"  data-id="{{ $sportHobby->id }}"  ><i class="fa fa-edit"></i></button>  
@@ -336,7 +336,7 @@ b{
             <div class="col-md-4" style="padding-top:30px;">
                 <strong>Select Image:</strong>
                 <br/>
-                <input type="file" id="upload">
+                <input type="file" id="upload" accept="image/x-png,image/jpeg">
                 <br/>
                 <button class="btn btn-success upload-result">Upload Image</button>
                 <button class="btn btn-danger" id="crop-hide">Hide</button>

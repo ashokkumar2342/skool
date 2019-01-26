@@ -16,7 +16,7 @@
                     <div class="form-group">
                         {{ Form::label('file','Image',['class'=>' control-label']) }}                         
                         {{-- {{ Form::file('file','',['class'=>'form-control',' required']) }} --}}
-                        <input type="file" name="image" id="image" required="">
+                        <input type="file" name="image" id="image" required="" accept="image/x-png,image/jpeg">
                         <p class="text-danger">{{ $errors->first('file') }}</p>
 
                         <input type="hidden" name="parents_id" id="parents_id" value="">
