@@ -16,8 +16,8 @@
                          <p class="text-danger">{{ $errors->first('subject_type_id') }}</p>
                     </div>
                       <div class="form-group">
-                         {{ Form::label('isoptional_id','isoptional_id',['class'=>' control-label']) }}
-                         {!! Form::select('isoptional_id',$isoptionals, null, ['class'=>'form-control','placeholder'=>'Select Subject','required']) !!}
+                       
+                         {!! Form::select('isoptional_id',$isoptionals, null, ['class'=>'form-control','placeholder'=>'Select','required']) !!}
                          <p class="text-danger">{{ $errors->first('isoptional_id') }}</p>
                     </div> 
                     <input type="hidden" name="session_id" id="session_id" value="{{ $student->sessions->id }}">

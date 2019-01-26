@@ -171,7 +171,7 @@
                                             <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('category','Category',['class'=>' control-label']) }}
-                                                    {!! Form::select('category',$categories,$default->categories->id, ['class'=>'form-control','placeholder'=>'Select Religion','required']) !!}
+                                                    {!! Form::select('category',$categories,$default->categories->id, ['class'=>'form-control','placeholder'=>'Select Category','required']) !!}
                                                     <p class="text-danger">{{ $errors->first('category') }}</p>
                                                 </div>
                                             </div>
