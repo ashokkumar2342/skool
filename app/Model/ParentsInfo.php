@@ -18,6 +18,10 @@ class ParentsInfo extends Model
      Public function incomes(){
     	return $this->hasOne('App\model\IncomeRange','id','income_id');
     	
-    }      
+    }  
+
+    Public function profetions(){
+        return $this->hasOne('App\Model\Profession','id','occupation'); 
+    }    
  
 }

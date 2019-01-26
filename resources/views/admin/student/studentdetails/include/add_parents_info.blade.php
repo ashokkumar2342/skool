@@ -5,30 +5,29 @@
          <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close" id="btn-close-parent-info" data-dismiss="modal">&times;</button>
                      <h4 class="modal-title"> Add</h4>
                  </div>
                  <div class="modal-body">
-                   <form id="parents-form">
+                   <form id="parents-form" action="{{ route('admin.parents.add') }}" class="add_form" method="post" button-click="btn-close-parent-info" content-refresh="parents_items">
+                    <input type="hidden" name="student_id" value="{{ $student->id }}">
                     <div class="form-group">
                          {{ Form::label('relation_type_id','Parents',['class'=>' control-label']) }}
                          {!! Form::select('relation_type_id',$parentsType, null, ['class'=>'form-control','placeholder'=>'Select Parents','required']) !!}
                          <p class="text-danger">{{ $errors->first('parents') }}</p>
                     </div>
                     <div class="form-group">
-                        {{ Form::label('name','Parents Name',['class'=>' control-label']) }}                         
-                        {{ Form::text('name','',['class'=>'form-control',' required']) }}
+                        {{ Form::label('name','Parents Name',['class'=>' control-label','maxlength'=>'50']) }}                         
+                        {{ Form::text('name','',['class'=>'form-control',' required','maxlength'=>'50']) }}
                         <p class="text-danger">{{ $errors->first('name') }}</p>
                     </div>
                     <div class="form-group">
-                        {{ Form::label('education','Education',['class'=>' control-label']) }}                         
-                        {{ Form::text('education','',['class'=>'form-control']) }}
+                        {{ Form::label('education','Education',['class'=>' control-label','maxlength'=>'50']) }}                         
+                        {{ Form::text('education','',['class'=>'form-control','maxlength'=>'50']) }}
                         <p class="text-danger">{{ $errors->first('education') }}</p>
                     </div>
                     <div class="form-group">
-                        {{ Form::label('occupation','Occupation',['class'=>' control-label']) }}                         
-                        {{ Form::text('occupation','',['class'=>'form-control ']) }}
-                        <p class="text-danger">{{ $errors->first('occupation') }}</p>
+                      {{ Form::label('occupation','Profession',['class'=>' control-label']) }}{!! Form::select('occupation',$professions, null, ['class'=>'form-control','placeholder'=>'Select Profession','required']) !!} 
                     </div>                                        
                    <div class="form-group">
                         {{ Form::label('income','Income Range',['class'=>' control-label']) }}
@@ -37,12 +36,12 @@
                    </div>
                    <div class="form-group">
                         {{ Form::label('mobile','Mobile',['class'=>' control-label']) }}                         
-                        {{ Form::text('mobile','',['class'=>'form-control']) }}
+                        {{ Form::text('mobile','',['class'=>'form-control','maxlength'=>'10','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                         <p class="text-danger">{{ $errors->first('mobile') }}</p>
                     </div>
                     <div class="form-group">
                         {{ Form::label('email','email',['class'=>' control-label']) }}                         
-                        {{ Form::text('email','',['class'=>'form-control']) }}
+                        {{ Form::email('email','',['class'=>'form-control']) }}
                         <p class="text-danger">{{ $errors->first('email') }}</p>
                     </div>
                      <div class="form-group">
@@ -68,15 +67,14 @@
                           ], null, ['class'=>'form-control']) !!}
                         <p class="text-danger">{{ $errors->first('islive') }}</p>
                     </div>
-                    </form>                     
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="update_btn_parets btn btn-success">Update</button>
-                    <button type="button" class="save_btn_parets btn btn-success">Save</button>
+                    <input type="submit" class="btn btn-success" value="Save">
                 </div>
-            </div>
+            </div> </form>
        </div>
     </div>
  @push('scripts')
@@ -180,7 +178,7 @@
                     $('#name').val(response.parentsInfo[i].name);  
                     $('#education').val(response.parentsInfo[i].education);  
                     $('#occupation').val(response.parentsInfo[i].occupation);  
-                    $('#income').val(response.parentsInfo[i].income);  
+                    $('#income').val(response.parentsInfo[i].income_id);  
                     $('#mobile').val(response.parentsInfo[i].mobile);  
                     $('#email').val(response.parentsInfo[i].email);  
                     $('#dob').val(response.parentsInfo[i].dob);  

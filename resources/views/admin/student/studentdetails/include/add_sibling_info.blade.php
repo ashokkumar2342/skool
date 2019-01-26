@@ -11,7 +11,7 @@
                  <div class="modal-body">
                    <form id="sibling-form">                    
                     <div class="form-group">
-                         {{ Form::label('student_sibling_id','Student Sibling Registration No',['class'=>'control-label', 'required']) }}                         
+                         {{ Form::label('student_sibling_id','Student Sibling Registration No',['class'=>'control-label', 'required','maxlength'=>'20','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}                         
                          {{ Form::text('student_sibling_id','',['class'=>'form-control']) }}
                          <p class="text-danger">{{ $errors->first('student_sibling_id') }}</p>
                      </div> 

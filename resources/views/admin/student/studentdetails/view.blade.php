@@ -119,7 +119,7 @@ b{
                                 <td>{{ $parents->name }}a</td>
                                 <td>{{ $parents->relationType->name or ''}}</td>
                                 <td>{{ $parents->education }}</td>
-                                <td>{{ $parents->occupation }}</td>
+                                <td>{{ $parents->profetions->name or '' }}</td>
                                 <td>{{ $parents->incomes->name or ''}}</td>
                                 <td>{{ $parents->mobile }}</td>
                                 <td>{{ $parents->email }}</td>
