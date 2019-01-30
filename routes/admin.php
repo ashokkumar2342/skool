@@ -130,6 +130,7 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::post('{student}/totalfeeupdate', 'StudentController@totalfeeupdate')->name('admin.student.totalfeeupdate');
 	     Route::post('add', 'StudentController@store')->name('admin.student.post');
 	     Route::post('{student}/update', 'StudentController@update')->name('admin.student.update');
+	     Route::post('{student}/view-update', 'StudentController@viewUpdate')->name('admin.student.view-update');
 	     Route::post('{student}/profileupdate', 'StudentController@profileupdate')->name('admin.student.profileupdate');
 	     Route::post('list', 'StudentController@index')->name('admin.student.list'); 
 	     Route::get('show-form', 'StudentController@showForm')->name('admin.student.show');

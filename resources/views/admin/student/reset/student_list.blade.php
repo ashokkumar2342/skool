@@ -5,7 +5,7 @@
 			<th>Father's Name</th>
 			<th>Mobile No</th>
 			<th>Registration No</th>
-			<th>Admissin</th>
+			<th>Admission</th>
 		</tr>
 	</thead>
 	<tbody>

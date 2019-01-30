@@ -11,7 +11,7 @@
                  <div class="modal-body">
                    <form id="medical-form">                    
                     <div class="form-group">
-                         {{ Form::label('ondate','On Date',['class'=>' control-label']) }}                         
+                         {{ Form::label('ondate','On Date',['class'=>' control-label']) }} 
                          {{ Form::text('ondate','',['class'=>'form-control datepicker']) }}
                          <p class="text-danger">{{ $errors->first('ondate') }}</p>
                      </div>
@@ -21,26 +21,22 @@
                           <p class="text-danger">{{ $errors->first('bloodgroup') }}</p>
                      </div> 
                    <div class="form-group">
-                        {{ Form::label('hb','HB',['class'=>' control-label']) }}                         
-                        {{ Form::text('hb',14,['class'=>'form-control']) }}
+                        {{ Form::label('hb','HB ',['class'=>' control-label']) }}                         
+                        {{ Form::text('hb',14,['class'=>'form-control','maxlength'=>'4']) }}
                         <p class="text-danger">{{ $errors->first('hb') }}</p>
                     </div>
                     <div class="form-group">
-                        {{ Form::label('weight','Weight',['class'=>' control-label']) }}                         
-                        {{ Form::text('weight','',['class'=>'form-control']) }}
+                        {{ Form::label('weight','Weight (only kg)',['class'=>' control-label','maxlength'=>'3']) }}                         
+                        {{ Form::text('weight','',['class'=>'form-control','maxlength'=>'3']) }}
                         <p class="text-danger">{{ $errors->first('weight') }}</p>
                     </div>
                      
                      <div class="form-group">
-                        {{ Form::label('height','Height',['class'=>' control-label ']) }}                         
-                        {{ Form::text('height','',['class'=>'form-control']) }}
+                        {{ Form::label('height','Height (only cm)',['class'=>' control-label ','maxlength'=>'3']) }}                         
+                        {{ Form::text('height','',['class'=>'form-control','maxlength'=>'3']) }}
                         <p class="text-danger">{{ $errors->first('height') }}</p>
                     </div>
-                     <div class="form-group">
-                        {{ Form::label('narration','Narration',['class'=>' control-label ']) }}                         
-                        {{ Form::text('narration','',['class'=>'form-control ']) }}
-                        <p class="text-danger">{{ $errors->first('narration') }}</p>
-                    </div>   
+                    
                     <div class="form-group">
                         {{ Form::label('vision','vision',['class'=>' control-label ']) }}                         
                         {{ Form::text('vision','',['class'=>'form-control ']) }}
@@ -60,21 +56,33 @@
                             ], null, ['class'=>'form-control','required']) !!}
                           <p class="text-danger">{{ $errors->first('complextion') }}</p>
                      </div>
-                    <div class="form-group">
-                        {{ Form::label('alergey','Alergey',['class'=>' control-label ']) }}                         
-                        {{ Form::text('alergey','No',['class'=>'form-control']) }}
+                      <div class="form-group">
+                        {{ Form::label('alergey','Alergey',['class'=>' control-label']) }} 
+                         <select name="alergey" id="alergey" class="form-control" onchange="showHideDiv(this.value,'alergey_vacc_div')">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option> 
+                          </select>
                         <p class="text-danger">{{ $errors->first('alergey') }}</p>
                     </div>
-                    <div class="form-group">
-                        {{ Form::label('alergey_vacc','Alergey Vacc',['class'=>' control-label ']) }}                         
-                        {{ Form::text('alergey_vacc','',['class'=>'form-control']) }}
+                     
+                    <div class="form-group" style="display: none" id="alergey_vacc_div">
+                        {{ Form::label('alergey_vacc','Alergey Vacc',['class'=>' control-label ']) }} 
+                        <input type="text" name="alergey_vacc"  class="form-control">   
                         <p class="text-danger">{{ $errors->first('alergey_vacc') }}</p>
                     </div> 
                     <div class="form-group">
                         {{ Form::label('physical_handicapped','Physical Handicapped',['class'=>' control-label ']) }}
-                        {{ Form::text('physical_handicapped','',['class'=>'form-control']) }}
-                        <p class="text-danger">{{ $errors->first('physical_handicapped') }}</p>
+                        <select name="physical_handicapped" onchange="showHideDiv(this.value,'narration_div')" class="form-control">
+                          <option value="0">No</option>
+                          <option value="1">Yes</option> 
+                        </select>
+                        
                     </div> 
+                    <div class="form-group" style="display: none" id="narration_div">
+                        {{ Form::label('narration','Narration',['class'=>' control-label ']) }}                         
+                        {{ Form::text('narration','',['class'=>'form-control ']) }}
+                        <p class="text-danger">{{ $errors->first('narration') }}</p>
+                    </div>  
                     <div class="form-group">
                         {{ Form::label('id_marks1','Id Marks1',['class'=>' control-label ']) }}
                         {{ Form::text('id_marks1','',['class'=>'form-control']) }}

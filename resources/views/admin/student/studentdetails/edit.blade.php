@@ -4,7 +4,7 @@
 @endpush
 @section('body')
 <section class="content-header">
-    <h1> Student Add <small>Details</small> </h1>
+    <h1> Student Edit <small>Details</small> </h1>
       <ol class="breadcrumb">
        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>        
       </ol>
@@ -17,7 +17,9 @@
                 <div class="row">
                     <div class="col-lg-12 ">                 
                        
-                        {{ Form::open(['route'=>['admin.student.update',$student->id]]) }}
+                    
+                        <form action="{{ route('admin.student.update',$student->id) }}" method="post" accept-charset="utf-8" class="add_form" redirect-to="{{ route('admin.student.view',$student->id) }}"> 
+                            {{ csrf_field() }}
 
                              <div class="row">{{--row start --}}
                                 <div class="col-md-12 ">
@@ -40,14 +42,14 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('registration_no','Registration no',['class'=>' control-label ']) }}                         
-                                                    {{ Form::text('registration_no', $student->registration_no ,['class'=>'form-control',' required']) }}
+                                                    {{ Form::text('registration_no', $student->registration_no ,['class'=>'form-control',' required','disabled']) }}
                                                     <p class="text-danger">{{ $errors->first('registration_no') }}</p>
                                                 </div>
                                             </div>
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('admission_no','Admission No',['class'=>' control-label']) }}
-                                                    {{ Form::text('admission_no',$student->admission_no,['class'=>'form-control',' required']) }}
+                                                    {{ Form::text('admission_no',$student->admission_no,['class'=>'form-control',' required','disabled']) }}
                                                     <p class="text-danger">{{ $errors->first('admission_no') }}</p>
                                                 </div>
                                             </div>
@@ -70,19 +72,8 @@
                                                     <p class="text-danger">{{ $errors->first('date_of_admission') }}</p>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">                         
-                                                <div class="form-group">
-                                                    {{ Form::label('date_of_leaving','Date of Leaving',['class'=>' control-label']) }}   
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>                          
-                                                    {{ Form::text('date_of_leaving',$student->date_of_leaving,array('class' => 'form-control datepicker' )) }}
-                                                    </div>
-                                                    <p class="text-danger">{{ $errors->first('date_of_leaving') }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">                         
+                                          
+                                            <div class="col-lg-6">                         
                                                 <div class="form-group">
                                                     {{ Form::label('date_of_activation','Date of Activation',['class'=>' control-label']) }}   
                                                     <div class="input-group">
@@ -106,35 +97,35 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('student_name','Student Name',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('student_name',$student->name,['class'=>'form-control',' required']) }}
+                                                    {{ Form::text('student_name',$student->name,['class'=>'form-control',' required','maxlength'=>'50']) }}
                                                     <p class="text-danger">{{ $errors->first('student_name') }}</p>
                                                 </div>
                                             </div>  
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('nick_name','Nick Name',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('nick_name',$student->nick_name,['class'=>'form-control']) }}
+                                                    {{ Form::text('nick_name',$student->nick_name,['class'=>'form-control','maxlength'=>'50']) }}
                                                     <p class="text-danger">{{ $errors->first('nick_name') }}</p>
                                                 </div>
                                             </div>
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('father_name','Father Name',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('father_name',$student->father_name,['class'=>'form-control',' required']) }}
+                                                    {{ Form::text('father_name',$student->father_name,['class'=>'form-control',' required','maxlength'=>'50']) }}
                                                     <p class="text-danger">{{ $errors->first('father_name') }}</p>
                                                 </div>
                                             </div>
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('mother_name','Mother Name',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('mother_name',$student->mother_name,['class'=>'form-control ',' required']) }}
+                                                    {{ Form::text('mother_name',$student->mother_name,['class'=>'form-control ',' required','maxlength'=>'50']) }}
                                                     <p class="text-danger">{{ $errors->first('mother_name') }}</p>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('father_mobile','Father Mobile Number',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('father_mobile',$student->father_mobile,['class'=>'form-control ',' required']) }}
+                                                    {{ Form::text('father_mobile',$student->father_mobile,['class'=>'form-control ',' required','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'10']) }}
                                                     <p class="text-danger">{{ $errors->first('father_mobile') }}</p>
                                                      
                                                 </div>
@@ -142,14 +133,14 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('mother_mobile','Mother Mobile Number',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('mother_mobile',$student->mother_mobile,['class'=>'form-control ',' required']) }}
+                                                    {{ Form::text('mother_mobile',$student->mother_mobile,['class'=>'form-control ',' required','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'10']) }}
                                                     <p class="text-danger">{{ $errors->first('mother_mobile') }}</p>
                                                 </div>
                                             </div>
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('email','Email Id',['class'=>' control-label']) }}
-                                                    {{ Form::text('email',$student->email,['class'=>'form-control']) }}
+                                                    {{ Form::email('email',$student->email,['class'=>'form-control']) }}
                                                     <p class="text-danger">{{ $errors->first('email') }}</p>
                                                 </div>
                                             </div>  
@@ -190,7 +181,7 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('state','State',['class'=>' control-label']) }}
-                                                    {!! Form::text('state', $student->state, ['class'=>'form-control','required']) !!}
+                                                    {!! Form::text('state', $student->state, ['class'=>'form-control','required','maxlength'=>'50']) !!}
                                                     <p class="text-danger">{{ $errors->first('state') }}</p>
                                                 </div>
                                             </div>
@@ -206,7 +197,7 @@
                                             <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('city','City',['class'=>' control-label']) }}
-                                                    {!! Form::text('city',$student->city, ['class'=>'form-control','required']) !!}
+                                                    {!! Form::text('city',$student->city, ['class'=>'form-control','required','maxlength'=>'50']) !!}
                                                     <p class="text-danger">{{ $errors->first('city') }}</p>
                                                 </div>
                                             </div>
@@ -227,7 +218,7 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('pincode','Pincode',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('pincode',$student->pincode,array('class' => 'form-control' )) }}
+                                                    {{ Form::text('pincode',$student->pincode,array('class' => 'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'6' )) }}
                                                     <p class="text-danger">{{ $errors->first('pincode') }}</p>
                                                 </div>
                                             </div>  

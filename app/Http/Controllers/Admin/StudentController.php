@@ -44,10 +44,12 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
-
-        $students= Student::where(['class_id'=>$request->class,'section_id'=>$request->section,'student_status_id'=>1])->get();
         
-        return view('admin.student.studentdetails.list',compact('students'));
+        $students= Student::where(['class_id'=>$request->class,'section_id'=>$request->section,'student_status_id'=>1])->get();
+        $response = array(); 
+        $response['data']= view('admin.student.studentdetails.list',compact('students'))->render();
+            $response['status'] = 1;
+            return $response;
     }
    
      
@@ -109,7 +111,7 @@ class StudentController extends Controller
             "section" => 'required|numeric|max:20',
             "registration_no" => 'required|max:20|unique:students',
             "admission_no" => 'max:20|unique:students',
-            "roll_no" => 'max:20|unique:students',
+            "roll_no" => 'max:20',
             "date_of_admission" => 'required|date', 
             "date_of_activation" => 'required|date',
             "student_name" => 'required|max:199',
@@ -357,14 +359,12 @@ class StudentController extends Controller
         return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
     }
 
-      public function update(Request $request, Student $student)
+    public function update(Request $request, Student $student)
     {
-        
-        $this->validate($request,[ 
+        $rules=[
             'class' => 'required|numeric',
             "section" => 'required|numeric',
-            "registration_no" => 'required|max:199',
-            "admission_no" => 'max:199',
+            
             "roll_no" => 'max:199',
             "date_of_admission" => 'required|date',
             // "date_of_leaving" => 'required|date',
@@ -373,28 +373,34 @@ class StudentController extends Controller
             // "nick_name" => 'required|max:199',
             "father_name" => 'required|max:199',
             "mother_name" => 'required|max:199',
-            "father_mobile" => 'required|numeric',
-            "mother_mobile" => 'required|numeric',
+            "father_mobile" => 'required|numeric|digits:10',
+            "mother_mobile" => 'required|numeric|digits:10',
             "date_of_birth" => 'required|max:199',
             "religion" => "required|max:199",
             "category" => "required|max:199",
-            "c_address" => 'required|max:1000',
-            "p_address" => 'required|max:1000',
+            "c_address" => 'required|max:500',
+            "p_address" => 'required|max:500',
             "state" => "required|max:199",
             "email" => "required|max:199|email",
             "city" => "required|max:199",
-            "pincode" => 'required|numeric',
-                      
-      
-        ]);   
+            "pincode" => 'required|numeric|digits:6',
+          ];
+
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }
+         
          
         $admin_id = Auth::guard('admin')->user()->id; 
         $student->admin_id = $admin_id;                               
         $student->session_id= 1;
         $student->class_id= $request->class;
-        $student->section_id= $request->section;     
-        $student->registration_no= $request->registration_no;     
-        $student->admission_no= $request->admission_no;     
+        $student->section_id= $request->section;  
         $student->roll_no= $request->roll_no;     
         $student->date_of_admission= $request->date_of_admission == null ? $request->date_of_admission : date('Y-m-d',strtotime($request->date_of_admission));
         $student->date_of_leaving= $request->date_of_leaving == null ? $request->date_of_leaving : date('Y-m-d',strtotime($request->date_of_leaving)); 
@@ -415,15 +421,82 @@ class StudentController extends Controller
         $student->state= $request->state;
         $student->city= $request->city;
         $student->pincode= $request->pincode;        
-        if($student->save()){            
-           
-         
-            return redirect()->route('admin.student.view',$student->id)->with(['class'=>'success','message'=>'student update success ...']);
-        }
-        return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
+         $student->save();           
+           $response= array();
+           $response['status']= 1;
+           $response['msg']= 'Student Update Successfully';
+        return $response; 
+        
+       
     }
 
-        public function profileupdate(Request $request, Student $student)
+    public function viewUpdate(Request $request, Student $student)
+    {
+        $rules=[
+             
+            
+            "roll_no" => 'max:199',
+            
+            "student_name" => 'required|max:199',
+             "nick_name" => 'required|max:199',
+            "father_name" => 'required|max:199',
+            "mother_name" => 'required|max:199',
+            "father_mobile" => 'required|numeric|digits:10',
+            "mother_mobile" => 'required|numeric|digits:10',
+            "date_of_birth" => 'required|max:199',
+            // "religion" => "required|max:199",
+            // "category" => "required|max:199",
+            "c_address" => 'required|max:500',
+            "p_address" => 'required|max:500',
+            "state" => "required|max:199",
+            // "email" => "required|max:199|email",
+            "city" => "required|max:199",
+            "pincode" => 'required|numeric|digits:6',
+          ];
+
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }
+         
+         
+        $admin_id = Auth::guard('admin')->user()->id; 
+        $student->admin_id = $admin_id;                               
+        
+          
+        $student->roll_no= $request->roll_no;     
+        $student->date_of_admission= $request->date_of_admission == null ? $request->date_of_admission : date('Y-m-d',strtotime($request->date_of_admission));
+        $student->date_of_leaving= $request->date_of_leaving == null ? $request->date_of_leaving : date('Y-m-d',strtotime($request->date_of_leaving)); 
+        $student->date_of_activation= $request->date_of_activation == null ? $request->date_of_activation : date('Y-m-d',strtotime($request->date_of_activation));
+        $student->name= $request->student_name;
+        $student->nick_name= $request->nick_name;
+        $student->father_name= $request->father_name;
+        $student->mother_name= $request->mother_name; 
+        $student->father_mobile= $request->father_mobile;
+        $student->mother_mobile= $request->mother_mobile;
+         $student->dob= $request->date_of_birth == null ? $request->date_of_birth : date('Y-m-d',strtotime($request->date_of_birth));
+        
+        // $student->religion_id= $request->religion;
+        // $student->category_id= $request->category;
+        $student->c_address= $request->c_address;
+        $student->p_address= $request->p_address;
+        $student->state= $request->state;
+        $student->city= $request->city;
+        $student->pincode= $request->pincode;        
+         $student->save();           
+           $response= array();
+           $response['status']= 1;
+           $response['msg']= 'Student Update Successfully';
+        return $response; 
+        
+       
+    }
+
+    public function profileupdate(Request $request, Student $student)
     {
         $this->validate($request,[
             'center' => 'required|numeric',
@@ -679,8 +752,8 @@ class StudentController extends Controller
     // newAdmissionStudentShow
     public function resetAdmissionStudentShow(Request $request)
     {  
-       $students = Student::where('class_id',$request->class) 
-                                   ->where('section_id',$request->section)
+
+       $students = Student::where('admission_no',$request->admission_no) 
                                    ->where('student_status_id',1)
                                    ->get();
           
@@ -691,11 +764,28 @@ class StudentController extends Controller
          
     }
     public function resetRollNoshow(Request $request)
-    {  
-       $students = Student::where('class_id',$request->class) 
-                                   ->where('section_id',$request->section)
-                                   ->where('student_status_id',1)
-                                   ->get();
+    {  if ($request->select_format==1) {
+         $students = Student::where('class_id',$request->class) 
+                                     ->where('section_id',$request->section)
+                                     ->where('student_status_id',1)
+                                     ->orderBy('name','asc')
+                                     ->get();
+        }
+        if ($request->select_format==2) {
+                 $students = Student::where('class_id',$request->class) 
+                                             ->where('section_id',$request->section)
+                                             ->where('student_status_id',1)
+                                             ->orderBy('admission_no','asc')
+                                             ->get();
+            }
+        if ($request->select_format==3) {
+                 $students = Student::where('class_id',$request->class) 
+                                             ->where('section_id',$request->section)
+                                             ->where('student_status_id',1)
+                                             ->orderBy('roll_no','asc')
+                                             ->get();
+            }    
+       
           
         $response= array();                       
         $response['status']= 1;                       
@@ -735,10 +825,11 @@ class StudentController extends Controller
   }
   // resetRoollno
   public function resetRollNoUpdate(Request $request) 
-  {     
+  {       
     $rules=[
 
       'roll_no' => 'required', 
+       
       ];
 
      $validator = Validator::make($request->all(),$rules);
@@ -749,7 +840,8 @@ class StudentController extends Controller
          $response["msg"]=$errors[0];
          return response()->json($response);// response as json
      }
-   foreach ($request->roll_no as $student_id => $roll_no) {
+
+     foreach ($request->roll_no as $student_id => $roll_no) {
        $student =Student::find($student_id);
        $student->roll_no =$roll_no;
        $student->save();
