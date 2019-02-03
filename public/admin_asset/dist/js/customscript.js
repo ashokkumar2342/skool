@@ -372,6 +372,20 @@ function changeAt(obj){
 	}
 	
 }
+
+function showHideDiv(val,divName)
+{  
+	if (val==0)
+	 {
+	 	$('#'+divName).hide(400); 
+	 }
+	if (val==1)
+	 {
+	 	$('#'+divName).show(400);
+	}
+
+}
+
 function updateType(obj){  
 	 
 	 if (obj=='correction') {

@@ -14,8 +14,10 @@
             	<form action="{{ route('admin.student.reset.adminssion.student.show') }}" success-content-id="student_list_div" method="post" no-reset="true" class="add_form">
             	{{ csrf_field() }}
             	<div class="row">
-            		<div class="col-lg-5">
-            			<label for="sel1">Class:</label>
+            		<div class="col-lg-4">
+                        <label>Admission No</label>
+                        <input type="text" name="admission_no" class="form-control">
+            			{{-- <label for="sel1">Class:</label>
             			<select name="class" onchange="callAjax(this,'{{ route('admin.section.selectBox') }}','sectionSelectBox')" class="form-control" required="">
             			 <option value="" selected disabled>Select Class</option>
             			 @foreach ($classes as $key=>$value)
@@ -27,9 +29,9 @@
 		                 <div class="form-group"> 
 		                  <label>Section</label>
 		                    
-		                 </div>
+		                 </div> --}}
 		             </div>
-             		<div class="col-lg-2" id="sectionSelectBox">                         
+             		<div class="col-lg-8" id="sectionSelectBox">                         
  		                 <div class="form-group">
  		                 <br>
  		                   <input type="submit" class="btn btn-success" value="show">

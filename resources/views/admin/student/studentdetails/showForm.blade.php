@@ -1,6 +1,7 @@
 @extends('admin.layout.base')
 @push('links')
    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 @endpush
 @section('body')
 <section class="content-header">
@@ -17,7 +18,9 @@
                 <div class="row">
                     <div class="col-lg-12 ">                  
                         {{-- {{ Form::open(['route'=>'admin.student.excel.store']) 'method'=>'POST','files'=>'true' }} --}}
-                        {!! Form::open(array('route' => 'admin.student.list','method'=>'POST')) !!}                            
+                
+                        <form action="{{ route('admin.student.list') }}" success-content-id="student_result_list" method="post" class="add_form" no-reset="true" data-table="student_list_table"> 
+                        {{ csrf_field() }}                            
                              <div class="row">{{--row start --}}
                                 <div class="col-md-12 ">
                                     <div class="form-group">
@@ -42,10 +45,24 @@
                                                     
                                                 </div>
                                             </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         {{ Form::close() }}
+                          <div class="row">
+                           <div class="col-lg-12"  id="student_result_list">
+                                
+                            </div> 
+                         </div>
+                         
+                        
                     </div>
+
                 </div>
             </div>
+          
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
@@ -54,7 +71,8 @@
     <!-- /.content -->
 @endsection
  @push('scripts')
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script type="text/javascript">
     $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
     $("#class").change(function(){

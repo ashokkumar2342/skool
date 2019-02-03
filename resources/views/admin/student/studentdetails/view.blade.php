@@ -18,32 +18,38 @@ b{
     <section class="content">
         <div class="box">  
           <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-home"></i> Student Details</a></li>
-              <li><a data-toggle="tab" href="#parent"><i class="fa fa-user-circle"></i> Parent Info</a></li>
-              <li><a data-toggle="tab" href="#medical"><i class="fa fa-user-md"></i> Medical info</a></li>
-              <li><a data-toggle="tab" href="#sibling"><i class="fa fa-users"></i> Siblling info</a></li>
-              <li><a data-toggle="tab" href="#subjects"><i class="fa fa-book"></i>  Subjects</a></li>
-              <li><a data-toggle="tab" href="#sport"><i class="fa fa-life-ring"></i> Sport hobby</a></li>
-              <li><a data-toggle="tab" href="#document"><i class="fa fa-file"></i> Document</a></li>
+              <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-home"></i> Student Details</a></li>
+              <li><a data-toggle="tab" href="#parent"><i class="fa fa-user-circle" id="parent_info"></i> Parent Info</a></li>
+              <li><a data-toggle="tab" href="#medical"><i class="fa fa-user-md" id="medical_info"></i> Medical info</a></li>
+              <li><a data-toggle="tab" href="#sibling"><i class="fa fa-users" id="sibling_info"></i> Siblling info</a></li>
+              <li><a data-toggle="tab" href="#subjects"><i class="fa fa-book" id="subject_tab"></i>  Subjects</a></li>
+              <li><a data-toggle="tab" href="#sport"><i class="fa fa-life-ring" id="sport_tab"></i> Sport hobby</a></li>
+              <li><a data-toggle="tab" href="#document"><i class="fa fa-file" id="document_tab"></i> Document</a></li>
             </ul>
             <div class="tab-content"  style="padding-left: 10px">
                 <div id="home" class="tab-pane fade in active">
                     <div class="row">
                         <div class="col-md-9">
                              <div class="row" style="padding-top: 20px">
+                               <form action="{{ route('admin.student.view-update',$student->id) }}" method="post" accept-charset="utf-8" class="add_form" no-reset="true"> 
+                               {{ csrf_field() }}
                                 <div class="col-md-6 border_bottom">
                                     <ul class="list-group">
-                                      <li class="list-group-item">User Name :-<span class="fs">{{ $student->username }}</span></li>
-                                      <li class="list-group-item">Password :-<span class="fs">{{ $student->tem_pass }}</span></li>
-                                      <li class="list-group-item">Name :-<span class="fs">{{ $student->name }}</span></li>
-                                      <li class="list-group-item">Class :-<span class="fs">{{ $student->classes->name }}</span></li>
-                                      <li class="list-group-item">Section :-<span class="fs">{{ $student->sectionTypes->name }}</span></li>
-                                      <li class="list-group-item">Registration No :-<span class="fs">{{ $student->registration_no }}</span></li>
-                                      <li class="list-group-item">Addmission No :-<span class="fs">{{ $student->admission_no }}</span></li>
-                                      <li class="list-group-item">Date Of Addmission :-<span class="fs">{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}</span></li>
-                                      <li class="list-group-item">Date of Activation :-<span class="fs">{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}</span></li>
-                                      <li class="list-group-item">Date Of Birth :-<span class="fs">{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}</span></li>
-                                      <li class="list-group-item">Gender :-<span class="fs">{{ $student->genders->genders }}</span></li>
+                                     
+                                      <li class="list-group-item">Name :-<span class="fs"><input type="text" value="{{ $student->name }}" name="student_name"> </span></li>
+                                      <li class="list-group-item">Nick Name :-<span class="fs"><input type="text" value="{{ $student->nick_name }}" name=""> </span></li>
+                                      <li class="list-group-item">Email :-<span class="fs"><input type="text" value="{{ $student->email }}" disabled> </span></li>
+                                      <li class="list-group-item">Class :-<span class="fs"><input type="text" value="{{ $student->classes->name }}" name="nick_name"> </span></li>
+                                      <li class="list-group-item">Section :-<span class="fs"><input type="text" value="{{ $student->sectionTypes->name }}" > </span></li>
+                                      <li class="list-group-item">Registration No :-<span class="fs"><input type="text" disabled="" value="{{ $student->registration_no }}" > </span></li>
+                                      <li class="list-group-item">Addmission No :-<span class="fs"><input type="text" disabled="" value="{{ $student->admission_no }}" > </span></li>
+                                      <li class="list-group-item">Date Of Addmission :-<span class="fs"><input type="text" value="{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}" name="date_of_admission"> </span></li>
+                                      <li class="list-group-item">Date of Activation :-<span class="fs"><input type="text" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation"> </span></li>
+                                      <li class="list-group-item">Date Of Birth :-<span class="fs"><input type="text" value="{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}" name="date_of_birth"> </span></li>
+                                      <li class="list-group-item">Gender :-<span class="fs"><input type="text" value="{{ $student->genders->genders }}" disabled=""> </span></li>
+                                       
+                                      <li class="list-group-item" style="min-height: 90px">Parmanent Address  :-<span class="fs"><textarea  name="p_address" rows="3"> {{ $student->p_address }}</textarea></span></li>
+
                                       
                                       
                                     </ul>
@@ -52,41 +58,61 @@ b{
 
                                 <div class="col-md-6 border_bottom">
                                     <ul class="list-group">
-                                      <li class="list-group-item">Father's Name :-<span class="fs">{{ $student->father_name }}</span></li>
-                                      <li class="list-group-item">Mother's Name :-<span class="fs">{{ $student->mother_name }}</span></li>
-                                      <li class="list-group-item">Father's Mobile :-<span class="'onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'4']) fs">{{ $student->father_mobile }}</span></li>
-                                      <li class="list-group-item">Mother's Mobile :-<span class="fs">{{ $student->mother_mobile}}</span></li>                                     
+                                       <li class="list-group-item">User Name :-<span class="fs"><input type="text" value="{{ $student->username }}" disabled=""> </span></li>
+                                      <li class="list-group-item">Password :-<span class="fs"><input type="text" disabled="" value="{{ $student->tem_pass }}" name=""> </span></li>
+                                      <li class="list-group-item">Father's Name :-<span class="fs"><input type="text" value="{{ $student->father_name }}" name="father_name"> </span></li>
+                                      <li class="list-group-item">Mother's Name :-<span class="fs"><input type="text" value="{{ $student->mother_name }}" name="mother_name"> </span></li>
+                                      <li class="list-group-item">Father's Mobile :-<span  class="fs"><input type="text" value="{{ $student->father_mobile }}" name="father_mobile"></span></li>
+                                      <li class="list-group-item">Mother's Mobile :-<span class="fs"><input type="text" value="{{ $student->mother_mobile}}" name="mother_mobile"> </span></li>                                     
                                       
-                                      <li class="list-group-item">Category :-<span class="fs">{{ $student->categories->name }}</span></li>
-                                      <li class="list-group-item">Religion :-<span class="fs">{{ $student->religions->name }}</span></li>
-                             
-                                      <li class="list-group-item">P Address : :-<span class="fs">{{ $student->p_address }}</span></li>
-                                      <li class="list-group-item">C Address :-<span class="fs">{{ $student->c_address }}</span></li>
-                                      <li class="list-group-item">City :-<span class="fs">{{ $student->city }}</span></li>
-                                      <li class="list-group-item">State :-<span class="fs">{{ $student->state }}</span></li>
-                                      <li class="list-group-item">Pincode :-<span class="fs">{{ $student->pincode }}</span></li>
+                                      <li class="list-group-item">Category :-<span class="fs"><input type="text" value="{{ $student->categories->name }}" disabled=""> </span></li>
+                                      <li class="list-group-item">Religion :-<span class="fs"><input type="text" value="{{ $student->religions->name }}" disabled=""> </span></li> 
+                                      <li class="list-group-item">City :-<span class="fs"><input type="text" value="{{ $student->city }}" name="city"> </span></li>
+                                      <li class="list-group-item">State :-<span class="fs"><input type="text" value="{{ $student->state }}" name="state"> </span></li>
+                                      <li class="list-group-item">Pincode :-<span class="fs"><input type="text" value="{{ $student->pincode }}" name="pincode"> </span></li> 
+                                      {{-- <li class="list-group-item">Status :-<span class="fs"><input type="text" value="{{ $student->StudentStatus->name }}" disabled="" name=""> </span></li> --}}
+                                      <li class="list-group-item" style="min-height: 90px">Corespondance Address :-<span class="fs"><textarea rows="3" name="c_address"> {{ $student->c_address }}</textarea></span></li>
 
-                                      {{-- <li class="list-group-item">Status :-<span class="fs">{{ $student->StudentStatus->name }}</span></li> --}}
+                                     
                                     </ul>
                                     
                                 </div> 
+                                <div class="text-center">
+                                <input type="submit" class="btn btn-success btn-sm"  value="Update"> 
+                                <button type="button" onclick="$('#parent_info').click()" class="btn btn-success btn-sm">Next</button>
+                                </div>
+                              </form>
                             </div>
                         </div>
                         <div class="col-md-3">
                              @php
                              $profile = route('admin.student.image',$student->picture);
                              @endphp
-                             <div class="col-md-12">
+                             <div class="col-md-12 center-block">
                                 <div id="showImg">
                                      <div style="width: 150px; height: 180px;  background-color: #eee; border: 2px solid #d1f7ec">
                                        <img  src="{{ ($student->picture)? $profile : asset('profile-img/user.png') }}" style="width: 150px; height: 180px;  border: 2px solid #d1f7ec">
                                      </div>
-                                    <div style="padding-left: 15px; padding-top: 5px;">
+                                    <div style="padding-left: 15px; padding-top: 5px; padding-bottom: 15px">
                                        <a class="btn_change_image btn btn-success btn-xs" href="javascript:;">Upload Image </a>                              
-                                       <a class="btn_web btn btn-default btn-xs" href="javascript:;"><i class="fa fa-camera"></i></a>                              
+                                       <a class="btn_web btn btn-default btn-xs" {{-- onclick="callPopupMd(this,'{{ route('admin.student.camera',$student->id) }}')" --}} href="javascript:;"><i class="fa fa-camera"></i></a>                              
                                     </div>
                                 </div>                                  
                             </div>
+                            <div id="crop-show" > 
+                                <div id="upload-demo"></div> 
+                                <div>
+                                    <strong>Select Image:</strong>
+                                    <br/>
+                                    <input type="file" id="upload" accept="image/x-png,image/jpeg">
+                                    <br/>
+                                    <button class="btn btn-success upload-result">Upload Image</button>
+                                    <button class="btn btn-danger" id="crop-hide">Hide</button>
+                                </div>    
+                            </div>
+                           <div id="camera_div">
+                              @include('admin.student.studentdetails.include.webcam')
+                            </div> 
                         </div>                        
                     </div>
                 </div>
@@ -155,7 +181,10 @@ b{
                             </tr>
                             @endforeach
                         </tbody>
-                    </table>                        
+                    </table>
+                    <div class="text-center">
+                     <button type="button" onclick="$('#medical_info').click()" class="btn btn-success btn-sm">Next</button> 
+                     </div> 
                 </div>
                  <div id="medical" class="tab-pane fade">
                     <button type="button" class="btn btn-info btn-sm btn_add_medical_info" data-toggle="modal" data-target="#add_medical">Add Medical info</button>
@@ -208,6 +237,9 @@ b{
                              @endforeach
                          </tbody>
                      </table> 
+                     <div class="text-center">
+                     <button type="button" onclick="$('#sibling_info').click()" class="btn btn-success btn-sm">Next</button> 
+                     </div> 
                  </div>   
                 <div id="sibling" class="tab-pane fade">
                  <button type="button" class="btn btn-info btn-sm btn_add_sibling_info" data-toggle="modal" data-target="#add_sibling">Add Sibling info</button>
@@ -252,6 +284,9 @@ b{
                           @endforeach --}}
                       </tbody>
                   </table>
+                  <div class="text-center">
+                     <button type="button" onclick="$('#subject_tab').click()" class="btn btn-success btn-sm">Next</button> 
+                  </div>
                 </div>
 
                 <div id="subjects" class="tab-pane fade">
@@ -276,6 +311,9 @@ b{
                          @endforeach
                        </tbody>
                    </table>
+                   <div class="text-center">
+                      <button type="button" onclick="$('#sport_tab').click()" class="btn btn-success btn-sm">Next</button> 
+                   </div>
                 </div>
                 <div id="sport" class="tab-pane fade">
                    <button type="button" class="btn btn-info btn-sm btn_add_sport_hobby" data-toggle="modal"   data-target="#add_sport_hobby">Sport Hobby</button>
@@ -300,6 +338,9 @@ b{
                          @endforeach
                        </tbody>
                    </table>
+                   <div class="text-center">
+                     <button type="button" onclick="$('#document_tab').click()" class="btn btn-success btn-sm">Next</button> 
+                  </div>
                 </div>
 
                 <div id="document" class="tab-pane fade">
@@ -324,30 +365,21 @@ b{
                          @endforeach
                       </tbody>
                   </table>
+                   <div class="text-center">
+                     <button type="button" onclick="$('#student_tab').click()" class="btn btn-success btn-sm">Student Details</button> 
+                  </div>
                 </div>
             </div>
         </div>
           <!-- /.box -->
           <!-- Trigger the modal with a button -->
-        <div class="row" id="crop-show">
-            <div class="col-md-4 text-center">
-                <div id="upload-demo" style="width:350px"></div>
-            </div>
-            <div class="col-md-4" style="padding-top:30px;">
-                <strong>Select Image:</strong>
-                <br/>
-                <input type="file" id="upload" accept="image/x-png,image/jpeg">
-                <br/>
-                <button class="btn btn-success upload-result">Upload Image</button>
-                <button class="btn btn-danger" id="crop-hide">Hide</button>
-            </div>    
-        </div>        
+               
 
     </section>
 
    
  
-@include('admin.student.studentdetails.include.webcam')
+
 @include('admin.student.studentdetails.include.add_parents_info')
 @include('admin.student.studentdetails.include.add_parents_image')
 @include('admin.student.studentdetails.include.add_medical_info')
@@ -392,7 +424,8 @@ b{
   $(document).ready(function(){
     $("#crop-show").hide();
     $('#showImg').on('click','.btn_change_image',function(){
-      $('#crop-show').show();            
+      $('#crop-show').show(); 
+      $('#show_webcam').hide();           
     });
     
     $('#crop-hide').on('click',function(){
@@ -414,8 +447,8 @@ $uploadCrop = $('#upload-demo').croppie({
         height: 250,         
     },
     boundary: {
-        width: 300,
-        height: 300
+        width: 210,
+        height: 260
     }
 });
 
