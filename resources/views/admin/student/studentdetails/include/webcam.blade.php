@@ -1,8 +1,8 @@
 {{-- <form action="webcam_submit" method="get" accept-charset="utf-8"> --}}
         
    
-   <div class="container" id="show_webcam"> 
-        <div class="col-md-6">
+    
+        <div class="col-md-12" id="show_webcam">
             <div class="text-center">
         <div id="camera_info"></div>
          <div id="camera"></div><br>
@@ -13,13 +13,13 @@
         {{-- <input type="text" name="image" value="" id="image"> --}}
       </div>
     </div> 
-    </div> <!-- /container -->  
-{{-- </form> --}}
+ 
  
 @push('scripts')      
  <script>
      $('#showImg').on('click','.btn_web',function(){
         $('#show_webcam').show(); 
+        $('#crop-show').hide(); 
            var options = {
              shutter_ogg_url: "{{ asset('jpeg_camera/shutter.ogg') }}",
              shutter_mp3_url: "{{ asset('jpeg_camera/shutter.mp3') }}",
@@ -34,12 +34,13 @@
             }
             });
             var snapshot = camera.capture();
-             console.log(snapshot.toString());
+            snapshot.show();
  
           snapshot.upload({
-            api_url: "{{ route('admin.student.profilepic.webupdate',$student->id) }}"
+            api_url: "{{ url('api/imageweb',$student->id) }}"
         }).done(function(response) {
-          $('#imagelist').prepend("<tr><td><img src='"+response+"' width='100px' height='100px'></td><td>"+response+"</td></tr>");
+           $("#showImg").load(location.href + ' #showImg');  
+           this.discard();
           }).fail(function(response) {
             alert("Upload failed with status " + response);
           });
@@ -50,7 +51,10 @@
 
  $('#show_webcam').on('click','#hide_webcam',function(){
     $('#show_webcam').hide('400');
+
  });
+
+ !function(t){"use strict";var e=t.HTMLCanvasElement&&t.HTMLCanvasElement.prototype,o=t.Blob&&function(){try{return Boolean(new Blob)}catch(t){return!1}}(),n=o&&t.Uint8Array&&function(){try{return 100===new Blob([new Uint8Array(100)]).size}catch(t){return!1}}(),r=t.BlobBuilder||t.WebKitBlobBuilder||t.MozBlobBuilder||t.MSBlobBuilder,a=/^data:((.*?)(;charset=.*?)?)(;base64)?,/,i=(o||r)&&t.atob&&t.ArrayBuffer&&t.Uint8Array&&function(t){var e,i,l,u,b,c,d,B,f;if(e=t.match(a),!e)throw new Error("invalid data URI");for(i=e[2]?e[1]:"text/plain"+(e[3]||";charset=US-ASCII"),l=!!e[4],u=t.slice(e[0].length),b=l?atob(u):decodeURIComponent(u),c=new ArrayBuffer(b.length),d=new Uint8Array(c),B=0;B<b.length;B+=1)d[B]=b.charCodeAt(B);return o?new Blob([n?d:c],{type:i}):(f=new r,f.append(c),f.getBlob(i))};t.HTMLCanvasElement&&!e.toBlob&&(e.mozGetAsFile?e.toBlob=function(t,o,n){t(n&&e.toDataURL&&i?i(this.toDataURL(o,n)):this.mozGetAsFile("blob",o))}:e.toDataURL&&i&&(e.toBlob=function(t,e,o){t(i(this.toDataURL(e,o)))})),"function"==typeof define&&define.amd?define(function(){return i}):"object"==typeof module&&module.exports?module.exports=i:t.dataURLtoBlob=i}(window);
 
  </script>
     @endpush

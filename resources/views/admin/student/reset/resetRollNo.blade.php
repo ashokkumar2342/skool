@@ -75,10 +75,7 @@
      $(document).ready(function(){
         $('#dataTable').DataTable();
     });
-
-   function rollNoReset(val){
-     alert($('#student').val())
-   }  
+   
      
  </script>
 @endpush

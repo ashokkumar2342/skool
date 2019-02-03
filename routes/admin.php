@@ -138,7 +138,8 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('{student}/password-reset', 'StudentController@passwordReset')->name('admin.student.passwordreset'); 
 	     Route::get('image/{image}', 'StudentController@image')->name('admin.student.image');
 	     Route::post('image/{student}/update', 'StudentController@imageUpdate')->name('admin.student.profilepic.update');
-	     // Route::post('imageweb/{student}/update', 'StudentController@imageWebUpdate')->name('admin.student.profilepic.webupdate');
+	     Route::post('imageweb', 'StudentController@imageWebUpdate')->name('admin.student.profilepic.webupdate');
+	     Route::get('camera/{id}', 'StudentController@camera')->name('admin.student.camera');
 	     Route::get('export', 'StudentController@excelData')->name('admin.student.excel');
 	     Route::get('import-view', 'StudentController@importview')->name('admin.student.excel.import');	      
 	     Route::get('import-show', 'StudentController@importshow')->name('admin.student.excel.show');	      

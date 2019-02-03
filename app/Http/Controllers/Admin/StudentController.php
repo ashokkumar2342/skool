@@ -31,6 +31,7 @@ use Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 use Storage;
@@ -244,12 +245,42 @@ class StudentController extends Controller
         $img = Storage::disk('student')->get('profile/'.$image);
         return response($img);
     }
-     public function imageWebUpdate(Request $request, Student $student){
-      return 'done';
-      return dd($request->all());
+     public function imageWebUpdate(Request $request,$id){
+      
+      $name = date('YmdHis').".jpg";
+      $file = file_put_contents( $name, file_get_contents('php://input') );
+
+      if(!$file){
+          return "ERROR: Failed to write data to ".$name.", check permissions\n";
+      }
+      else
+      {
+                    
+          $path = $name;
+          $type = pathinfo($path, PATHINFO_EXTENSION);
+          $data = file_get_contents($path);
+          $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data); 
+          $data = base64_decode(base64_encode($data));
+        $image_name= 'profile'.date('d-m-Y').time().'.jpg';       
+        $path = Storage_path() . "/app/student/profile/" . $image_name;       
+        file_put_contents($path, $data); 
+
+          $student= Student::find($id) ;
+          $student->picture = $image_name;
+          $student->save();
+          return response()->json(['success'=>'done']);
+      }  
+
 
      }
-    public function imageUpdate(Request $request, Student $student){
+
+         
+    public function camera(Request $request,$id){
+        $student=Student::find($id); 
+      return view('admin.student.studentdetails.include.webcam',compact('student'));  
+        
+    }
+     public function imageUpdate(Request $request, Student $student){
         
         $data = $request->image; 
         list($type, $data) = explode(';', $data);

@@ -95,7 +95,7 @@ b{
                                      </div>
                                     <div style="padding-left: 15px; padding-top: 5px; padding-bottom: 15px">
                                        <a class="btn_change_image btn btn-success btn-xs" href="javascript:;">Upload Image </a>                              
-                                       <a class="btn_web btn btn-default btn-xs" href="javascript:;"><i class="fa fa-camera"></i></a>                              
+                                       <a class="btn_web btn btn-default btn-xs" {{-- onclick="callPopupMd(this,'{{ route('admin.student.camera',$student->id) }}')" --}} href="javascript:;"><i class="fa fa-camera"></i></a>                              
                                     </div>
                                 </div>                                  
                             </div>
@@ -110,6 +110,9 @@ b{
                                     <button class="btn btn-danger" id="crop-hide">Hide</button>
                                 </div>    
                             </div>
+                           <div id="camera_div">
+                              @include('admin.student.studentdetails.include.webcam')
+                            </div> 
                         </div>                        
                     </div>
                 </div>
@@ -376,7 +379,7 @@ b{
 
    
  
-@include('admin.student.studentdetails.include.webcam')
+
 @include('admin.student.studentdetails.include.add_parents_info')
 @include('admin.student.studentdetails.include.add_parents_image')
 @include('admin.student.studentdetails.include.add_medical_info')
@@ -421,7 +424,8 @@ b{
   $(document).ready(function(){
     $("#crop-show").hide();
     $('#showImg').on('click','.btn_change_image',function(){
-      $('#crop-show').show();            
+      $('#crop-show').show(); 
+      $('#show_webcam').hide();           
     });
     
     $('#crop-hide').on('click',function(){
