@@ -10,26 +10,30 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="form-horizontal" id="form_fee_account">                                                     
+	                <form class="form" id="form_fee_account">                                                     
 	                   <div class="col-lg-2">                                             
 	                       <div class="form-group">
-	                         {{ Form::text('code','',['class'=>'form-control','id'=>'code', 'placeholder'=>'Enter Fee Account Code']) }}
+                          <label>Fee Account Code</label>
+	                         {{ Form::text('code','',['class'=>'form-control','id'=>'code', 'placeholder'=>'Enter Fee Account Code','maxlength'=>'3']) }}
 	                         <p class="errorCode text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>
 	                     <div class="col-lg-2">                                             
 	                       <div class="form-group">
-	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter Fee Account Name']) }}
+                          <label>Account Name</label>
+	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter Fee Account Name','maxlength'=>'50']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>                     
 	                    <div class="col-lg-6">                         
 	                        <div class="form-group">
-	                          {{ Form::textarea('description','',['class'=>'form-control','id'=>'description','rows'=>1, 'placeholder'=>'Enter Description']) }}
+                            <label>Description</label>
+	                          {{ Form::textarea('description','',['class'=>'form-control','id'=>'description','rows'=>1, 'placeholder'=>'Enter Description','maxlength'=>'250']) }}
 	                          <p class="errorDescription text-center alert alert-danger hidden"></p>
 	                        </div>
 	                    </div>
-	                     <div class="col-lg-2">                                             
+	                     <div class="col-lg-2"> 
+                        </br>                                          
 	                     <button class="btn btn-success" type="button" id="btn_fee_account_create">Create</button> 
 	                    </div>                     
 	                </form> 

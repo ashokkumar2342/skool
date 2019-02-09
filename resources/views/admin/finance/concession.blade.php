@@ -2,35 +2,37 @@
 @section('body')
 <section class="content-header">
     <h1>Concession </h1>
-      <ol class="breadcrumb">
-      </ol>
+      @includeIf('admin.include.hot_menu', ['menu_type_id' => 4])
 </section>
     <section class="content">
         <div class="box">             
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="form-horizontal" id="form_concession">                                                     
+	                <form class="form" id="form_concession">                                                     
 	                   
 	                     <div class="col-lg-3">                                             
 	                       <div class="form-group">
-	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter  Name']) }}
+                          <label>Enter  Name</label>
+	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter  Name','maxlength'=>'50']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>                     
 	                    <div class="col-lg-3">                         
 	                        <div class="form-group">
-	                          {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>1, 'placeholder'=>'Enter Amount']) }}
+                            <label>Enter Amount</label>
+	                          {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>1, 'placeholder'=>'Enter Amount','maxlength'=>'5','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
 	                          <p class="errorDescription text-center alert alert-danger hidden"></p>
 	                        </div>
 	                    </div>
                       <div class="col-lg-3">                         
                           <div class="form-group">
-                            {{ Form::text('percentage','',['class'=>'form-control','id'=>'percentage','rows'=>1, 'placeholder'=>'Enter Percentage']) }}
+                            <label>Enter Percentage</label>
+                            {{ Form::text('percentage','',['class'=>'form-control','id'=>'percentage','rows'=>1, 'placeholder'=>'Enter Percentage','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                             <p class="errorDescription text-center alert alert-danger hidden"></p>
                           </div>
                       </div>
-
+                    </br> 
 	                     <div class="col-lg-3">                                             
 	                     <button class="btn btn-success" type="button" id="btn_concession_create">Create</button> 
 	                    </div>                     

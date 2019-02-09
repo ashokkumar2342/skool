@@ -109,10 +109,10 @@
   </div>
   <div class="panel-footer text-center">
   	 @if ($StudentFeeDetail->paid==0)
-  	 	 <button type="button" class="btn btn-success" onclick="feeCollectionSubmit()">Submit</button> 
+  	 	 <button type="button" id="feeCollectionSubmit_btn" class="btn btn-success" onclick="feeCollectionSubmit()">Submit</button> 
    	{{-- <button type="button" class="btn btn-success" onclick="feeCollectionPrint()">Print</button>  --}}
    	  {{-- <label style="margin-left: 10px;" class="btn btn-default"> --}}
-   	    <input type="checkbox" name="print" autocomplete="off"> Print
+   	    <input type="checkbox" name="print" checked autocomplete="off"> Print
 
    	  </label>
    	  @else

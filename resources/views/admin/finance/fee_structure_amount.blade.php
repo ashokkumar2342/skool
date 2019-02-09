@@ -28,7 +28,7 @@
 	                     <div class="col-lg-2">                                             
 	                       <div class="form-group">
                            {{ Form::label('amount','Amount',['class'=>'form-label']) }}                          
-	                         {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>4, 'placeholder'=>'Enter Amount']) }}
+	                         {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>4, 'placeholder'=>'Enter Amount','maxlength'=>'6','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>

@@ -7,6 +7,7 @@ use App\Events\SmsEvent;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
+use App\Model\HotMenu;
 use App\Model\Minu;
 use App\Model\MinuType;
 use App\Model\Role;
@@ -195,6 +196,25 @@ class AccountController extends Controller
             $users = Admin::all();   
         return view('admin.account.access',compact('menus','users')); 
     } 
+
+    Public function accessHotMenu(Request $request, Admin $account){
+            $menus = MinuType::all(); 
+            $users = Admin::all();   
+        return view('admin.account.accessHotMenu',compact('menus','users')); 
+    } 
+    Public function accessHotMenuShow(Request $request){
+
+      $id = $request->id;
+      
+      $usersmenus = Minu::where('admin_id',$id)->get(['sub_menu_id']);
+      $menusType = Minu::where('admin_id',$id)->get(['minu_id']);
+      $menus = MinuType::whereIn('id',$menusType)->get();  
+      $subMenus = SubMenu::whereIn('id',$usersmenus)->get();
+      $usersHotMenus = array_pluck(HotMenu::where('admin_id',$id)->get(['sub_menu_id'])->toArray(), 'sub_menu_id'); 
+      $data= view('admin.account.hotmenuTable',compact('menus','subMenus','usersmenus','id','usersHotMenus'))->render(); 
+      return response($data);
+    }  
+
     Public function menuTable(Request $request){
 
                 $id = $request->id;
@@ -304,6 +324,40 @@ class AccountController extends Controller
         $response['msg'] = 'Access Save Successfully';
          $response['status'] = 1;
          return response()->json($response);  
+
+        
+        
+    }
+    // User access hot menu Store
+    Public function accessHotMenuStore(Request $request){
+
+            $rules=[
+            'sub_menu' => 'required|max:199',             
+            'user' => 'required|max:199',  
+            ]; 
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            } 
+            $data = $request->except('_token');        
+            $user_count = count($data['sub_menu']);
+            for ($i=0; $i < $user_count; $i++) { 
+                $menu =  HotMenu::updateOrCreate(['admin_id'=>$request->user,'sub_menu_id'=>$data['sub_menu'][$i]]);
+                $menu->sub_menu_id = $data['sub_menu'] [$i];
+                 $menuData =SubMenu::find($data['sub_menu'] [$i]);
+                $menu->minu_id = $menuData->menu_type_id;
+                $menu->admin_id = $data['user'];
+
+                $menu->save();             
+            }
+
+          $response['msg'] = 'Access Save Successfully';
+           $response['status'] = 1;
+           return response()->json($response);  
 
         
         

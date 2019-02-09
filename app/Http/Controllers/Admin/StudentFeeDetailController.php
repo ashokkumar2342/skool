@@ -132,7 +132,10 @@ class StudentFeeDetailController extends Controller
         $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
          
         $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
-        return view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','feeStructurLastDate','concession','student'));  
+        $response = array();
+        $response['data'] = view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','feeStructurLastDate','concession','student'))->render();
+        $response['status']=1;
+        return $response;   
     }
 
     /**

@@ -14,56 +14,56 @@
 	                   <div class="col-lg-3">                                             
 	                       <div class="form-group">
                             {{ Form::label('code','Fine Schme Code',['class'=>' control-label']) }}
-	                         {{ Form::text('code','',['class'=>'form-control', 'placeholder'=>'Fine Schme Code']) }}
+	                         {{ Form::text('code','',['class'=>'form-control', 'placeholder'=>'Fine Schme Code','maxlength'=>'3']) }}
 	                         <p class="errorCode text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>
 	                     <div class="col-lg-3">                                             
 	                       <div class="form-group">
                             {{ Form::label('name','Fine Schme Name',['class'=>' control-label']) }}                            
-	                         {{ Form::text('name','',['class'=>'form-control', 'placeholder'=>'Fine Schme Name']) }}
+	                         {{ Form::text('name','',['class'=>'form-control', 'placeholder'=>'Fine Schme Name','maxlength'=>'50']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>
                          <div class="col-lg-3">                                             
                            <div class="form-group">
                             {{ Form::label('fine_amount1','Fine Amount 1',['class'=>' control-label']) }}                            
-                             {{ Form::text('fine_amount1','',['class'=>'form-control', 'placeholder'=>'Fine Amount 1']) }}
+                             {{ Form::text('fine_amount1','',['class'=>'form-control', 'placeholder'=>'Fine Amount 1','maxlength'=>'4','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                              <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                            </div>                                         
                         </div>
                          <div class="col-lg-3">                                             
                            <div class="form-group">
                             {{ Form::label('fine_amount2','Fine Amount 2',['class'=>' control-label']) }}
-                             {{ Form::text('fine_amount2','',['class'=>'form-control', 'placeholder'=>'Fine Amount 2']) }}
+                             {{ Form::text('fine_amount2','',['class'=>'form-control', 'placeholder'=>'Fine Amount 2','maxlength'=>'4','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                              <p class="errorAmount2 text-center alert alert-danger hidden"></p>
                            </div>                                         
                         </div>                        
                          <div class="col-lg-3">                                             
                            <div class="form-group">
                              {{ Form::label('fine_amount3','Fine Amount 3',['class'=>' control-label']) }}
-                             {{ Form::text('fine_amount3','',['class'=>'form-control', 'placeholder'=>'Fine Amount 3']) }}
+                             {{ Form::text('fine_amount3','',['class'=>'form-control', 'placeholder'=>'Fine Amount 3','maxlength'=>'4','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                              <p class="errorAmount3 text-center alert alert-danger hidden"></p>
                            </div>                                         
                         </div>
                          <div class="col-lg-3">                                             
                            <div class="form-group">
                             {{ Form::label('day_after1','Day After 1',['class'=>' control-label']) }}
-                             {{ Form::text('day_after1','',['class'=>'form-control', 'placeholder'=>'Day After 1']) }}
+                             {{ Form::text('day_after1','',['class'=>'form-control', 'placeholder'=>'Day After 1','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                              <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                            </div>                                         
                         </div>
                          <div class="col-lg-3">                                             
                            <div class="form-group">
                             {{ Form::label('day_after2','Day After 2',['class'=>' control-label']) }}
-                             {{ Form::text('day_after2','',['class'=>'form-control', 'placeholder'=>'Day After 2']) }}
+                             {{ Form::text('day_after2','',['class'=>'form-control', 'placeholder'=>'Day After 2','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                              <p class="errorAmount2 text-center alert alert-danger hidden"></p>
                            </div>                                         
                         </div>
                          <div class="col-lg-3">                                             
                            <div class="form-group">
                             {{ Form::label('fine_period','Fine Period',['class'=>' control-label']) }}
-                             {{ Form::select('fine_period',$finePeriod,null,['class'=>'form-control']) }}
+                             {{ Form::select('fine_period',$finePeriod,null,['class'=>'form-control' ]) }}
                              <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                            </div>                                         
                         </div>                     

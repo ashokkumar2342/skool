@@ -14,6 +14,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\increment;
 use Illuminate\Http\Request;
 use App\Events\SmsEvent;
+use Auth;
+
  
 
 class FeeCollectionController extends Controller
@@ -82,7 +84,7 @@ class FeeCollectionController extends Controller
             $cashbook->mother_name = $student->mother_name;
             $cashbook->month = $request->month;
             $cashbook->year = $request->year;
-            $cashbook->user_id = userId();
+            $cashbook->user_id = Auth::guard('admin')->user()->id;
             $cashbook->save();
 
             //paid fee details 1

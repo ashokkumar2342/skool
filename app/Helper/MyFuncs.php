@@ -3,6 +3,7 @@
 namespace App\Helper;
 
 use App\Model\ClassType;
+use App\Model\HotMenu;
 use App\Model\Minu;
 use App\Model\Section;
 use App\Model\SectionType;
@@ -42,12 +43,15 @@ class MyFuncs {
        
     }
 
+
+
     public static function menus(){  
      $accountSubMenuUrls =[
         '1'=>'<li><a href="'.route('admin.account.role').'"><i class="fa fa-circle-o"></i> Default User Role </a></li>',
         '2'=>'<li><a href="'.route('admin.account.form').'"><i class="fa fa-circle-o"></i> Add User  </a></li>',
         '3'=>'<li><a href="'.route('admin.account.list').'"><i class="fa fa-circle-o"></i> List User </a></li>',
         '4'=>'<li><a href="'.route('admin.account.access').'"><i class="fa fa-circle-o"></i>Menu Assign</a></li>',
+        '63'=>'<li><a href="'.route('admin.account.access.hotmenu').'"><i class="fa fa-circle-o"></i>Hot Menu Assign</a></li>',
         '5'=>'<li><a href="'.route('admin.userClass.list').'"><i class="fa fa-circle-o"></i> Class Assign</a></li>',
         
         ];
@@ -206,7 +210,7 @@ class MyFuncs {
             } 
 
     $activityListSubMenuUrls =[
-        '36'=>'<li><a href="'. route('admin.student.certificateIssu.tuition').'"><i class="fa fa-circle-o"></i> Activity List </a></li> ',
+        '36'=>'<li><a href="'. route('admin.activity.list').'"><i class="fa fa-circle-o"></i> Activity List </a></li> ',
         ];
         $activityListResult = ''; 
             foreach($activityListSubMenuUrls as $key => $value)
@@ -500,4 +504,20 @@ class MyFuncs {
     	}
     	
     }
+   // hot menu 
+  public static function hotMenu($menu_type_id){ 
+      $hotMenus = HotMenu::where('admin_id',Auth::guard('admin')->user()->id)
+                          ->where('minu_id',$menu_type_id)
+                          ->get(['sub_menu_id']);
+       
+        
+       return $subMenus = SubMenu::whereIn('id',$hotMenus)->take('5') 
+                          ->get();
+                         
+     
+      
+     
+    
+  }  
+
 }

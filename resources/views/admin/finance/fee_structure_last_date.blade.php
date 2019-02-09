@@ -21,14 +21,14 @@
                          <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('fee_structure_id','Fee Structure',['class'=>' control-label']) }}
-                               {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control','placeholder'=>'--Select Fee Structure--']) }}
+                               {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control','placeholder'=>'Select Fee Structure']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div> 
 	                     <div class="col-lg-2">                                             
 	                       <div class="form-group">
                            {{ Form::label('amount','Amount',['class'=>'form-label']) }}                          
-	                         {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>4, 'placeholder'=>'Enter Amount']) }}
+	                         {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>4, 'placeholder'=>'Enter Amount','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'6']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>

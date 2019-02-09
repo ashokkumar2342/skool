@@ -24,6 +24,10 @@
         <li ><a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
         
          {{  App\Helper\MyFuncs::menus() }}
+         
+         
+         {{-- <a href="{{ route(''.App\Helper\MyFuncs::hotMenu()) }}" title="">aa</a> --}}
+         
         
         
    

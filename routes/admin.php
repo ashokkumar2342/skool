@@ -17,8 +17,11 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::post('store', 'AccountController@store')->name('admin.account.post');
 		Route::get('list', 'AccountController@index')->name('admin.account.list');
 		Route::get('access', 'AccountController@access')->name('admin.account.access');
+		Route::get('hot-menu', 'AccountController@accessHotMenu')->name('admin.account.access.hotmenu');
 		Route::get('menuTable', 'AccountController@menuTable')->name('admin.account.menuTable');
+		Route::get('access/hotmenu', 'AccountController@accessHotMenuShow')->name('admin.account.access.hotmenuTable');
 		Route::post('access-store', 'AccountController@accessStore')->name('admin.userAccess.add');
+		Route::post('access-hot-menu-store', 'AccountController@accessHotMenuStore')->name('admin.userAccess.hotMenuAdd');
 		Route::get('edit/{account}', 'AccountController@edit')->name('admin.account.edit');
 		Route::post('update/{account}', 'AccountController@update')->name('admin.account.edit.post');
 		Route::get('delete/{account}', 'AccountController@destroy')->name('admin.account.delete');
@@ -123,6 +126,7 @@ Route::group(['middleware' => 'admin'], function() {
 	 Route::group(['prefix' => 'student'], function() {
 	     Route::get('add', 'StudentController@create')->name('admin.student.form');	     
 	     Route::get('{student}/view', 'StudentController@show')->name('admin.student.view');	   
+	     Route::get('preview/{id}', 'StudentController@previewshow')->name('admin.student.preview');	   
 	     Route::get('{student}/edit', 'StudentController@edit')->name('admin.student.edit');
 	     Route::get('{student}/delete', 'StudentController@destroy')->name('admin.student.delete');
 	     Route::get('{student}/profileedit', 'StudentController@profileedit')->name('admin.student.profileedit');
@@ -381,7 +385,7 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::get('delete/{studentFeeDetail}', 'StudentFeeDetailController@destroy')->name('admin.studentFeeDetail.delete');
     	    Route::put('update', 'StudentFeeDetailController@update')->name('admin.studentFeeDetail.update');
     	    Route::get('assign', 'StudentFeeDetailController@feeassignlist')->name('admin.studentFeeAssign.list');
-    	    Route::get('assign/show', 'StudentFeeDetailController@feeassignshow')->name('admin.studentFeeAssign.show');
+    	    Route::post('assign/show', 'StudentFeeDetailController@feeassignshow')->name('admin.studentFeeAssign.show');
     	    Route::post('assign/store', 'StudentFeeDetailController@assignstore')->name('admin.studentFeeAssign.post');
     	 });
     	 //------------------------- StudentFeeGroupDetail --------------------------------- 

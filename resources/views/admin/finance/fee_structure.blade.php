@@ -12,30 +12,30 @@
                 <div class="col-md-12"> 
 	                <form class="form-vertical" id="form_fee_structure">                                                     
 	                   <div class="col-lg-2">                                             
-	                       <div class="form-group">
+	                       <div class="form-group"> 
                            {{ Form::label('code','Code',['class'=>'form-label']) }}
-	                         {{ Form::text('code','',['class'=>'form-control','id'=>'code', 'placeholder'=>'Enter Fee Structure Code']) }}
+	                         {{ Form::text('code','',['class'=>'form-control','id'=>'code', 'placeholder'=>'Enter Fee Structure Code','maxlength'=>'3']) }}
 	                         <p class="errorCode text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>
 	                     <div class="col-lg-2">                                             
 	                       <div class="form-group">
-                           {{ Form::label('name','name',['class'=>'form-label']) }}                          
-	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter Fee Structure Name']) }}
+                           {{ Form::label('name','Name',['class'=>'form-label']) }} 
+	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter Fee Structure Name','maxlength'=>'50']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>                     
 	                    <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('fee_account_id','Fee Account',['class'=>' control-label']) }}
-                               {{ Form::select('fee_account_id',$feeAccount,null,['class'=>'form-control']) }}
+                               {{ Form::select('fee_account_id',$feeAccount,null,['class'=>'form-control','placeholder'=>'Select Fee Account']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
 	                    </div>
                         <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('fine_scheme_id','Fine Scheme',['class'=>' control-label']) }}
-                               {{ Form::select('fine_scheme_id',$fineScheme,null,['class'=>'form-control']) }}
+                               {{ Form::select('fine_scheme_id',$fineScheme,null,['class'=>'form-control','placeholder'=>'Select Fine Scheme']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>

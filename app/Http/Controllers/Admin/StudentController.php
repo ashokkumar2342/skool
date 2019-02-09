@@ -23,7 +23,7 @@ use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
 use App\Model\Template\BirthdayTemplate;
-use App\Student;
+use App\Student; 
 use Auth;
 use Carbon;
 use DB;
@@ -95,7 +95,10 @@ class StudentController extends Controller
         return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
     }
      
-    
+    public function previewshow($id){
+          $student = Student::find($id);
+         return view('admin.student.studentdetails.preview',compact('student'));
+    }
 
     
     /**

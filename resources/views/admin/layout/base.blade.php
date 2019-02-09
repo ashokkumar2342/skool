@@ -29,6 +29,8 @@
     th {
     text-transform: uppercase;
      }
+     .content-header>.breadcrumb>li+li:before {
+         content: '|\00a0';
   </style>
 
   @stack('links')

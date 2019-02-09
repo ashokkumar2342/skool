@@ -2,15 +2,15 @@
 @section('body')
 <section class="content-header">
     <h1>Student Fee Assign </h1>
-      <ol class="breadcrumb">
-      </ol>
+      @includeIf('admin.include.hot_menu', ['menu_type_id' => 4])
 </section>
     <section class="content">
         <div class="box">             
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-                  <form class="form-vertical" action="{{ route('admin.studentFeeAssign.show') }}" method="get">
+                  <form class="form-vertical add_form" success-content-id="student_fee_assign_show" no-reset="true" action="{{ route('admin.studentFeeAssign.show') }}" method="post">
+                    {{ csrf_field() }}
                          <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
@@ -38,6 +38,9 @@
                       </div>                     
                   </form> 
                 </div> 
+                <div id="student_fee_assign_show">
+                  
+                </div>
             </div>
             <!-- /.box-body -->
           </div>

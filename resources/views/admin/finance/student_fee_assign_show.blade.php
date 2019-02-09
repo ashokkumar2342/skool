@@ -1,44 +1,26 @@
-@extends('admin.layout.base')
-@section('body')
-<section class="content-header">
-    <h1>Student Fee Assign </h1>
-      <ol class="breadcrumb">
-        <span class="pull-right">
-        <a href="{{ route('admin.studentFeeAssign.list') }}" class="btn btn-success">Back</a>
-      </span>
-        <span class="pull-right" style="padding-right: 10px">
-        <a href="#" class="btn btn-success" data-toggle="modal" data-target="#student_fee_detail_model">Add New Fee Details</a>
-      </span>
-      </ol>
-
-</section>
-    <section class="content">
-         
-
-    <div class="box">             
-      <!-- /.box-header -->
-        <div class="box-body">
-            <div class="row" style="border:solid #eee 1px;">
-                <div class="col-lg-2">
+          
+            
+                <hr style="border:1px solid #eee">
+                <div class="col-lg-4">
                     <h4>Name : <b>{{ $student->name }}</b></h4>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-4">
                     <h4>Father's Name : <b>{{ $student->father_name }}</b></h4>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-4">
                     <h4>Mother's Name : <b>{{ $student->mother_name }}</b></h4>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-4">
                     <h4>Mobile: <b>{{ $student->father_mobile }}</b></h4>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-4">
                     <h4>gender: <b>{{ $student->genders->genders }}</b></h4>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-4">
                     <h4>Address: <b>{{ $student->p_address }} </b></h4>
                 </div>
-            </div>
-            <div class="row" style="padding-top: 20px;">
+             
+            <hr style="border:1px solid #eee">
                  <form action="{{ route('admin.studentFeeAssign.post') }}" method="post"> 
                  {{ csrf_field() }}
                      <table class="table table-responsive" id="student_fee_assign_show_table"> 
@@ -80,10 +62,8 @@
                          </div>
                      </div> --}}
                  </form>   
-            </div>  
-        </div>
-    </div>    
-
+          
+       
     <!-- Modal -->
     <div id="student_fee_detail_model" class="modal fade" role="dialog">
       <div class="modal-dialog">
@@ -109,19 +89,7 @@
       </div>
     </div>       
  
-    </section>
-    <!-- /.content -->
-@endsection
-@push('links')
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"> 
-   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-
-<meta name="csrf-token" content="{{ csrf_token() }}">
-@endpush 
- @push('scripts')
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> 
+    
  <script> 
     $( ".datepicker").datepicker();   
  
@@ -175,4 +143,4 @@
    });
      
   </script>
-@endpush
+ 
