@@ -7,8 +7,9 @@
 
       </div>
       <div class="modal-body">
+        <form class="form-group form-horizontal">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-6 form-horizontal" >
              Name : {{ $student->name }}
           </div>
           <div class="col-lg-6"> 
@@ -18,37 +19,72 @@
             Email: {{ $student->email }}
           </div>
           <div class="col-lg-6"> 
-            Nick Name : {{ $student->class_id  }}
+            Class  : {{ $student->class_id  }}
           </div>
           <div class="col-lg-6"> 
-            Nick Name : {{ $student->section_id }}
+            Section  : {{ $student->section_id }}
           </div>
           <div class="col-lg-6"> 
-            Nick Name : {{ $student->registration_no }}
+            Registration No : {{ $student->registration_no }}
           </div>
           <div class="col-lg-6"> 
-            Nick Name : {{ $student->addmission_no  }}
+            Addmission No: {{ $student->admission_no  }}
           </div>
           <div class="col-lg-6"> 
-            Nick Name : {{ $student->nick_name }}
+         Date Of Addmission : {{ $student->date_of_admission }}
           </div>
           <div class="col-lg-6"> 
-            Nick Name : {{ $student->nick_name }}
+           Date of Activation : {{ $student->date_of_activation }}
           </div>
           <div class="col-lg-6"> 
-            Nick Name : {{ $student->nick_name }}
+          Date Of Birth : {{ $student->dob }}
           </div>
           <div class="col-lg-6"> 
-            Nick Name : {{ $student->nick_name }}
+            Gender : {{ $student->genders }}
           </div>
           <div class="col-lg-6"> 
-            Nick Name : {{ $student->nick_name }}
+            Parmanent Address  : {{ $student->p_address }}
           </div>
           <div class="col-lg-6"> 
-            Nick Name : {{ $student->nick_name }}
+            User Name : {{ $student->username }}
+          </div> 
+          <div class="col-lg-6"> 
+            Password  : {{ $student->tem_pass }}
+          </div> 
+          <div class="col-lg-6"> 
+            Father's Name : {{ $student->father_name }}
           </div>
+           <div class="col-lg-6"> 
+            Mother's Name : {{ $student->mother_name }}
+          </div>
+           <div class="col-lg-6"> 
+            Father's Mobile : {{ $student->father_mobile }}
+          </div> 
+          <div class="col-lg-6"> 
+            Mother's Mobile : {{ $student->mother_mobile }}
+          </div>
+           <div class="col-lg-6"> 
+            Category  : {{ $student->name }}
+          </div>
+          <div class="col-lg-6"> 
+            Religion : {{ $student->name }}
+          </div>
+          <div class="col-lg-6"> 
+            City : {{ $student->city }}
+          </div>
+          <div class="col-lg-6"> 
+            State : {{ $student->state }}
+          </div>
+          <div class="col-lg-6"> 
+            Pincode : {{ $student->pincode }}
+          </div> 
+          <div class="col-lg-6"> 
+            Corespondance Address: {{ $student->c_address }}
+          </div>
+             </form>
 
         </div>
+
         
       </div>
     </div>

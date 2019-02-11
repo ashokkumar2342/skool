@@ -5,6 +5,7 @@
 @section('body')
 <section class="content-header">
     <h1> Student Add <small>Details</small> </h1>
+       @includeIf('admin.include.hot_menu', ['menu_type_id' => 3]) 
       <ol class="breadcrumb">
        <li><a href="{{ route('admin.defaultValue.list') }}" class="btn btn-success" style="color:#fff"> Add Default Value</a></li> 
       </ol>

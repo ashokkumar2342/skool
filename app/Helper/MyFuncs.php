@@ -508,16 +508,21 @@ class MyFuncs {
   public static function hotMenu($menu_type_id){ 
       $hotMenus = HotMenu::where('admin_id',Auth::guard('admin')->user()->id)
                           ->where('minu_id',$menu_type_id)
-                          ->get(['sub_menu_id']);
-       
+                          ->get(['sub_menu_id']); 
         
        return $subMenus = SubMenu::whereIn('id',$hotMenus)->take('5') 
-                          ->get();
-                         
-     
-      
-     
+                          ->get(); 
     
-  }  
+  } 
+   // main menu 
+  public static function mainMenu($menu_type_id){ 
+      $mainMenus = Minu::where('admin_id',Auth::guard('admin')->user()->id)
+                          ->where('minu_id',$menu_type_id)
+                          ->get(['sub_menu_id']); 
+        
+       return $subMenus = SubMenu::whereIn('id',$mainMenus)
+                          ->get(); 
+    
+  } 
 
 }
