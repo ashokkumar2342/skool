@@ -2,15 +2,15 @@
 @section('body')
 <section class="content-header">
     <h1>Student Fee Details </h1>
-       @includeIf('admin.include.hot_menu', ['menu_type_id' => 4])
-      
+    @includeIf('admin.include.hot_menu', ['menu_type_id' => 4]) 
 </section>
     <section class="content">
         <div class="box">             
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-                  <form class="form-vertical" id="form_student_fee_detail">
+                  <form success-content-id="student_fee_details_table" class="form-vertical add_form" action="{{ route('admin.studentFeeDetail.post') }}" method="post">
+                    {{ csrf_field() }}
                          <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
@@ -41,10 +41,13 @@
                         </div>  
                                                                                            
                        <div class="col-lg-2" style="padding-top: 20px;">                                             
-                       <button class="btn btn-success" type="button" id="btn_student_fee_detail_create">Create</button> 
+                       <button class="btn btn-success" type="submit" >Create</button> 
                       </div>                     
                   </form> 
                 </div> 
+                <div class="col-md-12" id="student_fee_details_table">
+                  
+                </div>
             </div>
             <!-- /.box-body -->
           </div>
@@ -90,7 +93,8 @@
           else {                 
             toastr[data.class](data.message)  
             $("#form_student_fee_detail")[0].reset(); 
-            $("#student_fee_detail_table").load(location.href + ' #student_fee_detail_table'); 
+            // $("#student_fee_detail_table").load(location.href + ' #student_fee_detail_table'); 
+            $("#student_fee_details_table").html(data.students); 
         } 
       })
       .fail(function() {

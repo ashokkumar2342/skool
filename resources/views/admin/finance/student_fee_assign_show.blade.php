@@ -1,67 +1,67 @@
-          
+<div class="text-right">    
+  <button type="button" class="btn btn-success" onclick="callPopupLarge(this,'{{ route('admin.studentFeeStructure.show.model',$student->id) }}'+'?academic_year_id='+$('#academic_year_id').val())">Add FEE STRUCTURE</button>
+</div>          
             
-                <hr style="border:1px solid #eee">
-                <div class="col-lg-4">
-                    <h4>Name : <b>{{ $student->name }}</b></h4>
-                </div>
-                <div class="col-lg-4">
-                    <h4>Father's Name : <b>{{ $student->father_name }}</b></h4>
-                </div>
-                <div class="col-lg-4">
-                    <h4>Mother's Name : <b>{{ $student->mother_name }}</b></h4>
-                </div>
-                <div class="col-lg-4">
-                    <h4>Mobile: <b>{{ $student->father_mobile }}</b></h4>
-                </div>
-                <div class="col-lg-4">
-                    <h4>gender: <b>{{ $student->genders->genders }}</b></h4>
-                </div>
-                <div class="col-lg-4">
-                    <h4>Address: <b>{{ $student->p_address }} </b></h4>
-                </div>
+<hr style="border:1px solid #eee">
+<div class="col-lg-4">
+<h4>Name : <b>{{ $student->name }}</b></h4>
+</div>
+<div class="col-lg-4">
+<h4>Father's Name : <b>{{ $student->father_name }}</b></h4>
+</div>
+<div class="col-lg-4">
+<h4>Mother's Name : <b>{{ $student->mother_name }}</b></h4>
+</div>
+<div class="col-lg-4">
+<h4>Mobile: <b>{{ $student->father_mobile }}</b></h4>
+</div>
+<div class="col-lg-4">
+<h4>gender: <b>{{ $student->genders->genders }}</b></h4>
+</div>
+<div class="col-lg-4">
+<h4>Address: <b>{{ $student->p_address }} </b></h4>
+</div>
+
+<hr style="border:1px solid #eee">  
+ <table class="table table-responsive" id="student_fee_assign_show_table"> 
+     <thead>
+         <tr>
+             <th>id</th> 
+             <th>Fee Structure name</th> 
+             <th>Fee Amount</th>
              
-            <hr style="border:1px solid #eee">
-                 <form action="{{ route('admin.studentFeeAssign.post') }}" method="post"> 
-                 {{ csrf_field() }}
-                     <table class="table table-responsive" id="student_fee_assign_show_table"> 
-                         <thead>
-                             <tr>
-                                 <th>id</th> 
-                                 <th>Fee Structure name</th> 
-                                 <th>Fee Amount</th>
-                                 <th>Concession</th>
-                                 <th>Concession Amount</th>
-                                 
-                                 <th>Last Date</th> 
-                                 <th>Action</th>
-                             </tr>
-                         </thead>
-                         <tbody>
+             <th>Concession Amount</th>
+             
+             <th>Last Date</th> 
+             <th>Action</th>
+         </tr>
+     </thead>
+     <tbody>
 
-                             @foreach ($studentFeeDetails as $studentFeeDetail)
+         @foreach ($studentFeeDetails as $studentFeeDetail)
 
-                               <tr>
-                                  <td>{{ $studentFeeDetail->id }}</td> 
-                                  <td>{{ $studentFeeDetail->feeStructureLastDates->feeStructures->name }} </td> 
-                                   
-                                  <td>{{  $studentFeeDetail->fee_amount }}</td> 
-                                  <td>   {{  $studentFeeDetail->concession_id }} </td> 
-                                  <td>{{ $studentFeeDetail->concession_amount }}</td>  
-                                  <td>{{ Carbon\Carbon::parse( $studentFeeDetail->last_date)->format(' F ') }} </td> <td>
-                                     <a class="btn_delete btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data ?')"   href="{{ route('admin.studentFeeDetail.delete', $studentFeeDetail->id  ) }}"  ><i class="fa fa-trash"></i></a>
-                                     <a href="#" data-id="{{ $studentFeeDetail->feeStructureLastDates->id }}" id="add_show" class="btn btn-success btn-xs" data-toggle="modal" data-target="#student_fee_detail_model"><i class="fa fa-plus"></i></a>
-                                 </td>  
-                               </tr>   
-                             @endforeach 
-                         </tbody>
-                     </table>
-                     {{-- <div class="row"> 
-                      
-                         <div class="col-lg-3"> 
-                          <input type="submit" class="btn btn-success" value="Save">
-                         </div>
-                     </div> --}}
-                 </form>   
+           <tr>
+              <td>{{ $studentFeeDetail->id }}</td> 
+              <td>{{ $studentFeeDetail->feeStructureLastDates->feeStructures->name }} </td> 
+               
+              <td>{{  $studentFeeDetail->fee_amount }}</td> 
+             
+              <td>{{ $studentFeeDetail->concession_amount }}</td>  
+              <td>{{ Carbon\Carbon::parse( $studentFeeDetail->last_date)->format(' F ') }} </td> <td>
+                 <a class="btn_delete btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data ?')"   href="{{ route('admin.studentFeeDetail.delete', $studentFeeDetail->id  ) }}"  ><i class="fa fa-trash"></i></a>
+                 <a href="#" data-id="{{ $studentFeeDetail->feeStructureLastDates->id }}" id="add_show" class="btn btn-success btn-xs" data-toggle="modal" data-target="#student_fee_detail_model"><i class="fa fa-plus"></i></a>
+             </td>  
+           </tr>   
+         @endforeach 
+     </tbody>
+ </table>
+ {{-- <div class="row"> 
+  
+     <div class="col-lg-3"> 
+      <input type="submit" class="btn btn-success" value="Save">
+     </div>
+ </div> --}}
+               
           
        
     <!-- Modal -->
@@ -91,7 +91,29 @@
  
     
  <script> 
-    $( ".datepicker").datepicker();   
+    $( ".datepicker").datepicker();
+
+    function concessitonAmount(val){
+
+       event.preventDefault();
+     
+       $.ajax({
+           url: '{{ route('admin.concession.search') }}',
+           type: 'get', 
+           data: {concession: val},
+       })
+       .done(function(data) {
+
+           $("#concession_amount").val(data.amount);
+            
+       })
+       .fail(function() {
+           console.log("error");
+       })
+       .always(function() {
+           console.log("complete");
+       });
+    }
  
    $('.concession').change(function(event) {
      

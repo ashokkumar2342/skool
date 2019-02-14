@@ -387,6 +387,8 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::get('assign', 'StudentFeeDetailController@feeassignlist')->name('admin.studentFeeAssign.list');
     	    Route::post('assign/show', 'StudentFeeDetailController@feeassignshow')->name('admin.studentFeeAssign.show');
     	    Route::post('assign/store', 'StudentFeeDetailController@assignstore')->name('admin.studentFeeAssign.post');
+    	    Route::get('show-fee-struture-model/{id}', 'StudentFeeDetailController@showFeeStructureModel')->name('admin.studentFeeStructure.show.model');
+    	    Route::post('show-fee-struture-store/{id}', 'StudentFeeDetailController@feeStructureStore')->name('admin.studentFeeStructure.details.store');
     	 });
     	 //------------------------- StudentFeeGroupDetail --------------------------------- 
     	Route::group(['prefix' => 'fee-group-wise'], function() {

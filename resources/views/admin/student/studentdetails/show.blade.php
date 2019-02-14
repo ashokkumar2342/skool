@@ -2,9 +2,7 @@
 @section('body')
 <section class="content-header">
     <h1> Student  <small>List</small> </h1>
-      <ol class="breadcrumb">
-       <li><span ><a href="{{ route('admin.student.form') }}" class="btn btn-info btn-sm" >Add Student</a></span></li>        
-      </ol>
+       @includeIf('admin.include.hot_menu', ['menu_type_id' => 3])
 </section>
 
     <section class="content">

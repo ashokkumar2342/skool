@@ -6,9 +6,8 @@
 @section('body')
 <section class="content-header">
     <h1> Student Add <small>Details</small> </h1>
-      <ol class="breadcrumb">
-       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>        
-      </ol>
+       @includeIf('admin.include.hot_menu', ['menu_type_id' => 3])
+       
 </section>
     <section class="content">        
         {{Form::close()}}
