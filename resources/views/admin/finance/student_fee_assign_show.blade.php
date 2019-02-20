@@ -49,7 +49,7 @@
               <td>{{ $studentFeeDetail->concession_amount }}</td>  
               <td>{{ Carbon\Carbon::parse( $studentFeeDetail->last_date)->format(' F ') }} </td> <td>
                  <a class="btn_delete btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data ?')"   href="{{ route('admin.studentFeeDetail.delete', $studentFeeDetail->id  ) }}"  ><i class="fa fa-trash"></i></a>
-                 <a href="#" data-id="{{ $studentFeeDetail->feeStructureLastDates->id }}" id="add_show" class="btn btn-success btn-xs" data-toggle="modal" data-target="#student_fee_detail_model"><i class="fa fa-plus"></i></a>
+                 <a href="#" data-id="{{ $studentFeeDetail->feeStructureLastDates->id }}" id="add_show" class="btn btn-success btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.studentFeeStructure.Concession.show.model',$studentFeeDetail->id) }}')"><i class="fa fa-edit"></i></a>
              </td>  
            </tr>   
          @endforeach 

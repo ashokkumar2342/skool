@@ -10,7 +10,8 @@
         <form class="form-group form-horizontal">
         <div class="row">
           <div class="col-lg-6 form-horizontal" >
-             Name : {{ $student->name }}
+            <label>Name</label>
+            <input value="{{ $student->name }}" name="" > 
           </div>
           <div class="col-lg-6"> 
             Nick Name : {{ $student->nick_name }}

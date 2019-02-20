@@ -13,21 +13,21 @@
 	                   
 	                     <div class="col-lg-3">                                             
 	                       <div class="form-group">
-                          <label>Enter  Name</label>
+                          <label>Concession Name</label>
 	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter  Name','maxlength'=>'50']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>                     
 	                    <div class="col-lg-3">                         
 	                        <div class="form-group">
-                            <label>Enter Amount</label>
+                            <label>Concession Amount</label>
 	                          {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>1, 'placeholder'=>'Enter Amount','maxlength'=>'5','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
 	                          <p class="errorDescription text-center alert alert-danger hidden"></p>
 	                        </div>
 	                    </div>
                       <div class="col-lg-3">                         
                           <div class="form-group">
-                            <label>Enter Percentage</label>
+                            <label>Percentage</label>
                             {{ Form::text('percentage','',['class'=>'form-control','id'=>'percentage','rows'=>1, 'placeholder'=>'Enter Percentage','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                             <p class="errorDescription text-center alert alert-danger hidden"></p>
                           </div>

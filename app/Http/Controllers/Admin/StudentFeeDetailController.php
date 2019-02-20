@@ -242,7 +242,39 @@ class StudentFeeDetailController extends Controller
             }  
     }
 
+ public function showFeeDetailConcessionModel(Request $request,$id)
+    {     
+        $studentFeeDetail =StudentFeeDetail::find($id);   
+         $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
+        return view('admin.finance.include.student_fee_concession_edit_model',compact('studentFeeDetail','concession'));
+    }
 
+      public function feeconcessioneStore(Request $request,$studentFeeDetail_id){
+         
+        $rules=[
+            'concession' => 'required', 
+            'concession_amount' => 'required', 
+             
+          ];
+
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }
+        else {  
+         $studentFeeDetail = StudentFeeDetail::find($studentFeeDetail_id); 
+         $studentFeeDetail->concession_id = $request->concession; 
+         $studentFeeDetail->concession_amount = $request->concession_amount; 
+         $studentFeeDetail->save();   
+        $response['status'] =1;
+        $response['msg'] ='Fee  Details Add Successfully'; 
+        return $response;
+        }  
+    }
 
     
 }
