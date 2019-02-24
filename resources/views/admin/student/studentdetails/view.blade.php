@@ -131,8 +131,8 @@ b{
                                 <th>Income</th>
                                 <th>Mobile</th>
                                 <th>Email</th>
-                                <th>Dob</th>
-                                <th>Doa</th>
+                                <th>Date Of Birth</th>
+                                <th>Date Of Anniversary</th>
                                 <th>Office Address</th>
                                 <th>Islive</th>
                                 <th>Photo</th>
@@ -150,18 +150,18 @@ b{
                                 <td>{{ $parents->incomes->name or ''}}</td>
                                 <td>{{ $parents->mobile }}</td>
                                 <td>{{ $parents->email }}</td>
-                                <td>{{ $parents->bob }}</td>
+                                <td>{{ $parents->dob }}</td>
                                 <td>{{ $parents->doa }}</td>
                                 <td>{{ $parents->office_address }}</td>
                                 <td>{{ $parents->islive == 1? 'Yes' : 'No' }}</td>                            
                                                         
                                  
-                                <td>
+                                <td>r
                                   @php
                              $image = route('admin.parents.image.show',$parents->photo);
                               
                              @endphp 
-                               <img  src="{{ ($parents->photo)? $image : asset('profile-img/user.png') }}" style="width: 50px; height: 50px;  border: 2px solid #d1f7ec">
+                               <img  sc="{{ ($parents->photo)? $image : asset('profile-img/user.png') }}" style="width: 50px; height: 50px;  border: 2px solid #d1f7ec">
 
                                 </td>
         

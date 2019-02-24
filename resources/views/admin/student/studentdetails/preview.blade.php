@@ -1,3 +1,9 @@
+   <style type="text/css" media="screen">
+  .bd{
+    border-bottom: #eee solid 1px;;
+  }
+  
+</style>
    <div class="modal-dialog" style="width:90%"> 
     <!-- Modal content-->
     <div class="modal-content">
@@ -7,87 +13,229 @@
 
       </div>
       <div class="modal-body">
-        <form class="form-group form-horizontal">
-        <div class="row">
-          <div class="col-lg-6 form-horizontal" >
-            <label>Name</label>
-            <input value="{{ $student->name }}" name="" > 
-          </div>
-          <div class="col-lg-6"> 
-            Nick Name : {{ $student->nick_name }}
-          </div>
-          <div class="col-lg-6"> 
-            Email: {{ $student->email }}
-          </div>
-          <div class="col-lg-6"> 
-            Class  : {{ $student->class_id  }}
-          </div>
-          <div class="col-lg-6"> 
-            Section  : {{ $student->section_id }}
-          </div>
-          <div class="col-lg-6"> 
-            Registration No : {{ $student->registration_no }}
-          </div>
-          <div class="col-lg-6"> 
-            Addmission No: {{ $student->admission_no  }}
-          </div>
-          <div class="col-lg-6"> 
-         Date Of Addmission : {{ $student->date_of_admission }}
-          </div>
-          <div class="col-lg-6"> 
-           Date of Activation : {{ $student->date_of_activation }}
-          </div>
-          <div class="col-lg-6"> 
-          Date Of Birth : {{ $student->dob }}
-          </div>
-          <div class="col-lg-6"> 
-            Gender : {{ $student->genders }}
-          </div>
-          <div class="col-lg-6"> 
-            Parmanent Address  : {{ $student->p_address }}
-          </div>
-          <div class="col-lg-6"> 
-            User Name : {{ $student->username }}
-          </div> 
-          <div class="col-lg-6"> 
-            Password  : {{ $student->tem_pass }}
-          </div> 
-          <div class="col-lg-6"> 
-            Father's Name : {{ $student->father_name }}
-          </div>
-           <div class="col-lg-6"> 
-            Mother's Name : {{ $student->mother_name }}
-          </div>
-           <div class="col-lg-6"> 
-            Father's Mobile : {{ $student->father_mobile }}
-          </div> 
-          <div class="col-lg-6"> 
-            Mother's Mobile : {{ $student->mother_mobile }}
-          </div>
-           <div class="col-lg-6"> 
-            Category  : {{ $student->name }}
-          </div>
-          <div class="col-lg-6"> 
-            Religion : {{ $student->name }}
-          </div>
-          <div class="col-lg-6"> 
-            City : {{ $student->city }}
-          </div>
-          <div class="col-lg-6"> 
-            State : {{ $student->state }}
-          </div>
-          <div class="col-lg-6"> 
-            Pincode : {{ $student->pincode }}
-          </div> 
-          <div class="col-lg-6"> 
-            Corespondance Address: {{ $student->c_address }}
-          </div>
-             </form>
+        <div class="row"> 
+        <h4 align="center"><b>Student Details</b></h4><hr>                                             
+           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+               <div class="form-group">
+                   <div class="col-md-12">
+                       <span id="sp-error" class="text-danger field-validation-error" data-valmsg-replace="true"> 
+                       </span>
+                   </div>
+               </div>
+               <div class="col-lg-6 b-r">
+                   <div class="form-horizontal">
+                       <div class="box-body">
+                           <div class="form-group">
+                               <div class="col-sm-12 bd"> 
+                                <p>First Name :<b> {{ $student->name }}  </b> </p>  
+                               </div>
+                           </div> 
+                            <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                    <p>Nick Name : <b>{{ $student->nick_name }}</b></p> 
+                               </div>
+                           </div> 
+                           <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                    <p>Email : <b>{{ $student->email }}</b></p> 
+                               </div>
+                           </div> 
+                           <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                    <p>Class : <b>{{ $student->classes->name or '' }}</b></p> 
+                               </div>
+                           </div> 
+                            <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                    <p>Section : <b>{{ $student->sections->name or '' }}</b></p> 
+                               </div>
+                           </div> 
+                           <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                    <p>Registration No : <b>{{ $student->registration_no }}</b></p> 
+                               </div>
+                           </div> 
+                           <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                    <p>Addmission No : <b>{{ $student->admission_no }}</b></p> 
+                               </div>
+                           </div> 
+                            <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                    <p> Date Of Addmission : <b>{{ date('d-m-Y',strtotime($student->date_of_admission))}}</b></p> 
+                               </div>
+                           </div>  
+                           <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                    <p> Date Of Activation : <b>{{date('d-m-Y',strtotime($student->date_of_activation ))}}</b></p> 
+                               </div>
+                           </div>
+                            <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                    <p>  Date Of Birth : <b>{{date('d-m-Y',strtotime($student->dob ))}}</b></p> 
+                               </div>
+                           </div>  
+                           <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                    <p>  Gender : <b>{{ $student->genders->genders }}</b></p> 
+                               </div>
+                           </div> 
+                            <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                    <p>   Parmanent Address : <b>{{ $student->p_address }}</b></p> 
+                               </div>
+                           </div>
+                         </div> 
+                        </div>
+                      </div>
+                 
+                     <div class="col-lg-6">
+                   <div class="form-horizontal">
+                       <div class="box-body">
+                        <div class="form-group">
+                            <div class="col-sm-12 bd">
+                             <p> Father's Name : <b>{{ $student->father_name }}</b></p> 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 bd">
+                             <p> Mother's Name : <b>{{ $student->mother_name }}</b></p> 
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <div class="col-sm-12 bd">
+                             <p> Father's Mobile : <b>{{ $student->father_mobile }}</b></p> 
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <div class="col-sm-12 bd">
+                             <p> Mother's Mobile : <b>{{ $student->mother_mobile }}</b></p> 
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="col-sm-12 bd">
+                             <p> User Name : <b>{{ $student->username }}</b></p> 
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="col-sm-12 bd">
+                             <p> Password : <b>{{ $student->tem_pass }}</b></p> 
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="col-sm-12 bd">
+                             <p> Category : <b>{{ $student->name }}</b></p> 
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <div class="col-sm-12 bd">
+                             <p> Religion : <b>{{ $student->name }}</b></p> 
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <div class="col-sm-12 bd">
+                             <p> City : <b>{{ $student->city }}</b></p> 
+                            </div>
+                        </div> 
+                         <div class="form-group">
+                            <div class="col-sm-12 bd">
+                             <p> State : <b>{{ $student->state }}</b></p> 
+                            </div>
+                        </div> 
+                         <div class="form-group">
+                            <div class="col-sm-12 bd">
+                             <p> Pincode : <b>{{ $student->pincode }}</b></p> 
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <div class="col-sm-12 bd">
+                             <p> Corespondance Address : <b>{{ $student->c_address }}</b></p> 
+                            </div>
+                        </div> 
+                      </div>
 
         </div>
 
         
       </div>
     </div>
-  </div>                           
+       <div class="modal-body">
+        
+        <div class="row"> 
+          @foreach($parents as $parent)
+        <h4 align="center"><b>{{ $parent->relationType->name }} Details</b></h4><hr>                                             
+           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+               <div class="col-lg-6 b-r">
+                   <div class="form-horizontal">
+                       <div class="box-body"> 
+                            <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                    <p>Father Name : <b>{{ $parent->name  }}</b></p> 
+                               </div>
+                           </div>  
                            
+                           <div class="form-group">
+                               <div class="col-sm-12 bd"> 
+                                <p>Education :<b> {{ $parent->education or ''}} </b> </p>  
+                               </div>
+                           </div> 
+                            <div class="form-group">
+                               <div class="col-sm-12 bd"> 
+                                <p>Profetions :<b> {{ $parent->profetions->name or ''}} </b> </p>  
+                               </div>
+                           </div>  
+                           <div class="form-group">
+                               <div class="col-sm-12 bd"> 
+                                <p>Incomes :<b> {{ $parent->incomes->name or ''}} </b> </p>  
+                               </div>
+                           </div>  <div class="form-group">
+                               <div class="col-sm-12 bd"> 
+                                <p>Mobile :<b> {{ $parent->mobile }} </b> </p>  
+                               </div>
+                           </div> 
+                         </div>
+                        </div>
+                       </div> 
+                                           
+                    <div class="col-lg-6">
+                           <div class="form-horizontal">
+                               <div class="box-body">
+                                <div class="form-group"> 
+                                    <div class="col-sm-12 bd">
+                                     <p> Email : <b>{{ $parent->email }}</b></p> 
+                                    </div>
+                                </div> 
+                                <div class="form-group"> 
+                                    <div class="col-sm-12 bd">
+                                     <p>Date of Birth : <b>{{ date('d-m-Y', strtotime($parent->dob))}}</b></p> 
+                                    </div>
+                                </div>  
+                                <div class="form-group"> 
+                                    <div class="col-sm-12 bd">
+                                     <p>Date Of Anniversary: <b>{{ date('d-m-Y', strtotime($parent->doa))}}</b></p> 
+                                    </div>
+                                </div> 
+                                 <div class="form-group"> 
+                                    <div class="col-sm-12 bd">
+                                     <p>Office Address : <b>{{ $parent->office_address }}</b></p> 
+                                    </div>
+                                </div> 
+                                <div class="form-group"> 
+                                    <div class="col-sm-12 bd">
+                                     <p>Islive : <b>{{ $parent->islive == 1? 'Yes' : 'No' }}</b></p> 
+                                    </div>
+                                </div> 
+                              </div>
+                            </div>
+                      
+                        </div>
+                         
+                @endforeach      
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

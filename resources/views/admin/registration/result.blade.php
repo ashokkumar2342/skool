@@ -38,7 +38,7 @@
 
                    <a class="btn btn-success btn-xs" success-popup="true" button-click="btn_submit" onclick="callAjax(this,'{{ route('registration.approved',$parent->id) }}','aa')"  href="#"  >Approved</a> 
 
-                      <button type="button"   onclick="callPopupLarge(this,'{{ route('preview',Crypt::encrypt($parent->id)) }}')" class="btn btn-info btn-xs" data-toggle="modal"  ><i class="fa fa-eye"></i> View </button>
+                      <button type="button"   onclick="callPopupLarge(this,'{{ route('preview',Crypt::encrypt($parent->id)) }}')" class="btn btn-info btn-xs" data-toggle="modal"  ><i class="fa fa-eye"></i>View</button>
                                 </td>
                             </tr>
                              @endforeach

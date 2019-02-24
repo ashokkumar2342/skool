@@ -34,8 +34,7 @@
                                <div class="col-sm-12 bd"> 
                                 <p>First Name :<b> {{ $pr->name }} </b> </p>  
                                </div>
-                           </div>
-
+                           </div> 
                             <div class="form-group">
                                <div class="col-sm-12 bd">
                                     <p>Last Name : <b>{{ $pr->last_name }}</b></p> 

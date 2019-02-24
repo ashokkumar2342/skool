@@ -28,10 +28,10 @@
                            <a href="{{ route('admin.cashbook.list') }}" id="btn_student_ledger" class="btn btn-info" style="width: 130px">Ledger</a>
                    
                       
-                           <button class="btn btn-primary" type="button" id="btn_student_ledger" style="width: 130px">Previous Reciept</button> 
+                           <button class="btn btn-primary" type="button" id="btn_student_ledger" style="width: 130px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Previous Reciept</button> 
                        
                      
-                           <button class="btn btn-danger" type="button" id="btn_student_ledger" style="width: 130px">Cancel Reciept</button> 
+                           <button class="btn btn-danger" type="button" id="btn_student_ledger" style="width: 130px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Cancel Reciept</button> 
                       </div>
                     </div> 
 

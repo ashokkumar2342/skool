@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
+use App\Model\Cashbook;
 use App\Model\ClassFeestructure;
 use App\Model\ClassType;
 use App\Model\Concession;
@@ -242,14 +243,14 @@ class StudentFeeDetailController extends Controller
             }  
     }
 
- public function showFeeDetailConcessionModel(Request $request,$id)
+    public function showFeeDetailConcessionModel(Request $request,$id)
     {     
         $studentFeeDetail =StudentFeeDetail::find($id);   
          $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
         return view('admin.finance.include.student_fee_concession_edit_model',compact('studentFeeDetail','concession'));
-    }
-
-      public function feeconcessioneStore(Request $request,$studentFeeDetail_id){
+    } 
+    // fee concession store
+     public function feeconcessioneStore(Request $request,$studentFeeDetail_id){
          
         $rules=[
             'concession' => 'required', 
@@ -276,5 +277,19 @@ class StudentFeeDetailController extends Controller
         }  
     }
 
+    //previous Reciept Model show
+    public function previousRecieptModel(Request $request)
+    { 
+        if ($request->student_id=='') {
+            $datas = 'student_required';
+           return view('admin.finance.feecollection.previous_reciept_show_model',compact('datas'));  
+        }else{
+            $datas = 'student_registration';
+            $cashbooks = Cashbook::where('student_id',$request->student_id)->get(); 
+            return view('admin.finance.feecollection.previous_reciept_show_model',compact('datas','cashbooks'));  
+        }
+         
+        
+    }
     
 }

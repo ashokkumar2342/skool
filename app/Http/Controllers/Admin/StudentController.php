@@ -97,7 +97,8 @@ class StudentController extends Controller
      
     public function previewshow($id){
           $student = Student::find($id);
-         return view('admin.student.studentdetails.preview',compact('student'));
+          $parents = ParentsInfo::where('student_id',$id)->get();
+         return view('admin.student.studentdetails.preview',compact('student','parents'));
     }
 
     
