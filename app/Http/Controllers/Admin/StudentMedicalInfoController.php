@@ -84,9 +84,10 @@ class StudentMedicalInfoController extends Controller
      * @param  \App\Model\StudentMedicalInfo  $studentMedicalInfo
      * @return \Illuminate\Http\Response
      */
-    public function show(StudentMedicalInfo $studentMedicalInfo)
-    {
-        //
+    public function show($id)
+    {    
+         $studentMedicalInfo=StudentMedicalInfo::find($id);
+        return view('admin.student.studentdetails.include.medical_info_view',compact('studentMedicalInfo'));
     }
 
     /**

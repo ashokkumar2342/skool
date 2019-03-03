@@ -21,7 +21,7 @@
                   <th>Mobile</th> 
                   <th>Email Id</th>
                   <th>Role</th> 
-                  <th>R - W - D</th>                  
+                 {{--  <th>R - W - D</th>  --}}                 
                   <th>Status</th>                  
                   <th>Menu</th>                  
                   <th>Action</th>
@@ -35,13 +35,13 @@
                   <td>{{ $account->mobile }}</td> 
                   <td>{{ $account->email }}</td>
                   <td>{{ $account->roles->name }}</td>
-                  <td>
+                  {{-- <td>
                    
                   <a href="{{ route('admin.account.r_status',$account->id) }}" data-parent="tr" class="label {{ ($account->r_status == 1) ?'btn-success':'btn-danger'}} btn btn-xs">{{ ($account->r_status == 1)? 'A' : 'D' }}</a>
                   <a href="{{ route('admin.account.w_status',$account->id) }}" data-parent="tr" class="label {{ ($account->w_status == 1) ?'btn-success':'btn-danger'}} btn btn-xs">{{ ($account->w_status == 1)? 'A' : 'D' }}</a>
                   <a href="{{ route('admin.account.d_status',$account->id) }}" data-parent="tr" class="label {{ ($account->d_status == 1) ?'btn-success':'btn-danger'}} btn btn-xs">{{ ($account->d_status == 1)? 'A' : 'D' }}</a>
                    
-                  </td>
+                  </td> --}}
                   <td>
                     <a href="{{ route('admin.account.status',$account->id) }}" data-parent="tr" class="label {{ ($account->status == 1) ?'btn-success':'btn-danger'}} btn btn-xs">{{ ($account->status == 1)? 'Active' : 'Inactive' }}</a>
                   </td>  
@@ -49,10 +49,12 @@
                   <a href="{{ route('admin.account.minu',[$account->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-bars"></i></a>
                   </td>                
                   <td> 
-                  @if(Auth::guard('admin')->user()->w_status == 1)
+                     
+                  @if(App\Helper\MyFuncs::menuPermission()->r_status == 1)
                   <a href="{{ route('admin.account.edit',[$account->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></a>
                   @endif
-                  @if(Auth::guard('admin')->user()->d_status == 1)
+                
+                  @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
 
                   <a  href="{{ route('admin.account.delete',$account->id) }}" onclick="return confirm('Are you sure to delete this data ?')"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
                    

@@ -86,8 +86,9 @@
                         		<td> {{ $feeStructureLastDste->forSessionMonths->name }} </td>
                         		<td> 
                         			{{-- <button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $feeStructureLastDste->id }}"  data-code="{{ $feeStructureLastDste->code }}" data-name="{{ $feeStructureLastDste->name }}"  data-finescheme="{{ $feeStructureLastDste->fine_scheme_id }}" data-refundable="{{ $feeStructureLastDste->is_refundable }}"><i class="fa fa-edit"></i> </button> --}}
-
+                              @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                         			<button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $feeStructureLastDste->id }}"  ><i class="fa fa-trash"></i></button>
+                              @endif
                         		</td>
                         	</tr>  	 
                         @endforeach	

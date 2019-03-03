@@ -9,7 +9,7 @@
             <div class="box-header">
               <div class="row">
                   <div class="col-md-6">
-                   <h3 class="box-title">Minu List</h3>                    
+                   <h3 class="box-title">Menu List</h3>                    
                   </div>
                   <div class="col-md-6 text-right">
                     <a href="{{ route('admin.account.list') }}" title="back" class="btn btn-success">Back</a>                    
@@ -22,7 +22,8 @@
                 <thead>
                 <tr>
                   <th>Sn</th>                  
-                  <th>Minu Name</th>                   
+                  <th>Menu Name</th>                   
+                  <th>Sub Menu</th>                   
                   <th>R - W - D</th>                  
                   <th>Status</th>
                 </tr>
@@ -32,7 +33,8 @@
                 @foreach($minus as $minu)
                 <tr>
                   <td>{{ $minu->id }}</td>
-                  <td>{{ $minu->minutypes->name }}</td>                  
+                  <td>{{ $minu->minutypes->name or ''}}</td>                  
+                  <td>{{ $minu->subMenuTypes->name or '' }}</td>                  
                   <td>                   
                   <a href="{{ route('admin.minu.r_status',$minu->id) }}" data-parent="tr" class="label {{ ($minu->r_status == 1) ?'btn-success':'btn-danger'}} btn btn-xs">{{ ($minu->r_status == 1)? 'A' : 'D' }}</a>
                   <a href="{{ route('admin.minu.w_status',$minu->id) }}" data-parent="tr" class="label {{ ($minu->w_status == 1) ?'btn-success':'btn-danger'}} btn btn-xs">{{ ($minu->w_status == 1)? 'A' : 'D' }}</a>

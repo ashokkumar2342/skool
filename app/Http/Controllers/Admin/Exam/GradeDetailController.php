@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Exam;
 
-use App\Model\Exam\GradeDetail;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\ClassType;
+use App\Model\Exam\ExamTerm;
+use App\Model\Exam\GradeDetail;
+use App\Model\SubjectType;
+use App\Student;
+use Illuminate\Http\Request;
 
 class GradeDetailController extends Controller
 {
@@ -15,7 +19,12 @@ class GradeDetailController extends Controller
      */
     public function index()
     {
-        //
+         $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');
+        $subjects = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
+        $students = array_pluck(Student::get(['id','registration_no'])->toArray(),'registration_no', 'id');
+        $examTerms = ExamTerm::all();
+        $gradeDetails = GradeDetail::all();
+        return view('admin.exam.grade_details',compact('classes','subjects','examTerms','students','gradeDetails'));
     }
 
     /**
@@ -36,7 +45,15 @@ class GradeDetailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+     
+        $gradeDetail = new GradeDetail();
+        $gradeDetail->exam_schedule_id = $request->exam_term;
+        $gradeDetail->student_id = $request->student_id;
+        $gradeDetail->subject_id = $request->subject; 
+        $gradeDetail->gradeobt = $request->gradeobt; 
+        $gradeDetail->discription = $request->discription;
+        
+        $gradeDetail->save();
     }
 
     /**
@@ -47,8 +64,15 @@ class GradeDetailController extends Controller
      */
     public function show(GradeDetail $gradeDetail)
     {
-        //
+         
+  
+
+        
+
+
     }
+
+    
 
     /**
      * Show the form for editing the specified resource.

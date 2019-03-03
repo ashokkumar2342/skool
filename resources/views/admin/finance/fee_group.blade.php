@@ -55,10 +55,14 @@
                         		<td>{{ ++$loop->index }}</td>                        		 
                         		<td>{{ $feeGroup->name }}</td>
                         		<td>{{ $feeGroup->description }}</td>
-                        		<td> 
+                        		<td>
+                             @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
                         			<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $feeGroup->id }}"  data-code="{{ $feeGroup->code }}" data-name="{{ $feeGroup->name }}" data-description="{{ $feeGroup->description }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
+                              @endif
 
+                               @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                         			<button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $feeGroup->id }}"  ><i class="fa fa-trash"></i></button>
+                              @endif
                         		</td>
                         	</tr>  	 
                         @endforeach	

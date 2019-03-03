@@ -10,51 +10,59 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="form-horizontal add_form" content-refresh="vehicle_table" action="{{ route('admin.vehicle.post') }}" method="post">              
+	                <form class="add_form" content-refresh="vehicle_table" action="{{ route('admin.vehicle.post') }}" method="post">              
                   {{ csrf_field() }}                                       
 	                   <div class="col-lg-3">                                             
 	                       <div class="form-group">
-	                         {{ Form::text('registration_no','',['class'=>'form-control','id'=>'registration_no', 'placeholder'=>'  Registration No']) }}
+                          <label>Registration Number</label>
+	                         {{ Form::text('registration_no','',['class'=>'form-control','id'=>'registration_no', 'placeholder'=>'  Registration No','maxlength'=>'20','required']) }}
 	                        
 	                       </div>                                         
 	                    </div>
 	                     <div class="col-lg-3">                                             
                          <div class="form-group">
-                           {{ Form::text('chassis_no','',['class'=>'form-control','id'=>'chassis_no','rows'=>4, 'placeholder'=>'  Chassis No']) }}
+                          <label>Chassis Number</label>
+                           {{ Form::text('chassis_no','',['class'=>'form-control','id'=>'chassis_no','rows'=>4, 'placeholder'=>'Chassis No','maxlength'=>'50','required']) }}
               
                          </div>                                         
                       </div> 
                       <div class="col-lg-3">                                             
                          <div class="form-group">
-                           {{ Form::text('model_no','',['class'=>'form-control','id'=>'model_no','rows'=>4, 'placeholder'=>' Model No']) }}
+                          <label>Model Number</label>
+                           {{ Form::text('model_no','',['class'=>'form-control','id'=>'model_no','rows'=>4, 'placeholder'=>' Model No','maxlength'=>'50','required']) }}
                   
                          </div>                                         
                       </div> 
                       <div class="col-lg-3">                                             
                          <div class="form-group">
-                           {{ Form::text('engine_no','',['class'=>'form-control','id'=>'engine_no','rows'=>4, 'placeholder'=>' Engine No']) }}
+                          <label>Engine Number</label>
+                           {{ Form::text('engine_no','',['class'=>'form-control','id'=>'engine_no','rows'=>4, 'placeholder'=>' Engine No','maxlength'=>'50','required']) }}
                          
                          </div>                                         
                       </div> 
                       <div class="col-lg-3">                                             
                          <div class="form-group">
-                           {{ Form::text('siting_capacity','',['class'=>'form-control','id'=>'siting_capacity','rows'=>4, 'placeholder'=>'Siting Capacity']) }}
+                          <label>Siting Capacity</label>
+                           {{ Form::number('siting_capacity','',['class'=>'form-control','id'=>'siting_capacity','max'=>'300','placeholder'=>'Siting Capacity','required']) }}
                           
                          </div>                                         
                       </div>
                       <div class="col-lg-3">                                             
                          <div class="form-group">
-                           {{ Form::text('average','',['class'=>'form-control','id'=>'average','rows'=>4, 'placeholder'=>' Average']) }}
+                          <label>Average</label>
+                           {{ Form::number('average','',['class'=>'form-control','id'=>'average', 'placeholder'=>' Average','max'=>'90','required']) }}
                             
                          </div>                                         
                       </div>
                         <div class="col-lg-3">                                             
                          <div class="form-group">
+                          <label>Select Transport</label>
                               {!! Form::select('transport_id',$transports, null, ['class'=>'form-control','placeholder'=>'Select Transport','required']) !!}
                          </div>                                         
                       </div>
                        <div class="col-lg-3">                                             
                          <div class="form-group">
+                          <label>Select Vehicle Type</label>
                               {!! Form::select('vehicle_type_id',$vehicleTypes, null, ['class'=>'form-control','placeholder'=>'Select Vehicle Type','required']) !!}
                          </div>                                         
                       </div>
@@ -108,9 +116,13 @@
                             <td>{{ $Vehicle->vehicleType->vehicle_type or '' }}</td>
                         	 
                         		<td> 
+                               @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
                         			  <button onclick="callPopupLarge(this,'{{ route('admin.vehicle.edit',Crypt::encrypt($Vehicle->id)) }}')" class="btn_edit btn btn-warning btn-xs"><i class="fa fa-edit"></i></button>
+                                @endif
 
+                                 @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                         			<a href="{{ route('admin.vehicle.delete',Crypt::encrypt($Vehicle->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
+                              @endif
                         		</td>
                         	</tr>  	 
                         @endforeach	
@@ -134,5 +146,9 @@
 @endpush
 @push('scripts')
  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script>
+       $('#vehicle_table').DataTable();
+    </script>
     
 @endpush

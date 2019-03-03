@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Exam Schedule</h1>
+    <h1>Grade Details</h1>
       <ol class="breadcrumb">
       </ol>
 </section>
@@ -10,7 +10,7 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="add_form" content-refresh="route_table" action="{{ route('admin.exam.schedule.store') }}" method="post">              
+                  <form class="add_form" content-refresh="route_table" action="{{ route('admin.exam.grade.detail.store') }}" method="post">              
                   {{ csrf_field() }}                  
                    <div class="col-lg-3">                         
                       <div class="form-group">
@@ -22,53 +22,50 @@
                             @endforeach 
                            </select> 
                       </div>
-                  </div> 
+                  </div>
+                   <div class="col-lg-3">                           
+                             <div class="form-group">
+                              {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
+                               {{ Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required']) }}
+                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
+                             </div>    
+                        </div>                        
                   <div class="col-lg-3">                         
                       <div class="form-group">
                           {{ Form::label('class','Class',['class'=>' control-label']) }}
                           {!! Form::select('class',$classes, null, ['class'=>'form-control','placeholder'=>'Select Class','required']) !!}
                           <p class="text-danger">{{ $errors->first('session') }}</p>
                       </div>
-                  </div> 
+                  </div>
+                  <div class="col-lg-3">                         
+                      <div class="form-group">
+                          {{ Form::label('section','Section',['class'=>' control-label']) }}
+                          {!! Form::select('section',[], null, ['class'=>'form-control','placeholder'=>'Select Section']) !!}
+                          <p class="text-danger">{{ $errors->first('session') }}</p>
+                      </div>
+                  </div>    
                   <div class="col-lg-3">                         
                       <div class="form-group">
                           {{ Form::label('subject','Subject',['class'=>' control-label']) }}
-                          {!! Form::select('subject',$subjects, null, ['class'=>'form-control','placeholder'=>'Select Section','required']) !!}
-                           
+                          {!! Form::select('subject',$subjects, null, ['class'=>'form-control','placeholder'=>'Select Section','required']) !!} 
                       </div>
-                  </div>                  
-	                   <div class="col-lg-3">                                             
+                  </div> 
+                   <div class="col-lg-3">                                             
                          <div class="form-group">
-                          {{ Form::label('test_date','On Date',['class'=>' control-label']) }}
-                           {{ Form::date('on_date','',['class'=>'form-control', 'placeholder'=>'  On Date']) }} 
+                          {{ Form::label('gradeobt','Gradeobt',['class'=>' control-label']) }}
+                           {{ Form::text('gradeobt','',['class'=>'form-control', 'placeholder'=>'gradeobt' ]) }} 
                          </div>                                         
-                      </div>
-                      <div class="col-lg-3">                                             
+                      </div>  
+                       <div class="col-lg-6">                                             
                          <div class="form-group">
-                          {{ Form::label('max_marks','Max Marks',['class'=>' control-label']) }}
-                           {{ Form::text('max_marks','',['class'=>'form-control', 'placeholder'=>'  Max Marks','maxlength'=>'4','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','required']) }} 
+                          {{ Form::label('discription','Discription',['class'=>' control-label']) }}
+                           {{ Form::text('discription','',['class'=>'form-control', 'placeholder'=>'discription' ]) }} 
                          </div>                                         
-                      </div> 
-                      <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          {{ Form::label('pass_marks','Pass Marks',['class'=>' control-label']) }}
-                           {{ Form::text('pass_marks','',['class'=>'form-control', 'placeholder'=>'  Pass Marks','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','required']) }} 
-                         </div>                                         
-                      </div>
-                      <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          {{ Form::label('fail_marks','Fail Marks',['class'=>' control-label']) }}
-                           {{ Form::text('fail_marks','',['class'=>'form-control', 'placeholder'=>'  Fail Marks','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57',]) }} 
-                         </div>                                         
-                      </div> 
-                   
-                      
-	                 
-                       
-	                     <div class="col-lg-12 text-center">                                             
-	                     <button class="btn btn-success" type="submit" id="btn_fee_account_create">Submit</button> 
-	                    </div>                     
-	                </form> 
+                      </div>  
+                       <div class="col-lg-12 text-center">                                             
+                       <button class="btn btn-success" type="submit" id="btn_fee_account_create">Submit</button> 
+                      </div>                     
+                  </form> 
                 </div> 
             </div>
             <!-- /.box-body -->
@@ -83,36 +80,27 @@
                             <tr>
                                 <th>Sn</th>                               
                                 <th>Exam Term</th> 
-                                <th>Class</th>  
-                                <th>Subject</th>                                                            
-                                <th>On Date</th>                                                            
-                                <th>Max marks</th>                                                             
-                                <th>Pass marks</th>                                                             
-                                <th>Fail marks</th>                                          
+                                <th>Registration No</th>  
+                                <th>Subject</th>                     
                                 <th>Action</th>                                                            
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ($examSchedules as $examSchedule)
-                        	<tr>
-                        		<td>{{ ++$loop->index }}</td>
-                            <td>{{ $examSchedule->examTerms->from_date or ''}}</td>
-                            <td>{{ $examSchedule->classes->name or ''}}</td> 
-                            <td>{{ $examSchedule->subjects->name }}</td>
-                            <td>{{ $examSchedule->on_date }}</td>
-                            <td>{{ $examSchedule->max_marks }}</td> 
-                            <td>{{ $examSchedule->pass_marks }}</td> 
-                            <td>{{ $examSchedule->fail_marks }}</td> 
+                        @foreach ($gradeDetails as $gradeDetail)
+                          <tr>
+                            <td>{{ ++$loop->index }}</td>
+                            <td>{{ $gradeDetail->exam_term->name or '' }}</td>
+                            <td>{{ $gradeDetail->student_id->name or ''}}</td> 
+                            <td>{{ $gradeDetail->subjects }}</td>
                             
-                        		<td> 
-                             @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
-                        			<a href="{{ route('admin.exam.schedule.delete',Crypt::encrypt($examSchedule->id)) }}"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
-                              @endif
+                            
+                           {{--  <td>  
+                              <a href="{{ route('admin.exam.schedule.delete',Crypt::encrypt($examSchedule->id)) }}"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
 
                               <a href="{{ url('storage/class_test/'.$examSchedule->sylabus) }}" {{ $examSchedule->sylabus==null?'disabled':'' }} target="_blank"  class="btn btn-info btn-xs"    ><i class="fa fa-download"></i></a>
-                        		</td>
-                        	</tr>  	 
-                        @endforeach	
+                            </td> --}}
+                          </tr>    
+                        @endforeach 
                            
                         </tbody>
                              
@@ -133,7 +121,7 @@
 @endpush
 @push('scripts')
  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
-  <script type="text/javascript">
+ {{--  <script type="text/javascript">
      $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
      $("#class").change(function(){
          $('#section').html('<option value="">Searching ...</option>');
@@ -191,5 +179,5 @@
      }
      
  </script>
-    
+     --}}
 @endpush

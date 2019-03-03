@@ -10,6 +10,7 @@ use App\Model\SectionType;
 use App\Model\SubMenu;
 use App\Model\UserClassType;
 use Illuminate\Support\Facades\Auth;
+use Route;
 
 class MyFuncs {
 
@@ -487,6 +488,15 @@ class MyFuncs {
        return $subMenus = SubMenu::whereIn('id',$mainMenus)
                           ->get(); 
     
+  }
+     // read write delete permission check
+  public static function menuPermission(){ 
+    $user_id =Auth::guard('admin')->user()->id;
+    $routeName= Route::currentRouteName();
+   $subMenuId =SubMenu::where('url',$routeName)->first()->id; 
+    return Minu::where('admin_id',$user_id)->where('sub_menu_id',$subMenuId)->first();
+              
+
   } 
 
 }

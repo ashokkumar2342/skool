@@ -226,11 +226,44 @@
                                     </div>
                                 </div> 
                               </div>
-                            </div>
-                      
+                            </div> 
+                        </div> 
+                @endforeach 
+ 
+      <div class="modal-body">
+        
+        <div class="row"> 
+           
+        <h4 align="center"><b> Document Details</b></h4><hr>                                             
+           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+               <div class="col-lg-6 b-r">
+                   <div class="form-horizontal">
+                       <div class="box-body"> 
+                            <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                    <p>Weight : <b>{{ $documents->name or ''  }}</b></p> 
+                               </div>
+                           </div> 
+                          
+                         </div>
                         </div>
-                         
-                @endforeach      
+                       </div>              
+                    <div class="col-lg-6">
+                      <div class="form-horizontal">
+                         <div class="box-body">
+                            <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                    <p>Height : <b>{{ $documents->student_id or ''   }}</b></p> 
+                               </div>
+                           </div> 
+                            
+                                
+                              </div>
+                            </div> 
+                        </div>
+                        </div>
+                 
+                     
               </div>
             </div>
           </div>

@@ -10,27 +10,31 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="form-horizontal add_form" content-refresh="boardingPoint_table" action="{{ route('admin.boardingPoint.post') }}" method="post">              
+	                <form class="add_form" content-refresh="boardingPoint_table" action="{{ route('admin.boardingPoint.post') }}" method="post">              
                   {{ csrf_field() }}                                       
 	                   <div class="col-lg-6">                                             
                          <div class="form-group">
-                           {{ Form::text('name','',['class'=>'form-control','id'=>'name', 'placeholder'=>'  Boarding Point Name']) }} 
+                          <label>Boarding Point Name</label>
+                           {{ Form::text('name','',['class'=>'form-control','id'=>'name', 'placeholder'=>'  Boarding Point Name','maxlength'=>'50']) }} 
                          </div>                                         
                       </div>
                        
                       <div class="col-lg-6">                                             
                          <div class="form-group">
-                           {{ Form::text('address','',['class'=>'form-control','id'=>'address', 'placeholder'=>'  Boarding Point Address']) }} 
+                          <label> Boarding Point Address</label>
+                           {{ Form::text('address','',['class'=>'form-control','id'=>'address', 'placeholder'=>'  Boarding Point Address','maxlength'=>'200']) }} 
                          </div>                                         
                       </div>
                       <div class="col-lg-6">                                             
                          <div class="form-group">
-                           {{ Form::text('single_side_fee_amount','',['class'=>'form-control','id'=>'single_side_fee_amount', 'placeholder'=>'  Single Side Fee Amount']) }} 
+                          <label>Single Side Fee Amount</label>
+                           {{ Form::text('single_side_fee_amount','',['class'=>'form-control','id'=>'single_side_fee_amount', 'placeholder'=>'  Single Side Fee Amount','maxlength'=>'7','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }} 
                          </div>                                         
                       </div> 
                       <div class="col-lg-6">                                             
 	                       <div class="form-group">
-	                         {{ Form::text('both_side_fee_amount','',['class'=>'form-control','id'=>'both_side_fee_amount', 'placeholder'=>'  Both Side Fee Amount']) }} 
+                          <label>Both Side Fee Amount</label>
+	                         {{ Form::text('both_side_fee_amount','',['class'=>'form-control','id'=>'both_side_fee_amount', 'placeholder'=>'  Both Side Fee Amount','maxlength'=>'7','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }} 
 	                       </div>                                         
 	                    </div>
 	                  
@@ -71,10 +75,14 @@
                             <td>{{ $boardingPoint->single_side_fee_amount }}</td>
                             <td>{{ $boardingPoint->both_side_fee_amount }}</td>
                          
-                        		<td> 
+                        		<td>
+                             @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
                         			<a href="#" onclick="callPopupLarge(this,'{{ route('admin.boardingPoint.edit',Crypt::encrypt($boardingPoint->id)) }}')" class="btn_edit btn btn-info btn-xs"    ><i class="fa fa-edit"></i></a>
+                              @endif
 
+                               @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                         			<a href="{{ route('admin.boardingPoint.delete',Crypt::encrypt($boardingPoint->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
+                              @endif
                         		</td>
                         	</tr>  	 
                         @endforeach	

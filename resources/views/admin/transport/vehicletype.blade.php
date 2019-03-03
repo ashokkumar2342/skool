@@ -10,18 +10,20 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="form-horizontal add_form" content-refresh="vehicleType_table" action="{{ route('admin.vehicleType.post') }}" method="post">              
+	                <form class="add_form" content-refresh="vehicleType_table" action="{{ route('admin.vehicleType.post') }}" method="post">              
                   {{ csrf_field() }}                                       
 	                   <div class="col-lg-4">                                             
 	                       <div class="form-group">
-	                         {{ Form::text('vehicle_type','',['class'=>'form-control','id'=>'vehicle_type', 'placeholder'=>'  Vehicle Type']) }}
+                          <label>Vehicle Type</label>
+	                         {{ Form::text('vehicle_type','',['class'=>'form-control','id'=>'vehicle_type', 'placeholder'=>'  Vehicle Type','maxlength'=>'50']) }}
 	                        
 	                       </div>                                         
 	                    </div>
 	                     
                       <div class="col-lg-8">                                             
                          <div class="form-group">
-                           {{ Form::text('description','',['class'=>'form-control','id'=>'description','rows'=>4, 'placeholder'=>' Description']) }}
+                          <label>Description</label>
+                           {{ Form::text('description','',['class'=>'form-control','id'=>'description','rows'=>4, 'placeholder'=>' Description','maxlength'=>'250']) }}
                           
                          </div>                                         
                       </div>
@@ -58,9 +60,13 @@
                              
                         		<td>{{ $VehicleType->description }}</td>
                         		<td> 
+                               @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
                         			<button onclick="callPopupLarge(this,'{{ route('admin.vehicleType.edit',Crypt::encrypt($VehicleType->id)) }}')" class="btn_edit btn btn-warning btn-xs"><i class="fa fa-edit"></i></button>
-                              
+                              @endif
+
+                               @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                         			<a href="{{ route('admin.vehicleType.delete',Crypt::encrypt($VehicleType->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
+                              @endif
                         		</td>
                         	</tr>  	 
                         @endforeach	
@@ -84,5 +90,10 @@
 @endpush
 @push('scripts')
  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script>
+       $('#vehicleType_table').DataTable();
+    </script>
+    
     
 @endpush

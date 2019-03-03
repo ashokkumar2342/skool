@@ -44,10 +44,13 @@
                         
                         <td>{{ $incomeSlab->range }} </td>
                         <td> 
+                           @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
                             <?php $url = route('admin.incomeSlab.edit',Crypt::encrypt($incomeSlab->id)) ?>
-                          <a class="btn btn-success btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a> 
-                         
+                          <a class="btn btn-success btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a>
+                          @endif 
+                          @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                           <a href="{{ route('admin.incomeSlab.delete',Crypt::encrypt($incomeSlab->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                          @endif
                         </td>
                        
                       </tr> 

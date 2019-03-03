@@ -27,14 +27,14 @@
               </div>  
               <div class="col-lg-3">                                             
                  <div class="form-group">
-                  <label>Mobile</label>
+                  <label>Mobile Number</label>
                    {{ Form::text('mobile',$driver->mobile,['class'=>'form-control','id'=>'mobile','rows'=>4, 'placeholder'=>' Mobile']) }}
                     <p class="errorCode text-center alert alert-danger hidden"></p> 
                  </div>                                         
               </div>
               <div class="col-lg-3">                                             
                  <div class="form-group">
-                  <label>Contact No</label>
+                  <label>Contact Number</label>
                    {{ Form::text('contact_no',$driver->contact_no,['class'=>'form-control','id'=>'contact_no','rows'=>4, 'placeholder'=>' Contact No']) }}
                     <p class="errorCode text-center alert alert-danger hidden"></p> 
                  </div>                                         

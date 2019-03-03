@@ -228,8 +228,11 @@ b{
                                  <td>{{ $medicalInfo->bp }}</td> 
                                  <td>{{ $medicalInfo->id_marks1 }}</td>
                                  <td>{{ $medicalInfo->id_marks2 }}</td>
-                                 <td>
-                                    <button class="btn_medical_edit btn btn-warning btn-xs"  data-id="{{ $medicalInfo->id }}"  ><i class="fa fa-edit"></i></button>  
+                                 <td style="width: 100px"> 
+                                  <button class="btn_medical_view btn btn-info btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.medical.view',$medicalInfo->id) }}')" data-id=""  ><i class="fa fa-eye"></i></button>
+
+                                    <button class="btn_medical_edit btn btn-warning btn-xs"  data-id="{{ $medicalInfo->id }}"  ><i class="fa fa-edit"></i></button>
+
                                      <button class="btn_medical_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $medicalInfo->id }}"  ><i class="fa fa-trash"></i></button>
                                  </td>
 

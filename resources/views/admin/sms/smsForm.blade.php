@@ -39,7 +39,7 @@
                       </div>
                       <div class="form-group col-md-12 number_div">
                         <label   for="text">Mobile Number</label>
-                        <textarea class="form-control" rows="2" onkeypress="return event.charCode >= 1 && event.charCode <= 57" name="mobile" id="txtboxToFilter" placeholder="Enter number" required=""></textarea>
+                        <textarea class="form-control" rows="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="mobile" id="txtboxToFilter" placeholder="Enter number" required=""  maxlength="10" ></textarea>
                         <p class="text-danger">{{ $errors->first('mobile') }}</p>
                       </div>                         
                       <div class="form-group col-md-12">

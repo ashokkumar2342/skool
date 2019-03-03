@@ -63,10 +63,13 @@
                         		<td>{{ $concession->name }}</td>
                             <td>{{ $concession->amount }}</td>
                         		<td>{{ $concession->percentage?$concession->percentage.'%':'' }}</td>
-                        		<td> 
+                        		<td>
+                             @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
                         			<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $concession->id }}"   data-name="{{ $concession->name }}" data-amount="{{ $concession->amount }}" data-percentage="{{ $concession->percentage }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
-
+                               @endif
+                               @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                         			<button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $concession->id }}"  ><i class="fa fa-trash"></i></button>
+                              @endif
                         		</td>
                         	</tr>  	 
                         @endforeach	

@@ -47,9 +47,16 @@
               <td>{{  $studentFeeDetail->fee_amount }}</td> 
              
               <td>{{ $studentFeeDetail->concession_amount }}</td>  
-              <td>{{ Carbon\Carbon::parse( $studentFeeDetail->last_date)->format(' F ') }} </td> <td>
+              <td>
+                
+                {{ Carbon\Carbon::parse( $studentFeeDetail->last_date)->format(' F ') }} </td>
+                 <td>
+                  @if ($menuPermission->d_status==1)
                  <a class="btn_delete btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data ?')"   href="{{ route('admin.studentFeeDetail.delete', $studentFeeDetail->id  ) }}"  ><i class="fa fa-trash"></i></a>
+                 @endif
+                  @if ($menuPermission->w_status==1)
                  <a href="#" data-id="{{ $studentFeeDetail->feeStructureLastDates->id }}" id="add_show" class="btn btn-success btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.studentFeeStructure.Concession.show.model',$studentFeeDetail->id) }}')"><i class="fa fa-edit"></i></a>
+                 @endif
              </td>  
            </tr>   
          @endforeach 

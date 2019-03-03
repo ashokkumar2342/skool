@@ -7,11 +7,13 @@ use App\Model\BloodGroup;
 use App\Model\Category;
 use App\Model\ClassType;
 use App\Model\DiscountType;
+use App\Model\Document;
 use App\Model\DocumentType;
 use App\Model\Gender;
 use App\Model\GuardianRelationType;
 use App\Model\IncomeRange;
 use App\Model\Isoptional;
+use App\Model\Minu;
 use App\Model\ParentsInfo;
 use App\Model\PaymentType;
 use App\Model\Profession;
@@ -19,11 +21,12 @@ use App\Model\Religion;
 use App\Model\SessionDate;
 use App\Model\StudentDefaultValue;
 use App\Model\StudentFee;
+use App\Model\StudentMedicalInfo;
 use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
 use App\Model\Template\BirthdayTemplate;
-use App\Student; 
+use App\Student;
 use Auth;
 use Carbon;
 use DB;
@@ -43,12 +46,13 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request,$menuPermissionId)
     {
-        
+     
         $students= Student::where(['class_id'=>$request->class,'section_id'=>$request->section,'student_status_id'=>1])->get();
+     $menuPermision= Minu::find($menuPermissionId); 
         $response = array(); 
-        $response['data']= view('admin.student.studentdetails.list',compact('students'))->render();
+        $response['data']= view('admin.student.studentdetails.list',compact('students','menuPermision'))->render();
             $response['status'] = 1;
             return $response;
     }
@@ -79,8 +83,8 @@ class StudentController extends Controller
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
         $default = StudentDefaultValue::find(1); 
-           
-        return view('admin.student.studentdetails.showForm',compact('classes','sessions','default','genders','religions','categories'));
+        $menuPermission= MyFuncs::menuPermission(); 
+        return view('admin.student.studentdetails.showForm',compact('classes','sessions','default','genders','religions','categories','menuPermission'));
     }
 
     public function  passwordReset(Student $student){
@@ -97,8 +101,9 @@ class StudentController extends Controller
      
     public function previewshow($id){
           $student = Student::find($id);
-          $parents = ParentsInfo::where('student_id',$id)->get();
-         return view('admin.student.studentdetails.preview',compact('student','parents'));
+          $parents = ParentsInfo::where('student_id',$id)->get(); 
+          $documents = Document::all();
+         return view('admin.student.studentdetails.preview',compact('student','parents','documents'));
     }
 
     

@@ -71,9 +71,13 @@
                                     <td>{{ date('d-m-Y',strtotime($academicYear->end_date))  }}</td>
                                     <td>{{ $academicYear->description }}</td>
                                     <td>
+                                       @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
                                       <?php $url = route('admin.academicYear.edit',Crypt::encrypt($academicYear->id)) ?>
-                                      <a class="btn btn-success btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a> 
+                                      <a class="btn btn-success btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a>
+                                      @endif 
+                                      @if(App\Helper\MyFuncs::menuPermission()->d_status==1)
                                       <a href="{{ route('admin.academicYear.delete',Crypt::encrypt($academicYear->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                      @endif
                                     </td>
                                 </tr>
                              @endforeach

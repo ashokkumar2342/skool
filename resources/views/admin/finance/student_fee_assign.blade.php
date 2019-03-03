@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Student Fee Assign </h1>
+    <h1>Student Fee Assign  </h1>
       @includeIf('admin.include.hot_menu', ['menu_type_id' => 4])
 </section>
     <section class="content">
@@ -9,7 +9,7 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-                  <form class="form-vertical add_form" success-content-id="student_fee_assign_show" no-reset="true" action="{{ route('admin.studentFeeAssign.show') }}" method="post">
+                  <form class="form-vertical add_form" success-content-id="student_fee_assign_show" no-reset="true" action="{{ route('admin.studentFeeAssign.show',App\Helper\MyFuncs::menuPermission()->id) }}" method="post">
                     {{ csrf_field() }}
                          <div class="col-lg-2">                           
                              <div class="form-group">
@@ -141,32 +141,30 @@
         });
     }
 
-    function studentDetail(studentId){
-       $.ajaxSetup({
-                 headers: {
-                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                 }
-             });
-        $.ajax({
-            url: '{{ route('admin.studentFeeAssign.show') }}',
-            type: 'post',       
-            data: {student_id:studentId,academic_year_id:$('#academic_year_id').val()} ,
-       })
-       .done(function(response) {
+    // function studentDetail(studentId){
+    //    $.ajaxSetup({
+    //              headers: {
+    //              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //              }
+    //          });
+    //     $.ajax({
+    //         url: '',
+    //         type: 'post',       
+    //         data: {student_id:studentId,academic_year_id:$('#academic_year_id').val()} ,
+    //    })
+    //    .done(function(response) {
 
-          $('#student_fee_assign_show').html(response.data);
-          $("#myModal").modal("hide");
-          // $('#btn_student_fee_assign_show').click();
-          // $("#searchResult" ).empty();
-          // $("#search_form").trigger( "reset" ); 
-       })
-       .fail(function() {
-         console.log("error");
-       })
-       .always(function() {
-         console.log("complete");
-       });   
-    }
+    //       $('#student_fee_assign_show').html(response.data);
+    //       $("#myModal").modal("hide");
+        
+    //    })
+    //    .fail(function() {
+    //      console.log("error");
+    //    })
+    //    .always(function() {
+    //      console.log("complete");
+    //    });   
+    // }
 
     $('#btn_student_fee_detail_create').click(function(event) {        
       $.ajaxSetup({

@@ -73,11 +73,17 @@
                                     <td>
                                         <a href="{{ url('storage/homework/'.$homework->homework_doc) }}" target="blank" title=""><button type="button" class="btn_parents_image btn btn-success btn-xs"><i class="fa fa-download"></i> </button></a>
 
+                                         @if(App\Helper\MyFuncs::menuPermission()->r_status == 1)
                                         <button type="button" class="btn_parents_image btn btn-info btn-xs" data-toggle="modal" data-id="{{ $homework->id }}" data-target="#image_parent"><i class="fa fa-eye"></i> </button>
+                                        @endif
 
+                                         @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
                                         <button type="button" class="homework_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $homework->id }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
+                                        @endif
 
+                                         @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                                         <button class="btn_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $homework->id }}"  ><i class="fa fa-trash"></i></button>
+                                        @endif
                                     </td>
                                 
                                 </tr>

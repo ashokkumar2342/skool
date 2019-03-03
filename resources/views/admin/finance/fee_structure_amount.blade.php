@@ -68,10 +68,14 @@
                                 <td>{{ $feeStructureAmount->amount }}</td>
                                
                         	 
-                        		<td> 
+                        		<td>
+                             @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
                         			<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $feeStructureAmount->id }}"  data-academic="{{ $feeStructureAmount->academic_year_id }}" data-feestructur="{{  $feeStructureAmount->fee_structure_id }}"  data-amount="{{ $feeStructureAmount->amount }}"><i class="fa fa-edit"></i> </button>
+                              @endif
 
+                               @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                         			<button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $feeStructureAmount->id }}"  ><i class="fa fa-trash"></i></button>
+                            @endif
                         		</td>
                         	</tr>  	 
                         @endforeach	

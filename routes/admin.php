@@ -136,7 +136,7 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::post('{student}/update', 'StudentController@update')->name('admin.student.update');
 	     Route::post('{student}/view-update', 'StudentController@viewUpdate')->name('admin.student.view-update');
 	     Route::post('{student}/profileupdate', 'StudentController@profileupdate')->name('admin.student.profileupdate');
-	     Route::post('list', 'StudentController@index')->name('admin.student.list'); 
+	     Route::post('list/{menuPermission}', 'StudentController@index')->name('admin.student.list'); 
 	     Route::get('show-form', 'StudentController@showForm')->name('admin.student.show');
 	    
 	     Route::get('{student}/password-reset', 'StudentController@passwordReset')->name('admin.student.passwordreset'); 
@@ -186,6 +186,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::post('add', 'StudentMedicalInfoController@store')->name('admin.medical.add');
 	    Route::delete('delete', 'StudentMedicalInfoController@destroy')->name('admin.medical.delete');
 	    Route::get('edit', 'StudentMedicalInfoController@edit')->name('admin.medical.edit');
+	    Route::get('view/{id}', 'StudentMedicalInfoController@show')->name('admin.medical.view');
 	    Route::post('update', 'StudentMedicalInfoController@update')->name('admin.medical.update');
 	 }); 
 	   	// ---------------Sibling Info----------------------------------------
@@ -385,7 +386,7 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::get('delete/{studentFeeDetail}', 'StudentFeeDetailController@destroy')->name('admin.studentFeeDetail.delete');
     	    Route::put('update', 'StudentFeeDetailController@update')->name('admin.studentFeeDetail.update');
     	    Route::get('assign', 'StudentFeeDetailController@feeassignlist')->name('admin.studentFeeAssign.list');
-    	    Route::post('assign/show', 'StudentFeeDetailController@feeassignshow')->name('admin.studentFeeAssign.show');
+    	    Route::post('assign/show/{menu_id}', 'StudentFeeDetailController@feeassignshow')->name('admin.studentFeeAssign.show');
     	    Route::post('assign/store', 'StudentFeeDetailController@assignstore')->name('admin.studentFeeAssign.post');
     	    Route::get('show-fee-struture-model/{id}', 'StudentFeeDetailController@showFeeStructureModel')->name('admin.studentFeeStructure.show.model');
     	    Route::post('show-fee-struture-store/{id}', 'StudentFeeDetailController@feeStructureStore')->name('admin.studentFeeStructure.details.store');
@@ -531,6 +532,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'Transport\TransportRegistrationController@index')->name('admin.transportRegistration.list');	 	
 			    Route::post('add', 'Transport\TransportRegistrationController@store')->name('admin.transportRegistration.post');
 			    Route::get('delete/{id}', 'Transport\TransportRegistrationController@destroy')->name('admin.transportRegistration.delete'); 
+			     Route::get('edit/{id}', 'Transport\TransportRegistrationController@edit')->name('admin.transportRegistration.edit'); 
 			 });
 		});
 		Route::group(['prefix' => 'exam'], function() {	

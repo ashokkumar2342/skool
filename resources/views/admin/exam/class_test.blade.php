@@ -42,13 +42,13 @@
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                           {{ Form::label('max_marks','Max Marks',['class'=>' control-label']) }}
-                           {{ Form::text('max_marks','',['class'=>'form-control', 'placeholder'=>'  Max Marks']) }} 
+                           {{ Form::text('max_marks','',['class'=>'form-control', 'placeholder'=>'  Max Marks','maxlength'=>'4','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','required']) }} 
                          </div>                                         
                       </div> 
                       <div class="col-lg-6">                                             
                          <div class="form-group">
                           {{ Form::label('discription','Discription',['class'=>' control-label']) }}
-                           {{ Form::textarea('discription','',['class'=>'form-control', 'placeholder'=>' Discription','rows'=>1]) }} 
+                           {{ Form::textarea('discription','',['class'=>'form-control', 'placeholder'=>' Discription','rows'=>1,'required']) }} 
                          </div>                                         
                       </div> 
                        <div class="col-lg-3">                                             
@@ -97,8 +97,10 @@
                             <td>{{ $classTest->test_date }}</td>
                             <td>{{ $classTest->max_marks }}</td> 
                             <td>{{ $classTest->discription }}</td> 
-                        		<td>  
+                        		<td> 
+                             @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                         			<a href="{{ route('admin.exam.classtest.delete',Crypt::encrypt($classTest->id)) }}"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
+                              @endif
 
                               <a href="{{ url('storage/class_test/'.$classTest->sylabus) }}" {{ $classTest->sylabus==null?'disabled':'' }} target="_blank"  class="btn btn-info btn-xs"    ><i class="fa fa-download"></i></a>
                         		</td>

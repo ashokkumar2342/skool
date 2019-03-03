@@ -12,38 +12,38 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Transport Edit</h4>
+        <h4 class="modal-title">Vehicle Edit</h4>
       </div>
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12">
 
-                  <form class="add_form" content-refresh="vehicle_table" action="{{ route('admin.vehicle.update',$vehicle->id) }}" method="post">              
+                  <form class="add_form" content-refresh="vehicle_table" action="{{ route('admin.vehicle.update',$vehicle->id) }}" no-reset="true" method="post">              
                   {{ csrf_field() }}                                       
                      <div class="col-lg-3">                                             
                          <div class="form-group">
-                          <label>Registration No</label>
+                          <label>Registration Number</label>
                            {{ Form::text('registration_no',$vehicle->registration_no,['class'=>'form-control','id'=>'registration_no', 'placeholder'=>'  Registration No']) }}
                           
                          </div>                                         
                       </div>
                        <div class="col-lg-3">                                             
                          <div class="form-group">
-                           <label>Chassis No </label>
+                           <label>Chassis Number </label>
                            {{ Form::text('chassis_no',$vehicle->chassis_no,['class'=>'form-control','id'=>'chassis_no','rows'=>4, 'placeholder'=>'  Chassis No']) }}
               
                          </div>                                         
                       </div> 
                       <div class="col-lg-3">                                             
                          <div class="form-group">
-                           <label>Model  No</label>
+                           <label>Model  Number</label>
                            {{ Form::text('model_no',$vehicle->model_no,['class'=>'form-control','id'=>'model_no','rows'=>4, 'placeholder'=>' Model No']) }}
                   
                          </div>                                         
                       </div> 
                       <div class="col-lg-3">                                             
                          <div class="form-group">
-                           <label>Engine No</label>
+                           <label>Engine Number</label>
                            {{ Form::text('engine_no',$vehicle->engine_no,['class'=>'form-control','id'=>'engine_no','rows'=>4, 'placeholder'=>' Engine No']) }}
                          
                          </div>                                         

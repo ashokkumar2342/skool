@@ -223,12 +223,14 @@
                                 </div>
                             </div> {{--row end --}}               
                              
-                        
-                             <div class="row">
+                        @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
+                                <div class="row">
                         <div class="col-md-12 text-center">
                             <button class="btn btn-success">Submit</button>
                         </div>
-                    </div>
+                    </div>  
+                        @endif
+                        
                             
                         {{ Form::close() }}
                     </div>

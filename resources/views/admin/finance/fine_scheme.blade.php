@@ -108,10 +108,13 @@
                                 <td>{{ $fineScheme->day_after1 }}</td>
                                 <td>{{ $fineScheme->day_after2 }}</td>
                         		<td>{{ $fineScheme->finePeriods->name }}</td>
-                        		<td> 
+                        		<td>
+                             @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
                         			<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $fineScheme->id }}"  data-code="{{ $fineScheme->code }}" data-name="{{ $fineScheme->name }}" data-amount1="{{ $fineScheme->fine_amount1 }}" data-amount2="{{ $fineScheme->fine_amount2 }}" data-amount3="{{ $fineScheme->fine_amount3 }}" data-after1="{{ $fineScheme->day_after1 }}" data-after2="{{ $fineScheme->day_after2 }}" data-period="{{ $fineScheme->fine_period_id }}"  data-target="#add_parent"><i class="fa fa-edit"></i> </button>
-
+                              @endif
+                               @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                         			<button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $fineScheme->id }}"  ><i class="fa fa-trash"></i></button>
+                              @endif
                         		</td>
                         	</tr>  	 
                         @endforeach	

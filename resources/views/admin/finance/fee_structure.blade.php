@@ -80,10 +80,13 @@
                                 <td>{{ $feeStructure->feeAccounts->name }}</td>
                                 <td>{{ $feeStructure->fineSchemes->name }}</td>
                         		<td>{{ $feeStructure->is_refundable == 1 ?'yes':'No' }}</td>
-                        		<td> 
+                        		<td>
+                             @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
                         			<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $feeStructure->id }}"  data-code="{{ $feeStructure->code }}" data-name="{{ $feeStructure->name }}" data-feeaccount="{{ $feeStructure->fee_account_id }}" data-finescheme="{{ $feeStructure->fine_scheme_id }}" data-refundable="{{ $feeStructure->is_refundable }}"><i class="fa fa-edit"></i> </button>
-
+                              @endif 
+                               @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                         			<button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $feeStructure->id }}"  ><i class="fa fa-trash"></i></button>
+                              @endif
                         		</td>
                         	</tr>  	 
                         @endforeach	

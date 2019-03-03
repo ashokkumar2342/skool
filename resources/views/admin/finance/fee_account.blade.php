@@ -64,9 +64,13 @@
                         		<td>{{ $feeAccount->name }}</td>
                         		<td>{{ $feeAccount->description }}</td>
                         		<td> 
+                               @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
                         			<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $feeAccount->id }}"  data-code="{{ $feeAccount->code }}" data-name="{{ $feeAccount->name }}" data-description="{{ $feeAccount->description }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
+                              @endif
 
+                               @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                         			<button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $feeAccount->id }}"  ><i class="fa fa-trash"></i></button>
+                              @endif
                         		</td>
                         	</tr>  	 
                         @endforeach	

@@ -43,11 +43,14 @@
                         <td>{{ $profession->id }}</td>
                         
                         <td>{{ $profession->name }} </td>
-                        <td> 
+                        <td>
+                         @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
                             <?php $url = route('admin.profession.edit',Crypt::encrypt($profession->id)) ?>
                           <a class="btn btn-success btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a> 
-                         
+                          @endif
+                          @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                           <a href="{{ route('admin.profession.delete',Crypt::encrypt($profession->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                          @endif
                         </td>
                        
                       </tr> 

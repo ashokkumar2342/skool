@@ -33,8 +33,10 @@
                   <td>{{ $activity->admins->first_name}}</td>
                   <td>{{ $activity->message }}</td>
                   <td>{{ $activity->created_at->diffForHumans() }}</td>
-                  <td align="center">  
+                  <td align="center"> 
+                   @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                     <a class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data ?')" href="{{ route('admin.activity.delete',$activity->id) }}"><i class="fa fa-trash"></i></a>
+                    @endif
                     
                   </td>
                  

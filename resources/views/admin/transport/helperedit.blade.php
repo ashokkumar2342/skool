@@ -17,7 +17,7 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12">
-            <form class="form-horizontal add_form" content-refresh="helpers_table" action="{{ route('admin.helper.update',$driverHelper->id) }}" method="post">              
+            <form class="add_form" content-refresh="helpers_table" action="{{ route('admin.helper.update',$driverHelper->id) }}" method="post">              
                   {{ csrf_field() }}                                       
                      <div class="col-lg-3">                                             
                          <div class="form-group">
@@ -28,13 +28,13 @@
                        
                       <div class="col-lg-3">                                             
                          <div class="form-group">
-                          <label>Mobile</label>
+                          <label>Mobile Number</label>
                            {{ Form::text('mobile',$driverHelper->mobile,['class'=>'form-control','id'=>'mobile','rows'=>4, 'placeholder'=>' Mobile']) }} 
                          </div>                                         
                       </div>
                       <div class="col-lg-3">                                             
                          <div class="form-group">
-                          <label>Contact No</label>
+                          <label>Contact Number</label>
                            {{ Form::text('contact_no',$driverHelper->contact_no,['class'=>'form-control','id'=>'contact_no','rows'=>4, 'placeholder'=>' Contact No']) }} 
                          </div>                                         
                       </div>
