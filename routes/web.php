@@ -19,6 +19,8 @@ Route::get('/', function () {
     return view('front.home');
  
 });
+Route::get('barcode', 'BarcodeController@barcodeShow');
+Route::post('barcode-generate', 'BarcodeController@barcode')->name('barcode.generate');
  
  
 Route::prefix('parent')->group(function () {
