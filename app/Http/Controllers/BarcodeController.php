@@ -17,12 +17,11 @@ class BarcodeController extends Controller
          exit;
        }
 
-       $datas = explode("\n", str_replace("\r", "", $input));
-       
+       $datas = explode("\n", str_replace("\r", "", $input)); 
        foreach ($datas as $key => $value) {
          $barcode =$value;
-         $name = $barcode.".png";
-         $url ='https://barcode.tec-it.com/barcode.ashx?data='.$barcode.'&code=Code128&dpi=96&dataseparator=';
+         $name = $barcode.".jpg";
+         $url ='https://barcode.tec-it.com/barcode.ashx?data='.$barcode.'&code=Code128&multiplebarcodes=false&translate-esc=false&unit=Fit&&dpi=96&imagetype=Jpg&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0';
          $file = file_put_contents( $name, file_get_contents($url) );
 
          if(!$file){
