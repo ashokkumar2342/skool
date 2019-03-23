@@ -21,7 +21,7 @@ class BarcodeController extends Controller
        
        foreach ($datas as $key => $value) {
          $barcode =$value;
-         $name = $barcode.".png";
+         $name = $barcode.".jpg";
          $url ='https://barcode.tec-it.com/barcode.ashx?data='.$barcode.'&code=Code128&dpi=96&dataseparator=';
          $file = file_put_contents( $name, file_get_contents($url) );
 
