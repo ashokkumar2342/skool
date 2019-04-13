@@ -9,35 +9,36 @@ function callJqueryDefault(divId){
     var post_url = this.action; //get form action url
     var request_method = 'POST'; //get form GET/POST method
     var form_data = new FormData(this); //Encode form elements for submission
+     $('button[type=submit], input[type=submit]').prop('disabled',true);
     
     $.ajax({
-        url : post_url,
-        type: request_method,
-        data : form_data,
-        contentType: false,
-        processData:false,
-        xhr: function(){
-        //upload Progress
-        var xhr = $.ajaxSettings.xhr();
-        if (xhr.upload) {
-			
-			pleaseWait.remove();
-			//update progressbar
-			uploadProgress.insertAfter(formObj);
-			//console.log(5);
-            xhr.upload.addEventListener('progress', function(event) {
-                var percent = 0;
-                var position = event.loaded || event.position;
-                var total = event.total;
-                if (event.lengthComputable) {
-                    percent = Math.ceil(position / total * 100);
-                }
-				//console.log(2);
-				$("#upload-progress .progress-bar").css("width", + percent +"%");
-				//console.log(3);
-            }, true);
-        }
-        return xhr;
+            url : post_url,
+            type: request_method,
+            data : form_data,
+            contentType: false,
+            processData:false,
+            xhr: function(){
+            //upload Progress
+            var xhr = $.ajaxSettings.xhr();
+            if (xhr.upload) {
+    			
+    			pleaseWait.remove();
+    			//update progressbar
+    			uploadProgress.insertAfter(formObj);
+    			//console.log(5);
+                xhr.upload.addEventListener('progress', function(event) {
+                    var percent = 0;
+                    var position = event.loaded || event.position;
+                    var total = event.total;
+                    if (event.lengthComputable) {
+                        percent = Math.ceil(position / total * 100);
+                    }
+    				//console.log(2);
+    				$("#upload-progress .progress-bar").css("width", + percent +"%");
+    				//console.log(3);
+                }, true);
+            }
+            return xhr;
     }
     }).done(function(response){ //
 	
@@ -59,6 +60,7 @@ function callJqueryDefault(divId){
 			}
 		}
 	}else if(response.status==1){
+		$('button[type=submit], input[type=submit]').prop('disabled',false); 
 		if(formObj.getAttribute('success-id')){
 				$('#'+formObj.getAttribute('success-id')).html(response.msg);
 		}else if(formObj.getAttribute('success-popup')){
@@ -158,6 +160,7 @@ function callJqueryDefault(divId){
 
 		if(formObj.getAttribute('button-click') && response.status==1)
 		{	
+			$('button[type=submit], input[type=submit]').prop('disabled',false);
 			var myStr = formObj.getAttribute('button-click');
         	var strArray = myStr.split(",");
         
@@ -186,9 +189,9 @@ function callJqueryDefault(divId){
 		if(formObj.getAttribute('call-jquery-default')!=""){
 					callJqueryDefault(formObj.getAttribute('call-jquery-default'));
 					
-				}
+		}
 			
-	}
+	} 
     });
 });
 }

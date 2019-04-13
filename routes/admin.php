@@ -603,4 +603,9 @@ Route::group(['middleware' => 'admin'], function() {
 
 			});	
 
+			Route::group(['prefix' => 'barcode'], function() {
+			    Route::get('/', 'Barcode\BarcodeController@index')->name('admin.barcode.view');
+			    Route::post('barcode-Generator', 'Barcode\BarcodeController@barcodeGenerator')->name('barcode.Generator');
+			});
+
 });

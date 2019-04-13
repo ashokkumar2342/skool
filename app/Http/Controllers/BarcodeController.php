@@ -53,5 +53,10 @@ class BarcodeController extends Controller
      public function barcodeShow()
     {
         return view('barcode');
+    } 
+
+     public function barcodeFirst()
+    {
+        return view('barcode_first');
     }
 }

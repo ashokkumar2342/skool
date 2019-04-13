@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 Route::get('barcode', 'BarcodeController@barcodeShow');
 Route::post('barcode-generate', 'BarcodeController@barcode')->name('barcode.generate');
- 
+
  
 Route::prefix('parent')->group(function () {
     Route::get('login', 'Front\ParentRegistrationController@login')->name('parent.login.form'); 
