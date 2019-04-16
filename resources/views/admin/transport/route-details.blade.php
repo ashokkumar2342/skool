@@ -1,4 +1,4 @@
-@extends('admin.layout.base')
+  @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
     <h1>Route Details </h1>

@@ -57,7 +57,7 @@
                      </div>
                      <div class="col-md-2">  
                         <br>
-                       <button type="submit" class="btn btn-primary"> Save</button>
+                       <button type="submit" class="btn btn-primary btn-xm"> Save</button>
 
                      </div> 
 
