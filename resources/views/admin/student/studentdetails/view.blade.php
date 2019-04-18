@@ -121,7 +121,7 @@ b{
                     <div class="box-header">                       
                       <span  ><button type="button" class="add_btn_parets btn btn-info btn-sm" data-toggle="modal" data-target="#add_parent">Add Parents info</button></span> 
                     </div>
-                    <table class="table" id="parents_items"> 
+                    <table class="table-responsive" id="parents_items"> 
                         <thead>
                             <tr>
                                 <th>Name</th>
