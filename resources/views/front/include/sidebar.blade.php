@@ -41,13 +41,12 @@
             <a href="#">
                 <i class="fa fa-user text-warning"></i>
                 <span>Online Payment</span>
-                <span class="pull-right-container">
-                  {{-- <i class="fa fa-angle-left pull-right"></i> --}}
+                <span class="pull-right-container"> 
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
             </a>
             <ul class="treeview-menu">
-                {{-- <li><a href="#"><i class="fa fa-circle-o"></i> Add Other Child</a></li> --}}
+                <li><a href="{{ route('payment.form') }}"><i class="fa fa-circle-o"></i> Payment Form</a></li>
            
             </ul>
         </li>
