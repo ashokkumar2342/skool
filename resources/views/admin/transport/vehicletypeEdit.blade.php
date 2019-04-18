@@ -12,7 +12,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Transport Edit</h4>
+        <h4 class="modal-title">Vehicletype Edit</h4>
       </div>
       <div class="modal-body">
        <div class="row"> 
@@ -22,6 +22,7 @@
                   {{ csrf_field() }}                                       
                      <div class="col-lg-4">                                             
                          <div class="form-group">
+                          <label>Vehicle Type</label>
                            {{ Form::text('vehicle_type',$vehicleTypes->vehicle_type,['class'=>'form-control','id'=>'vehicle_type', 'placeholder'=>'  Vehicle Type']) }}
                           
                          </div>                                         
@@ -29,6 +30,7 @@
                        
                       <div class="col-lg-8">                                             
                          <div class="form-group">
+                          <label>Description</label>
                            {{ Form::text('description',$vehicleTypes->description,['class'=>'form-control','id'=>'description','rows'=>4, 'placeholder'=>' Description']) }}
                           
                          </div>                                         

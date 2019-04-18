@@ -68,7 +68,10 @@
                                 <th>Sn</th>
                                
                                 <th>Name</th> 
-                                <th>Description</th> 
+                                <th>Morning Rroute</th> 
+                                <th>Evening Rroute</th>                                     
+                                <th>Morning Boarding Point</th>                             
+                                <th>Evening Boarding Point</th>                                     
                                 <th>Action</th>                                                            
                             </tr>
                         </thead>
@@ -84,9 +87,12 @@
                             <td>{{ $transportRegistration->eveningBoardingPoints->name or ''}}</td>
                             
                         		<td> 
-                        			<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $transportRegistration->id }}"  data-code="{{ $transportRegistration->code }}" data-name="{{ $transportRegistration->name }}" data-description="{{ $transportRegistration->description }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
-
+                               {{--  <button onclick="callPopupLarge(this,'{{ route('admin.transportRegistration.edit',Crypt::encrypt($transportRegistration->id)) }}')" class="btn_edit btn btn-warning btn-xs"><i class="fa fa-edit"></i></button>
+ --}}
+                        		{{-- 	<button type="button"  onclick="callPopupLarge(this,'{{ route('admin.transportRegistration.edit',Crypt::encrypt($transportRegistration->id)) }}')" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $transportRegistration->id }}"  data-code="{{ $transportRegistration->code }}" data-name="{{ $transportRegistration->name }}" data-description="{{ $transportRegistration->description }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button> --}}
+                              @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                         			<a href="{{ route('admin.transportRegistration.delete',Crypt::encrypt($transportRegistration->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
+                              @endif
                         		</td>
                         	</tr>  	 
                         @endforeach	

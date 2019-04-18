@@ -28,14 +28,14 @@
               </div>
                <div class="col-lg-2">                                             
                  <div class="form-group">
-                  <label>mobile</label>
+                  <label>mobile Number</label>
                    {{ Form::text('mobile',$transport->mobile,['class'=>'form-control','id'=>'mobile','rows'=>4, 'placeholder'=>'  mobile']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div> 
               <div class="col-lg-2">                                             
                  <div class="form-group">
-                  <label>Contact No</label>
+                  <label>Contact Number</label>
                    {{ Form::text('contact_no',$transport->contact_no,['class'=>'form-control','id'=>'contact_no','rows'=>4, 'placeholder'=>' Contact No']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
@@ -49,42 +49,42 @@
               </div> 
               <div class="col-lg-2">                                             
                  <div class="form-group">
-                  <label>Gst No</label>
+                  <label>GST No</label>
                    {{ Form::text('gst_no',$transport->gst_no,['class'=>'form-control','id'=>'gst_no','rows'=>4, 'placeholder'=>' GST No']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div>
               <div class="col-lg-2">                                             
                  <div class="form-group">
-                  <label>Ifsc_code</label>
+                  <label>IFSC Code</label>
                    {{ Form::text('ifsc_code',$transport->ifsc_code,['class'=>'form-control','id'=>'ifsc_code','rows'=>4, 'placeholder'=>' IFSC Code']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div>
               <div class="col-lg-2">                                             
                  <div class="form-group">
-                   <label>Account_no</label>
+                   <label>Account Number</label>
                    {{ Form::text('account_no',$transport->account_no,['class'=>'form-control','id'=>'account_no','rows'=>4, 'placeholder'=>' Account No']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div> 
               <div class="col-lg-2">                                             
                  <div class="form-group">
-                  <label>Branch_code</label>
+                  <label>Branch Code</label>
                    {{ Form::text('branch_code',$transport->branch_code,['class'=>'form-control','id'=>'branch_code','rows'=>4, 'placeholder'=>' Branch Code']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div>
               <div class="col-lg-2">                                             
                  <div class="form-group">
-                   <label>Branch_name</label>
+                   <label>Branch Name</label>
                    {{ Form::text('branch_name',$transport->name,['class'=>'form-control','id'=>'branch_name','rows'=>4, 'placeholder'=>' Branch Name']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div>
               <div class="col-lg-4">                                             
                  <div class="form-group">
-                   <label>Account_holder_name</label>
+                   <label>Account Holder Name</label>
                    {{ Form::text('account_holder_name',$transport->account_holder_name,['class'=>'form-control','id'=>'account_holder_name','rows'=>4, 'placeholder'=>' Account holder Name']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         

@@ -2,8 +2,7 @@
 @section('body')
 <section class="content-header">
     <h1>Student Fee Collection </h1>
-      <ol class="breadcrumb">
-      </ol>
+    @includeIf('admin.include.hot_menu', ['menu_type_id' => 4])
 </section>
     <section class="content">
         <div class="box">             
@@ -12,29 +11,27 @@
                 <div class="row">  
                     <div class="col-md-12"> 
                         <form class="form-vertical fee_collection_form"> 
-                            <div class="col-lg-2">                           
+                            <div class="col-md-2">                           
                                  <div class="form-group">
                                   {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
                                    {{ Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required',]) }}
                                    <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                                  </div>    
                             </div>                                                             
-                           <div class="col-lg-1" style="padding-top: 20px;"> 
-                           <button class="btn btn-success" type="button" id="btn_student_registration_show">Show</button>
+                           <div class="col-md-2" style="padding-top: 20px;"> 
+                           <button class="btn btn-success" type="button" id="btn_student_registration_show" style="width: 130px">Show</button>
                           </div>                     
                         </form> 
-                      <div class="col-md-1" style="padding-top: 20px;">
-                           <button class="btn btn-warning" type="button" id="btn_student_registration_show" data-toggle="modal" data-target="#myModal">Search</button>
-                           
-                      </div>
-                      <div class="col-md-1" style="padding-top: 20px;">
-                           <button class="btn btn-info" type="button" id="btn_student_ledger">Ledger</button> 
-                      </div>
-                      <div class="col-md-2" style="padding-top: 20px;">
-                           <button class="btn btn-primary" type="button" id="btn_student_ledger">Previous Reciept</button> 
-                      </div>
-                      <div class="col-md-2" style="padding-top: 20px;">
-                           <button class="btn btn-danger" type="button" id="btn_student_ledger">Cancel Reciept</button> 
+                      <div class="col-md-8 text-center" style="padding-top: 20px;">
+                           <button class="btn btn-warning" type="button" id="btn_student_registration_show" data-toggle="modal" data-target="#myModal" style="width: 130px">Search</button> 
+                       
+                           <a href="{{ route('admin.cashbook.list') }}" id="btn_student_ledger" class="btn btn-info" style="width: 130px">Ledger</a>
+                   
+                      
+                           <button class="btn btn-primary" type="button" id="btn_student_ledger" style="width: 130px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Previous Reciept</button> 
+                       
+                     
+                           <button class="btn btn-danger" type="button" id="btn_student_ledger" style="width: 130px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Cancel Reciept</button> 
                       </div>
                     </div> 
 
@@ -132,7 +129,9 @@
            data: $('.fee_collection_form').serialize() ,
       })
       .done(function(response) {
-         $('#fee_collection_detail').html(response);
+         $('#fee_collection_detail').html(response); 
+         $('#fee_collection_details_btn').focus();
+         
       })
       .fail(function() {
         console.log("error");
@@ -156,6 +155,7 @@
       })
       .done(function(response) {
          $('#fee_detail').html(response);
+         scrollCommentDiv();
       })
       .fail(function() {
         console.log("error");
@@ -204,7 +204,7 @@
             data: {'search':search},
         })
         .done(function(response) {
-             $('#searchResult').html(response);
+             $('#searchResult').html(response); 
         })
         .fail(function() {
             console.log("error");
@@ -228,8 +228,12 @@
        .done(function(response) {
           $('#fee_collection_detail').html(response);
           $("#myModal").modal("hide");
+          $('#fee_collection_details_btn').focus();
           $("#searchResult" ).empty();
           $("#search_form").trigger( "reset" );
+
+          
+
 
        })
        .fail(function() {
@@ -304,6 +308,13 @@
         $('.student_list_select').select2();
 
     });
+    function scrollCommentDiv(){ 
+     
+     $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+      
+
+    }
+
 
   </script>
 @endpush

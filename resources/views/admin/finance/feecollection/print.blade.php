@@ -52,7 +52,7 @@
                                         <span id="lblStudentName" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Name: </span>
                                     </td>
                                     <td>
-                                        <span id="lblName" style="font-size:Small;">{{ $cashbook->name }}</span>
+                                        <span id="lblName" style="font-size:Small;">{{ $cashbook->student_name }}</span>
                                     </td>
                                     <td align="left" style="font-weight: bold; font-size: small;">
                                         <span id="lblRegistraionFees6" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Section:</span>

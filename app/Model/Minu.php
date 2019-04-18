@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Model\MinuType;
+use App\Model\SubMenu;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -25,5 +26,8 @@ class Minu extends Model
     }
     public function minutypes(){
         return $this->hasOne(MinuType::class,'id','minu_id');
+    }
+     public function subMenuTypes(){
+        return $this->hasOne(SubMenu::class,'id','sub_menu_id');
     }
 }

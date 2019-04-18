@@ -19,7 +19,9 @@ Route::get('/', function () {
     return view('front.home');
  
 });
- 
+Route::get('barcode', 'BarcodeController@barcodeShow');
+Route::post('barcode-generate', 'BarcodeController@barcode')->name('barcode.generate');
+
  
 Route::prefix('parent')->group(function () {
     Route::get('login', 'Front\ParentRegistrationController@login')->name('parent.login.form'); 
@@ -49,6 +51,11 @@ Route::post('/document', 'Front\ParentRegistrationController@document')->name('d
 Route::post('/declaration', 'Front\ParentRegistrationController@declaration')->name('declaration');
 Route::get('/preivew/{id}', 'Front\ParentRegistrationController@preview')->name('preview');
 Route::get('/download/{id}', 'Front\ParentRegistrationController@previewDownload')->name('preview.download');
+Route::group(['prefix' => 'payment'], function() {
+   Route::get('/form', 'Front\PaymentController@index')->name('payment.form');  
+   Route::post('payment-store', 'Front\PaymentController@store')->name('payment.store');  
+   Route::post('/paytm-callback', 'Front\PaymentController@paytmCallback');
+});
  
  
 // facebook

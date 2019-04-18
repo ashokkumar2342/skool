@@ -21,9 +21,15 @@
                 <tr>
                   <td>{{ $section->id }}</td>
                   <td>{{ $section->name }}</td>                 
-                  <td align="center">                    
-                    <a class="btn btn-info btn-xs" href="{{ route('admin.section.edit',$section->id) }}"><i class="fa fa-pencil"></i></a>
-                    <a class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data ?')" href="{{ route('admin.section.delete',$section->id) }}"><i class="fa fa-trash"></i></a>                     
+                  <td align="center">
+                   @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
+
+                   <button class="btn btn-info btn-xs" onclick="callPopupMd(this,'{{ route('admin.section.edit',$section->id) }}')" ><i class="fa fa-pencil"></i></button>                    
+                    
+                    @endif
+                     @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
+                    <a class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data ?')" href="{{ route('admin.section.delete',$section->id) }}"><i class="fa fa-trash"></i></a>
+                    @endif                     
                   </td>                 
                 </tr>
                 @endforeach

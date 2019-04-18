@@ -1,4 +1,4 @@
-@extends('admin.layout.base')
+  @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
     <h1>Route Details </h1>
@@ -15,7 +15,7 @@
 	                   <div class="col-lg-3">                                             
                         <div class="form-group">
                           
-                          {{ Form::label('route_id','Route',['class'=>' control-label']) }}
+                          {{ Form::label('route_id','Select Route',['class'=>' control-label']) }}
                               <select name="route_id" id="route_id" class="form-control"  onchange="callAjaxUrl('{{ route('admin.routeDetails.get') }}'+'?route_id='+this.value+'','searchResult')">
                                 <option selected disabled value="">Select Route</option>
                                 @foreach($routes as $route)

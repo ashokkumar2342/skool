@@ -8,6 +8,7 @@ use App\Model\Exam\MarkDetail;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Log;
 
 class MarkDetailController extends Controller
 {
@@ -63,7 +64,7 @@ class MarkDetailController extends Controller
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
         }
-        foreach ($request->student_id as $key => $value) {
+        foreach ($request->student_id as $key => $value) { 
           $marksDetail = MarkDetail::firstOrNew(['student_id'=>$value,'exam_schedule_id'=>$request->exam_schedule_id[$key]]);
           $marksDetail->exam_schedule_id = $request->exam_schedule_id[$key];
           $marksDetail->student_id = $value;
@@ -71,11 +72,47 @@ class MarkDetailController extends Controller
           $marksDetail->discription = $request->any_remarks[$key]; 
           $marksDetail->save();      
         }  
-        
+        $this->rankSave($request->student_id);
         $response = array();
         $response['msg'] = 'Submit Successfully';
         $response['status'] = 1;
         return response()->json($response);
+    }
+
+    public function rankSave($student_id){
+
+        $markDetails =MarkDetail::whereIn('student_id',$student_id)
+                                ->orderBy('marksobt','desc')
+                                ->get(['student_id','marksobt']);
+         
+       $numbers = $markDetails->pluck('marksobt'); 
+       $student = $markDetails->pluck('student_id'); 
+
+       $arrlength = count($numbers);
+       $rank = 1;
+       $prev_rank = $rank;
+
+       for($x = 0; $x < $arrlength; $x++) {
+
+           if ($x==0) { 
+               $this->rankSaveByStudentId($student[$x],$rank);
+           }
+
+          elseif ($numbers[$x] != $numbers[$x-1]) {
+               $rank++;
+               $prev_rank = $rank; 
+               $this->rankSaveByStudentId($student[$x],$rank);
+          }
+
+          else{
+               $rank++; 
+               $this->rankSaveByStudentId($student[$x],$prev_rank);
+           }
+ 
+       }
+        
+       
+        
     }
 
     /**
@@ -84,9 +121,12 @@ class MarkDetailController extends Controller
      * @param  \App\Model\Exam\MarkDetail  $markDetail
      * @return \Illuminate\Http\Response
      */
-    public function show(MarkDetail $markDetail)
+    public function rankSaveByStudentId($student_id,$rank)
     {
-        //
+        $marksDetail = MarkDetail::firstOrNew(['student_id'=>$student_id]); 
+        $marksDetail->rank = $rank; 
+        $marksDetail->save(); 
+       
     }
 
     /**

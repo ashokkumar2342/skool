@@ -2,35 +2,37 @@
 @section('body')
 <section class="content-header">
     <h1>Concession </h1>
-      <ol class="breadcrumb">
-      </ol>
+      @includeIf('admin.include.hot_menu', ['menu_type_id' => 4])
 </section>
     <section class="content">
         <div class="box">             
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="form-horizontal" id="form_concession">                                                     
+	                <form class="form" id="form_concession">                                                     
 	                   
 	                     <div class="col-lg-3">                                             
 	                       <div class="form-group">
-	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter  Name']) }}
+                          <label>Concession Name</label>
+	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter  Name','maxlength'=>'50']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>                     
 	                    <div class="col-lg-3">                         
 	                        <div class="form-group">
-	                          {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>1, 'placeholder'=>'Enter Amount']) }}
+                            <label>Concession Amount</label>
+	                          {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>1, 'placeholder'=>'Enter Amount','maxlength'=>'5','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
 	                          <p class="errorDescription text-center alert alert-danger hidden"></p>
 	                        </div>
 	                    </div>
                       <div class="col-lg-3">                         
                           <div class="form-group">
-                            {{ Form::text('percentage','',['class'=>'form-control','id'=>'percentage','rows'=>1, 'placeholder'=>'Enter Percentage']) }}
+                            <label>Percentage</label>
+                            {{ Form::text('percentage','',['class'=>'form-control','id'=>'percentage','rows'=>1, 'placeholder'=>'Enter Percentage','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                             <p class="errorDescription text-center alert alert-danger hidden"></p>
                           </div>
                       </div>
-
+                    </br> 
 	                     <div class="col-lg-3">                                             
 	                     <button class="btn btn-success" type="button" id="btn_concession_create">Create</button> 
 	                    </div>                     
@@ -61,10 +63,13 @@
                         		<td>{{ $concession->name }}</td>
                             <td>{{ $concession->amount }}</td>
                         		<td>{{ $concession->percentage?$concession->percentage.'%':'' }}</td>
-                        		<td> 
+                        		<td>
+                             @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
                         			<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $concession->id }}"   data-name="{{ $concession->name }}" data-amount="{{ $concession->amount }}" data-percentage="{{ $concession->percentage }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
-
+                               @endif
+                               @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                         			<button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $concession->id }}"  ><i class="fa fa-trash"></i></button>
+                              @endif
                         		</td>
                         	</tr>  	 
                         @endforeach	

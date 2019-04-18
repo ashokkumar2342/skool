@@ -12,30 +12,30 @@
                 <div class="col-md-12"> 
 	                <form class="form-vertical" id="form_fee_structure">                                                     
 	                   <div class="col-lg-2">                                             
-	                       <div class="form-group">
+	                       <div class="form-group"> 
                            {{ Form::label('code','Code',['class'=>'form-label']) }}
-	                         {{ Form::text('code','',['class'=>'form-control','id'=>'code', 'placeholder'=>'Enter Fee Structure Code']) }}
+	                         {{ Form::text('code','',['class'=>'form-control','id'=>'code', 'placeholder'=>'Enter Fee Structure Code','maxlength'=>'3']) }}
 	                         <p class="errorCode text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>
 	                     <div class="col-lg-2">                                             
 	                       <div class="form-group">
-                           {{ Form::label('name','name',['class'=>'form-label']) }}                          
-	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter Fee Structure Name']) }}
+                           {{ Form::label('name','Name',['class'=>'form-label']) }} 
+	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter Fee Structure Name','maxlength'=>'50']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>                     
 	                    <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('fee_account_id','Fee Account',['class'=>' control-label']) }}
-                               {{ Form::select('fee_account_id',$feeAccount,null,['class'=>'form-control']) }}
+                               {{ Form::select('fee_account_id',$feeAccount,null,['class'=>'form-control','placeholder'=>'Select Fee Account']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
 	                    </div>
                         <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('fine_scheme_id','Fine Scheme',['class'=>' control-label']) }}
-                               {{ Form::select('fine_scheme_id',$fineScheme,null,['class'=>'form-control']) }}
+                               {{ Form::select('fine_scheme_id',$fineScheme,null,['class'=>'form-control','placeholder'=>'Select Fine Scheme']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
@@ -80,10 +80,13 @@
                                 <td>{{ $feeStructure->feeAccounts->name }}</td>
                                 <td>{{ $feeStructure->fineSchemes->name }}</td>
                         		<td>{{ $feeStructure->is_refundable == 1 ?'yes':'No' }}</td>
-                        		<td> 
+                        		<td>
+                             @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
                         			<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $feeStructure->id }}"  data-code="{{ $feeStructure->code }}" data-name="{{ $feeStructure->name }}" data-feeaccount="{{ $feeStructure->fee_account_id }}" data-finescheme="{{ $feeStructure->fine_scheme_id }}" data-refundable="{{ $feeStructure->is_refundable }}"><i class="fa fa-edit"></i> </button>
-
+                              @endif 
+                               @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                         			<button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $feeStructure->id }}"  ><i class="fa fa-trash"></i></button>
+                              @endif
                         		</td>
                         	</tr>  	 
                         @endforeach	

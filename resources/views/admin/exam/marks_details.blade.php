@@ -34,7 +34,7 @@
               <!-- /.box-header -->
                 <div class="box-body">
                 
-                    <form class="add_form" content-refresh="route_table" action="{{ route('admin.exam.mark.detail.store') }}" method="post">              
+                    <form class="add_form"  action="{{ route('admin.exam.mark.detail.store') }}" no-reset="true" method="post">              
                   {{ csrf_field() }}  
                   
                     <table id="route_table" class="display table">                     

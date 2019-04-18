@@ -25,11 +25,15 @@
                   <td>{{ ++$loop->index }}</td>
                   <td>{{ $subject->name }}</td>
                   <td>{{ $subject->code }}</td>
-                  <td >                    
+                  <td > 
+                   @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)                   
                     <a class="btn btn-info btn-xs col-md-4 col-md-offset-2" href="{{ route('admin.subjectType.edit',$subject->id) }}"><i class="fa fa-pencil"></i></a>
+                    @endif
+                     @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                     {!! Form::open(['method' => 'delete', 'route' => ['admin.subjectType.delete', $subject->id]]) !!}
                     {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs col-md-4', 'onclick'=>"return confirm('Are you sure to delete this data ?')"]) !!}
                     {!! Form::close() !!}
+                    @endif
                     
             
                   </td>

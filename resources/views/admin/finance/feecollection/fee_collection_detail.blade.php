@@ -48,7 +48,7 @@
     	
     	], $defultDate->year, ['class'=>'form-control','placeholder'=>'Select Year','required']) !!}
   </div> 
-  <button type="button" class="btn btn-warning" onclick="callAjax()">Show</button>
+  <button type="button" id="fee_collection_details_btn" class="btn btn-warning" onclick="callAjax()">Show</button>
 </form>
  
  

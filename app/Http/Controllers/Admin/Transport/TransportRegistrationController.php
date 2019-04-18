@@ -95,9 +95,11 @@ class TransportRegistrationController extends Controller
      * @param  \App\Model\Transport  $Transport
      * @return \Illuminate\Http\Response
      */
-    public function edit(Transport $Transport)
+    public function edit($id)
     {
-        //
+         $transportregistration = TransportRegistration::findOrFail(Crypt::decrypt($id));
+       
+         return view('admin.transport.transportRegistrationEdit',compact('transportregistration'));
     }
 
     /**

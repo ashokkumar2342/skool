@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Section;
 use App\Model\SectionType;
 use Illuminate\Http\Request;
+use Validator;
 
 class SectionTypeController extends Controller
 {
@@ -73,8 +74,8 @@ class SectionTypeController extends Controller
      */
     public function edit(SectionType $sectionType)
     {
-        $sections = SectionType::all();
-        return view('admin.manage.section.list',compact('sections','sectionType'));
+        
+        return view('admin.manage.section.section_edit',compact('sectionType'));
     }
 
     /**
@@ -86,16 +87,27 @@ class SectionTypeController extends Controller
      */
     public function update(Request $request, SectionType $sectionType)
     {
-         $this->validate($request,[
-            'name' => 'required|max:199',
-             
-            ]);
-        $sectionType->name = $request->name;
-      
-        if ($sectionType->save()) {
-            return redirect()->route('admin.section.list')->with(['class'=>'success','message'=>'Section updated success ...']);
-        }
-        return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
+         $rules=[
+         'name' => 'required|max:50', 
+            
+           
+         ];
+
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }
+          else {
+              
+             $sectionType->name = $request->name; 
+             $sectionType->save();
+              $response=['status'=>1,'msg'=>'Updated Successfully'];
+             return response()->json($response); 
+         }
     }
 
     /**

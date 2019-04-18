@@ -71,7 +71,9 @@
                   <td>{{ $manageSubject->isoptional->name }}</td>                 
                   <td align="center">                    
                     {{-- <a class="btn btn-info btn-xs" href="{{ route('admin.manageSubject.edit',$manageSubject->id) }}"><i class="fa fa-pencil"></i></a> --}}
-                    <a class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data ?')" href="{{ route('admin.manageSubject.delete',$manageSubject->id) }}"><i class="fa fa-trash"></i></a>                     
+                     @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
+                    <a class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data ?')" href="{{ route('admin.manageSubject.delete',$manageSubject->id) }}"><i class="fa fa-trash"></i></a>
+                    @endif                     
                   </td>                 
                 </tr>
                 @endforeach

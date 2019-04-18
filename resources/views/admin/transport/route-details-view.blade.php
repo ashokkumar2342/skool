@@ -30,10 +30,17 @@
                  {{ $boardingPoint->name  }}
            
         </td>        
-         <td> 
-        
+         <td>
+         </td>
+         <td>
+         </td>
+     </td>
 
+        
+           <td>
+             @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
              <a href="{{ route('admin.routesDetail.delete',Crypt::encrypt($routesDetail->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
+             @endif
         </td>
 
         </tr>    

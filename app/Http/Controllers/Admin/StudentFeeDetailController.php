@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
+use App\Model\Cashbook;
 use App\Model\ClassFeestructure;
 use App\Model\ClassType;
 use App\Model\Concession;
+use App\Model\FeeStructure;
 use App\Model\FeeStructureLastDate;
+use App\Model\Minu;
 use App\Model\StudentFeeDetail;
 use App\Student;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -51,21 +54,25 @@ class StudentFeeDetailController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-        
+         
+        $rules=[
             'to_date' => 'required', 
             'from_date' => 'required', 
             'academic_year_id' => 'required', 
             'class_id' => 'required', 
-             
-              
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
+           
+          ];
 
-        } 
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }
         else {       
-        
+                $studentFeeDetail_id= array();
                 $students = Student::where('class_id',$request->class_id)->get(['id','name','registration_no']);
 
                 $classFeeStructures = ClassFeestructure::where('class_id',$request->class_id)->where('isapplicable_id',1)->get(['fee_structure_id']);  
@@ -87,6 +94,7 @@ class StudentFeeDetailController extends Controller
                                 $studentFeeDetail->paid = 0;
                                 $studentFeeDetail->refundable = 0;
                                 $studentFeeDetail->save();  
+                                $studentFeeDetail_id[].=$studentFeeDetail->id;
                             }  
                         }
                       
@@ -95,9 +103,15 @@ class StudentFeeDetailController extends Controller
                else{
                     return response()->json(['class'=>'success','message'=>'Student not found this class record']);
                }
-            return response()->json(['class'=>'success','message'=>'Fee Student Details Created Successfully']);
+               
+                $studentFeeDetails = StudentFeeDetail::whereIn('id',$studentFeeDetail_id)->get();
+                $response =array();
+                $response['status'] =1;
+                $response['msg'] ='Fee Student Details Created Successfully';
+               $response['data'] =view('admin.finance.include.student_fee_details_table',compact('studentFeeDetails'))->render();
+                return $response;
             }  
-    }
+    } 
 
     public function feeassignlist(Request $request)
     {
@@ -124,7 +138,7 @@ class StudentFeeDetailController extends Controller
      * @param  \App\Model\StudentFeeDetail  $studentFeeDetail
      * @return \Illuminate\Http\Response
      */
-    public function feeassignshow(Request $request,StudentFeeDetail $studentFeeDetail)
+    public function feeassignshow(Request $request,$menu_id)
     {   
         $student = Student::find($request->student_id);
         $studentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)->get();  
@@ -132,7 +146,11 @@ class StudentFeeDetailController extends Controller
         $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
          
         $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
-        return view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','feeStructurLastDate','concession','student'));  
+      $menuPermission = Minu::find($menu_id);
+        $response = array();
+        $response['data'] = view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','feeStructurLastDate','concession','student','menuPermission'))->render();
+        $response['status']=1;
+        return $response;   
     }
 
     /**
@@ -173,5 +191,107 @@ class StudentFeeDetailController extends Controller
         return $studentFeeDetail;
     }
 
+    public function showFeeStructureModel(Request $request,$id)
+    {     
+            $student =Student::find($id);
+            $academicYears =AcademicYear::find($request->academic_year_id);
+            $feeStructures =FeeStructure::all();
+            $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
+        return view('admin.finance.include.student_fee_struture_model',compact('student','feeStructures','academicYears','concession'));
+    }
+
+    //fee st details store
+    public function feeStructureStore(Request $request,$student_id){
+          
+        $rules=[
+            'to_date' => 'required', 
+            'from_date' => 'required', 
+            'fee_structure' => 'required',  
+          ];
+
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }
+        else {       
+                 
+                $student = Student::find($student_id);
+
+                $classFeeStructures = ClassFeestructure::where('class_id',$request->class_id)->where('isapplicable_id',1)->get(['fee_structure_id']); 
+                       
+                       $FeeStructureLastDates = FeeStructureLastDate::where('academic_year_id',$request->academic_year_id)->where('fee_structure_id',$request->fee_structure)->get();
+                        foreach ($FeeStructureLastDates as $FeeStructureLastDate) {
+                            $studentFeeDetail = StudentFeeDetail::firstOrNew(['student_id'=>$student->id,'fee_structure_last_date_id'=>$FeeStructureLastDate->id]);  
+                            $studentFeeDetail->student_id = $student->id;
+                            $studentFeeDetail->fee_structure_last_date_id = $FeeStructureLastDate->id;
+                            $studentFeeDetail->concession_id = $request->concession;
+                            $studentFeeDetail->fee_amount = $FeeStructureLastDate->amount;
+                            $studentFeeDetail->concession_amount = $request->concession_amount;
+                            $studentFeeDetail->last_date = $FeeStructureLastDate->last_date ;
+                            $studentFeeDetail->from_date = date('Y-m-d',strtotime($request->from_date));
+                            $studentFeeDetail->to_date = date('Y-m-d',strtotime($request->to_date));
+                            $studentFeeDetail->paid = 0;
+                            $studentFeeDetail->refundable = 0;
+                            $studentFeeDetail->save();  
+                            
+                        }  
+                $response['status'] =1;
+                $response['msg'] ='Fee  Details Add Successfully'; 
+                return $response;
+            }  
+    }
+
+    public function showFeeDetailConcessionModel(Request $request,$id)
+    {     
+        $studentFeeDetail =StudentFeeDetail::find($id);   
+         $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
+        return view('admin.finance.include.student_fee_concession_edit_model',compact('studentFeeDetail','concession'));
+    } 
+    // fee concession store
+     public function feeconcessioneStore(Request $request,$studentFeeDetail_id){
+         
+        $rules=[
+            'concession' => 'required', 
+            'concession_amount' => 'required', 
+             
+          ];
+
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }
+        else {  
+         $studentFeeDetail = StudentFeeDetail::find($studentFeeDetail_id); 
+         $studentFeeDetail->concession_id = $request->concession; 
+         $studentFeeDetail->concession_amount = $request->concession_amount; 
+         $studentFeeDetail->save();   
+        $response['status'] =1;
+        $response['msg'] ='Fee  Details Add Successfully'; 
+        return $response;
+        }  
+    }
+
+    //previous Reciept Model show
+    public function previousRecieptModel(Request $request)
+    { 
+        if ($request->student_id=='') {
+            $datas = 'student_required';
+           return view('admin.finance.feecollection.previous_reciept_show_model',compact('datas'));  
+        }else{
+            $datas = 'student_registration';
+            $cashbooks = Cashbook::where('student_id',$request->student_id)->get(); 
+            return view('admin.finance.feecollection.previous_reciept_show_model',compact('datas','cashbooks'));  
+        }
+         
+        
+    }
     
 }

@@ -5,10 +5,9 @@
 @endpush
 @section('body')
 <section class="content-header">
-    <h1> Student Add <small>Details</small> </h1>
-      <ol class="breadcrumb">
-       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>        
-      </ol>
+    <h1> Student Show<small>Details</small> </h1>
+       @includeIf('admin.include.hot_menu', ['menu_type_id' => 3])
+       
 </section>
     <section class="content">        
         {{Form::close()}}
@@ -19,7 +18,7 @@
                     <div class="col-lg-12 ">                  
                         {{-- {{ Form::open(['route'=>'admin.student.excel.store']) 'method'=>'POST','files'=>'true' }} --}}
                 
-                        <form action="{{ route('admin.student.list') }}" success-content-id="student_result_list" method="post" class="add_form" no-reset="true" data-table="student_list_table"> 
+                        <form action="{{ route('admin.student.list',$menuPermission->id) }}" success-content-id="student_result_list" method="post" class="add_form" no-reset="true" data-table="student_list_table"> 
                         {{ csrf_field() }}                            
                              <div class="row">{{--row start --}}
                                 <div class="col-md-12 ">

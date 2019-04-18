@@ -21,14 +21,14 @@
                          <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('fee_structure_id','Fee Structure',['class'=>' control-label']) }}
-                               {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control','placeholder'=>'--Select Fee Structure--']) }}
+                               {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control','placeholder'=>'Select Fee Structure']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div> 
 	                     <div class="col-lg-2">                                             
 	                       <div class="form-group">
                            {{ Form::label('amount','Amount',['class'=>'form-label']) }}                          
-	                         {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>4, 'placeholder'=>'Enter Amount']) }}
+	                         {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>4, 'placeholder'=>'Enter Amount','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'6']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>
@@ -86,8 +86,9 @@
                         		<td> {{ $feeStructureLastDste->forSessionMonths->name }} </td>
                         		<td> 
                         			{{-- <button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $feeStructureLastDste->id }}"  data-code="{{ $feeStructureLastDste->code }}" data-name="{{ $feeStructureLastDste->name }}"  data-finescheme="{{ $feeStructureLastDste->fine_scheme_id }}" data-refundable="{{ $feeStructureLastDste->is_refundable }}"><i class="fa fa-edit"></i> </button> --}}
-
+                              @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                         			<button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $feeStructureLastDste->id }}"  ><i class="fa fa-trash"></i></button>
+                              @endif
                         		</td>
                         	</tr>  	 
                         @endforeach	

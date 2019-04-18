@@ -46,19 +46,19 @@
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                           {{ Form::label('max_marks','Max Marks',['class'=>' control-label']) }}
-                           {{ Form::text('max_marks','',['class'=>'form-control', 'placeholder'=>'  Max Marks']) }} 
+                           {{ Form::text('max_marks','',['class'=>'form-control', 'placeholder'=>'  Max Marks','maxlength'=>'4','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','required']) }} 
                          </div>                                         
                       </div> 
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                           {{ Form::label('pass_marks','Pass Marks',['class'=>' control-label']) }}
-                           {{ Form::text('pass_marks','',['class'=>'form-control', 'placeholder'=>'  Pass Marks']) }} 
+                           {{ Form::text('pass_marks','',['class'=>'form-control', 'placeholder'=>'  Pass Marks','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','required']) }} 
                          </div>                                         
                       </div>
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                           {{ Form::label('fail_marks','Fail Marks',['class'=>' control-label']) }}
-                           {{ Form::text('fail_marks','',['class'=>'form-control', 'placeholder'=>'  Fail Marks']) }} 
+                           {{ Form::text('fail_marks','',['class'=>'form-control', 'placeholder'=>'  Fail Marks','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57',]) }} 
                          </div>                                         
                       </div> 
                    
@@ -104,8 +104,10 @@
                             <td>{{ $examSchedule->pass_marks }}</td> 
                             <td>{{ $examSchedule->fail_marks }}</td> 
                             
-                        		<td>  
+                        		<td> 
+                             @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                         			<a href="{{ route('admin.exam.schedule.delete',Crypt::encrypt($examSchedule->id)) }}"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
+                              @endif
 
                               <a href="{{ url('storage/class_test/'.$examSchedule->sylabus) }}" {{ $examSchedule->sylabus==null?'disabled':'' }} target="_blank"  class="btn btn-info btn-xs"    ><i class="fa fa-download"></i></a>
                         		</td>

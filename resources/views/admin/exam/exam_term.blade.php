@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Class Test </h1>
+    <h1>Exam Term </h1>
       <ol class="breadcrumb">
       </ol>
 </section>
@@ -29,13 +29,13 @@
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                           {{ Form::label('percentage','Percentage ( include in Final Exam)',['class'=>' control-label']) }}
-                           {{ Form::text('percentage','',['class'=>'form-control', 'placeholder'=>'  Percentage']) }} 
+                           {{ Form::text('percentage','',['class'=>'form-control', 'placeholder'=>'  Percentage','maxlength'=>'4','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','required']) }} 
                          </div>                                         
                       </div>                  
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                           {{ Form::label('discription','Discription',['class'=>' control-label']) }}
-                           {{ Form::textarea('discription','',['class'=>'form-control', 'placeholder'=>' Discription','rows'=>1]) }} 
+                           {{ Form::textarea('discription','',['class'=>'form-control', 'placeholder'=>' Discription','rows'=>1,'maxlength'=>'200']) }} 
                          </div>                                         
                       </div>  
 	                     <div class="col-lg-12 text-center">                                             
@@ -71,8 +71,10 @@
                             <td>{{ $examTerm->from_date }}</td>
                             <td>{{ $examTerm->percentage_include_final_exam }}</td> 
                             <td>{{ $examTerm->discription }}</td> 
-                        		<td>  
+                        		<td> 
+                             @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                         			<a href="{{ route('admin.exam.term.delete',Crypt::encrypt($examTerm->id)) }}"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
+                              @endif
  
                         		</td>
                         	</tr>  	 

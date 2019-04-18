@@ -13,7 +13,7 @@
             <!-- /.box-header -->
             <div class="box-body"> 
                 
-               <form action="{{ route('admin.userAccess.add') }}" method="post" class="add_form form-horizontal" accept-charset="utf-8"> 
+               <form action="{{ route('admin.userAccess.add') }}" method="post" class="add_form form-horizontal" accept-charset="utf-8" no-reset="true"> 
                  {{ csrf_field() }}
               <div class="col-md-4">
                 <div class="form-group col-md-12">
