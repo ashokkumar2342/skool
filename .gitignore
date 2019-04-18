@@ -5,6 +5,8 @@
 /storage
 /vendor
 /attendance
+/demo
+/policy
 /.idea
 /.vscode
 /.vagrant
