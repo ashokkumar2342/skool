@@ -16,7 +16,7 @@ class ClassFeeStructure extends Model
     ];
      protected $table = [
        
-       'class_fee_structures',  
+       'class_feestructures',  
     ];
 
     public function feeStructures(){
