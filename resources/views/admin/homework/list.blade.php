@@ -26,7 +26,7 @@
                           <p class="text-danger">{{ $errors->first('section') }}</p>
                         </div>
                         <div class="form-group">
-                          {!! Form::file('homework_doc','', ['class'=>'form-control','id'=>'homework_doc','placeholder'=>'homework_doc']) !!}
+                          {!! Form::file('homework_doc', ['class'=>'form-control','id'=>'homework_doc','placeholder'=>'homework_doc']) !!}
                           <p class="text-danger">{{ $errors->first('homework_doc') }}</p>
                         </div>
                     </div>                     

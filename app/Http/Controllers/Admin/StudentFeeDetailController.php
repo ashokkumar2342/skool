@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\Cashbook;
-use App\Model\ClassFeestructure;
+use App\Model\ClassFeeStructure;
 use App\Model\ClassType;
 use App\Model\Concession;
 use App\Model\FeeStructure;
@@ -75,7 +75,7 @@ class StudentFeeDetailController extends Controller
                 $studentFeeDetail_id= array();
                 $students = Student::where('class_id',$request->class_id)->get(['id','name','registration_no']);
 
-                $classFeeStructures = ClassFeestructure::where('class_id',$request->class_id)->where('isapplicable_id',1)->get(['fee_structure_id']);  
+                $classFeeStructures = ClassFeeStructure::where('class_id',$request->class_id)->where('isapplicable_id',1)->get(['fee_structure_id']);  
                 if (!$students->isEmpty()) { 
                    foreach ($students as $student) {
                        
@@ -221,7 +221,7 @@ class StudentFeeDetailController extends Controller
                  
                 $student = Student::find($student_id);
 
-                $classFeeStructures = ClassFeestructure::where('class_id',$request->class_id)->where('isapplicable_id',1)->get(['fee_structure_id']); 
+                $classFeeStructures = ClassFeeStructure::where('class_id',$request->class_id)->where('isapplicable_id',1)->get(['fee_structure_id']); 
                        
                        $FeeStructureLastDates = FeeStructureLastDate::where('academic_year_id',$request->academic_year_id)->where('fee_structure_id',$request->fee_structure)->get();
                         foreach ($FeeStructureLastDates as $FeeStructureLastDate) {
