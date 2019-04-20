@@ -18,7 +18,7 @@
        <div class="row"> 
         <div class="col-md-12">
 
-                  <form class="add_form" content-refresh="vehicle_table" action="{{ route('admin.vehicle.update',$vehicle->id) }}" no-reset="true" method="post">              
+                  <form class="add_form" content-refresh="vehicle_table" button-click="btn_close" action="{{ route('admin.vehicle.update',$vehicle->id) }}" no-reset="true" method="post">              
                   {{ csrf_field() }}                                       
                      <div class="col-lg-3">                                             
                          <div class="form-group">

@@ -189,7 +189,7 @@ b{
                 </div>
                  <div id="medical" class="tab-pane fade">
                     <button type="button" class="btn btn-info btn-sm btn_add_medical_info" data-toggle="modal" data-target="#add_medical">Add Medical info</button>
-                    <table class="table" id="medical_items">                         
+                    <table class="table-responsive" id="medical_items">                         
                          <thead>
                              <tr>
                                  <th>Ondate</th>
@@ -260,7 +260,7 @@ b{
                       <tbody>
                          @foreach (App\Model\StudentSiblingInfo::where('student_id',$student->id)->get() as $sibling)
                           <tr> 
-                              <td>{{ $sibling->siblings->registration_no  }}</td>
+                              <td>{{ $sibling->siblings->registration_no or '' }}</td>
                               <td>{{ $sibling->siblings->name  or ''}}</td>
                               <td>{{ $sibling->siblings->classes->name  or '' }}</td>
                               <td>{{ $sibling->siblings->sectionTypes->name or ''  }}</td> 

@@ -93,10 +93,10 @@
                         	 
                             <td>{{ $classTest->classes->name or ''}}</td>
                             <td>{{ $classTest->sectionTypes->name or '' }}</td>
-                            <td>{{ $classTest->subjects->name }}</td>
+                            <td>{{ $classTest->subjects->name or '' }}</td>
                             <td>{{ $classTest->test_date }}</td>
                             <td>{{ $classTest->max_marks }}</td> 
-                            <td>{{ $classTest->discription }}</td> 
+                            <td>{{ $classTest->discription or ''}}</td> 
                         		<td> 
                              @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                         			<a href="{{ route('admin.exam.classtest.delete',Crypt::encrypt($classTest->id)) }}"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>

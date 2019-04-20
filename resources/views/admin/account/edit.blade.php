@@ -7,7 +7,7 @@
             <!-- /.box-header -->            
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Account Register</h3>
+              <h3 class="box-title">Account Register Edit</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -65,7 +65,7 @@
                                         
                     <!-- /.box-body -->
                     <div class="box-footer">
-                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </form>
             </div>
