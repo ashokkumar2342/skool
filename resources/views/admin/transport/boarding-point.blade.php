@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Route Details </h1>
+    <h1>Boarding Point Form </h1>
       <ol class="breadcrumb">
       </ol>
 </section>

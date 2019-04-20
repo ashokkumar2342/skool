@@ -26,7 +26,7 @@
                           <p class="text-danger">{{ $errors->first('section') }}</p>
                         </div>
                         <div class="form-group">
-                          {!! Form::file('homework_doc','', ['class'=>'form-control','id'=>'homework_doc','placeholder'=>'homework_doc']) !!}
+                          {!! Form::file('homework_doc', ['class'=>'form-control','id'=>'homework_doc','placeholder'=>'homework_doc']) !!}
                           <p class="text-danger">{{ $errors->first('homework_doc') }}</p>
                         </div>
                     </div>                     
@@ -113,7 +113,7 @@
  <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> 
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
- <script type="text/javascript"> 
+{{--  <script type="text/javascript"> 
    $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
     // $(document).ready( function () {
     //     $('#homework_table').DataTable();
@@ -166,7 +166,7 @@
         
     });   
     
-</script>
+</script> --}}
 
 
 @endpush
