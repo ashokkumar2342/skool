@@ -14,10 +14,8 @@ class ClassFeeStructure extends Model
        'class_id', 
        'is_applicable',  
     ];
-     protected $table = 
-       
-       'class_feestructures',  
-    ;
+  
+    protected $table = 'class_feestructures';
 
     public function feeStructures(){
     	return $this->hasOne('App\Model\FeeStructure','id','fee_structure_id');
