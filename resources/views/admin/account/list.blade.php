@@ -46,7 +46,9 @@
                     <a href="{{ route('admin.account.status',$account->id) }}" data-parent="tr" class="label {{ ($account->status == 1) ?'btn-success':'btn-danger'}} btn btn-xs">{{ ($account->status == 1)? 'Active' : 'Inactive' }}</a>
                   </td>  
                   <td>
-                  <a href="{{ route('admin.account.minu',[$account->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-bars"></i></a>
+                    
+                     <button class="btn btn-info btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.account.minu',[$account->id]) }}')"><i class="fa fa-bars"></i></button>
+                   
                   </td>                
                   <td> 
                      
@@ -106,4 +108,6 @@
 </script>
 <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
+   
 @endpush

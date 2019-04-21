@@ -43,9 +43,33 @@
             $Transports = App\Helper\MyFuncs::mainMenu(14);
             $Exams = App\Helper\MyFuncs::mainMenu(15);
             $SMSs = App\Helper\MyFuncs::mainMenu(16);
-            
+            $menus=App\Helper\MyFuncs::showMenu();
+            $userHasMenus=App\Helper\MyFuncs::userHasMinu();
+            $menuTypes = App\Model\MinuType::whereIn('id',$userHasMenus)->orderBy('id','asc')->get();
+           
          @endphp
-         <li class="treeview">
+
+         @foreach ($menuTypes as $menuType)
+         @php
+           $subMenus = App\Helper\MyFuncs::mainMenu($menuType->id);
+         @endphp
+        
+           <li class="treeview">
+             <a href="#">
+                 <i class="fa {{ $menuType->icon }}"></i>
+                 <span>{{ $menuType->name }}</span>
+                 <span class="pull-right-container">
+                   <i class="fa fa-angle-left pull-right"></i>
+                 </span>
+             </a>
+             <ul class="treeview-menu">
+              @foreach ($subMenus as $subMenu)
+                 <li><a href="{{ route(''.$subMenu->url) }}"><i class="fa fa-circle-o"></i>{{ $subMenu->name }} </a></li>               
+              @endforeach               
+             </ul> 
+         </li>     
+         @endforeach
+ {{--         <li class="treeview">
              <a href="#">
                  <i class="fa fa-user text-danger"></i>
                  <span>User Access</span>
@@ -212,7 +236,9 @@
                  <li><a href="{{ route(''.$SMS->url) }}"><i class="fa fa-circle-o"></i> {{ $SMS->name }}</a></li>               
               @endforeach               
              </ul>
-         </li>
+         </li> --}}
+
+   
 
          
          
