@@ -46,6 +46,7 @@ function callJqueryDefault(divId){
 	uploadProgress.remove();
 	
 	if(response.status==0){
+		$('button[type=submit], input[type=submit]').prop('disabled',false); 
 		if(formObj.getAttribute('import')=="true"){
 			errorMsg(response.msg)
 			//$('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button> <strong>'+response.msg+'</strong>'+response.data+'</div>').insertAfter(formObj);
@@ -193,6 +194,7 @@ function callJqueryDefault(divId){
 			
 	} 
     });
+$('button[type=submit], input[type=submit]').prop('disabled',false); 
 });
 }
 callJqueryDefault('body_id');
@@ -379,6 +381,7 @@ function searchForm(formObj){
 	uploadProgress.remove();
 	
 	if(response.status==0){
+		$('button[type=submit], input[type=submit]').prop('disabled',false); 
 		if(formObj.getAttribute('import')=="true"){
 			errorMsg(response.msg)
 			//$('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button> <strong>'+response.msg+'</strong>'+response.data+'</div>').insertAfter(formObj);

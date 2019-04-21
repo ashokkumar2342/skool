@@ -1,5 +1,5 @@
  
-   <form action="{{ route('admin.account.menu.permission.check') }}" method="post" class="add_form">
+   <form action="{{ route('admin.account.menu.permission.check') }}" method="post" no-reset="true" class="add_form">
                 {{ csrf_field() }} 
     <section class="content">
       <div class="modal-dialog" style="width:90%">
@@ -19,8 +19,10 @@
               <div class="row">
              
                  
-                  <div class="col-md-12 text-right">
-                    <a href="{{ route('admin.account.list') }}" title="back" class="btn btn-success">Back</a>                    
+                  <div class="row">
+                    <div class="col-lg-12 text-right">
+                      <input type="submit" class="btn btn-success" value="Submit" >
+                    </div>
                   </div>
               </div>       
             </div>
@@ -44,9 +46,12 @@
                   <td>{{ $minu->minutypes->name or ''}}</td>                  
                   <td>{{ $minu->subMenuTypes->name or '' }}</td>                  
                   <td> 
-                  <input type="checkbox" name="r_status[{{ $minu->id }}]" {{$minu->r_status==1?'checked':''}} value="{{$minu->r_status}}">                
-                  <input type="checkbox" name="w_status[{{$minu->id  }}]" {{$minu->w_status==1?'checked':''}} value="{{$minu->w_status}}">                
-                  <input type="checkbox" name="d_status[{{ $minu->id }}]" {{$minu->d_status==1?'checked':''}}  value="{{$minu->d_status}}">                
+                  <input type="hidden" name="r_status[{{ $minu->id }}]"  value="0"> 
+                  <input type="checkbox" name="r_status[{{ $minu->id }}]" {{$minu->r_status==1?'checked':''}} value="1">                
+                  <input type="hidden" name="w_status[{{$minu->id  }}]"  value="0"> 
+                  <input type="checkbox" name="w_status[{{$minu->id  }}]" {{$minu->w_status==1?'checked':''}} value="1">  
+                  <input type="hidden" name="d_status[{{ $minu->id }}]"  value="0">               
+                  <input type="checkbox" name="d_status[{{ $minu->id }}]" {{$minu->d_status==1?'checked':''}}  value="1">                
                  {{--  <a href="{{ route('admin.minu.r_status',$minu->id) }}" data-parent="tr" class="label {{ ($minu->r_status == 1) ?'btn-success':'btn-danger'}} btn btn-xs">{{ ($minu->r_status == 1)? 'A' : 'D' }}</a>
                   <a href="{{ route('admin.minu.w_status',$minu->id) }}" data-parent="tr" class="label {{ ($minu->w_status == 1) ?'btn-success':'btn-danger'}} btn btn-xs">{{ ($minu->w_status == 1)? 'A' : 'D' }}</a>
                   <a href="{{ route('admin.minu.d_status',$minu->id) }}" data-parent="tr" class="label {{ ($minu->d_status == 1) ?'btn-success':'btn-danger'}} btn btn-xs">{{ ($minu->d_status == 1)? 'A' : 'D' }}</a> --}}

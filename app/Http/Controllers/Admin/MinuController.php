@@ -69,10 +69,21 @@ class MinuController extends Controller
         }
     }
 
-      public function menuPermissionCheck(Request $request )
-  {
+    public function menuPermissionCheck(Request $request )
+    {
+
       $deleteStatus=$request->d_status;
-      foreach ($deleteStatus as $menu_id => $status) {
+      $editStatus=$request->w_status;
+      $readStatus=$request->r_status;
+      foreach ($editStatus as $menu_id => $status) {
+        $minu =Minu::find($menu_id);
+        $minu->w_status = $status;
+        $minu->save();
+      }foreach ($readStatus as $menu_id => $status) {
+        $minu =Minu::find($menu_id);
+        $minu->r_status = $status;
+        $minu->save();
+      }foreach ($deleteStatus as $menu_id => $status) {
         $minu =Minu::find($menu_id);
         $minu->d_status = $status;
         $minu->save();
