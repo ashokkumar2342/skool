@@ -35,6 +35,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::post('role-menu-store', 'AccountController@roleMenuStore')->name('admin.roleAccess.subMenu');
 		Route::get('class-access', 'AccountController@classAccess')->name('admin.account.classAccess'); 
 		Route::get('class-all', 'AccountController@classAllSelect')->name('admin.account.classAllSelect'); 
+		
 						
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 
 	});
@@ -71,7 +72,8 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('r--status/{minu}', 'MinuController@rstatus')->name('admin.minu.r_status');	 
 		Route::get('w-status/{minu}', 'MinuController@wstatus')->name('admin.minu.w_status');	 
 		Route::get('d-status/{minu}', 'MinuController@dstatus')->name('admin.minu.d_status');
-		Route::get('minu/{minu}', 'MinuController@minu')->name('admin.minu.minu');	 
+		Route::get('minu/{minu}', 'MinuController@minu')->name('admin.minu.minu');
+		Route::post('menu-permission-check', 'MinuController@menuPermissionCheck')->name('admin.account.menu.permission.check'); 	 
 	});
 	//---------------Class create----------------------------------------
 	Route::group(['prefix' => 'class'], function() {

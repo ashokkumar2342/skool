@@ -46,7 +46,9 @@
                     <a href="{{ route('admin.account.status',$account->id) }}" data-parent="tr" class="label {{ ($account->status == 1) ?'btn-success':'btn-danger'}} btn btn-xs">{{ ($account->status == 1)? 'Active' : 'Inactive' }}</a>
                   </td>  
                   <td>
-                  <a href="{{ route('admin.account.minu',[$account->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-bars"></i></a>
+                    
+                     <button class="btn btn-info btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.account.minu',[$account->id]) }}')"><i class="fa fa-bars"></i></button>
+                   
                   </td>                
                   <td> 
                      

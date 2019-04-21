@@ -69,7 +69,18 @@ class MinuController extends Controller
         }
     }
 
-  
+      public function menuPermissionCheck(Request $request )
+  {
+      $deleteStatus=$request->d_status;
+      foreach ($deleteStatus as $menu_id => $status) {
+        $minu =Minu::find($menu_id);
+        $minu->d_status = $status;
+        $minu->save();
+      }
+       $response['msg'] = 'Save Successfully';
+        $response['status'] = 1;
+        return response()->json($response); 
+  }
 
     /**
      * Show the form for creating a new resource.
