@@ -54,7 +54,7 @@
                        <div class="col-lg-3">                                             
                          <div class="form-group">
                           {{ Form::label('sylabus','Sylabus',['class'=>' control-label']) }}
-                           {{ Form::file('sylabus','',['class'=>'form-control']) }} 
+                           {{ Form::file('sylabus',['class'=>'form-control']) }} 
                          </div>                                         
                       </div>
 	                 

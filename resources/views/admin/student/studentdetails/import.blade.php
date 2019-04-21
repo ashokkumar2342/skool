@@ -39,7 +39,7 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('excel_file','Excel File',['class'=>' control-label']) }}
-                                                    {!! Form::file('excel_file', '', ['class'=>'form-control','required']) !!}
+                                                    {!! Form::file('excel_file', ['class'=>'form-control','required']) !!}
                                                     <p class="text-danger">{{ $errors->first('excel_file') }}</p>
                                                 </div>
                                             </div>

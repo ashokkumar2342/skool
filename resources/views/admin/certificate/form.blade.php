@@ -59,7 +59,7 @@
                                              <div class="col-lg-4">                         
                                               <div class="form-group">
                                                   {{ Form::label('attachment','Attachment',['class'=>' control-label ']) }}                         
-                                                  {{ Form::file('attachment','',['class'=>'form-control datepicker','rows'=>'2']) }}
+                                                  {{ Form::file('attachment',['class'=>'form-control datepicker','rows'=>'2']) }}
                                                   <p class="text-danger">{{ $errors->first('attachment') }}</p>
                                               </div>
                                             </div>
