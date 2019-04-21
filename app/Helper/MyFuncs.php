@@ -5,6 +5,7 @@ namespace App\Helper;
 use App\Model\ClassType;
 use App\Model\HotMenu;
 use App\Model\Minu;
+use App\Model\MinuType;
 use App\Model\Section;
 use App\Model\SectionType;
 use App\Model\SubMenu;
@@ -498,6 +499,30 @@ class MyFuncs {
     return Minu::where('admin_id',$user_id)->where('sub_menu_id',$subMenuId)->first();
               
 
+  }
+       // read write delete permission check
+  public static function userHasMinu(){ 
+    return array_pluck(Minu::where('admin_id',Auth::guard('admin')->user()->id)->distinct()->get(['minu_id'])->toArray(), 'minu_id');
+               
+
   } 
+
+  public static function showMenu(){
+    $menu='';
+    $subMenus=array();
+    $menuTypes = MinuType::orderBy('id','asc')->get();
+    foreach ($menuTypes as  $menuType) {
+        
+         $menus=MyFuncs::mainMenu($menuType->id);
+         foreach ($menus as $subMenu) {
+             $subMenus[]=$subMenu->id;
+         }
+    }
+    return $subMenus;
+    // $mainMenus = Minu::where('admin_id',Auth::guard('admin')->user()->id)
+    //                     ->where('minu_id',$menu_type_id)
+    //                     ->get(['sub_menu_id']); 
+   
+  }
 
 }
