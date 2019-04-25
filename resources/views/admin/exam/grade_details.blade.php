@@ -121,7 +121,7 @@
 @endpush
 @push('scripts')
  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
- {{--  <script type="text/javascript">
+  <script type="text/javascript">
      $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
      $("#class").change(function(){
          $('#section').html('<option value="">Searching ...</option>');
@@ -143,41 +143,41 @@
          });
      });
 
-     $("#class").change(function(){
-         sectionSearch($(this).val());
-     });     
+     // $("#class").change(function(){
+     //     sectionSearch($(this).val());
+     // });     
      
-     if ($("#class").val() > 0) {
+     // if ($("#class").val() > 0) {
       
-     }
+     // }
      
       
-     function sectionSearch (value,selectVal=null){
-         var selected = null;
-         $('#section').html('<option value="">Searching ...</option>'); 
+     // function sectionSearch (value,selectVal=null){
+     //     var selected = null;
+     //     $('#section').html('<option value="">Searching ...</option>'); 
        
-         $.ajax({
-           method: "get",
-           url: "{{ route('admin.manageSection.search2') }}",
-           data: { id: value }
-         })
-         .done(function(response ) {            
-              if(response.section.length>0){
-                 $('#section').html('<option value="">Select section</option>');
-                for (var i = 0; i < response.section.length; i++) {
-                     if(selectVal>0){
-                         selected = (selectVal==response.section[i].id)?'selected':''; 
-                     }
-                     $('#section').append('<option value="'+response.section[i].id+'"'+selected+'>'+response.section[i].name+'</option>'); 
-                 }
-             }
-             else{
-                 $('#section').html('<option value="">Not found</option>');
-             } 
+     //     $.ajax({
+     //       method: "get",
+     //       url: "{{ route('admin.manageSection.search2') }}",
+     //       data: { id: value }
+     //     })
+     //     .done(function(response ) {            
+     //          if(response.section.length>0){
+     //             $('#section').html('<option value="">Select section</option>');
+     //            for (var i = 0; i < response.section.length; i++) {
+     //                 if(selectVal>0){
+     //                     selected = (selectVal==response.section[i].id)?'selected':''; 
+     //                 }
+     //                 $('#section').append('<option value="'+response.section[i].id+'"'+selected+'>'+response.section[i].name+'</option>'); 
+     //             }
+     //         }
+     //         else{
+     //             $('#section').html('<option value="">Not found</option>');
+     //         } 
                     
-         });
-     }
+     //     });
+     // }
      
  </script>
-     --}}
+    
 @endpush

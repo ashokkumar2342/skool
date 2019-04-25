@@ -609,5 +609,37 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'Barcode\BarcodeController@index')->name('admin.barcode.view');
 			    Route::post('barcode-Generator', 'Barcode\BarcodeController@barcodeGenerator')->name('barcode.Generator');
 			});
+                //-----------------library menegment----------------
+			Route::group(['prefix' => 'library-publisher'], function() {
+
+			    Route::get('publisher-details', 'Library\LibraryController@index')->name('admin.library.publisher.details'); 
+			    Route::post('store', 'Library\LibraryController@store')->name('admin.library.publisher.details.store'); 
+			    Route::get('delete/{id}', 'Library\LibraryController@destroy')->name('admin.library.publisher.details.delete'); 
+			    Route::get('edit/{id}', 'Library\LibraryController@edit')->name('admin.library.publisher.details.edit');
+
+                Route::post('update/{id}', 'Library\LibraryController@update')->name('admin.library.publisher.details.update'); 
+			    
+			});
+			//-----------------Author Details----------------------------------
+			Route::group(['prefix' => 'author'], function() {
+			    Route::get('/', 'Library\AuthorController@index')->name('admin.library.author.details');
+			    Route::post('store', 'Library\AuthorController@store')->name('admin.library.author.details.store');
+			    Route::get('delete/{id}', 'Library\AuthorController@destroy')->name('admin.library.author.details.delete');
+			    Route::get('edit/{id}', 'Library\AuthorController@edit')->name('admin.library.author.details.edit');
+			    Route::post('update/{id}', 'Library\AuthorController@update')->name('admin.library.author.details.update');
+			    
+			});
+			//--------------------Books Details-----------------------------------
+
+			Route::group(['prefix' => 'books'], function() {
+			    Route::get('/', 'Library\BooksController@index')->name('admin.library.book.details');
+			    Route::post('store', 'Library\BooksController@store')->name('admin.library.book.details.store');
+			    Route::get('delete/{id}', 'Library\BooksController@destroy')->name('admin.library.book.details.delete');
+			    Route::get('edit/{id}', 'Library\BooksController@edit')->name('admin.library.book.details.edit');
+			    Route::post('update/{id}', 'Library\BooksController@update')->name('admin.library.book.details.update');
+			    
+			});
+
+
 
 });

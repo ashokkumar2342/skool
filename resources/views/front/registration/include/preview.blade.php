@@ -307,18 +307,18 @@
                            </div>
                            <div class="form-group">
                                <div class="col-md-12 bd">                                        
-                                   Residence Telephone No : <b> {{ $pr->f_residence_telephone }}     </b>
+                                   Residence Telephone No : <b> {{ $pr->f_residence_telephone or '' }}     </b>
                                </div>
                            </div>
                            <div class="form-group">
                                <div class="col-md-12 bd">                                    
-                                   Office Telephone No : <b> {{ $pr->f_office_telephone }}</b>
+                                   Office Telephone No : <b> {{ $pr->f_office_telephone or '' }}</b>
                                </div>
                            </div>
 
                            <div class="form-group" >
                                <div class="col-md-12 bd"> 
-                                   Annual Income : <b> {{ $pr->f_incomeRange->range }}</b>
+                                   Annual Income : <b> {{ $pr->f_incomeRange->range or '' }}</b>
 
                                </div>
                            </div>
@@ -336,7 +336,7 @@
                            <div class="form-group">
                                <div class="col-md-12 bd">
                                     
-                                   Organization : <b>{{ $pr->f_organization }} </b>
+                                   Organization : <b>{{ $pr->f_organization or '' }} </b>
                                </div>
                            </div>
                            <div class="form-group">
@@ -592,7 +592,7 @@
                           <div class="form-group" >
                               <div class="col-md-12 bd">
                                 
-                                  Annual Income : <b>{{ $pr->g_incomeRange->range }}</b>
+                                  Annual Income : <b>{{ $pr->g_incomeRange->range or '' }}</b>
 
                               </div>
                           </div>

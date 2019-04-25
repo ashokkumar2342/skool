@@ -16,7 +16,7 @@
             	<div class="row">
             		<div class="col-lg-4">
                         <label>Admission No</label>
-                        <input type="text" name="admission_no" class="form-control">
+                        <input type="text" name="admission_no" class="form-control" maxlength="20">
             			{{-- <label for="sel1">Class:</label>
             			<select name="class" onchange="callAjax(this,'{{ route('admin.section.selectBox') }}','sectionSelectBox')" class="form-control" required="">
             			 <option value="" selected disabled>Select Class</option>

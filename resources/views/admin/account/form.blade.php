@@ -18,13 +18,13 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">First Name</label>
-                                  <input Name="first_name" class="form-control"  placeholder="Enter First Name" required="">
+                                  <input Name="first_name" class="form-control"  placeholder="Enter First Name" required="" maxlength="50">
                                 </div>                                
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Last Name</label>
-                                  <input Name="last_name" class="form-control"  placeholder="Enter Last Name">
+                                  <input Name="last_name" class="form-control"  placeholder="Enter Last Name" maxlength="50">
                                 </div>                                
                             </div>
                             <div class="col-lg-6">
@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                  <label for="Password">Password</label>
+                                  <label for="Password">Password (Min 6 Max 15 Charecters )</label>
                                   <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                                 </div>                               
                             </div>
@@ -60,8 +60,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                  <label for="exampleInputEmail1">Date Of Birth</label>
-                                  <input type="text" Name="dob" class="form-control"  id="dob"  placeholder="Enter Date Of Birth">
+                                  <label for="exampleInputEmail1">Date Of Birth (DD-MM-YY)</label>
+                                  {{ Form::date('dob','',['class'=>'form-control', 'placeholder'=>'  Test Date']) }} 
                                 </div>                                
                             </div>
                         </div>                     
