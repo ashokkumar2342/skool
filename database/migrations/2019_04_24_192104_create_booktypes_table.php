@@ -20,6 +20,7 @@ class CreateBooktypesTable extends Migration
             $table->string('subject_id'); 
             $table->string('publisher_id');
             $table->string('author_id');
+            $table->string('feature');
             $table->string('image');
             $table->timestamps();
         });

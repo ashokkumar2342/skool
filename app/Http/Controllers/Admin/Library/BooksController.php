@@ -42,7 +42,7 @@ class BooksController extends Controller
     if ($request->hasFile('image')) { 
     	foreach ($request->image as $image) {
     		$filename=$image->getClientOriginalName(); 
-            $image->storeAs('public/student/bookimage',$filename);
+            $image->storeAs('public/student/bookimage/',$filename);
             $booktype=new Booktype();
             $booktype->image=$filename;
             $booktype->code=$request->code;

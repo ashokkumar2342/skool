@@ -95,10 +95,8 @@
                             <td>{{ $booktype->publisher->name }}</td>
                             <td>{{ $booktype->author->name or ''}}</td>
                             <td>{{ $booktype->feature }}</td>
-                            <td style="width: 50px height: 50px" >
-
-                              <img src="{{ url('storage/bookimage/'.$booktype->image) }}" alt="">
-                              <img src="{{ url('storage/bookimage/'.$booktype->image) }}"  title="" height="150px" /> 
+                            <td style="width: 50px height: 50px" > 
+                              <img src="{{ url('storage/student/bookimage/'.$booktype->image) }}"  title="" width="100" /> 
                             </td>
 
                             <td> 
