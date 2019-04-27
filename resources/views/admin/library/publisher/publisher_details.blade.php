@@ -16,27 +16,28 @@
                    <div class="row">
                     <div class="col-lg-4">
                       <label>Publisher Code</label>
-                      <input type="text" name="code" class="form-control" placeholder="" required="" maxlength="4"> 
+                      <input type="text" name="code" class="form-control" placeholder=""maxlength="4"> 
                     </div>
                     <div class="col-lg-4">
                       <label>Publisher Name</label>
-                      <input type="text" name="name" class="form-control" placeholder="" required="" maxlength="50"> 
+                      <input type="text" name="name" class="form-control" placeholder="" maxlength="50"> 
                     </div>
                     <div class="col-lg-4">
                       <label>Mobile No</label>
-                      <input type="text" name="mobile_no" class="form-control" placeholder="" required="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
+                      <input type="text" name="mobile_no" class="form-control" placeholder="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
                     </div>
                     <div class="col-lg-4">
                       <label>Email</label>
-                      <input type="email" name="email" class="form-control" placeholder="" required=""> 
+                      <input type="email" name="email" class="form-control" placeholder=""> 
                     </div>
                     <div class="col-lg-4">
                       <label>Date Of Birth</label>
-                      <input type="date" name="dob" class="form-control" placeholder="" required=""> 
+                      <input type="date" name="dob" class="form-control" placeholder=""> 
                     </div>
                     <div class="col-lg-4">
                       <label>Address</label>
-                      <input type="text" name="address" class="form-control" placeholder="" required="" maxlength="200"> 
+                      <textarea class="form-control" name="address" placeholder=""maxlength="200"></textarea>
+                       
                     </div> 
                    </div>
                    <div class="row">
@@ -55,15 +56,15 @@
           </div>
           <div class="box"> 
             <div class="box-body">
-            <table class="table" id="publisher_table"> 
+            <table class="table table-bordered table-striped table-hover" id="publisher_table"> 
                <thead>
                  <tr>
-                   <th>header</th>
-                   <th>header</th>
-                   <th>header</th>
-                   <th>header</th>
-                   <th>header</th>
-                   <th>header</th>
+                   <th>Code</th>
+                   <th>Name</th>
+                   <th>Mobile No</th>
+                   <th>Email</th>
+                   <th>Date of Birth</th>
+                   <th>Address</th>
                    <th>Action</th>
                  </tr>
                </thead>
@@ -77,9 +78,9 @@
                        <td>{{ $publisher->dob }}</td>
                        <td>{{ $publisher->address }}</td>
                        <td> 
-                        <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.library.publisher.details.edit',$publisher->id) }}')"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.library.publisher.details.edit',Crypt::encrypt($publisher->id)) }}')"><i class="fa fa-edit"></i></button>
 
-                        <a href="{{ route('admin.library.publisher.details.delete',$publisher->id) }}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a>
+                        <a href="{{ route('admin.library.publisher.details.delete',Crypt::encrypt($publisher->id)) }}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a>
 
                          
                       </td>
@@ -95,4 +96,14 @@
     <!-- /.content -->
 
 @endsection
-
+@push('links')
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+@endpush
+@push('scripts')
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+ <script type="text/javascript">
+     $(document).ready(function(){
+        $('#publisher_table').DataTable();
+    });
+  </script>
+  @endpush

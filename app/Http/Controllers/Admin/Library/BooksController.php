@@ -78,5 +78,43 @@ class BooksController extends Controller
     	 return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']); 
     }
 
-}
+    public function update(Request $request,$id)
+    {
+    $rules=[
+          
+            'name' => 'required', 
+            
+        ];
 
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+
+    if ($request->hasFile('image')) { 
+        foreach ($request->image as $image) {
+            $filename=$image->getClientOriginalName(); 
+            $image->storeAs('public/student/bookimage/',$filename);
+            $booktype= Booktype::find($id);
+            $booktype->image=$filename;
+            $booktype->code=$request->code;
+            $booktype->name=$request->name;
+            $booktype->subject_id=$request->subject_id;
+            $booktype->publisher_id=$request->publisher_id;
+            $booktype->author_id=$request->author_id;
+            $booktype->feature=$request->feature;
+            $booktype->save();
+           $response=['status'=>1,'msg'=>'Update Successfully'];
+            return response()->json($response);
+        } 
+             
+ 
+            }
+        }
+}
+}

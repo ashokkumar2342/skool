@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Library;
 use App\Http\Controllers\Controller;
 use App\Model\Library\Author;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class AuthorController extends Controller
@@ -48,15 +49,15 @@ class AuthorController extends Controller
 
     public function destroy($id)
     {
-    	 $author=Author::find($id);
+    	 $author=Author::findOrFail(Crypt::decrypt($id));
     	 $author->delete();
     	 return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
 
 
     public function edit($id)
-    {
-    	 $authors=Author::find($id);
+    {   
+        $authors=Author::findOrFail(Crypt::decrypt($id));
     	return view('admin.library.author.author_details_edit',compact('authors'));
     }
 
@@ -86,7 +87,7 @@ class AuthorController extends Controller
     	$author->mobile_no=$request->mobile_no;
     	$author->address=$request->address;
     	$author->save();
-    	$response=['status'=>1,'msg'=>'Created Successfully'];
+    	$response=['status'=>1,'msg'=>'Update Successfully'];
             return response()->json($response);
         } 
     }

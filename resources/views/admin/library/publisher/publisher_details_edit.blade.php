@@ -1,8 +1,13 @@
  
   <!-- Main content -->
+   <style type="text/css" media="screen">
+  .bd{
+    border-bottom: #eee solid 1px;;
+  }
   
-    <section class="content">
-    <div class="modal-dialog" style="width:70%">
+</style>
+ 
+  <div class="modal-dialog" style="width:90%">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -11,11 +16,9 @@
         <h4 class="modal-title">Publisher Edit</h4>
       </div>
       <div class="modal-body">
-            <!-- /.box-header -->  
-
-          <div class="box">  
-            <div class="box-body"> 
-              <form action="{{ route('admin.library.publisher.details.update',$publishers->id) }}" method="post" class="add_form">
+       <div class="row"> 
+        <div class="col-md-12"> 
+              <form action="{{ route('admin.library.publisher.details.update',$publishers->id) }}" button-click="btn_close" content-refresh="publisher_table" method="post" class="add_form">
                    {{ csrf_field() }}
                    <div class="row">
                     <div class="col-lg-4">
@@ -40,12 +43,13 @@
                     </div>
                     <div class="col-lg-4">
                       <label>Address</label>
-                      <input type="text" name="address" class="form-control" placeholder="" required="" maxlength="200" value="{{ $publishers->address }}"> 
+                      <textarea class="form-control" name="address" placeholder="" required="" maxlength="200">{{ $publishers->address }}</textarea>
+                       
                     </div> 
                    </div>
                    <div class="row">
                     <div class="col-lg-12 text-center" style="padding-top: 10px">
-                      <input type="submit"  value="Update" class="btn btn-success">
+                       <button class="btn btn-success" type="submit">Update</button> 
                     </div>
                      
                    </div>
@@ -61,10 +65,11 @@
       </div>
     </div>
          
-        </div>
-      </div>
+  
 
-    </section>
+     
+
+   
     <!-- /.content -->
 
  
