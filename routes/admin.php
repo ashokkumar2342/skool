@@ -682,6 +682,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('table-show', 'Library\MemberShipDetailsController@tableShow')->name('admin.library.member.ship.details.table.show');
 			    Route::get('edit/{id}', 'Library\MemberShipDetailsController@edit')->name('admin.library.member.ship.details.edit');
 			    Route::get('delete/{id}', 'Library\MemberShipDetailsController@destroy')->name('admin.library.member.ship.details.delete');
+			    Route::post('update/{id}', 'Library\MemberShipDetailsController@update')->name('admin.library.member.ship.details.update');
 
 		    });
 

@@ -20,7 +20,8 @@ class MemberShipFacilityController extends Controller
     public function store(Request $request)
     {
          $rules=[ 
-            
+
+             'member_ship_type' => 'required', 
        
       ];
 
@@ -34,11 +35,11 @@ class MemberShipFacilityController extends Controller
       }
         else {
     	 $membershipfacility=new MemberShipFacility();
-    	 $membershipfacility->member_ship_type_id=$request->m_ship_type;
+    	 $membershipfacility->member_ship_type_id=$request->member_ship_type;
     	 $membershipfacility->no_of_books=$request->no_of_books;
     	 $membershipfacility->no_of_days=$request->no_of_days;
     	 $membershipfacility->save();
-    	  $response=['status'=>1,'msg'=>'Update Successfully'];
+    	  $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
         }
     }
@@ -80,7 +81,7 @@ class MemberShipFacilityController extends Controller
       }
         else {
          $membershipfacility= MemberShipFacility::find($id);
-         $membershipfacility->member_ship_type_id=$request->m_ship_type;
+         $membershipfacility->member_ship_type_id=$request->member_ship_type;
          $membershipfacility->no_of_books=$request->no_of_books;
          $membershipfacility->no_of_days=$request->no_of_days;
          $membershipfacility->save();
