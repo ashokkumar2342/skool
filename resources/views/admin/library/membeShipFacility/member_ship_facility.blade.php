@@ -16,7 +16,7 @@
                    <div class="row">
                     <div class="col-lg-4">
                       <label>Member Ship Type</label>
-                      <select name="m_ship_type" class="form-control" >
+                      <select name="member_ship_type" class="form-control" >
                         <option disabled selected="">Select Member Ship Type</option>}
                         option
                         @foreach ($librarymembertypes as $librarymembertype) 

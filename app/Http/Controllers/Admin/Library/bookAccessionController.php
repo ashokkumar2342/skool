@@ -23,7 +23,8 @@ class bookAccessionController extends Controller
    {     
          $rules=[
         
-             
+              'book_name' => 'required', 
+              'bill_no' => 'required', 
        
       ];
 
@@ -73,7 +74,9 @@ class bookAccessionController extends Controller
    {     
 
    	    $rules=[
-        
+              
+              'book_name' => 'required', 
+              'bill_no' => 'required', 
              
        
       ];
