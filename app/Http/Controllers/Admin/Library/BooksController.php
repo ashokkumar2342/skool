@@ -14,7 +14,7 @@ class BooksController extends Controller
 {
      public function index()
     {
-    	$booktypes=Booktype::all();
+    	
     	$subjects = SubjectType::orderBy('name','asc')->get();
     	$publishers = Publisher::orderBy('name','asc')->get();
     	$authors = Author::orderBy('name','asc')->get();
@@ -23,43 +23,67 @@ class BooksController extends Controller
 
     public function store(Request $request)
     {
-    	$rules=[
-    	  
+    	 $rules=[
+          
             'name' => 'required', 
+            'code' => 'required', 
+            'subject_id' => 'required', 
+            'publisher_id' => 'required', 
+            'author_id' => 'required', 
             
-    	];
+        ];
 
-    	$validator = Validator::make($request->all(),$rules);
-    	if ($validator->fails()) {
-    	    $errors = $validator->errors()->all();
-    	    $response=array();
-    	    $response["status"]=0;
-    	    $response["msg"]=$errors[0];
-    	    return response()->json($response);// response as json
-    	}
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
         else {
 
-    if ($request->hasFile('image')) { 
-    	foreach ($request->image as $image) {
-    		$filename=$image->getClientOriginalName(); 
-            $image->storeAs('public/student/bookimage/',$filename);
-            $booktype=new Booktype();
-            $booktype->image=$filename;
-            $booktype->code=$request->code;
-            $booktype->name=$request->name;
-            $booktype->subject_id=$request->subject_id;
-            $booktype->publisher_id=$request->publisher_id;
-            $booktype->author_id=$request->author_id;
-            $booktype->feature=$request->feature;
-            $booktype->save();
-           $response=['status'=>1,'msg'=>'Created Successfully'];
-            return response()->json($response);
-        } 
+            if ($request->hasFile('image')) { 
+                $image=$request->image;
+                $filename='book'.date('d-m-Y').time().'.jpg'; 
+                $image->storeAs('public/student/bookimage/',$filename);
+                $booktype=new Booktype();
+                $booktype->image=$filename;
+                $booktype->code=$request->code;
+                $booktype->name=$request->name;
+                $booktype->edition=$request->edition;
+                $booktype->price=$request->price;
+                $booktype->no_of_pages=$request->no_of_pages;
+                $booktype->subject_id=$request->subject_id;
+                $booktype->publisher_id=$request->publisher_id;
+                $booktype->author_id=$request->author_id;
+                $booktype->feature=$request->feature;
+                $booktype->save();
+               $response=['status'=>1,'msg'=>'Created Successfully'];
+                return response()->json($response);
              
- 
             }
-        }
-
+            else{
+               $booktype= new Booktype(); 
+               $booktype->code=$request->code;
+               $booktype->name=$request->name;
+               $booktype->edition=$request->edition;
+               $booktype->price=$request->price;
+               $booktype->no_of_pages=$request->no_of_pages;
+               $booktype->subject_id=$request->subject_id;
+               $booktype->publisher_id=$request->publisher_id;
+               $booktype->author_id=$request->author_id;
+               $booktype->feature=$request->feature;
+               $booktype->save();
+              $response=['status'=>1,'msg'=>'Created Successfully'];
+               return response()->json($response);  
+            }
+         }
+    }
+    public function tableShow($value='')
+    { 
+        $booktypes=Booktype::all();
+         return view('admin.library.books.books_table',compact('booktypes'));
     }
 
     public function edit($id)
@@ -83,6 +107,10 @@ class BooksController extends Controller
     $rules=[
           
             'name' => 'required', 
+            'code' => 'required', 
+            'subject_id' => 'required', 
+            'publisher_id' => 'required', 
+            'author_id' => 'required', 
             
         ];
 
@@ -96,25 +124,41 @@ class BooksController extends Controller
         }
         else {
 
-    if ($request->hasFile('image')) { 
-        foreach ($request->image as $image) {
-            $filename=$image->getClientOriginalName(); 
-            $image->storeAs('public/student/bookimage/',$filename);
-            $booktype= Booktype::find($id);
-            $booktype->image=$filename;
-            $booktype->code=$request->code;
-            $booktype->name=$request->name;
-            $booktype->subject_id=$request->subject_id;
-            $booktype->publisher_id=$request->publisher_id;
-            $booktype->author_id=$request->author_id;
-            $booktype->feature=$request->feature;
-            $booktype->save();
-           $response=['status'=>1,'msg'=>'Update Successfully'];
-            return response()->json($response);
-        } 
+            if ($request->hasFile('image')) { 
+                $image=$request->image;
+                $filename='book'.date('d-m-Y').time().'.jpg'; 
+                $image->storeAs('public/student/bookimage/',$filename);
+                $booktype= Booktype::find($id);
+                $booktype->image=$filename;
+                $booktype->code=$request->code;
+                $booktype->name=$request->name;
+                $booktype->edition=$request->edition;
+                $booktype->price=$request->price;
+                $booktype->no_of_pages=$request->no_of_pages;
+                $booktype->subject_id=$request->subject_id;
+                $booktype->publisher_id=$request->publisher_id;
+                $booktype->author_id=$request->author_id;
+                $booktype->feature=$request->feature;
+                $booktype->save();
+               $response=['status'=>1,'msg'=>'Update Successfully'];
+                return response()->json($response);
              
- 
             }
-        }
+            else{
+               $booktype= Booktype::find($id); 
+               $booktype->code=$request->code;
+               $booktype->name=$request->name;
+               $booktype->edition=$request->edition;
+               $booktype->price=$request->price;
+               $booktype->no_of_pages=$request->no_of_pages;
+               $booktype->subject_id=$request->subject_id;
+               $booktype->publisher_id=$request->publisher_id;
+               $booktype->author_id=$request->author_id;
+               $booktype->feature=$request->feature;
+               $booktype->save();
+              $response=['status'=>1,'msg'=>'Update Successfully'];
+               return response()->json($response);  
+            }
+    }
 }
 }

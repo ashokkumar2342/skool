@@ -17,7 +17,7 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12">
-              <form action="{{ route('admin.library.book.details.update',$booktypes->id) }}" method="post" button-click="btn_close" class="add_form" enctype="multipart/form-data" content-refresh="books_table">
+              <form action="{{ route('admin.library.book.details.update',$booktypes->id) }}" method="post" button-click="btn_close,btn_books_table_show" class="add_form" enctype="multipart/form-data" content-refresh="books_table">
                    {{ csrf_field() }}
                    <div class="row">
                     <div class="col-lg-4">
@@ -62,7 +62,7 @@
                     </div> 
                     <div class="col-lg-4">
                       <label>Book Image</label>
-                      <input type="file" name="image[]" multiple="true"> 
+                      <input type="file" name="image" multiple="true"> 
                     </div> 
                    </div>
                    <div class="row">
