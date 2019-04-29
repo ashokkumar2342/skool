@@ -22,7 +22,7 @@ class BookPurchaseBillController extends Controller
         
             
             'vendor_name' => 'required', 
-            'mobile_no' => 'required', 
+            'mobile_no' => 'required|digits:10', 
             'email' => 'required', 
             'bill_no' => 'required', 
             'total_amount' => 'required', 
