@@ -11,6 +11,7 @@ use App\Model\StudentFeeDetail;
 use App\Student;
 use App\User;
 use Illuminate\Http\Request;
+use Laravel\Passport\createToken;
 
 class DashboardController extends Controller
 {
@@ -60,6 +61,16 @@ class DashboardController extends Controller
         $classes = ClassType::all();
        $students = ParentRegistration::all(); 
         return view('admin/dashboard/studentRegistrationDetails',compact('classes','students'))->render();
+    }
+
+    public function passportTokenCreate(){
+        $user = Admin::find(1);
+        // Creating a token without scopes...
+        $token = $user->createToken('Student')->accessToken;
+
+        // Creating a token with scopes...
+       // $token = $user->createToken('My Token', ['place-orders'])->accessToken;
+        return $token;
     }
 
    

@@ -11,6 +11,7 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard'); 
 	Route::get('show-details', 'DashboardController@showStudentDetails')->name('admin.student.show.details');
 	Route::get('registration-show-details', 'DashboardController@showStudentRegistrationDetails')->name('admin.student.Registration.details');
+	Route::get('token', 'DashboardController@passportTokenCreate')->name('admin.token');
 	//---------------account-----------------------------------------	
 	Route::prefix('account')->group(function () {
 	    Route::get('form', 'AccountController@form')->name('admin.account.form');
