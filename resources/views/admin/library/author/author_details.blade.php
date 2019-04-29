@@ -48,7 +48,7 @@
           </div>
           <div class="box"> 
             <div class="box-body">
-            <table class="table" id="author_table"> 
+            <table id="author_table" class="table table-bordered table-striped table-hover"> 
                <thead>
                  <tr>
                    <th>Name</th>
@@ -66,9 +66,9 @@
                    <td>{{ $author->email }}</td>
                    <td>{{ $author->address }}</td>
                    <td>
-                     <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.library.author.details.edit',$author->id) }}')"><i class="fa fa-edit"></i></button>
+                     <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.library.author.details.edit',Crypt::encrypt($author->id)) }}')"><i class="fa fa-edit"></i></button>
 
-                        <a href="{{ route('admin.library.author.details.delete',$author->id) }}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a>
+                        <a href="{{ route('admin.library.author.details.delete',Crypt::encrypt($author->id)) }}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a>
 
                    </td>
                     
@@ -84,4 +84,17 @@
     <!-- /.content -->
 
 @endsection
-
+@push('links')
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+@endpush
+@push('scripts')
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+ <script type="text/javascript">
+     $(document).ready(function(){
+        $('#author_table').DataTable();
+    });
+  </script>
+  @endpush
+     
+ 
+ 

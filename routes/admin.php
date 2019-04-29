@@ -635,11 +635,58 @@ Route::group(['middleware' => 'admin'], function() {
 			Route::group(['prefix' => 'books'], function() {
 			    Route::get('/', 'Library\BooksController@index')->name('admin.library.book.details');
 			    Route::post('store', 'Library\BooksController@store')->name('admin.library.book.details.store');
+			    Route::get('table-show', 'Library\BooksController@tableShow')->name('admin.library.book.details.table.show');
 			    Route::get('delete/{id}', 'Library\BooksController@destroy')->name('admin.library.book.details.delete');
 			    Route::get('edit/{id}', 'Library\BooksController@edit')->name('admin.library.book.details.edit');
 			    Route::post('update/{id}', 'Library\BooksController@update')->name('admin.library.book.details.update');
 			    
 			});
+			Route::group(['prefix' => 'book-purchase-bill'], function() {
+			    Route::get('/', 'Library\BookPurchaseBillController@index')->name('admin.library.book.book.purchase.bill');
+			    Route::post('store', 'Library\BookPurchaseBillController@store')->name('admin.library.book.book.purchase.bill.store');
+                Route::get('table-show', 'Library\BookPurchaseBillController@tableShow')->name('admin.library.book.purchase.table.show');
+                Route::get('edit/{id}', 'Library\BookPurchaseBillController@edit')->name('admin.library.purchase.details.edit');
+                Route::get('delete/{id}', 'Library\BookPurchaseBillController@destroy')->name('admin.library.purchase.details.delete');
+                Route::post('update/{id}', 'Library\BookPurchaseBillController@update')->name('admin.library.book.purchase.details.update');
+
+		    });
+		    Route::group(['prefix' => 'book-accession'], function() {
+			 Route::get('/', 'Library\bookAccessionController@index')->name('admin.library.book.accession.details'); 
+			 Route::post('store', 'Library\bookAccessionController@store')->name('admin.library.book.accession.details.store');
+			 Route::get('table-show', 'Library\bookAccessionController@tableShow')->name('admin.library.book.accession.table.show'); 
+			 Route::get('edit/{id}', 'Library\bookAccessionController@edit')->name('admin.library.book.accession.edit');
+			  Route::get('delete/{id}', 'Library\bookAccessionController@destroy')->name('admin.library.book.accession.delete');
+             Route::post('update/{id}', 'Library\bookAccessionController@update')->name('admin.library.book.accession.update');
+
+		    }); 
+		    Route::group(['prefix' => 'library-member-type'], function() {
+			    Route::get('/', 'Library\LibraryMemberTypeController@index')->name('admin.library.library.member.type');
+            Route::post('store', 'Library\LibraryMemberTypeController@store')->name('admin.library.library.member.type.store');
+            Route::get('table-show', 'Library\LibraryMemberTypeController@tableShow')->name('admin.library.member.type.table.show');
+            Route::get('edit/{id}', 'Library\LibraryMemberTypeController@edit')->name('admin.library.member.type.edit');
+            Route::get('delete/{id}', 'Library\LibraryMemberTypeController@destroy')->name('admin.library.member.type.delete');
+            Route::post('update/{id}', 'Library\LibraryMemberTypeController@update')->name('admin.library.member.type.update');
+
+		    }); 
+		    Route::group(['prefix' => 'member-ship-facility'], function() {
+			  Route::get('/', 'Library\MemberShipFacilityController@index')->name('admin.library.member.ship.facility');
+			    Route::post('store', 'Library\MemberShipFacilityController@store')->name('admin.library.member.ship.facility.store'); 
+			    Route::get('table-show', 'Library\MemberShipFacilityController@tableShow')->name('admin.library.member.ship.facility.table.show');
+			    Route::get('edit/{id}', 'Library\MemberShipFacilityController@edit')->name('admin.library.member.ship.facility.edit');
+			    Route::get('delete/{id}', 'Library\MemberShipFacilityController@destroy')->name('admin.library.member.ship.facility.delete');
+			    Route::post('update/{id}', 'Library\MemberShipFacilityController@update')->name('admin.library.member.ship.facility.Update');
+
+		    });
+		     Route::group(['prefix' => 'member-ship-details'], function() {
+			    Route::get('/', 'Library\MemberShipDetailsController@index')->name('admin.library.member.ship.details');
+			    Route::post('store', 'Library\MemberShipDetailsController@store')->name('admin.library.member.ship.details.store');
+			    Route::get('table-show', 'Library\MemberShipDetailsController@tableShow')->name('admin.library.member.ship.details.table.show');
+			    Route::get('edit/{id}', 'Library\MemberShipDetailsController@edit')->name('admin.library.member.ship.details.edit');
+			    Route::get('delete/{id}', 'Library\MemberShipDetailsController@destroy')->name('admin.library.member.ship.details.delete');
+			    Route::post('update/{id}', 'Library\MemberShipDetailsController@update')->name('admin.library.member.ship.details.update');
+
+		    });
+
 
 
 
