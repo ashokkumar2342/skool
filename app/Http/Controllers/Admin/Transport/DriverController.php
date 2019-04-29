@@ -120,7 +120,7 @@ class DriverController extends Controller
             return response()->json($response);// response as json
         }
          else {
-            $Driver = new Driver();            
+            $Driver = Driver::find($id);            
             $Driver->name = $request->name;
             $Driver->mobile = $request->mobile;
             $Driver->contact_no = $request->contact_no;         
