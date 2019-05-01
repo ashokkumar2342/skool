@@ -16,17 +16,16 @@
                    <div class="row">
                     <div class="col-lg-6">
                       <label>Accession No</label>
-                      <input type="text" name="accession_no" class="form-control" placeholder="" required="" maxlength="50"> 
+                      <input type="text" name="accession_no" class="form-control" placeholder="" maxlength="30"> 
                     </div>
                     <div class="col-lg-6">
                       <label>ISBN No</label>
-                      <input type="text" name="isbn_no" class="form-control" placeholder="" required="" maxlength="50"> 
+                      <input type="text" name="isbn_no" class="form-control" placeholder=""  maxlength="30"> 
                     </div>
                     <div class="col-lg-4">
                     <label>Book Name</label>
                      <select name="book_name" class="form-control">
-                      <option value="">Select Book Name</option>}
-                      option
+                      <option selected disabled >Select Book Name</option> 
                       @foreach ($booktypes as $booktype) 
                        <option value="{{ $booktype->id }}">{{ $booktype->name }}</option>
                       @endforeach 
@@ -36,8 +35,7 @@
                      <div class="col-lg-4">
                     <label>Bill No</label>
                      <select name="bill_no" class="form-control">
-                      <option value="">Select Bill No</option>}
-                      option
+                      <option selected disabled>Select Bill No</option> 
                       @foreach ($bookpurchasebills as $bookpurchasebill) 
                        <option value="{{ $bookpurchasebill->id }}">{{ $bookpurchasebill->bill_no }}</option>
                       @endforeach 
@@ -46,7 +44,8 @@
                     
                     <div class="col-lg-4">
                       <label>Status</label>
-                      <input type="text" name="status" class="form-control" placeholder="" required="" maxlength="50"> 
+                      <textarea name="status" class="form-control" placeholder=""></textarea>
+                       
                     </div>
                   </div>
                    <div class="row">

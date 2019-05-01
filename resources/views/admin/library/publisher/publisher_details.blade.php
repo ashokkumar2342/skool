@@ -30,10 +30,7 @@
                       <label>Email</label>
                       <input type="email" name="email" class="form-control" placeholder=""> 
                     </div>
-                    <div class="col-lg-4">
-                      <label>Date Of Birth</label>
-                      <input type="date" name="dob" class="form-control" placeholder=""> 
-                    </div>
+                    
                     <div class="col-lg-4">
                       <label>Address</label>
                       <textarea class="form-control" name="address" placeholder=""maxlength="200"></textarea>
@@ -63,7 +60,7 @@
                    <th>Name</th>
                    <th>Mobile No</th>
                    <th>Email</th>
-                   <th>Date of Birth</th>
+                   
                    <th>Address</th>
                    <th>Action</th>
                  </tr>
@@ -75,7 +72,7 @@
                        <td>{{ $publisher->name }}</td>
                        <td>{{ $publisher->mobile_no }}</td>
                        <td>{{ $publisher->email }}</td>
-                       <td>{{ $publisher->dob }}</td>
+                       
                        <td>{{ $publisher->address }}</td>
                        <td> 
                         <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.library.publisher.details.edit',Crypt::encrypt($publisher->id)) }}')"><i class="fa fa-edit"></i></button>

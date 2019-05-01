@@ -43,7 +43,7 @@ class LibraryController extends Controller
     	$publisher->name=$request->name; 
     	$publisher->mobile_no=$request->mobile_no; 
     	$publisher->email=$request->email; 
-    	$publisher->dob=$request->dob; 
+    	  
     	$publisher->address=$request->address; 
     	$publisher->save();
     	$response=['status'=>1,'msg'=>'Created Successfully'];
@@ -91,7 +91,7 @@ class LibraryController extends Controller
         $publisher->name=$request->name; 
         $publisher->mobile_no=$request->mobile_no; 
         $publisher->email=$request->email; 
-        $publisher->dob=$request->dob; 
+         
         $publisher->address=$request->address; 
         $publisher->save();
         $response=['status'=>1,'msg'=>'Update Successfully'];

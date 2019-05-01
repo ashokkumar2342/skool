@@ -23,8 +23,11 @@ class bookAccessionController extends Controller
    {     
          $rules=[
         
+              'accession_no' => 'required', 
               'book_name' => 'required', 
+              'isbn_no' => 'required', 
               'bill_no' => 'required', 
+                
        
       ];
 
@@ -75,8 +78,10 @@ class bookAccessionController extends Controller
 
    	    $rules=[
               
+             'accession_no' => 'required', 
               'book_name' => 'required', 
-              'bill_no' => 'required', 
+              'isbn_no' => 'required', 
+              'bill_no' => 'required',
              
        
       ];
@@ -97,7 +102,7 @@ class bookAccessionController extends Controller
         $bookaccession->bill_id=$request->bill_no;
         $bookaccession->status=$request->status;
         $bookaccession->save();
-       $response=['status'=>1,'msg'=>'Created Successfully'];
+       $response=['status'=>1,'msg'=>'Update Successfully'];
             return response()->json($response);
         } 
    }

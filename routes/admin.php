@@ -680,7 +680,10 @@ Route::group(['middleware' => 'admin'], function() {
 		     Route::group(['prefix' => 'member-ship-details'], function() {
 			    Route::get('/', 'Library\MemberShipDetailsController@index')->name('admin.library.member.ship.details');
 			    Route::post('store', 'Library\MemberShipDetailsController@store')->name('admin.library.member.ship.details.store');
-			    Route::get('table-show', 'Library\MemberShipDetailsController@tableShow')->name('admin.library.member.ship.details.table.show');
+			    Route::get('student-search', 'Library\MemberShipDetailsController@studentSearch')->name('admin.library.member.ship.details.student.search');
+			    Route::get('student-show', 'Library\MemberShipDetailsController@studentShow')->name('admin.library.member.ship.details.student.show');
+			    Route::get('teacher-show', 'Library\MemberShipDetailsController@teacherShow')->name('admin.library.member.ship.details.teacher.show');
+			    Route::get('others-show', 'Library\MemberShipDetailsController@othersShow')->name('admin.library.member.ship.details.others.show');
 			    Route::get('edit/{id}', 'Library\MemberShipDetailsController@edit')->name('admin.library.member.ship.details.edit');
 			    Route::get('delete/{id}', 'Library\MemberShipDetailsController@destroy')->name('admin.library.member.ship.details.delete');
 			    Route::post('update/{id}', 'Library\MemberShipDetailsController@update')->name('admin.library.member.ship.details.update');

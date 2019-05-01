@@ -22,6 +22,8 @@ class MemberShipFacilityController extends Controller
          $rules=[ 
 
              'member_ship_type' => 'required', 
+             'no_of_books' => 'required', 
+             'no_of_days' => 'required', 
        
       ];
 
@@ -67,7 +69,9 @@ class MemberShipFacilityController extends Controller
        public function update(Request $request,$id)
     {
     	 $rules=[ 
-            
+            'member_ship_type' => 'required', 
+             'no_of_books' => 'required', 
+             'no_of_days' => 'required', 
        
       ];
 

@@ -16,19 +16,19 @@
                    <div class="row">
                     <div class="col-lg-3">
                       <label>Purchase Date</label>
-                      <input type="date" name="p_date" class="form-control" placeholder="" required="" maxlength="50"> 
+                      <input type="date" name="purchase_date" class="form-control" placeholder=""  maxlength="50"> 
                     </div>
                     <div class="col-lg-3">
-                      <label>Vender Name</label>
-                      <input type="text" name="vendor_name" class="form-control" placeholder="" required="" maxlength="50"> 
+                      <label>Vendor Name</label>
+                      <input type="text" name="vendor_name" class="form-control" placeholder="" maxlength="50"> 
                     </div>
                     <div class="col-lg-3">
                       <label>Mobile No</label>
-                      <input type="text" name="mobile_no" class="form-control" placeholder="" required=""maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
+                      <input type="text" name="mobile_no" class="form-control" placeholder="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
                     </div>
                     <div class="col-lg-3">
                       <label>Email</label>
-                      <input type="email" name="email" class="form-control" placeholder="" required="" maxlength="50"> 
+                      <input type="email" name="email" class="form-control" placeholder="" maxlength="50"> 
                     </div>
                     <div class="col-lg-6">
                       <label>Address</label>
@@ -37,11 +37,11 @@
                     </div>
                     <div class="col-lg-3">
                       <label>Bill No</label>
-                      <input type="text" name="bill_no" class="form-control" placeholder="" required="" maxlength="50"> 
+                      <input type="text" name="bill_no" class="form-control" placeholder=""  maxlength="50"> 
                     </div>
                     <div class="col-lg-3">
-                      <label>total Amount</label>
-                      <input type="text" name="total_amount" class="form-control" placeholder="" required="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
+                      <label>Total Amount</label>
+                      <input type="number" name="total_amount" class="form-control" placeholder=""  maxlength="7"> 
                     </div>
                   </div>
                    <div class="row">

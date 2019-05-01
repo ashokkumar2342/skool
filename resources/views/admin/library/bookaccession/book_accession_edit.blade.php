@@ -22,16 +22,16 @@
                    <div class="row">
                     <div class="col-lg-6">
                       <label>Accession No</label>
-                      <input type="text" name="accession_no" class="form-control" placeholder="" value="{{ $bookaccessions->accession_no }}" required="" maxlength="50"> 
+                      <input type="text" name="accession_no" class="form-control" placeholder="" value="{{ $bookaccessions->accession_no }}"  maxlength="30"> 
                     </div>
                     <div class="col-lg-6">
                       <label>ISBN No</label>
-                      <input type="text" name="isbn_no" class="form-control" placeholder="" required="" value="{{ $bookaccessions->isbn_no }}" maxlength="50"> 
+                      <input type="text" name="isbn_no" class="form-control" placeholder="" value="{{ $bookaccessions->isbn_no }}" maxlength="30"> 
                     </div>
                     <div class="col-lg-4">
                     <label>Book Name</label>
                      <select name="book_name" class="form-control">
-                      <option value="">Select Book Name</option> 
+                      <option selected disabled>Select Book Name</option> 
                       @foreach ($booktypes as $booktype) 
                        <option value="{{ $booktype->id  }}"{{ $bookaccessions->book_id==$booktype->id? 'selected="selected"' : ''  }}>{{ $booktype->name or '' }}</option> 
                       @endforeach 
@@ -41,8 +41,7 @@
                      <div class="col-lg-4">
                     <label>Bill No</label>
                      <select name="bill_no" class="form-control">
-                      <option value="">Select Bill No</option>}
-                      option
+                      <option selected disabled>Select Bill No</option> 
                       @foreach ($bookpurchasebills as $bookpurchasebill) 
                        <option value="{{ $bookpurchasebill->id  }}"{{ $bookaccessions->bill_id==$bookpurchasebill->id? 'selected="selected"' : ''  }}>{{ $bookpurchasebill->bill_no or '' }}</option> 
                       @endforeach 
@@ -51,7 +50,8 @@
                     
                     <div class="col-lg-4">
                       <label>Status</label>
-                      <input type="text" name="status" class="form-control" placeholder="" required="" maxlength="50" value="{{$bookaccessions->status  }}"> 
+                      <textarea name="status" class="form-control" placeholder="">{{$bookaccessions->status  }}</textarea>
+                       
                     </div>
                   </div>
                    <div class="row">
