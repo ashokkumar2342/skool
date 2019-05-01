@@ -11,12 +11,12 @@
             <!-- /.box-header -->            
           <div class="box"> 
             <div class="box-body"> 
-              <form action="{{ route('admin.library.author.details.store') }}" method="post" class="add_form" content-refresh="author_table">
+              <form action="{{ route('admin.library.author.details.store') }}" method="post" class="add_form" button-click="btn_outhor_table_show">
                    {{ csrf_field() }}
                    <div class="row">
                     <div class="col-lg-3">
                       <label>Author Name</label>
-                      <input type="text" name="name" class="form-control" placeholder="" required="" maxlength="50"> 
+                      <input type="text" name="name" class="form-control" placeholder="" maxlength="100"> 
                     </div>
                     <div class="col-lg-3">
                       <label>Mobile No</label>
@@ -24,11 +24,11 @@
                     </div>
                     <div class="col-lg-3">
                       <label>Email</label>
-                      <input type="email" name="email" class="form-control" placeholder="" required=""> 
+                      <input type="email" name="email" class="form-control" placeholder=""> 
                     </div> 
                     <div class="col-lg-3">
                       <label>Address</label>
-                      <textarea class="form-control" name="address" placeholder="" required="" maxlength="200"></textarea>
+                      <textarea class="form-control" name="address" placeholder="" maxlength="250"></textarea>
                         
                     </div> 
                    </div>
@@ -46,36 +46,10 @@
                
       <!-- /.row -->
           </div>
+          <button id="btn_outhor_table_show" hidden data-table="author_table" onclick="callAjax(this,'{{ route('admin.library.author.details.table.show') }}','othor_details_table_show')">show </button>
           <div class="box"> 
-            <div class="box-body">
-            <table id="author_table" class="table table-bordered table-striped table-hover"> 
-               <thead>
-                 <tr>
-                   <th>Name</th>
-                   <th>Mobile No</th>
-                   <th>Email</th>
-                   <th>Address</th>
-                   <th>Action</th>
-                 </tr>
-               </thead>
-               <tbody>
-                @foreach ($authors as $author) 
-                 <tr>
-                   <td>{{ $author->name }}</td>
-                   <td>{{ $author->mobile_no }}</td>
-                   <td>{{ $author->email }}</td>
-                   <td>{{ $author->address }}</td>
-                   <td>
-                     <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.library.author.details.edit',Crypt::encrypt($author->id)) }}')"><i class="fa fa-edit"></i></button>
-
-                        <a href="{{ route('admin.library.author.details.delete',Crypt::encrypt($author->id)) }}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a>
-
-                   </td>
-                    
-                 </tr>
-                @endforeach
-               </tbody>
-             </table> 
+            <div class="box-body" id="othor_details_table_show">
+           
             </div>
           </div>
         </div>
@@ -93,6 +67,8 @@
      $(document).ready(function(){
         $('#author_table').DataTable();
     });
+
+     $('#btn_outhor_table_show').click();
   </script>
   @endpush
      

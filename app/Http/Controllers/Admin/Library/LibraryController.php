@@ -12,14 +12,14 @@ class LibraryController extends Controller
 {
     public function index()
     {   
-    	$publishers=Publisher::all();
-    	return view('admin.library.publisher.publisher_details',compact('publishers'));
+    	 
+    	return view('admin.library.publisher.publisher_details');
     }
 
     public function store(Request $request)
     {
     	$rules=[
-    	'code' => 'required|max:4', 
+    	'code' => 'required|max:20', 
             'name' => 'required|max:199', 
             'mobile_no' =>'required|digits:10', 
             'email' => "required|max:50|email", 
@@ -49,6 +49,11 @@ class LibraryController extends Controller
     	$response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response); 
         }
+    }
+    public function tableShow()
+    {
+        $publishers=Publisher::all();
+        return view('admin.library.publisher.publisher_details_table',compact('publishers'));
     }
 
 

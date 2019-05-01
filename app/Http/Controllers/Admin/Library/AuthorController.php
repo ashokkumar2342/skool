@@ -12,8 +12,8 @@ class AuthorController extends Controller
 {
      public function index()
     {
-    	$authors=Author::all();
-    	 return view('admin.library.author.author_details',compact('authors'));
+    	// $authors=Author::all();
+    	 return view('admin.library.author.author_details');
     }
 
     public function store(Request $request)
@@ -22,7 +22,7 @@ class AuthorController extends Controller
     	$rules=[
     	  
             'name' => 'required', 
-            'mobile_no' => 'required', 
+            'mobile_no' => 'required|digits:10', 
             'email' => 'required', 
        
     	];
@@ -46,6 +46,11 @@ class AuthorController extends Controller
             return response()->json($response);
         } 
     }
+    public function tableShow()
+    {
+       $authors=Author::all();
+         return view('admin.library.author.author_details_table',compact('authors'));
+    }
 
     public function destroy($id)
     {
@@ -67,7 +72,7 @@ class AuthorController extends Controller
     	$rules=[
     	  
             'name' => 'required', 
-            'mobile_no' => 'required', 
+            'mobile_no' => 'required|digits:10', 
             'email' => 'required', 
        
     	];
