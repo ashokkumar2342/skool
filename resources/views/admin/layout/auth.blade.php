@@ -40,6 +40,7 @@
 <body class="hold-transition login-page" id="body_id">
 
 @yield('body')
+@include('admin.include.model')
 <!-- jQuery 2.2.3 -->
 <script src="{{ asset('admin_asset/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 <!-- Bootstrap 3.3.6 -->
@@ -55,6 +56,12 @@
 <script src="{{ asset('admin_asset/dist/js/toastr.min.js') }}"></script>
 <script src={!! asset('admin_asset/dist/js/validation/common.js?ver=1') !!}></script>
 <script src={!! asset('admin_asset/dist/js/customscript.js?ver=1') !!}></script>
+@if(Session::has('message'))
+ 
+<script type="text/javascript">
+    Command: toastr["{{ Session::get('class') }}"]("{{ Session::get('message') }}");
+</script>
+@endif
 
 @stack('scripts')
  

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\StudentAttendance;
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -43,6 +44,11 @@ class DashboardController extends Controller
     public function create()
     {
         //
+    }
+
+    public function image($image){
+        $img = Storage::disk('student')->get('profile/'.$image);
+        return response($img);
     }
 
    

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Student;
+use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-
-use Auth;
+use Illuminate\Support\Facades\Hash;
 class LoginController extends Controller
 {
     /*
@@ -38,6 +39,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('admin.guest')->except('logout');
+        $this->middleware('student.guest');
     }
 
     public function index(){
@@ -68,7 +70,22 @@ class LoginController extends Controller
                 }
                    
             } 
-            return Redirect()->back()->withErrors($error="Invalid User or Password"); 
+
+            $student = Student::orWhere('email',$request->email)->orWhere('username',$request->email)->orWhere('father_mobile',$request->email)->first();
+             if (!empty($student)) {
+                 if (Hash::check($request->password, $student->password)) {
+                     auth()->guard('student')->loginUsingId($student->id);
+                     return redirect()->route('student.dashboard');
+
+                 } else {
+                     return Redirect()->back()->with(['message'=>'Invalid User or Password','class'=>'error']);
+                 }
+             }
+            
+            // if (auth()->guard('student')->attempt($credentials)) {
+            //   return redirect()->route('student.dashboard');
+            // }
+            return Redirect()->back()->with(['message'=>'Invalid User or Password','class'=>'error']); 
         
        
     }

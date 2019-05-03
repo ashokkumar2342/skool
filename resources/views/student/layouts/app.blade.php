@@ -1,82 +1,125 @@
+
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Iskool</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  <!-- Font Awesome -->
+ <link rel="stylesheet" href="{{ asset('student_assets/plugins/font-awesome/css/font-awesome.min.css')}}">
+   <!-- Ionicons -->
+   <link rel="stylesheet" href="{{ asset('student_assets/https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')}}">
+   <!-- Theme style -->
+   <link rel="stylesheet" href="{{ asset('student_assets/dist/css/adminlte.min.css')}}">
+   <link rel="stylesheet" href="{{ asset('student_assets/dist/css/toastr.min.css')}}">
+   <!-- iCheck --> 
+   <!-- Date Picker -->
+   <link rel="stylesheet" href="{{ asset('student_assets/plugins/datepicker/datepicker3.css')}}">
+   <link rel="stylesheet" href="{{ asset('student_assets/plugins/datatables/dataTables.bootstrap4.css')}}"> 
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+   <!-- Daterange picker -->
+   <link rel="stylesheet" href="{{ asset('student_assets/plugins/daterangepicker/daterangepicker-bs3.css')}}">
+   <!-- bootstrap wysihtml5 - text editor -->
+ 
+   <!-- Google Font: Source Sans Pro -->
+   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet)}}">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+   @stack('links')
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
+<body class="hold-transition sidebar-mini" id="body_id">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand bg-info navbar-light border-bottom">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+      </li>
+      
+    </ul> 
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+       
+      <li class="nav-item">
+        <a class="nav-link"  href="{{ route('student.logout.get') }}">
+          <i class="fa fa fa-sign-out""></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+      @php
+        $picture=Auth::guard('student')->user()->picture;
+      @endphp
+      <img src="{{ route('student.image',$picture) }}"
+           
+           class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">{{ Auth::guard('student')->user()->name }}</span>
+    </a>
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
+   @include('student.sidebar.sidebar')
+  </aside>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    @yield('contant')
+  </div>
+  <!-- /.content-wrapper -->
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        <li> <a href="{{ route('admin.logout.get') }}" class="btn btn-default btn-flat">Sign out</a></li>
-                        @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->first_name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu">
-                                    <li>
-                                     {{--    <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form> --}}
-
-                                    </li>
-                                </ul>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        @yield('content')
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 3.0.0-alpha
     </div>
+    <strong>Copyright &copy; {{ date('d-m-YY') }} <a href="http://adminlte.io">Iskool.com</a>.</strong> All rights
+    reserved.
+  </footer>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{{ asset('student_assets/plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('student_assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> 
+<script src="{{ asset('student_assets/plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('student_assets/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+<!-- SlimScroll -->
+<script src="{{ asset('student_assets/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+
+
+<!-- FastClick -->
+<script src="{{ asset('student_assets/plugins/fastclick/fastclick.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('student_assets/dist/js/adminlte.min.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('student_assets/dist/js/demo.js') }}"></script>
+ <script src="{{ asset('student_assets/dist/js/common.js?ver=1') }}"></script>
+  <script src="{{ asset('student_assets/dist/js/customscript.js?ver=1') }}"></script>
+  <script src="{{ asset('student_assets/dist/js/toastr.min.js?ver=1') }}"></script>
+  @stack('scripts')
+
+ <script>
+  $(function () {
+    $('#dataTables').DataTable()
+     
+  })
+</script>
+@include('student.include.model')
 </body>
 </html>

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Student\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Log;
 class LoginController extends Controller
 {
     /*
@@ -38,9 +39,10 @@ class LoginController extends Controller
     }
 
     public function index(){
-        return redirect()->route('student.login');
+        return redirect()->route('admin.login');
     }
 
+   
     public function showLoginForm(){
         return view('student.auth.login');
     }
@@ -49,7 +51,7 @@ class LoginController extends Controller
  public function logout()
     {
         $this->guard()->logout();
-        return redirect()->route('student.login');
+        return redirect()->route('admin.login');
     }
     
     // defining auth  guard
