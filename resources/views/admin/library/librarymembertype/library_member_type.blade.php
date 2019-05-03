@@ -16,11 +16,11 @@
                    <div class="row">
                     <div class="col-lg-6">
                       <label>Member Ship Type</label>
-                      <input type="text" name="m_ship_type" class="form-control" placeholder="" required="" maxlength="50"> 
+                      <input type="text" name="member_ship_type" class="form-control" placeholder="" maxlength="50"> 
                     </div>
                     <div class="col-lg-6">
                       <label>Member Ship Code</label>
-                      <input type="text" name="m_ship_code" class="form-control" placeholder="" required="" maxlength="50"> 
+                      <input type="text" name="member_ship_code" class="form-control" placeholder="" maxlength="30"> 
                     </div> 
                   </div>
                    <div class="row">

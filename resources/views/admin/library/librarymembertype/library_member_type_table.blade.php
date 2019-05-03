@@ -1,8 +1,8 @@
 <table id="books_purchase_data_table" class="table table-bordered table-striped table-hover"> 
    <thead>
      <tr>
-       <th>Purchase Date</th>
-       <th>Vendor Name</th> 
+       <th>member ship type</th>
+       <th>member ship code</th> 
        <th>Action</th>
      </tr>
    </thead>

@@ -18,7 +18,9 @@ class LibraryMemberTypeController extends Controller
     public function store(Request $request)
     {
         $rules=[
-          
+
+           'member_ship_type' => 'required', 
+            'member_ship_code' => 'required', 
             
        
         ];
@@ -34,8 +36,8 @@ class LibraryMemberTypeController extends Controller
         }
         else {
     	 $librarymembertype=new LibraryMemberType();
-    	 $librarymembertype->member_ship_type=$request->m_ship_type;
-    	 $librarymembertype->member_ship_code=$request->m_ship_code;
+    	 $librarymembertype->member_ship_type=$request->member_ship_type;
+    	 $librarymembertype->member_ship_code=$request->member_ship_code;
     	 $librarymembertype->save();
     	  $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
@@ -63,7 +65,8 @@ class LibraryMemberTypeController extends Controller
     {
     	  $rules=[
           
-            
+            'member_ship_type' => 'required', 
+            'member_ship_code' => 'required',
        
         ];
 
@@ -78,10 +81,10 @@ class LibraryMemberTypeController extends Controller
         }
         else {
          $librarymembertype=LibraryMemberType::find($id);
-         $librarymembertype->member_ship_type=$request->m_ship_type;
-         $librarymembertype->member_ship_code=$request->m_ship_code;
+         $librarymembertype->member_ship_type=$request->member_ship_type;
+         $librarymembertype->member_ship_code=$request->member_ship_code;
          $librarymembertype->save();
-          $response=['status'=>1,'msg'=>'Created Successfully'];
+          $response=['status'=>1,'msg'=>'Update Successfully'];
             return response()->json($response);
         } 
     }

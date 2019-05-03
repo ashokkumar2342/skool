@@ -1,4 +1,4 @@
- <table id="books_purchase_data_table" class="table table-bordered table-striped table-hover"> 
+ <table id="books_accession_data_table" class="table table-bordered table-striped table-hover"> 
     <thead>
       <tr>
         <th>Accession No</th>

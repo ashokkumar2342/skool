@@ -614,7 +614,8 @@ Route::group(['middleware' => 'admin'], function() {
 			Route::group(['prefix' => 'library-publisher'], function() {
 
 			    Route::get('publisher-details', 'Library\LibraryController@index')->name('admin.library.publisher.details'); 
-			    Route::post('store', 'Library\LibraryController@store')->name('admin.library.publisher.details.store'); 
+			    Route::post('store', 'Library\LibraryController@store')->name('admin.library.publisher.details.store');
+			    Route::get('table-show', 'Library\LibraryController@tableShow')->name('admin.library.publisher.details.table.show'); 
 			    Route::get('delete/{id}', 'Library\LibraryController@destroy')->name('admin.library.publisher.details.delete'); 
 			    Route::get('edit/{id}', 'Library\LibraryController@edit')->name('admin.library.publisher.details.edit');
 
@@ -625,6 +626,7 @@ Route::group(['middleware' => 'admin'], function() {
 			Route::group(['prefix' => 'author'], function() {
 			    Route::get('/', 'Library\AuthorController@index')->name('admin.library.author.details');
 			    Route::post('store', 'Library\AuthorController@store')->name('admin.library.author.details.store');
+			    Route::get('table-show', 'Library\AuthorController@tableShow')->name('admin.library.author.details.table.show');
 			    Route::get('delete/{id}', 'Library\AuthorController@destroy')->name('admin.library.author.details.delete');
 			    Route::get('edit/{id}', 'Library\AuthorController@edit')->name('admin.library.author.details.edit');
 			    Route::post('update/{id}', 'Library\AuthorController@update')->name('admin.library.author.details.update');
@@ -680,7 +682,10 @@ Route::group(['middleware' => 'admin'], function() {
 		     Route::group(['prefix' => 'member-ship-details'], function() {
 			    Route::get('/', 'Library\MemberShipDetailsController@index')->name('admin.library.member.ship.details');
 			    Route::post('store', 'Library\MemberShipDetailsController@store')->name('admin.library.member.ship.details.store');
-			    Route::get('table-show', 'Library\MemberShipDetailsController@tableShow')->name('admin.library.member.ship.details.table.show');
+			    Route::get('student-search', 'Library\MemberShipDetailsController@studentSearch')->name('admin.library.member.ship.details.student.search');
+			    Route::get('student-show', 'Library\MemberShipDetailsController@studentShow')->name('admin.library.member.ship.details.student.show');
+			    Route::get('teacher-show', 'Library\MemberShipDetailsController@teacherShow')->name('admin.library.member.ship.details.teacher.show');
+			    Route::get('others-show', 'Library\MemberShipDetailsController@othersShow')->name('admin.library.member.ship.details.others.show');
 			    Route::get('edit/{id}', 'Library\MemberShipDetailsController@edit')->name('admin.library.member.ship.details.edit');
 			    Route::get('delete/{id}', 'Library\MemberShipDetailsController@destroy')->name('admin.library.member.ship.details.delete');
 			    Route::post('update/{id}', 'Library\MemberShipDetailsController@update')->name('admin.library.member.ship.details.update');

@@ -10,7 +10,7 @@
    <tbody>
     @foreach ($membershipfacilitys as $membershipfacility) 
      <tr>
-       <td>{{ $membershipfacility->librarymembertype->member_ship_type }}</td>
+       <td>{{ $membershipfacility->librarymembertype->member_ship_type or '' }}</td>
        <td>{{ $membershipfacility->no_of_books }}</td> 
        <td>{{ $membershipfacility->no_of_days }}</td> 
         

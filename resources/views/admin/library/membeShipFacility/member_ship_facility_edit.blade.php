@@ -23,8 +23,7 @@
                     <div class="col-lg-4">
                       <label>Member Ship Type</label>
                       <select name="member_ship_type" class="form-control" >
-                        <option disabled selected="">Select Member Ship Type</option>
-                       
+                        <option disabled selected>Select Member Ship Type</option> 
                         @foreach ($librarymembertypes as $librarymembertype) 
                         <option value="{{ $librarymembertype->id  }}"{{ $membershipfacilitys->member_ship_type_id==$librarymembertype->id? 'selected="selected"' : ''  }}>{{ $librarymembertype->member_ship_type or '' }}</option>
                         @endforeach
@@ -32,11 +31,11 @@
                     </div>
                     <div class="col-lg-4">
                       <label>No of Books</label>
-                      <input type="text" name="no_of_books" class="form-control" placeholder="" value="{{ $membershipfacilitys->no_of_books }}" required="" maxlength="50"> 
+                      <input type="text" name="no_of_books" class="form-control" placeholder="" value="{{ $membershipfacilitys->no_of_books }}" maxlength="6"> 
                     </div>  
                     <div class="col-lg-4">
                       <label>No of Days</label>
-                      <input type="text" name="no_of_days" class="form-control" placeholder="" value="{{ $membershipfacilitys->no_of_days }}" required="" maxlength="50"> 
+                      <input type="text" name="no_of_days" class="form-control" placeholder="" value="{{ $membershipfacilitys->no_of_days }}" maxlength="7"> 
                     </div> 
                   </div>
                    <div class="row">

@@ -18,16 +18,16 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12"> 
-              <form action="{{ route('admin.library.publisher.details.update',$publishers->id) }}" button-click="btn_close" content-refresh="publisher_table" method="post" class="add_form">
+              <form action="{{ route('admin.library.publisher.details.update',$publishers->id) }}" button-click="publisher_table_show,btn_close"   method="post" class="add_form">
                    {{ csrf_field() }}
                    <div class="row">
                     <div class="col-lg-4">
                       <label>Publisher Code</label>
-                      <input type="text" name="code" class="form-control" placeholder="" required="" maxlength="4" value="{{ $publishers->code }}"> 
+                      <input type="text" name="code" class="form-control" placeholder="" required="" maxlength="20" value="{{ $publishers->code }}"> 
                     </div>
                     <div class="col-lg-4">
                       <label>Publisher Name</label>
-                      <input type="text" name="name" class="form-control" placeholder="" required="" maxlength="50" value="{{ $publishers->name }}"> 
+                      <input type="text" name="name" class="form-control" placeholder="" required="" maxlength="199" value="{{ $publishers->name }}"> 
                     </div>
                     <div class="col-lg-4">
                       <label>Mobile No</label>
@@ -35,15 +35,15 @@
                     </div>
                     <div class="col-lg-4">
                       <label>Email</label>
-                      <input type="email" name="email" class="form-control" placeholder="" required="" value="{{ $publishers->email }}"> 
+                      <input type="email" name="email" class="form-control" placeholder="" maxlength="50" required="" value="{{ $publishers->email }}"> 
                     </div>
-                    <div class="col-lg-4">
+                   {{--  <div class="col-lg-4">
                       <label>Date Of Birth</label>
                       <input type="date" name="dob" class="form-control" placeholder="" required="" value="{{ $publishers->dob }}"> 
-                    </div>
+                    </div> --}}
                     <div class="col-lg-4">
                       <label>Address</label>
-                      <textarea class="form-control" name="address" placeholder="" required="" maxlength="200">{{ $publishers->address }}</textarea>
+                      <textarea class="form-control" name="address" placeholder="">{{ $publishers->address }}</textarea>
                        
                     </div> 
                    </div>

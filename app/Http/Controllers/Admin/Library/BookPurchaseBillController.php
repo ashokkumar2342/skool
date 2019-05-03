@@ -21,6 +21,7 @@ class BookPurchaseBillController extends Controller
          $rules=[
         
             
+            'purchase_date' => 'required', 
             'vendor_name' => 'required', 
             'mobile_no' => 'required|digits:10', 
             'email' => 'required', 
@@ -39,7 +40,7 @@ class BookPurchaseBillController extends Controller
       }
         else {
     	 $bookpurchase= new BookPurchaseBill();
-    	 $bookpurchase->book_purchase_date=$request->p_date;
+    	 $bookpurchase->book_purchase_date=$request->purchase_date;
     	 $bookpurchase->vendor_name=$request->vendor_name;
     	 $bookpurchase->mobile=$request->mobile_no;
     	 $bookpurchase->email=$request->email;
@@ -80,6 +81,7 @@ class BookPurchaseBillController extends Controller
          $rules=[
         
             
+            'purchase_date' => 'required', 
             'vendor_name' => 'required', 
             'mobile_no' => 'required', 
             'email' => 'required', 
@@ -98,7 +100,7 @@ class BookPurchaseBillController extends Controller
       }
         else {
         $bookpurchase= BookPurchaseBill::find($id);
-         $bookpurchase->book_purchase_date=$request->p_date;
+         $bookpurchase->book_purchase_date=$request->purchase_date;
          $bookpurchase->vendor_name=$request->vendor_name;
          $bookpurchase->mobile=$request->mobile_no;
          $bookpurchase->email=$request->email;

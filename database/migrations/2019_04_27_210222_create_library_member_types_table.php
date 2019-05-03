@@ -16,7 +16,7 @@ class CreateLibraryMemberTypesTable extends Migration
         Schema::create('library_member_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('member_ship_type');
-            $table->string('idmember_ship_code');
+            $table->string('member_ship_code');
             $table->timestamps();
         });
     }

@@ -22,7 +22,7 @@
                    <div class="row">
                     <div class="col-lg-3">
                       <label>Purchase Date</label>
-                      <input type="date" name="p_date" class="form-control" placeholder="" required="" value="{{ $bookpurchases->book_purchase_date }}"> 
+                      <input type="date" name="purchase_date" class="form-control" placeholder="" required="" value="{{ $bookpurchases->book_purchase_date }}"> 
                     </div>
                     <div class="col-lg-3">
                       <label>Vendor Name</label>

@@ -19,7 +19,7 @@ class CreatePublishersTable extends Migration
             $table->string('name');
             $table->string('mobile_no');
             $table->string('email')->nullable();
-            $table->string('dob');
+            
             $table->text('address');
             $table->timestamps();
         });
