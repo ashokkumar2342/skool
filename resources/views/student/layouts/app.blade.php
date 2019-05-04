@@ -64,7 +64,7 @@
       <img src="{{ route('student.image',$picture) }}"
            
            class="brand-image img-circle elevation-3"
-           style="opacity: .8">
+           style="opacity: .8;width:34px">
       <span class="brand-text font-weight-light">{{ Auth::guard('student')->user()->name }}</span>
     </a>
 

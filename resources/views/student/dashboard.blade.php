@@ -75,7 +75,7 @@
                 <!-- small box -->
                 <div class="small-box bg-warning">
                   <div class="inner">
-                     <span>Working Days</span>
+                     <span>Working Days : <b>{{ $workingDays }}</b></span>
 
                     <table class="table">
                      
@@ -87,18 +87,18 @@
                         </tr>
                          <tr>
                           <td>Till Date</td>
-                          <td><small class="badge badge-success"> 3</small></td>
-                          <td><small class="badge badge-danger"> 3</small></td>
+                          <td><small class="badge badge-success"> {{ $tillPresent }}</small></td>
+                          <td><small class="badge badge-danger"> {{ $tillAbsent }}</small></td>
                         </tr>
                          <tr>
                           <td>Current Month</td>
-                          <td><small class="badge badge-success"> 3</small></td>
-                          <td><small class="badge badge-danger"> 3</small></td>
+                          <td><small class="badge badge-success"> {{$monthlyPresent }}</small></td>
+                          <td><small class="badge badge-danger"> {{ $monthlyAbsent }}</small></td>
                         </tr>
                          <tr>
                           <td>Current Week</td>
-                         <td><small class="badge badge-success"> 3</small></td>
-                          <td><small class="badge badge-danger"> 3</small></td>
+                         <td><small class="badge badge-success"> {{ $weeklyPresent }}</small></td>
+                          <td><small class="badge badge-danger"> {{ $weeklyAbsent }}</small></td>
                         </tr>
                       </tbody>
                     </table>
