@@ -47,7 +47,7 @@
        
       <li class="nav-item">
         <a class="nav-link"  href="{{ route('student.logout.get') }}">
-          <i class="fa fa fa-sign-out""></i>
+          <i class="fa fa fa-sign-out"></i>
         </a>
       </li>
     </ul>

@@ -1,4 +1,4 @@
-<table id="books_purchase_data_table" class="table table-bordered table-striped table-hover"> 
+<table id="library_member_ship_type_data_table" class="table table-bordered table-striped table-hover"> 
    <thead>
      <tr>
        <th>member ship type</th>
