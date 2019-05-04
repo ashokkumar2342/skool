@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Model\Library\LibraryMemberType;
 use App\Model\Library\MemberShipDetails;
 use App\Model\Library\MemberShipFacility;
+use App\Model\Library\Othertype;
+use App\Model\Library\TeacherFaculty;
+use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
@@ -16,8 +19,8 @@ class MemberShipDetailsController extends Controller
 	{
 	   
 	   $librarymembertypes=LibraryMemberType::orderBy('member_ship_type','asc')->get();
-	   $membershipfacilitys=MemberShipFacility::orderBy('member_ship_type_id','asc')->get();
-		return view('admin.library.memberShipDetails.member_ship_details',compact('librarymembertypes','membershipfacilitys')); 
+	  $students = Student::all();
+		return view('admin.library.memberShipDetails.member_ship_details',compact('librarymembertypes','students')); 
 	}
 	public function store(Request $request)
 	{      
@@ -54,10 +57,37 @@ class MemberShipDetailsController extends Controller
         }
 	}
     
-    public function tableShow()
+    public function studentSearch(Request $request)
     {
-    	$membershipdetails= MemberShipDetails::all();
-    	return view('admin.library.memberShipDetails.member_ship_details_table',compact('membershipdetails'));
+      // return $request;
+      if ($request->id==1) {
+    	 $students = Student::all();
+         return view('admin.library.memberShipDetails.member_ship_details_table',compact('students'));
+      }if ($request->id==2) {
+       $teachers = TeacherFaculty::all();
+         return view('admin.library.memberShipDetails.member_ship_details_teacher_table',compact('teachers'));
+      }if ($request->id==3) {
+       $others = Othertype::all();
+        return view('admin.library.memberShipDetails.member_ship_details_others_table',compact('others'));
+         
+      }
+      
+    	// return view('admin.library.memberShipDetails.member_ship_details_table',compact('students'));
+    }
+    public function studentShow(Request $request)
+    {
+      $students = Student::find($request->id);
+       return view('admin.library.onchange.student',compact('students'));
+    }
+    public function teacherShow(Request $request)
+    {
+      $teachers = TeacherFaculty::find($request->id);
+       return view('admin.library.onchange.teacher',compact('teachers'));
+    }
+     public function othersShow(Request $request)
+    {
+      $others = Othertype::find($request->id);
+       return view('admin.library.onchange.other',compact('others'));
     }
     public function edit($id)
     {

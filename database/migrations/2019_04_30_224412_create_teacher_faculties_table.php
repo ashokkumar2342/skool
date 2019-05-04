@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMemberShipDetailsTable extends Migration
+class CreateTeacherFacultiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateMemberShipDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('member_ship_details', function (Blueprint $table) {
+        Schema::create('teacher_faculties', function (Blueprint $table) {
             $table->increments('id');
-            
-            $table->unsignedInteger('member_ship_type_id');
-            $table->string('member_ship_no');
             $table->string('name');
-            $table->string('father');
             $table->string('mobile');
-            $table->string('email')->nullable();
-            $table->text('address')->nullable();
+            $table->string('email');
+            $table->text('address');
+             
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ class CreateMemberShipDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('member_ship_details');
+        Schema::dropIfExists('teacher_faculties');
     }
 }
