@@ -73,7 +73,10 @@ class HomeworkController extends Controller
                         $homework->homework_doc=$fileName;
                     }
                     $homework->save();
-                    return response()->json([$homework,'class'=>'success','message'=>'Homework Created Successfully']);
+                    $response = array();
+                    $response['status'] = 1;
+                    $response['msg'] = "Homework Created Successfully";
+                    return $response;
                 }
     }
 

@@ -20,8 +20,11 @@ class CreateBooktypesTable extends Migration
             $table->string('subject_id'); 
             $table->string('publisher_id');
             $table->string('author_id');
+            $table->float('price');
+            $table->string('edition');
+            $table->string('no_of_pages');
             $table->string('feature');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

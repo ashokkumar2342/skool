@@ -81,7 +81,7 @@
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.0.0-alpha
     </div>
-    <strong>Copyright &copy; {{ date('d-m-YY') }} <a href="http://adminlte.io">Iskool.com</a>.</strong> All rights
+    <strong>Copyright &copy; {{ date('d-m-Y') }} <a href="#">Iskool.com</a>.</strong> All rights
     reserved.
   </footer>
 
