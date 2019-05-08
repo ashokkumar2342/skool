@@ -10,9 +10,8 @@ Route::group(['middleware' => 'student'], function() {
 	Route::get('dashboard', 'DashboardController@index')->name('student.dashboard');
 	Route::get('image/{image}', 'DashboardController@image')->name('student.image');
 	Route::get('homework/{homework}', 'DashboardController@homework')->name('student.homework.view');
-	Route::group(['prefix' => 'homework'], function() {
-	   
-	});
+	Route::get('profile', 'DashboardController@profile')->name('student.profile');
+	 
 
 });
 

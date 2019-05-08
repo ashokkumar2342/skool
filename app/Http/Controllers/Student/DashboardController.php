@@ -92,6 +92,12 @@ class DashboardController extends Controller
     public function image($image){
         $img = Storage::disk('student')->get('profile/'.$image);
         return response($img);
+    }  
+
+    public function profile(){
+
+        $student = Auth::guard('student')->user();
+        return view('student.profile.view',compact('student'));
     }
 
    
