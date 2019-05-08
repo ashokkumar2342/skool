@@ -1,18 +1,24 @@
-@extends('admin.layout.base')
-@section('body')
+ 
   <!-- Main content -->
-  <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.library.publisher.details.addform')}}')" style="margin:10px">Add Form</button>
-    <h1>Publisher <small>Details</small> </h1>
-       
-    </section>  
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">          
-            <!-- /.box-header -->            
-          {{-- <div class="box"> 
-            <div class="box-body"> 
-              <form action="{{ route('admin.library.publisher.details.store') }}" method="post" class="add_form" button-click="publisher_table_show">
+   <style type="text/css" media="screen">
+  .bd{
+    border-bottom: #eee solid 1px;;
+  }
+  
+</style>
+ 
+  <div class="modal-dialog" style="width:90%">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Publisher Details add</h4>
+      </div>
+      <div class="modal-body">
+       <div class="row"> 
+        <div class="col-md-12"> 
+              <form action="{{ route('admin.library.publisher.details.store') }}" method="post" class="add_form" button-click="publisher_table_show,btn_close">
                    {{ csrf_field() }}
                    <div class="row">
                     <div class="col-lg-4">
@@ -51,30 +57,17 @@
             </div>   
                
       <!-- /.row -->
-          </div>  --}}
-          <button id="publisher_table_show" hidden data-table="publisher_table" onclick="callAjax(this,'{{ route('admin.library.publisher.details.table.show') }}','publisher_details_table_show')">show </button> 
-
-          <div class="box"> 
-            <div class="box-body" id="publisher_details_table_show">
-            
-            </div>
-          </div> 
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+         
+  
+
+     
+
+   
     <!-- /.content -->
 
-@endsection
-@push('links')
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-@endpush
-@push('scripts')
- <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
- <script type="text/javascript">
-     $(document).ready(function(){
-        $('#publisher_table').DataTable();
-    });
+ 
 
-     $('#publisher_table_show').click();
-  </script>
-  @endpush

@@ -2,6 +2,7 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
+    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.library.member.ship.facility.addform')}}')" style="margin:10px">Add Form</button>
     <h1>Member Ship Facility <small>Details</small> </h1>
        
     </section>  
@@ -9,7 +10,7 @@
       <div class="row">
         <div class="col-xs-12">          
             <!-- /.box-header -->            
-          <div class="box"> 
+         {{--  <div class="box"> 
             <div class="box-body"> 
               <form action="{{ route('admin.library.member.ship.facility.store') }}" method="post" class="add_form" button-click="btn_member_ship_facility_table_show">
                    {{ csrf_field() }}
@@ -45,7 +46,7 @@
             </div>   
                
       <!-- /.row -->
-          </div>
+          </div> --}}
            <button id="btn_member_ship_facility_table_show" hidden data-table="member_ship_facility_data_table" onclick="callAjax(this,'{{ route('admin.library.member.ship.facility.table.show') }}','member_ship_facility_table')">show </button>
           <div class="box"> 
             <div class="box-body" id="member_ship_facility_table">

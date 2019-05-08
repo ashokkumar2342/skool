@@ -15,6 +15,11 @@ class BookPurchaseBillController extends Controller
     	 return view('admin.library.bookpurchasebill.book_purchase_bill');
     }
 
+    public function addForm()
+    {
+        return view('admin.library.bookpurchasebill.book_purchase_bill_add_form');
+    }
+
     public function store(Request $request)
     {
     	// return $request;

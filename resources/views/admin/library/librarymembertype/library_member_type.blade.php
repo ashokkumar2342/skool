@@ -2,6 +2,7 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
+    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.library.library.member.type.addform')}}')" style="margin:10px">Add Form</button>
     <h1>Library Member Type <small>Details</small> </h1>
        
     </section>  
@@ -9,7 +10,7 @@
       <div class="row">
         <div class="col-xs-12">          
             <!-- /.box-header -->            
-          <div class="box"> 
+          {{-- <div class="box"> 
             <div class="box-body"> 
               <form action="{{ route('admin.library.library.member.type.store') }}" method="post" class="add_form" button-click="btn_library_member_ship_type_table_show">
                    {{ csrf_field() }}
@@ -36,7 +37,7 @@
             </div>   
                
       <!-- /.row -->
-          </div>
+          </div> --}}
            <button id="btn_library_member_ship_type_table_show" hidden data-table="library_member_ship_type_data_table" onclick="callAjax(this,'{{ route('admin.library.member.type.table.show') }}','library_member_ship_type_table')">show </button>
           <div class="box"> 
             <div class="box-body" id="library_member_ship_type_table">

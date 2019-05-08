@@ -12,56 +12,56 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Book Accession Edit</h4>
+        <h4 class="modal-title">Book Accession Add</h4>
       </div>
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12">
-          <form action="{{ route('admin.library.book.accession.update',$bookaccessions->id) }}" method="post" class="add_form" button-click="btn_book_accession_table_show,btn_close">
+          <form action="{{ route('admin.library.book.accession.details.store') }}" method="post" class="add_form" button-click="btn_book_accession_table_show,btn_close">
                    {{ csrf_field() }}
                    <div class="row">
                     <div class="col-lg-6">
                       <label>Accession No</label>
-                      <input type="text" name="accession_no" class="form-control" placeholder="" value="{{ $bookaccessions->accession_no }}"  maxlength="30"> 
+                      <input type="text" name="accession_no" class="form-control" placeholder="" required="" maxlength="15"> 
                     </div>
                     <div class="col-lg-6">
                       <label>ISBN No</label>
-                      <input type="text" name="isbn_no" class="form-control" placeholder="" value="{{ $bookaccessions->isbn_no }}" maxlength="30"> 
+                      <input type="text" name="isbn_no" required="" class="form-control" placeholder=""  maxlength="15"> 
                     </div>
                     <div class="col-lg-4">
                     <label>Book Name</label>
                      <select name="book_name" class="form-control">
-                      <option selected disabled>Select Book Name</option> 
+                      <option selected disabled >Select Book Name</option> 
                       @foreach ($booktypes as $booktype) 
-                       <option value="{{ $booktype->id  }}"{{ $bookaccessions->book_id==$booktype->id? 'selected="selected"' : ''  }}>{{ $booktype->name or '' }}</option> 
+                       <option value="{{ $booktype->id }}">{{ $booktype->name }}</option>
                       @endforeach 
                      </select>
                    </div>
                     
                      <div class="col-lg-4">
                     <label>Bill No</label>
-                     <select name="bill_no" class="form-control">
+                     <select name="bill_no" id="select_bill_no_too" class="form-control">
                       <option selected disabled>Select Bill No</option> 
                       @foreach ($bookpurchasebills as $bookpurchasebill) 
-                       <option value="{{ $bookpurchasebill->id  }}"{{ $bookaccessions->bill_id==$bookpurchasebill->id? 'selected="selected"' : ''  }}>{{ $bookpurchasebill->bill_no or '' }}</option> 
+                       <option value="{{ $bookpurchasebill->id }}">{{ $bookpurchasebill->bill_no }}</option>
                       @endforeach 
                      </select>
                    </div>
                     
                     <div class="col-lg-4">
                       <label>Status</label>
-                      <select name="status" class="form-control">
-                      <option selected disabled>Select status</option> 
-                      @foreach ($bookstatuss as $bookstatus) 
-                       <option value="{{ $bookstatus->id  }}"{{ $bookaccessions->status==$bookstatus->id? 'selected="selected"' : ''  }}>{{ $bookstatus->name or '' }}</option> 
-                      @endforeach 
-                     </select>
+                      <select name="status" class="form-control"> 
+                        <option selected disabled>Select Status</option> 
+                        @foreach ($bookstatuss as $bookstatus) 
+                        <option value="{{ $bookstatus->id }}">{{ $bookstatus->name }}</option>
+                        @endforeach 
+                      </select> 
                        
                     </div>
                   </div>
                    <div class="row">
                     <div class="col-lg-12 text-center" style="padding-top: 10px">
-                      <input type="submit" value="Update" class="btn btn-success">
+                      <input type="submit" class="btn btn-success">
                     </div>
                      
                    </div>
@@ -76,8 +76,7 @@
         </div>
       </div>
    </div>
-
-    <!-- /.content -->
+ 
 
  
 

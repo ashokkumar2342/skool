@@ -13,8 +13,13 @@ class MemberShipFacilityController extends Controller
 {
     public function index()
     {
-    	$librarymembertypes= LibraryMemberType::all();
-    	 return view('admin.library.membeShipFacility.member_ship_facility',compact('librarymembertypes'));
+    	// $librarymembertypes= LibraryMemberType::all();
+    	 return view('admin.library.membeShipFacility.member_ship_facility');
+    }
+     public function addForm()
+    {
+      $librarymembertypes= LibraryMemberType::all();
+       return view('admin.library.membeShipFacility.member_ship_facility_add_form',compact('librarymembertypes'));
     }
 
     public function store(Request $request)

@@ -14,6 +14,10 @@ class LibraryMemberTypeController extends Controller
     {
     	 return view('admin.library.librarymembertype.library_member_type');
     }
+     public function addForm()
+    {
+         return view('admin.library.librarymembertype.library_member_type_add_form');
+    }
 
     public function store(Request $request)
     {

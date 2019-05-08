@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Library;
 use App\Http\Controllers\Controller;
 use App\Model\Library\BookAccession;
 use App\Model\Library\BookPurchaseBill;
+use App\Model\Library\BookStatus;
 use App\Model\Library\Booktype;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -14,9 +15,16 @@ class bookAccessionController extends Controller
 {
    public function index()
    {
-   	      $booktypes=Booktype::orderBy('name','asc')->get();
-   	      $bookpurchasebills=BookPurchaseBill::orderBy('bill_no','asc')->get();
-   	       return view('admin.library.bookaccession.book_accession',compact('booktypes','bookpurchasebills'));
+   	      // $booktypes=Booktype::orderBy('name','asc')->get();
+   	      // $bookpurchasebills=BookPurchaseBill::orderBy('bill_no','asc')->get();
+   	       return view('admin.library.bookaccession.book_accession');
+   }
+   public function addForm()
+   {
+     $bookstatuss=BookStatus::all();
+     $booktypes=Booktype::orderBy('name','asc')->get();
+          $bookpurchasebills=BookPurchaseBill::orderBy('bill_no','asc')->get();
+      return view('admin.library.bookaccession.book_accession_add_form',compact('booktypes','bookpurchasebills','bookstatuss'));
    }
 
    public function store(Request $request)
@@ -27,6 +35,7 @@ class bookAccessionController extends Controller
               'book_name' => 'required', 
               'isbn_no' => 'required', 
               'bill_no' => 'required', 
+              'status' => 'nullable', 
                 
        
       ];
@@ -66,11 +75,13 @@ class bookAccessionController extends Controller
 
 
     public function edit($id)
-    {    
+    {   
+       $bookstatuss=BookStatus::all(); 
        $booktypes=Booktype::orderBy('name','asc')->get();
        $bookpurchasebills=BookPurchaseBill::orderBy('bill_no','asc')->get();
+
         $bookaccessions=BookAccession::findOrFail(Crypt::decrypt($id));
-    	return view('admin.library.bookaccession.book_accession_edit',compact('bookaccessions','booktypes','bookpurchasebills'));
+    	return view('admin.library.bookaccession.book_accession_edit',compact('bookaccessions','booktypes','bookpurchasebills','bookstatuss'));
     }
 
    public function update(Request $request,$id)

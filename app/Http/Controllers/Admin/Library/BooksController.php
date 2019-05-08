@@ -15,10 +15,18 @@ class BooksController extends Controller
      public function index()
     {
     	
-    	$subjects = SubjectType::orderBy('name','asc')->get();
-    	$publishers = Publisher::orderBy('name','asc')->get();
-    	$authors = Author::orderBy('name','asc')->get();
-    	 return view('admin.library.books.books_details',compact('subjects','publishers','authors','booktypes'));
+    	// $subjects = SubjectType::orderBy('name','asc')->get();
+    	// $publishers = Publisher::orderBy('name','asc')->get();
+    	// $authors = Author::orderBy('name','asc')->get();
+    	 return view('admin.library.books.books_details');
+    } 
+    public function addForm()
+    {
+      
+      $subjects = SubjectType::orderBy('name','asc')->get();
+      $publishers = Publisher::orderBy('name','asc')->get();
+      $authors = Author::orderBy('name','asc')->get();
+       return view('admin.library.books.books_details_add_form',compact('subjects','publishers','authors','booktypes'));
     }
 
     public function store(Request $request)
@@ -27,6 +35,9 @@ class BooksController extends Controller
           
             'name' => 'required', 
             'code' => 'required', 
+            'edition' => 'required', 
+            'price' => 'required', 
+            
             'subject_id' => 'required', 
             'publisher_id' => 'required', 
             'author_id' => 'required', 
@@ -108,6 +119,9 @@ class BooksController extends Controller
           
             'name' => 'required', 
             'code' => 'required', 
+            'edition' => 'required', 
+            'price' => 'required', 
+            
             'subject_id' => 'required', 
             'publisher_id' => 'required', 
             'author_id' => 'required', 

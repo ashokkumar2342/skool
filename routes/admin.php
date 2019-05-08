@@ -613,7 +613,8 @@ Route::group(['middleware' => 'admin'], function() {
                 //-----------------library menegment----------------
 			Route::group(['prefix' => 'library-publisher'], function() {
 
-			    Route::get('publisher-details', 'Library\LibraryController@index')->name('admin.library.publisher.details'); 
+			    Route::get('publisher-details', 'Library\LibraryController@index')->name('admin.library.publisher.details');
+			    Route::get('add-form', 'Library\LibraryController@addForm')->name('admin.library.publisher.details.addform'); 
 			    Route::post('store', 'Library\LibraryController@store')->name('admin.library.publisher.details.store');
 			    Route::get('table-show', 'Library\LibraryController@tableShow')->name('admin.library.publisher.details.table.show'); 
 			    Route::get('delete/{id}', 'Library\LibraryController@destroy')->name('admin.library.publisher.details.delete'); 
@@ -636,6 +637,7 @@ Route::group(['middleware' => 'admin'], function() {
 
 			Route::group(['prefix' => 'books'], function() {
 			    Route::get('/', 'Library\BooksController@index')->name('admin.library.book.details');
+			    Route::get('add-form', 'Library\BooksController@addForm')->name('admin.library.book.details.addform');
 			    Route::post('store', 'Library\BooksController@store')->name('admin.library.book.details.store');
 			    Route::get('table-show', 'Library\BooksController@tableShow')->name('admin.library.book.details.table.show');
 			    Route::get('delete/{id}', 'Library\BooksController@destroy')->name('admin.library.book.details.delete');
@@ -645,6 +647,7 @@ Route::group(['middleware' => 'admin'], function() {
 			});
 			Route::group(['prefix' => 'book-purchase-bill'], function() {
 			    Route::get('/', 'Library\BookPurchaseBillController@index')->name('admin.library.book.book.purchase.bill');
+			    Route::get('add-form', 'Library\BookPurchaseBillController@addForm')->name('admin.library.book.purchase.addform');
 			    Route::post('store', 'Library\BookPurchaseBillController@store')->name('admin.library.book.book.purchase.bill.store');
                 Route::get('table-show', 'Library\BookPurchaseBillController@tableShow')->name('admin.library.book.purchase.table.show');
                 Route::get('edit/{id}', 'Library\BookPurchaseBillController@edit')->name('admin.library.purchase.details.edit');
@@ -653,7 +656,8 @@ Route::group(['middleware' => 'admin'], function() {
 
 		    });
 		    Route::group(['prefix' => 'book-accession'], function() {
-			 Route::get('/', 'Library\bookAccessionController@index')->name('admin.library.book.accession.details'); 
+			 Route::get('/', 'Library\bookAccessionController@index')->name('admin.library.book.accession.details');
+			  Route::get('add-form', 'Library\bookAccessionController@addForm')->name('admin.library.book.accession.addform'); 
 			 Route::post('store', 'Library\bookAccessionController@store')->name('admin.library.book.accession.details.store');
 			 Route::get('table-show', 'Library\bookAccessionController@tableShow')->name('admin.library.book.accession.table.show'); 
 			 Route::get('edit/{id}', 'Library\bookAccessionController@edit')->name('admin.library.book.accession.edit');
@@ -662,7 +666,8 @@ Route::group(['middleware' => 'admin'], function() {
 
 		    }); 
 		    Route::group(['prefix' => 'library-member-type'], function() {
-			    Route::get('/', 'Library\LibraryMemberTypeController@index')->name('admin.library.library.member.type');
+			    Route::get('/', 'Library\LibraryMemberTypeController@index')->name('admin.library.library.member.type'); 
+			Route::get('add-form', 'Library\LibraryMemberTypeController@addForm')->name('admin.library.library.member.type.addform');
             Route::post('store', 'Library\LibraryMemberTypeController@store')->name('admin.library.library.member.type.store');
             Route::get('table-show', 'Library\LibraryMemberTypeController@tableShow')->name('admin.library.member.type.table.show');
             Route::get('edit/{id}', 'Library\LibraryMemberTypeController@edit')->name('admin.library.member.type.edit');
@@ -672,6 +677,7 @@ Route::group(['middleware' => 'admin'], function() {
 		    }); 
 		    Route::group(['prefix' => 'member-ship-facility'], function() {
 			  Route::get('/', 'Library\MemberShipFacilityController@index')->name('admin.library.member.ship.facility');
+			  Route::get('add-form', 'Library\MemberShipFacilityController@addForm')->name('admin.library.member.ship.facility.addform');
 			    Route::post('store', 'Library\MemberShipFacilityController@store')->name('admin.library.member.ship.facility.store'); 
 			    Route::get('table-show', 'Library\MemberShipFacilityController@tableShow')->name('admin.library.member.ship.facility.table.show');
 			    Route::get('edit/{id}', 'Library\MemberShipFacilityController@edit')->name('admin.library.member.ship.facility.edit');

@@ -16,7 +16,7 @@
         <td>{{ $bookaccession->isbn_no }}</td>
         <td>{{ $bookaccession->booktype->name or '' }}</td>
         <td>{{ $bookaccession->bookpurchasebill->bill_no or ''}}</td>
-        <td>{{ $bookaccession->status }}</td>
+        <td>{{ $bookaccession->bookstatus->name or '' }}</td>
         
         <td>
           <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.library.book.accession.edit',Crypt::encrypt($bookaccession->id)) }}')"><i class="fa fa-edit"></i></button>
