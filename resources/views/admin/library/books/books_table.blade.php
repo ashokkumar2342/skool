@@ -17,15 +17,15 @@
               <tbody>
                 @foreach ($booktypes as $booktype) 
                           <tr>
-                            <td>{{ $booktype->code }}</td>
-                            <td>{{ $booktype->name }}</td>
-                            <td>{{ $booktype->edition }}</td>
-                            <td>{{ $booktype->price }}</td>
-                            <td>{{ $booktype->no_of_pages }}</td>
-                            <td>{{ $booktype->subjectType->name }}</td>
-                            <td>{{ $booktype->publisher->name }}</td>
+                            <td>{{ $booktype->code or ''}}</td>
+                            <td>{{ $booktype->name or ''}}</td>
+                            <td>{{ $booktype->edition or ''}}</td>
+                            <td>{{ $booktype->price or ''}}</td>
+                            <td>{{ $booktype->no_of_pages or ''}}</td>
+                            <td>{{ $booktype->subjectType->name or ''}}</td>
+                            <td>{{ $booktype->publisher->name or ''}}</td>
                             <td>{{ $booktype->author->name or ''}}</td>
-                            <td>{{ $booktype->feature }}</td>
+                            <td>{{ $booktype->feature or ''}}</td>
                             <td> 
                               <img src="{{ url('storage/student/bookimage/'.$booktype->image) }}"  title="" width="50" height="50" /> 
                             </td>

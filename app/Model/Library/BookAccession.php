@@ -13,5 +13,9 @@ class BookAccession extends Model
      public function bookpurchasebill()
     {
     	return $this->hasOne('App\Model\Library\BookPurchaseBill','id','bill_id');
+    } 
+    public function bookstatus()
+    {
+    	return $this->hasOne('App\Model\Library\BookStatus','id','status');
     }
 }

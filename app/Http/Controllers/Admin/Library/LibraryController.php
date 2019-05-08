@@ -16,6 +16,11 @@ class LibraryController extends Controller
     	return view('admin.library.publisher.publisher_details');
     }
 
+    public function addForm()
+    {
+        return view('admin.library.publisher.publisher_details_add_form');
+    }
+
     public function store(Request $request)
     {
     	$rules=[

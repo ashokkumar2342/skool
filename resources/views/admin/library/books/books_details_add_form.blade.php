@@ -1,23 +1,28 @@
-@extends('admin.layout.base')
-@section('body')
-  <!-- Main content -->
-  <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.library.book.details.addform')}}')" style="margin:10px">Add Form</button>
-    <h1>Books <small>Details</small> </h1>
-       
-    </section>  
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">          
-            <!-- /.box-header -->            
-          {{-- <div class="box"> 
-            <div class="box-body"> 
-              <form action="{{ route('admin.library.book.details.store') }}" method="post" class="add_form" button-click="btn_books_table_show" enctype="multipart/form-data">
+
+     <style type="text/css" media="screen">
+  .bd{
+    border-bottom: #eee solid 1px;;
+  }
+  
+</style>
+ 
+  <div class="modal-dialog" style="width:90%">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Book Details Add</h4>
+      </div>
+      <div class="modal-body">
+       <div class="row"> 
+        <div class="col-md-12">
+              <form action="{{ route('admin.library.book.details.store') }}" method="post" class="add_form" button-click="btn_books_table_show,btn_close" enctype="multipart/form-data">
                    {{ csrf_field() }}
                    <div class="row">
                     <div class="col-lg-4">
                       <label>Book Code</label>
-                      <input type="text" name="code" class="form-control" placeholder="" maxlength="4"> 
+                      <input type="text" name="code" class="form-control" placeholder="" maxlength="12"> 
                     </div>
                     <div class="col-lg-4">
                       <label>Book Name</label>
@@ -25,15 +30,15 @@
                     </div>
                     <div class="col-lg-4">
                       <label>Edition</label>
-                      <input type="text" name="edition" class="form-control" placeholder="" maxlength="50"> 
+                      <input type="text" name="edition" class="form-control" placeholder="" maxlength="200"> 
                     </div>
                     <div class="col-lg-4">
                       <label>Price</label>
-                      <input type="text" name="price" class="form-control" placeholder="" maxlength="50"> 
+                      <input type="text" name="price" class="form-control" placeholder="" maxlength="7"> 
                     </div>
                     <div class="col-lg-4">
                       <label>No Of Pages</label>
-                      <input type="text" name="no_of_pages" class="form-control" placeholder="" maxlength="50"> 
+                      <input type="text" name="no_of_pages" class="form-control" placeholder="" maxlength="7"> 
                     </div>
                     <div class="col-lg-4">
                       <label>Subject</label>
@@ -46,7 +51,7 @@
                     </div> <div class="col-lg-4">
                       <label>Publisher</label>
                       <select name="publisher_id" class="form-control" required="">
-                        <option>Select Publisher</option> 
+                        <option selected disabled>Select Publisher</option> 
                         @foreach ($publishers as $publisher) 
                         <option value="{{ $publisher->id  }}">{{ $publisher->name  }}</option>
                         @endforeach 
@@ -55,7 +60,7 @@
                     <div class="col-lg-4">
                       <label>Author</label>
                       <select name="author_id" class="form-control">
-                        <option>Select Author</option> 
+                        <option selected disabled>Select Author</option> 
                         @foreach ($authors as $author) 
                         <option value="{{ $author->id  }}">{{ $author->name  }}</option>
                         @endforeach 
@@ -83,36 +88,13 @@
             </div>   
               
       <!-- /.row -->
-
-          </div> --}}
-          <button id="btn_books_table_show" hidden data-table="books_table" onclick="callAjax(this,'{{ route('admin.library.book.details.table.show') }}','books_table_show')">show </button>
-
-           
-          <div class="box">
-           <div class="box-body" id="books_table_show"> 
-           
-           </div>
-         </div>
+          </div>
+          
         </div>
       </div>
-    </section>
+   </div>
+
     <!-- /.content -->
 
-@endsection
-@push('links')
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-@endpush
-@push('scripts')
- <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
- <script type="text/javascript">
-     $(document).ready(function(){
-        $('#books_table').DataTable();
-    });
-  </script>
-  <script type="text/javascript"> 
-        $('#btn_books_table_show').click();
-  
+ 
 
-  </script>
-  </script>
-  @endpush
