@@ -11,8 +11,9 @@ Route::group(['middleware' => 'student'], function() {
 	Route::get('image/{image}', 'DashboardController@image')->name('student.image');
 	Route::get('homework/{homework}', 'DashboardController@homework')->name('student.homework.view');
 	Route::get('profile', 'DashboardController@profile')->name('student.profile');
-	 
-
+	Route::get('homeworks', 'DashboardController@homeworkList')->name('student.homewok.list');
+	Route::get('attendance', 'DashboardController@attendance')->name('student.attendance');
+	Route::get('fee/details', 'DashboardController@feeDetails')->name('student.fee.details'); 
 });
 
  

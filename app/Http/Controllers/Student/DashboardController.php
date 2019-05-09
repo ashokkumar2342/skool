@@ -99,6 +99,15 @@ class DashboardController extends Controller
         $student = Auth::guard('student')->user();
         return view('student.profile.view',compact('student'));
     }
+    public function homeworkList(){
+        $student = Auth::guard('student')->user();
+        $homeworks =Homework::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->paginate(10);
+        return view('student.homework.list',compact('homeworks'));
+    }
+    public function attendance(){
+            
+            return view('student.attendance.list');
+    }
 
    
 }
