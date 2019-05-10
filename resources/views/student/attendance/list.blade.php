@@ -77,7 +77,20 @@
                     <!-- /.tab-pane -->
 
                     <div class="tab-pane" id="settings">
-                      
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>header</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($attendances as $key=>$attendance)
+                          <tr>
+                            <td>{{ $attendance->date }}</td>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
                     </div>
                     <!-- /.tab-pane -->
                   </div>
@@ -155,21 +168,24 @@
       },
       //Random default events
       events    : [
-        {
-          title          : 'Absent',
-          start          : new Date(y, m, 2 ),
-          backgroundColor: '#f56954', //red
-          borderColor    : '#f56954' //red
-        },
-            {
-          title          : 'Present',
-          start          : new Date(y, m, 3 ),
-          backgroundColor: '#00a65a', //Success (green)
-          borderColor    : '#00a65a' //Success (green)
+      @foreach ($attendances as $key=>$attendance)
 
+         {
+          title          : '{{ $attendance->attendance_type_id==2?'Absent':'Present' }}',
+          start          : '{{ $attendance->date }}',
+          @if ($attendance->attendance_type_id==2)
+            backgroundColor: '#f56954', //red
+            borderColor    : '#f56954', //red
+             textColor: '#FFF'
+          @else
+           backgroundColor: '#008000', //red
+            borderColor    : '#008000', //red
+            textColor: '#FFF'
+          @endif
+          
         },
-        
-        
+      @endforeach 
+       
       ],
       allDay: false,
       editable  : false,

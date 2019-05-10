@@ -105,8 +105,9 @@ class DashboardController extends Controller
         return view('student.homework.list',compact('homeworks'));
     }
     public function attendance(){
-            
-            return view('student.attendance.list');
+        $student = Auth::guard('student')->user();
+       $attendances = StudentAttendance::where('student_id',$student->id)->get();
+            return view('student.attendance.list',compact('attendances'));
     }
 
    
