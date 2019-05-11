@@ -10,7 +10,7 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12">    
-                <form action="{{ route('admin.homework.post') }}" class="add_form" no-reset="true" method="post">
+                <form action="{{ route('admin.homework.post') }}" class="add_form" no-reset="false" method="post">
                 {{ csrf_field() }}                                      
                    <div class="col-lg-2">                         
                       <div class="form-group">

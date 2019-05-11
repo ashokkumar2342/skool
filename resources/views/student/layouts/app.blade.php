@@ -11,7 +11,7 @@
   <!-- Font Awesome -->
  <link rel="stylesheet" href="{{ asset('student_assets/plugins/font-awesome/css/font-awesome.min.css')}}">
    <!-- Ionicons -->
-   <link rel="stylesheet" href="{{ asset('student_assets/https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')}}">
+   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
    <!-- Theme style -->
    <link rel="stylesheet" href="{{ asset('student_assets/dist/css/adminlte.min.css')}}">
    <link rel="stylesheet" href="{{ asset('student_assets/dist/css/toastr.min.css')}}">
@@ -81,7 +81,7 @@
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.0.0-alpha
     </div>
-    <strong>Copyright &copy; {{ date('d-m-YY') }} <a href="http://adminlte.io">Iskool.com</a>.</strong> All rights
+    <strong>Copyright &copy; {{ date('d-m-Y') }} <a href="#">Iskool.com</a>.</strong> All rights
     reserved.
   </footer>
 

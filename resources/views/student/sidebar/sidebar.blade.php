@@ -9,7 +9,7 @@
               <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
               <li class="nav-item has-treeview ">
-                <a href="" class="nav-link">
+                <a href="{{ route('student.dashboard') }}" class="nav-link">
                   <i class="nav-icon fa fa-dashboard"></i>
                   <p>
                     Dashboard
@@ -19,10 +19,37 @@
               
              
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('student.profile') }}" class="nav-link">
                   <i class="nav-icon fa fa-user"></i>
                   <p>
-                    Student Details
+                    Profile
+                    <span class="right badge badge-danger"></span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('student.homewok.list') }}" class="nav-link">
+                  <i class="nav-icon fa fa-sticky-note-o"></i>
+                  <p>
+                    Homewok
+                    <span class="right badge badge-danger"></span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('student.attendance') }}" class="nav-link">
+                  <i class="nav-icon fa fa-clock-o"></i>
+                  <p>
+                    Attendance
+                    <span class="right badge badge-danger"></span>
+                  </p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="{{ route('student.fee.details') }}" class="nav-link">
+                  <i class="nav-icon fa fa-inr"></i>
+                  <p>
+                    Fee Details
                     <span class="right badge badge-danger"></span>
                   </p>
                 </a>

@@ -25,8 +25,8 @@ class CreateBooktypesTable extends Migration
             $table->string('box_no'); 
             $table->string('subject_id'); 
             $table->string('publisher_id');
-            $table->string('author_id');
-            $table->text('feature')->nullable();;
+            $table->string('author_id'); 
+            $table->text('feature')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });
