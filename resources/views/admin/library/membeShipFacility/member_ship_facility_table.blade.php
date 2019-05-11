@@ -2,7 +2,7 @@
    <thead>
      <tr>
        <th>Member Ship Type</th>
-       <th>No of Books</th> 
+       <th>No of Tickets</th> 
        <th>No of Days</th>
        <th>Action</th>
      </tr>
@@ -11,8 +11,8 @@
     @foreach ($membershipfacilitys as $membershipfacility) 
      <tr>
        <td>{{ $membershipfacility->librarymembertype->member_ship_type or '' }}</td>
-       <td>{{ $membershipfacility->no_of_books }}</td> 
-       <td>{{ $membershipfacility->no_of_days }}</td> 
+       <td>{{ $membershipfacility->ticketDetails->name or '' }}</td> 
+       <td>{{ $membershipfacility->no_of_days or '' }}</td> 
         
        <td>
          <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.library.member.ship.facility.edit',Crypt::encrypt($membershipfacility->id)) }}')"><i class="fa fa-edit"></i></button>

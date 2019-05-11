@@ -38,11 +38,23 @@
                     </div>
                     <div class="col-lg-4">
                       <label>No Of Pages</label>
-                      <input type="text" name="no_of_pages" class="form-control" placeholder="" required="" maxlength="7" value="{{ $booktypes->no_of_pages }}"> 
+                      <input type="text" name="no_of_pages" class="form-control" placeholder="" required="" maxlength="7" value="{{ $booktypes->no_of_pages }}">
                     </div>
+                      <div class="col-lg-4">
+                        <label>Hall No</label>
+                        <input type="text" name="hall_no" class="form-control" placeholder="" maxlength="4" value="{{ $booktypes->hall_no }}"> 
+                      </div> 
+                      <div class="col-lg-4">
+                        <label>Shelf No</label>
+                        <input type="text" name="shelf_no" class="form-control" placeholder="" maxlength="4" value="{{ $booktypes->shelf_no }}"> 
+                      </div> 
+                      <div class="col-lg-4">
+                        <label>Box No</label>
+                        <input type="text" name="box_no" class="form-control" placeholder="" maxlength="7" value="{{ $booktypes->box_no }}"> 
+                      </div>  
                     <div class="col-lg-4">
                       <label>Subject Subject</label>
-                      <select name="subject_id" class="form-control">
+                      <select name="subject" class="form-control">
                         <option selected="" disabled="">Select Subject</option> 
                         @foreach ($subjects as $subject)
                         
@@ -51,7 +63,7 @@
                       </select> 
                     </div> <div class="col-lg-4">
                       <label>Publisher</label>
-                      <select name="publisher_id" class="form-control">
+                      <select name="publisher" class="form-control">
                         <option selected disabled>Select Publisher</option> 
                         @foreach ($publishers as $publisher)
                          <option value="{{ $publisher->id  }}"{{ $booktypes->publisher->id==$publisher->id? 'selected="selected"' : ''  }}>{{ $publisher->name }}</option> 
@@ -60,7 +72,7 @@
                     </div> 
                     <div class="col-lg-4">
                       <label>Author</label>
-                      <select name="author_id" class="form-control">
+                      <select name="author" class="form-control">
                         <option selected disabled>Select Author</option> 
                         @foreach ($authors as $author)
                          <option value="{{ $author->id  }}"{{ $booktypes->author->id==$author->id? 'selected="selected"' : ''  }}>{{ $author->name }}</option> 

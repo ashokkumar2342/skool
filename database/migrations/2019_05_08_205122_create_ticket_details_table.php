@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMemberShipFacilitiesTable extends Migration
+class CreateTicketDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateMemberShipFacilitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('member_ship_facilities', function (Blueprint $table) {
+        Schema::create('ticket_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('member_ship_type_id');
-            $table->unsignedInteger('no_of_ticket');
-            $table->unsignedInteger('no_of_days');
+            $table->string('name');
+            $table->string('days')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateMemberShipFacilitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('member_ship_facilities');
+        Schema::dropIfExists('ticket_details');
     }
 }

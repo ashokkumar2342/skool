@@ -33,7 +33,7 @@
                       <label>Mobile No</label>
                       <input type="text" name="mobile_no" class="form-control" placeholder="" required="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="{{ $publishers->mobile_no }}"> 
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                       <label>Email</label>
                       <input type="email" name="email" class="form-control" placeholder="" maxlength="50" required="" value="{{ $publishers->email }}"> 
                     </div>
@@ -41,7 +41,7 @@
                       <label>Date Of Birth</label>
                       <input type="date" name="dob" class="form-control" placeholder="" required="" value="{{ $publishers->dob }}"> 
                     </div> --}}
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                       <label>Address</label>
                       <textarea class="form-control" name="address" placeholder="">{{ $publishers->address }}</textarea>
                        

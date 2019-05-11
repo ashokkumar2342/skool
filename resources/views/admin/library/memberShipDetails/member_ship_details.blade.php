@@ -26,9 +26,18 @@
                     </div> 
                     <div id="library_member_ship_details_table"> 
                      </div>
-                      <div id="library_member_ship_student_table">
-    
+                      <div id="library_member_ship_student_table"> 
                        </div> 
+                       <div class="col-lg-4">
+                        <label>No of Ticket</label>
+                         <select name="no_of_ticket"  class="form-control">
+                          <option  selected disabled>Select Ticket</option> 
+                           @foreach ($tickets as $ticket)
+                           <option value="{{ $ticket->id }}">{{ $ticket->name }}</option> 
+                           @endforeach
+                            
+                         </select>
+                       </div>
                       {{--  <div id="library_member_ship_teacher_show">
     
                        </div>

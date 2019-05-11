@@ -16,6 +16,12 @@ class AuthorController extends Controller
     	 return view('admin.library.author.author_details');
     }
 
+     public function addForm()
+    {
+        // $authors=Author::all();
+         return view('admin.library.author.author_details_add_form');
+    }
+
     public function store(Request $request)
     {
 

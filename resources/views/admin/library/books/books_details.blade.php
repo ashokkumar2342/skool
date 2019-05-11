@@ -3,7 +3,7 @@
   <!-- Main content -->
   <section class="content-header">
     <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.library.book.details.addform')}}')" style="margin:10px">Add Form</button>
-    <h1>Books <small>Details</small> </h1>
+    <h1>Books Details<small>List</small> </h1>
        
     </section>  
     <section class="content">
@@ -85,7 +85,7 @@
       <!-- /.row -->
 
           </div> --}}
-          <button id="btn_books_table_show" hidden data-table="books_table" onclick="callAjax(this,'{{ route('admin.library.book.details.table.show') }}','books_table_show')">show </button>
+          <button id="btn_books_table_show" hidden data-table="books_table " onclick="callAjax(this,'{{ route('admin.library.book.details.table.show') }}','books_table_show')">show </button>
 
            
           <div class="box">

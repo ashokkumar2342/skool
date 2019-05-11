@@ -8,6 +8,7 @@ use App\Model\Library\MemberShipDetails;
 use App\Model\Library\MemberShipFacility;
 use App\Model\Library\Othertype;
 use App\Model\Library\TeacherFaculty;
+use App\Model\Library\TicketDetails;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -17,10 +18,10 @@ class MemberShipDetailsController extends Controller
 {
 	public function index()
 	{
-	   
+	   $tickets=TicketDetails::all();
 	   $librarymembertypes=LibraryMemberType::orderBy('member_ship_type','asc')->get();
 	  $students = Student::all();
-		return view('admin.library.memberShipDetails.member_ship_details',compact('librarymembertypes','students')); 
+		return view('admin.library.memberShipDetails.member_ship_details',compact('librarymembertypes','students','tickets')); 
 	}
 	public function store(Request $request)
 	{      
