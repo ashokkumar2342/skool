@@ -2,18 +2,17 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.library.author.details.addform')}}')" style="margin:10px">Add Form</button>
-    <h1>Author Add<small>Details</small> </h1>
+    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.library.book.issue.details.addform')}}')" style="margin:10px">Add Form</button>
+    <h1>Book Issue <small>Details</small> </h1>
        
     </section>  
     <section class="content">
       <div class="row">
         <div class="col-xs-12">          
-            <!-- /.box-header -->            
-          
-          <button id="btn_outhor_table_show" hidden data-table="author_table" onclick="callAjax(this,'{{ route('admin.library.author.details.table.show') }}','othor_details_table_show')">show </button>
+            
+           <button id="btn_book_issue_details_table" hidden data-table="books_issue_data_table" onclick="callAjax(this,'{{ route('admin.library.book.issue.details.table.show') }}','book_issue_table_show')">show </button>
           <div class="box"> 
-            <div class="box-body" id="othor_details_table_show">
+            <div class="box-body" id="book_issue_table_show">
            
             </div>
           </div>
@@ -30,10 +29,13 @@
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script type="text/javascript">
      $(document).ready(function(){
-        $('#author_table').DataTable();
+        $('#books_issue_data_table').DataTable();
     });
+  </script>
+   <script type="text/javascript"> 
+        $('#btn_book_issue_details_table').click();
+  
 
-     $('#btn_outhor_table_show').click();
   </script>
   @endpush
      

@@ -30,8 +30,13 @@
                       </select>
                     </div>
                     <div class="col-lg-4">
-                      <label>No of Books</label>
-                      <input type="text" name="no_of_books" class="form-control" placeholder="" value="{{ $membershipfacilitys->no_of_books }}" maxlength="6"> 
+                      <label>No of Tickets</label>
+                      <select name="no_of_ticket" class="form-control" >
+                        <option disabled selected>Select Member Ship Type</option> 
+                        @foreach ($tickets as $ticket) 
+                        <option value="{{ $ticket->id  }}"{{ $membershipfacilitys->no_of_ticket==$ticket->id? 'selected="selected"' : ''  }}>{{ $ticket->name or '' }}</option>
+                        @endforeach
+                      </select> 
                     </div>  
                     <div class="col-lg-4">
                       <label>No of Days</label>

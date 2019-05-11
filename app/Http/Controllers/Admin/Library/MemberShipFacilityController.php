@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Library;
 use App\Http\Controllers\Controller;
 use App\Model\Library\LibraryMemberType;
 use App\Model\Library\MemberShipFacility;
+use App\Model\Library\TicketDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
@@ -16,10 +17,17 @@ class MemberShipFacilityController extends Controller
     	// $librarymembertypes= LibraryMemberType::all();
     	 return view('admin.library.membeShipFacility.member_ship_facility');
     }
+    public function onchange(Request $request)
+    {
+         $data=$request->id;
+        $tickets=TicketDetails::all();
+       return view('admin.library.membeShipFacility.onchange_days',compact('tickets','data'));
+    }
      public function addForm()
     {
+      $tickets=TicketDetails::all();
       $librarymembertypes= LibraryMemberType::all();
-       return view('admin.library.membeShipFacility.member_ship_facility_add_form',compact('librarymembertypes'));
+       return view('admin.library.membeShipFacility.member_ship_facility_add_form',compact('librarymembertypes','tickets'));
     }
 
     public function store(Request $request)
@@ -27,7 +35,7 @@ class MemberShipFacilityController extends Controller
          $rules=[ 
 
              'member_ship_type' => 'required', 
-             'no_of_books' => 'required', 
+             'no_of_ticket' => 'required', 
              'no_of_days' => 'required', 
        
       ];
@@ -43,7 +51,7 @@ class MemberShipFacilityController extends Controller
         else {
     	 $membershipfacility=new MemberShipFacility();
     	 $membershipfacility->member_ship_type_id=$request->member_ship_type;
-    	 $membershipfacility->no_of_books=$request->no_of_books;
+    	 $membershipfacility->no_of_ticket=$request->no_of_ticket;
     	 $membershipfacility->no_of_days=$request->no_of_days;
     	 $membershipfacility->save();
     	  $response=['status'=>1,'msg'=>'Created Successfully'];
@@ -59,8 +67,9 @@ class MemberShipFacilityController extends Controller
     public function edit($id)
     {
     	$librarymembertypes= LibraryMemberType::orderBy('member_ship_type','asc')->get();
+      $tickets=TicketDetails::all();
     	$membershipfacilitys= MemberShipFacility::findOrFail(Crypt::decrypt($id));
-    	return view('admin.library.membeShipFacility.member_ship_facility_edit',compact('membershipfacilitys','librarymembertypes'));
+    	return view('admin.library.membeShipFacility.member_ship_facility_edit',compact('membershipfacilitys','librarymembertypes','tickets'));
     }
 
        public function destroy($id)
@@ -75,7 +84,7 @@ class MemberShipFacilityController extends Controller
     {
     	 $rules=[ 
             'member_ship_type' => 'required', 
-             'no_of_books' => 'required', 
+             'no_of_ticket' => 'required', 
              'no_of_days' => 'required', 
        
       ];
@@ -91,7 +100,7 @@ class MemberShipFacilityController extends Controller
         else {
          $membershipfacility= MemberShipFacility::find($id);
          $membershipfacility->member_ship_type_id=$request->member_ship_type;
-         $membershipfacility->no_of_books=$request->no_of_books;
+         $membershipfacility->no_of_ticket=$request->no_of_ticket;
          $membershipfacility->no_of_days=$request->no_of_days;
          $membershipfacility->save();
           $response=['status'=>1,'msg'=>'Update Successfully'];

@@ -14,7 +14,7 @@
     <tbody>
      @foreach ($bookpurchases as $bookpurchase) 
       <tr>
-        <td>{{ $bookpurchase->book_purchase_date }}</td>
+        <td>{{ date('d-m-Y', strtotime( $bookpurchase->book_purchase_date)) }}</td>
         <td>{{ $bookpurchase->vendor_name }}</td>
         <td>{{ $bookpurchase->mobile }}</td>
         <td>{{ $bookpurchase->email }}</td>

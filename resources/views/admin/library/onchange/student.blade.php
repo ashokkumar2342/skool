@@ -14,11 +14,7 @@
     <div class="col-lg-4"> 
 	<label>Email</label>
 	<input type="text" class="form-control" name="email" value="{{ $students->email }}">
-   </div>   
-   <div class="col-lg-4"> 
-	<label>Date Of Birth</label>
-	<input type="text" class="form-control" name="dob" value="{{ $students->dob }}">
-   </div>  
+   </div> 
    <div class="col-lg-4"> 
 	<label>Address</label>
 	<input type="text" class="form-control" name="name" value="{{ $students->c_address }}">

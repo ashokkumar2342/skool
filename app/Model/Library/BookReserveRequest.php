@@ -4,21 +4,20 @@ namespace App\Model\Library;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BookAccession extends Model
+class BookReserveRequest extends Model
 {
       public function booktype()
     {
-    	return $this->hasOne('App\Model\Library\Booktype','id','book_id');
+    	return $this->hasOne('App\Model\Library\Booktype','id','book_name_id');
     }
 
-     public function bookpurchasebill()
+     public function librarymembertype()
     {
-    	return $this->hasOne('App\Model\Library\BookPurchaseBill','id','bill_id');
+    	return $this->hasOne('App\Model\Library\LibraryMemberType','id','member_ship_type_id');
     } 
     
     public function bookstatus()
     {
     	return $this->hasOne('App\Model\Library\BookStatus','id','status');
     }
-
 }

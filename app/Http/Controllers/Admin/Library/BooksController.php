@@ -37,10 +37,14 @@ class BooksController extends Controller
             'code' => 'required', 
             'edition' => 'required', 
             'price' => 'required', 
+            'no_of_pages' => 'required', 
+            'hall_no' => 'required', 
+            'shelf_no' => 'required', 
+            'box_no' => 'required', 
             
-            'subject_id' => 'required', 
-            'publisher_id' => 'required', 
-            'author_id' => 'required', 
+            'subject' => 'required', 
+            'publisher' => 'required', 
+            'author' => 'required', 
             
         ];
 
@@ -65,9 +69,12 @@ class BooksController extends Controller
                 $booktype->edition=$request->edition;
                 $booktype->price=$request->price;
                 $booktype->no_of_pages=$request->no_of_pages;
-                $booktype->subject_id=$request->subject_id;
-                $booktype->publisher_id=$request->publisher_id;
-                $booktype->author_id=$request->author_id;
+                $booktype->hall_no=$request->hall_no;
+                $booktype->shelf_no=$request->shelf_no;
+                $booktype->box_no=$request->box_no;
+                $booktype->subject_id=$request->subject;
+                $booktype->publisher_id=$request->publisher;
+                $booktype->author_id=$request->author;
                 $booktype->feature=$request->feature;
                 $booktype->save();
                $response=['status'=>1,'msg'=>'Created Successfully'];
@@ -81,9 +88,12 @@ class BooksController extends Controller
                $booktype->edition=$request->edition;
                $booktype->price=$request->price;
                $booktype->no_of_pages=$request->no_of_pages;
-               $booktype->subject_id=$request->subject_id;
-               $booktype->publisher_id=$request->publisher_id;
-               $booktype->author_id=$request->author_id;
+               $booktype->hall_no=$request->hall_no;
+               $booktype->shelf_no=$request->shelf_no;
+               $booktype->box_no=$request->box_no;
+               $booktype->subject_id=$request->subject;
+               $booktype->publisher_id=$request->publisher;
+               $booktype->author_id=$request->author;
                $booktype->feature=$request->feature;
                $booktype->save();
               $response=['status'=>1,'msg'=>'Created Successfully'];
@@ -120,11 +130,14 @@ class BooksController extends Controller
             'name' => 'required', 
             'code' => 'required', 
             'edition' => 'required', 
-            'price' => 'required', 
+            'price' => 'required',
+            'hall_no' => 'required', 
+            'shelf_no' => 'required', 
+            'box_no' => 'required',  
             
-            'subject_id' => 'required', 
-            'publisher_id' => 'required', 
-            'author_id' => 'required', 
+            'subject' => 'required', 
+            'publisher' => 'required', 
+            'author' => 'required', 
             
         ];
 
@@ -149,9 +162,12 @@ class BooksController extends Controller
                 $booktype->edition=$request->edition;
                 $booktype->price=$request->price;
                 $booktype->no_of_pages=$request->no_of_pages;
-                $booktype->subject_id=$request->subject_id;
-                $booktype->publisher_id=$request->publisher_id;
-                $booktype->author_id=$request->author_id;
+                $booktype->hall_no=$request->hall_no;
+                $booktype->shelf_no=$request->shelf_no;
+                $booktype->box_no=$request->box_no;
+                $booktype->subject_id=$request->subject;
+                $booktype->publisher_id=$request->publisher;
+                $booktype->author_id=$request->author;
                 $booktype->feature=$request->feature;
                 $booktype->save();
                $response=['status'=>1,'msg'=>'Update Successfully'];
@@ -165,9 +181,12 @@ class BooksController extends Controller
                $booktype->edition=$request->edition;
                $booktype->price=$request->price;
                $booktype->no_of_pages=$request->no_of_pages;
-               $booktype->subject_id=$request->subject_id;
-               $booktype->publisher_id=$request->publisher_id;
-               $booktype->author_id=$request->author_id;
+               $booktype->hall_no=$request->hall_no;
+               $booktype->shelf_no=$request->shelf_no;
+               $booktype->box_no=$request->box_no;
+               $booktype->subject_id=$request->subject;
+               $booktype->publisher_id=$request->publisher;
+               $booktype->author_id=$request->author;
                $booktype->feature=$request->feature;
                $booktype->save();
               $response=['status'=>1,'msg'=>'Update Successfully'];
