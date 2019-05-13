@@ -109,7 +109,7 @@
                       <div class="card-body">
                         <div class="tab-content">
                           <div class="active tab-pane" id="activity"> 
-                            <div class="col-md-7 border_bottom">
+                            <div class="col-md-8 border_bottom">
                                 <ul class="list-group">
                                  
                                   <li class="list-group-item">User Name :-<span class="fs"><input type="text" value="{{ $student->username }}" disabled=""> </span></li> 
@@ -148,7 +148,8 @@
                           <!-- /.tab-pane -->
 
                           <div class="tab-pane" id="settings">
-                            <form class="form-horizontal add_form">
+                            <form class="form-horizontal add_form" action="{{ route('student.password.change') }}" method="post">
+                              {{ csrf_field() }}
                               <div class="form-group">
                                 <label  class="col-sm-2 control-label">Old Password</label>
 

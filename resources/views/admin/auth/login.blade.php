@@ -21,14 +21,8 @@
         <p class="text-danger">{{ $errors->first('password') }}</p>
       </div>
       <div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox" name="remember" value="1"> Remember Me
-            </label>
-          </div>
-        </div>
-        <!-- /.col -->
+         
+        <a href="#" onclick="callPopupLarge(this,'{{ route('admin.forget.password') }}')">Forget Password</a>
         <div class="col-xs-4">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
         </div>
