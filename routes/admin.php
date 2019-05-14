@@ -6,12 +6,15 @@ Route::get('admin-password/reset', 'Auth\ForgetPasswordController@sendResetLinkE
 Route::get('admin-password/reset', 'Auth\ForgetPasswordController@showLinkRequestForm')->name('admin.password.request');
 Route::get('logout', 'Auth\LoginController@logout')->name('admin.logout.get');
 Route::post('login', 'Auth\LoginController@login');
+Route::get('forget-password', 'Auth\LoginController@forgetPassword')->name('admin.forget.password');
  
 Route::group(['middleware' => 'admin'], function() {
 	Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard'); 
 	Route::get('show-details', 'DashboardController@showStudentDetails')->name('admin.student.show.details');
 	Route::get('registration-show-details', 'DashboardController@showStudentRegistrationDetails')->name('admin.student.Registration.details');
 	Route::get('token', 'DashboardController@passportTokenCreate')->name('admin.token');
+	Route::get('profile', 'DashboardController@proFile')->name('admin.profile');
+	Route::post('password-change', 'DashboardController@passwordChange')->name('admin.password.change');
 	//---------------account-----------------------------------------	
 	Route::prefix('account')->group(function () {
 	    Route::get('form', 'AccountController@form')->name('admin.account.form');

@@ -108,4 +108,8 @@ class LoginController extends Controller
     {
         return Auth::guard('admin');
     }
+    public function forgetPassword()
+    {
+        return view('admin.auth.forget_password');
+    }
 }
