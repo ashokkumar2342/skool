@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/AdminLTE.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/AdminLTE-select2.min.css')}}">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/skins/_all-skins.min.css')}}">
@@ -82,6 +84,8 @@
     <script src={!! asset('admin_asset/dist/js/customscript.js?ver=1') !!}></script>
     <script src={!! asset('admin_asset/dist/js/bootstrap-multiselect.js')!!}> 
     </script>
+
+<script src="{{ asset('admin_asset/plugins/select2/select2.full.min.js') }}"></script>
    
 {{--     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> --}}
 
@@ -91,6 +95,7 @@
     @stack('scripts')
     <script>
       $( ".datepicker").datepicker({dateFormat:'dd-mm-yy'}); 
+      $('.select2').select2();
        //$('.multiselect').selectpicker(); 
         
        $('multiselect').multiselect({

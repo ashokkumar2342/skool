@@ -77,6 +77,10 @@ function callAjax(obj,url,divId,callback){
 				setTimeout(window.location.replace(redirect), 3000);
 				;
 			}
+			if(obj.getAttribute('select2'))
+			{
+				$(".select2").select2();
+			}
 				 
 		}
     });
