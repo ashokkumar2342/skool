@@ -10,10 +10,10 @@ class MemberShipDetails extends Model
     {
     	return $this->hasOne('App\Model\Library\LibraryMemberType','id','member_ship_type_id');
     } 
-    // public function membershipfacility()
-    // {
-    // 	return $this->hasOne('App\Model\Library\MemberShipFacility','id','member_ship_id');
-    // }
+    public function membershipfacility()
+    {
+    	return $this->hasOne('App\Model\Library\MemberShipFacility','id','member_ship_id');
+    }
      public function membershipfacilitys()
     {
     	return $this->hasOne('App\Model\Library\MemberShipFacility','id','member_ship_facility_id');

@@ -25,9 +25,9 @@ class TicketDetailsController extends Controller
 
     public function ticketAdd(Request $request,$id)
     {  
-         
+         // return $request;
          $MemberShipDetail=MemberShipDetails::find($id);
-         $memberShipFacilitys=MemberShipFacility::where('member_ship_type_id',$MemberShipDetail->member_ship_facility_id)->get();
+         $memberShipFacilitys=MemberShipFacility::where('member_ship_type_id',$MemberShipDetail->member_ship_type_id)->get();
         return view('admin.library.ticketIssue.ticket_details_add',compact('memberShipFacilitys','MemberShipDetail')); 
     }
     public function search(Request $request)
@@ -65,11 +65,11 @@ class TicketDetailsController extends Controller
      //    } 
     }
 
-    public function edit($id)
-    {
-    	 $tickets=TicketDetails::findOrFail(Crypt::decrypt($id));
-    	return view('admin.library.ticket.ticket_details_edit',compact('tickets'));  
-    }
+    // public function edit($id)
+    // {
+    // 	 $tickets=TicketDetails::findOrFail(Crypt::decrypt($id));
+    // 	return view('admin.library.ticket.ticket_details_edit',compact('tickets'));  
+    // }
      public function update(Request $request,$id)
     {
               // return $request;
