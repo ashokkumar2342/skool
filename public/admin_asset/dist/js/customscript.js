@@ -78,7 +78,7 @@ function callAjax(obj,url,divId,callback){
 				;
 			}
 			if(obj.getAttribute('select2'))
-			{
+			{  
 				$(".select2").select2();
 			}
 				 

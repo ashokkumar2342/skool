@@ -10,9 +10,9 @@ class MemberShipFacility extends Model
     {
     	return $this->hasOne('App\Model\Library\LibraryMemberType','id','member_ship_type_id');
     }
-     public function ticketDetails()
+     public function memberShipFacility()
     {
-    	return $this->hasOne('App\Model\Library\TicketDetails','id','no_of_ticket');
+    	return $this->hasOne('App\Model\Library\MemberShipFacility','id','no_of_ticket');
     }
      
 }

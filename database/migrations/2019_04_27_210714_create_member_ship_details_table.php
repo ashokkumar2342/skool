@@ -17,9 +17,9 @@ class CreateMemberShipDetailsTable extends Migration
             $table->increments('id');
             
             $table->unsignedInteger('member_ship_type_id');
-            $table->string('member_ship_no');
+            $table->unsignedInteger('member_ship_no');
             $table->string('name');
-            $table->string('father');
+            $table->string('father')->nullable();
             $table->string('mobile');
             $table->string('email')->nullable();
             $table->text('address')->nullable();

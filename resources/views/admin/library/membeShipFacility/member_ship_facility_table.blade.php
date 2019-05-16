@@ -11,7 +11,7 @@
     @foreach ($membershipfacilitys as $membershipfacility) 
      <tr>
        <td>{{ $membershipfacility->librarymembertype->member_ship_type or '' }}</td>
-       <td>{{ $membershipfacility->ticketDetails->name or '' }}</td> 
+       <td>{{ $membershipfacility->no_of_ticket or '' }}</td> 
        <td>{{ $membershipfacility->no_of_days or '' }}</td> 
         
        <td>
