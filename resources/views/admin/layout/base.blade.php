@@ -16,7 +16,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/AdminLTE.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/AdminLTE-select2.min.css')}}">
+  {{-- <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/alt/AdminLTE-select2.min.css')}}"> --}}
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
@@ -85,7 +87,10 @@
     <script src={!! asset('admin_asset/dist/js/bootstrap-multiselect.js')!!}> 
     </script>
 
-<script src="{{ asset('admin_asset/plugins/select2/select2.full.min.js') }}"></script>
+{{-- <script src="{{ asset('admin_asset/plugins/select2/select2.full.min.js') }}"></script> --}}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ {{-- <script src="{{ asset('admin_asset/plugins/select2/select2.full.min.js') }}"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> 
    
 {{--     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> --}}
 
