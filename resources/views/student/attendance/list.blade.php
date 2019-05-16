@@ -77,16 +77,18 @@
                     <!-- /.tab-pane -->
 
                     <div class="tab-pane" id="settings">
-                      <table>
+                      <table class="table">
                         <thead>
                           <tr>
-                            <th>header</th>
+                            <th>Date</th>
+                            <th>Present/Absent</th>
                           </tr>
                         </thead>
                         <tbody>
                           @foreach ($attendances as $key=>$attendance)
                           <tr>
-                            <td>{{ $attendance->date }}</td>
+                            <td>{{ date('d-m-Y', strtotime( $attendance->date)) }}</td>
+                            <td>{{ $attendance->attendance->name or '' }}</td>
                           </tr>
                           @endforeach
                         </tbody>

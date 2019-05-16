@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOthertypesTable extends Migration
+class CreateMemberShipRegistrationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class CreateOthertypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('othertypes', function (Blueprint $table) {
+        Schema::create('member_ship_registrations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
-            $table->string('name');
-            $table->string('mobile');
-            $table->string('email');
-            $table->text('address');
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ class CreateOthertypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('othertypes');
+        Schema::dropIfExists('member_ship_registrations');
     }
 }

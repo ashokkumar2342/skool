@@ -29,15 +29,11 @@
                         @endforeach
                       </select>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4"> 
                       <label>No of Tickets</label>
-                      <select name="no_of_ticket" class="form-control" >
-                        <option disabled selected>Select Member Ship Type</option> 
-                        @foreach ($tickets as $ticket) 
-                        <option value="{{ $ticket->id  }}"{{ $membershipfacilitys->no_of_ticket==$ticket->id? 'selected="selected"' : ''  }}>{{ $ticket->name or '' }}</option>
-                        @endforeach
-                      </select> 
-                    </div>  
+                      <input type="number" name="no_of_ticket" class="form-control" value="{{ $membershipfacilitys->no_of_ticket }}"> 
+                    </div>
+                   
                     <div class="col-lg-4">
                       <label>No of Days</label>
                       <input type="text" name="no_of_days" class="form-control" placeholder="" value="{{ $membershipfacilitys->no_of_days }}" maxlength="7"> 
@@ -45,7 +41,7 @@
                   </div>
                    <div class="row">
                     <div class="col-lg-12 text-center" style="padding-top: 10px">
-                      <input type="submit" class="btn btn-success">
+                      <input type="submit" value="Update" class="btn btn-success">
                     </div>
                      
                    </div>

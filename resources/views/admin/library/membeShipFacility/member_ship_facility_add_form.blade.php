@@ -31,16 +31,15 @@
                     </div>
                     <div class="col-lg-4">
                       <label>No of Tickets</label>
-                      <select name="no_of_ticket" class="form-control" onchange="callAjax(this,'{{ route('member.ship.facility.onchange') }}','no_of_daya_div')">
-                        <option selected disabled>Select Option</option> 
-                        @foreach ($tickets as $ticket) 
-                        <option value="{{ $ticket->id }}">{{ $ticket->name }}</option>
-                        @endforeach 
-                      </select> 
+                      <input type="number" name="no_of_ticket" class="form-control"> 
+                    </div>
+                    <div class="col-lg-4">
+                      <label>Tickets No</label>
+                      <input type="number" name="no_of_days" class="form-control"> 
                     </div> 
-                    <div id="no_of_daya_div">
+                    
                        
-                     </div> 
+                     
                   </div>
                    <div class="row">
                     <div class="col-lg-12 text-center" style="padding-top: 10px">

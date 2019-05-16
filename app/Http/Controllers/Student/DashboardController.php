@@ -9,7 +9,9 @@ use App\Model\StudentAttendance;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class DashboardController extends Controller
 {
@@ -110,5 +112,40 @@ class DashboardController extends Controller
             return view('student.attendance.list',compact('attendances'));
     }
 
-   
+   public function feeDetails()
+    {
+        return view('student.fee.list');
+    }
+    public function passwordChange(Request $request)
+    {
+        $rules=[
+          'old_password' => 'required', 
+          'password' => 'required|min:6|max:50', 
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+
+       $student=Auth::guard('student')->user();
+        if (Hash::check($request->old_password, $student->password))
+        {
+           $newPasswrod = Hash::make($request->password);
+            $st=Student::find($student->id);
+            $st->password =$newPasswrod ;
+            $st->save();
+            $response =array();
+            $response['status'] =1;
+            $response['msg'] ='Password Updated Successfully';
+            return $response;
+        }else{
+           return 'not fond';
+        }
+
+    }
 }

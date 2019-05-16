@@ -16,8 +16,8 @@ class CreateMemberShipFacilitiesTable extends Migration
         Schema::create('member_ship_facilities', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('member_ship_type_id');
-            $table->unsignedInteger('no_of_ticket');
-            $table->unsignedInteger('no_of_days');
+            $table->string('no_of_ticket');
+            $table->string('no_of_days');
             $table->timestamps();
         });
     }

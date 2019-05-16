@@ -13,7 +13,7 @@ class StudentAttendance extends Model
         return $this->hasOne(Student::class);
     }
     public function attendance(){
-        return $this->hasOne('App\AttendanceType','id','attendance_type_id');
+        return $this->hasOne('App\Model\AttendanceType','id','attendance_type_id');
     }
 
 }
