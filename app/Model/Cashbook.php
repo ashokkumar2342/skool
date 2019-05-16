@@ -16,4 +16,10 @@ class Cashbook extends Model
     				->where('status',1)
     				->get();
     }
+     public function getFeeByStudentId($student_id){
+    	return $this->where('student_id',$student_id) 
+    				// ->whereBetween('date', [$fromDate, $toDate]) 
+    				->where('status',1)
+    				->get();
+    }
 }

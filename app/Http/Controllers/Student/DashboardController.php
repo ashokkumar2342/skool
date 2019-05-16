@@ -68,6 +68,7 @@ class DashboardController extends Controller
                     ->where('student_id', $student_id)
                     ->whereBetween('date', [$sessionDate, $date])
                     ->count(); 
+        $classTests = ClassTest::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->paginate(5);             
        $homeworks = Homework::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->paginate(5);            
         
         $students = Student::where('status',1)->count();                        
@@ -108,6 +109,12 @@ class DashboardController extends Controller
         $student = Auth::guard('student')->user();
        $attendances = StudentAttendance::where('student_id',$student->id)->get();
             return view('student.attendance.list',compact('attendances'));
+    }
+    public function feeDetails(){ 
+        $student = Auth::guard('student')->user(); 
+       $cashbook = new Cashbook();
+       $fees = $cashbook->getFeeByStudentId($student->id);
+            return view('student.fee.list',compact('fees'));
     }
 
    
