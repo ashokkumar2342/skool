@@ -681,10 +681,10 @@ Route::group(['middleware' => 'admin'], function() {
 		    });
 		     Route::group(['prefix' => 'ticket-details'], function() {
 			    Route::get('/', 'Library\TicketDetailsController@index')->name('admin.library.ticket.details');
-			    Route::get('add-form', 'Library\TicketDetailsController@addForm')->name('admin.library.ticket.details.add.form');
+			    Route::get('search', 'Library\TicketDetailsController@search')->name('admin.library.ticket.issue.details.search');
 			    Route::post('store', 'Library\TicketDetailsController@store')->name('admin.library.ticket.details.store');
 			    Route::get('table-show', 'Library\TicketDetailsController@tableShow')->name('admin.library.ticket.details.table.show');
-			    Route::get('edit/{id}', 'Library\TicketDetailsController@edit')->name('admin.library.ticket.details.edit');
+			    Route::get('ticket-add/{id}', 'Library\TicketDetailsController@ticketAdd')->name('admin.library.ticket.add');
 			    Route::get('delete/{id}', 'Library\TicketDetailsController@destroy')->name('admin.library.ticket.details.delete');
 			    Route::post('update/{id}', 'Library\TicketDetailsController@update')->name('admin.library.ticket.details.update');
 
@@ -704,6 +704,7 @@ Route::group(['middleware' => 'admin'], function() {
 		     Route::group(['prefix' => 'member-ship-details'], function() {
 			    Route::get('/', 'Library\MemberShipDetailsController@index')->name('admin.library.member.ship.details');
 			    Route::post('store', 'Library\MemberShipDetailsController@store')->name('admin.library.member.ship.details.store');
+			    Route::get('table-show', 'Library\MemberShipDetailsController@tableShow')->name('admin.library.member.ship.details.table.show'); 
 			    Route::get('student-search', 'Library\MemberShipDetailsController@studentSearch')->name('admin.library.member.ship.details.student.search');
 			    Route::get('student-show', 'Library\MemberShipDetailsController@studentShow')->name('admin.library.member.ship.details.student.show');
 			    Route::get('teacher-show', 'Library\MemberShipDetailsController@teacherShow')->name('admin.library.member.ship.details.teacher.show');

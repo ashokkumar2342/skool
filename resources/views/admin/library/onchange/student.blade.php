@@ -3,6 +3,9 @@
 	<label>Name</label>
 	<input type="text" class="form-control" name="name" value="{{ $students->name }}">
    </div> 
+
+  <input type="text" class="form-control hidden" hidden="" name="registration_no" value="{{ $students->registration_no }}">
+   
     <div class="col-lg-4"> 
 	<label>Father's Name</label>
 	<input type="text" class="form-control" name="father_name" value="{{ $students->father_name }}">
@@ -15,8 +18,9 @@
 	<label>Email</label>
 	<input type="text" class="form-control" name="email" value="{{ $students->email }}">
    </div> 
-   <div class="col-lg-4"> 
-	<label>Address</label>
-	<input type="text" class="form-control" name="name" value="{{ $students->c_address }}">
+   <div class="col-lg-8">
+   	<label>Address</label>
+   <textarea  class="form-control" name="address">{{ $students->c_address }}</textarea> 
+	 
    </div> 
 </div>
