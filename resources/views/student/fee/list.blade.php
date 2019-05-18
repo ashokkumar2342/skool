@@ -18,8 +18,7 @@
       float: right; font-weight:800;padding-right: 10px;
   }
 </style>
-@endpush
-
+@endpush 
  <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -49,8 +48,7 @@
                    <div class="table-responsive">
                      <table class="table m-0">
                        <thead>
-                       <tr>
-                          
+                       <tr> 
                          <th>Receipt Date</th>
                          <th>Receipt No</th>
                          <th>Receipt Amount</th>
@@ -66,8 +64,7 @@
                          <td> {{ $fee->receipt_no }} </td>
                          <td> {{ $fee->receipt_amount }} </td>                         
                          <td> {{ $fee->deposit_amount }} </td>
-                         <td> {{ $fee->balance_amount }} </td>
-                         
+                         <td> {{ $fee->balance_amount }} </td> 
                          
                          <td>
                             

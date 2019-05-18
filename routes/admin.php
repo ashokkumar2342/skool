@@ -3,10 +3,12 @@
 Route::get('/', 'Auth\LoginController@index')->name('admin.home');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('admin.login'); 
 Route::get('admin-password/reset', 'Auth\ForgetPasswordController@sendResetLinkEmail')->name('admin.password.email');
-Route::get('admin-password/reset', 'Auth\ForgetPasswordController@showLinkRequestForm')->name('admin.password.request');
+Route::get('passwordreset/reset', 'Auth\ForgetPasswordController@showLinkRequestForm')->name('admin.password.request');
 Route::get('logout', 'Auth\LoginController@logout')->name('admin.logout.get');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('forget-password', 'Auth\LoginController@forgetPassword')->name('admin.forget.password');
+Route::post('forget-password-send-link', 'Auth\LoginController@forgetPasswordSendLink')->name('admin.forget.password.send.link');
+Route::post('reset-password', 'Auth\LoginController@resetPassword')->name('admin.reset.password');
  
 Route::group(['middleware' => 'admin'], function() {
 	Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard'); 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Model\Cashbook;
+use App\Model\Exam\ClassTest;
 use App\Model\Homework;
 use App\Model\StudentAttendance;
 use App\Student;
@@ -74,7 +75,7 @@ class DashboardController extends Controller
        $homeworks = Homework::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->paginate(5);            
         
         $students = Student::where('status',1)->count();                        
-        return view('student/dashboard',compact('students','monthlyPresent','monthlyAbsent','weeklyPresent','weeklyAbsent','workingDays','tillPresent','tillAbsent','cashbooks','homeworks'));
+        return view('student/dashboard',compact('students','monthlyPresent','monthlyAbsent','weeklyPresent','weeklyAbsent','workingDays','tillPresent','tillAbsent','cashbooks','homeworks','classTests'));
         
     }
 
@@ -119,10 +120,10 @@ class DashboardController extends Controller
             return view('student.fee.list',compact('fees'));
     }
 
-   public function feeDetails()
-    {
-        return view('student.fee.list');
-    }
+   // public function feeDetails()
+   //  {
+   //      return view('student.fee.list');
+   //  }
     public function passwordChange(Request $request)
     {
         $rules=[

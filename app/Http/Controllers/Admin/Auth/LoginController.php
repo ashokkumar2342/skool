@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
+use App\Admin;
+use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Student;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 class LoginController extends Controller
 {
     /*
@@ -112,4 +115,32 @@ class LoginController extends Controller
     {
         return view('admin.auth.forget_password');
     }
+    public function forgetPasswordSendLink(Request $request)
+    {
+        $AppUsers=new Admin();
+        $u_detail=$AppUsers->getdetailbyemail($request->email);
+        $up_u=array();
+        $up_u['token'] = str_random(64);        
+        $AppUsers->updateuserdetail($up_u,$u_detail->user_id);      
+        $up_u['name']=$u_detail->name;
+        $up_u['email']=$u_detail->email;
+        $user=$u_detail->email;
+        // $up_u['otp']=$up_u['otp'];
+        $up_u['logo']=url("img/logo.png");
+        $up_u['link']=url("passwordreset/reset/".$up_u['token']);
+
+
+        Mail::send('emails.forgotPassword', $up_u, function($message){
+                   $message->to('ashok@gmail.com')->subject('Password Reset');
+               });
+                       
+        // $mailHelper = new MailHelper();
+        // $mailHelper->forgetmail($request->email); 
+        $response=array();
+        $response['status']=1;
+        $response['msg']='Reset Link Sent successfully';
+        return $response;
+
+    }
+    
 }

@@ -128,6 +128,26 @@
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
+                    <table class="table"> 
+                      <thead>
+                        <tr>
+                          <th>Subject</th>
+                          <th>Maximum Marks</th>
+                          <th>Test Date</th>
+                          <th>Discriptoin</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          @foreach ($classTests as $classTest) 
+                          <td>{{ $classTest->subjects->name or '' }}</td>
+                          <td>{{ $classTest->max_marks }}</td>
+                          <td>{{ date('d-m-Y',strtotime($classTest->test_date)) }}</td>
+                          <td>{{ $classTest->discription }}</td>
+                          @endforeach
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                   <!-- /.card-body --> 
                 </div>
