@@ -578,6 +578,14 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('delete/{id}', 'Exam\MarkDetailController@destroy')->name('admin.exam.mark.detail.delete');
 			    Route::get('search', 'Exam\MarkDetailController@searchStudent')->name('admin.mark.detail.studentSearch');
 			 });
+			//-------------------------------Student remark------------------------------------
+			Route::group(['prefix' => 'student-remark'], function() {
+			    Route::get('/', 'StudentReMarkController@index')->name('admin.student.remark.detail');	 	
+			    Route::get('search', 'StudentReMarkController@search')->name('admin.student.remark.detail.search');
+			    Route::get('add-remark/{id}', 'StudentReMarkController@addRemark')->name('admin.student.remark.detail.add.btn');
+			    Route::post('remark-store/{id}', 'StudentReMarkController@remarkStore')->name('admin.student.remark.detail.store');	 	
+			    
+			 });
 			  //------------------------- Exam marks details ---------------------------------
 			Route::group(['prefix' => 'grade-details'], function() {
 			    Route::get('/', 'Exam\GradeDetailController@index')->name('admin.exam.grade.detail');	 	

@@ -10,7 +10,7 @@
                    with font-awesome or any other icon font library -->
               <li class="nav-item has-treeview ">
                 <a href="{{ route('student.dashboard') }}" class="nav-link">
-                  <i class="nav-icon fa fa-dashboard"></i>
+                  <i class="nav-icon fa fa-dashboard text-success"></i>
                   <p>
                     Dashboard
                      
@@ -20,7 +20,7 @@
              
               <li class="nav-item">
                 <a href="{{ route('student.profile') }}" class="nav-link">
-                  <i class="nav-icon fa fa-user"></i>
+                  <i class="nav-icon fa fa-user text-danger"></i>
                   <p>
                     Profile
                     <span class="right badge badge-danger"></span>
@@ -29,7 +29,7 @@
               </li>
               <li class="nav-item">
                 <a href="{{ route('student.homewok.list') }}" class="nav-link">
-                  <i class="nav-icon fa fa-sticky-note-o"></i>
+                  <i class="nav-icon fa fa-sticky-note-o text-primary"></i>
                   <p>
                     Homewok
                     <span class="right badge badge-danger"></span>
@@ -38,7 +38,7 @@
               </li>
               <li class="nav-item">
                 <a href="{{ route('student.attendance') }}" class="nav-link">
-                  <i class="nav-icon fa fa-clock-o"></i>
+                  <i class="nav-icon fa fa-clock-o text-warning"></i>
                   <p>
                     Attendance
                     <span class="right badge badge-danger"></span>
@@ -47,13 +47,14 @@
               </li>
                 <li class="nav-item">
                 <a href="{{ route('student.fee.details') }}" class="nav-link">
-                  <i class="nav-icon fa fa-inr"></i>
+                  <i class="nav-icon fa fa-inr text-success"></i>
                   <p>
                     Fee Details
-                    <span class="right badge badge-danger"></span>
+                    <span class="right badge badge-danger "></span>
                   </p>
                 </a>
               </li>
+               
                
             
               
