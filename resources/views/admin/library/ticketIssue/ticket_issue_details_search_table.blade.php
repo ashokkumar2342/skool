@@ -6,8 +6,7 @@
                   <th>Name</th> 
                   <th>Member Ship No</th> 
                   <th>mobile no</th> 
-                  <th>Ticket / Days</th> 
-                   
+                  <th>Ticket / Days</th>                    
                   <th>Action</th>
                </tr>
               </thead>

@@ -1,25 +1,20 @@
  <table id="books_reserve_request_data_table" class="table table-bordered table-striped table-hover"> 
     <thead>
       <tr>
-        <th>Member Ship Type</th>
+        <th>Member Ship Registration no</th>
         <th>Book Name</th>
-        <th>Upto Reserve Date</th>
-        <th>Request Valid Upto</th> 
-        <th>Issue Date</th>
-        <th>Status</th>
+        <th>Reserve Date</th>
+        <th>Status</th> 
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
      @foreach ($bookReserveRequests as $bookReserveRequest) 
       <tr>
-        <td>{{ $bookReserveRequest->librarymembertype->member_ship_type }}</td>
-        <td>{{ $bookReserveRequest->booktype->name }}</td>
-        <td>{{  date('d-m-Y', strtotime( $bookReserveRequest->book_reserve_request)) }}</td>
-        <td>{{ date('d-m-Y', strtotime( $bookReserveRequest->due_date)) }}</td>
-       
-        <td>{{ date('d-m-Y', strtotime( $bookReserveRequest->issue_date)) }}</td>
-         <td>{{ $bookReserveRequest->bookstatus->name or '' }}</td>
+        <td>{{ $bookReserveRequest->memberShipDetails->member_ship_registration_no or '' }}</td>
+        <td>{{ $bookReserveRequest->booktype->name or '' }}</td>
+        <td>{{  $bookReserveRequest->created_at  or ''}}</td> 
+         <td>{{ $bookReserveRequest->status or ''}}</td>
         
         <td>
           <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.library.book.reserve.edit',Crypt::encrypt($bookReserveRequest->id)) }}')"><i class="fa fa-edit"></i></button>

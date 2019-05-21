@@ -8,14 +8,12 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box"> 
-            <div class="box-body">
-              <form action="{{ route('admin.library.ticket.details.store') }}" method="post"> 
-                {{ csrf_field() }}
+            <div class="box-body">             
              <div class="col-lg-4" id="ticket_details_show_div">
               <label>Search</label>
-               <input type="text" name="search_name" class="form-control" onkeyup="callAjax(this,'{{ route('admin.library.ticket.issue.details.search') }}','search_id')" placeholder="Search"> 
+               <input type="text" name="search_name" id="search_name" class="form-control" onkeyup="callAjax(this,'{{ route('admin.library.ticket.issue.details.search') }}','search_id')" placeholder="Search"> 
                </div> 
-              </form>
+                         
           </div>
           <div id="search_id">
             

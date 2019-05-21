@@ -17,11 +17,7 @@ class TicketDetailsController extends Controller
     	 
     	return view('admin.library.ticketIssue.ticket_Issue'); 
     }
-    public function tableShow()
-    { 
-    	 $tickets=TicketDetails::all();
-    	return view('admin.library.ticket.ticket_details_table',compact('tickets')); 
-    }
+    
 
     public function ticketAdd(Request $request,$id)
     {  

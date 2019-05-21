@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBookReserveRequestsTable extends Migration
+class CreateBookReservesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateBookReserveRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('book_reserve_requests', function (Blueprint $table) {
+        Schema::create('book__reserves', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('member_ship_type_id');
+            $table->unsignedInteger('member_ship_no_id');
             $table->unsignedInteger('book_name_id');
-            $table->date('upto_request_date');
-            $table->date('request_valid_upto');
-            $table->unsignedInteger('status');
-            $table->date('issue_date')->nullable();
+            $table->date('reserve_date');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateBookReserveRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('book_reserve_requests');
+        Schema::dropIfExists('book__reserves');
     }
 }

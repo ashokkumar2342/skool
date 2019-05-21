@@ -685,10 +685,10 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'Library\TicketDetailsController@index')->name('admin.library.ticket.details');
 			    Route::get('search', 'Library\TicketDetailsController@search')->name('admin.library.ticket.issue.details.search');
 			    Route::post('store', 'Library\TicketDetailsController@store')->name('admin.library.ticket.details.store');
-			    Route::get('table-show', 'Library\TicketDetailsController@tableShow')->name('admin.library.ticket.details.table.show');
-			    Route::get('ticket-add/{id}', 'Library\TicketDetailsController@ticketAdd')->name('admin.library.ticket.add');
-			    Route::get('delete/{id}', 'Library\TicketDetailsController@destroy')->name('admin.library.ticket.details.delete');
-			    Route::post('update/{id}', 'Library\TicketDetailsController@update')->name('admin.library.ticket.details.update');
+			   
+			    // Route::get('ticket-add/{id}', 'Library\TicketDetailsController@ticketAdd')->name('admin.library.ticket.add');
+			    // Route::get('delete/{id}', 'Library\TicketDetailsController@destroy')->name('admin.library.ticket.details.delete');
+			    // Route::post('update/{id}', 'Library\TicketDetailsController@update')->name('admin.library.ticket.details.update');
 
 
 			 });  
@@ -705,16 +705,11 @@ Route::group(['middleware' => 'admin'], function() {
 		    });
 		     Route::group(['prefix' => 'member-ship-details'], function() {
 			    Route::get('/', 'Library\MemberShipDetailsController@index')->name('admin.library.member.ship.details');
-			    Route::post('store', 'Library\MemberShipDetailsController@store')->name('admin.library.member.ship.details.store');
-			    Route::get('table-show', 'Library\MemberShipDetailsController@tableShow')->name('admin.library.member.ship.details.table.show'); 
+			    Route::post('store', 'Library\MemberShipDetailsController@store')->name('admin.library.member.ship.details.store'); 
 			    Route::get('student-search', 'Library\MemberShipDetailsController@studentSearch')->name('admin.library.member.ship.details.student.search');
 			    Route::get('student-show', 'Library\MemberShipDetailsController@studentShow')->name('admin.library.member.ship.details.student.show');
-			    Route::get('teacher-show', 'Library\MemberShipDetailsController@teacherShow')->name('admin.library.member.ship.details.teacher.show');
-			    Route::get('others-show', 'Library\MemberShipDetailsController@othersShow')->name('admin.library.member.ship.details.others.show');
-			    Route::get('edit/{id}', 'Library\MemberShipDetailsController@edit')->name('admin.library.member.ship.details.edit');
-			    Route::get('delete/{id}', 'Library\MemberShipDetailsController@destroy')->name('admin.library.member.ship.details.delete');
-			    Route::post('update/{id}', 'Library\MemberShipDetailsController@update')->name('admin.library.member.ship.details.update');
-
+			     Route::get('ticket-show', 'Library\MemberShipDetailsController@ticketDetailsShow')->name('admin.library.ticket.details.show');
+			     Route::post('ticket-store', 'Library\MemberShipDetailsController@ticketDetailsStore')->name('admin.library.member.registration.ticket.details.store'); 
 		    });
 		      Route::group(['prefix' => 'book-reserve-request'], function() {
 			    Route::get('/', 'Library\BookReserveRequestController@index')->name('admin.library.book.reserve.request');
