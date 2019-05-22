@@ -223,51 +223,39 @@
                   <div class="card-header ui-sortable-handle" style="cursor: move;">
                     <h3 class="card-title">Teacher Remark</h3>
 
-                    <div class="card-tools">
-                      <span data-toggle="tooltip" title="3 New Messages" class="badge badge-primary">3</span>
+                    <div class="card-tools"> 
+                      
                       <button type="button" class="btn btn-tool" data-widget="collapse">
                         <i class="fa fa-minus"></i>
                       </button> 
-                      <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i>
-                      </button>
+                       
                     </div>
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
-                    <!-- Conversations are loaded here -->
-                    <div class="direct-chat-messages">
-                      <!-- Message. Default to the left -->
-                      <div class="direct-chat-msg">
-                        <div class="direct-chat-info clearfix">
-                          <span class="direct-chat-name float-left">Alexander Pierce</span>
-                          <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
-                        </div>
-                        <!-- /.direct-chat-info -->
-                        @php
-                            $picture=Auth::guard('student')->user()->picture;
-                        @endphp
-      
-                        <img class="direct-chat-img" src="{{ route('student.image',$picture) }}" alt="">
-                        <!-- /.direct-chat-img -->
-                        <div class="direct-chat-text">
-                          Is this template really for free? That's unbelievable!
-                        </div>
-                        <!-- /.direct-chat-text -->
-                      </div>
-                      <!-- /.direct-chat-msg -->
+                     <table class="table"> 
+                       <thead>
+                         <tr>
+                           <th>Name</th>
+                           <th>Remark</th>
+                           <th>Action</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                        @foreach ($studentRemarks as $studentRemark) 
+                         <tr>
+                           <td>{{ $studentRemark->admin->first_name }}</td>
+                           <td>{{ mb_strimwidth($studentRemark->remark, 0, 40, "...") }}</td>
+                           <td>
+                              <button type="button" class="btn btn-info btn-sm" title="Reply" onclick="callPopupLarge(this,'{{ route('student.reply.remarks',$studentRemark->id) }}')"><i class="fa fa-reply"></i></button>
 
-                      <!-- Message to the right -->
-                      <div class="direct-chat-msg right">
-                        <div class="direct-chat-info clearfix">
-                          <span class="direct-chat-name float-right">Sarah Bullock</span>
-                          <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
-                        </div>
-                        <!-- /.direct-chat-info -->
-                        <img class="direct-chat-img" src="{{ route('student.image',$picture) }}" alt="">
-                        <!-- /.direct-chat-img -->
-                        <div class="direct-chat-text">
-                          You better believe it!
-                        </div>
+                              <button type="button" class="btn btn-success btn-sm" title="View" onclick="callPopupLarge(this,'{{ route('student.remarks.details.view',$studentRemark->id) }}')"><i class="fa fa-eye"></i></button> 
+                           </td>
+                         </tr>
+                        @endforeach
+                       </tbody>
+                     </table>
+                     
                         <!-- /.direct-chat-text -->
                       </div>
                       <!-- /.direct-chat-msg -->

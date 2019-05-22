@@ -7,6 +7,7 @@ use App\Model\Cashbook;
 use App\Model\Exam\ClassTest;
 use App\Model\Homework;
 use App\Model\StudentAttendance;
+use App\Model\StudentRemark;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -74,8 +75,10 @@ class DashboardController extends Controller
         $classTests = ClassTest::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->paginate(5);             
        $homeworks = Homework::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->paginate(5);            
         
-        $students = Student::where('status',1)->count();                        
-        return view('student/dashboard',compact('students','monthlyPresent','monthlyAbsent','weeklyPresent','weeklyAbsent','workingDays','tillPresent','tillAbsent','cashbooks','homeworks','classTests'));
+        $students = Student::where('status',1)->count();
+         
+         $studentRemarks=StudentRemark::where('student_id',$student->id)->get(); 
+        return view('student/dashboard',compact('students','monthlyPresent','monthlyAbsent','weeklyPresent','weeklyAbsent','workingDays','tillPresent','tillAbsent','cashbooks','homeworks','classTests','studentRemarks'));
         
     }
 
@@ -118,12 +121,18 @@ class DashboardController extends Controller
        $cashbook = new Cashbook();
        $fees = $cashbook->getFeeByStudentId($student->id);
             return view('student.fee.list',compact('fees'));
-    }
+     }
 
-   // public function feeDetails()
-   //  {
-   //      return view('student.fee.list');
-   //  }
+   public function studentReplyremarks($id)
+    {
+        $studentRemarks=StudentRemark::find($id);
+        return view('student.remark.student_reply_remark',compact('studentRemarks'));
+    }
+     public function remarksView($id)
+    {
+           $studentRemarks=StudentRemark::find($id);
+        return view('student.remark.student_remark_view',compact('studentRemarks'));
+    }
     public function passwordChange(Request $request)
     {
         $rules=[
