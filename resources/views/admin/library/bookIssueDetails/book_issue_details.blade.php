@@ -1,18 +1,44 @@
 @extends('admin.layout.base')
 @section('body')
   <!-- Main content -->
-  <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.library.book.issue.details.addform')}}')" style="margin:10px">Add Form</button>
+  <section class="content-header"> 
     <h1>Book Issue <small>Details</small> </h1>
        
     </section>  
     <section class="content">
       <div class="row">
-        <div class="col-xs-12">          
-            
-           <button id="btn_book_issue_details_table" hidden data-table="books_issue_data_table" onclick="callAjax(this,'{{ route('admin.library.book.issue.details.table.show') }}','book_issue_table_show')">show </button>
+        <div class="col-xs-12"> 
+           
           <div class="box"> 
-            <div class="box-body" id="book_issue_table_show">
+            <div class="box-body">
+              <form action="{{ route('admin.library.book.issue.details.store') }}" method="post" class="add_form">
+                {{ csrf_field() }}
+                <div class="row">
+                  <div class="col-lg-4">
+                    <label>Registration No</label>
+                    <select name="registration_no"  class="form-control select2" onchange="callAjax(this,'{{ route('admin.library.book.issue.onchange.registration.details') }}','member_ship_registration_details')">
+                      <option selected disabled>Select Registration No</option> 
+                      @foreach ($memberShipRegistrationDetails as $memberShipRegistrationDetail) 
+                      <option value="{{ $memberShipRegistrationDetail->id }}">{{ $memberShipRegistrationDetail->member_ship_registration_no }}</option> 
+                      @endforeach
+                    </select> 
+                  </div>
+                  <div id="member_ship_registration_details"> 
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Book Accession No</label>
+                    <select name="accession_no"  class="form-control select2" onchange="callAjax(this,'{{ route('admin.library.book.issue.onchange.accession.details') }}','book_accession_by_details')">
+                      <option selected disabled>Select Accession No</option> 
+                      @foreach ($bookAccessions as $bookAccession) 
+                      <option value="{{ $bookAccession->id }}">{{ $bookAccession->accession_no }}</option> 
+                      @endforeach
+                    </select> 
+                  </div>
+                  <div id="book_accession_by_details"> 
+                  </div>
+                </div>
+                
+              </form>
            
             </div>
           </div>

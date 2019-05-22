@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin\Library;
 use App\Http\Controllers\Controller;
 use App\Model\Library\BookAccession;
 use App\Model\Library\BookIssueDetails;
+use App\Model\Library\Booktype;
 use App\Model\Library\LibraryMemberType;
+use App\Model\Library\MemberShipDetails;
 use App\Model\Library\TicketDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -15,28 +17,21 @@ class BookIssueDetailsController extends Controller
 {
     public function index()
     {
-    	return view('admin.library.bookIssueDetails.book_issue_details');
+
+         $memberShipRegistrationDetails=MemberShipDetails::all();
+         $bookAccessions=BookAccession::all();
+    	return view('admin.library.bookIssueDetails.book_issue_details',compact('memberShipRegistrationDetails','bookAccessions'));
     } 
 
-    public function addForm()
-    {    
-         $tickets=TicketDetails::all(); 
-    	 $bookaccessionss=BookAccession::all();
-    	 $librarymembertypes= LibraryMemberType::all();
-    	return view('admin.library.bookIssueDetails.book_issue_details_add_form',compact('librarymembertypes','bookaccessionss','tickets'));
-    }
+    
+    
     public function store(Request $request)
     {
-        // return $request;
-         $rules=[
-        
-            
-            'member_ship_type' => 'required', 
-            'accession_no' => 'required', 
-            'no_of_ticket' => 'required', 
-            'issue_date' => 'required', 
-            'issue_upto_date' => 'required', 
-            'return_able' => 'required', 
+          
+         $rules=[ 
+            'registration_no'=>'required',
+            'accession_no' => 'required',
+            'ticket_no' => 'required',
        
       ];
 
@@ -49,32 +44,27 @@ class BookIssueDetailsController extends Controller
           return response()->json($response);// response as json
       }
         else {
-         $bookIssueDetails=new BookIssueDetails();
-         $bookIssueDetails->member_ship_type_id=$request->member_ship_type;
+         $bookIssueDetails=new BookIssueDetails(); 
+         $bookIssueDetails->registration_no=$request->registration_no;
          $bookIssueDetails->accession_no=$request->accession_no;
-         $bookIssueDetails->no_of_ticket=$request->no_of_ticket;
+         $bookIssueDetails->ticket_no=$request->ticket_no;
          $bookIssueDetails->issue_date=$request->issue_date;
          $bookIssueDetails->issue_up_to_date=$request->issue_upto_date;
          $bookIssueDetails->return_able=$request->return_able;
          $bookIssueDetails->save();
-         $response=['status'=>1,'msg'=>'Created Successfully'];
+         $response=['status'=>1,'msg'=>'Issue Successfully'];
             return response()->json($response);
         }
     }
-    public function tableShow()
+    public function registrationOnchange(Request $request)
     {
-       $bookIssueDetails= BookIssueDetails::all();
-        return view('admin.library.bookIssueDetails.book_issue_details_table',compact('bookIssueDetails'));  
+        $memberShipRegistrationDetails=MemberShipDetails::find($request->id);
+       return view('admin.library.bookIssueDetails.book_issue_registration_by_show',compact('memberShipRegistrationDetails'));
     }
-    public function edit($id)
+     public function accessionOnchange(Request $request)
     {
-         
-    } 
-    public function destroy($id)
-    {
-         $bookIssueDetails= BookIssueDetails::findOrFail(Crypt::decrypt($id));
-         $bookIssueDetails->delete();
-       return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
-         
+         $bookAccession=BookAccession::where('id',$request->id)->first();
+         $bookType=Booktype::where('id',$bookAccession->book_id)->first(); 
+       return view('admin.library.bookIssueDetails.book_accession_by_details_show',compact('bookAccession','bookType'));
     }
 }

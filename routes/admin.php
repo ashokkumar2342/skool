@@ -723,11 +723,10 @@ Route::group(['middleware' => 'admin'], function() {
 
 		      Route::group(['prefix' => 'book-issue-details'], function() {
 			    Route::get('/', 'Library\BookIssueDetailsController@index')->name('admin.library.book.issue.details');
-			    Route::get('add-form', 'Library\BookIssueDetailsController@addForm')->name('admin.library.book.issue.details.addform');
-			    Route::get('table-show', 'Library\BookIssueDetailsController@tableShow')->name('admin.library.book.issue.details.table.show'); 
-			    Route::post('store', 'Library\BookIssueDetailsController@store')->name('admin.library.book.issue.details.store');
-			    Route::get('edit/{id}', 'Library\BookIssueDetailsController@edit')->name('admin.library.book.issue.details.edit');
-			    Route::get('delete/{id}', 'Library\BookIssueDetailsController@destroy')->name('admin.library.book.issue.details.delete');
+			    Route::post('store', 'Library\BookIssueDetailsController@store')->name('admin.library.book.issue.details.store'); 
+			    Route::get('registration-onchange', 'Library\BookIssueDetailsController@registrationOnchange')->name('admin.library.book.issue.onchange.registration.details');
+			    Route::get('accession-onchange', 'Library\BookIssueDetailsController@accessionOnchange')->name('admin.library.book.issue.onchange.accession.details');
+			     
             });
 
 
