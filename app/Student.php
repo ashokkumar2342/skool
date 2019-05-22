@@ -35,7 +35,10 @@ class Student extends Authenticatable
     }    
      
     public function sessions(){
-        return $this->hasOne('App\Model\SessionDate','id','session_id');
+        return $this->hasOne('App\Model\AcademicYear','id','session_id');
+    }
+    public function academicYear(){
+        return $this->hasOne('App\Model\AcademicYear','id','session_id');
     }
     public function sectionTypes(){
         return $this->hasOne('App\Model\SectionType','id','section_id');

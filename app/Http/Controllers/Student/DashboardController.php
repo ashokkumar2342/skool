@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Model\AcademicYear;
 use App\Model\Cashbook;
 use App\Model\Exam\ClassTest;
 use App\Model\Homework;
 use App\Model\StudentAttendance;
+use App\Model\StudentFeeDetail;
 use App\Model\StudentRemark;
 use App\Student;
 use Illuminate\Http\Request;
@@ -28,19 +30,26 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $student = Auth::guard('student')->user();
+        $student_id = $student->id;
         $date = date('Y-m-d');
         $year = date('Y');
         $firstDay = date('d')-1;
-       $sessionDate = date('Y-m-d',strtotime($year.'-04-01'));
+   
+        $sessionDate =  AcademicYear::find($student->session_id)->start_date;
         $monthOfFirstDate = date('Y-m-d',strtotime($date ."-".$firstDay." days"));
-        $student_id = Auth::guard('student')->user()->id;
-        $student = Auth::guard('student')->user();
+        
+        
      
          $monthly=date('Y-m-d',strtotime($date ."-30 days"));
          $weekly=date('Y-m-d',strtotime($date ."-7 days")); 
 
-         $cashbook = new Cashbook();
+         $cashbook = new Cashbook(); 
          $cashbooks = $cashbook->getCashbookFeeByStudentId($student_id,$sessionDate,$date);
+         $lastFee = $cashbook->getLastFeeByStudentId($student_id);
+         $studentFeeDetail = new StudentFeeDetail();
+         // $studentFeeDetails = $studentFeeDetail->getFeeDetailsNextByStudentId($student_id);
+
 
          $monthlyPresent = StudentAttendance::where('attendance_type_id',1)
                     ->where('student_id', $student_id)
@@ -72,13 +81,13 @@ class DashboardController extends Controller
                     ->where('student_id', $student_id)
                     ->whereBetween('date', [$sessionDate, $date])
                     ->count(); 
-        $classTests = ClassTest::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->paginate(5);             
-       $homeworks = Homework::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->paginate(5);            
+        $classTests = ClassTest::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->take(10)->get();              
+       $homeworks = Homework::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->take(10)->get();            
         
         $students = Student::where('status',1)->count();
          
-         $studentRemarks=StudentRemark::where('student_id',$student->id)->get(); 
-        return view('student/dashboard',compact('students','monthlyPresent','monthlyAbsent','weeklyPresent','weeklyAbsent','workingDays','tillPresent','tillAbsent','cashbooks','homeworks','classTests','studentRemarks'));
+         $studentRemarks=StudentRemark::where('student_id',$student->id)->take(10)->get(); 
+        return view('student/dashboard',compact('students','monthlyPresent','monthlyAbsent','weeklyPresent','weeklyAbsent','workingDays','tillPresent','tillAbsent','cashbooks','homeworks','classTests','studentRemarks','lastFee'));
         
     }
 

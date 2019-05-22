@@ -40,13 +40,13 @@
                 <div class="small-box bg-success">
                   <div class="inner"> 
                      <h3>{{ $cashbooks->sum('receipt_amount') }} <sup style="font-size: 20px">Fee Paid Upto</sup></small></h3> 
-                    <span>Last Date : {{ date('d-m-Y') }}</span><br>
-                    <span>Receipt No. : 1234334</span><br>
-                    <span>Amount. : 10000</span>
+                    <span>Last Date : {{$lastFee['receipt_date']==null?'': date('d-m-Y',strtotime($lastFee['receipt_date'])) }}</span><br>
+                    <span>Receipt No. : {{ $lastFee['receipt_no'] }}</span><br>
+                    <span>Amount. : {{ $lastFee['receipt_amount'] }}</span>
                     
                   </div>
                   <div class="icon">
-                    <i class="ion ion-bag"></i>
+                    {{-- <i class="ion ion-bag"></i> --}}
                   </div>
                   <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
@@ -65,7 +65,7 @@
                      
                   </div>
                   <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
+                    {{-- <i class="ion ion-stats-bars"></i> --}}
                   </div>
                   <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
@@ -105,7 +105,7 @@
  
                   </div>
                   <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                    {{-- <i class="ion ion-person-add"></i> --}}
                   </div>
                   <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
@@ -138,14 +138,14 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          @foreach ($classTests as $classTest) 
+                        @foreach ($classTests as $classTest) 
+                        <tr> 
                           <td>{{ $classTest->subjects->name or '' }}</td>
                           <td>{{ $classTest->max_marks }}</td>
                           <td>{{ date('d-m-Y',strtotime($classTest->test_date)) }}</td>
-                          <td>{{ $classTest->discription }}</td>
-                          @endforeach
+                          <td>{{ $classTest->discription }}</td> 
                         </tr>
+                        @endforeach
                       </tbody>
                     </table>
                   </div>
@@ -197,7 +197,7 @@
                          @foreach ($homeworks as $homework)   
                         <tr>
                           <td>{{ date('d-m-Y',strtotime($homework->date)) }}</td>
-                          <td> {{ $homework->homework }} </td>
+                          <td>{{ mb_strimwidth($homework->homework, 0, 40, "...") }}  </td>
                           <td>
                               <button type="homework" onclick="callPopupLarge(this,'{{ route('student.homework.view',$homework->id) }}')" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
                                <a href="{{ url('storage/homework/'.$homework->homework_doc) }}" class="btn btn-success btn-sm {{ $homework->homework_doc!=null?'':'disabled' }} " target="_blank" title=""><i class="fa fa-download"></i></a>
@@ -211,9 +211,7 @@
                     </div>
                   </div>
                   <!-- /.card-body --> 
-                  <div class="card-footer"> 
-                      {{ $homeworks->links() }}
-                  </div>
+                 
                 </div>
                 <!-- /.card -->
               </section>
@@ -233,7 +231,7 @@
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
-                     <table class="table"> 
+                     <table class="table m-3"> 
                        <thead>
                          <tr>
                            <th>Name</th>
