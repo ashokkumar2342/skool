@@ -46,7 +46,7 @@
                 <div class="card card-primary card-outline">
                  <div class="card-body">
                    <div class="table-responsive">
-                     <table class="table m-0" id="class_homework_data_table">
+                     <table class="table m-0">
                        <thead>
                        <tr>
                          <th>Date</th> 
@@ -85,16 +85,8 @@
 
 
 @endsection
-@push('links')
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-@endpush
 @push('scripts')
- <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
- <script type="text/javascript">
-     $(document).ready(function(){
-        $('#class_homework_data_table').DataTable();
-    });
-
-     
-  </script>
-  @endpush
+<script>
+ 
+</script>
+@endpush

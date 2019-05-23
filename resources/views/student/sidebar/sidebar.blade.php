@@ -54,15 +54,6 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{ route('student.class.test') }}" class="nav-link">
-                  <i class="nav-icon fa fa-file-text-o text-primary"></i>
-                  <p>
-                    Class Test
-                    <span class="right badge badge-danger "></span>
-                  </p>
-                </a>
-              </li>
                
                
             
