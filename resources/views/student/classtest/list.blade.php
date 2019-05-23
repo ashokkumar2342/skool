@@ -25,7 +25,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Homework</h1>
+            <h1>Class Test</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right"> 
@@ -46,34 +46,32 @@
                 <div class="card card-primary card-outline">
                  <div class="card-body">
                    <div class="table-responsive">
-                     <table class="table m-0" id="class_homework_data_table">
-                       <thead>
-                       <tr>
-                         <th>Date</th> 
-                         <th>Homework</th>
-                         <th>Action</th> 
-                       </tr>
+                      <table class="table" id="class_test_data_table"> 
+                        <thead>
+                         <tr>
+                           <th>Subject</th>
+                           <th>Maximum Marks</th>
+                           <th>Test Date</th>
+                           <th>Discriptoin</th>
+                         </tr>
                        </thead>
                        <tbody>
-                        @foreach ($homeworks as $homework)   
-                       <tr>
-                         <td>{{ date('d-m-Y',strtotime($homework->date)) }}</td>
-                         <td> {{ $homework->homework }} </td>
-                         <td>
-                             <button type="homework" onclick="callPopupLarge(this,'{{ route('student.homework.view',$homework->id) }}')" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
-                              <a href="{{ url('storage/homework/'.$homework->homework_doc) }}" class="btn btn-success btn-sm {{ $homework->homework_doc!=null?'':'disabled' }} " target="_blank" title=""><i class="fa fa-download"></i></a>
-                         </td>
+                         <tr>
+                           @foreach ($classTests as $classTest) 
+                             <td>{{ $classTest->subjects->name or '' }}</td>
+                             <td>{{ $classTest->max_marks }}</td>
+                             <td>{{ date('d-m-Y',strtotime($classTest->test_date)) }}</td>
+                             <td>{{ $classTest->discription or '' }}</td>
+                           @endforeach
+                         </tr>
                           
-                       </tr>
-                       @endforeach
-                      
-                       </tbody>
-                     </table>
+                        </tbody>
+                      </table>
                    </div>
                  </div>
                  <!-- /.card-body --> 
                  <div class="card-footer"> 
-                     {{ $homeworks->links() }}
+                     
                  </div>
                 </div>
               </div>
@@ -92,7 +90,7 @@
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script type="text/javascript">
      $(document).ready(function(){
-        $('#class_homework_data_table').DataTable();
+        $('#class_test_data_table').DataTable();
     });
 
      
