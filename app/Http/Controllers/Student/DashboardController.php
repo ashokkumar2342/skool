@@ -122,6 +122,11 @@ class DashboardController extends Controller
        $fees = $cashbook->getFeeByStudentId($student->id);
             return view('student.fee.list',compact('fees'));
      }
+     public function classTest(){ 
+        $student = Auth::guard('student')->user(); 
+        $classTests = ClassTest::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->paginate(10); 
+            return view('student.classtest.list',compact('classTests'));
+     }
 
    public function studentReplyremarks($id)
     {
