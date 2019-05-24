@@ -38,25 +38,8 @@
 <!-- /.login-box -->
 @endsection --}}
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <title>Iskool User Login</title>
-        
-        
-        <!-- Favicon -->
-        <link rel="shortcut icon" href="https://grc.lawrbit.com/img/favicon.ico">
-        <link rel="icon" href="favicon.ico" type="image/x-icon">
-        
-        <!-- vector map CSS -->
-        <link href=https://grc.lawrbit.com/vendors/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css rel="stylesheet" type="text/css"/>
-        
-        
-        
-        <!-- Custom CSS -->
-        <link href=https://grc.lawrbit.com/dist/css/style.css rel="stylesheet" type="text/css">
+ @extends('admin.layout.auth')
+@section('body')
         <style type="text/css">
         html, body{height:100%;} 
             #outer{
@@ -64,7 +47,7 @@
             }
             .intro {
                 min-height: 100vh;
-                background-image: url(https://grc.lawrbit.com/img/grc_index.png);
+                background-image: url("{{asset('front_asset/extra-images/about_us_img.jpg')}}");
                 background-size: cover;
                 object-fit: cover;
                 background-repeat: no-repeat;
@@ -84,7 +67,11 @@
                 
             }
             .auth-form {
-            width: 350px
+
+            width: 330px; 
+            margin-left: 100px;
+            padding-top: 50px;
+
                
             }
             .sp-logo-wrap{
@@ -101,8 +88,7 @@
             }
             
         </style>
-    </head>
-    <body>
+    
         <!--Preloader-->
         <div class="preloader-it">
             <div class="la-anim-1"></div>
@@ -113,7 +99,7 @@
             
             
             <!-- Main Content -->
-            <div class="page-wrapper pa-0 ma-0 auth-page"  style="background-color: #f4f6f9">
+            <div class="page-wrapper pa-0 ma-0 auth-page"  style="background-color: #ccceff">
                 <div class="container-fluid pa-0 ma-0">
                     <!-- Row -->
                     <div class="col-lg-6">
@@ -124,9 +110,8 @@
 
                             <div class="table-cell vertical-align-middle auth-form-wrap">
                                 <div class="text-center">
-                                    <a href=https://grc.lawrbit.com>
-                                        <img class="brand-img"  src=https://grc.lawrbit.com/img/logo.png alt="brand" style="padding-bottom: 30px;"  /> 
-                                    </a>
+                                  <a href="#"><img src="{{asset('front_asset/images/logo.png')}}" alt="" style="margin-right:180px; padding-top:  80px" style=" " ></a>
+                                    
                                 </div>
                                 <div class="auth-form  ml-auto mr-auto no-float">
                                     <div class="row well well-sm">
@@ -140,8 +125,9 @@
                                             <div class="form-wrap">
                                               <!-- /.login-logo -->
                                                 <div class="login-box-body">
-                                                  <p class="login-box-msg">   
-                                                  {{-- {{ Auth::user()->name }} --}}
+                                                  <p class="login-box-msg"></p> 
+
+                                                   {{--{{ Auth::user()->name }}  --}}
                                                   {!! Form::open(['route'=>'admin.login']) !!}
                                                     <div class="form-group has-feedback">
                                                       {{ Form::label('email','Email',['class'=>' control-label']) }}
@@ -158,9 +144,9 @@
                                                     </div>
                                                     <div class="row">
                                                        
-                                                      <a href="#" onclick="callPopupLarge(this,'{{ route('admin.forget.password') }}')">Forget Password</a>
+                                                      <a href="#" onclick="callPopupLarge(this,'{{ route('admin.forget.password') }}')">Forgot Password</a>
                                                       <div class="col-xs-4">
-                                                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                                                        <button type="submit" class="btn btn-primary btn-rounded">Sign In</button>
                                                       </div>
                                                       <!-- /.col -->
                                                     </div>
@@ -174,36 +160,17 @@
                       </div> 
                         
                     </div>
-                    <div class="col-lg-6 hidden-xs pa-0 ma-0 intro">  
-                        
-                            <!-- START carousel-->
-                           
-                            <!-- END carousel-->
-                     
-                    
-                     
-                </div>
+                    <div class="col-lg-6 hidden-xs pa-0 ma-0 intro">
+
+                    </div>
                 
             </div>
             
         </div>
+        @endsection 
         <!-- /#wrapper -->
    
        
         
         <!-- jQuery -->
-        <script src=https://grc.lawrbit.com/vendors/bower_components/jquery/dist/jquery.min.js></script>
         
-        <!-- Bootstrap Core JavaScript -->
-        <script src=https://grc.lawrbit.com/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js></script>
-        <script src=https://grc.lawrbit.com/vendors/bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js></script>
-        
-        <!-- Slimscroll JavaScript -->
-        <script src=https://grc.lawrbit.com/dist/js/jquery.slimscroll.js></script>
-        
-        <!-- Init JavaScript -->
-        <script src=https://grc.lawrbit.com/dist/js/init.js></script>
-        <script type="text/javascript" src="https://grc.lawrbit.com/js/validation/core_validation.min.js"></script>
-        <script>$.validate();</script>
-    </body>
-</html>
