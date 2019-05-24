@@ -63,6 +63,15 @@
                   </p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('student.event') }}" class="nav-link">
+                  <i class="nav-icon fa fa-star text-danger"></i>
+                  <p>
+                    Event
+                    <span class="right badge badge-danger "></span>
+                  </p>
+                </a>
+              </li>
                
                
             

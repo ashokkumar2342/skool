@@ -18,6 +18,7 @@ Route::group(['middleware' => 'student'], function() {
 	Route::get('attendance', 'DashboardController@attendance')->name('student.attendance');
 	Route::get('fee/details', 'DashboardController@feeDetails')->name('student.fee.details'); 
 	Route::get('class-test', 'DashboardController@classTest')->name('student.class.test'); 
+	Route::get('event', 'DashboardController@event')->name('student.event'); 
 	Route::get('remarks', 'DashboardController@remarks')->name('student.remarks');
 	Route::get('view/{id}', 'DashboardController@remarksView')->name('student.remarks.details.view'); 
 	Route::get('student-reply-remark/{id}', 'DashboardController@studentReplyremarks')->name('student.reply.remarks'); 

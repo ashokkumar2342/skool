@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\Cashbook;
+use App\Model\Event\EventDetails;
 use App\Model\Exam\ClassTest;
 use App\Model\Homework;
 use App\Model\StudentAttendance;
@@ -136,6 +137,11 @@ class DashboardController extends Controller
         $classTests = ClassTest::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->paginate(10); 
             return view('student.classtest.list',compact('classTests'));
      }
+     public function event(){
+        // $student = Auth::guard('student')->user();
+        $events = EventDetails::all();
+            return view('student.event.list',compact('events'));
+    }
 
    public function studentReplyremarks($id)
     {
