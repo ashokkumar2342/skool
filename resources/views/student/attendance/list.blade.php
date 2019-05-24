@@ -22,6 +22,9 @@
   .fc-time{
    display : none;
 }
+.fc-title{
+  font-size:18px;
+}
 </style>
 @endpush
 
@@ -255,7 +258,7 @@
       ini_events(event)
 
       //Remove event from text input
-      $('#new-event').val('')
+      $('#new-event').val('') 
     })
   })
 </script>
