@@ -3,7 +3,7 @@
 Route::get('/', 'Auth\LoginController@index')->name('admin.home');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('admin.login'); 
 Route::get('admin-password/reset', 'Auth\ForgetPasswordController@sendResetLinkEmail')->name('admin.password.email');
-Route::get('passwordreset/reset', 'Auth\ForgetPasswordController@showLinkRequestForm')->name('admin.password.request');
+Route::get('passwordreset/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
 Route::get('logout', 'Auth\LoginController@logout')->name('admin.logout.get');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('forget-password', 'Auth\LoginController@forgetPassword')->name('admin.forget.password');
@@ -734,6 +734,26 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('store', 'Library\BookIssueDetailsController@store')->name('admin.library.book.issue.details.store'); 
 			    Route::get('registration-onchange', 'Library\BookIssueDetailsController@registrationOnchange')->name('admin.library.book.issue.onchange.registration.details');
 			    Route::get('accession-onchange', 'Library\BookIssueDetailsController@accessionOnchange')->name('admin.library.book.issue.onchange.accession.details');
+			     
+            }); 
+		      Route::group(['prefix' => 'event-type'], function() {
+			    Route::get('/', 'Event\EventTypeController@index')->name('admin.event.type');
+			    Route::post('store', 'Event\EventTypeController@store')->name('admin.event.type.store');
+			    Route::get('event-add', 'Event\EventTypeController@addEventType')->name('admin.event.type.add.form');
+			    Route::get('table-show', 'Event\EventTypeController@tableShow')->name('admin.event.type.table.show');
+			    Route::get('edit/{id}', 'Event\EventTypeController@edit')->name('admin.event.type.edit');
+			    Route::get('delete/{id}', 'Event\EventTypeController@destroy')->name('admin.event.type.delete');
+			    Route::post('update/{id}', 'Event\EventTypeController@update')->name('admin.event.type.update'); 
+			    
+			     
+            });
+              Route::group(['prefix' => 'event-details'], function() {
+			   Route::get('/', 'Event\EventDetailsController@index')->name('admin.event.details');
+			    Route::get('add-form', 'Event\EventDetailsController@addForm')->name('admin.event.details.add.form'); 
+			    Route::get('onchange', 'Event\EventDetailsController@onChange')->name('admin.event.details.onchange'); 
+			    Route::post('store', 'Event\EventDetailsController@store')->name('admin.event.details.store'); 
+			    Route::get('table-show', 'Event\EventDetailsController@tableShow')->name('admin.event.details.table.show');
+			    // Route::get('accession-onchange', 'Library\BookIssueDetailsController@accessionOnchange')->name('admin.library.book.issue.onchange.accession.details');
 			     
             });
 
