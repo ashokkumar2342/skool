@@ -33,15 +33,14 @@ class BooksController extends Controller
     {
     	 $rules=[
           
-            'name' => 'required', 
-            'code' => 'required', 
+            'name' => 'required',
+            'code' => "required|max:12|unique:booktypes,code", 
             'edition' => 'required', 
             'price' => 'required', 
             'no_of_pages' => 'required', 
             'hall_no' => 'required', 
             'shelf_no' => 'required', 
             'box_no' => 'required', 
-            
             'subject' => 'required', 
             'publisher' => 'required', 
             'author' => 'required', 
@@ -128,7 +127,7 @@ class BooksController extends Controller
     $rules=[
           
             'name' => 'required', 
-            'code' => 'required', 
+            'code' => "required|max:12|unique:booktypes,code", 
             'edition' => 'required', 
             'price' => 'required',
             'hall_no' => 'required', 

@@ -24,12 +24,13 @@ class LibraryController extends Controller
     public function store(Request $request)
     {
     	$rules=[
-    	'code' => 'required|max:20', 
+    	'code' => 'required|max:10|unique:publishers,code', 
             'name' => 'required|max:199', 
             'mobile_no' =>'required|digits:10', 
-            'email' => "required|max:50|email", 
+            'email' => "required|max:50|email|unique:publishers,email", 
             "address" => 'max:1000|nullable',
-            "email" => 'max:50|nullable',
+             
+             
               
        
     	];
@@ -79,12 +80,11 @@ class LibraryController extends Controller
      public function update(Request $request,$id)
      {
      	$rules=[
-        'code' => 'required|max:4', 
-            'name' => 'required|max:50', 
-            'mobile_no' => 'required|digits:10', 
-            'email' => 'required|max:50|email', 
-              
-            'address' => 'required|max:1000', 
+            'code' => 'required|max:10|unique:publishers,code', 
+            'name' => 'required|max:199', 
+            'mobile_no' =>'required|digits:10', 
+            'email' => "required|max:50|email|unique:publishers,email", 
+            "address" => 'max:1000|nullable',
         ];
 
         $validator = Validator::make($request->all(),$rules);

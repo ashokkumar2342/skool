@@ -24,7 +24,7 @@ class LibraryMemberTypeController extends Controller
         $rules=[
 
            'member_ship_type' => 'required', 
-            'member_ship_code' => 'required', 
+           'member_ship_code' => 'required|unique:library_member_types,member_ship_code', 
             
        
         ];
@@ -70,7 +70,7 @@ class LibraryMemberTypeController extends Controller
     	  $rules=[
           
             'member_ship_type' => 'required', 
-            'member_ship_code' => 'required',
+            'member_ship_code' => 'required|unique:library_member_types,member_ship_code',
        
         ];
 
