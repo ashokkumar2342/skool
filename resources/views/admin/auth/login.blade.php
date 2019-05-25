@@ -68,16 +68,13 @@
             }
             .auth-form {
 
-            width: 330px; 
-            margin-left: 100px;
-            padding-top: 50px;
+            width: 430px; 
+            margin-left: 150px;
+            padding-top: 30px;
 
                
             }
-            .sp-logo-wrap{
-                padding-top: 50px;
-                padding-right: 20px;
-            }
+            
             .control-label{
                 
                 font-size: 12px;
@@ -85,6 +82,12 @@
                 font-family: SFS, Arial, sans-serif;
                 margin: 0 0 8px 0;
                 line-height: inherit;
+            }
+            .container-fluid {
+                  padding-right: 0px; 
+                 padding-left: 0px;  
+                margin-right: auto;
+                margin-left: auto;
             }
             
         </style>
@@ -95,33 +98,23 @@
         </div>
         <!--/Preloader-->
         
-        <div class="wrapper pa-0">
-            
-            
+        <div class="wrapper pa-0"> 
             <!-- Main Content -->
-            <div class="page-wrapper pa-0 ma-0 auth-page"  style="background-color: #ccceff">
+            <div class="page-wrapper pa-0 ma-0 auth-page"  style="background-color: #f5f4f4db;">
                 <div class="container-fluid pa-0 ma-0">
                     <!-- Row -->
-                    <div class="col-lg-6">
-                      
-                            
+                    <div class="col-lg-6"> 
                      
                         <div class="table-struct full-width full-height">
 
                             <div class="table-cell vertical-align-middle auth-form-wrap">
                                 <div class="text-center">
-                                  <a href="#"><img src="{{asset('front_asset/images/logo.png')}}" alt="" style="margin-right:180px; padding-top:  80px" style=" " ></a>
+                                  <a href="#"><img src="{{asset('front_asset/images/logo.png')}}" alt="" style=" padding-top:150px;padding-right: 70px"></a>
                                     
                                 </div>
                                 <div class="auth-form  ml-auto mr-auto no-float">
                                     <div class="row well well-sm">
-                                        <div class="col-sm-12 col-xs-12">
-
-                                            <div class="mb-30">
-                                                
-                                              
-                                            </div>
-                                                                                        
+                                        <div class="col-sm-12 col-xs-12">               
                                             <div class="form-wrap">
                                               <!-- /.login-logo -->
                                                 <div class="login-box-body">

@@ -3,6 +3,7 @@
 @push('links')
 <link rel="stylesheet" href="{{ asset('student_assets/plugins/fullcalendar/fullcalendar.min.css') }}">
 <link rel="stylesheet" href="{{ asset('student_assets/plugins/fullcalendar/fullcalendar.print.css') }}" media="print">
+<link rel="stylesheet" href="{{ asset('student_assets/plugins/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">') }}" media="print">
 <style>
   .table td, .table th {
       padding: .0rem; 
@@ -132,8 +133,20 @@
       },
       //Random default events
       events    : [
-       
-      
+       @foreach ($events as $key=>$event)
+
+          {
+           title          : '{{ $event->event_name }}',
+           start          : '{{ $event->start_date }}',
+           end          : '{{ $event->end_date }}',
+           
+            backgroundColor: '#008000', //red
+             borderColor    : '#008000', //red
+             textColor: '#FFF'
+            
+           
+         },
+       @endforeach 
        
       ],
       allDay: false,
