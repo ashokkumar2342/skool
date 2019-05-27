@@ -8,6 +8,7 @@ use App\Model\Library\BookIssueDetails;
 use App\Model\Library\Booktype;
 use App\Model\Library\LibraryMemberType;
 use App\Model\Library\MemberShipDetails;
+use App\Model\Library\MemberShipFacility;
 use App\Model\Library\MemberTicketDetails;
 use App\Model\Library\TicketDetails;
 use Illuminate\Http\Request;
@@ -45,14 +46,13 @@ class BookIssueDetailsController extends Controller
           return response()->json($response);// response as json
       }
         else {
+ 
           $memberHasTicketsId=MemberTicketDetails::where('member_ship_details_id',$request->registration_no)->pluck('ticket_no')->toArray();
          $bookIssueDetails=new BookIssueDetails(); 
         $bookIssueDetails->registration_no=$request->registration_no;
          $bookIssueDetails->accession_no=$request->accession_no;
          $bookIssueDetails->ticket_no=$request->ticket_no;
-         $bookIssueDetails->issue_date=date('Y-m-d');
-         $bookIssueDetails->issue_up_to_date=date('Y-m-d');
-         $bookIssueDetails->return_able=$request->return_able; 
+         $bookIssueDetails->issue_date=date('Y-m-d');         
          $memberHasTicketsId=MemberTicketDetails::where('member_ship_details_id',$request->registration_no)->pluck('ticket_no')->toArray();
          $bookIssueAccessionId=BookIssueDetails::where('accession_no',$request->accession_no)->first();
          if (!empty($bookIssueAccessionId)) {
@@ -65,6 +65,9 @@ class BookIssueDetailsController extends Controller
                   $response=['status'=>0,'msg'=>'Already Issue'];
                   return response()->json($response);
               }else{
+                 $memberShipFacilityId=MemberTicketDetails::where('ticket_no',$request->ticket_no)->first()->member_ship_facility_id;
+                 $membershipfacility= MemberShipFacility::find($memberShipFacilityId);
+                  $bookIssueDetails->issue_upto_date =date('Y-m-d',strtotime(date('Y-m-d')."+".$membershipfacility->no_of_days." days"));
                  $bookIssueDetails->save();
                  $response=['status'=>1,'msg'=>'Issue Successfully'];
                  return response()->json($response);

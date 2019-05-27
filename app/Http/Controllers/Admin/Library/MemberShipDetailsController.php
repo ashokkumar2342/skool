@@ -65,7 +65,7 @@ class MemberShipDetailsController extends Controller
 	}
     public function ticketDetailsStore(Request $request)
     {  
-           return $request;
+          
          $rules=[ 
            'no_of_days'=>'required',
            'ticket_no'=>'required|max:6|unique:member_ticket_details,ticket_no',

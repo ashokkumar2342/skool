@@ -5,18 +5,15 @@
     <h1>Book Issue <small>Details</small> </h1>
        
     </section>  
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12"> 
-           
+    <section class="content"> 
           <div class="box"> 
             <div class="box-body">
-              <form action="{{ route('admin.library.book.issue.details.store') }}" method="post" class="add_form">
+              <form action="{{ route('admin.library.book.issue.details.store') }}" method="post" class="add_form" success-content-id="btn_book_issue_history">
                 {{ csrf_field() }}
                 <div class="row">
                   <div class="col-lg-4">
                     <label>Registration No</label>
-                    <select name="registration_no"  class="form-control select2" onchange="callAjax(this,'{{ route('admin.library.book.issue.onchange.registration.details') }}','member_ship_registration_details')">
+                    <select name="registration_no" button-click="btn_book_issue_history"  class="form-control select2" onchange="callAjax(this,'{{ route('admin.library.book.issue.onchange.registration.details') }}','member_ship_registration_details')">
                       <option selected disabled>Select Registration No</option> 
                       @foreach ($memberShipRegistrationDetails as $memberShipRegistrationDetail) 
                       <option value="{{ $memberShipRegistrationDetail->id }}">{{ $memberShipRegistrationDetail->member_ship_registration_no }}</option> 
@@ -41,10 +38,18 @@
               </form>
            
             </div>
+            
+
+          </div> 
+          <div id="history_book_issue">
+              
           </div>
-        </div>
-      </div>
+          
+            
+     
+
     </section>
+     
     <!-- /.content -->
 
 @endsection
