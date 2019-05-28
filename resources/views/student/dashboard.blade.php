@@ -6,6 +6,7 @@
       padding: .0rem; 
       vertical-align: top;
       border-top: 1px solid #dee2e6;
+
   }
 </style>
 @endpush
@@ -77,13 +78,13 @@
                   <div class="inner">
                      <span>Working Days : <b>{{ $workingDays }}</b></span>
 
-                    <table class="table">
+                    <table class="table" style="font-size:14px;">
                      
                       <tbody>
                         <tr>
-                          <td>Attendance</td>
-                          <td>Present</td>
-                          <td>Absent</td>
+                          <td style="font-size:14px;color:#000;font-weight: 800px">Attendance</td>
+                          <td style="font-size:14px;color:#000;font-weight: 800px">Present</td>
+                          <td style="font-size:14px;color:#000;font-weight: 800px">Absent</td>
                         </tr>
                          <tr>
                           <td>Till Date</td>
@@ -234,7 +235,7 @@
                      <table class="table m-3"> 
                        <thead>
                          <tr>
-                           <th>Name</th>
+                           <th>Teacher Name</th>
                            <th>Remark</th>
                            <th>Action</th>
                          </tr>
@@ -245,7 +246,7 @@
                            <td>{{ $studentRemark->admin->first_name }}</td>
                            <td>{{ mb_strimwidth($studentRemark->remark, 0, 40, "...") }}</td>
                            <td>
-                              <button type="button" class="btn btn-info btn-sm" title="Reply" onclick="callPopupLarge(this,'{{ route('student.reply.remarks',$studentRemark->id) }}')"><i class="fa fa-reply"></i></button>
+                              <button type="button" class="btn btn-info btn-sm" datatable-view="true" title="Reply" onclick="callPopupLarge(this,'{{ route('student.reply.remarks',$studentRemark->id) }}')"><i class="fa fa-reply"></i></button>
 
                               <button type="button" class="btn btn-success btn-sm" title="View" onclick="callPopupLarge(this,'{{ route('student.remarks.details.view',$studentRemark->id) }}')"><i class="fa fa-eye"></i></button> 
                            </td>

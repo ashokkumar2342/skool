@@ -11,6 +11,7 @@ use App\Model\Homework;
 use App\Model\StudentAttendance;
 use App\Model\StudentFeeDetail;
 use App\Model\StudentRemark;
+use App\Model\StudentReplyRemark;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -146,12 +147,25 @@ class DashboardController extends Controller
    public function studentReplyremarks($id)
     {
         $studentRemarks=StudentRemark::find($id);
-        return view('student.remark.student_reply_remark',compact('studentRemarks'));
+        $studentReplyremarks=StudentReplyRemark::where('student_remark_id',$id)->get();
+        return view('student.remark.student_reply_remark',compact('studentRemarks','studentReplyremarks'));
     }
      public function remarksView($id)
     {
            $studentRemarks=StudentRemark::find($id);
         return view('student.remark.student_remark_view',compact('studentRemarks'));
+    }
+    public function studentReplyremarkStore(Request $request,$id)
+    {  
+           $studentReplyRemark=new StudentReplyRemark();
+           $studentReplyRemark->student_remark_id=$id;
+           $studentReplyRemark->remark=$request->remark;
+           $studentReplyRemark->save();
+           $response = array();
+           $response['status']=1;
+           $response['msg']="Submit Successfully";
+           return $response; 
+        
     }
     public function passwordChange(Request $request)
     {

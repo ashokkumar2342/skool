@@ -22,7 +22,7 @@ Route::group(['middleware' => 'student'], function() {
 	Route::get('remarks', 'DashboardController@remarks')->name('student.remarks');
 	Route::get('view/{id}', 'DashboardController@remarksView')->name('student.remarks.details.view'); 
 	Route::get('student-reply-remark/{id}', 'DashboardController@studentReplyremarks')->name('student.reply.remarks'); 
-	Route::get('student-reply-remark-store/{id}', 'DashboardController@studentReplyremarkStore')->name('student.reply.remarks.store'); 
+	Route::post('student-reply-remark-store/{id}', 'DashboardController@studentReplyremarkStore')->name('student.reply.remarks.store'); 
 });
 
  

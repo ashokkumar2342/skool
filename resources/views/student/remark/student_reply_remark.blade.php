@@ -34,6 +34,23 @@
                       <input type="submit" class="btn btn-success">
                     </div> 
                    </div>
+                   <table class="table datatablepopup table" id="student_reply_remark_data_table"> 
+                     <thead>
+                       <tr>
+                         <th>Date</th>
+                         <th>Remark</th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                      @foreach ($studentReplyremarks as $studentReplyremark)
+                         
+                             <tr>
+                               <td>{{ date('d-m-Y',strtotime( $studentReplyremark->created_at)) }}</td>
+                               <td>{{ $studentReplyremark->remark }}</td>
+                             </tr>
+                      @endforeach
+                     </tbody>
+                   </table>
                  
                 
               </form>
