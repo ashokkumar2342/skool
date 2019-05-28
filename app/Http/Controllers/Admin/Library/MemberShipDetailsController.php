@@ -28,6 +28,9 @@ class MemberShipDetailsController extends Controller
 	{   
            
 		 $rules=[ 
+       'member_ship_type'=>'required',
+       'member_ship_no' => 'required',
+        
        
       ];
 
@@ -62,10 +65,12 @@ class MemberShipDetailsController extends Controller
 	}
     public function ticketDetailsStore(Request $request)
     {  
-           
+          
          $rules=[ 
            'no_of_days'=>'required',
-           'ticket_no'=>'required',
+           'ticket_no'=>'required|max:6|unique:member_ticket_details,ticket_no',
+            
+           
       ];
 
       $validator = Validator::make($request->all(),$rules);

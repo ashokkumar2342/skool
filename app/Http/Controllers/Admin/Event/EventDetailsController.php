@@ -8,6 +8,7 @@ use App\Model\Event\EveneFor;
 use App\Model\Event\EventDetails;
 use App\Model\Event\EventType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class EventDetailsController extends Controller
@@ -72,6 +73,13 @@ class EventDetailsController extends Controller
     {
         $eventDetails=EventDetails::all();
          return view('admin.event.eventDetails.event_details_table',compact('eventDetails'));
+    }
+    public function edit($id)
+    {
+        $eventTypes= EventType::all();
+        $eventFors=EveneFor::all();
+        $eventDetail=EventDetails::findOrFail(Crypt::decrypt($id));
+         return view('admin.event.eventDetails.event_details_edit',compact('eventDetail','eventTypes','eventFors'));
     }
 }
  

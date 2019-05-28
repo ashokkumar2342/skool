@@ -18,7 +18,7 @@
                  <div class="row">
                    <div class="col-lg-12">
                      <label>Email</label>
-                     <input type="email" name="email" class="form-control" placeholder="Email/Phone No" maxlength="100"> 
+                     <input type="email" name="email" class="form-control" placeholder="Email" maxlength="100"> 
                    </div> 
                  </div>
                  <div class="row">

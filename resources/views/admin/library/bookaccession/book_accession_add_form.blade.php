@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-lg-4">
                     <label>Book Name</label>
-                     <select name="book_name" class="form-control">
+                     <select name="book_name" class="form-control select2">
                       <option selected disabled >Select Book Name</option> 
                       @foreach ($booktypes as $booktype) 
                        <option value="{{ $booktype->id }}">{{ $booktype->name }}</option>
@@ -40,7 +40,7 @@
                     
                      <div class="col-lg-4">
                     <label>Bill No</label>
-                     <select name="bill_no" id="select_bill_no_too" class="form-control">
+                     <select name="bill_no" id="select_bill_no_too" class="form-control select2">
                       <option selected disabled>Select Bill No</option> 
                       @foreach ($bookpurchasebills as $bookpurchasebill) 
                        <option value="{{ $bookpurchasebill->id }}">{{ $bookpurchasebill->bill_no }}</option>

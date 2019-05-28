@@ -30,12 +30,13 @@ class bookAccessionController extends Controller
    public function store(Request $request)
    {     
          $rules=[
-        
-              'accession_no' => 'required', 
+              
+               
+              'accession_no' => "required|max:12|unique:book_accessions,accession_no", 
+              'isbn_no' => "required|max:12|unique:book_accessions,isbn_no", 
               'book_name' => 'required', 
-              'isbn_no' => 'required', 
               'bill_no' => 'required', 
-              'status' => 'nullable', 
+              'status' => 'nullable' 
                 
        
       ];
@@ -89,10 +90,11 @@ class bookAccessionController extends Controller
 
    	    $rules=[
               
-             'accession_no' => 'required', 
+             'accession_no' => "required|max:12|unique:book_accessions,accession_no", 
+             'isbn_no' => "required|max:12|unique:book_accessions,isbn_no", 
               'book_name' => 'required', 
-              'isbn_no' => 'required', 
-              'bill_no' => 'required',
+              'bill_no' => 'required', 
+              'status' => 'nullable'
              
        
       ];

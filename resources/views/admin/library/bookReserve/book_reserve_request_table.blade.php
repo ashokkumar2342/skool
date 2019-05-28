@@ -4,7 +4,7 @@
         <th>Member Ship Registration no</th>
         <th>Book Name</th>
         <th>Reserve Date</th>
-        <th>Status</th> 
+       
         <th>Action</th>
       </tr>
     </thead>
@@ -13,8 +13,8 @@
       <tr>
         <td>{{ $bookReserveRequest->memberShipDetails->member_ship_registration_no or '' }}</td>
         <td>{{ $bookReserveRequest->booktype->name or '' }}</td>
-        <td>{{  $bookReserveRequest->created_at  or ''}}</td> 
-         <td>{{ $bookReserveRequest->status or ''}}</td>
+        <td>{{  date('d-m-Y',strtotime($bookReserveRequest->created_at))}}</td> 
+         
         
         <td>
           <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.library.book.reserve.edit',Crypt::encrypt($bookReserveRequest->id)) }}')"><i class="fa fa-edit"></i></button>

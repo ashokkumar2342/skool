@@ -689,17 +689,17 @@ Route::group(['middleware' => 'admin'], function() {
             Route::post('update/{id}', 'Library\LibraryMemberTypeController@update')->name('admin.library.member.type.update');
 
 		    });
-		     Route::group(['prefix' => 'ticket-details'], function() {
-			    Route::get('/', 'Library\TicketDetailsController@index')->name('admin.library.ticket.details');
-			    Route::get('search', 'Library\TicketDetailsController@search')->name('admin.library.ticket.issue.details.search');
-			    Route::post('store', 'Library\TicketDetailsController@store')->name('admin.library.ticket.details.store');
+		     // Route::group(['prefix' => 'ticket-details'], function() {
+			    // Route::get('/', 'Library\TicketDetailsController@index')->name('admin.library.ticket.details');
+			    // Route::get('search', 'Library\TicketDetailsController@search')->name('admin.library.ticket.issue.details.search');
+			    // Route::post('store', 'Library\TicketDetailsController@store')->name('admin.library.ticket.details.store');
 			   
 			    // Route::get('ticket-add/{id}', 'Library\TicketDetailsController@ticketAdd')->name('admin.library.ticket.add');
 			    // Route::get('delete/{id}', 'Library\TicketDetailsController@destroy')->name('admin.library.ticket.details.delete');
 			    // Route::post('update/{id}', 'Library\TicketDetailsController@update')->name('admin.library.ticket.details.update');
 
 
-			 });  
+			 // });  
 		    Route::group(['prefix' => 'member-ship-facility'], function() {
 			  Route::get('/', 'Library\MemberShipFacilityController@index')->name('admin.library.member.ship.facility');
 			  Route::get('add-form', 'Library\MemberShipFacilityController@addForm')->name('admin.library.member.ship.facility.addform');
@@ -729,11 +729,23 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('update/{id}', 'Library\BookReserveRequestController@update')->name('admin.library.book.reserve.update');
             }); 
 
-		      Route::group(['prefix' => 'book-issue-details'], function() {
-			    Route::get('/', 'Library\BookIssueDetailsController@index')->name('admin.library.book.issue.details');
-			    Route::post('store', 'Library\BookIssueDetailsController@store')->name('admin.library.book.issue.details.store'); 
-			    Route::get('registration-onchange', 'Library\BookIssueDetailsController@registrationOnchange')->name('admin.library.book.issue.onchange.registration.details');
-			    Route::get('accession-onchange', 'Library\BookIssueDetailsController@accessionOnchange')->name('admin.library.book.issue.onchange.accession.details');
+	      Route::group(['prefix' => 'book-issue-details'], function() {
+		    Route::get('/', 'Library\BookIssueDetailsController@index')->name('admin.library.book.issue.details');
+		    Route::post('store', 'Library\BookIssueDetailsController@store')->name('admin.library.book.issue.details.store'); 
+		    Route::get('registration-onchange', 'Library\BookIssueDetailsController@registrationOnchange')->name('admin.library.book.issue.onchange.registration.details');
+		    Route::get('accession-onchange', 'Library\BookIssueDetailsController@accessionOnchange')->name('admin.library.book.issue.onchange.accession.details');
+		    Route::get('book-issue-history/{id}', 'Library\BookIssueDetailsController@bookIssueHistory')->name('admin.library.book.issue.history');
+
+			     
+            });  Route::group(['prefix' => 'book-return'], function() {
+		    Route::get('book-return', 'Library\BookIssueDetailsController@bookReturn')->name('admin.library.book.return'); 
+		    Route::post('book-search', 'Library\BookIssueDetailsController@bookSearch')->name('admin.library.book.issue.details.search');
+		    Route::get('return/{id}', 'Library\BookIssueDetailsController@returnUpdate')->name('admin.library.book.issue.return');
+		    // Route::post('store', 'Library\BookIssueDetailsController@store')->name('admin.library.book.issue.details.store'); 
+		    // Route::get('registration-onchange', 'Library\BookIssueDetailsController@registrationOnchange')->name('admin.library.book.issue.onchange.registration.details');
+		    // Route::get('accession-onchange', 'Library\BookIssueDetailsController@accessionOnchange')->name('admin.library.book.issue.onchange.accession.details');
+		    // Route::get('book-issue-history/{id}', 'Library\BookIssueDetailsController@bookIssueHistory')->name('admin.library.book.issue.history');
+
 			     
             }); 
 		      Route::group(['prefix' => 'event-type'], function() {
@@ -753,9 +765,19 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('onchange', 'Event\EventDetailsController@onChange')->name('admin.event.details.onchange'); 
 			    Route::post('store', 'Event\EventDetailsController@store')->name('admin.event.details.store'); 
 			    Route::get('table-show', 'Event\EventDetailsController@tableShow')->name('admin.event.details.table.show');
-			    // Route::get('accession-onchange', 'Library\BookIssueDetailsController@accessionOnchange')->name('admin.library.book.issue.onchange.accession.details');
+			    Route::get('edit/{id}', 'Event\EventDetailsController@edit')->name('admin.event.details.edit');
+			    Route::get('delete/{id}', 'Event\EventDetailsController@destroy')->name('admin.event.details.delete');
+			    Route::post('update/{id}', 'Event\EventDetailsController@update')->name('admin.event.details.update');
+			     
 			     
             });
+               Route::group(['prefix' => 'school-details'], function() {
+			    Route::get('/', 'SchoolDetails\SchoolDetailsController@index')->name('admin.school.details');
+			    Route::get('add-form', 'SchoolDetails\SchoolDetailsController@addForm')->name('admin.school.details.addForm');
+			    Route::post('store', 'SchoolDetails\SchoolDetailsController@store')->name('admin.school.details.store');
+			    Route::get('table-show', 'SchoolDetails\SchoolDetailsController@tableShow')->name('admin.school.details.table.show');
+
+          });
 
 
 
