@@ -2,7 +2,7 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.library.book.accession.addform')}}')" style="margin:10px">Add Form</button>
+    <button type="button" class="btn btn-info pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.library.book.accession.addform')}}')" style="margin:10px">Add Form</button>
     <h1>Book Accession <small>Details</small> </h1>
        
     </section>  

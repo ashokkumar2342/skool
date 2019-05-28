@@ -40,7 +40,7 @@ function callAjax(obj,url,divId,callback){
 				
 
 			
-			if(obj.getAttribute('button-click') && data.status==1)
+			if(obj.getAttribute('button-click'))
 			{	
 			var myStr = obj.getAttribute('button-click');
         	var strArray = myStr.split(",");
@@ -176,7 +176,10 @@ function callPopupLarge(obj,url){
 	        		$("#"+strArray[i]).trigger('change');
 	       		 }
 			}
-				
+			if(obj.getAttribute('select2'))
+			{  
+				$(".select2").select2();
+			}	
 				
 			}
     });

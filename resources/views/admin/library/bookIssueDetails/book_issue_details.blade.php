@@ -8,7 +8,7 @@
     <section class="content"> 
           <div class="box"> 
             <div class="box-body">
-              <form action="{{ route('admin.library.book.issue.details.store') }}" method="post" class="add_form" success-content-id="btn_book_issue_history">
+              <form action="{{ route('admin.library.book.issue.details.store') }}" method="post" class="add_form" success-content-id="history_book_issue" success-content-msg="true">
                 {{ csrf_field() }}
                 <div class="row">
                   <div class="col-lg-4">
@@ -41,8 +41,7 @@
             
 
           </div> 
-          <div id="history_book_issue">
-              
+          <div id="history_book_issue"> 
           </div>
           
             

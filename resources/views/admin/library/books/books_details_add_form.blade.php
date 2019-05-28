@@ -54,15 +54,16 @@
                     </div>
                     <div class="col-lg-4">
                       <label>Subject</label>
-                      <select name="subject" class="form-control" required="" >
-                        <option selected="" disabled="" required="">Select Subject</option> 
+                      <select name="subject" class="form-control " required="" >
+                        <option selected disabled>Select Subject</option> 
                         @foreach ($subjects as $subject) 
                         <option required="" value="{{ $subject->id  }}">{{ $subject->name  }}</option>
                         @endforeach 
                       </select> 
-                    </div> <div class="col-lg-4">
+                    </div> 
+                    <div class="col-lg-4">
                       <label>Publisher</label>
-                      <select name="publisher" class="form-control" required="">
+                      <select name="publisher" class="form-control select2" required="">
                         <option selected disabled>Select Publisher</option> 
                         @foreach ($publishers as $publisher) 
                         <option value="{{ $publisher->id  }}">{{ $publisher->name  }}</option>
@@ -71,7 +72,7 @@
                     </div> 
                     <div class="col-lg-4">
                       <label>Author</label>
-                      <select name="author" class="form-control">
+                      <select name="author" class="form-control select2">
                         <option selected disabled>Select Author</option> 
                         @foreach ($authors as $author) 
                         <option value="{{ $author->id  }}">{{ $author->name  }}</option>
@@ -82,7 +83,7 @@
                       <label>Book Feature</label>
                       <input type="text" name="feature" class="form-control" placeholder="" maxlength="200"> 
                     </div> 
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                       <label>Book Image</label>
                       <input type="file" name="image" multiple="true"> 
                     </div> 

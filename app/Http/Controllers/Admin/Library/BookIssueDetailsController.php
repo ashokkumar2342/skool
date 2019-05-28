@@ -62,15 +62,20 @@ class BookIssueDetailsController extends Controller
          if (in_array($request->ticket_no,$memberHasTicketsId)) {
             $bookIssueDetailsId=BookIssueDetails::where('registration_no',$request->registration_no)->pluck('ticket_no')->toArray();
               if (in_array($request->ticket_no,$bookIssueDetailsId)) {                   
-                  $response=['status'=>0,'msg'=>'Already Issue'];
+                  $response=['status'=>0,'msg'=>'Ticket Already Issue'];
                   return response()->json($response);
               }else{
                  $memberShipFacilityId=MemberTicketDetails::where('ticket_no',$request->ticket_no)->first()->member_ship_facility_id;
                  $membershipfacility= MemberShipFacility::find($memberShipFacilityId);
                   $bookIssueDetails->issue_upto_date =date('Y-m-d',strtotime(date('Y-m-d')."+".$membershipfacility->no_of_days." days"));
+                  $bookIssueDetailsHistorys=BookIssueDetails::where('registration_no',$request->registration_no)->get();
                  $bookIssueDetails->save();
-                 $response=['status'=>1,'msg'=>'Issue Successfully'];
-                 return response()->json($response);
+                 $response = array();
+                  $response['status'] = 1;
+                  $response['msg'] = 'Issue Successfully';
+                  $response['data'] =view('admin.library.bookIssueDetails.book_issue_history',compact('bookIssueDetailsHistorys'))->render(); 
+                    return response()->json($response); 
+                  
               }
          }else{
           $response=['status'=>0,'msg'=>'Ticket Not Match'];

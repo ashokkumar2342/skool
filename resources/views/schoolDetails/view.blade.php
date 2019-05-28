@@ -2,17 +2,18 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.library.book.reserve.request.addform')}}')" style="margin:10px">Add Form</button>
-    <h1>Book Reserve Request <small>Details</small> </h1>
+    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.school.details.addForm')}}')" style="margin:10px">Add Form</button>
+    <h1>School Details<small>List</small> </h1>
        
     </section>  
     <section class="content">
       <div class="row">
         <div class="col-xs-12">          
-            
-           <button id="btn_book_reserve_table_show" hidden data-table="books_reserve_request_data_table" onclick="callAjax(this,'{{ route('admin.library.book.reserve.table.show') }}','book_reserve_table')">show </button>
+            <!-- /.box-header -->            
+          
+          <button id="btn_event_type_table_show" hidden data-table="event_type_data_table" onclick="callAjax(this,'{{ route('admin.school.details.table.show') }}','event_type_table_show_div')">show </button>
           <div class="box"> 
-            <div class="box-body" id="book_reserve_table">
+            <div class="box-body" id="event_type_table_show_div">
            
             </div>
           </div>
@@ -29,13 +30,10 @@
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script type="text/javascript">
      $(document).ready(function(){
-        $('#books_reserve_request_data_table').DataTable();
+        $('#event_type_data_table').DataTable();
     });
-  </script>
-   <script type="text/javascript"> 
-        $('#btn_book_reserve_table_show').click();
-  
 
+     $('#btn_event_type_table_show').click();
   </script>
   @endpush
      

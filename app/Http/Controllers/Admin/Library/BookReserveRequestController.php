@@ -34,7 +34,7 @@ class BookReserveRequestController extends Controller
          $rules=[
         
             
-            'member_ship_no' => 'required', 
+            'member_ship_registration_no' => 'required', 
             'book_name' => 'required', 
             'request_date' => 'required', 
              
@@ -52,10 +52,16 @@ class BookReserveRequestController extends Controller
       }
         else {
     	 $bookReserveRequest= new Book_Reserve();
-    	 $bookReserveRequest->member_ship_no_id=$request->member_ship_no;
+    	 $bookReserveRequest->member_ship_no_id=$request->member_ship_registration_no;
+       $bookReserve=Book_Reserve::where('book_name_id',$request->book_name)->first();
+       if (empty($bookReserve)){
     	 $bookReserveRequest->book_name_id=$request->book_name;
+       }else{ 
+         $response=['status'=>0,'msg'=>'Book Already Reserve'];
+        return response()->json($response);
+            }
     	 $bookReserveRequest->reserve_date=$request->request_date == null ? $request->request_date : date('Y-m-d',strtotime($request->request_date));
-    	 $bookReserveRequest->status=$request->status; 
+    	 $bookReserveRequest->status=1; 
     	 $bookReserveRequest->save();
          $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
@@ -75,12 +81,12 @@ class BookReserveRequestController extends Controller
     //    $bookReserveRequests= Book_Reserve::findOrFail(Crypt::decrypt($id));
     //   return view('admin.library.bookReserve.book_reserve_request_edit',compact('bookReserveRequests','bookstatuss','booktypes','librarymembertypes')); 
     // }
-    // public function destroy($id)
-    // {
-    //    $bookReserveRequests= Book_Reserve::findOrFail(Crypt::decrypt($id));
-    //    $bookReserveRequests->delete();
-    //    return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
-    // }
+     public function destroy($id)
+    {
+       $bookReserveRequests= Book_Reserve::findOrFail(Crypt::decrypt($id));
+       $bookReserveRequests->delete();
+       return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
 
     public function update(Request $request,$id)
     {
@@ -88,7 +94,7 @@ class BookReserveRequestController extends Controller
         $rules=[
         
             
-            'member_ship_no' => 'required', 
+            'member_ship_registration_no' => 'required', 
             'book_name' => 'required', 
             'request_date' => 'required', 
              
@@ -106,7 +112,7 @@ class BookReserveRequestController extends Controller
       }
         else {
        $bookReserveRequest= new Book_Reserve();
-       $bookReserveRequest->member_ship_no_id=$request->member_ship_no;
+       $bookReserveRequest->member_ship_no_id=$request->member_ship_registration_no;
        $bookReserveRequest->book_name_id=$request->book_name;
        $bookReserveRequest->reserve_date=$request->request_date;
        $bookReserveRequest->status=$request->status; 

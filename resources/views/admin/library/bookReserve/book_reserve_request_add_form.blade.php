@@ -20,16 +20,16 @@
           <form action="{{ route('admin.library.book.request.date.store') }}" method="post" class="add_form" button-click="btn_book_reserve_table_show,btn_close">
                    {{ csrf_field() }}
                    <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                       <label>Member Ship Registration No</label>
-                      <select name="member_ship_no" class="form-control select2" >
+                      <select name="member_ship_registration_no" class="form-control select2" >
                         <option disabled selected="">Select Registration No</option> 
                         @foreach ($memberShipDetails as $memberShipDetail) 
                         <option value="{{ $memberShipDetail->id }}">{{ $memberShipDetail->member_ship_registration_no }}</option>
                         @endforeach 
                       </select>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                       <label>Book Name</label>
                      <select name="book_name" class="form-control select2">
                       <option selected disabled >Select Book Name</option> 
@@ -38,14 +38,10 @@
                       @endforeach 
                      </select> 
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                       <label>Request Date</label>
                      {!! Form::text('request_date',old('date_created',Carbon\Carbon::today()->format('d-m-Y')),['class'=>'form-control date-picker']) !!}  
                     </div> 
-                    <div class="col-lg-3">
-                       <label>Status</label>
-                      <input type="text" name="status" class="form-control">
-                    </div>
                    
                    <div class="row">
                     <div class="col-lg-12 text-center" style="padding-top: 10px">
