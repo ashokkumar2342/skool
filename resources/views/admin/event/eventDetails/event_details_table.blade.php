@@ -18,9 +18,9 @@
                    <td>{{  date('d-m-Y',strtotime($eventDetail->end_date)) }}</td> 
                    <td>{{ $eventDetail->eveneFor->name or '' }}</td> 
                    <td>
-                     <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.event.type.edit',Crypt::encrypt($eventDetail->id)) }}')"><i class="fa fa-edit"></i></button>
+                     <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.event.details.edit',Crypt::encrypt($eventDetail->id)) }}')"><i class="fa fa-edit"></i></button>
 
-                        <a href="{{ route('admin.event.type.delete',Crypt::encrypt($eventDetail->id)) }}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a>
+                        <a href="{{ route('admin.event.details.delete',Crypt::encrypt($eventDetail->id)) }}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a>
 
                    </td> 
                  </tr>
