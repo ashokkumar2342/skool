@@ -35,6 +35,10 @@
      }
      .content-header>.breadcrumb>li+li:before {
          content: '|\00a0';
+    }
+     .text-white{
+      
+     }    
   </style>
 
   @stack('links')

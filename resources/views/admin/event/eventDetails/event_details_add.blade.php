@@ -62,11 +62,7 @@
                     <div id="select_class">
                       
                     </div>
-                    <div class="col-lg-4">
-                      <label>Color</label>
-                      <input type="text" name="color" class="form-control" maxlength="100">
-                       
-                    </div>
+                   
                     
 
                     

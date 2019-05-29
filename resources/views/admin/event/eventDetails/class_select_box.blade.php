@@ -1,5 +1,5 @@
  <div class="col-lg-4"> 
- <label>Class</label>
+ <label>Class</label><br>
  <select name="class_id[]" class="multiselect form-control" multiple="multiple">
  	 
  	@foreach ($classTypes as $classType) 

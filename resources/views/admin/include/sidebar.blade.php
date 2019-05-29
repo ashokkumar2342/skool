@@ -18,7 +18,7 @@
           </div>
         </form> --}}
         <!-- /.search form -->
-    <ul class="sidebar-menu" style="height:730px;overflow: auto">
+    <ul class="sidebar-menu" style="height:900px;overflow: auto">
        
         {{-- <li class="header">MAIN NAVIGATION</li> --}}
         <li ><a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>

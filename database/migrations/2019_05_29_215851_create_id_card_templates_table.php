@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStudentIDCardsTable extends Migration
+class CreateIdCardTemplatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateStudentIDCardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_i_d_cards', function (Blueprint $table) {
+        Schema::create('id_card_templates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('json')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateStudentIDCardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_i_d_cards');
+        Schema::dropIfExists('id_card_templates');
     }
 }
