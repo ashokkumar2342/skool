@@ -777,6 +777,13 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('store', 'SchoolDetails\SchoolDetailsController@store')->name('admin.school.details.store');
 			    Route::get('table-show', 'SchoolDetails\SchoolDetailsController@tableShow')->name('admin.school.details.table.show');
 
+          }); 
+               Route::group(['prefix' => 'student-id-card'], function() {
+			    Route::get('/', 'StudentIDCard\StudentIDCardController@index')->name('admin.student.id.card');
+			    Route::get('generate-class-wise', 'StudentIDCard\StudentIDCardController@generateClassWise')->name('admin.student.idcard.generate.classwise');
+			    Route::post('store', 'StudentIDCard\StudentIDCardController@store')->name('admin.student.idcard.generate.store');
+			    
+
           });
 
 
