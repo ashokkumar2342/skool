@@ -8,6 +8,7 @@ use App\Model\Event\EveneFor;
 use App\Model\IdCard\IdCardTemplate;
 use App\Student;
 use Barryvdh\DomPDF\Facade as PDF;
+use Dompdf\Options;
 use Illuminate\Http\Request;
 
 class StudentIdCardController extends Controller
@@ -30,15 +31,14 @@ class StudentIdCardController extends Controller
     public function store(Request $request)
     {
         $students=Student::where('class_id',$request->class_id)->get(); 
-        $pdf = PDF::loadView('admin.student.idCard.temp1', compact('students'));
-        return $pdf->download('IdCard'.date('d-m-Y H:i:s').'.pdf');
+        //  // PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+        // $pdf = PDF::loadView('admin.student.idCard.temp1', compact('students'));
+        // $pdf->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+        // $pdf->setPaper('a4', 'landscape')->setWarnings(false);
+        // $pdf->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+        //return $pdf->stream('IdCard'.date('d-m-Y H:i:s').'.pdf');
         
-    	    // return $certificate;
-       
-    	//  if ($request->event_for==1) {
-    	//   	$student=Student::all(); 
-    	//   	return $student;
-    	//   } 
-    	// return $student=Student::where('class_id',$request->class_id)->get();
+     
+    	return view('admin.student.idCard.temp1', compact('students'));
     }
 }

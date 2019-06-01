@@ -33,8 +33,7 @@
     <section class="content">
         <div class="box">  
             <div class="box-body">
-            <form action="{{ route('admin.student.idcard.generate.store') }}" method="get"> 
-              {{ csrf_field() }}
+            <form action="{{ route('admin.student.idcard.generate.store') }}" method="get" target="_blank">               
               <div  class="row">
                 <div class="col-lg-3">
                   <label>Select For</label>
