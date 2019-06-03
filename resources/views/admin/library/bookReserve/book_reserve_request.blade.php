@@ -2,8 +2,15 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.library.book.reserve.request.addform')}}')" style="margin:10px">Add Form</button>
-    <h1>Book Reserve Request <small>Details</small> </h1>
+      <h1>Book Reserve Details <small>List</small> </h1>
+
+    <button type="button" class="btn btn-info pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.library.book.reserve.request.addform')}}')" style="margin:10px">Request</button>
+
+     <a href="{{ route('admin.library.book.reserve.cancel.upto.date') }}" class="btn btn-danger pull-right" style="margin:10px">Cancel Upto Date</a>
+   
+
+   
+     
        
     </section>  
     <section class="content">

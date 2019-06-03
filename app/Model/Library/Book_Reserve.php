@@ -15,4 +15,17 @@ class Book_Reserve extends Model
     {
     	return $this->hasOne('App\Model\Library\MemberShipDetails','id','member_ship_no_id');
     }
+     public function bookAccession()
+    {
+    	return $this->hasOne('App\Model\Library\BookAccession','id','accession_no');
+    }
+     public function bookAccessions()
+    {
+        return $this->hasOne('App\Model\Library\BookAccession','id','status');
+    }  
+    public function bookReserveStatus()
+    {
+        return $this->hasOne('App\Model\Library\BookReserveStatus','id','status');
+    } 
+   
 }

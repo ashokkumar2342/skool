@@ -52,8 +52,8 @@
                       <label>Status</label>
                       <select name="status" class="form-control"> 
                         <option selected disabled>Select Status</option> 
-                        @foreach ($bookstatuss as $bookstatus) 
-                        <option value="{{ $bookstatus->id }}">{{ $bookstatus->name }}</option>
+                        @foreach ($libraryStatuss as $libraryStatus) 
+                        <option value="{{ $libraryStatus->id }}">{{ $libraryStatus->name }}</option>
                         @endforeach 
                       </select> 
                        

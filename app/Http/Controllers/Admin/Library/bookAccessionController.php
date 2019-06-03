@@ -7,6 +7,7 @@ use App\Model\Library\BookAccession;
 use App\Model\Library\BookPurchaseBill;
 use App\Model\Library\BookStatus;
 use App\Model\Library\Booktype;
+use App\Model\Library\LibraryStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
@@ -21,10 +22,10 @@ class bookAccessionController extends Controller
    }
    public function addForm()
    {
-     $bookstatuss=BookStatus::all();
+     $libraryStatuss=LibraryStatus::all();
      $booktypes=Booktype::orderBy('name','asc')->get();
           $bookpurchasebills=BookPurchaseBill::orderBy('bill_no','asc')->get();
-      return view('admin.library.bookaccession.book_accession_add_form',compact('booktypes','bookpurchasebills','bookstatuss'));
+      return view('admin.library.bookaccession.book_accession_add_form',compact('booktypes','bookpurchasebills','libraryStatuss'));
    }
 
    public function store(Request $request)
@@ -77,12 +78,12 @@ class bookAccessionController extends Controller
 
     public function edit($id)
     {   
-       $bookstatuss=BookStatus::all(); 
+       $libraryStatuss=LibraryStatus::all(); 
        $booktypes=Booktype::orderBy('name','asc')->get();
        $bookpurchasebills=BookPurchaseBill::orderBy('bill_no','asc')->get();
 
         $bookaccessions=BookAccession::findOrFail(Crypt::decrypt($id));
-    	return view('admin.library.bookaccession.book_accession_edit',compact('bookaccessions','booktypes','bookpurchasebills','bookstatuss'));
+    	return view('admin.library.bookaccession.book_accession_edit',compact('bookaccessions','booktypes','bookpurchasebills','libraryStatuss'));
     }
 
    public function update(Request $request,$id)
@@ -90,8 +91,8 @@ class bookAccessionController extends Controller
 
    	    $rules=[
               
-             'accession_no' => "required|max:12|unique:book_accessions,accession_no", 
-             'isbn_no' => "required|max:12|unique:book_accessions,isbn_no", 
+             'accession_no' => "required|max:12", 
+             'isbn_no' => "required|max:12", 
               'book_name' => 'required', 
               'bill_no' => 'required', 
               'status' => 'nullable'
