@@ -1,9 +1,13 @@
  <table id="books_reserve_request_data_table" class="table table-bordered table-striped table-hover"> 
     <thead>
       <tr>
-        <th>Member Ship Registration no</th>
+        <th class="text-nowrap">Registration no</th>
         <th>Book Name</th>
-        <th>Reserve Date</th>
+        <th class="text-nowrap">Accession No</th>
+        <th class="text-nowrap">Request Date</th>
+        <th class="text-nowrap">Reserve Date</th>
+        <th class="text-nowrap">Reserve Upto</th>
+        <th>Status</th>
        
         <th>Action</th>
       </tr>
@@ -13,13 +17,22 @@
       <tr>
         <td>{{ $bookReserveRequest->memberShipDetails->member_ship_registration_no or '' }}</td>
         <td>{{ $bookReserveRequest->booktype->name or '' }}</td>
+        <td>{{ $bookReserveRequest->bookAccession->accession_no or '' }}</td>
         <td>{{  date('d-m-Y',strtotime($bookReserveRequest->created_at))}}</td> 
+         
+        <td>{{  $bookReserveRequest->reserve_date==null? '' : date('d-m-Y',strtotime($bookReserveRequest->reserve_date))}}</td> 
+
+        <td>{{  $bookReserveRequest->reserve_upto_date==null? '' : date('d-m-Y',strtotime($bookReserveRequest->reserve_upto_date))}}</td> 
+        <td>
+          
+          <span class="{{ $bookReserveRequest->bookReserveStatus->color or '' }}">{{ $bookReserveRequest->bookReserveStatus->name or '' }}</span>
+        </td>
          
         
         <td>
-          <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.library.book.reserve.edit',Crypt::encrypt($bookReserveRequest->id)) }}')"><i class="fa fa-edit"></i></button>
+      
 
-             <a href="{{ route('admin.library.book.reserve.delete',Crypt::encrypt($bookReserveRequest->id)) }}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a>
+             <a href="{{ route('admin.library.book.reserve.cancel',$bookReserveRequest->id) }}" class="btn btn-danger btn-xs" title="Cancel">Calcel</a>
 
         </td>
          

@@ -8,6 +8,10 @@ use App\Model\Cashbook;
 use App\Model\Event\EventDetails;
 use App\Model\Exam\ClassTest;
 use App\Model\Homework;
+use App\Model\Library\BookAccession;
+use App\Model\Library\Book_Reserve;
+use App\Model\Library\Booktype; 
+use App\Model\Library\memberShipDetails;
 use App\Model\StudentAttendance;
 use App\Model\StudentFeeDetail;
 use App\Model\StudentRemark;
@@ -167,6 +171,92 @@ class DashboardController extends Controller
            return $response; 
         
     }
+    public function library()
+    {
+       $student = Auth::guard('student')->user();
+      $memberShipDetails=memberShipDetails::where('member_ship_registration_no',$student->registration_no)->first(); 
+      $bookReserves = Book_Reserve::where('member_ship_no_id',$memberShipDetails->id)->get(); 
+         return view('student.library.list',compact('bookReserves'));
+           
+    }
+    public function bookReserve()
+    {
+         $bookTypes =Booktype::orderBy('name','asc')->get(); 
+         return view('student.library.book_reserve',compact('bookTypes'));
+    }
+     public function bookReserveOnchange(Request $request)
+    {
+        $bookAccessionWiseNames=BookAccession::where('book_id',$request->id)->get();
+         return view('student.library.book_accession_select_box',compact('bookAccessionWiseNames'));
+
+    }
+    public function bookReserveStatusUpdate(Request $request)
+    {
+        // return $request;
+        $rules=[ 
+            
+            'book_name' => 'required', 
+             
+      ];
+
+      $validator = Validator::make($request->all(),$rules);
+      if ($validator->fails()) {
+          $errors = $validator->errors()->all();
+          $response=array();
+          $response["status"]=0;
+          $response["msg"]=$errors[0];
+          return response()->json($response);// response as json
+      } else{
+
+             
+            $bookAccession=BookAccession::where('book_id',$request->book_name)->where('status',1)->first();
+    
+              $student = Auth::guard('student')->user(); 
+             $memberShipDetails=MemberShipDetails::where('member_ship_no',$student->id)->first();
+             
+              if ($bookAccession!=null) { 
+              $this->bookAccessionStatusUpdate($bookAccession->id);
+                $bookReserveRequest= new Book_Reserve();
+                $bookReserveRequest->member_ship_no_id=$memberShipDetails->id; 
+                $bookReserveRequest->book_name_id=$request->book_name;
+                $bookReserveRequest->accession_no=$bookAccession->id;
+                $bookReserveRequest->request_date=date('Y-m-d');
+                $bookReserveRequest->reserve_date=date('Y-m-d');
+                $bookReserveRequest->reserve_upto_date=date('Y-m-d',strtotime(date('Y-m-d')."+2 days")); 
+                $bookReserveRequest->status=2; 
+                $bookReserveRequest->save();
+               
+               $response=['status'=>1,'msg'=>'Reserve Successfully'];
+                   return response()->json($response);
+                 }
+               else{   
+                    
+                        $bookReserveRequest= new Book_Reserve();
+                        $bookReserveRequest->member_ship_no_id=$request->member_ship_registration_no; 
+                        $bookReserveRequest->book_name_id=$request->book_name;                      
+                        $bookReserveRequest->request_date=date('Y-m-d');
+                        $bookReserveRequest->status=1; 
+                        $bookReserveRequest->save();
+                        $response=['status'=>1,'msg'=>'Request Successfully'];
+                             return response()->json($response);
+                      
+                   // }else{
+                   //     $response=['status'=>0,'msg'=>'Already Reserve']; 
+                   //     return response()->json($response);
+                   // }
+                
+               }
+      }
+
+
+    }
+
+     public function bookAccessionStatusUpdate($accession_no)
+    {
+           $bookAccession=BookAccession::find($accession_no);
+         $bookAccession->status=3;
+         $bookAccession->save();
+    } 
     public function passwordChange(Request $request)
     {
         $rules=[

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Library;
 use App\Http\Controllers\Controller;
 use App\Model\Library\BookAccession;
 use App\Model\Library\BookIssueDetails;
+use App\Model\Library\Book_Reserve;
 use App\Model\Library\Booktype;
 use App\Model\Library\LibraryMemberType;
 use App\Model\Library\MemberShipDetails;
@@ -48,10 +49,38 @@ class BookIssueDetailsController extends Controller
         else {
  
           $memberHasTicketsId=MemberTicketDetails::where('member_ship_details_id',$request->registration_no)->pluck('ticket_no')->toArray();
+          
+          $bookAccession=BookAccession::where('id',$request->accession_no)->first();
+          if ($bookAccession->status==3) {
+            $bookReserve=Book_Reserve::where('accession_no',$request->accession_no)->where('member_ship_no_id',$request->registration_no)->first();
+              if ($bookReserve==null) {
+                 $response=['status'=>0,'msg'=>'Book Reserved For Other User'];
+               return response()->json($response);  
+              }
+          }elseif($bookAccession->status==2){
+             $response=['status'=>0,'msg'=>'Book Already Issue'];
+             return response()->json($response);  
+          }elseif($bookAccession->status==4){
+            $response=['status'=>0,'msg'=>'Book Invalied'];
+             return response()->json($response); 
+          }else{
+
+          }
+
+          if (!empty($bookReserve)) {
+             if ($bookReserve->status==3) {
+             
+            }else{
+              $response=['status'=>0,'msg'=>'Book Already Reserve'];
+             return response()->json($response);
+            }
+          }
+         
          $bookIssueDetails=new BookIssueDetails(); 
         $bookIssueDetails->registration_no=$request->registration_no;
          $bookIssueDetails->accession_no=$request->accession_no;
          $bookIssueDetails->ticket_no=$request->ticket_no;
+         $bookIssueDetails->status=2;
          $bookIssueDetails->issue_date=date('Y-m-d');         
          $memberHasTicketsId=MemberTicketDetails::where('member_ship_details_id',$request->registration_no)->pluck('ticket_no')->toArray();
          $bookIssueAccessionId=BookIssueDetails::where('accession_no',$request->accession_no)->first();
@@ -70,6 +99,7 @@ class BookIssueDetailsController extends Controller
                   $bookIssueDetails->issue_upto_date =date('Y-m-d',strtotime(date('Y-m-d')."+".$membershipfacility->no_of_days." days"));
                   $bookIssueDetailsHistorys=BookIssueDetails::where('registration_no',$request->registration_no)->get();
                  $bookIssueDetails->save();
+                 $this->accessionStatusUpdate($request->accession_no,2);
                  $response = array();
                   $response['status'] = 1;
                   $response['msg'] = 'Issue Successfully';
@@ -86,6 +116,7 @@ class BookIssueDetailsController extends Controller
             return response()->json($response);
         }
     }
+   
     public function registrationOnchange(Request $request)
     {
         $memberShipRegistrationDetails=MemberShipDetails::find($request->id);     
@@ -109,7 +140,7 @@ class BookIssueDetailsController extends Controller
     public function bookSearch(Request $request)
     {
        $bookAccession=BookAccession::where('accession_no',$request->accession_no)->first(); 
-     $bookIssueDetail=BookIssueDetails::where('accession_no',$bookAccession->id)->where('status',1)->first();
+     $bookIssueDetail=BookIssueDetails::where('accession_no',$bookAccession->id)->where('status',2)->first();
       if (!empty($bookIssueDetail)) {
         $response = array();
         $response['status'] = 1; 
@@ -125,12 +156,37 @@ class BookIssueDetailsController extends Controller
     public function returnUpdate(Request $request,$id)
     {
         
-       $bookIssueDetail=BookIssueDetails::find($id);
+       $bookIssueDetail=BookIssueDetails::find($id); 
+       
+      
        $bookIssueDetail->return_date=date('Y-m-d');
-       $bookIssueDetail->status=2;
+       $bookIssueDetail->status=1;
        $bookIssueDetail->save();
+       $this->reserveUpdate($bookIssueDetail->accession_no);
+       $this->accessionStatusUpdate($bookIssueDetail->accession_no,1);
        return redirect()->back()->with(['message'=>'Book Return Successfully','class'=>'success']);
 
              
     }
+    public function reserveUpdate($accession_no)
+    {
+      $bookReserveUpdate=Book_Reserve::find($accession_no);
+      $bookReserveUpdate->reserve_date=date('Y-m-d');
+      $bookReserveUpdate->save();
+
+    }
+     public function accessionStatusUpdate($accession_no,$status)
+    {
+      $bookAccession=BookAccession::find($accession_no);
+      $bookAccession->status=$status;
+      $bookAccession->save();
+      
+    }  
+    // public function reserveBookStatusUpdate($accession_no,$status)
+    // {
+    //   $bookAccession=BookAccession::find($accession_no);
+    //   $bookAccession->status=$status;
+    //   $bookAccession->save();
+      
+    // }
 }

@@ -18,4 +18,8 @@ class BookIssueDetails extends Model
     {
     	return $this->hasOne('App\Model\Library\TicketDetails','id','no_of_ticket');
     } 
+     public function libraryStatus()
+    {
+        return $this->hasOne('App\Model\Library\LibraryStatus','id','status');
+    }
 }

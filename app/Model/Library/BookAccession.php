@@ -16,9 +16,9 @@ class BookAccession extends Model
     	return $this->hasOne('App\Model\Library\BookPurchaseBill','id','bill_id');
     } 
     
-    public function bookstatus()
+    public function libraryStatus()
     {
-    	return $this->hasOne('App\Model\Library\BookStatus','id','status');
+    	return $this->hasOne('App\Model\Library\LibraryStatus','id','status');
     }
 
 }

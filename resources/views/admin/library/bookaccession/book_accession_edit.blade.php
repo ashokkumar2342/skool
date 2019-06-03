@@ -52,8 +52,8 @@
                       <label>Status</label>
                       <select name="status" class="form-control">
                       <option selected disabled>Select status</option> 
-                      @foreach ($bookstatuss as $bookstatus) 
-                       <option value="{{ $bookstatus->id  }}"{{ $bookaccessions->status==$bookstatus->id? 'selected="selected"' : ''  }}>{{ $bookstatus->name or '' }}</option> 
+                      @foreach ($libraryStatuss as $libraryStatus) 
+                       <option value="{{ $libraryStatus->id  }}"{{ $bookaccessions->status==$libraryStatus->id? 'selected="selected"' : ''  }}>{{ $libraryStatus->name or '' }}</option> 
                       @endforeach 
                      </select>
                        

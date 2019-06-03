@@ -715,18 +715,24 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'Library\MemberShipDetailsController@index')->name('admin.library.member.ship.details');
 			    Route::post('store', 'Library\MemberShipDetailsController@store')->name('admin.library.member.ship.details.store'); 
 			    Route::get('student-search', 'Library\MemberShipDetailsController@studentSearch')->name('admin.library.member.ship.details.student.search');
-			    Route::get('student-show', 'Library\MemberShipDetailsController@studentShow')->name('admin.library.member.ship.details.student.show');
+			    Route::get('stadmin.library.book.reserve.accession.wiseudent-show', 'Library\MemberShipDetailsController@studentShow')->name('admin.library.member.ship.details.student.show');
 			     Route::get('ticket-show', 'Library\MemberShipDetailsController@ticketDetailsShow')->name('admin.library.ticket.details.show');
 			     Route::post('ticket-store', 'Library\MemberShipDetailsController@ticketDetailsStore')->name('admin.library.member.registration.ticket.details.store'); 
 		    });
 		      Route::group(['prefix' => 'book-reserve-request'], function() {
 			    Route::get('/', 'Library\BookReserveRequestController@index')->name('admin.library.book.reserve.request');
-			    Route::get('add-form', 'Library\BookReserveRequestController@addForm')->name('admin.library.book.reserve.request.addform');
+			    Route::get('add-form', 'Library\BookReserveRequestController@addForm')->name('admin.library.book.reserve.request.addform'); 
+			    Route::get('book-accession', 'Library\BookReserveRequestController@bookAccession')->name('admin.library.book.reserve.accession.wise');
+
+			    Route::get('gegistration-wise-history', 'Library\BookReserveRequestController@registrationWiseHistory')->name('admin.library.book.reserve.registration.wise.history');
+
+			     Route::get('book-accession-wise-history', 'Library\BookReserveRequestController@bookAccessionWiseHistory')->name('admin.library.book.reserve.accession.wise.history');
+
 			    Route::post('store', 'Library\BookReserveRequestController@store')->name('admin.library.book.request.date.store'); 
 			    Route::get('table-show', 'Library\BookReserveRequestController@tableShow')->name('admin.library.book.reserve.table.show'); 
-			    Route::get('edit/{id}', 'Library\BookReserveRequestController@edit')->name('admin.library.book.reserve.edit'); 
-			    Route::get('delete/{id}', 'Library\BookReserveRequestController@destroy')->name('admin.library.book.reserve.delete');
-			    Route::post('update/{id}', 'Library\BookReserveRequestController@update')->name('admin.library.book.reserve.update');
+			    Route::get('cancel-upto-date', 'Library\BookReserveRequestController@cancelUpToDate')->name('admin.library.book.reserve.cancel.upto.date'); 
+			    Route::get('cancel/{id}', 'Library\BookReserveRequestController@cancel')->name('admin.library.book.reserve.cancel');
+			    
             }); 
 
 	      Route::group(['prefix' => 'book-issue-details'], function() {

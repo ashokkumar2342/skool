@@ -72,6 +72,15 @@
                   </p>
                 </a>
               </li>
+                 <li class="nav-item">
+                <a href="{{ route('student.library') }}" class="nav-link">
+                  <i class="nav-icon fa fa-book text-whit"></i>
+                  <p>
+                    Library
+                    <span class="right badge badge-danger "></span>
+                  </p>
+                </a>
+              </li>
                
                
             

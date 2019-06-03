@@ -22,7 +22,14 @@ Route::group(['middleware' => 'student'], function() {
 	Route::get('remarks', 'DashboardController@remarks')->name('student.remarks');
 	Route::get('view/{id}', 'DashboardController@remarksView')->name('student.remarks.details.view'); 
 	Route::get('student-reply-remark/{id}', 'DashboardController@studentReplyremarks')->name('student.reply.remarks'); 
-	Route::post('student-reply-remark-store/{id}', 'DashboardController@studentReplyremarkStore')->name('student.reply.remarks.store'); 
+	Route::post('student-reply-remark-store/{id}', 'DashboardController@studentReplyremarkStore')->name('student.reply.remarks.store');
+
+	//------------------------Library-------------------------------------------
+
+	Route::get('library', 'DashboardController@library')->name('student.library'); 
+	Route::get('book-reserve', 'DashboardController@bookReserve')->name('student.book.reserve'); 
+	Route::get('student-book-reserve', 'DashboardController@bookReserveOnchange')->name('student.book.reserve.onchange');
+	Route::post('book-reserve-update', 'DashboardController@bookReserveStatusUpdate')->name('student.book.reserve.status.update'); 
 });
 
  
