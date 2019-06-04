@@ -148,14 +148,17 @@ class BookReserveRequestController extends Controller
     {
        $bookReserveRequests= Book_Reserve::find($id);
        $bookReserveRequests->status=3;
-       $bookReserveRequests->save();
-       $this->accessionStatusCancelByUpdate($bookReserveRequests->accession_no);
-       $this->reserveUpdate($bookReserveRequests->accession_no);
+       $bookReserveRequests->save(); 
+         $this->accessionStatusCancelByUpdate($bookReserveRequests->accession_no);
+         $this->reserveUpdate($bookReserveRequests->accession_no);  
       return  redirect()->back()->with(['message'=>'Cancel Successfully','class'=>'success']);
        
     }
     public function accessionStatusCancelByUpdate($accession_no)
     {
+      if ($accession_no==null) {
+        return 'accession Null';
+      }
          $bookAccession=BookAccession::find($accession_no);
          $bookAccession->status=1;
          $bookAccession->save();
@@ -163,14 +166,22 @@ class BookReserveRequestController extends Controller
     }
 
     public function reserveUpdate($accession_no)
-    {
+    {  
+      if ($accession_no==null) {
+        return 'accession Null';
+      }
       $bookAccession=BookAccession::find($accession_no);
-      $bookReserveUpdate=Book_Reserve::where('status',1)->where('book_name_id',$bookAccession->book_id)->first();
-      $bookReserveUpdate->reserve_date=date('Y-m-d');
-      $bookReserveUpdate->accession_no=$accession_no;
-      $bookReserveUpdate->reserve_upto_date=date('Y-m-d',strtotime(date('Y-m-d')."+2 days"));
-      $bookReserveUpdate->status=2;
-      $bookReserveUpdate->save();
+      $bookReserveUpdate=Book_Reserve::where('status',1)->where('book_name_id',$bookAccession->book_id)->first(); 
+      if (empty($bookReserveUpdate) ) {
+          return 'accession Null';
+       }else{
+            $bookReserveUpdate->reserve_date=date('Y-m-d');
+            $bookReserveUpdate->accession_no=$accession_no;
+            $bookReserveUpdate->reserve_upto_date=date('Y-m-d',strtotime(date('Y-m-d')."+2 days"));
+            $bookReserveUpdate->status=2;
+            $bookReserveUpdate->save();
+       } 
+  
 
     }
     //  public function accessionStatusUpdate($accession_no,$status)
