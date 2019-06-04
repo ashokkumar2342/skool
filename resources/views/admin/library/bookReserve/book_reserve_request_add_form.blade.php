@@ -17,7 +17,7 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12">
-          <form action="{{ route('admin.library.book.request.date.store') }}" method="post" class="add_form" {{-- button-click="btn_book_reserve_table_show,btn_close" --}}>
+          <form action="{{ route('admin.library.book.request.date.store') }}" method="post" class="add_form" button-click="btn_close,btn_book_reserve_table_show">
                    {{ csrf_field() }}
                    <div class="row">
                       <div class="col-lg-4">

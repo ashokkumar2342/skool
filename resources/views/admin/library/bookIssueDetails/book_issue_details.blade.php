@@ -8,7 +8,7 @@
     <section class="content"> 
           <div class="box"> 
             <div class="box-body">
-              <form action="{{ route('admin.library.book.issue.details.store') }}" method="post" class="add_form" success-content-id="history_book_issue" success-content-msg="true">
+              <form action="{{ route('admin.library.book.issue.details.store') }}" method="post" class="add_form" success-content-id="history_book_issue" success-content-msg="true" button-click="btn_book_issue_history">
                 {{ csrf_field() }}
                 <div class="row">
                   <div class="col-lg-4">
@@ -62,11 +62,7 @@
         $('#books_issue_data_table').DataTable();
     });
   </script>
-   <script type="text/javascript"> 
-        $('#btn_book_issue_details_table').click();
-  
-
-  </script>
+   
   @endpush
      
  

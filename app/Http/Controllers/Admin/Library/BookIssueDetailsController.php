@@ -51,8 +51,8 @@ class BookIssueDetailsController extends Controller
           $memberHasTicketsId=MemberTicketDetails::where('member_ship_details_id',$request->registration_no)->pluck('ticket_no')->toArray();
           
           $bookAccession=BookAccession::where('id',$request->accession_no)->first();
-          if ($bookAccession->status==3) {
-            $bookReserve=Book_Reserve::where('accession_no',$request->accession_no)->where('member_ship_no_id',$request->registration_no)->first();
+          if ($bookAccession->status==3) { 
+            $bookReserve=Book_Reserve::where('accession_no',$request->accession_no)->where('member_ship_no_id',$request->registration_no)->where('status',2)->first();
               if ($bookReserve==null) {
                  $response=['status'=>0,'msg'=>'Book Reserved For Other User'];
                return response()->json($response);  
@@ -67,14 +67,7 @@ class BookIssueDetailsController extends Controller
 
           }
 
-          if (!empty($bookReserve)) {
-             if ($bookReserve->status==3) {
-             
-            }else{
-              $response=['status'=>0,'msg'=>'Book Already Reserve'];
-             return response()->json($response);
-            }
-          }
+          
          
          $bookIssueDetails=new BookIssueDetails(); 
         $bookIssueDetails->registration_no=$request->registration_no;
@@ -105,8 +98,8 @@ class BookIssueDetailsController extends Controller
                   $response['msg'] = 'Issue Successfully';
                   $response['data'] =view('admin.library.bookIssueDetails.book_issue_history',compact('bookIssueDetailsHistorys'))->render(); 
                     return response()->json($response); 
-                  
               }
+
          }else{
           $response=['status'=>0,'msg'=>'Ticket Not Match'];
             return response()->json($response);
@@ -154,11 +147,10 @@ class BookIssueDetailsController extends Controller
       
     }
     public function returnUpdate(Request $request,$id)
-    {
-        
-       $bookIssueDetail=BookIssueDetails::find($id); 
+    { 
        
-      
+
+       $bookIssueDetail=BookIssueDetails::find($id); 
        $bookIssueDetail->return_date=date('Y-m-d');
        $bookIssueDetail->status=1;
        $bookIssueDetail->save();
@@ -170,8 +162,12 @@ class BookIssueDetailsController extends Controller
     }
     public function reserveUpdate($accession_no)
     {
-      $bookReserveUpdate=Book_Reserve::find($accession_no);
+      $bookAccession=BookAccession::find($accession_no);
+      $bookReserveUpdate=Book_Reserve::where('status',1)->where('book_name_id',$bookAccession->book_id)->first();
       $bookReserveUpdate->reserve_date=date('Y-m-d');
+      $bookReserveUpdate->accession_no=$accession_no;
+       $bookReserveUpdate->reserve_upto_date=date('Y-m-d',strtotime(date('Y-m-d')."+2 days"));
+      $bookReserveUpdate->status=2;
       $bookReserveUpdate->save();
 
     }

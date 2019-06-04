@@ -25,7 +25,7 @@ class BookReserveRequestController extends Controller
     public function addForm()
     {    
     	 
-    	 $booktypes=Booktype::orderBy('name','asc')->get();
+    	 $booktypes=Booktype::orderBy('name','desc')->get();
     	 $memberShipDetails= MemberShipDetails::all();
     	return view('admin.library.bookReserve.book_reserve_request_add_form',compact('memberShipDetails','booktypes'));
     }
@@ -133,14 +133,15 @@ class BookReserveRequestController extends Controller
        $bookReserveRequests= Book_Reserve::where('status',2)->get();
        foreach ($bookReserveRequests as $bookReserveRequest) {
              
-             if ($bookReserveRequest->reserve_upto_date >=date('Y-m-d')) {
+             if ($bookReserveRequest->reserve_upto_date < date('Y-m-d',strtotime(date('Y-m-d')."+2 days"))) {
                 $bookReservesUptoDate=Book_Reserve::find($bookReserveRequest->id);
                 $bookReservesUptoDate->status=3;
                 $bookReservesUptoDate->save();
+                 $this->reserveUpdate($bookReserveRequest->accession_no);
              }
        }
       
-        return  redirect()->back()->with(['message'=>'Cancel All Upto Successfully','class'=>'success']);
+        return  redirect()->back()->with(['message'=>'Reserve Upto Expiry All Canceled Successfully','class'=>'success']);
        
     }
      public function cancel($id)
@@ -149,6 +150,7 @@ class BookReserveRequestController extends Controller
        $bookReserveRequests->status=3;
        $bookReserveRequests->save();
        $this->accessionStatusCancelByUpdate($bookReserveRequests->accession_no);
+       $this->reserveUpdate($bookReserveRequests->accession_no);
       return  redirect()->back()->with(['message'=>'Cancel Successfully','class'=>'success']);
        
     }
@@ -157,8 +159,27 @@ class BookReserveRequestController extends Controller
          $bookAccession=BookAccession::find($accession_no);
          $bookAccession->status=1;
          $bookAccession->save();
+
     }
 
+    public function reserveUpdate($accession_no)
+    {
+      $bookAccession=BookAccession::find($accession_no);
+      $bookReserveUpdate=Book_Reserve::where('status',1)->where('book_name_id',$bookAccession->book_id)->first();
+      $bookReserveUpdate->reserve_date=date('Y-m-d');
+      $bookReserveUpdate->accession_no=$accession_no;
+      $bookReserveUpdate->reserve_upto_date=date('Y-m-d',strtotime(date('Y-m-d')."+2 days"));
+      $bookReserveUpdate->status=2;
+      $bookReserveUpdate->save();
+
+    }
+    //  public function accessionStatusUpdate($accession_no,$status)
+    // {
+    //   $bookAccession=BookAccession::find($accession_no);
+    //   $bookAccession->status=$status;
+    //   $bookAccession->save();
+      
+    // }  
     public function update(Request $request,$id)
     {
       // return $request;
