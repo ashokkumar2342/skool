@@ -14,7 +14,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h4></h4>
+        <h4>Book Reserve</h4>
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
        
       </div>
