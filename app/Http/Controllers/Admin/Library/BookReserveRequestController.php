@@ -33,7 +33,8 @@ class BookReserveRequestController extends Controller
     public function bookAccession(Request $request)
     {  
         $bookAccessionWiseNames=BookAccession::where('book_id',$request->id)->get();
-      return view('admin.library.bookReserve.accession_no_select_box',compact('bookAccessionWiseNames'));
+        $bookReserveHis=Book_Reserve::where('book_name_id',$request->id)->get();
+      return view('admin.library.bookReserve.accession_no_select_box',compact('bookAccessionWiseNames','bookReserveHis'));
     }
     
      public function registrationWiseHistory(Request $request)
