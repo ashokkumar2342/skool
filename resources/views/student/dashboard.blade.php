@@ -74,7 +74,7 @@
               <!-- ./col -->
               <div class="col-lg-4 col-6">
                 <!-- small box -->
-                <div class="small-box bg-warning" style="font-size: 15px">
+                <div class="small-box bg-warning" style="font-size: 15.5px">
                   <div class="inner">
 
                      <span>Working Days : <b>{{ $workingDays }}</b></span>

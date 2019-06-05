@@ -181,13 +181,15 @@ class DashboardController extends Controller
     }
     public function bookReserve()
     {
-         $bookTypes =Booktype::orderBy('name','asc')->get(); 
+         $bookTypes =Booktype::orderBy('name','desc')->get();
+
          return view('student.library.book_reserve',compact('bookTypes'));
     }
      public function bookReserveOnchange(Request $request)
     {
         $bookAccessionWiseNames=BookAccession::where('book_id',$request->id)->get();
-         return view('student.library.book_accession_select_box',compact('bookAccessionWiseNames'));
+        $bookReserveHis=Book_Reserve::where('book_name_id',$request->id)->get();
+         return view('student.library.book_accession_select_box',compact('bookAccessionWiseNames','bookReserveHis'));
 
     }
     public function bookReserveStatusUpdate(Request $request)
@@ -232,7 +234,7 @@ class DashboardController extends Controller
                else{   
                     
                         $bookReserveRequest= new Book_Reserve();
-                        $bookReserveRequest->member_ship_no_id=$request->member_ship_registration_no; 
+                        $bookReserveRequest->member_ship_no_id=$memberShipDetails->id; 
                         $bookReserveRequest->book_name_id=$request->book_name;                      
                         $bookReserveRequest->request_date=date('Y-m-d');
                         $bookReserveRequest->status=1; 

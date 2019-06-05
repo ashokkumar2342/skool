@@ -25,14 +25,14 @@
         <td>{{  $bookReserveRequest->reserve_upto_date==null? '' : date('d-m-Y',strtotime($bookReserveRequest->reserve_upto_date))}}</td> 
         <td>
           
-          <span class="{{ $bookReserveRequest->bookReserveStatus->color or '' }}">{{ $bookReserveRequest->bookReserveStatus->name or '' }}</span>
+          <span class="{{ $bookReserveRequest->bookReserveStatus->admin_color or '' }}">{{ $bookReserveRequest->bookReserveStatus->name or '' }}</span>
         </td>
          
         
         <td>
       
 
-             <a href="{{ route('admin.library.book.reserve.cancel',$bookReserveRequest->id) }}" class="btn btn-danger btn-xs" title="Cancel">Calcel</a>
+             <a href="{{ route('admin.library.book.reserve.cancel',$bookReserveRequest->id) }}" class="btn btn-danger btn-sm" title="Cancel">Calcel</a>
 
         </td>
          

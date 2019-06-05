@@ -7,7 +7,7 @@
     <section class="content"> 
       <div class="box"> 
         <div class="box-body">             
-             <form action="{{ route('admin.library.book.issue.details.search') }}" method="post" class="add_form" success-content-id="book_issue_details_show" success-content-msg="true">
+             <form action="{{ route('admin.library.book.issue.details.search') }}" method="post" class="add_form" success-content-id="book_issue_details_show">
               {{ csrf_field() }}
               <div class="row">
                 <div class="col-lg-4">

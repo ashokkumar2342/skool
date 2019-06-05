@@ -50,7 +50,7 @@
                 <div class="card card-primary card-outline">
                  <div class="card-body">
                    <div class="table-responsive">
-                     <table class="table m-0" id="class_fee_details_data_table">
+                     <table class="table m-0" id="book_reserve_table">
                        <thead>
                        <tr> 
                            <th>Book Name</th>

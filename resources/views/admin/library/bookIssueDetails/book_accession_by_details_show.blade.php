@@ -7,6 +7,11 @@
  	<input type="number" name="ticket_no" class="form-control" placeholder="Enter Your Ticket No" >
  </div>
  <div class="col-lg-12 text-center"> 
- 	<input type="submit" class="btn btn-success" value="Submit" style="margin:10px" >
+ 	<input type="submit"  id="submit" class="btn btn-success" value="Submit" style="margin:10px" >
  </div>
   
+
+
+
+
+?

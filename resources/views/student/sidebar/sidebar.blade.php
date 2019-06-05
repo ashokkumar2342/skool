@@ -65,22 +65,40 @@
               </li>
               <li class="nav-item">
                 <a href="{{ route('student.event') }}" class="nav-link">
-                  <i class="nav-icon fa fa-star text-danger"></i>
+                  <i class="nav-icon fa fa-star text-white"></i>
                   <p>
                     Event
                     <span class="right badge badge-danger "></span>
                   </p>
                 </a>
               </li>
-                 <li class="nav-item">
+              <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-book text-danger"></i>
+              <p>
+                Library
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
                 <a href="{{ route('student.library') }}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Book Reserve</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+                {{--  <li class="nav-item">
+                <a href="" class="nav-link">
                   <i class="nav-icon fa fa-book text-whit"></i>
                   <p>
                     Library
                     <span class="right badge badge-danger "></span>
                   </p>
                 </a>
-              </li>
+              </li> --}}
                
                
             
