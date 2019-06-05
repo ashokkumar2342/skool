@@ -181,7 +181,7 @@ class DashboardController extends Controller
     }
     public function bookReserve()
     {
-         $bookTypes =Booktype::orderBy('name','asc')->get(); 
+         $bookTypes =Booktype::orderBy('name','desc')->get(); 
          return view('student.library.book_reserve',compact('bookTypes'));
     }
      public function bookReserveOnchange(Request $request)
