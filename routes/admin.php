@@ -791,6 +791,13 @@ Route::group(['middleware' => 'admin'], function() {
 			    
 
           });
+//-------------------------------------Time-Table--------------------------------------------------------------             
+                Route::group(['prefix' => 'time-table-type'], function() {
+			    Route::get('/', 'TimeTable\TimeTableTypeController@index')->name('admin.time.table.type');
+          });
+           Route::group(['prefix' => 'preod-timing'], function() {
+			    Route::get('/', 'TimeTable\PreodController@index')->name('admin.preod.timing');
+          });
 
 
 
