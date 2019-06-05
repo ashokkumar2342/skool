@@ -181,13 +181,15 @@ class DashboardController extends Controller
     }
     public function bookReserve()
     {
-         $bookTypes =Booktype::orderBy('name','desc')->get(); 
+         $bookTypes =Booktype::orderBy('name','desc')->get();
+
          return view('student.library.book_reserve',compact('bookTypes'));
     }
      public function bookReserveOnchange(Request $request)
     {
         $bookAccessionWiseNames=BookAccession::where('book_id',$request->id)->get();
-         return view('student.library.book_accession_select_box',compact('bookAccessionWiseNames'));
+        $bookReserveHis=Book_Reserve::where('book_name_id',$request->id)->get();
+         return view('student.library.book_accession_select_box',compact('bookAccessionWiseNames','bookReserveHis'));
 
     }
     public function bookReserveStatusUpdate(Request $request)
