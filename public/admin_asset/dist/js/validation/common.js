@@ -72,6 +72,9 @@ function callJqueryDefault(divId){
 			$('.'+formObj.getAttribute('profile-pic')).attr( 'src', response.msg + '?dt=' + (+new Date()) );
 		}else if(formObj.getAttribute('success-content-id')){
 				$('#'+formObj.getAttribute('success-content-id')).html(response.data);
+				if (formObj.getAttribute('success-content-msg')) {
+					successMsg(response.msg)
+				}
 				if(formObj.getAttribute('x-table'))
 				{
 				$.fn.editable.defaults.mode = 'inline';
@@ -182,10 +185,7 @@ function callJqueryDefault(divId){
 		
 		if(formObj.getAttribute('no-reset')!="true"){
 			formObj.reset();
-			$(formObj).find('.multiselect').selectpicker("refresh");
-			$(formObj).find('.summernote').shouldInitialize = function () {
-				$(formObj).find('.summernote').summernote("reset");
-				};
+			 
 		}
 		if(formObj.getAttribute('call-jquery-default')!=""){
 					callJqueryDefault(formObj.getAttribute('call-jquery-default'));

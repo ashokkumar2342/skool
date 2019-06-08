@@ -41,12 +41,12 @@ body{
 	<p>We recently received a request to change your Lawrbit account&rsquo;s password for username {{$email}}.</p>
 	<p>To finish changing your password, use following link and OTP. 
 	 </br><a href="{{$link}}">{{$link}}</a></p>
-	<p>Verification Code : <strong>{{$otp}}</strong></p>
+	
 	<p>Notes:</p>
 	<ul>
 	<li>Above link expires in 24 hours.</li>
 	<li>If you can't click on the link, copy and paste it into your Web browser.</li>
-	<li>If you have any questions, contact your Lawrbit administrator.</li>
+	<li>If you have any questions, contact your School.</li>
 	</ul>
 	 @includeIf('emails.footer')
 </div>

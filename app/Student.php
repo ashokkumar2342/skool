@@ -2,12 +2,13 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class Student extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable,HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -34,7 +35,10 @@ class Student extends Authenticatable
     }    
      
     public function sessions(){
-        return $this->hasOne('App\Model\SessionDate','id','session_id');
+        return $this->hasOne('App\Model\AcademicYear','id','session_id');
+    }
+    public function academicYear(){
+        return $this->hasOne('App\Model\AcademicYear','id','session_id');
     }
     public function sectionTypes(){
         return $this->hasOne('App\Model\SectionType','id','section_id');
@@ -67,5 +71,6 @@ class Student extends Authenticatable
     Public function professions(){
         return $this->hasOne('App\Model\Profession','id','occupation'); 
     }
+    
     
 }

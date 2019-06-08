@@ -10,7 +10,7 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12">    
-                <form action="{{ route('admin.homework.post') }}" class="add_form" no-reset="true" method="post">
+                <form action="{{ route('admin.homework.post') }}" class="add_form" no-reset="false" method="post">
                 {{ csrf_field() }}                                      
                    <div class="col-lg-2">                         
                       <div class="form-group">
@@ -113,8 +113,8 @@
  <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> 
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-{{--  <script type="text/javascript"> 
-   $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
+ <script type="text/javascript"> 
+   // $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
     // $(document).ready( function () {
     //     $('#homework_table').DataTable();
        
@@ -140,33 +140,33 @@
     }); 
     
 
-    $('#homework_table').on('click', '.btn_delete', function(event) {
-        event.preventDefault();  
-        var id = $(this).data("id");
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });      
-        $.ajax({
-            url: '{{ route('admin.homework.delete') }}',
-            type: 'delete',
-            data: {id: id},
-        })
-        .done(function(data) {
-            toastr[data.class](data.message)
-            $("#homework_table").load(location.href + ' #homework_table'); 
-        })
-        .fail(function() {
-            console.log("error");
-        })
-        .always(function() {
-            console.log("complete");
-        });
+    // $('#homework_table').on('click', '.btn_delete', function(event) {
+    //     event.preventDefault();  
+    //     var id = $(this).data("id");
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });      
+    //     $.ajax({
+     //        url: '{{ route('admin.homework.delete') }}',
+    //         type: 'delete',
+    //         data: {id: id},
+    //     })
+    //     .done(function(data) {
+    //         toastr[data.class](data.message)
+    //         $("#homework_table").load(location.href + ' #homework_table'); 
+    //     })
+    //     .fail(function() {
+    //         console.log("error");
+    //     })
+    //     .always(function() {
+    //         console.log("complete");
+    //     });
         
-    });   
+    // });   
     
-</script> --}}
+</script>
 
 
 @endpush

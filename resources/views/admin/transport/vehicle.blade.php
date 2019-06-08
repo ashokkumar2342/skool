@@ -43,14 +43,14 @@
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                           <label>Siting Capacity</label>
-                           {{ Form::number('siting_capacity','',['class'=>'form-control','id'=>'siting_capacity','max'=>'300','placeholder'=>'Siting Capacity','required']) }}
+                           {{ Form::text('siting_capacity','',['class'=>'form-control','id'=>'siting_capacity','maxlength'=>'20','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','placeholder'=>'Siting Capacity','required']) }}
                           
                          </div>                                         
                       </div>
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                           <label>Average</label>
-                           {{ Form::number('average','',['class'=>'form-control','id'=>'average', 'placeholder'=>' Average','max'=>'90','required']) }}
+                           {{ Form::text('average','',['class'=>'form-control','id'=>'average', 'placeholder'=>' Average','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','required']) }}
                             
                          </div>                                         
                       </div>

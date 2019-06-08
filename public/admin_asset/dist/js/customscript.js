@@ -15,7 +15,9 @@ function callAjax(obj,url,divId,callback){
 				$("#"+divId).find('.multiselect').multiselect({
 					includeSelectAllOption: true,
            			 maxHeight: 400, 
-            		buttonWidth: 250,
+            		buttonWidth: 305,
+            	 
+                     
             
              	 enableFiltering: true
 				});
@@ -40,7 +42,7 @@ function callAjax(obj,url,divId,callback){
 				
 
 			
-			if(obj.getAttribute('button-click') && data.status==1)
+			if(obj.getAttribute('button-click'))
 			{	
 			var myStr = obj.getAttribute('button-click');
         	var strArray = myStr.split(",");
@@ -76,6 +78,10 @@ function callAjax(obj,url,divId,callback){
 				var redirect=obj.getAttribute('redirect-to');
 				setTimeout(window.location.replace(redirect), 3000);
 				;
+			}
+			if(obj.getAttribute('select2'))
+			{  
+				$(".select2").select2();
 			}
 				 
 		}
@@ -172,7 +178,10 @@ function callPopupLarge(obj,url){
 	        		$("#"+strArray[i]).trigger('change');
 	       		 }
 			}
-				
+			if(obj.getAttribute('select2'))
+			{  
+				$(".select2").select2();
+			}	
 				
 			}
     });

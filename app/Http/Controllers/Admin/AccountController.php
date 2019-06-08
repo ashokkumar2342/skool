@@ -41,7 +41,7 @@ class AccountController extends Controller
             'email' => 'required|email|unique:admins',
             "mobile" => 'required|numeric|digits:10',
             "role_id" => 'required',
-            "password" => 'required|min:5|max:15', 
+            "password" => 'required|min:6|max:15', 
               
           
         ];

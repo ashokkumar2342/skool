@@ -14,11 +14,11 @@
 		@if ($parentsPending->active_status==2) 
 		
 		<tr>
-			<td>{{ $parentsPending->registration_no }}</td>
-			<td>{{ $parentsPending->name }}</td>
-			<td>{{ $parentsPending->father_name }}</td>
-			<td>{{ $parentsPending->mother_name }}</td>
-			<td>   {{ $parentsPending->mobile }}</td>
+			<td>{{ $parentsPending->registration_no or '' }}</td>
+			<td>{{ $parentsPending->name or '' }}</td>
+			<td>{{ $parentsPending->father_name or '' }}</td>
+			<td>{{ $parentsPending->mother_name or ''}}</td>
+			<td>   {{ $parentsPending->mobile or '' }}</td>
 			<td>  
 			</td>
 		</tr> 

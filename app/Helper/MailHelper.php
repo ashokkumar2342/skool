@@ -70,20 +70,17 @@ class MailHelper
 
 	public function forgetmail($email)
 	{
-		$AppUsers=new User();
+		$AppUsers=new Admin();
 		$u_detail=$AppUsers->getdetailbyemail($email);
 		$up_u=array();
-		$up_u['token'] = str_random(64);
-		$up_u['otp'] = mt_rand(100000,999999);
-		$AppUsers->updateuserdetail($up_u,$u_detail->user_id);
-	
-		
+		$up_u['token'] = str_random(64);		
+		$AppUsers->updateuserdetail($up_u,$u_detail->user_id);		
 		$up_u['name']=$u_detail->name;
 		$up_u['email']=$u_detail->email;
 		$user=$u_detail->email;
-		$up_u['otp']=$up_u['otp'];
+		// $up_u['otp']=$up_u['otp'];
 		$up_u['logo']=url("img/logo.png");
-		$up_u['link']=url("passwordreset/".$up_u['token']);
+		$up_u['link']=url("passwordreset/reset".$up_u['token']);
 
 
 		$this->mailsend('emails.forgotPassword',$up_u,'No-Reply','Forget Password',$user,env('MAIL_USERNAME'),20);

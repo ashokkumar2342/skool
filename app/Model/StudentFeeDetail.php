@@ -17,5 +17,11 @@ class StudentFeeDetail extends Model
     public function students(){
     	return $this->hasOne('App\Student','id','student_id');
     }
+
+    public function getFeeDetailsNextByStudentId($student_id){
+    	return $this->where('student_id',$student_id)->get();
+    }
+
+    
     
 }

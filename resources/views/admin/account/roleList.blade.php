@@ -1,4 +1,4 @@
-@extends('admin.layout.base')
+{{-- @extends('admin.layout.base')
 @section('body')
   <!-- Main content -->
     <section class="content">
@@ -32,6 +32,7 @@
                      
                     </tr> 
                     @endforeach
+                  </tbody>
                   </table>
                 </div>
                 <div class="col-lg-6">
@@ -67,6 +68,7 @@
               
                   
             </div>
+          
               
             <!-- /.box-body -->
             
@@ -123,4 +125,110 @@
      });
   
  </script>
+@endpush --}}
+@extends('admin.layout.base')
+@section('body')
+  <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">          
+            <!-- /.box-header -->            
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Role List</h3>
+            </div>             
+
+            <!-- /.box-header -->
+            <div class="box-body"> 
+              <div class="row">
+                <div class="col-lg-6">
+                  <table id="dataTable" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th>Sn</th>
+                       
+                      <th>Name</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($roles as $role)
+                    <tr>
+                      <td>{{ $role->id }}</td>
+                      
+                      <td>{{ $role->name }} </td>
+                     
+                    </tr> 
+                    @endforeach
+                  </tbody>
+                  </table>
+                </div>
+                <div class="col-lg-6">
+                  
+               <form action="{{ route('admin.roleAccess.subMenu') }}" method="post" class="add_form form-horizontal" no-reset="true" accept-charset="utf-8"> 
+                 {{ csrf_field() }}
+              <div class="col-md-4">
+                <div class="form-group col-md-12">
+                  {{ Form::label('role','Role',['class'=>' control-label']) }}                         
+                  <div class="form-group">  
+                         <select class="form-control"  multiselect-form="true"  name="role"  onchange="callAjax(this,'{{route('admin.account.roleMenuTable')}}'+'?id='+this.value,'menu_list')" > 
+                          <option value="" disabled selected>Select User</option>
+                         @foreach ($roles as $role)
+                              <option value="{{ $role->id }}">{{ $role->name }}</option> 
+                          @endforeach  
+                         </select> 
+                    
+                    </div>
+                </div> 
+              </div>
+
+              <div class="col-md-6" id="menu_list">  
+                 
+              </div>
+              <div class="col-md-2"></br>  
+              
+                <button type="submit" class="btn btn-primary"> Save</button>
+
+              </div>
+
+           </form>
+          </div>
+
+               
+             
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+
+@endsection
+@push('links')
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+@endpush
+ @push('scripts')
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+ 
+<script type="text/javascript">
+
+     $(document).ready(function(){
+        $('#dataTable').DataTable();
+    });
+      
+ </script>
+ <script>
+     $(function() {
+         $('#ms').change(function() {
+             console.log($(this).val());
+         }).multipleSelect({
+             width: '100%'
+         });
+     });
+ </script>
+<script type="text/javascript">
+            
+</script>
 @endpush

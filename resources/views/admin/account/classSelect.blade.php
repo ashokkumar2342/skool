@@ -12,4 +12,5 @@
   @endforeach   --}}
      
 </select>
-<input type="submit" value="Save" class="btn btn-success btn-sm">
+
+<input type="submit" value="Save" class="btn btn-success btn-sm" style="float: right;">

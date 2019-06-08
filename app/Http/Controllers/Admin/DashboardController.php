@@ -11,6 +11,10 @@ use App\Model\StudentFeeDetail;
 use App\Student;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Laravel\Passport\createToken;
 
 class DashboardController extends Controller
 {
@@ -62,5 +66,52 @@ class DashboardController extends Controller
         return view('admin/dashboard/studentRegistrationDetails',compact('classes','students'))->render();
     }
 
+    public function passportTokenCreate(){
+        $user = Admin::find(1);
+        // Creating a token without scopes...
+        $token = $user->createToken('Student')->accessToken;
+
+        // Creating a token with scopes...
+       // $token = $user->createToken('My Token', ['place-orders'])->accessToken;
+        return $token;
+    }
+
+    public function proFile()
+    {
+        $admins = Auth::guard('admin')->user();
+         return view('admin/dashboard/profile/view',compact('admins'));
+    } 
+     public function passwordChange(Request $request)
+    {
+        $rules=[
+          'old_password' => 'required', 
+          'password' => 'required|min:6|max:50', 
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+
+       $admin=Auth::guard('admin')->user();
+        if (Hash::check($request->old_password, $admin->password))
+        {
+           $newPasswrod = Hash::make($request->password);
+            $st=Admin::find($admin->id);
+            $st->password =$newPasswrod ;
+            $st->save();
+            $response =array();
+            $response['status'] =1;
+            $response['msg'] ='Password Updated Successfully';
+            return $response;
+        }else{
+           return 'not fond';
+        }
+
+    }
    
 }

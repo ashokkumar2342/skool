@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
+use App\Admin;
+use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
+use App\Student;
+use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-
-use Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 class LoginController extends Controller
 {
     /*
@@ -38,6 +42,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('admin.guest')->except('logout');
+        $this->middleware('student.guest');
     }
 
     public function index(){
@@ -68,7 +73,22 @@ class LoginController extends Controller
                 }
                    
             } 
-            return Redirect()->back()->withErrors($error="Invalid User or Password"); 
+
+            $student = Student::orWhere('email',$request->email)->orWhere('username',$request->email)->orWhere('father_mobile',$request->email)->first();
+             if (!empty($student)) {
+                 if (Hash::check($request->password, $student->password)) {
+                     auth()->guard('student')->loginUsingId($student->id);
+                     return redirect()->route('student.dashboard');
+
+                 } else {
+                     return Redirect()->back()->with(['message'=>'Invalid User or Password','class'=>'error']);
+                 }
+             }
+            
+            // if (auth()->guard('student')->attempt($credentials)) {
+            //   return redirect()->route('student.dashboard');
+            // }
+            return Redirect()->back()->with(['message'=>'Invalid User or Password','class'=>'error']); 
         
        
     }
@@ -91,4 +111,36 @@ class LoginController extends Controller
     {
         return Auth::guard('admin');
     }
+    public function forgetPassword()
+    {
+        return view('admin.auth.forget_password');
+    }
+    public function forgetPasswordSendLink(Request $request)
+    {
+        $AppUsers=new Admin();
+        $u_detail=$AppUsers->getdetailbyemail($request->email);
+        $up_u=array();
+        $up_u['token'] = str_random(64);        
+        $AppUsers->updateuserdetail($up_u,$u_detail->user_id);      
+        $up_u['name']=$u_detail->name;
+        $up_u['email']=$u_detail->email;
+        $user=$u_detail->email;
+        // $up_u['otp']=$up_u['otp'];
+        $up_u['logo']=url("img/logo.png");
+        $up_u['link']=url("passwordreset/reset/".$up_u['token']);
+
+
+        Mail::send('emails.forgotPassword', $up_u, function($message){
+                   $message->to('ashok@gmail.com')->subject('Password Reset');
+               });
+                       
+        // $mailHelper = new MailHelper();
+        // $mailHelper->forgetmail($request->email); 
+        $response=array();
+        $response['status']=1;
+        $response['msg']='Reset Link Sent successfully';
+        return $response;
+
+    }
+    
 }
