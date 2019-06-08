@@ -29,5 +29,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	    // });
 	});
 Route::post('imageweb/{id}', 'Admin\StudentController@imageWebUpdate')->name('admin.student.profilepic.webupdate');	
+Route::post('login', function(Request $request){
+  return 1;
+});	
+Route::get('test', function(Request $request){
+ return response()->json(['ashok'=>'ashok']);
+});	
 
  
