@@ -7,12 +7,7 @@
  }
      
  @endphp
- <label>Class</label><br>
- <select name="class_id[]" class="multiselect"  multiple="multiple"> 
-   @foreach ($classTypes as $classType) 
-   <option value="{{ $classType->id }}" {{ in_array($classType->id,$arrayClassId)?'selected':'' }}>{{ $classType->name }}</option> 
-    @endforeach 
- </select> 
+ 
 <table class="table">
     <thead>
         <tr> 
