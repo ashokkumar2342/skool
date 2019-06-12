@@ -30,7 +30,7 @@ class ClassSubjectPeriodController extends Controller
 
     }
     public function store(Request $request){
-    	 return $request;
+    	 // return $request;
     	$rules=[
     	  
             // 'name' => 'required', 
@@ -49,8 +49,8 @@ class ClassSubjectPeriodController extends Controller
     	}
         else {
         	$classSubjectPeriod=ClassSubjectPeriod::firstOrNew(['class_id'=>$request->class_id]);
-        	$classSubjectPeriod->class_id=implode(',', $request->class_id);
-        	$classSubjectPeriod->section_id=implode(',', $request->section_id);
+        	$classSubjectPeriod->class_id=$request->class_id;
+        	$classSubjectPeriod->section_id=$request->section_id;
         	$classSubjectPeriod->subject_id=$request->subject_id;
         	$classSubjectPeriod->no_of_period=$request->no_of_period;
         	$classSubjectPeriod->period_duration=$request->period_duration;
@@ -73,18 +73,22 @@ class ClassSubjectPeriodController extends Controller
     } 
 
     public function subjectShow(Request $request){
-         
+           
+         $optionSubjectGroup=OptionSubjectGroup::where('class_id',$request->class_id)->where('group_no',$request->group_id)->first();
         $classSubjects=Subject::where('classType_id',$request->id)->get();
         // $subjectTypes=SubjectType::all();
-        return view('admin.timeTable.optionSubjectGroup.subject_show',compact('classSubjects'));
+        
+        return view('admin.timeTable.optionSubjectGroup.subject_show',compact('classSubjects','optionSubjectGroup'));
+        
     }
 
     public function subjectMoveStore(Request $request){
          // return $request;
         $rules=[
           
-            // 'name' => 'required', 
-            // 'mobile_no' => 'required|digits:10', 
+            'class_id' => 'required', 
+            'group_no' => 'required', 
+            'subject_id' => 'required', 
             // 'email' => "required|max:50|email|unique:authors,email", 
        
         ];

@@ -871,13 +871,13 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::post('update/{id}', 'Room\ClassRoomController@update')->name('admin.class.wise.room.details.update');
           });
            Route::group(['prefix' => 'combine-class-subject-group'], function() {
-               	 Route::get('/', 'Room\CombineClassSubjectGroupController@index')->name('admin.combine-class-subject-group');
-               	 Route::get('Class_group', 'Room\CombineClassSubjectGroupController@subjectWiseGroup')->name('admin.combine-class-select_subject_wise-group');
-               	 Route::post('store', 'Room\CombineClassSubjectGroupController@store')->name('admin.class.wise.room.details.store');
+               	 Route::get('/', 'Room\CombineClassSubjectGroupController@index')->name('admin.combine.class.subject.group');
+               	 Route::get('Class_group', 'Room\CombineClassSubjectGroupController@subjectWiseGroup')->name('admin.combine.class.select.subject.wise.group');
+               	 Route::post('store', 'Room\CombineClassSubjectGroupController@store')->name('admin.combine.class.subject.group.store');
                	 
           });
+           
 
-
-
+            
 
 });
