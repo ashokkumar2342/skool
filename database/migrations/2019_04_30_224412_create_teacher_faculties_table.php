@@ -15,11 +15,16 @@ class CreateTeacherFacultiesTable extends Migration
     {
         Schema::create('teacher_faculties', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
+            $table->string('registration_no');
             $table->string('name');
-            $table->string('mobile');
+            $table->string('father_name');
+            $table->string('relation_name');
+            $table->string('father_mobile');
+            $table->date('dob');
+            $table->date('joining_date');
             $table->string('email');
-            $table->text('address');
+            $table->text('c_address')->nullable();
+            $table->string('status')->nullable();
              
             $table->timestamps();
         });

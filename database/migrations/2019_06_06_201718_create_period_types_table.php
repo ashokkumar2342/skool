@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePreodTimingsTable extends Migration
+class CreatePeriodTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreatePreodTimingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('preod_timings', function (Blueprint $table) {
+        Schema::create('period_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('time_table_type_id');
-            $table->date('from_time');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreatePreodTimingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('preod_timings');
+        Schema::dropIfExists('period_types');
     }
 }
