@@ -21,7 +21,7 @@
 						<td>{{  $teacherFaculty->relation_name }}</td>
 						<td>{{  $teacherFaculty->father_mobile }}</td>
 						<td>{{  $teacherFaculty->email }}</td>
-						<td>{{  $teacherFaculty->dob }}</td>
+						<td>{{ date('d-m-Y',strtotime( $teacherFaculty->dob ))}}</td>
 						<td>{{  $teacherFaculty->c_address }}</td>
 						<td><button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.teacher.details.edit',Crypt::encrypt($teacherFaculty->id)) }}')"><i class="fa fa-edit"></i></button>
 

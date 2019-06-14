@@ -1,4 +1,4 @@
-<table class="table"> 
+<table class="table" id="data_table"> 
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -6,7 +6,7 @@
 			<th>Section</th>
 			<th>Subject</th>
 			<th>No of Period</th>
-			<th>Period Duration</th>
+			 
 			 
 		</tr>
 	</thead>
@@ -19,8 +19,14 @@
 					<td>{{ $teacherSubjectClass->sectionTypes->name or '' }}</td>
 					<td>{{ $teacherSubjectClass->subjectType->name or '' }}</td>
 					<td>{{ $teacherSubjectClass->no_of_period }}</td>
-					<td>{{ $teacherSubjectClass->no_of_duration }}</td>
+					 
+					 
 				</tr>
 		@endforeach
+
 	</tbody>
 </table>
+<div class="col-lg-2 pull-right" style="margin-right: 150px"> 
+	<label>Total</label>
+<input type="text" class="form-control">
+</div>

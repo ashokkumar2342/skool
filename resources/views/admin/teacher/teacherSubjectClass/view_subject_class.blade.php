@@ -12,7 +12,7 @@
               <div class="row">
                 <div class="col-lg-4"> 
                  <label>Teacher Name</label>
-                 <select name="teacher_name" class="form-control" onchange="callAjax(this,'{{ route('admin.teacher.history.table.show') }}','teacher_history_table')">
+                 <select name="teacher_name" class="form-control" data-table="true" onchange="callAjax(this,'{{ route('admin.teacher.history.table.show') }}','teacher_history_table')">
                  <option selected disabled>Select Name</option> 
                    @foreach ($teacherFacultys as $teacherFaculty) 
                    <option value="{{ $teacherFaculty->id }}">{{ $teacherFaculty->name }}</option> 
@@ -21,7 +21,7 @@
                  </div>
                  <div class="col-lg-4"> 
                  <label>Class</label></br>
-                 <select name="class_id" class="form-control" {{-- multiselect-form="true" --}} onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section') }}','class_wise_section')">
+                 <select name="class" class="form-control" {{-- multiselect-form="true" --}} onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section') }}','class_wise_section')">
                    <option selected disabled>Select Class</option> 
                    @foreach ($classTypes as $classType) 
                    <option value="{{ $classType->id }}">{{ $classType->name }}</option> 
@@ -34,11 +34,7 @@
                   <label>No of period</label>
                   <input type="text" name="no_of_period" class="form-control"> 
                  </div>
-                 <div class="col-lg-4">
-                  <label>Period Duration</label>
-                  <input type="text" name="period_duration" class="form-control"> 
-                 </div>
-               </div>
+                  
                <div class="col-lg-12 text-center"> 
                 <input type="submit" class="btn btn-success" style="margin-top: 10px">
                </div>
@@ -57,5 +53,10 @@
 @endpush
 @push('scripts')
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
- 
+ <script type="text/javascript">
+    $(document).ready(function(){
+        $('#data_table').DataTable();
+    });
+
+ </script>
   @endpush

@@ -1,21 +1,13 @@
+<style type="text/css" media="screen">
 
- @php
- if (!empty($TeacherWorkingDays->teacher_id)) {
-     $arrayTeacherId =explode(',', $TeacherWorkingDays->teacher_id);
- }else{
-    $arrayTeacherId=[];
- }
-     
- @endphp
- <div class="col-lg-4"> 
- <label>Teacher Name</label>
- <select name="teacher_name" class="form-control">
- <option selected disabled>Select Name</option> 
-   @foreach ($teacherFacultys as $teacherFaculty) 
-   <option value="{{ $teacherFaculty->id }}" {{ in_array($teacherFaculty->id,$arrayTeacherId)?'selected':'' }}>{{ $teacherFaculty->name }}</option> 
-    @endforeach 
- </select> 
- </div>
+     .greenText{ background-color:#45770b;color:#ffffff; }
+
+      .yellowText{ background-color:#FFC107;color:#ffffff; }
+
+      .redText{ background-color:#d82b1e;color:#fff; }
+
+  </style>
+ 
 <table class="table">
     <thead>
         <tr> 
@@ -48,10 +40,20 @@
           
              @endphp
             <th>
-              
-                <select name="period_type[]"> 
+              @php
+                    if ($saveCheckPeriodId==1) {
+                      $className='greenText';
+                    }elseif ($saveCheckPeriodId==2) {
+                      $className='yellowText';
+                    }elseif ($saveCheckPeriodId==3) {
+                      $className='redText';
+                    }else{
+                      $className='greenText';
+                    }
+                @endphp
+                <select name="period_type[]" onchange="this.className=this.options[this.selectedIndex].className" class="{{ $className }}"> 
                   @foreach ($periodTypes  as $key=>$periodType)  
-                  <option value="{{ $periodType->id }}" {{ $periodType->id==$saveCheckPeriodId?'selected':'' }}>{{ $periodType->name }}</option>
+                  <option class="{{ $periodType->color }}" value="{{ $periodType->id }}" {{ $periodType->id==$saveCheckPeriodId?'selected':'' }}>{{ $periodType->name }}</option>
                   @endforeach 
                 </select> 
                 <input type="hidden" name="periodTiming[]" value="{{ $periodTiming->id }}">

@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-lg-4">
                   <label>Mobile</label>
-                  <input type="text" name="mobile" class="form-control" placeholder="" maxlength="10"> 
+                  <input type="text" name="mobile" class="form-control" placeholder="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
                 </div>
                 <div class="col-lg-4">
                   <label>Email</label>
