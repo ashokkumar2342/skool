@@ -2,7 +2,7 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header"> 
-    <h1>Room Add<small>list</small> </h1> 
+    <h1>Room<small>Details</small> </h1> 
     </section>  
     <section class="content"> 
       <div class="box"> 
@@ -17,7 +17,7 @@
                 <input type="submit" class="btn btn-success" value="submit" style="margin: 24px">
               </div>
                 
-            </div>
+            
                 
              </form>
              <table class="table" id="room_table"> 
@@ -52,5 +52,9 @@
 @push('scripts')
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
- 
+ <script type="text/javascript">
+    $(document).ready(function(){
+        $('#room_table').DataTable();
+    });
+ </script>
   @endpush

@@ -1,3 +1,4 @@
+<div class="col-lg-12">
 <table class="table" id="data_table"> 
 	<thead>
 		<tr>

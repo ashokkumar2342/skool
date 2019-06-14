@@ -2,7 +2,7 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header"> 
-    <h1>Class Wise Room Add<small>list</small> </h1> 
+    <h1>Class Wise Room<small>Details</small> </h1> 
     </section>  
     <section class="content"> 
       <div class="box"> 

@@ -46,7 +46,7 @@
               </form>
                
              
-          </div>
+          
           <table class="table" id="class_subject_period_table"> 
             <thead>
               <tr>
