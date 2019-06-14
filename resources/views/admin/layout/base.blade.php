@@ -23,7 +23,8 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/skins/_all-skins.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/skins/_all-skins.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('admin_asset/plugins/multiple-select/css/multi-select.css')}}">
+
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <link href={!! asset('admin_asset/dist/css/bootstrap-multiselect.css') !!} rel="stylesheet" type="text/css">
   
@@ -83,6 +84,7 @@
     <script src="{{ asset('admin_asset/plugins/fastclick/fastclick.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('admin_asset/dist/js/app.min.js') }}"></script>
+    <script src="{{ asset('admin_asset/plugins/multiple-select/js/jQuery.multi-select.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('admin_asset/dist/js/demo.js') }}"></script>
     <script src="{{ asset('admin_asset/dist/js/toastr.min.js') }}"></script>
@@ -107,12 +109,15 @@
       $('.select2').select2();
        //$('.multiselect').selectpicker(); 
         
-       $('multiselect').multiselect({
+       $('.multiselect').multiselect({
        
-            includeSelectAllOption: true,
-            maxHeight: 400,
-            dropUp: true,
-              enableFiltering: true
+                    includeSelectAllOption: true,
+                             maxHeight: 400, 
+                          buttonWidth: 405,
+                         
+                                
+                       
+                           enableFiltering: true
               
        
            });
