@@ -20,7 +20,7 @@ function callAjax(obj,url,divId,callback){
                      
             
              	 enableFiltering: true
-				});
+			});
 			if(callback)
 				callback();
 			if(obj.getAttribute('data-table'))
@@ -82,6 +82,10 @@ function callAjax(obj,url,divId,callback){
 			if(obj.getAttribute('select2'))
 			{  
 				$(".select2").select2();
+			}
+			if(obj.getAttribute('multiselect'))
+			{  
+			   $('.pre-selected-options').multiSelect();
 			}
 				 
 		}
@@ -147,7 +151,16 @@ function callPopupLarge(obj,url){
 
 			if(obj.getAttribute('multi-select')=="true")
 				{
-					$("#"+divId).find('.multiselect').multiselect();
+					$("#"+divId).find('.multiselect').multiselect({
+						includeSelectAllOption: true,
+           			 maxHeight: 400, 
+            		buttonWidth: 305,
+            	 
+                     
+            
+             	 enableFiltering: true
+				});
+					
 				}
 			if(obj.getAttribute('button-click'))
 			{ 

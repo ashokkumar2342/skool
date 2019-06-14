@@ -29,11 +29,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	    // });
 	});
 Route::post('imageweb/{id}', 'Admin\StudentController@imageWebUpdate')->name('admin.student.profilepic.webupdate');	
-Route::post('login', function(Request $request){
-  return 1;
-});	
+Route::post('login', 'Api\StudentController@login');	
+Route::get('login', 'Api\StudentController@login');	
 Route::get('test', function(Request $request){
  return response()->json(['ashok'=>'ashok']);
 });	
+ Route::group(['prefix' => 'student'], function() {
+ 	Route::get('details/{id}', 'Api\StudentController@index'); 
+    Route::get('image/{id}', 'Api\StudentController@image'); 
+  
+ });
+
 
  
