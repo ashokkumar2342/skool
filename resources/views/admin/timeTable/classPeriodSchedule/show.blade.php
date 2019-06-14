@@ -1,12 +1,13 @@
 
- @php
- if (!empty($classPeriodSchedule->class_id)) {
-     $arrayClassId =explode(',', $classPeriodSchedule->class_id);
- }else{
-    $arrayClassId=[];
- }
-     
- @endphp
+  <style type="text/css" media="screen">
+
+     .greenText{ background-color:#45770b;color:#ffffff; }
+
+      .yellowText{ background-color:#FFC107;color:#ffffff; }
+
+      .redText{ background-color:#d82b1e;color:#fff; }
+
+  </style>
  
 <table class="table">
     <thead>
@@ -40,9 +41,20 @@
           
              @endphp
             <th>
-                <select name="period_type[]"> 
-                  @foreach ($periodTypes  as $key=>$periodType)  
-                  <option value="{{ $periodType->id }}" {{ $periodType->id==$saveCheckPeriodId?'selected':'' }}>{{ $periodType->name }}</option>
+                @php
+                    if ($saveCheckPeriodId==1) {
+                      $className='greenText';
+                    }elseif ($saveCheckPeriodId==2) {
+                      $className='yellowText';
+                    }elseif ($saveCheckPeriodId==3) {
+                      $className='redText';
+                    }else{
+                      $className='greenText';
+                    }
+                @endphp
+                <select name="period_type[]" onchange="this.className=this.options[this.selectedIndex].className" class="{{ $className }}"> 
+                  @foreach ($periodTypes  as $key=>$periodType)   
+                  <option class="{{ $periodType->color }}" value="{{ $periodType->id }}" {{ $periodType->id==$saveCheckPeriodId?'selected':'' }}>{{ $periodType->name }}</option>
                   @endforeach 
                 </select> 
                 <input type="hidden" name="periodTiming[]" value="{{ $periodTiming->id }}">

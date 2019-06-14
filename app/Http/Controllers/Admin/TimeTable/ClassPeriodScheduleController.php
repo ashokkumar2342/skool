@@ -34,11 +34,11 @@ class ClassPeriodScheduleController extends Controller
     }
 
     public  function  scheduleShow(Request $request){
-      // return $request;
+        // return $request;
         $classTypes=ClassType::all();
         $daysTypes=DaysType::all();
         $periodTimings=PeriodTiming::where('time_table_type_id',$request->time_table_type_id)->get();
-        $classPeriodSchedule=ClassPeriodSchedule::where('class_id',$request->id)->where('time_table_type_id',$request->time_table_type_id)->first();
+        $classPeriodSchedule=ClassPeriodSchedule::where('class_id',$request->class_id)->where('time_table_type_id',$request->time_table_type_id)->first();
         $periodTypes=PeriodType::all();
         return view('admin.timeTable.classPeriodSchedule.show',compact('periodTimings','daysTypes','periodTypes','classPeriodSchedule','classTypes'));
     }
@@ -72,7 +72,7 @@ class ClassPeriodScheduleController extends Controller
     {
     	   
     	$rules=[ 
-           'class_id'=>'required',
+           'class'=>'required',
            'time_table_type'=>'required',
     	];
 
@@ -88,13 +88,13 @@ class ClassPeriodScheduleController extends Controller
     
               $classPeriodSchedule=ClassPeriodSchedule::firstOrNew(['time_table_type_id'=>$request->time_table_type]);
               $classPeriodSchedule->time_table_type_id=$request->time_table_type;
-              $classPeriodSchedule->class_id=$request->class_id;
+              $classPeriodSchedule->class_id=$request->class;
               $classPeriodSchedule->period_timeing_id=implode(',', $request->periodTiming);
               $classPeriodSchedule->days_id=implode(',', $request->day);
               $classPeriodSchedule->period_type=implode(',', $request->period_type);
               $classPeriodSchedule->save();   
           
-          $response=['status'=>1,'msg'=>'Created Successfully'];
+          $response=['status'=>1,'msg'=>'Save Successfully'];
           return response()->json($response);
 
         } 
