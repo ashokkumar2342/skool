@@ -1,25 +1,40 @@
 
-<div class="col-lg-3">
-	<select name="group_no" class="form-control">
-		<option value="1">Group 1</option>
-		<option value="2">Group 2</option>
-		<option value="3">Group 3</option>
-		 
-	</select>
+
+ @php 
+
+ if (!empty($combineClassSubjectGroup->class_id)) {
+     $arrayClassId =explode(',', $combineClassSubjectGroup->class_id);
+ }else{
+    $arrayClassId=[];
+ }
+ if (!empty($combineClassSubjectGroup->room_id)) {
+     $arrayRoomId =explode(',', $combineClassSubjectGroup->room_id);
+ }else{
+    $arrayRoomId=[];
+ }
+    
+  
+ @endphp
 	
-</div>
-<div class="col-lg-12" style="margin-top: 10px">
-	
-<select class='pre-selected-options' multiple='multiple'>
-   
-  @foreach ($subjects as $subject)
-  <option value='{{ $subject->id }}'>{{ $subject->classTypes->name or '' }}</option>
+<select class='pre-selected-options' name="class_id[]" multiple='multiple'> 
+  @foreach ($classTypes as $classType)
+  <option value="{{ $classType->classType_id }}" {{ in_array($classType->classType_id,$arrayClassId)?'selected':'' }}>{{ $classType->classTypes->name or '' }}</option>
   @endforeach 
 </select>
-</div>
-<div class="col-lg-3 text-center" >
 
-	<input type="submit" class="btn btn-success" style="margin-top: 10px">
+ <div class="col-lg-3">
+ 	<label>Room No</label>
+ 	<select name="room_no" class="form-control">
+ 		<option  selected disabled>Select Room No</option>
+ 		 @foreach ($roomTypes as $roomType)
+ 		 <option value="{{ $roomType->id }}"{{ in_array($roomType->id,$arrayRoomId)?'selected':'' }}>{{ $roomType->name }}</option> 
+ 		 	 
+ 		 @endforeach
+ 	</select>
+ 	
+ </div>
+<div class="col-lg-1 text-center" >
+
+	<input type="submit" class="btn btn-success" style="margin-top: 24px">
 	
-</div>
- 
+  </div>
