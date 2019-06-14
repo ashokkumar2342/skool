@@ -21,7 +21,7 @@
                   
                 </div>
                 <div class="col-lg-6">
-                  <label>Room Name</label>
+                  <label>Room No</label>
                   <select name="room_name" class="form-control">
                     <option selected disabled>Select Room Name</option>
                      @foreach ($roomTypes as $roomType)
@@ -40,7 +40,7 @@
                <thead>
                  <tr>
                    <th>Class</th>
-                   <th>Room Name</th>
+                   <th>Room No</th>
                    <th>Action</th>
                  </tr>
                </thead>

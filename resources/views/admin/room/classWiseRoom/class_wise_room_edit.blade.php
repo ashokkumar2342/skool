@@ -33,7 +33,7 @@
                   
                 </div>
                 <div class="col-lg-6">
-                  <label>Room Name</label>
+                  <label>Room No</label>
                   <select name="room_name" class="form-control">
                     <option value=""></option>
                      @foreach ($roomTypes as $roomType)
