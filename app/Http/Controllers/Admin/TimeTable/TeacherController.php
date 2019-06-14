@@ -34,8 +34,8 @@ class TeacherController extends Controller
         
            'name' => 'required', 
             'mobile' => 'required|digits:10', 
-            'email' => "required|max:50|email|unique:authors,email", 
-            'code' => "required|max:50", 
+            'email' => "required|max:50", 
+            'code' => "required|max:20", 
             'father' => "required", 
             'relation' => "required", 
             'joining_date' => "required", 
@@ -91,8 +91,8 @@ class TeacherController extends Controller
           
             'name' => 'required', 
             'mobile' => 'required|digits:10', 
-            'email' => "required|max:50|email|unique:authors,email", 
-            'code' => "required|max:50", 
+            'email' => "required|max:50", 
+            'code' => "required|max:20", 
             'father' => "required", 
             'relation' => "required", 
             'joining_date' => "required", 
@@ -132,15 +132,17 @@ class TeacherController extends Controller
     //--------------teacher-working-days----------------------------------------------//
 
      public function workDays(){
+       $teacherFacultys=TeacherFaculty::orderBy('name', 'DESC')->get();
          $timeTableTypes=TimeTableType::all();
-     	return view('admin.teacher.teacherWorkDays.view_work_days',compact('timeTableTypes'));
+     	return view('admin.teacher.teacherWorkDays.view_work_days',compact('timeTableTypes','teacherFacultys'));
     	
     }
     public function workingDaysShow(Request $request){
+      // return $request;
          $teacherFacultys=TeacherFaculty::orderBy('name', 'DESC')->get();
         $daysTypes=DaysType::all();
-        $periodTimings=PeriodTiming::where('time_table_type_id',$request->id)->get();
-        $TeacherWorkingDays=TeacherWorkingDays::where('time_table_type_id',$request->id)->first();
+        $periodTimings=PeriodTiming::where('time_table_type_id',$request->time_table_type_id)->get();
+        $TeacherWorkingDays=TeacherWorkingDays::where('time_table_type_id',$request->time_table_type_id)->where('teacher_id',$request->teacher_id)->first();
         $periodTypes=PeriodType::all();
         return view('admin.teacher.teacherWorkDays.schedule_show',compact('periodTimings','daysTypes','periodTypes','TeacherWorkingDays','teacherFacultys'));
 
@@ -172,7 +174,7 @@ class TeacherController extends Controller
               $TeacherWorkingDays->status=1;
               $TeacherWorkingDays->save();   
           
-          $response=['status'=>1,'msg'=>'Created Successfully'];
+          $response=['status'=>1,'msg'=>'Save Successfully'];
           return response()->json($response);
 
         } 
@@ -196,8 +198,12 @@ class TeacherController extends Controller
     public function teacherSubjectClassStore(Request $request){
      // return  $request;
       $rules=[ 
-           // 'teacher_name'=>'required',
-           // 'time_table_type'=>'required',
+           'teacher_name'=>'required',
+           
+           'no_of_period'=>'required',
+           'class'=>'required',
+           'section'=>'required',
+           'subject'=>'required',
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -210,13 +216,13 @@ class TeacherController extends Controller
         }
         else {
     
-              $teacherSubjectClass=TeacherSubjectClass::firstOrNew(['teacher_id'=>$request->teacher_name,'class_id'=>$request->class_id]);
+              $teacherSubjectClass=TeacherSubjectClass::firstOrNew(['teacher_id'=>$request->teacher_name,'class_id'=>$request->class,'section_id'=>$request->section,'subject_id'=>$request->subject,]);
               $teacherSubjectClass->teacher_id=$request->teacher_name;
               $teacherSubjectClass->no_of_period=$request->no_of_period;
               $teacherSubjectClass->no_of_duration=$request->period_duration;
-              $teacherSubjectClass->class_id=$request->class_id;
-              $teacherSubjectClass->section_id=$request->section_id;
-              $teacherSubjectClass->subject_id=$request->subject_id;
+              $teacherSubjectClass->class_id=$request->class;
+              $teacherSubjectClass->section_id=$request->section;
+              $teacherSubjectClass->subject_id=$request->subject;
               $teacherSubjectClass->save(); 
                $teacherSubjectClasss=TeacherSubjectClass::all();
             $response = array();

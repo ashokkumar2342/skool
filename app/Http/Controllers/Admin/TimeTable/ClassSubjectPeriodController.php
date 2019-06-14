@@ -16,8 +16,8 @@ class ClassSubjectPeriodController extends Controller
 {
     public function index(){
     	$classTypes=ClassType::all();
-    	
-    	return view('admin.timeTable.classSubjectPeriod.view',compact('classTypes'));
+    	$classSubjectPeriods=ClassSubjectPeriod::all();
+    	return view('admin.timeTable.classSubjectPeriod.view',compact('classTypes','classSubjectPeriods'));
     }
     public function classWiseSection(Request $request){
         // return $request;
@@ -33,9 +33,11 @@ class ClassSubjectPeriodController extends Controller
     	 // return $request;
     	$rules=[
     	  
-            // 'name' => 'required', 
-            // 'mobile_no' => 'required|digits:10', 
-            // 'email' => "required|max:50|email|unique:authors,email", 
+            'class' => 'required', 
+            'section' => 'required', 
+            'subject' => "required", 
+            'no_of_period' => "required", 
+            'period_duration' => "required", 
        
     	];
 
@@ -48,10 +50,10 @@ class ClassSubjectPeriodController extends Controller
     	    return response()->json($response);// response as json
     	}
         else {
-        	$classSubjectPeriod=ClassSubjectPeriod::firstOrNew(['class_id'=>$request->class_id]);
-        	$classSubjectPeriod->class_id=$request->class_id;
-        	$classSubjectPeriod->section_id=$request->section_id;
-        	$classSubjectPeriod->subject_id=$request->subject_id;
+        	$classSubjectPeriod=ClassSubjectPeriod::firstOrNew(['class_id'=>$request->class]);
+        	$classSubjectPeriod->class_id=$request->class;
+        	$classSubjectPeriod->section_id=$request->section;
+        	$classSubjectPeriod->subject_id=$request->subject;
         	$classSubjectPeriod->no_of_period=$request->no_of_period;
         	$classSubjectPeriod->period_duration=$request->period_duration;
             $classSubjectPeriod->save();
@@ -60,6 +62,7 @@ class ClassSubjectPeriodController extends Controller
         } 
 
     }
+
 
 
 
