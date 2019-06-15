@@ -32,7 +32,7 @@ class CombineClassSubjectGroupController extends Controller
              'subject' => 'required', 
              'group_no' => 'required', 
              'room_no' => "required", 
-             'class_id' => "required", 
+             // 'class_id' => "required", 
        
     	];
 

@@ -64,3 +64,6 @@ Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallba
 //google
 Route::get('login/google', 'Auth\LoginController@googleredirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginController@googlehandleProviderCallback');
+
+Route::get('inbox', 'HomeController@inbox');
+

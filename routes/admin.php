@@ -831,6 +831,7 @@ Route::group(['middleware' => 'admin'], function() {
                Route::group(['prefix' => 'option-subject-group'], function() {
                	 Route::get('option-subject-group', 'TimeTable\ClassSubjectPeriodController@optionSubjectGroup')->name('admin.option.subject.group');
                	 Route::get('subject-show', 'TimeTable\ClassSubjectPeriodController@subjectShow')->name('admin.option.subject.show');
+               	 Route::get('subject-delete/{id}', 'TimeTable\ClassSubjectPeriodController@destroySubjectSave')->name('admin.optional.subject.group.delete');
                	 Route::post('subject-store', 'TimeTable\ClassSubjectPeriodController@subjectMoveStore')->name('admin.option.subject.move.store');
           });
                //------------------teacher-details-------------------------------------------------------------------
@@ -853,6 +854,7 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('class-subject', 'TimeTable\TeacherController@teacherClassSubject')->name('admin.teacher.class.subject');
                	 Route::get('section', 'TimeTable\TeacherController@classWiseSection')->name('admin.teacher.class.wise.section');
                	 Route::get('teacher-history', 'TimeTable\TeacherController@teacherWiseHistory')->name('admin.teacher.history.table.show');
+               	 Route::get('teacher-period', 'TimeTable\TeacherController@SubjectWisePeriod')->name('admin.teacher.subject.wise.period');
                	 Route::post('teacher-subject-class-store', 'TimeTable\TeacherController@teacherSubjectClassStore')->name('admin.teacher.subject.class.store');
 
           });

@@ -138,6 +138,7 @@ class BookReserveRequestController extends Controller
                 $bookReservesUptoDate=Book_Reserve::find($bookReserveRequest->id);
                 $bookReservesUptoDate->status=3;
                 $bookReservesUptoDate->save();
+
                  $this->reserveUpdate($bookReserveRequest->accession_no);
              }
        }
@@ -150,18 +151,28 @@ class BookReserveRequestController extends Controller
        $bookReserveRequests= Book_Reserve::find($id);
        $bookReserveRequests->status=3;
        $bookReserveRequests->save(); 
-         $this->accessionStatusCancelByUpdate($bookReserveRequests->accession_no);
-         $this->reserveUpdate($bookReserveRequests->accession_no);  
+      
+      $bookAccession=BookAccession::find($bookReserveRequests->accession_no);
+      $bookReserveUpdate=Book_Reserve::where('status',1)->where('book_name_id',$bookAccession->book_id)->first(); 
+      
+       if (!empty($bookReserveUpdate) ) { 
+        $this->reserveUpdate($bookReserveRequests->accession_no);   
+       $this->accessionStatusCancelByUpdate($bookReserveRequests->accession_no,3); 
+       }else{
+         $this->accessionStatusCancelByUpdate($bookReserveRequests->accession_no,1);
+
+       } 
+          
       return  redirect()->back()->with(['message'=>'Cancel Successfully','class'=>'success']);
        
     }
-    public function accessionStatusCancelByUpdate($accession_no)
+    public function accessionStatusCancelByUpdate($accession_no,$status)
     {
       if ($accession_no==null) {
         return 'accession Null';
       }
          $bookAccession=BookAccession::find($accession_no);
-         $bookAccession->status=1;
+         $bookAccession->status=$status;
          $bookAccession->save();
 
     }
@@ -174,13 +185,14 @@ class BookReserveRequestController extends Controller
       $bookAccession=BookAccession::find($accession_no);
       $bookReserveUpdate=Book_Reserve::where('status',1)->where('book_name_id',$bookAccession->book_id)->first(); 
       if (empty($bookReserveUpdate) ) {
-          return 'accession Null';
+           $this->accessionStatusCancelByUpdate($accession_no,1);
        }else{
             $bookReserveUpdate->reserve_date=date('Y-m-d');
             $bookReserveUpdate->accession_no=$accession_no;
             $bookReserveUpdate->reserve_upto_date=date('Y-m-d',strtotime(date('Y-m-d')."+2 days"));
             $bookReserveUpdate->status=2;
             $bookReserveUpdate->save();
+            $this->accessionStatusCancelByUpdate($accession_no,3);
        } 
   
 

@@ -12,7 +12,7 @@
 <table class="table">
     <thead>
         <tr> 
-          <td> <h4> Week</h4></td>
+          <td> <h4>Week</h4></td>
             @foreach($periodTimings as $periodTiming)
 
             <th>{{ $periodTiming->from_time }}</th>
