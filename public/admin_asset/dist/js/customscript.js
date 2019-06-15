@@ -53,7 +53,10 @@ function callAjax(obj,url,divId,callback){
 			}
 			if(obj.getAttribute('success-popup')){
 				var response=data.msg; 
-				successMsg(response);	
+				if (response!=null) {
+					successMsg(response);	
+				}
+				
 			
 				// callSuccessPopup(response);
 			}

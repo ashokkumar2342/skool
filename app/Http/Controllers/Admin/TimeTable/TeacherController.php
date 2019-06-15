@@ -195,6 +195,18 @@ class TeacherController extends Controller
      return view('admin.teacher.teacherSubjectClass.section',compact('sections','classSubject','subjects'));
      }
 
+      public function SubjectWisePeriod(Request $request){
+        // return $request;
+     $classSubjectSavePeriod=ClassSubjectPeriod::where('class_id',$request->class_id)->where('subject_id',$request->id)->first();
+      $teacherSubjectClassSaveperiod=TeacherSubjectClass::where('class_id',$request->class_id)->where('subject_id',$request->id)->sum('no_of_period');
+      if (empty($classSubjectSavePeriod)) {
+              $response = array();
+              $response=['status'=>0,'msg'=>'Not Create Class Subject Period'];
+              return response()->json($response);
+      }
+     return view('admin.teacher.teacherSubjectClass.total_no_of_period',compact('classSubjectSavePeriod','teacherSubjectClassSaveperiod'));
+     }
+
     public function teacherSubjectClassStore(Request $request){
      // return  $request;
       $rules=[ 
@@ -215,6 +227,12 @@ class TeacherController extends Controller
             return response()->json($response);// response as json
         }
         else {
+          if ($request->load_balance < $request->no_of_period) {
+             $response=array();
+            $response["status"]=0;
+            $response["msg"]='Load Balance Low';
+            return response()->json($response);// response as json
+          }
     
               $teacherSubjectClass=TeacherSubjectClass::firstOrNew(['teacher_id'=>$request->teacher_name,'class_id'=>$request->class,'section_id'=>$request->section,'subject_id'=>$request->subject,]);
               $teacherSubjectClass->teacher_id=$request->teacher_name;
@@ -224,13 +242,13 @@ class TeacherController extends Controller
               $teacherSubjectClass->section_id=$request->section;
               $teacherSubjectClass->subject_id=$request->subject;
               $teacherSubjectClass->save(); 
-               $teacherSubjectClasss=TeacherSubjectClass::all();
+               $teacherSubjectClasss=TeacherSubjectClass::where('teacher_id',$request->teacher_name)->get();
             $response = array();
             $response['status'] = 1;
             $response['msg'] = 'Created Successfully';
             $response['data'] =view('admin.teacher.teacherSubjectClass.history_table',compact('teacherSubjectClasss'))->render();   
               
-                  return response()->json($response); 
+              return response()->json($response); 
 
         } 
     } 

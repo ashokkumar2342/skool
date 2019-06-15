@@ -76,12 +76,13 @@ class ClassSubjectPeriodController extends Controller
     } 
 
     public function subjectShow(Request $request){
-           
+           // return $request;
+         $optionSubjectGroups=OptionSubjectGroup::where('class_id',$request->class_id)->where('group_no',$request->group_id)->get();
          $optionSubjectGroup=OptionSubjectGroup::where('class_id',$request->class_id)->where('group_no',$request->group_id)->first();
         $classSubjects=Subject::where('classType_id',$request->id)->get();
         // $subjectTypes=SubjectType::all();
         
-        return view('admin.timeTable.optionSubjectGroup.subject_show',compact('classSubjects','optionSubjectGroup'));
+        return view('admin.timeTable.optionSubjectGroup.subject_show',compact('classSubjects','optionSubjectGroup','optionSubjectGroups'));
         
     }
 
@@ -89,9 +90,9 @@ class ClassSubjectPeriodController extends Controller
          // return $request;
         $rules=[
           
-            'class_id' => 'required', 
-            'group_no' => 'required', 
-            'subject_id' => 'required', 
+             'class_id' => 'required', 
+             'group_id' => 'required', 
+            // 'subject_id' => 'required', 
             // 'email' => "required|max:50|email|unique:authors,email", 
        
         ];
@@ -105,15 +106,42 @@ class ClassSubjectPeriodController extends Controller
             return response()->json($response);// response as json
         }
         else {
-            $optionSubjectGroup=OptionSubjectGroup::firstOrNew(['class_id'=>$request->class_id,'group_no'=>$request->group_no]);
-             $optionSubjectGroup->class_id=$request->class_id;
-             $optionSubjectGroup->group_no=$request->group_no;
-             $optionSubjectGroup->subject_id=implode( ',',$request->subject_id);
-             $optionSubjectGroup->save();
-                $response=['status'=>1,'msg'=>'Created Successfully'];
-                return response()->json($response);
+              $subjectCount =count($request->subject_id);
+            if ( $subjectCount!=0) {
+                foreach ($request->subject_id as $key => $subject_id) {
+                
+                   $subject =Subject::where('classType_id',$request->class_id)->where('subjectType_id',$subject_id)->first();
+                   if ($subject->isoptional_id!=2) {
+                       $response=['status'=>0,'msg'=>'Please Select Optional Subject Only'];
+                            return response()->json($response); 
+                   }
+                }
+            }
+            
+             
+              if ($subjectCount==2) { 
+                 $optionSubjectGroup=OptionSubjectGroup::firstOrNew(['class_id'=>$request->class_id,'group_no'=>$request->group_id]);
+
+                  $optionSubjectGroup->class_id=$request->class_id;
+                  $optionSubjectGroup->group_no=$request->group_id;
+                  $optionSubjectGroup->subject_id=implode( ',',$request->subject_id);
+                  $optionSubjectGroup->save();
+                     $response=['status'=>1,'msg'=>'Created Successfully'];
+                     return response()->json($response); 
+              }else{
+                $response=['status'=>0,'msg'=>'Group Create two Subject Accept'];
+                     return response()->json($response); 
+              }
+                
+           
         } 
          
         
+    }
+
+    public function destroySubjectSave($id){
+      $optionSubjectGroup=OptionSubjectGroup::find($id);   
+      $optionSubjectGroup->delete();
+       return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);   
     }
 }

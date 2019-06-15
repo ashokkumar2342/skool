@@ -32,7 +32,7 @@
         <td>
       
 
-             <a href="{{ route('admin.library.book.reserve.cancel',$bookReserveRequest->id) }}" class="btn btn-danger btn-sm" title="Cancel">Calcel</a>
+             <a href="{{ route('admin.library.book.reserve.cancel',$bookReserveRequest->id) }}" class="btn btn-danger btn-sm" title="Cancel">Cancel</a>
 
         </td>
          

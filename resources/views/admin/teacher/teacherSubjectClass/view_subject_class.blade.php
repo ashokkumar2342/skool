@@ -7,7 +7,7 @@
     <section class="content"> 
       <div class="box"> 
         <div class="box-body">             
-             <form action="{{ route('admin.teacher.subject.class.store') }}" method="post" class="add_form" success-content-id="teacher_history_table">
+             <form action="{{ route('admin.teacher.subject.class.store') }}" method="post" class="add_form" no-reset="true" success-content-id="teacher_history_table">
               {{ csrf_field() }}
               <div class="row">
                 <div class="col-lg-4"> 
@@ -20,8 +20,8 @@
                  </select> 
                  </div>
                  <div class="col-lg-4"> 
-                 <label>Class</label></br>
-                 <select name="class" class="form-control" {{-- multiselect-form="true" --}} onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section') }}','class_wise_section')">
+                 <label>Class</label>
+                 <select name="class" class="form-control" id="class_id" onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section') }}','class_wise_section')">
                    <option selected disabled>Select Class</option> 
                    @foreach ($classTypes as $classType) 
                    <option value="{{ $classType->id }}">{{ $classType->name }}</option> 
@@ -34,6 +34,11 @@
                   <label>No of period</label>
                   <input type="text" name="no_of_period" class="form-control"> 
                  </div>
+                   
+                  <div id="no_of_period">
+  
+                  </div>
+
                   
                <div class="col-lg-12 text-center"> 
                 <input type="submit" class="btn btn-success" style="margin-top: 10px">
