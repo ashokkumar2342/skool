@@ -1,9 +1,8 @@
 <?php
 namespace App\Http\Controllers;
-use App\Mail\SendMail;
- 
 use App\Events\SmsEvent;
 use App\Http\Controllers\Controller;
+use App\Mail\SendMail;
 use App\Model\Category;
 use App\Model\ClassType;
 use App\Model\Gender;
@@ -13,6 +12,7 @@ use App\Model\SessionDate;
 use App\Model\StudentDefaultValue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 class HomeController extends Controller
 {
@@ -23,7 +23,7 @@ class HomeController extends Controller
     //  */
     public function __construct()
     {
-        $this->middleware('auth');
+       // $this->middleware('auth');
     }
     /**
      * Show the application dashboard.
@@ -52,5 +52,15 @@ class HomeController extends Controller
         // $default = StudentDefaultValue::find(1); 
            
         // return view('front.registration.form',compact('classes','sessions','default','genders','religions','categories'));
+    }
+
+    public function inbox(Request $request){  
+          Log::info($request);
+        // $inbox =new Inbox();
+        // $inbox->phone =$request->PhNO;
+        // $inbox->key_no =$request->Key;
+        // $inbox->phrase =$request->Phrase;
+        // $inbox->param =$request->Param;
+        // $inbox->full_msg =$request->FullMsg;
     }
 }
