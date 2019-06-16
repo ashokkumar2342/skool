@@ -6,6 +6,7 @@ use App\Mail\SendMail;
 use App\Model\Category;
 use App\Model\ClassType;
 use App\Model\Gender;
+use App\Model\Homework;
 use App\Model\ParentRegistration;
 use App\Model\Religion;
 use App\Model\SessionDate;
@@ -53,6 +54,18 @@ class StudentController extends Controller
         try {  
             $student =Student::where('email',$request->email)->orWhere('father_mobile',$request->email)->first(); 
             if (!empty($student)) {
+              return response()->json(['data'=>$student,'status'=>'success']);   
+            }
+             return response()->json(['data'=>'null','status'=>'Not Found']);  
+        } catch (Exception $e) {
+            return $e;
+        }
+       
+    }
+    public function homework(Request $request){ 
+        try {  
+            $homework =Homework::get(); 
+            if (!empty($homework)) {
               return response()->json(['data'=>$student,'status'=>'success']);   
             }
              return response()->json(['data'=>'null','status'=>'Not Found']);  

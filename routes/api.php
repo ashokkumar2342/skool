@@ -37,6 +37,7 @@ Route::get('test', function(Request $request){
  Route::group(['prefix' => 'student'], function() {
  	Route::get('details/{id}', 'Api\StudentController@index'); 
     Route::get('image/{id}', 'Api\StudentController@image'); 
+    Route::get('homework/{id}', 'Api\StudentController@homework'); 
   
  });
 
