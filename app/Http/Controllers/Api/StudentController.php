@@ -66,7 +66,7 @@ class StudentController extends Controller
         try {  
             $homework =Homework::get(); 
             if (!empty($homework)) {
-              return response()->json(['data'=>$student,'status'=>'success']);   
+              return response()->json(['data'=>$homework,'status'=>'success']);   
             }
              return response()->json(['data'=>'null','status'=>'Not Found']);  
         } catch (Exception $e) {
