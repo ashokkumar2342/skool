@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Room\CombineClassSubjectGroup;
 use App\Model\Subject;
 use App\Model\SubjectType;
+use App\Model\Section;
 use App\Model\Room\RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -16,26 +17,34 @@ class CombineClassSubjectGroupController extends Controller
     	$subjectTypes=SubjectType::all();
     	return view('admin.room.combineClassSubjectGroup.view',compact('subjectTypes'));
     }
-    public function subjectWiseGroup(Request $request){
-           // return $request;
-      $classTypes=Subject::where('subjectType_id',$request->subject_id)->get();
-      $combineClassSubjectGroup=CombineClassSubjectGroup::where('subject_id',$request->subject_id)->where('group_no',$request->group_id)->first();
-      
-      $roomTypes=RoomType::all();
-      return view('admin.room.combineClassSubjectGroup.add_group',compact('classTypes','combineClassSubjectGroup','roomTypes','combineClassSubjectGroupSaveRoom'));
+    public function subjectWiseClasss(Request $request){
+             // return $request;
+      $classTypes=Subject::where('subjectType_id',$request->id)->get(); 
+      return view('admin.room.combineClassSubjectGroup.select_class',compact('classTypes'));
+     }
+
+      public function classtWiseSection(Request $request){
+             
+      $sections=Section::where('class_id',$request->id)->get();
+      $combineClassSubjectSaveId=CombineClassSubjectGroup::where('subject_id',$request->subject_id)->where('class_id',$request->id)->pluck('section_id')->toArray();
+      $combineClassSubjectTables=CombineClassSubjectGroup::where('subject_id',$request->subject_id)->where('class_id',$request->id)->get();
+
+       $roomTypes=RoomType::all();
+      return view('admin.room.combineClassSubjectGroup.add_group',compact('sections','roomTypes','combineClassSubjectSaveId','combineClassSubjectTables'));
     }
 
      public function store(Request $request){
-    	   // return $request;
+    	    // return $request;
     	$rules=[
     	  
              'subject' => 'required', 
              'group_no' => 'required', 
              'room_no' => "required", 
-             // 'class_id' => "required", 
+             'section' => "required", 
+             'class' => "required", 
+            
        
     	];
-
     	$validator = Validator::make($request->all(),$rules);
     	if ($validator->fails()) {
     	    $errors = $validator->errors()->all();
@@ -45,15 +54,39 @@ class CombineClassSubjectGroupController extends Controller
     	    return response()->json($response);// response as json
     	}
         else {
-        	$combineClassSubjectGroup=CombineClassSubjectGroup::firstOrNew(['subject_id'=>$request->subject,'group_no'=>$request->group_no]);
+            
+        	$combineClassSubjectGroup=CombineClassSubjectGroup::where(['subject_id'=>$request->subject,'class_id'=>$request->class,'group_no'=>$request->group_no])->first();
+            if (!empty($combineClassSubjectGroup)) {
+                $response=['status'=>0,'msg'=>'Group Already Create'];
+                return response()->json($response); 
+
+           }
+            $sectionId=count($request->section);
+             if ($sectionId>1) { 
+            foreach ($request->section as $key => $section_id) { 
+             
+            $combineClassSubjectGroup= new CombineClassSubjectGroup();
              $combineClassSubjectGroup->subject_id=$request->subject;
+             $combineClassSubjectGroup->class_id=$request->class;
+             $combineClassSubjectGroup->section_id=$section_id;
              $combineClassSubjectGroup->group_no=$request->group_no;
-             $combineClassSubjectGroup->room_id=$request->room_no;
-             $combineClassSubjectGroup->class_id=implode( ',',$request->class_id);
+             $combineClassSubjectGroup->room_id=$request->room_no; 
              $combineClassSubjectGroup->save();
-                $response=['status'=>1,'msg'=>'Created Successfully'];
+              }
+            }else{ 
+               $response=['status'=>0,'msg'=>'Maximum Two Section Select'];
+                 return response()->json($response);
+               }  
+             }  
+               $response=['status'=>1,'msg'=>'Created Successfully'];
                 return response()->json($response);
-        } 
+       }
+
+    public function combineClassSubjectDetailsDestroy($id){
+        $combineClassSubjectGroup=CombineClassSubjectGroup::find($id);
+        $combineClassSubjectGroup->delete();
+        return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']); 
+
 
     }
 

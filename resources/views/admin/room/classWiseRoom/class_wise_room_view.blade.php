@@ -25,7 +25,12 @@
                   <select name="room_name" class="form-control">
                     <option selected disabled>Select Room Name</option>
                      @foreach ($roomTypes as $roomType)
-                     <option value="{{ $roomType->id }}">{{ $roomType->name }}</option> 
+                      @if (in_array($roomType->id,$classWiseRoomSaveId))
+                     
+                        @else
+                           <option value="{{ $roomType->id }}">{{ $roomType->name }}</option>  
+                      @endif 
+                     
                      @endforeach
                   </select>
                   

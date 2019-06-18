@@ -7,6 +7,8 @@
 			<th>Section</th>
 			<th>Subject</th>
 			<th>No of Period</th>
+			<th>Period Duration</th>
+			 
 			 
 			 
 		</tr>
@@ -20,12 +22,23 @@
 					<td>{{ $teacherSubjectClass->sectionTypes->name or '' }}</td>
 					<td>{{ $teacherSubjectClass->subjectType->name or '' }}</td>
 					<td>{{ $teacherSubjectClass->no_of_period or ''}}</td>
+					<td>
+						@php
+							 $period=App\Model\TimeTable\ClassSubjectPeriod::where('class_id',$teacherSubjectClass->class_id)->where('section_id',$teacherSubjectClass->section_id)->first(); 
+						@endphp
+                            {{ $period->period_duration or ''}}
+
+					</td>
+				    {{--  <td>
+				     	{{ $teacherSubjectClass->no_of_period * $period->period_duration or ''}}
+			        </td> --}}
 					 
 					 
 				</tr>
 				
 		@endforeach
 		<tr>
+			  <td> </td>
 			  <td> </td>
 			  <td> </td>
 			  <td> </td>

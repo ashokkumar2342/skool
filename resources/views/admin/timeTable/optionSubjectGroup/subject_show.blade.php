@@ -1,17 +1,14 @@
-@php 
 
- if (!empty($optionSubjectGroup->subject_id)) {
-     $arraySubjectId =explode(',', $optionSubjectGroup->subject_id);
- }else{
-    $arraySubjectId=[];
- }
-    
-  
- @endphp
                 	
 <select class='pre-selected-options' name="subject_id[]" multiple='multiple'>
 	@foreach($classSubjects as $classSubject)
-		  <option value='{{ $classSubject->subjectType_id }}'{{ in_array($classSubject->subjectType_id,$arraySubjectId)?'selected':'' }}>{{ $classSubject->subjectTypes->name or '' }}</option> 
+  @if (in_array($classSubject->subjectType_id,$optionSubjectArrayId))
+  
+     @else
+        <option value='{{ $classSubject->subjectType_id }}'>{{ $classSubject->subjectTypes->name or '' }}</option>  
+   @endif 
+ 
+      
 		@endforeach
    
 </select>
@@ -31,13 +28,12 @@
   		@foreach ($optionSubjectGroups as $optionSubjectGroup)
 	  		<tr>
 	  			 
-	  			<td>
-	  				@foreach ($classSubjects as $classSubject)
-	  				   @if (in_array($classSubject->subjectType_id,$arraySubjectId))
-	  				   	   {{ $classSubject->subjectTypes->name or '' }}, 
-	  				   @endif
-	  				@endforeach
-	  			</td>
+	  			 <td> 
+                           @foreach (explode(',', $optionSubjectGroup->subject_id) as $sub_id)
+                           {{ App\Model\SubjectType::find($sub_id)->name }},
+                          @endforeach
+                         
+                        </td>
 	  			<td>Group No : {{$optionSubjectGroup->group_no }}</td>
 	  			
 

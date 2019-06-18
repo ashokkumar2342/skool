@@ -45,9 +45,24 @@
                   <label>Email</label>
                   <input type="email" name="email" class="form-control" placeholder="" value="{{ $teacherFacultys->email }}" maxlength="50"> 
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                   <label>Date of Birth</label>
                   <input type="date" name="dob" class="form-control" placeholder="" value="{{ $teacherFacultys->dob }}" maxlength=""> 
+                </div>
+                <div class="col-lg-4">
+                  <label>Class</label>
+                  <select name="class_id" class="form-control" onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section') }}','section_id_div')">
+                    <option selected disabled>Select Class</option>
+                    @foreach($classTypes as $classType)
+                    <option value="{{ $classType->id }}"{{ $classType->id==$teacherFacultys->class_id? 'selected="selected"' : '' }}>{{ $classType->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="col-lg-4" id="section_id_div">
+                  <label>Section</label>
+                  <select  class="form-control">
+                    <option selected disabled>Select Section</option> 
+                  </select>
                 </div>
                 <div class="col-lg-6">
                   <label>joining Date</label>
