@@ -30,16 +30,12 @@
                  </div>
                  <div id="class_wise_section"> 
                  </div> 
+                 <div id="no_of_period"> 
+                  </div>
                  <div class="col-lg-4">
                   <label>No of period</label>
                   <input type="text" name="no_of_period" class="form-control"> 
-                 </div>
-                   
-                  <div id="no_of_period">
-  
-                  </div>
-
-                  
+                 </div> 
                <div class="col-lg-12 text-center"> 
                 <input type="submit" class="btn btn-success" style="margin-top: 10px">
                </div>

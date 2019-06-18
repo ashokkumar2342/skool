@@ -19,7 +19,7 @@ class CombineClassSubjectGroupController extends Controller
     }
     public function subjectWiseClasss(Request $request){
              // return $request;
-      $classTypes=Subject::where('subjectType_id',$request->id)->get(); 
+      $classTypes=Subject::where('subjectType_id',$request->id)->orderBy('classType_id', 'ASC')->get(); 
       return view('admin.room.combineClassSubjectGroup.select_class',compact('classTypes'));
      }
 
@@ -27,10 +27,16 @@ class CombineClassSubjectGroupController extends Controller
              
       $sections=Section::where('class_id',$request->id)->get();
       $combineClassSubjectSaveId=CombineClassSubjectGroup::where('subject_id',$request->subject_id)->where('class_id',$request->id)->pluck('section_id')->toArray();
-      $combineClassSubjectTables=CombineClassSubjectGroup::where('subject_id',$request->subject_id)->where('class_id',$request->id)->get();
+     
 
        $roomTypes=RoomType::all();
       return view('admin.room.combineClassSubjectGroup.add_group',compact('sections','roomTypes','combineClassSubjectSaveId','combineClassSubjectTables'));
+    }
+
+    public function tableShow(Request $request){
+      
+         $combineClassSubjectTables=CombineClassSubjectGroup::where('subject_id',$request->subject_id)->where('class_id',$request->class_id)->get();
+       return view('admin.room.combineClassSubjectGroup.table_show',compact('combineClassSubjectTables'));
     }
 
      public function store(Request $request){
@@ -84,8 +90,12 @@ class CombineClassSubjectGroupController extends Controller
 
     public function combineClassSubjectDetailsDestroy($id){
         $combineClassSubjectGroup=CombineClassSubjectGroup::find($id);
-        $combineClassSubjectGroup->delete();
-        return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']); 
+        $combineClassSubjectGroupDelete=CombineClassSubjectGroup::where('subject_id',$combineClassSubjectGroup->subject_id)->where('class_id',$combineClassSubjectGroup->class_id)->where('group_no',$combineClassSubjectGroup->group_no)->get();
+            foreach ($combineClassSubjectGroupDelete as $key => $value) {
+             
+              $value->delete();
+            }
+         return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']); 
 
 
     }

@@ -231,8 +231,8 @@ class TeacherController extends Controller
      }
 
       public function SubjectWisePeriod(Request $request){
-        // return $request;
-     $classSubjectSavePeriod=ClassSubjectPeriod::where('class_id',$request->class_id)->where('section_id',$request->id)->first();
+         // return $request;
+     $classSubjectSavePeriod=ClassSubjectPeriod::where('class_id',$request->class_id)->where('section_id',$request->section_id)->where('subject_id',$request->id)->first();
       $teacherSubjectClassSaveperiod=TeacherSubjectClass::where('class_id',$request->class_id)->where('section_id',$request->id)->sum('no_of_period');
       if (empty($classSubjectSavePeriod)) {
               $response = array();

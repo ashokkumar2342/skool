@@ -5,7 +5,7 @@
     <h1>Combine Class SubJect Group<small>list</small> </h1> 
     </section>  
     <section class="content"> 
-      <form action="{{ route('admin.combine.class.subject.group.store') }}" method="post" class="add_form" content-refresh="select_class_wise_section"> 
+      <form action="{{ route('admin.combine.class.subject.group.store') }}" method="post" class="add_form" no-reset="true" button-click="btn_table_show"> 
           {{ csrf_field() }}
       <div class="box"> 
         <div class="box-body">

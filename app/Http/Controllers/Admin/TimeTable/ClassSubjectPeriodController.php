@@ -94,13 +94,20 @@ class ClassSubjectPeriodController extends Controller
 
     public function subjectShow(Request $request){
            // return $request;
-         $optionSubjectGroups=OptionSubjectGroup::where('class_id',$request->class_id)->get();
-         $optionSubjectGroup=OptionSubjectGroup::where('class_id',$request->class_id)->first();
+         
          $optionSubjectArrayId=OptionSubjectGroup::where('class_id',$request->class_id)->pluck('subject_id')->toArray();
         $classSubjects=Subject::where('classType_id',$request->id)->where('isoptional_id',2)->get();
         // $subjectTypes=SubjectType::all();
         
         return view('admin.timeTable.optionSubjectGroup.subject_show',compact('classSubjects','optionSubjectGroup','optionSubjectGroups','optionSubjectArrayId'));
+        
+    }
+
+     public function tableShow(Request $request){
+           // return $request;
+         $optionSubjectGroups=OptionSubjectGroup::where('class_id',$request->class_id)->get();
+         $optionSubjectGroup=OptionSubjectGroup::where('class_id',$request->class_id)->first(); 
+        return view('admin.timeTable.optionSubjectGroup.table_show',compact('optionSubjectGroup','optionSubjectGroups'));
         
     }
 
@@ -168,7 +175,11 @@ class ClassSubjectPeriodController extends Controller
 
     public function destroySubjectSave($id){
       $optionSubjectGroup=OptionSubjectGroup::find($id);   
-      $optionSubjectGroup->delete();
+      $optionSubjectGroupDelete=OptionSubjectGroup::where('class_id',$optionSubjectGroup->class_id)->where('group_no',$optionSubjectGroup->group_no)->get();
+     foreach ($optionSubjectGroupDelete as $key => $value) {
+            
+             $value->delete();
+        }   
        return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);   
     }
 }

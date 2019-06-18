@@ -9,7 +9,7 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-12">  
-        <form action="{{ route('admin.option.subject.move.store') }}" method="post" {{-- no-reset="true" --}} class="add_form" content-refresh="subject_show">
+        <form action="{{ route('admin.option.subject.move.store') }}" method="post" no-reset="true" class="add_form" button-click="btn_table_show">
               {{ csrf_field() }}         
           <div class="box"> 
             <div class="box-body"> 
@@ -63,7 +63,7 @@
         $('#author_table').DataTable();
     });
 
-     $('#btn_outhor_table_show').click();
+     $('#btn_table_show').click();
   </script>
   @endpush
      

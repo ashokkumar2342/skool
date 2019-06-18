@@ -35,9 +35,13 @@
                 <div class="col-lg-6">
                   <label>Room No</label>
                   <select name="room_name" class="form-control">
-                    <option value=""></option>
+                    <option selected disabled>Select Room No</option>
                      @foreach ($roomTypes as $roomType)
+                     @if (in_array($roomType->id, $classWiseRoomSaveId))
+                        
+                        @else
                      <option value="{{ $roomType->id }}"{{ $classWiseRooms->room_id==$roomType->id? 'selected' : '' }}>{{ $roomType->name }}</option> 
+                     @endif
                      @endforeach
                   </select>
                   

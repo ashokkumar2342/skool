@@ -833,6 +833,7 @@ Route::group(['middleware' => 'admin'], function() {
                Route::group(['prefix' => 'option-subject-group'], function() {
                	 Route::get('option-subject-group', 'TimeTable\ClassSubjectPeriodController@optionSubjectGroup')->name('admin.option.subject.group');
                	 Route::get('subject-show', 'TimeTable\ClassSubjectPeriodController@subjectShow')->name('admin.option.subject.show');
+               	 Route::get('table-show', 'TimeTable\ClassSubjectPeriodController@tableShow')->name('admin.option.table.show');
                	 Route::get('subject-delete/{id}', 'TimeTable\ClassSubjectPeriodController@destroySubjectSave')->name('admin.optional.subject.group.delete');
                	 Route::post('subject-store', 'TimeTable\ClassSubjectPeriodController@subjectMoveStore')->name('admin.option.subject.move.store');
           });
@@ -891,6 +892,7 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('/', 'Room\CombineClassSubjectGroupController@index')->name('admin.combine.class.subject.group');
                	 Route::get('class', 'Room\CombineClassSubjectGroupController@subjectWiseClasss')->name('admin.combine.class.select.subject.wise.class');
                	 Route::get('section', 'Room\CombineClassSubjectGroupController@classtWiseSection')->name('admin.combine.class.select.class.wise.section');
+               	 Route::get('table-show', 'Room\CombineClassSubjectGroupController@tableShow')->name('admin.combine.class.select.class.wise.table.show');
                	 Route::post('store', 'Room\CombineClassSubjectGroupController@store')->name('admin.combine.class.subject.group.store');
                	 Route::get('delete/{id}', 'Room\CombineClassSubjectGroupController@combineClassSubjectDetailsDestroy')->name('admin.combine.class.subject.details.delete');
           });

@@ -53,8 +53,9 @@ class ClassRoomController extends Controller
     	 
     	$roomTypes=RoomType::all();
     	$classTypes=ClassType::all();
+        $classWiseRoomSaveId=ClassWiseRoom::pluck('room_id')->toArray();
       $classWiseRooms=ClassWiseRoom::findOrFail(Crypt::decrypt($id));
-    return view('admin.room.classWiseRoom.class_wise_room_edit',compact('classWiseRooms','roomTypes','classTypes'));
+    return view('admin.room.classWiseRoom.class_wise_room_edit',compact('classWiseRooms','roomTypes','classTypes','classWiseRoomSaveId'));
     }
      public function destroy($id)
     {
