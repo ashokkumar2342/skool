@@ -215,6 +215,49 @@ class TeacherController extends Controller
          return view('admin.teacher.multipleWork.teacher_multiple',compact('timeTableTypes','teacherFacultys'));
     }
 
+    public function multipleWorkingDaysStore(Request $request)
+    {
+             // return $request;
+        $rules=[ 
+           'teacher_name'=>'required',
+           'time_table_type'=>'required',
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+    
+             
+              
+
+                foreach ($request->teacher_name as $key => $teacher_id) {
+                   foreach ($request->period_type as $key => $period_id) {
+
+                   $TeacherWorkingDays=TeacherWorkingDays::firstOrNew(['time_table_type_id'=>$request->time_table_type,'teacher_id'=>$teacher_id,'period_timeing_id'=>$request->periodTiming[$key],'days_id'=>$request->days[$key]]);
+                    $TeacherWorkingDays->time_table_type_id=$request->time_table_type;
+                    $TeacherWorkingDays->teacher_id=$teacher_id;
+                    $TeacherWorkingDays->period_timeing_id=$request->periodTiming[$key];
+                    $TeacherWorkingDays->days_id=$request->days[$key];
+                    $TeacherWorkingDays->period_type=$request->period_type[$key];
+                    $TeacherWorkingDays->status=1;
+                    $TeacherWorkingDays->save();   
+                  }
+                }
+              
+          
+          $response=['status'=>1,'msg'=>'Save Successfully'];
+          return response()->json($response);
+
+        } 
+    }
+
+
     //---------------------teacher-subject-class------------------------------------------------------------//
     public function teacherClassSubject(){
         $teacherFacultys=TeacherFaculty::orderBy('name', 'DESC')->get();

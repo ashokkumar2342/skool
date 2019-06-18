@@ -856,6 +856,7 @@ Route::group(['middleware' => 'admin'], function() {
           });
                Route::group(['prefix' => 'multiple-teacher-working-days'], function() {
                	 Route::get('multiple-working-days', 'TimeTable\TeacherController@multipleWorkingDays')->name('admin.teacher.multiple.working.days');
+               	 Route::post('multiple-store', 'TimeTable\TeacherController@multipleWorkingDaysStore')->name('admin.teacher.multiple.working.days.store');
                	// Route::get('show', 'TimeTable\TeacherController@workingDaysShow')->name('admin.teacher.working.schedule.show');
                	 // Route::post('store', 'TimeTable\TeacherController@teacherWorkingStore')->name('admin.teacher.working.schedule.store');
           });

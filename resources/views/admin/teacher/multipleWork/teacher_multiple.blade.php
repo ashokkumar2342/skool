@@ -9,7 +9,7 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-12">  
-        <form action="{{ route('admin.teacher.working.schedule.store') }}" method="post" class="add_form" no-reset="true">
+        <form action="{{ route('admin.teacher.multiple.working.days.store') }}" method="post" class="add_form" no-reset="true">
               {{ csrf_field() }}         
           <div class="box"> 
             <div class="box-body"> 
@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-lg-4"> 
                 <label>Teacher Name</label>
-                <select name="teacher_name" id="teacher_id" class="form-control multiselect" multiple="multiple" onchange="callAjax(this,'{{ route('admin.teacher.working.schedule.show') }}'+'?time_table_type_id='+$('#time_table_type_id').val()+'&teacher_id='+$('#teacher_id').val(),'teacher_working_schedule_show')">
+                <select name="teacher_name[]" id="teacher_id" class="form-control multiselect" multiple="multiple" onchange="callAjax(this,'{{ route('admin.teacher.working.schedule.show') }}'+'?time_table_type_id='+$('#time_table_type_id').val()+'&teacher_id='+$('#teacher_id').val(),'teacher_working_schedule_show')">
                  
                   @foreach ($teacherFacultys as $teacherFaculty) 
                   <option value="{{ $teacherFaculty->id }}">{{ $teacherFaculty->name }}</option> 
