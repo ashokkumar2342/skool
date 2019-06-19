@@ -50,7 +50,7 @@ class ParentInfoController extends Controller
     public function imageShow($image)
     {
         $img = Storage::disk('student')->get('document/'.$image);
-        return response($img);
+        return response($img)->header('Content-Type', 'image/jpeg');
                 
           
 
