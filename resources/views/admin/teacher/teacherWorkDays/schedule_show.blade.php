@@ -28,40 +28,46 @@
             <td>{{ $daysType->name }}
             
             </td>
-             @foreach($periodTimings as $periodTiming) 
+             @foreach($periodTimings as $periodKey=>$periodTiming) 
          
             <th>
-           {{--    @php
-                    if ($TeacherSaveWorkingDays==1) {
-                      $className='greenText';
-                    }elseif ($TeacherSaveWorkingDays==2) {
-                      $className='yellowText';
-                    }elseif ($TeacherSaveWorkingDays==3) {
-                      $className='redText';
-                    }else{
-                      $className='greenText';
-                    }
-                @endphp  --}}  
-                   <input type="hidden" name="periodTiming[]" value="{{ $periodTiming->id }}">
+                <input type="hidden" name="periodTiming[]" value="{{ $periodTiming->id }}">
                 <input type="hidden" name="days[]" value="{{$daysType->id}}">
-                <select name="period_type[]" onchange="this.className=this.options[this.selectedIndex].className" class=""> 
+                <select name="period_type[]" id="period_type{{ $keyloop }}" onchange="this.className=this.options[this.selectedIndex].className" > 
 
-                  @foreach ($periodTypes  as $key=>$periodType) 
+                  @foreach ($periodTypes  as $key=>$periodType)  
                        @php
                         $selectedValue=App\Model\TimeTable\TeacherWorkingDays::where('time_table_type_id',$time_table_type_id)->where('teacher_id',$teacher_id)->where('days_id',$daysType->id)->where('period_timeing_id',$periodTiming->id)->first();
                         if (!empty($selectedValue)) {
                          $selectedValueId =$selectedValue->period_type;
                         }else{
                           $selectedValueId='';
-                        }
+                        } 
                        @endphp
+                      
+                       @php
+                         if ( $selectedValueId==1) {
+                           $className='greenText';
+                         }elseif ( $selectedValueId==2) {
+                           $className='yellowText';
+                         }elseif ( $selectedValueId==3) {
+                           $className='redText';
+                         }else{
+                           $className='greenText';
+                         }
+                       @endphp
+                        <script>
+                         $('#period_type{{ $keyloop }}').addClass('{{ $className }}'); 
+                       </script>
                      <option class="{{ $periodType->color }}" value="{{ $periodType->id }}" {{ $periodType->id==$selectedValueId?'selected':'' }}>{{ $periodType->name }} </option>
                     
                   @endforeach 
                 </select> 
              
             </th>
-            
+            @php
+               $keyloop++
+            @endphp
             @endforeach
         </tr>  
         @endforeach

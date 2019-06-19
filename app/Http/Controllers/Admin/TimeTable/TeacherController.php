@@ -167,7 +167,7 @@ class TeacherController extends Controller
     }
      public function teacherWorkingStore(Request $request)
     {
-             return $request;
+             // return $request;
         $rules=[ 
            'teacher_name'=>'required',
            'time_table_type'=>'required',

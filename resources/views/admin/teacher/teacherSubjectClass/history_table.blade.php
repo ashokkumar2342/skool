@@ -15,7 +15,9 @@
 		</tr>
 	</thead>
 	<tbody>
-    
+    	@php
+    		$total =0;
+    	@endphp
 		@foreach ($teacherSubjectClasss as $teacherSubjectClass) 
 				<tr>
 					{{-- <td>{{ $teacherSubjectClass->teacherFaculty->name or '' }}</td> --}}
@@ -32,6 +34,9 @@
 					</td>
 				     <td>
 				     	{{ $teacherSubjectClass->no_of_period * $period->period_duration }}
+				     	@php
+				     		$total +=$teacherSubjectClass->no_of_period * $period->period_duration;
+				     	@endphp
 			        </td>
 					 
 					 
@@ -47,7 +52,7 @@
 			  
    
 		 {{-- <td><h4><b>Total : {{ $teacherSubjectClasss->sum('no_of_period') }}</b></h4></td> --}}
-		 <td><h4><b>Total : {{ $teacherSubjectClass->no_of_period * $period->period_duration +  $teacherSubjectClass->no_of_period + $period->period_duration}}</b></h4></td>
+		 <td><h4><b>Total :{{ $total }} </b></h4></td>
 		 
 		</tr>
 
