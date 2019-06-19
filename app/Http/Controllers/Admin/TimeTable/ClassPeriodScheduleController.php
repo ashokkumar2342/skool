@@ -39,60 +39,49 @@ class ClassPeriodScheduleController extends Controller
         $daysTypes=DaysType::all();
         $periodTimings=PeriodTiming::where('time_table_type_id',$request->time_table_type_id)->get();
         $classPeriodSchedule=ClassPeriodSchedule::where('class_id',$request->class_id)->where('time_table_type_id',$request->time_table_type_id)->first();
+
+         $time_table_type_id=$request->time_table_type_id;
+         $class_id=$request->class_id;
+
         $periodTypes=PeriodType::all();
-        return view('admin.timeTable.classPeriodSchedule.show',compact('periodTimings','daysTypes','periodTypes','classPeriodSchedule','classTypes'));
+        return view('admin.timeTable.classPeriodSchedule.show',compact('periodTimings','daysTypes','periodTypes','classPeriodSchedule','classTypes','time_table_type_id','class_id'));
     }
-    //  public function timeTableTypeWiseTimeimg(Request $request){
-         
-    // 	 $periodTimings=PeriodTiming::where('time_table_type_id',$request->id)->get();
-    // 	return view('admin.timeTable.classPeriodSchedule.timing_select_box',compact('periodTimings'));
-
-    // }
-    //  public function groupWise(Request $request){
-    //  	  // return $request;
-    //  	if ($request->id==1) {
-     		 
-    //  	}if ($request->id==2) {
-    //  		 $classTypes=ClassType::all();
-    //  		 return view('admin.timeTable.classPeriodSchedule.class_select_box',compact('classTypes'));
-    //  	}if ($request->id==3) {
-    //  		$classTypes=ClassType::all();
-     		
-    // 	return view('admin.timeTable.classPeriodSchedule.class_with_section_select_box',compact('classTypes')); 
-    //  	}
-    	 
-
-    // }
-    // public function classWiseSection(Request $request){
-    // 	$sections=Section::where('class_id',$request->id)->get();
-    // 	return view('admin.timeTable.classPeriodSchedule.section_select_box',compact('sections'));
-    // }
+    
 
      public function store(Request $request)
-    {
+    {    
     	   
     	$rules=[ 
            'class'=>'required',
            'time_table_type'=>'required',
-    	];
+        ];
 
-    	$validator = Validator::make($request->all(),$rules);
-    	if ($validator->fails()) {
-    	    $errors = $validator->errors()->all();
-    	    $response=array();
-    	    $response["status"]=0;
-    	    $response["msg"]=$errors[0];
-    	    return response()->json($response);// response as json
-    	}
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
         else {
     
-              $classPeriodSchedule=ClassPeriodSchedule::firstOrNew(['time_table_type_id'=>$request->time_table_type]);
-              $classPeriodSchedule->time_table_type_id=$request->time_table_type;
-              $classPeriodSchedule->class_id=$request->class;
-              $classPeriodSchedule->period_timeing_id=implode(',', $request->periodTiming);
-              $classPeriodSchedule->days_id=implode(',', $request->day);
-              $classPeriodSchedule->period_type=implode(',', $request->period_type);
-              $classPeriodSchedule->save();   
+             
+              
+
+                foreach ($request->period_type as $key => $period_id) {
+                  
+
+                   $classPeriodSchedule=ClassPeriodSchedule::firstOrNew(['time_table_type_id'=>$request->time_table_type,'class_id'=>$request->class,'period_timeing_id'=>$request->periodTiming[$key],'days_id'=>$request->days[$key]]);
+                    $classPeriodSchedule->time_table_type_id=$request->time_table_type;
+                    $classPeriodSchedule->class_id=$request->class;
+                    $classPeriodSchedule->period_timeing_id=$request->periodTiming[$key];
+                    $classPeriodSchedule->days_id=$request->days[$key];
+                    $classPeriodSchedule->period_type=$request->period_type[$key];
+                     
+                    $classPeriodSchedule->save();   
+                }
+              
           
           $response=['status'=>1,'msg'=>'Save Successfully'];
           return response()->json($response);
@@ -104,22 +93,22 @@ class ClassPeriodScheduleController extends Controller
      $periodTimings=PeriodTiming::findOrFail(Crypt::decrypt($id));
     	 return view('admin.timeTable.periodTiming.edit',compact('periodTimings','timeTableTypes'));	
     }
-    public function show(Request $request){
-    	 // return $request;
-    	$timeTableGroupWises=TimeTableGroup::all();
-    	$timeTableTypes=TimeTableType::all();
-    	$periodTypes=PeriodType::all();
-    	$classTypes=ClassType::all();
-    	$periodTimings=PeriodTiming::all();
-    	$daysTypes=DaysType::all();
-       $classPeriodSchedules= ClassPeriodSchedule::where('class_id',$request->class_id)->get();
-       $response = array();
-      $response['status'] = 1; 
-      $response['data'] =view('admin.timeTable.classPeriodSchedule.show',compact('classPeriodSchedules','daysTypes','periodTimings'))->render();   
+    // public function show(Request $request){
+    // 	 // return $request;
+    // 	$timeTableGroupWises=TimeTableGroup::all();
+    // 	$timeTableTypes=TimeTableType::all();
+    // 	$periodTypes=PeriodType::all();
+    // 	$classTypes=ClassType::all();
+    // 	$periodTimings=PeriodTiming::all();
+    // 	$daysTypes=DaysType::all();
+    //    $classPeriodSchedules= ClassPeriodSchedule::where('class_id',$request->class_id)->get();
+    //    $response = array();
+    //   $response['status'] = 1; 
+    //   $response['data'] =view('admin.timeTable.classPeriodSchedule.show',compact('classPeriodSchedules','daysTypes','periodTimings'))->render();   
 		    
-            return response()->json($response); 
+    //         return response()->json($response); 
 
-    }
+    // }
 
     //---------------------multiple-class-period-schedule------------------------------------------------------
 
@@ -130,5 +119,47 @@ class ClassPeriodScheduleController extends Controller
         $timeTableTypes=TimeTableType::all();
       return view('admin.timeTable.multipleClassPeriodSchedule.multiple_class_period_schedule',compact('classTypes','classPeriodSchedule','timeTableTypes'));
 
+    }
+
+
+     public function multipleClassPeriodScheduleStore(Request $request)
+    {    
+         
+      $rules=[ 
+           'class'=>'required',
+           'time_table_type'=>'required',
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+    
+             
+              
+               foreach ($request->class as $key => $class_id) {
+                foreach ($request->period_type as $key => $period_id) {
+                  
+
+                   $classPeriodSchedule=ClassPeriodSchedule::firstOrNew(['time_table_type_id'=>$request->time_table_type,'class_id'=>$class_id,'period_timeing_id'=>$request->periodTiming[$key],'days_id'=>$request->days[$key]]);
+                    $classPeriodSchedule->time_table_type_id=$request->time_table_type;
+                    $classPeriodSchedule->class_id=$class_id;
+                    $classPeriodSchedule->period_timeing_id=$request->periodTiming[$key];
+                    $classPeriodSchedule->days_id=$request->days[$key];
+                    $classPeriodSchedule->period_type=$request->period_type[$key];
+                     
+                    $classPeriodSchedule->save();   
+                }
+              }
+          
+          $response=['status'=>1,'msg'=>'Save Successfully'];
+          return response()->json($response);
+
+        } 
     }
 }

@@ -820,8 +820,8 @@ Route::group(['middleware' => 'admin'], function() {
 			  Route::group(['prefix' => 'multiple-class-period_schedule'], function() {
 
 			    Route::get('multiple-class-period_schedule', 'TimeTable\ClassPeriodScheduleController@multipleClassPeriodSchedule')->name('admin.multiple.class.period.schedule');
-			    Route::get('add-form', 'TimeTable\ClassPeriodScheduleController@addForm')->name('admin.class.period.schedule.addform');
-			    Route::get('schedule-show', 'TimeTable\ClassPeriodScheduleController@scheduleShow')->name('admin.class.period.schedule.show'); 
+			    Route::post('multiple-store', 'TimeTable\ClassPeriodScheduleController@multipleClassPeriodScheduleStore')->name('admin.multiple.class.period.schedule.store');
+			   
 			    
           });
                Route::group(['prefix' => 'class-subject-period'], function() {

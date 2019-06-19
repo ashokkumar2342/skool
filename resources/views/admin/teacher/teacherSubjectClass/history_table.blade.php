@@ -8,6 +8,7 @@
 			<th>Subject</th>
 			<th>No of Period</th>
 			<th>Period Duration</th>
+			<th>Total</th>
 			 
 			 
 			 
@@ -29,9 +30,9 @@
                             {{ $period->period_duration or ''}}
 
 					</td>
-				    {{--  <td>
-				     	{{ $teacherSubjectClass->no_of_period * $period->period_duration or ''}}
-			        </td> --}}
+				     <td>
+				     	{{ $teacherSubjectClass->no_of_period * $period->period_duration }}
+			        </td>
 					 
 					 
 				</tr>
@@ -42,8 +43,12 @@
 			  <td> </td>
 			  <td> </td>
 			  <td> </td>
+			  <td> </td>
+			  
    
-		 <td><h4><b>Total : {{ $teacherSubjectClasss->sum('no_of_period') }}</b></h4></td>
+		 {{-- <td><h4><b>Total : {{ $teacherSubjectClasss->sum('no_of_period') }}</b></h4></td> --}}
+		 <td><h4><b>Total : {{ $teacherSubjectClass->no_of_period * $period->period_duration +  $teacherSubjectClass->no_of_period + $period->period_duration}}</b></h4></td>
+		 
 		</tr>
 
 	</tbody>
