@@ -77,8 +77,8 @@
                         		<td>{{ ++$loop->index }}</td>
                         		<td>{{ $feeStructure->code }}</td>
                         		<td>{{ $feeStructure->name }}</td>
-                                <td>{{ $feeStructure->feeAccounts->name }}</td>
-                                <td>{{ $feeStructure->fineSchemes->name }}</td>
+                                <td>{{ $feeStructure->feeAccounts->name or '' }}</td>
+                                <td>{{ $feeStructure->fineSchemes->name or '' }}</td>
                         		<td>{{ $feeStructure->is_refundable == 1 ?'yes':'No' }}</td>
                         		<td>
                              @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 

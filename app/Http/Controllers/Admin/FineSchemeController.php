@@ -47,8 +47,11 @@ class FineSchemeController extends Controller
             'code' => 'required|max:3|unique:fine_schemes', 
             'name' => 'required|max:30|unique:fine_schemes', 
             'fine_amount1' => 'required|max:10', 
+            'fine_amount2' => 'required|max:10', 
+            'fine_amount3' => 'required|max:10', 
             'day_after1' => 'required|max:10', 
-            'day_after1' => 'required|max:10', 
+            'day_after2' => 'required|max:10', 
+            'fine_period' => 'required', 
              
               
         ]);
@@ -105,9 +108,14 @@ class FineSchemeController extends Controller
         $validator = Validator::make($request->all(), [
         
             
+            'code' => 'required|max:3|unique:fine_schemes', 
+            'name' => 'required|max:30|unique:fine_schemes', 
             'fine_amount1' => 'required|max:10', 
+            'fine_amount2' => 'required|max:10', 
+            'fine_amount3' => 'required|max:10', 
             'day_after1' => 'required|max:10', 
-            'day_after1' => 'required|max:10', 
+            'day_after2' => 'required|max:10', 
+            'fine_period' => 'required',  
              
               
         ]);
