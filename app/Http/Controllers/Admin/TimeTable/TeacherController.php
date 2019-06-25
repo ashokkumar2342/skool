@@ -273,16 +273,27 @@ class TeacherController extends Controller
      return view('admin.teacher.teacherSubjectClass.section',compact('sections','classSubject','subjects'));
      }
 
-      public function SubjectWisePeriod(Request $request){
-         // return $request;
-     $classSubjectSavePeriod=ClassSubjectPeriod::where('class_id',$request->class_id)->where('section_id',$request->section_id)->where('subject_id',$request->id)->first();
-      $teacherSubjectClassSaveperiod=TeacherSubjectClass::where('class_id',$request->class_id)->where('section_id',$request->id)->sum('no_of_period');
+      public function SubjectWisePeriod(Request $request){ 
+     
+     return view('admin.teacher.teacherSubjectClass.total_no_of_period');
+     }
+     public function toTalSubjectWisePeriod(Request $request){
+           // return $request;
+     $classSubjectSavePeriod=ClassSubjectPeriod::where('class_id',$request->class_id)->where('section_id',$request->section_id)->where('subject_id',$request->subject_id)->first();
+       
+      $teacherSubjectClassSaveperiod=TeacherSubjectClass::where('class_id',$request->class_id)->where('section_id',$request->section_id)->where('subject_id',$request->subject_id)->sum('no_of_period');
       if (empty($classSubjectSavePeriod)) {
               $response = array();
               $response=['status'=>0,'msg'=>'Not Create Class Subject Period'];
               return response()->json($response);
       }
-     return view('admin.teacher.teacherSubjectClass.total_no_of_period',compact('classSubjectSavePeriod','teacherSubjectClassSaveperiod'));
+     return view('admin.teacher.teacherSubjectClass.button_click_wise_period',compact('classSubjectSavePeriod','teacherSubjectClassSaveperiod','teacherWiseSubjectClassSaveperiod'));
+     }
+     public function SubjectWisePeriodHistory(Request $request){
+          
+         $teacherWiseSubjectClassSaveperiod=TeacherSubjectClass::where('class_id',$request->class_id)->where('section_id',$request->section_id)->where('subject_id',$request->subject_id)->get();
+          return view('admin.teacher.teacherSubjectClass.all_teacher_history',compact('teacherWiseSubjectClassSaveperiod'));
+
      }
 
     public function teacherSubjectClassStore(Request $request){

@@ -1,5 +1,11 @@
-<div class="col-lg-12 text-center">
-<table class="table text-center" id="data_table"> 
+ 
+	<div class="col-lg-6">
+		
+	
+<div class="panel panel-default">
+  <div class="panel-heading">Teacher Details</div>
+  <div class="panel-body">
+  	<table class="table "> 
 	<thead>
 		<tr>
 			 
@@ -58,5 +64,12 @@
 
 	</tbody>
 </table>
- 
+  </div>
+
 </div>
+
+</div>
+
+
+	
+ 
