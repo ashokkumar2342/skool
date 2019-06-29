@@ -296,6 +296,7 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::group(['prefix' => 'homework'], function() {
 	    Route::get('/', 'HomeworkController@index')->name('admin.homework.list');	 	
 	    Route::post('add', 'HomeworkController@store')->name('admin.homework.post');
+	    Route::get('view/{id}', 'HomeworkController@view')->name('admin.homework.view');
 	    Route::delete('delete', 'HomeworkController@destroy')->name('admin.homework.delete');
 	 });
 	
@@ -820,8 +821,8 @@ Route::group(['middleware' => 'admin'], function() {
 			  Route::group(['prefix' => 'multiple-class-period_schedule'], function() {
 
 			    Route::get('multiple-class-period_schedule', 'TimeTable\ClassPeriodScheduleController@multipleClassPeriodSchedule')->name('admin.multiple.class.period.schedule');
-			    Route::get('add-form', 'TimeTable\ClassPeriodScheduleController@addForm')->name('admin.class.period.schedule.addform');
-			    Route::get('schedule-show', 'TimeTable\ClassPeriodScheduleController@scheduleShow')->name('admin.class.period.schedule.show'); 
+			    Route::post('multiple-store', 'TimeTable\ClassPeriodScheduleController@multipleClassPeriodScheduleStore')->name('admin.multiple.class.period.schedule.store');
+			   
 			    
           });
                Route::group(['prefix' => 'class-subject-period'], function() {
@@ -865,6 +866,8 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('section', 'TimeTable\TeacherController@ClassWiseSection')->name('admin.teacher.class.wise.section');
                	 Route::get('teacher-history', 'TimeTable\TeacherController@teacherWiseHistory')->name('admin.teacher.history.table.show');
                	 Route::get('teacher-period', 'TimeTable\TeacherController@SubjectWisePeriod')->name('admin.teacher.subject.wise.period');
+               	 Route::get('total-period-lode', 'TimeTable\TeacherController@toTalSubjectWisePeriod')->name('admin.teacher.subject.wise.total.period.history');
+               	 Route::get('teacher-period-history', 'TimeTable\TeacherController@SubjectWisePeriodHistory')->name('admin.teacher.subject.wise.period.history');
                	 Route::post('teacher-subject-class-store', 'TimeTable\TeacherController@teacherSubjectClassStore')->name('admin.teacher.subject.class.store');
 
           });

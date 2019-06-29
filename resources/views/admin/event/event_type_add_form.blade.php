@@ -19,10 +19,10 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12"> 
-             <form action="{{ route('admin.event.type.store') }}" method="post" class="add_form" button-click="btn_outhor_table_show,btn_close">
+             <form action="{{ route('admin.event.type.store') }}" method="post" class="add_form" button-click="btn_event_type_table_show,btn_close">
                    {{ csrf_field() }}
                    <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                       <label>Event Type</label>
                       <input type="text" name="name" class="form-control" placeholder="" maxlength="100"> 
                     </div> 

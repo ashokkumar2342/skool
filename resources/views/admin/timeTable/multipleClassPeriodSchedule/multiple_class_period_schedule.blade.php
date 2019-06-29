@@ -2,14 +2,14 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
-    {{-- <button type="button" class="btn btn-info pull-right" multi-select="true" onclick="callPopupLarge(this,'{{ route('admin.class.period.schedule.addform')}}')" style="margin:10px">Create New</button> --}}
+    
     <h1>Multiple Class Period Schedule<small>list</small> </h1>
        
     </section>  
     <section class="content">
       <div class="row">
         <div class="col-xs-12">  
-        <form action="{{ route('admin.class.period.schedule.store') }}"  method="post" class="add_form" no-reset="true">
+        <form action="{{ route('admin.multiple.class.period.schedule.store') }}"  method="post" class="add_form" no-reset="true">
               {{ csrf_field() }}         
           <div class="box"> 
             <div class="box-body"> 
@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-lg-4">
                 <label>Class</label>
-                <select name="class" class="form-control multiselect" multiple="multiple" id="class_id" onchange="callAjax(this,'{{ route('admin.class.period.schedule.show') }}'+'?time_table_type_id='+$('#time_table_type').val()+'&class_id='+$('#class_id').val(),'history_wise_timing')"> 
+                <select name="class[]" class="form-control multiselect" multiple="multiple" id="class_id" onchange="callAjax(this,'{{ route('admin.class.period.schedule.show') }}'+'?time_table_type_id='+$('#time_table_type').val()+'&class_id='+$('#class_id').val(),'history_wise_timing')"> 
                   
                   @foreach ($classTypes as $classType) 
                   <option value="{{ $classType->id }}">{{ $classType->name }}</option> 

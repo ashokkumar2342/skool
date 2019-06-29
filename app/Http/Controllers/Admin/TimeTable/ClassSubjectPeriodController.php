@@ -16,7 +16,7 @@ class ClassSubjectPeriodController extends Controller
 {
     public function index(){
     	$classTypes=ClassType::all();
-    	$classSubjectPeriods=ClassSubjectPeriod::all();
+    	$classSubjectPeriods=ClassSubjectPeriod::orderBy('id', 'DESC')->get();
     	return view('admin.timeTable.classSubjectPeriod.view',compact('classTypes','classSubjectPeriods'));
     }
     public function classWiseSection(Request $request){

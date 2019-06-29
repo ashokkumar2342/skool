@@ -7,7 +7,7 @@
     <section class="content"> 
       <div class="box"> 
         <div class="box-body">             
-             <form action="{{ route('admin.teacher.subject.class.store') }}" method="post" class="add_form" no-reset="true" success-content-id="teacher_history_table">
+             <form action="{{ route('admin.teacher.subject.class.store') }}" method="post" class="add_form" no-reset="true" success-content-id="teacher_history_table" button-click="btn_table_show_history,btn_click ">
               {{ csrf_field() }}
               <div class="row">
                 <div class="col-lg-4"> 
@@ -41,12 +41,24 @@
                </div>
              </form>
               
-               <div id="teacher_history_table">
-                           
-               </div>          
+                         
           
         </div>
       </div>
+      <div class="box"> 
+        <div class="box-body">
+          <div class="row">
+            
+          
+          <div id="teacher_history_table">
+                           
+               </div>
+               <div id="all_teacher_history_table">
+                           
+               </div>
+             </div>
+           </div>
+           </div>
     </section> 
  @endsection
  @push('links')
