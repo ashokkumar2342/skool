@@ -33,7 +33,7 @@ class StudentController extends Controller
     {
         try {             
              $student =Student::find($id); 
-             return response()->json(['data'=>$student,'status'=>'success']);     
+             return response()->json($student);     
         } catch (Exception $e) {
            return $e; 
         }

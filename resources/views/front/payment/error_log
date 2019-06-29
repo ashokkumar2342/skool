@@ -1,0 +1,5 @@
+[04-Jun-2019 00:32:07 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/mailinco/public_html/resources/views/front/payment/paytm-merchant-form.blade.php on line 17
+[15-Jun-2019 19:23:39 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/mailinco/public_html/resources/views/front/payment/paytm-merchant-form.blade.php on line 17
+[16-Jun-2019 16:08:33 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/mailinco/public_html/resources/views/front/payment/paytm-merchant-form.blade.php on line 17
+[18-Jun-2019 09:15:40 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/mailinco/public_html/resources/views/front/payment/paytm-merchant-form.blade.php on line 17
+[28-Jun-2019 00:48:57 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/mailinco/public_html/resources/views/front/payment/paytm-merchant-form.blade.php on line 17

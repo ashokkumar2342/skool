@@ -835,7 +835,8 @@ class StudentController extends Controller
     }
 
   public function resetRollNoshowUpdate(Request $request) 
-  {   
+  {    
+
     $rules=[
 
       'admission_no' => 'required', 
@@ -849,13 +850,20 @@ class StudentController extends Controller
          $response["msg"]=$errors[0];
          return response()->json($response);// response as json
      }
+         
    foreach ($request->admission_no as $student_id => $admission_no) {
-       $student =Student::find($student_id);
-       $student->admission_no =$admission_no;
-       $student->save();
-      }   
-   
-      
+           
+          $student=Student::find($student_id)->pluck('admission_no')->toArray();
+         if (in_array($admission_no,$student)) {                   
+                  $response=['status'=>0,'msg'=>'Admission No Already Teken'];
+                  return response()->json($response);
+              }else{
+
+               $student =Student::find($student_id);
+               $student->admission_no =$admission_no;
+               $student->save();
+              }  
+            }  
        $response= array();                       
        $response['status']= 1; 
        $response['msg']= 'Update Adminssion No Successfully '; 

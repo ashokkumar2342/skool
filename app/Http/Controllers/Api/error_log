@@ -1,0 +1,1 @@
+[27-Jun-2019 04:58:00 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Api/StudentController.php on line 19

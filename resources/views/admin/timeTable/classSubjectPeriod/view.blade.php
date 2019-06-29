@@ -17,7 +17,7 @@
                 <div class="row">
                   <div class="col-lg-4">
                     <label>Class</label></br>
-                    <select name="class" class="form-control" {{--  multiple="multiple" multiselect-form="true" --}} onchange="callAjax(this,'{{ route('admin.class.subject.period.class.wise.section') }}','select_section')">
+                    <select name="class" class="form-control"    multiselect-form="true" onchange="callAjax(this,'{{ route('admin.class.subject.period.class.wise.section') }}','select_section')">
                      <option selected disabled>Select Class</option>
                    
                       @foreach($classTypes as $classType)
@@ -55,16 +55,18 @@
                 <th>Subject</th>
                 <th>No of Period</th>
                 <th>Period Duration</th> 
+                <th>Action</th> 
               </tr>
             </thead>
             <tbody>
               @foreach ($classSubjectPeriods as $classSubjectPeriod) 
                       <tr>
                         <td>{{ $classSubjectPeriod->classTypes->name or ''}}</td>
-                        <td>{{ $classSubjectPeriod->sectionTypes->name or ''}}</td>
-                        <td>{{ $classSubjectPeriod->subjectType->name or ''}}</td>
+                        <td> {{ $classSubjectPeriod->sectionTypes->name or '' }} </td> 
+                        <td>{{ $classSubjectPeriod->subjectType->name or '' }}</td>
                         <td>{{ $classSubjectPeriod->no_of_period }}</td>
                         <td>{{ $classSubjectPeriod->period_duration }}</td>
+                        <td><a href="{{ route('admin.class.subject.period.delete',$classSubjectPeriod->id)}}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a></td>
                          
                       </tr>
               @endforeach

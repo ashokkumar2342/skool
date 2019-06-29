@@ -1,0 +1,8 @@
+[13-May-2019 15:59:24 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Console\Kernel' not found in /home/mailinco/public_html/app/Console/Kernel.php on line 8
+[22-May-2019 01:02:19 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Console\Kernel' not found in /home/mailinco/public_html/app/Console/Kernel.php on line 8
+[25-May-2019 15:33:07 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Console\Kernel' not found in /home/mailinco/public_html/app/Console/Kernel.php on line 8
+[27-May-2019 06:19:33 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Console\Kernel' not found in /home/mailinco/public_html/app/Console/Kernel.php on line 8
+[28-May-2019 03:47:51 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Console\Kernel' not found in /home/mailinco/public_html/app/Console/Kernel.php on line 8
+[28-May-2019 12:49:23 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Console\Kernel' not found in /home/mailinco/public_html/app/Console/Kernel.php on line 8
+[01-Jun-2019 13:25:19 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Console\Kernel' not found in /home/mailinco/public_html/app/Console/Kernel.php on line 8
+[03-Jun-2019 02:24:16 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Console\Kernel' not found in /home/mailinco/public_html/app/Console/Kernel.php on line 8

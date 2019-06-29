@@ -121,29 +121,30 @@ b{
                     <div class="box-header">                       
                       <span  ><button type="button" class="add_btn_parets btn btn-info btn-sm" data-toggle="modal" data-target="#add_parent">Add Parents info</button></span> 
                     </div>
+                   <div class="col-lg-12 table-responsive">
                     <table class="table-responsive" id="parents_items"> 
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Relation</th>
-                                <th>Education</th>
-                                <th>Occupation</th>
-                                <th>Income</th>
-                                <th>Mobile</th>
-                                <th>Email</th>
-                                <th>Date Of Birth</th>
-                                <th>Date Of Anniversary</th>
-                                <th>Office Address</th>
-                                <th>Islive</th>
-                                <th>Photo</th>
-                                <th>Action</th>
+                                <th><span class="text-nowrap">Name </span></th>
+                                <th><span class="text-nowrap">Relation </span></th>
+                                <th><span class="text-nowrap">Education </span></th>
+                                <th><span class="text-nowrap">Occupation </span></th>
+                                <th><span class="text-nowrap">Income </span></th>
+                                <th><span class="text-nowrap">Mobile </span></th>
+                                <th><span class="text-nowrap">Email </span></th>
+                                <th><span class="text-nowrap">Date Of Birth </span></th>
+                                <th><span class="text-nowrap">Date Of Anniversary </span></th>
+                                <th><span class="text-nowrap">Office Address </span></th>
+                                <th><span class="text-nowrap">Islive </span></th>
+                                <th><span class="text-nowrap">Photo </span></th>
+                                <th><span class="text-nowrap" style="margin:5px">Action </span></th>
                             </tr>
                         </thead>
                         <tbody>
                            
                             @foreach (App\Model\ParentsInfo::where('student_id',$student->id)->get() as $parents) 
                             <tr>
-                                <td>{{ $parents->name }}a</td>
+                                <td>{{ $parents->name }}</td>
                                 <td>{{ $parents->relationType->name or ''}}</td>
                                 <td>{{ $parents->education }}</td>
                                 <td>{{ $parents->profetions->name or '' }}</td>
@@ -156,7 +157,7 @@ b{
                                 <td>{{ $parents->islive == 1? 'Yes' : 'No' }}</td>                            
                                                         
                                  
-                                <td>r
+                                <td>
                                   @php
                              $image = route('admin.parents.image.show',$parents->photo);
                               
@@ -183,31 +184,33 @@ b{
                             @endforeach
                         </tbody>
                     </table>
+                  </div>
                     <div class="text-center">
                      <button type="button" onclick="$('#medical_info').click()" class="btn btn-success btn-sm">Next</button> 
                      </div> 
                 </div>
                  <div id="medical" class="tab-pane fade">
                     <button type="button" class="btn btn-info btn-sm btn_add_medical_info" data-toggle="modal" data-target="#add_medical">Add Medical info</button>
+                    <div class="col-lg-12 table-responsive">
                     <table class="table-responsive" id="medical_items">                         
                          <thead>
                              <tr>
-                                 <th>Ondate</th>
-                                 <th>Blood Group</th>
-                                 <th>HB</th>
-                                 <th>Weight</th>
-                                 <th>Height</th>
-                                 <th>Narration</th>
-                                 <th>Vision</th>
-                                 <th>Complextion</th>
-                                 <th>Alergey</th>
-                                 <th>Alergey Vacc</th>
-                                 <th>Physical Handicapped</th>
-                                 <th>Dental</th>
-                                 <th>BP</th>
-                                 <th>Id Marks1</th>
-                                 <th>Id Marks2</th>
-                                 <th>Action</th>
+                                 <th> <span class="text-nowrap">Ondate </span></th>
+                                 <th> <span class="text-nowrap">Blood Group </span></th>
+                                 <th> <span class="text-nowrap">HB </span></th>
+                                 <th> <span class="text-nowrap">Weight </span></th>
+                                 <th> <span class="text-nowrap">Height </span></th>
+                                 <th> <span class="text-nowrap">Narration </span></th>
+                                 <th> <span class="text-nowrap">Vision </span></th>
+                                 <th> <span class="text-nowrap">Complextion </span></th>
+                                 <th> <span class="text-nowrap">Alergey </span></th>
+                                 <th> <span class="text-nowrap">Alergey Vacc </span></th>
+                                 <th> <span class="text-nowrap">Physical Handicapped </span></th>
+                                 <th> <span class="text-nowrap">Dental </span></th>
+                                 <th> <span class="text-nowrap">BP </span></th>
+                                 <th> <span class="text-nowrap">Id Marks1 </span></th>
+                                 <th> <span class="text-nowrap">Id Marks2 </span></th>
+                                 <th> <span class="text-nowrap"  style="margin :5px">Action </span></th>
                              </tr>
                          </thead>
                          <tbody>
@@ -241,20 +244,22 @@ b{
                              @endforeach
                          </tbody>
                      </table> 
+                   </div>
                      <div class="text-center">
                      <button type="button" onclick="$('#sibling_info').click()" class="btn btn-success btn-sm">Next</button> 
                      </div> 
                  </div>   
                 <div id="sibling" class="tab-pane fade">
                  <button type="button" class="btn btn-info btn-sm btn_add_sibling_info" data-toggle="modal" data-target="#add_sibling">Add Sibling info</button>
+                 <div class="col-lg-12 table-responsive">
                  <table class="table" id="sibling_items">                         
                       <thead>
                           <tr>
-                              <th>Sibling Registration No</th>
-                              <th>Name</th>
-                              <th>Class</th>
-                              <th>Section</th>
-                              <th>Action</th>
+                              <th><span class="text-nowrap">Sibling Registration No</span></th>
+                              <th><span class="text-nowrap">Name</span></th>
+                              <th><span class="text-nowrap">Class</span></th>
+                              <th><span class="text-nowrap">Section</span></th>
+                              <th><span class="text-nowrap">Action</span></th>
                           </tr>
                       </thead>
                       <tbody>
@@ -288,6 +293,7 @@ b{
                           @endforeach --}}
                       </tbody>
                   </table>
+                </div>
                   <div class="text-center">
                      <button type="button" onclick="$('#subject_tab').click()" class="btn btn-success btn-sm">Next</button> 
                   </div>
@@ -416,7 +422,9 @@ b{
           $('#show_webcam').hide('400')
          
       $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
-        $('#dataTable').DataTable();
+        $('#medical_items').DataTable();
+        $('#parents_items').DataTable();
+        $('#sibling_items').DataTable();
 
     });
      var errors = '{{ $errors->first() }}';

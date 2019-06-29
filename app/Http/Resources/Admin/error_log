@@ -1,0 +1,5 @@
+[26-May-2019 10:40:49 UTC] PHP Fatal error:  Class 'Illuminate\Http\Resources\Json\Resource' not found in /home/mailinco/public_html/app/Http/Resources/Admin/Homework.php on line 7
+[28-May-2019 20:07:00 UTC] PHP Fatal error:  Class 'Illuminate\Http\Resources\Json\Resource' not found in /home/mailinco/public_html/app/Http/Resources/Admin/Homework.php on line 7
+[01-Jun-2019 07:59:55 UTC] PHP Fatal error:  Class 'Illuminate\Http\Resources\Json\Resource' not found in /home/mailinco/public_html/app/Http/Resources/Admin/Homework.php on line 7
+[01-Jun-2019 08:14:11 UTC] PHP Fatal error:  Class 'Illuminate\Http\Resources\Json\Resource' not found in /home/mailinco/public_html/app/Http/Resources/Admin/Homework.php on line 7
+[04-Jun-2019 04:46:35 UTC] PHP Fatal error:  Class 'Illuminate\Http\Resources\Json\Resource' not found in /home/mailinco/public_html/app/Http/Resources/Admin/Homework.php on line 7

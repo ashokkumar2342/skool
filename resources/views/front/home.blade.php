@@ -102,7 +102,7 @@
                     </a>   
                     <!-- Responsive Buttun -->
                     <ul class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <li class="active"><a href="javascript:avoid(0);">Home</a>
+                        <li class="active"><a href="javascript:avoid(0);">Homed</a>
                             <ul>
                                 <li class="active"><a href="index.html">Home Default</a></li>
                                 <li><a href="index-02.html">Home Style 02</a></li>

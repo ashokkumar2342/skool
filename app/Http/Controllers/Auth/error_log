@@ -1,0 +1,15 @@
+[28-May-2019 15:29:54 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/ResetPasswordController.php on line 8
+[10-Jun-2019 11:53:24 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/LoginController.php on line 10
+[11-Jun-2019 11:29:21 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/ResetPasswordController.php on line 8
+[11-Jun-2019 19:05:04 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/ForgotPasswordController.php on line 8
+[12-Jun-2019 09:37:33 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/RegisterController.php on line 10
+[14-Jun-2019 19:33:09 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/ResetPasswordController.php on line 8
+[17-Jun-2019 10:58:17 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/ResetPasswordController.php on line 8
+[17-Jun-2019 22:00:45 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/RegisterController.php on line 10
+[17-Jun-2019 22:32:57 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/ForgotPasswordController.php on line 8
+[20-Jun-2019 12:16:21 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/LoginController.php on line 10
+[23-Jun-2019 11:27:47 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/ResetPasswordController.php on line 8
+[23-Jun-2019 22:42:57 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/ForgotPasswordController.php on line 8
+[24-Jun-2019 18:53:21 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/RegisterController.php on line 10
+[26-Jun-2019 15:33:58 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/LoginController.php on line 10
+[27-Jun-2019 07:17:37 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Auth/LoginController.php on line 10

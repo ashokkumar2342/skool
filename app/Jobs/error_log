@@ -1,0 +1,9 @@
+[14-May-2019 07:14:33 UTC] PHP Fatal error:  Trait 'Illuminate\Foundation\Bus\Dispatchable' not found in /home/mailinco/public_html/app/Jobs/SendEmail.php on line 14
+[22-May-2019 02:43:28 UTC] PHP Fatal error:  Trait 'Illuminate\Foundation\Bus\Dispatchable' not found in /home/mailinco/public_html/app/Jobs/SendEmail.php on line 14
+[23-May-2019 09:37:15 UTC] PHP Fatal error:  Trait 'Illuminate\Foundation\Bus\Dispatchable' not found in /home/mailinco/public_html/app/Jobs/SendEmail.php on line 14
+[25-May-2019 01:41:38 UTC] PHP Fatal error:  Trait 'Illuminate\Foundation\Bus\Dispatchable' not found in /home/mailinco/public_html/app/Jobs/SendEmail.php on line 14
+[28-May-2019 00:07:29 UTC] PHP Fatal error:  Trait 'Illuminate\Foundation\Bus\Dispatchable' not found in /home/mailinco/public_html/app/Jobs/SendEmail.php on line 14
+[29-May-2019 07:06:09 UTC] PHP Fatal error:  Trait 'Illuminate\Foundation\Bus\Dispatchable' not found in /home/mailinco/public_html/app/Jobs/SendEmail.php on line 14
+[31-May-2019 02:25:44 UTC] PHP Fatal error:  Trait 'Illuminate\Foundation\Bus\Dispatchable' not found in /home/mailinco/public_html/app/Jobs/SendEmail.php on line 14
+[31-May-2019 19:20:55 UTC] PHP Fatal error:  Trait 'Illuminate\Foundation\Bus\Dispatchable' not found in /home/mailinco/public_html/app/Jobs/SendEmail.php on line 14
+[03-Jun-2019 05:53:23 UTC] PHP Fatal error:  Trait 'Illuminate\Foundation\Bus\Dispatchable' not found in /home/mailinco/public_html/app/Jobs/SendEmail.php on line 14

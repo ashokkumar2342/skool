@@ -120,4 +120,15 @@ class ClassPeriodScheduleController extends Controller
             return response()->json($response); 
 
     }
+
+    //---------------------multiple-class-period-schedule------------------------------------------------------
+
+    public function multipleClassPeriodSchedule(){
+
+      $classPeriodSchedule= ClassPeriodSchedule::all();
+      $classTypes=ClassType::all();
+        $timeTableTypes=TimeTableType::all();
+      return view('admin.timeTable.multipleClassPeriodSchedule.multiple_class_period_schedule',compact('classTypes','classPeriodSchedule','timeTableTypes'));
+
+    }
 }

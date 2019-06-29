@@ -1,0 +1,9 @@
+[14-May-2019 06:10:06 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/mailinco/public_html/app/Exceptions/Handler.php on line 9
+[16-May-2019 00:49:30 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/mailinco/public_html/app/Exceptions/Handler.php on line 9
+[21-May-2019 05:54:36 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/mailinco/public_html/app/Exceptions/Handler.php on line 9
+[22-May-2019 11:53:41 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/mailinco/public_html/app/Exceptions/Handler.php on line 9
+[23-May-2019 20:00:35 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/mailinco/public_html/app/Exceptions/Handler.php on line 9
+[26-May-2019 23:32:04 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/mailinco/public_html/app/Exceptions/Handler.php on line 9
+[29-May-2019 06:40:52 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/mailinco/public_html/app/Exceptions/Handler.php on line 9
+[29-May-2019 08:16:25 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/mailinco/public_html/app/Exceptions/Handler.php on line 9
+[04-Jun-2019 03:14:04 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/mailinco/public_html/app/Exceptions/Handler.php on line 9

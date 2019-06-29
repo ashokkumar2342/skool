@@ -815,22 +815,25 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'TimeTable\ClassPeriodScheduleController@index')->name('admin.class.period.schedule');
 			    Route::get('add-form', 'TimeTable\ClassPeriodScheduleController@addForm')->name('admin.class.period.schedule.addform');
 			    Route::get('schedule-show', 'TimeTable\ClassPeriodScheduleController@scheduleShow')->name('admin.class.period.schedule.show');
-			    // Route::get('group-wise', 'TimeTable\ClassPeriodScheduleController@groupWise')->name('admin.class.period.schedule.group.wise');
-			    // Route::get('class-section', 'TimeTable\ClassPeriodScheduleController@classWiseSection')->name('admin.class.period.schedule.class.wise.section');
-			    // Route::get('select-timing', 'TimeTable\ClassPeriodScheduleController@timeTableTypeWiseTimeimg')->name('admin.class.period.schedule.time.table.type.wise');
-			    // Route::post('show', 'TimeTable\ClassPeriodScheduleController@show')->name('admin.class.period.schedule.show');
+			     Route::post('store', 'TimeTable\ClassPeriodScheduleController@store')->name('admin.class.period.schedule.store');
+		  });    
+			  Route::group(['prefix' => 'multiple-class-period_schedule'], function() {
 
-			    Route::post('store', 'TimeTable\ClassPeriodScheduleController@store')->name('admin.class.period.schedule.store');
+			    Route::get('multiple-class-period_schedule', 'TimeTable\ClassPeriodScheduleController@multipleClassPeriodSchedule')->name('admin.multiple.class.period.schedule');
+			    Route::get('add-form', 'TimeTable\ClassPeriodScheduleController@addForm')->name('admin.class.period.schedule.addform');
+			    Route::get('schedule-show', 'TimeTable\ClassPeriodScheduleController@scheduleShow')->name('admin.class.period.schedule.show'); 
 			    
           });
                Route::group(['prefix' => 'class-subject-period'], function() {
                	 Route::get('/', 'TimeTable\ClassSubjectPeriodController@index')->name('admin.class.subject.period');
                	 Route::get('section', 'TimeTable\ClassSubjectPeriodController@classWiseSection')->name('admin.class.subject.period.class.wise.section');
                	 Route::post('store', 'TimeTable\ClassSubjectPeriodController@store')->name('admin.class.subject.period.store');
+               	 Route::get('delete/{id}', 'TimeTable\ClassSubjectPeriodController@destroy')->name('admin.class.subject.period.delete');
           });
                Route::group(['prefix' => 'option-subject-group'], function() {
                	 Route::get('option-subject-group', 'TimeTable\ClassSubjectPeriodController@optionSubjectGroup')->name('admin.option.subject.group');
                	 Route::get('subject-show', 'TimeTable\ClassSubjectPeriodController@subjectShow')->name('admin.option.subject.show');
+               	 Route::get('table-show', 'TimeTable\ClassSubjectPeriodController@tableShow')->name('admin.option.table.show');
                	 Route::get('subject-delete/{id}', 'TimeTable\ClassSubjectPeriodController@destroySubjectSave')->name('admin.optional.subject.group.delete');
                	 Route::post('subject-store', 'TimeTable\ClassSubjectPeriodController@subjectMoveStore')->name('admin.option.subject.move.store');
           });
@@ -838,6 +841,7 @@ Route::group(['middleware' => 'admin'], function() {
                Route::group(['prefix' => 'teacher-details'], function() {
                	 Route::get('/', 'TimeTable\TeacherController@index')->name('admin.teacher.details');
                	 Route::get('add-form', 'TimeTable\TeacherController@addForm')->name('admin.teacher.details.add.form');
+               	 Route::get('class-section', 'TimeTable\TeacherController@addclassWiseSection')->name('admin.teacher.class.wise.section');
                	 Route::get('table-show', 'TimeTable\TeacherController@tableShow')->name('admin.teacher.details.table.show'); 
                	 Route::post('store', 'TimeTable\TeacherController@store')->name('admin.teacher.details.store');
                	 Route::get('edit/{id}', 'TimeTable\TeacherController@edit')->name('admin.teacher.details.edit');
@@ -850,9 +854,15 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('show', 'TimeTable\TeacherController@workingDaysShow')->name('admin.teacher.working.schedule.show');
                	 Route::post('store', 'TimeTable\TeacherController@teacherWorkingStore')->name('admin.teacher.working.schedule.store');
           });
+               Route::group(['prefix' => 'multiple-teacher-working-days'], function() {
+               	 Route::get('multiple-working-days', 'TimeTable\TeacherController@multipleWorkingDays')->name('admin.teacher.multiple.working.days');
+               	 Route::post('multiple-store', 'TimeTable\TeacherController@multipleWorkingDaysStore')->name('admin.teacher.multiple.working.days.store');
+               	// Route::get('show', 'TimeTable\TeacherController@workingDaysShow')->name('admin.teacher.working.schedule.show');
+               	 // Route::post('store', 'TimeTable\TeacherController@teacherWorkingStore')->name('admin.teacher.working.schedule.store');
+          });
                Route::group(['prefix' => 'teacher-subject-class'], function() {
                	 Route::get('class-subject', 'TimeTable\TeacherController@teacherClassSubject')->name('admin.teacher.class.subject');
-               	 Route::get('section', 'TimeTable\TeacherController@classWiseSection')->name('admin.teacher.class.wise.section');
+               	 Route::get('section', 'TimeTable\TeacherController@ClassWiseSection')->name('admin.teacher.class.wise.section');
                	 Route::get('teacher-history', 'TimeTable\TeacherController@teacherWiseHistory')->name('admin.teacher.history.table.show');
                	 Route::get('teacher-period', 'TimeTable\TeacherController@SubjectWisePeriod')->name('admin.teacher.subject.wise.period');
                	 Route::post('teacher-subject-class-store', 'TimeTable\TeacherController@teacherSubjectClassStore')->name('admin.teacher.subject.class.store');
@@ -872,11 +882,20 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('delete/{id}', 'Room\ClassRoomController@destroy')->name('admin.class.wise.room.details.delete');
                	 Route::post('update/{id}', 'Room\ClassRoomController@update')->name('admin.class.wise.room.details.update');
           });
+           Route::group(['prefix' => 'subject-wise-room'], function() {
+               	 Route::get('subject-room', 'Room\ClassRoomController@subjectWiseRoom')->name('admin.subject.wise.room');
+               	 Route::post('subject-room-store', 'Room\ClassRoomController@subjectWiseRoomStore')->name('admin.subject.wise.room.store');
+               	 Route::get('edit/{id}', 'Room\ClassRoomController@edit')->name('admin.class.wise.room.details.edit');
+               	 Route::get('delete/{id}', 'Room\ClassRoomController@destroy')->name('admin.class.wise.room.details.delete');
+               	 Route::post('update/{id}', 'Room\ClassRoomController@update')->name('admin.class.wise.room.details.update');
+          });
            Route::group(['prefix' => 'combine-class-subject-group'], function() {
                	 Route::get('/', 'Room\CombineClassSubjectGroupController@index')->name('admin.combine.class.subject.group');
-               	 Route::get('Class_group', 'Room\CombineClassSubjectGroupController@subjectWiseGroup')->name('admin.combine.class.select.subject.wise.group');
+               	 Route::get('class', 'Room\CombineClassSubjectGroupController@subjectWiseClasss')->name('admin.combine.class.select.subject.wise.class');
+               	 Route::get('section', 'Room\CombineClassSubjectGroupController@classtWiseSection')->name('admin.combine.class.select.class.wise.section');
+               	 Route::get('table-show', 'Room\CombineClassSubjectGroupController@tableShow')->name('admin.combine.class.select.class.wise.table.show');
                	 Route::post('store', 'Room\CombineClassSubjectGroupController@store')->name('admin.combine.class.subject.group.store');
-               	 
+               	 Route::get('delete/{id}', 'Room\CombineClassSubjectGroupController@combineClassSubjectDetailsDestroy')->name('admin.combine.class.subject.details.delete');
           });
            
 

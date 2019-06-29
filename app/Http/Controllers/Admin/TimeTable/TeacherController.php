@@ -27,9 +27,15 @@ class TeacherController extends Controller
     	return view('admin.teacher.teacherDetails.view',compact('teacherFacultys'));
     }
     public function addForm(){
-      return view('admin.teacher.teacherDetails.add_form');
+      $classTypes=ClassType::all();
+      return view('admin.teacher.teacherDetails.add_form',compact('classTypes'));
+    }
+     public function addClassWiseSection(Request $request){
+      $sections=Section::where('class_id',$request->id)->get();
+      return view('admin.teacher.teacherDetails.section',compact('sections'));
     }
      public function store(Request $request){
+      // return $request;
       $rules=[
         
            'name' => 'required', 
@@ -52,6 +58,11 @@ class TeacherController extends Controller
           $response["msg"]=$errors[0];
           return response()->json($response);// response as json
       }
+        $classSaveIdCheck=TeacherFaculty::where('class_id',$request->class_id)->where('section_id',$request->section_id)->first();
+        if (!empty($classSaveIdCheck)) {
+          $response=['status'=>0,'msg'=>'Class Already Created'];
+            return response()->json($response);
+        }
         else {
          $teacherfaculties= new TeacherFaculty();
           $teacherfaculties->registration_no=$request->code;
@@ -60,6 +71,8 @@ class TeacherController extends Controller
           $teacherfaculties->relation_name=$request->relation;
           $teacherfaculties->father_mobile=$request->mobile;
           $teacherfaculties->dob=$request->dob;
+          $teacherfaculties->class_id=$request->class_id;
+          $teacherfaculties->section_id=$request->section_id;
           $teacherfaculties->joining_date=$request->joining_date;
           $teacherfaculties->email=$request->email;
           $teacherfaculties->c_address=$request->address;
@@ -77,7 +90,8 @@ class TeacherController extends Controller
     }
      public function edit($id){
       $teacherFacultys=TeacherFaculty::findOrFail(Crypt::decrypt($id));
-       return view('admin.teacher.teacherDetails.edit',compact('teacherFacultys'));
+      $classTypes=ClassType::all();
+       return view('admin.teacher.teacherDetails.edit',compact('teacherFacultys','classTypes'));
     }
     public function destroy($id)
     {
@@ -116,6 +130,8 @@ class TeacherController extends Controller
             $teacherfaculties->relation_name=$request->relation;
             $teacherfaculties->father_mobile=$request->mobile;
             $teacherfaculties->dob=$request->dob;
+            $teacherfaculties->class_id=$request->class_id;
+            $teacherfaculties->section_id=$request->section_id;
             $teacherfaculties->joining_date=$request->joining_date;
             $teacherfaculties->email=$request->email;
             $teacherfaculties->c_address=$request->address;
@@ -142,14 +158,16 @@ class TeacherController extends Controller
          $teacherFacultys=TeacherFaculty::orderBy('name', 'DESC')->get();
         $daysTypes=DaysType::all();
         $periodTimings=PeriodTiming::where('time_table_type_id',$request->time_table_type_id)->get();
-        $TeacherWorkingDays=TeacherWorkingDays::where('time_table_type_id',$request->time_table_type_id)->where('teacher_id',$request->teacher_id)->first();
+        // $TeacherSaveWorkingDays=TeacherWorkingDays::where('time_table_type_id',$request->time_table_type_id)->where('teacher_id',$request->teacher_id)->first();
+         $time_table_type_id=$request->time_table_type_id;
+         $teacher_id=$request->teacher_id;
         $periodTypes=PeriodType::all();
-        return view('admin.teacher.teacherWorkDays.schedule_show',compact('periodTimings','daysTypes','periodTypes','TeacherWorkingDays','teacherFacultys'));
+        return view('admin.teacher.teacherWorkDays.schedule_show',compact('periodTimings','daysTypes','periodTypes','teacherFacultys','time_table_type_id','teacher_id'));
 
     }
      public function teacherWorkingStore(Request $request)
     {
-           // return $request;
+            // return $request;
         $rules=[ 
            'teacher_name'=>'required',
            'time_table_type'=>'required',
@@ -165,20 +183,80 @@ class TeacherController extends Controller
         }
         else {
     
-              $TeacherWorkingDays=TeacherWorkingDays::firstOrNew(['time_table_type_id'=>$request->time_table_type]);
-              $TeacherWorkingDays->time_table_type_id=$request->time_table_type;
-              $TeacherWorkingDays->teacher_id=$request->teacher_name;
-              $TeacherWorkingDays->period_timeing_id=implode(',', $request->periodTiming);
-              $TeacherWorkingDays->days_id=implode(',', $request->day);
-              $TeacherWorkingDays->period_type=implode(',', $request->period_type);
-              $TeacherWorkingDays->status=1;
-              $TeacherWorkingDays->save();   
+             
+              
+
+                foreach ($request->period_type as $key => $period_id) {
+                  
+
+                   $TeacherWorkingDays=TeacherWorkingDays::firstOrNew(['time_table_type_id'=>$request->time_table_type,'teacher_id'=>$request->teacher_name,'period_timeing_id'=>$request->periodTiming[$key],'days_id'=>$request->days[$key]]);
+                    $TeacherWorkingDays->time_table_type_id=$request->time_table_type;
+                    $TeacherWorkingDays->teacher_id=$request->teacher_name;
+                    $TeacherWorkingDays->period_timeing_id=$request->periodTiming[$key];
+                    $TeacherWorkingDays->days_id=$request->days[$key];
+                    $TeacherWorkingDays->period_type=$request->period_type[$key];
+                    $TeacherWorkingDays->status=1;
+                    $TeacherWorkingDays->save();   
+                }
+              
           
           $response=['status'=>1,'msg'=>'Save Successfully'];
           return response()->json($response);
 
         } 
     }
+
+
+    //----------------teacher-multiple----------------------------------------------------------------------
+    public function multipleWorkingDays(){
+
+         $teacherFacultys=TeacherFaculty::orderBy('name', 'DESC')->get();
+         $timeTableTypes=TimeTableType::all();
+         return view('admin.teacher.multipleWork.teacher_multiple',compact('timeTableTypes','teacherFacultys'));
+    }
+
+    public function multipleWorkingDaysStore(Request $request)
+    {
+             // return $request;
+        $rules=[ 
+           'teacher_name'=>'required',
+           'time_table_type'=>'required',
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+    
+             
+              
+
+                foreach ($request->teacher_name as $key => $teacher_id) {
+                   foreach ($request->period_type as $key => $period_id) {
+
+                   $TeacherWorkingDays=TeacherWorkingDays::firstOrNew(['time_table_type_id'=>$request->time_table_type,'teacher_id'=>$teacher_id,'period_timeing_id'=>$request->periodTiming[$key],'days_id'=>$request->days[$key]]);
+                    $TeacherWorkingDays->time_table_type_id=$request->time_table_type;
+                    $TeacherWorkingDays->teacher_id=$teacher_id;
+                    $TeacherWorkingDays->period_timeing_id=$request->periodTiming[$key];
+                    $TeacherWorkingDays->days_id=$request->days[$key];
+                    $TeacherWorkingDays->period_type=$request->period_type[$key];
+                    $TeacherWorkingDays->status=1;
+                    $TeacherWorkingDays->save();   
+                  }
+                }
+              
+          
+          $response=['status'=>1,'msg'=>'Save Successfully'];
+          return response()->json($response);
+
+        } 
+    }
+
 
     //---------------------teacher-subject-class------------------------------------------------------------//
     public function teacherClassSubject(){
@@ -196,9 +274,9 @@ class TeacherController extends Controller
      }
 
       public function SubjectWisePeriod(Request $request){
-        // return $request;
-     $classSubjectSavePeriod=ClassSubjectPeriod::where('class_id',$request->class_id)->where('subject_id',$request->id)->first();
-      $teacherSubjectClassSaveperiod=TeacherSubjectClass::where('class_id',$request->class_id)->where('subject_id',$request->id)->sum('no_of_period');
+         // return $request;
+     $classSubjectSavePeriod=ClassSubjectPeriod::where('class_id',$request->class_id)->where('section_id',$request->section_id)->where('subject_id',$request->id)->first();
+      $teacherSubjectClassSaveperiod=TeacherSubjectClass::where('class_id',$request->class_id)->where('section_id',$request->id)->sum('no_of_period');
       if (empty($classSubjectSavePeriod)) {
               $response = array();
               $response=['status'=>0,'msg'=>'Not Create Class Subject Period'];
@@ -208,7 +286,7 @@ class TeacherController extends Controller
      }
 
     public function teacherSubjectClassStore(Request $request){
-     // return  $request;
+      
       $rules=[ 
            'teacher_name'=>'required',
            
@@ -227,14 +305,14 @@ class TeacherController extends Controller
             return response()->json($response);// response as json
         }
         else {
-          if ($request->load_balance < $request->no_of_period) {
-             $response=array();
-            $response["status"]=0;
-            $response["msg"]='Load Balance Low';
-            return response()->json($response);// response as json
-          }
+          // if ($request->load_balance < $request->no_of_period) {
+          //    $response=array();
+          //   $response["status"]=0;
+          //   $response["msg"]='Load Balance Low';
+          //   return response()->json($response);// response as json
+          // }
     
-              $teacherSubjectClass=TeacherSubjectClass::firstOrNew(['teacher_id'=>$request->teacher_name,'class_id'=>$request->class,'section_id'=>$request->section,'subject_id'=>$request->subject,]);
+              $teacherSubjectClass=TeacherSubjectClass::firstOrNew(['teacher_id'=>$request->teacher_name,'class_id'=>$request->class,'section_id'=>$request->section_id,'subject_id'=>$request->subject,]);
               $teacherSubjectClass->teacher_id=$request->teacher_name;
               $teacherSubjectClass->no_of_period=$request->no_of_period;
               $teacherSubjectClass->no_of_duration=$request->period_duration;
@@ -254,6 +332,9 @@ class TeacherController extends Controller
     } 
     public function teacherWiseHistory(Request $request){
       $teacherSubjectClasss=TeacherSubjectClass::where('teacher_id',$request->id)->get();
-      return view('admin.teacher.teacherSubjectClass.history_table',compact('teacherSubjectClasss'));
+      $teacherWorkingDays=TeacherWorkingDays::where('teacher_id',$request->id)->pluck('period_type')->toArray();
+      $TeacherFacultys=TeacherFaculty::where('id',$request->id)->get();
+
+      return view('admin.teacher.teacherSubjectClass.history_table',compact('teacherSubjectClasss','teacherWorkingDays','TeacherFacultys'));
     }
 }
