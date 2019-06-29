@@ -9,7 +9,7 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-12">  
-        <form action="{{ route('admin.option.subject.move.store') }}" method="post" no-reset="true" class="add_form">
+        <form action="{{ route('admin.option.subject.move.store') }}" method="post" no-reset="true" class="add_form" button-click="btn_table_show">
               {{ csrf_field() }}         
           <div class="box"> 
             <div class="box-body"> 
@@ -25,8 +25,9 @@
                 </div> 
                  <div class="col-lg-4">
                   <label>Group No</label>
-                  <select name="group_id" class="form-control" id="group_id" multiselect="true" onchange="callAjax(this,'{{ route('admin.option.subject.show') }}'+'?class_id='+$('#class_id').val()+'&group_id='+$('#group_id').val(),'subject_show')">
+                  <select name="group_no" class="form-control" id="group_id" multiselect="true">
                     <option selected disabled>Select Group</option>
+                     
                     <option value="1">Group No 1</option>
                     <option value="2">Group No 2</option>
                     <option value="3">Group No 3</option>
@@ -62,7 +63,7 @@
         $('#author_table').DataTable();
     });
 
-     $('#btn_outhor_table_show').click();
+     $('#btn_table_show').click();
   </script>
   @endpush
      

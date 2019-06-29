@@ -7,7 +7,7 @@
     <section class="content"> 
       <div class="box"> 
         <div class="box-body">             
-             <form action="{{ route('admin.teacher.subject.class.store') }}" method="post" class="add_form" no-reset="true" success-content-id="teacher_history_table">
+             <form action="{{ route('admin.teacher.subject.class.store') }}" method="post" class="add_form" no-reset="true" success-content-id="teacher_history_table" button-click="btn_table_show_history,btn_click ">
               {{ csrf_field() }}
               <div class="row">
                 <div class="col-lg-4"> 
@@ -30,27 +30,35 @@
                  </div>
                  <div id="class_wise_section"> 
                  </div> 
+                 <div id="no_of_period"> 
+                  </div>
                  <div class="col-lg-4">
                   <label>No of period</label>
                   <input type="text" name="no_of_period" class="form-control"> 
-                 </div>
-                   
-                  <div id="no_of_period">
-  
-                  </div>
-
-                  
+                 </div> 
                <div class="col-lg-12 text-center"> 
                 <input type="submit" class="btn btn-success" style="margin-top: 10px">
                </div>
              </form>
               
-               <div id="teacher_history_table">
-                           
-               </div>          
+                         
           
         </div>
       </div>
+      <div class="box"> 
+        <div class="box-body">
+          <div class="row">
+            
+          
+          <div id="teacher_history_table">
+                           
+               </div>
+               <div id="all_teacher_history_table">
+                           
+               </div>
+             </div>
+           </div>
+           </div>
     </section> 
  @endsection
  @push('links')
