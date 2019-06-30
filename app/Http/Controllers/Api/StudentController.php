@@ -74,5 +74,18 @@ class StudentController extends Controller
         }
        
     }
+    public function homeworkToday(Request $request,$id){ 
+        try {   
+           $student =Student::find($id); 
+            $homework =Homework::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->first(); 
+            if (!empty($homework)) {
+              return $homework;   
+            }
+             return response()->json(['data'=>'null','status'=>'Not Found']);  
+        } catch (Exception $e) {
+            return $e;
+        }
+       
+    }
         
 }
