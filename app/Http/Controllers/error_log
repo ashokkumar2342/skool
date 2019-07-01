@@ -21,3 +21,5 @@
 [22-Jun-2019 04:51:15 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/HomeController.php on line 17
 [22-Jun-2019 11:17:12 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/BarcodeController.php on line 7
 [25-Jun-2019 07:53:49 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/UserClassTypeController.php on line 8
+[30-Jun-2019 13:30:15 UTC] PHP Fatal error:  Class 'Illuminate\Routing\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Controller.php on line 10
+[01-Jul-2019 08:06:40 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/UserClassTypeController.php on line 8

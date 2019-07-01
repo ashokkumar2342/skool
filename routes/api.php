@@ -38,6 +38,7 @@ Route::get('test', function(Request $request){
  	Route::get('details/{id}', 'Api\StudentController@index'); 
     Route::get('image/{id}', 'Api\StudentController@image'); 
     Route::get('homework/{id}', 'Api\StudentController@homework'); 
+    Route::get('homework-latest/{id}', 'Api\StudentController@homeworkToday'); 
   
  });
 

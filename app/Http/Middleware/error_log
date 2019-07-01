@@ -32,3 +32,4 @@
 [23-Jun-2019 12:57:12 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\Middleware\TrimStrings' not found in /home/mailinco/public_html/app/Http/Middleware/TrimStrings.php on line 7
 [28-Jun-2019 05:20:04 UTC] PHP Fatal error:  Class 'Fideloper\Proxy\TrustProxies' not found in /home/mailinco/public_html/app/Http/Middleware/TrustProxies.php on line 8
 [29-Jun-2019 03:35:18 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\Middleware\VerifyCsrfToken' not found in /home/mailinco/public_html/app/Http/Middleware/VerifyCsrfToken.php on line 7
+[01-Jul-2019 07:51:09 UTC] PHP Fatal error:  Class 'Illuminate\Cookie\Middleware\EncryptCookies' not found in /home/mailinco/public_html/app/Http/Middleware/EncryptCookies.php on line 7
