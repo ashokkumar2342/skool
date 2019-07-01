@@ -323,7 +323,7 @@ class TeacherController extends Controller
           //   return response()->json($response);// response as json
           // }
     
-              $teacherSubjectClass=TeacherSubjectClass::firstOrNew(['teacher_id'=>$request->teacher_name,'class_id'=>$request->class,'section_id'=>$request->section_id,'subject_id'=>$request->subject,]);
+              $teacherSubjectClass=TeacherSubjectClass::firstOrNew(['teacher_id'=>$request->teacher_name,'class_id'=>$request->class,'section_id'=>$request->section,'subject_id'=>$request->subject,]);
               $teacherSubjectClass->teacher_id=$request->teacher_name;
               $teacherSubjectClass->no_of_period=$request->no_of_period;
               $teacherSubjectClass->no_of_duration=$request->period_duration;
@@ -347,5 +347,12 @@ class TeacherController extends Controller
       $TeacherFacultys=TeacherFaculty::where('id',$request->id)->get();
 
       return view('admin.teacher.teacherSubjectClass.history_table',compact('teacherSubjectClasss','teacherWorkingDays','TeacherFacultys'));
+    }
+
+    public function SubjectWisePeriodHistoryDestroy($id)
+    {
+       $teacherSubjectClass=TeacherSubjectClass::findOrFail(Crypt::decrypt($id));
+       $teacherSubjectClass->delete();
+       return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
 }
