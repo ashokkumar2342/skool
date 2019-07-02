@@ -872,6 +872,14 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::post('teacher-subject-class-store', 'TimeTable\TeacherController@teacherSubjectClassStore')->name('admin.teacher.subject.class.store');
 
           });
+                Route::group(['prefix' => 'teacher-absent'], function() {
+                	Route::get('teacher-absent', 'TimeTable\TeacherController@teacherAbsent')->name('admin.teacher.absent');
+                	Route::post('teacher-absent-store', 'TimeTable\TeacherController@teacherAbsentStore')->name('admin.teacher.store');
+           });
+                Route::group(['prefix' => 'teacher-adjustment'], function() { 
+                	Route::get('teacher-adjustment', 'TimeTable\TeacherController@teacherAdjustment')->name('admin.teacher.adjustment');
+                	Route::post('teacher-show', 'TimeTable\TeacherController@teacherAdjustmentShow')->name('admin.teacher.adjustment.show');
+           });
                Route::group(['prefix' => 'room-details'], function() {
                	 Route::get('/', 'Room\RoomController@index')->name('admin.room.details');
                	 Route::post('store', 'Room\RoomController@store')->name('admin.room.details.store');

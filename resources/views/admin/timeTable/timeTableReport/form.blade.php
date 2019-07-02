@@ -16,21 +16,17 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-12">  
-        <form action="{{ route('admin.time.table.report.show') }}"  method="post" class="add_form" no-reset="true" data-table-without-pagination="data_table" success-content-id="teacher_history_show">
+        <form action="{{ route('admin.time.table.report.show') }}"  method="post" class="add_form" no-reset="true" data-table-without-pagination="report_data_table" success-content-id="teacher_history_show">
               {{ csrf_field() }}         
           <div class="box"> 
             <div class="box-body"> 
               <div class="row">
                 <div class="col-lg-4">
                   <label>Report For</label>
-                  <select name="time_table_type" id="time_table_type" class="form-control" multiselect-form="true" onchange="callAjax(this,'{{ route('admin.time.table.report.for') }}','time_table_report')">
+                  <select name="report_for" id="time_table_type" class="form-control" multiselect-form="true" {{-- onchange="callAjax(this,'{{ route('admin.time.table.report.for') }}','time_table_report')" --}}>
                     <option  selected disabled>Select Option</option> 
-                      
                      <option value="1">Teacher</option> 
                      <option value="2">Class</option> 
-                     <option value="3">Subject</option> 
-                     <option value="4">Days</option> 
-                     <option value="5">Period</option> 
                   </select> 
                 </div>
                  <div id="time_table_report"> 
@@ -73,7 +69,7 @@
   
     
 
-     // $('#btn_outhor_table_show').click();
+     // $('#btn_outhor_table_show').DataTable();
   </script>
   <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>

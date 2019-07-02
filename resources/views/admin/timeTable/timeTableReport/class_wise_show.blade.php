@@ -18,9 +18,9 @@
         @foreach ($daysTypes as $daysType)
         <tr>
             <td>{{ $daysType->name }}  </td>
-             @foreach($teacherFacultys as $teacherFaculty)
+             @foreach($sections as $section)
 
-             <th>{{ $teacherFaculty->name or '' }}</th>
+             <th>{{ $section->classes->alias or '' }}/{{ $section->sectionTypes->name or '' }}</th>
             @endforeach
             @foreach($periodTimings as $periodTiming) 
 
@@ -33,9 +33,9 @@
        <tr>
 
            <th>{{ $periodTiming->from_time }}</th>
-            @foreach($teacherFacultys as $teacherFaculty)
+            @foreach($sections as $section)
             @php
-                  $manualTimeTabl=App\Model\TimeTable\ManualTimeTabl::where('time_table_type_id',$time_table_type_id)->where('period_id',$periodTiming->id)->where('day_id',$daysType->id)->where('teacher_id',$teacherFaculty->id)->first();
+                  $manualTimeTabl=App\Model\TimeTable\ManualTimeTabl::where('time_table_type_id',$time_table_type_id)->where('class_id',$section->class_id)->where('period_id',$periodTiming->id)->where('day_id',$daysType->id)->where('section_id',$section->section_id)->first();
 
             @endphp
 
@@ -46,8 +46,8 @@
              @else
              @foreach ($periodTypes  as $key=>$periodType) 
                                   @php
-                                   $selectedValue=App\Model\TimeTable\ClassPeriodSchedule::where('time_table_type_id',$time_table_type_id)->where('days_id',$daysType->id)->where('period_timeing_id',$periodTiming->id)->first();
-                                   $manualTimeTabl=App\Model\TimeTable\ManualTimeTabl::where('time_table_type_id',$time_table_type_id)->where('period_id',$periodTiming->id)->where('day_id',$daysType->id)->where('teacher_id',$teacherFaculty->id)->first();
+                                   $selectedValue=App\Model\TimeTable\ClassPeriodSchedule::where('time_table_type_id',$time_table_type_id)->where('class_id',$section->class_id)->where('days_id',$daysType->id)->where('period_timeing_id',$periodTiming->id)->first();
+                                   $manualTimeTabl=App\Model\TimeTable\ManualTimeTabl::where('time_table_type_id',$time_table_type_id)->where('class_id',$section->class_id)->where('period_id',$periodTiming->id)->where('day_id',$daysType->id)->where('section_id',$section->section_id)->first();
                                    if (!empty($selectedValue)) {
                                     $selectedValueId =$selectedValue->period_type;
                                    }else{

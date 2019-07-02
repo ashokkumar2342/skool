@@ -3,7 +3,7 @@
   <!-- Main content -->
   <section class="content-header">
     {{-- <button type="button" class="btn btn-info pull-right" multi-select="true" onclick="callPopupLarge(this,'{{ route('admin.class.period.schedule.addform')}}')" style="margin:10px">Create New</button> --}}
-    <h1>Manual Time table<small>View</small> </h1>
+    <h1>Manual Time Table<small>View</small> </h1>
        
     </section>  
     <section class="content">
