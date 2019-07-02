@@ -29,7 +29,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	    // });
 	});
 Route::post('imageweb/{id}', 'Admin\StudentController@imageWebUpdate')->name('admin.student.profilepic.webupdate');	
-Route::post('login', 'Api\StudentController@login');	
+// Route::post('login', 'Api\StudentController@login');	
 Route::get('login', 'Api\StudentController@login');	
 Route::get('test', function(Request $request){
  return response()->json(['ashok'=>'ashok']);
@@ -38,6 +38,7 @@ Route::get('test', function(Request $request){
  	Route::get('details/{id}', 'Api\StudentController@index'); 
     Route::get('image/{id}', 'Api\StudentController@image'); 
     Route::get('homework/{id}', 'Api\StudentController@homework'); 
+    Route::get('homework-latest/{id}', 'Api\StudentController@homeworkToday'); 
   
  });
 
