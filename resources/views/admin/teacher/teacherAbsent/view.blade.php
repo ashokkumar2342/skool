@@ -28,7 +28,7 @@
               <select name="from_period" class="form-control">
                 <option selected disabled>Select Period</option>
                 @foreach ($periodTimings as $periodTiming)
-                  <option value="{{ $periodTiming->id }}">{{ $periodTiming->from_time }}</option> 
+                  <option value="{{ $periodTiming->from_time }}">{{ $periodTiming->from_time }}</option> 
                 @endforeach
               </select> 
             </div>
@@ -37,7 +37,7 @@
               <select name="to_period" class="form-control">
                 <option selected disabled>Select Period</option>
                 @foreach ($periodTimings as $periodTiming)
-                  <option value="{{ $periodTiming->id }}">{{ $periodTiming->from_time }}</option> 
+                  <option value="{{ $periodTiming->from_time }}">{{ $periodTiming->from_time }}</option> 
                 @endforeach
               </select> 
             </div> 

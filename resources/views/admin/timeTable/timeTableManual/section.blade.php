@@ -15,6 +15,6 @@
 
   
   <script type="text/javascript">
-     
+    
      $('#btn_section_wise_show').click();
   </script>

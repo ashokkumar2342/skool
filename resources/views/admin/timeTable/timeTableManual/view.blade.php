@@ -58,11 +58,9 @@
 @push('scripts')
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script type="text/javascript">
-     $(document).ready(function(){
-        $('#author_table').DataTable();
-    });
+     
 
-    $('#btn_section_wise_show_result').click();
+    // $('#btn_section_wise_show_result').click();
   </script>
   @endpush
      

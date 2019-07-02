@@ -32,19 +32,7 @@
              @foreach($periodTimings as $periodTiming) 
          
             <th>
-           {{--    @php
-                    if ($TeacherSaveWorkingDays==1) {
-                      $className='greenText';
-                    }elseif ($TeacherSaveWorkingDays==2) {
-                      $className='yellowText';
-                    }elseif ($TeacherSaveWorkingDays==3) {
-                      $className='redText';
-                    }else{
-                      $className='greenText';
-                    }
-                @endphp  --}}  
-                  {{--  <input type="hidden" name="periodTiming[]" value="{{ $periodTiming->id }}">
-                <input type="hidden" name="days[]" value="{{$daysType->id}}"> --}}
+            
                 @php
                          
                         $manualTimeTabl=App\Model\TimeTable\ManualTimeTabl::where('time_table_type_id',$time_table_type_id)->where('class_id',$class_id)->where('period_id',$periodTiming->id)->where('day_id',$daysType->id)->where('section_id',$sectionId)->first();
@@ -111,7 +99,7 @@
                          
 
                        @if (!empty($manualTimeTabl))
-                           <a href="{{ route('admin.time.table.manual.delete',$manualTimeTabl->id) }}"  title=""><i class="fa fa-trash text-danger"></i></a>
+                           <a href="#" id="delete_button" onclick="callAjax(this,'{{ route('admin.time.table.manual.delete',$manualTimeTabl->id) }}')" title="Delete"><i class="fa fa-trash text-danger"></i></a>
 
                         @else
                          

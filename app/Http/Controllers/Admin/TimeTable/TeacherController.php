@@ -11,6 +11,7 @@ use App\Model\SubjectType;
 use App\Model\TimeTable\ClassPeriodSchedule;
 use App\Model\TimeTable\ClassSubjectPeriod;
 use App\Model\TimeTable\DaysType;
+use App\Model\TimeTable\ManualTimeTabl;
 use App\Model\TimeTable\PeriodTiming;
 use App\Model\TimeTable\PeriodType;
 use App\Model\TimeTable\TeacherAbsent;
@@ -369,7 +370,7 @@ class TeacherController extends Controller
       return view('admin.teacher.teacherAbsent.view',compact('teacherFacultys','periodTimings'));
     }
       public function teacherAbsentStore(Request $request){
-      // return $request;
+       // return $request;
       $rules=[ 
            'teacher'=>'required',
            
@@ -395,6 +396,7 @@ class TeacherController extends Controller
               $teacherAbsent->to_period=$request->to_period;
               $teacherAbsent->absent_date=$request->date;
               $teacherAbsent->save(); 
+              $this->manualTimeTabl($request->teacher);
               $response = array();
               $response['status'] = 1;
               $response['msg'] = 'Created Successfully'; 
@@ -402,8 +404,14 @@ class TeacherController extends Controller
 
         } 
     }
+
+    public function manualTimeTabl($teacher){
+        $manualTimeTabl=ManualTimeTabl::where('teacher_id',$teacher)->first();
+        $manualTimeTabl->status=0;
+        $manualTimeTabl->save();
+    }
 //-----------------------------teacher-adjustment--------------------------------------------------------------//
-     public function teacherAdjustment(){ 
+     public function adjustment(){ 
       return view('admin.teacher.teacherAdjustment.view');
     } 
     public function teacherAdjustmentShow(Request $request){
@@ -415,4 +423,9 @@ class TeacherController extends Controller
                 return response()->json($response); 
       
     } 
+
+    public function teacherAdjustment(Request $request,$id){
+     
+         return  $manualTimeTabl=ManualTimeTabl::where('teacher_id',$id)->get();
+    }
 }
