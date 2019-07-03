@@ -4,7 +4,7 @@
      <input type="text" class="form-control" disabled value="{{ $classSubjectSavePeriod->no_of_period or '' }}">
 	</div>
 	<div class="col-lg-4"> 
-	  <label>Load</label>
+	  <label>Loaded</label>
      <input type="text" class="form-control" disabled value="{{ $teacherSubjectClassSaveperiod}}">
 	</div>
 	<div class="col-lg-4">  

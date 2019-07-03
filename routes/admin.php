@@ -868,9 +868,19 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('teacher-period', 'TimeTable\TeacherController@SubjectWisePeriod')->name('admin.teacher.subject.wise.period');
                	 Route::get('total-period-lode', 'TimeTable\TeacherController@toTalSubjectWisePeriod')->name('admin.teacher.subject.wise.total.period.history');
                	 Route::get('teacher-period-history', 'TimeTable\TeacherController@SubjectWisePeriodHistory')->name('admin.teacher.subject.wise.period.history');
+               	 Route::get('teacher-period-history.delete/{id}', 'TimeTable\TeacherController@SubjectWisePeriodHistoryDestroy')->name('admin.teacher.subject.wise.period.history.delete');
                	 Route::post('teacher-subject-class-store', 'TimeTable\TeacherController@teacherSubjectClassStore')->name('admin.teacher.subject.class.store');
 
           });
+                Route::group(['prefix' => 'teacher-absent'], function() {
+                	Route::get('teacher-absent', 'TimeTable\TeacherController@teacherAbsent')->name('admin.teacher.absent');
+                	Route::post('teacher-absent-store', 'TimeTable\TeacherController@teacherAbsentStore')->name('admin.teacher.store');
+           });
+                Route::group(['prefix' => 'teacher-adjustment'], function() { 
+                	Route::get('adjustment', 'TimeTable\TeacherController@adjustment')->name('admin.teacher.adjustment');
+                	Route::post('teacher-show', 'TimeTable\TeacherController@teacherAdjustmentShow')->name('admin.teacher.adjustment.show');
+                	Route::get('teacher-adjustment/{id}', 'TimeTable\TeacherController@teacherAdjustment')->name('admin.teacher.adjustment.result');
+           });
                Route::group(['prefix' => 'room-details'], function() {
                	 Route::get('/', 'Room\RoomController@index')->name('admin.room.details');
                	 Route::post('store', 'Room\RoomController@store')->name('admin.room.details.store');
@@ -900,6 +910,27 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::post('store', 'Room\CombineClassSubjectGroupController@store')->name('admin.combine.class.subject.group.store');
                	 Route::get('delete/{id}', 'Room\CombineClassSubjectGroupController@combineClassSubjectDetailsDestroy')->name('admin.combine.class.subject.details.delete');
           });
+
+           Route::group(['prefix' => 'manual-time-table'], function() {
+               	 Route::get('/', 'TimeTable\TimeTablController@index')->name('admin.time.table.generate');
+               	 Route::get('manual', 'TimeTable\TimeTablController@manual')->name('admin.time.table.manual');
+               	 Route::get('manual-wise-show', 'TimeTable\TimeTablController@manualWiseShow')->name('admin.time.table.manual.subject.show');
+               	 Route::get('class-wise-section', 'TimeTable\TimeTablController@classWiseSection')->name('admin.time.table.manual.class.wise.section');
+               	 Route::get('subject-wise-teacher', 'TimeTable\TimeTablController@subjectWiseTeacher')->name('admin.time.table.manual.subject.wise.teacher');
+               	 Route::get('teacher-wise-period', 'TimeTable\TimeTablController@teacherWisePeriod')->name('admin.time.table.manual.teacher.wise.day.period');
+               	 Route::get('day-wise-period', 'TimeTable\TimeTablController@daysWisePeriod')->name('admin.time.table.manual.day.wise.period');
+               	 Route::get('show', 'TimeTable\TimeTablController@finalResult')->name('admin.time.table.manual.button.wise.final.result');
+               	 Route::post('manual-store', 'TimeTable\TimeTablController@store')->name('admin.time.table.manual.store');
+               	 Route::get('manual-delete/{id}', 'TimeTable\TimeTablController@manualDelete')->name('admin.time.table.manual.delete');
+
+       });
+           Route::group(['prefix' => 'time-table-report'], function() {
+               	 Route::get('/', 'TimeTable\TimeTableReportController@index')->name('admin.time.table.report');
+               	 Route::get('report', 'TimeTable\TimeTableReportController@reportFor')->name('admin.time.table.report.for');
+               	 Route::get('teacher-for', 'TimeTable\TimeTableReportController@teacherFor')->name('admin.time.table.teacher.for');
+               	 Route::post('show', 'TimeTable\TimeTableReportController@show')->name('admin.time.table.report.show');
+
+       });
            
 
             
