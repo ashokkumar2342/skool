@@ -110,7 +110,7 @@ class StudentController extends Controller
              } 
                      
             if (!empty($student)) {
-              return ['present'=>$present,'absent'=>$absent,'today-Attendance'=>$todayAttendance];   
+              return ['present'=>$present,'absent'=>$absent,'todayAttendance'=>$todayAttendance];   
             }
              return response()->json(['data'=>'null','status'=>'0']);  
         } catch (Exception $e) {
