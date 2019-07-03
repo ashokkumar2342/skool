@@ -10,6 +10,7 @@ use App\Model\Homework;
 use App\Model\ParentRegistration;
 use App\Model\Religion;
 use App\Model\SessionDate;
+use App\Model\StudentAttendance;
 use App\Model\StudentDefaultValue;
 use App\Student;
 use Illuminate\Http\Request;
@@ -87,10 +88,26 @@ class StudentController extends Controller
         try {   
            $student =Student::find($id); 
             $homework =Homework::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->first(); 
-            if (!empty($homework)) {
+            if (!empty($student)) {
               return $homework;   
             }
              return response()->json(['data'=>'null','status'=>'Not Found']);  
+        } catch (Exception $e) {
+            return $e;
+        }
+       
+    }
+    public function attendance(Request $request,$id){ 
+        try {   
+           $student =Student::find($id); 
+           $session_id =$student->session_id;
+            $present =StudentAttendance::where('student_id',$student->id)->where('attendance_type_id',1)->count(); 
+            $absent =StudentAttendance::where('student_id',$student->id)->where('attendance_type_id',2)->count(); 
+            $todayAttendance =StudentAttendance::where('student_id',$student->id)->where('date',date('Y-m-d'))->first()->attendance_type_id==1?'Present':'Absent';           
+            if (!empty($student)) {
+              return ['present'=>$present,'absent'=>$absent,'today-Attendance'=>$todayAttendance];   
+            }
+             return response()->json(['data'=>'null','status'=>'0']);  
         } catch (Exception $e) {
             return $e;
         }
