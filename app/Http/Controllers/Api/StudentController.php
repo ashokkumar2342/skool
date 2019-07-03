@@ -102,8 +102,13 @@ class StudentController extends Controller
            $student =Student::find($id); 
            $session_id =$student->session_id;
             $present =StudentAttendance::where('student_id',$student->id)->where('attendance_type_id',1)->count(); 
-            $absent =StudentAttendance::where('student_id',$student->id)->where('attendance_type_id',2)->count(); 
-            $todayAttendance =StudentAttendance::where('student_id',$student->id)->where('date',date('Y-m-d'))->first()->attendance_type_id==1?'Present':'Absent';           
+            $absent =StudentAttendance::where('student_id',$student->id)->where('attendance_type_id',2)->count();
+             $attendance =StudentAttendance::where('student_id',$student->id)->where('date',date('Y-m-d'))->first(); 
+             $todayAttendance='';
+            if (!empty($attendance)) {
+               $todayAttendance=$attendance->attendance_type_id==1?'Present':'Absent'; 
+             } 
+                     
             if (!empty($student)) {
               return ['present'=>$present,'absent'=>$absent,'today-Attendance'=>$todayAttendance];   
             }
