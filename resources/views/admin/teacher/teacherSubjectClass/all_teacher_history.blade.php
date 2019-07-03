@@ -8,12 +8,13 @@
 	<thead>
 		<tr>
 			 
-			<th>Teacher Name</th>
+			<th class="text-nowrap">Teacher Name</th>
 			<th>Class</th>
 			<th>Section</th>
 			<th>Subject</th>
-			<th>No of Period</th>
-			<th>Period Duration</th>
+			<th class="text-nowrap">No of Period</th>
+			<th class="text-nowrap">Period Duration</th>
+			<th>Action</th>
 			 
 			 
 			 
@@ -38,7 +39,7 @@
 
                         </td>
 					 
-					 
+					 <td><a href="{{ route('admin.teacher.subject.wise.period.history.delete',Crypt::encrypt($teacherWiseSubjectClassSaveperio->id)) }}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a></td>
 					 
 				</tr>
 				

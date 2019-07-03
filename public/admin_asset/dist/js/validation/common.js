@@ -101,6 +101,17 @@ function callJqueryDefault(divId){
 						]
 				});
 				}
+				else if(formObj.getAttribute('data-table-without-pagination-disable-sorting'))
+				{
+				$("#"+formObj.getAttribute('data-table-without-pagination-disable-sorting')).DataTable({
+					'paging':   false,
+					"aaSorting": [],
+					dom: 'Bfrtip',
+						buttons: [
+							'copy', 'csv', 'excel', 'pdf', 'print'
+						]
+				});
+				}
 				else if(formObj.getAttribute('child-table'))
 				{
 									var table = $("#"+formObj.getAttribute('child-table')).DataTable({});
