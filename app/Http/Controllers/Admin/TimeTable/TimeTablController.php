@@ -138,6 +138,7 @@ class TimeTablController extends Controller
         $manualTimeTablsTable->teacher_id=$request->teacher;
         $manualTimeTablsTable->subject_id=$request->subject;
         $manualTimeTablsTable->room_id=$request->room;
+        $manualTimeTablsTable->status=1;
         $manualTimeTablsTable->save();
          $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
@@ -147,6 +148,8 @@ class TimeTablController extends Controller
     public function manualDelete($id){
       $ManualTimeTabl=ManualTimeTabl::find($id);
       $ManualTimeTabl->delete();
-       return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+      $response=['status'=>1,'msg'=>'Delete Successfully'];
+      return response()->json($response);
+     
     }
 }

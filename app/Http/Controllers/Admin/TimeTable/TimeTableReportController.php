@@ -24,27 +24,27 @@ class TimeTableReportController extends Controller
     }
 
 
-    //  public function reportFor(Request $request){
-    //  	 if ($request->id==1) {
-    //  	 	$teachers=TeacherFaculty::all();
-    //          return view('admin.timetable.timeTableReport.teacher',compact('teachers')); 
-    //  	 }if ($request->id==2) {
-    //         $classTypes=ClassType::all();
-    //          return view('admin.timetable.timeTableReport.class',compact('classTypes'));
+     public function reportFor(Request $request){
+     	 if ($request->id==1) {
+     	 	$teachers=TeacherFaculty::all();
+             return view('admin.timetable.timeTableReport.teacher',compact('teachers')); 
+     	 }if ($request->id==2) {
+            $classTypes=ClassType::all();
+             return view('admin.timetable.timeTableReport.class',compact('classTypes'));
      	 	
-    //  	 }if ($request->id==3) {
-    //  	 	 $SubjectTypes=SubjectType::all();
-    //          return view('admin.timetable.timeTableReport.subject',compact('SubjectTypes'));
-    //  	 }if ($request->id==4) {
+     	 }if ($request->id==3) {
+     	 	 $SubjectTypes=SubjectType::all();
+             return view('admin.timetable.timeTableReport.subject',compact('SubjectTypes'));
+     	 }if ($request->id==4) {
      	 	  
-    //  	 }if ($request->id==5) {
+     	 }if ($request->id==5) {
      	 	
-    //  	 } 
+     	 } 
     	 
-    // }
+    }
 
     public function show(Request $request){
-       // return $request;
+         
          
           if ($request->report_for==1) { 
             $daysTypes=DaysType::all();

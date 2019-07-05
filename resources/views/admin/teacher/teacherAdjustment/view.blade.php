@@ -1,7 +1,8 @@
 @extends('admin.layout.base')
 @section('body')
   <!-- Main content -->
-  <section class="content-header"> 
+  <section class="content-header">
+  <button type="button" class="btn btn-info pull-right " select2="true"  onclick="callPopupLarge(this,'{{ route('admin.teacher.absent')}}')"  >Add Absent Teacher</button> 
     <h1>Teacher Adjustment<small>List</small> </h1> 
     </section>  
     <section class="content"> 
@@ -18,10 +19,13 @@
               <input type="submit" class="btn btn-success" value="Show" style="margin-top: 24px">
             </div>
           </div>
+           </form> 
+           <form action="{{ route('admin.teacher.adjustment.result') }}" method="post" class="add_form">
+             {{ csrf_field() }} 
            <div id="teacher_history_table">
              
            </div>
-         </form> 
+        
 
         </div>
       </div>

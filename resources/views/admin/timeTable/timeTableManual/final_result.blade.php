@@ -99,7 +99,8 @@
                          
 
                        @if (!empty($manualTimeTabl))
-                           <a href="#" id="delete_button" onclick="callAjax(this,'{{ route('admin.time.table.manual.delete',$manualTimeTabl->id) }}')" title="Delete"><i class="fa fa-trash text-danger"></i></a>
+                           <a href="#" id="delete_button" button-click="btn_section_wise_show" success-popup="true" onclick="return confirm('Are you sure to delete this data ?')?callAjax(this,'{{ route('admin.time.table.manual.delete',$manualTimeTabl->id) }}','',hideDiv):''" title="Delete"><i class="fa fa-trash text-danger"></i></a>
+                       {{--     <a href="#" id="delete_button" onclick="return confirm('Are you sure to delete this data ?')callAjax(this,'{{ route('admin.time.table.manual.delete',$manualTimeTabl->id) }}')" title="Delete"><i class="fa fa-trash text-danger"></i></a> --}}
 
                         @else
                          
@@ -118,4 +119,8 @@
         
     </tbody>
 </table>
-   
+<script>
+  function hideDiv(){
+    // $('#section_id').trigger('change')
+  }
+</script>  

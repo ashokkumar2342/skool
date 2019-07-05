@@ -22,7 +22,7 @@
                     {{ csrf_field() }} 
                     <div class="col-lg-4">
                       <label>Report For</label>
-                      <select name="report_for" id="time_table_type" class="form-control" multiselect-form="true" {{-- onchange="callAjax(this,'{{ route('admin.time.table.report.for') }}','time_table_report')" --}}>
+                      <select name="report_for" id="time_table_type" class="form-control" multiselect-form="true" onchange="callAjax(this,'{{ route('admin.time.table.report.for') }}','time_table_report')">
                         <option  selected disabled>Select Option</option> 
                         <option value="1">Teacher</option> 
                         <option value="2">Class</option> 
