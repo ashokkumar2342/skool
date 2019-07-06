@@ -25,12 +25,12 @@ class TimeTablController extends Controller
      public function index(){
      	$timeTableTypes=TimeTableType::all();
      	 $classTypes=ClassType::all();
-    	return view('admin.timetable.timeTableManual.view',compact('timeTableTypes','classTypes'));
+    	return view('admin.timeTable.timeTableManual.view',compact('timeTableTypes','classTypes'));
     }
     public function classWiseSection(Request $request){
       // return $request;
      $sections=Section::where('class_id',$request->class_id)->get();
-     return view('admin.timetable.timeTableManual.section',compact('sections'));
+     return view('admin.timeTable.timeTableManual.section',compact('sections'));
     }
 
     public  function  manual(Request $request){
@@ -47,7 +47,7 @@ class TimeTablController extends Controller
 
         $periodTypes=PeriodType::all();
        
-        return view('admin.timetable.timeTableManual.manual_view',compact('periodTimings','daysTypes','periodTypes','classPeriodSchedule','classTypes','time_table_type_id','class_id','subjects','sectionId'));
+        return view('admin.timeTable.timeTableManual.manual_view',compact('periodTimings','daysTypes','periodTypes','classPeriodSchedule','classTypes','time_table_type_id','class_id','subjects','sectionId'));
     }
 
     public  function  finalResult(Request $request){
@@ -65,7 +65,7 @@ class TimeTablController extends Controller
         $periodTypes=PeriodType::all();
         // $manualTimeTabl=ManualTimeTabl::where('time_table_type_id',$request->time_table_type_id)->where('class_id',$request->class_id)->pluck('period_id')->toArray();
          // $manualTimeTabl=ManualTimeTabl::where('time_table_type_id',$request->time_table_type_id)->where('class_id',$request->class_id)->first();
-        return view('admin.timetable.timeTableManual.final_result',compact('periodTimings','daysTypes','periodTypes','classPeriodSchedule','classTypes','time_table_type_id','class_id','subjects','sectionId'));
+        return view('admin.timeTable.timeTableManual.final_result',compact('periodTimings','daysTypes','periodTypes','classPeriodSchedule','classTypes','time_table_type_id','class_id','subjects','sectionId'));
     }
 
     public function manualWiseShow(Request $request){
@@ -77,25 +77,25 @@ class TimeTablController extends Controller
     	 $periodTimings=PeriodTiming::where('time_table_type_id',$request->time_table_type_id)->get();
       // $TeacherWorkingDays=TeacherWorkingDays::where('time_table_type_id',$request->time_table_type_id)->where('period_type',2)->get();
 
-    	 return view('admin.timetable.timeTableManual.manual_add_form',compact('subjects','teachers','daysTypes','periodTimings','roomTypes'));
+    	 return view('admin.timeTable.timeTableManual.manual_add_form',compact('subjects','teachers','daysTypes','periodTimings','roomTypes'));
     }
 
     public function subjectWiseTeacher(Request $request){
     	 // return $request;
     	 $teacherSubjectClasss=TeacherSubjectClass::where('subject_id',$request->id)->get();
     	 // $teachers=TeacherFaculty::where('name',$request->id)->get();
-    	return view('admin.timetable.timeTableManual.teacher',compact('teacherSubjectClasss'));
+    	return view('admin.timeTable.timeTableManual.teacher',compact('teacherSubjectClasss'));
     }
 
      public function teacherWisePeriod(Request $request){
         //return $request;
          $TeacherWorkingDays=TeacherWorkingDays::where('time_table_type_id',$request->time_table_type_id)->where('teacher_id',$request->id)->where('period_type',1)->distinct('days_id')->get(['days_id']);
-      return view('admin.timetable.timeTableManual.day_period',compact('TeacherWorkingDays'));
+      return view('admin.timeTable.timeTableManual.day_period',compact('TeacherWorkingDays'));
     }
      public function daysWisePeriod(Request $request){
       // return $request;
          $TeacherWorkingDays=TeacherWorkingDays::where('days_id',$request->id)->where('teacher_id',$request->teacher_id)->where('time_table_type_id',$request->time_table_type_id)->where('period_type',1)->get();
-      return view('admin.timetable.timeTableManual.timeing',compact('TeacherWorkingDays'));
+      return view('admin.timeTable.timeTableManual.timeing',compact('TeacherWorkingDays'));
     }
 
 
