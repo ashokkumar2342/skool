@@ -179,7 +179,9 @@ class ClassSubjectPeriodController extends Controller
      foreach ($optionSubjectGroupDelete as $key => $value) {
             
              $value->delete();
-        }   
-       return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);   
+        } 
+        $response=['status'=>1,'msg'=>'Delete Successfully'];
+                     return response()->json($response);   
+       
     }
 }

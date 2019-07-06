@@ -19,9 +19,16 @@
 	  			<td>Group No : {{$optionSubjectGroup->group_no }}</td>
 	  			
 
-	  			<td><a href="{{ route('admin.optional.subject.group.delete',$optionSubjectGroup->id) }}" title="Delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a></td>
+	  			<td> 
+            <a href="#" {{-- button-click="btn_table_show" --}} success-popup="true" onclick="return confirm('Are you sure to delete this data ?')?callAjax(this,'{{ route('admin.optional.subject.group.delete',$optionSubjectGroup->id) }}','',hideDiv):''" title="Delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a></td>
 	  		</tr>
   			 
   		@endforeach
   	</tbody>
   </table>
+
+  <script>
+  function hideDiv(){
+    $('#class_id').trigger('change')
+  }
+</script>  

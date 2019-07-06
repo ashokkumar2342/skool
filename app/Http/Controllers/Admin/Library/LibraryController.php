@@ -80,10 +80,10 @@ class LibraryController extends Controller
      public function update(Request $request,$id)
      {
      	$rules=[
-            'code' => 'required|max:10|unique:publishers,code', 
+            'code' => 'required|max:10|unique:publishers,code,'.$id.'',
             'name' => 'required|max:199', 
             'mobile_no' =>'required|digits:10', 
-            'email' => "required|max:50|email|unique:publishers,email", 
+            'email' => "required|max:50|email|unique:publishers,email,".$id.'', 
             "address" => 'max:1000|nullable',
         ];
 

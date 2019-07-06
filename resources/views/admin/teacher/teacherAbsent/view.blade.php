@@ -1,21 +1,33 @@
-@extends('admin.layout.base')
-@section('body')
+  
   <!-- Main content -->
-  <section class="content-header"> 
-    <h1>Teacher Absent<small>view</small> </h1> 
-    </section>  
-    <section class="content"> 
-      <div class="box"> 
-        <div class="box-body">
-        <form action="{{ route('admin.teacher.store') }}" method="post" class="add_form">
+   
+    <style type="text/css" media="screen">
+  .bd{
+    border-bottom: #eee solid 1px;;
+  }
+  
+</style>
+ 
+  <div class="modal-dialog" style="width:70%">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Absent Teacher</h4>
+      </div>
+      <div class="modal-body">
+       <div class="row"> 
+        <div class="col-md-12"> 
+             <form action="{{ route('admin.teacher.store') }}" method="post" class="add_form" button-click="btn_close">
           {{ csrf_field() }}
           <div class="row">
             <div class="col-lg-3">
               <label>Teacher</label>
-              <select name="teacher" class="form-control">
+              <select name="teacher" class="form-control select2">
                 <option selected disabled>Select teacher</option>
                 @foreach ($teacherFacultys as $teacherFaculty)
-                  <option value="{{ $teacherFaculty->id }}">{{ $teacherFaculty->name }}</option> 
+                  <option value="{{ $teacherFaculty->teacher_id }}">{{ $teacherFaculty->teacherFaculty->name or ''}}</option> 
                 @endforeach
               </select> 
             </div>
@@ -28,7 +40,7 @@
               <select name="from_period" class="form-control">
                 <option selected disabled>Select Period</option>
                 @foreach ($periodTimings as $periodTiming)
-                  <option value="{{ $periodTiming->from_time }}">{{ $periodTiming->from_time }}</option> 
+                  <option value="{{ $periodTiming->period_id }}">{{ $periodTiming->periodTiming->from_time or ''}}</option> 
                 @endforeach
               </select> 
             </div>
@@ -37,7 +49,7 @@
               <select name="to_period" class="form-control">
                 <option selected disabled>Select Period</option>
                 @foreach ($periodTimings as $periodTiming)
-                  <option value="{{ $periodTiming->from_time }}">{{ $periodTiming->from_time }}</option> 
+                 <option value="{{ $periodTiming->period_id }}">{{ $periodTiming->periodTiming->from_time or ''}}</option> 
                 @endforeach
               </select> 
             </div> 
@@ -48,19 +60,15 @@
            
          </form> 
 
+                
+            </div>   
+               
+      <!-- /.row -->
+          </div>
+         
         </div>
       </div>
-    </section> 
- @endsection
- @push('links')
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-@endpush
-@push('scripts')
- <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
- <script type="text/javascript">
-    $(document).ready(function(){
-        $('#data_table').DataTable();
-    });
+     
+    <!-- /.content -->
 
- </script>
-  @endpush
+ 

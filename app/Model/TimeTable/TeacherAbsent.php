@@ -13,6 +13,9 @@ class TeacherAbsent extends Model
         return $this->hasOne('App\Model\TimeTable\DaysType','id','day_id');
      }
      Public function periodTiming(){
-        return $this->hasOne('App\Model\TimeTable\PeriodTiming','id','period_id');
+        return $this->hasOne('App\Model\TimeTable\PeriodTiming','id','from_period');
+     }
+     Public function periodTimings(){
+        return $this->hasOne('App\Model\TimeTable\PeriodTiming','id','to_period');
      }
 }

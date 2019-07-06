@@ -1,23 +1,30 @@
+
+
 <table class="table"> 
 	<thead>
 		<tr>
 			<th>Teacher Name</th>
 			<th>From Period</th>
 			<th>To period</th>
-			<th>Action</th>
+			 
 		</tr>
 	</thead>
 	<tbody>
+		 
 		@foreach ($teacherAbsents as $teacherAbsent)
+		 <input type="text" name="teacher_id[]" value="{{ $teacherAbsent->teacher_id }}">
 				<tr>
 					<td>{{ $teacherAbsent->teacherFaculty->name or '' }}</td>
-					<td>{{ $teacherAbsent->from_period or '' }}</td>
-					<td>{{ $teacherAbsent->to_period or '' }}</td>
-					<td><button type="button"class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.teacher.adjustment.result',$teacherAbsent->teacher_id) }}')" >Make Adjustment</button>
-
-						 
-
+					<td>{{ $teacherAbsent->periodTiming->from_time or '' }}</td>
+					<td>{{ $teacherAbsent->periodTimings->from_time or '' }}</td>
+					 
 				</tr> 
-		@endforeach
+
+		@endforeach 
 	</tbody>
 </table>
+<div class="col-lg-10 text-center">
+	
+<button type="submit"class="btn  btn-primary" style="margin-right: 25px">Make Adjustment</button>
+</div>
+</form>

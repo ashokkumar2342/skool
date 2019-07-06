@@ -864,6 +864,7 @@ Route::group(['middleware' => 'admin'], function() {
                Route::group(['prefix' => 'teacher-subject-class'], function() {
                	 Route::get('class-subject', 'TimeTable\TeacherController@teacherClassSubject')->name('admin.teacher.class.subject');
                	 Route::get('section', 'TimeTable\TeacherController@ClassWiseSection')->name('admin.teacher.class.wise.section');
+               	 Route::get('teacher-wise-class', 'TimeTable\TeacherController@teacherWiseClass')->name('admin.teacher.wise.class');
                	 Route::get('teacher-history', 'TimeTable\TeacherController@teacherWiseHistory')->name('admin.teacher.history.table.show');
                	 Route::get('teacher-period', 'TimeTable\TeacherController@SubjectWisePeriod')->name('admin.teacher.subject.wise.period');
                	 Route::get('total-period-lode', 'TimeTable\TeacherController@toTalSubjectWisePeriod')->name('admin.teacher.subject.wise.total.period.history');
@@ -879,7 +880,7 @@ Route::group(['middleware' => 'admin'], function() {
                 Route::group(['prefix' => 'teacher-adjustment'], function() { 
                 	Route::get('adjustment', 'TimeTable\TeacherController@adjustment')->name('admin.teacher.adjustment');
                 	Route::post('teacher-show', 'TimeTable\TeacherController@teacherAdjustmentShow')->name('admin.teacher.adjustment.show');
-                	Route::get('teacher-adjustment/{id}', 'TimeTable\TeacherController@teacherAdjustment')->name('admin.teacher.adjustment.result');
+                	Route::post('teacher-adjustment', 'TimeTable\TeacherController@teacherAdjustment')->name('admin.teacher.adjustment.result');
            });
                Route::group(['prefix' => 'room-details'], function() {
                	 Route::get('/', 'Room\RoomController@index')->name('admin.room.details');

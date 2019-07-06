@@ -24,10 +24,10 @@
   @endphp
   @foreach ($daysTypes as $daysType)
   <tr>
-    <td>{{ $daysType->name }}  </td>
+    <td><h4><b>{{ $daysType->name }}  </b></h4></td>
     @foreach($sections as $section)
 
-    <td>{{ $section->classes->alias or '' }}/{{ $section->sectionTypes->name or '' }}</td>
+    <td><b>{{ $section->classes->alias or '' }}/{{ $section->sectionTypes->name or '' }}</b></td>
     @endforeach 
   </tr> 
 

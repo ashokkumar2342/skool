@@ -19,8 +19,16 @@
                 <td>{{ $combineClassSubjectTable->roomType->name or ''}}</td>
                 <td> Group{{ $combineClassSubjectTable->group_no or ''}}</td>
 
-                <td><a href="{{ route('admin.combine.class.subject.details.delete',$combineClassSubjectTable->id) }}" title="Delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a></td>
+                <td> 
+                <a href="#" {{-- button-click="btn_table_show" --}}  success-popup="true" onclick="return confirm('Are you sure to delete this data ?')?callAjax(this,'{{ route('admin.combine.class.subject.details.delete',$combineClassSubjectTable->id) }}','',hideDiv):''" title="Delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+               </td>
               </tr>
       @endforeach
     </tbody>
   </table>
+
+  <script>
+     function hideDiv(){
+    $('#class_id').trigger('change')
+  }
+  </script>

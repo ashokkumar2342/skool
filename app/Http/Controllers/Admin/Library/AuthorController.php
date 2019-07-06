@@ -79,7 +79,7 @@ class AuthorController extends Controller
     	  
             'name' => 'required', 
             'mobile_no' => 'required|digits:10', 
-            'email' => "required|max:50|email|unique:authors,email", 
+            'email' => "sometimes|required|max:50|email|unique:authors,email,".$id 
        
     	];
 

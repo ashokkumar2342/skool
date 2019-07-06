@@ -91,8 +91,8 @@ class bookAccessionController extends Controller
 
    	    $rules=[
               
-             'accession_no' => "required|max:12", 
-             'isbn_no' => "required|max:12", 
+              'accession_no' => "required|max:12|unique:book_accessions,accession_no,".$id.'', 
+              'isbn_no' => "required|max:12|unique:book_accessions,isbn_no,".$id.'',
               'book_name' => 'required', 
               'bill_no' => 'required', 
               'status' => 'nullable'
