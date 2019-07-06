@@ -127,7 +127,7 @@ class BooksController extends Controller
     $rules=[
           
             'name' => 'required', 
-            'code' => "required|max:12|unique:booktypes,code", 
+            'code' => "required|max:12|unique:booktypes,code,".$id.'', 
             'edition' => 'required', 
             'price' => 'required',
             'hall_no' => 'required', 

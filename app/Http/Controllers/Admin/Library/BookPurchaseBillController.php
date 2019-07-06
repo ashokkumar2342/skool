@@ -89,9 +89,10 @@ class BookPurchaseBillController extends Controller
             'purchase_date' => 'required', 
             'vendor_name' => 'required', 
             'mobile_no' => 'required', 
-            'email' => 'required|unique:book_purchase_bills,email', 
+            
             'bill_no' => 'required', 
             'total_amount' => 'required', 
+            'email' => 'required|unique:book_purchase_bills,email,'.$id 
        
       ];
 
