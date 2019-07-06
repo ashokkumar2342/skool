@@ -267,6 +267,11 @@ class TeacherController extends Controller
         $subjectTypes=SubjectType::all();
        
     	return view('admin.teacher.teacherSubjectClass.view_subject_class',compact('teacherFacultys','classTypes','subjectTypes'));
+    } 
+    public function teacherWiseClass(Request $request){
+      
+        $teacherFacultys=TeacherFaculty::where('id',$request->id)->get(); 
+      return view('admin.teacher.teacherSubjectClass.teacher_wise_class',compact('teacherFacultys'));
     }
     public function classWiseSection(Request $request){
      $sections=Section::where('class_id',$request->id)->get();
@@ -362,15 +367,15 @@ class TeacherController extends Controller
 
 
 
-    //-------------------------teacher-adjustment-----------------------------------------------//
+    //-------------------------teacher-absent-----------------------------------------------//
 
     public function teacherAbsent(){
-      $teacherFacultys=TeacherFaculty::orderBy('name','DESC')->get();
-      $periodTimings=PeriodTiming::orderBy('id','ASC')->distinct('from_time')->get(['from_time']);
+      $teacherFacultys=ManualTimeTabl::orderBy('teacher_id','DESC')->distinct('teacher_id')->get(['teacher_id']);
+      $periodTimings=ManualTimeTabl::orderBy('period_id','ASC')->distinct('period_id')->get(['period_id']);
       return view('admin.teacher.teacherAbsent.view',compact('teacherFacultys','periodTimings'));
     }
       public function teacherAbsentStore(Request $request){
-       // return $request;
+        // return $request;
       $rules=[ 
            'teacher'=>'required',
            
@@ -395,37 +400,48 @@ class TeacherController extends Controller
               $teacherAbsent->from_period=$request->from_period;
               $teacherAbsent->to_period=$request->to_period;
               $teacherAbsent->absent_date=$request->date;
+              $teacherAbsent->status=1; 
               $teacherAbsent->save(); 
-              $this->manualTimeTabl($request->teacher);
               $response = array();
               $response['status'] = 1;
               $response['msg'] = 'Created Successfully'; 
                 return response()->json($response); 
 
         } 
-    }
-
-    public function manualTimeTabl($teacher){
-        $manualTimeTabl=ManualTimeTabl::where('teacher_id',$teacher)->first();
-        $manualTimeTabl->status=0;
-        $manualTimeTabl->save();
-    }
+    } 
+     
 //-----------------------------teacher-adjustment--------------------------------------------------------------//
      public function adjustment(){ 
       return view('admin.teacher.teacherAdjustment.view');
     } 
     public function teacherAdjustmentShow(Request $request){
-       
+       //return $request;
       $teacherAbsents=TeacherAbsent::where('absent_date',$request->absent_date)->get();
-              $response = array();
-              $response['status'] = 1; 
-              $response['data'] = view('admin.teacher.teacherAdjustment.teacher_adjustment_table',compact('teacherAbsents'))->render();
-                return response()->json($response); 
+      $response = array();
+      $response['status'] = 1; 
+      $response['data'] = view('admin.teacher.teacherAdjustment.teacher_adjustment_table',compact('teacherAbsents'))->render();
+        return response()->json($response); 
       
     } 
 
-    public function teacherAdjustment(Request $request,$id){
-     
-         return  $manualTimeTabl=ManualTimeTabl::where('teacher_id',$id)->get();
+    public function teacherAdjustment(Request $request){
+       // return $request;
+
+       foreach ($request->teacher_id as $key => $teacher) {
+
+        return  $teacherFacultys=TeacherFaculty::where('id',$teacher)->get();
+        $teacherAbsent=TeacherAbsent::where('teacher_id',$teacher)->first();
+        $teacherAbsentSameClass=ManualTimeTabl::where('teacher_id',$request->teacher_id)->get();
+       return  $teacherNotAbsent=ManualTimeTabl::whereNotIn('teacher_id',$request->teacher_id)->get();
+       }
+
+
+      
+       if (empty($teacherAbsent)) { 
+        $manualTimeTabls=ManualTimeTabl::where('teacher_id',$id)->get();
+       }
+       
+       return view('admin.teacher.teacherAdjustment.teacher_adjustment_result_form',compact('manualTimeTabls'));
+       
     }
 }

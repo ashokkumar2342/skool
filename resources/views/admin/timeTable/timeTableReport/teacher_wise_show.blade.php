@@ -24,10 +24,10 @@
     @endphp
     @foreach ($daysTypes as $daysType)
     <tr>
-        <td>{{ $daysType->name }}  </td>
+        <td><h4><b>{{ $daysType->name }}  </b></h4></td>
         @foreach($teacherFacultys as $teacherFaculty)
 
-        <td>{{ $teacherFaculty->name or '' }}</td>
+        <td><h4><b>{{ $teacherFaculty->name or '' }}</b></h4></td>
         @endforeach
 
     </tr> 
@@ -45,11 +45,11 @@
      <td>
         @if (!empty($manualTimeTabl))
 
-        {{ $manualTimeTabl->subjectType->name or '' }}
+        {{ $manualTimeTabl->subjectType->name or '' }}{{-- /{{ $manualTimeTabl->classTypes->name or '' }} --}}
         @else
         @foreach ($periodTypes  as $key=>$periodType) 
         @php
-        $selectedValue=App\Model\TimeTable\ClassPeriodSchedule::where('time_table_type_id',$time_table_type_id)->where('days_id',$daysType->id)->where('period_timeing_id',$periodTiming->id)->first();
+        $selectedValue=App\Model\TimeTable\TeacherWorkingDays::where('time_table_type_id',$time_table_type_id)->where('days_id',$daysType->id)->where('period_timeing_id',$periodTiming->id)->first();
         $manualTimeTabl=App\Model\TimeTable\ManualTimeTabl::where('time_table_type_id',$time_table_type_id)->where('period_id',$periodTiming->id)->where('day_id',$daysType->id)->where('teacher_id',$teacherFaculty->id)->first();
         if (!empty($selectedValue)) {
             $selectedValueId =$selectedValue->period_type;

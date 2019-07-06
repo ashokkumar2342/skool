@@ -20,31 +20,31 @@ class TimeTableReportController extends Controller
 {
     public function index(){
          $timeTableTypes=TimeTableType::all(); 
-    	return view('admin.timetable.timeTableReport.form',compact('timeTableTypes'));
+    	return view('admin.timeTable.timeTableReport.form',compact('timeTableTypes'));
     }
 
 
-    //  public function reportFor(Request $request){
-    //  	 if ($request->id==1) {
-    //  	 	$teachers=TeacherFaculty::all();
-    //          return view('admin.timetable.timeTableReport.teacher',compact('teachers')); 
-    //  	 }if ($request->id==2) {
-    //         $classTypes=ClassType::all();
-    //          return view('admin.timetable.timeTableReport.class',compact('classTypes'));
+     public function reportFor(Request $request){
+     	 if ($request->id==1) {
+     	 	$teachers=TeacherFaculty::all();
+             return view('admin.timeTable.timeTableReport.teacher',compact('teachers')); 
+     	 }if ($request->id==2) {
+            $classTypes=ClassType::all();
+             return view('admin.timeTable.timeTableReport.class',compact('classTypes'));
      	 	
-    //  	 }if ($request->id==3) {
-    //  	 	 $SubjectTypes=SubjectType::all();
-    //          return view('admin.timetable.timeTableReport.subject',compact('SubjectTypes'));
-    //  	 }if ($request->id==4) {
+     	 }if ($request->id==3) {
+     	 	 $SubjectTypes=SubjectType::all();
+             return view('admin.timeTable.timeTableReport.subject',compact('SubjectTypes'));
+     	 }if ($request->id==4) {
      	 	  
-    //  	 }if ($request->id==5) {
+     	 }if ($request->id==5) {
      	 	
-    //  	 } 
+     	 } 
     	 
-    // }
+    }
 
     public function show(Request $request){
-       // return $request;
+         
          
           if ($request->report_for==1) { 
             $daysTypes=DaysType::all();
@@ -55,7 +55,7 @@ class TimeTableReportController extends Controller
             $teacherFacultys=TeacherFaculty::all(); 
             $response = array();
             $response['status'] = 1; 
-            $response['data'] =view('admin.timetable.timeTableReport.teacher_wise_show',compact('sections','periodTimings','daysTypes','time_table_type_id','periodTypes','teacherFacultys'))->render(); 
+            $response['data'] =view('admin.timeTable.timeTableReport.teacher_wise_show',compact('sections','periodTimings','daysTypes','time_table_type_id','periodTypes','teacherFacultys'))->render(); 
             return response()->json($response);
              
           }if ($request->report_for==2) {
@@ -69,13 +69,13 @@ class TimeTableReportController extends Controller
                
             $response = array();
             $response['status'] = 1; 
-            $response['data'] =view('admin.timetable.timeTableReport.class_wise_show',compact('sections','periodTimings','daysTypes','time_table_type_id','periodTypes'))->render(); 
+            $response['data'] =view('admin.timeTable.timeTableReport.class_wise_show',compact('sections','periodTimings','daysTypes','time_table_type_id','periodTypes'))->render(); 
             return response()->json($response);
           }if ($request->subject_id!=null) { 
            $manualTimeTabls=ManualTimeTabl::where('time_table_type_id',$request->time_table_type)->where('subject_id',$request->subject_id)->get();
             $response = array();
             $response['status'] = 1; 
-            $response['data'] =view('admin.timetable.timeTableReport.teacher_wise_show',compact('manualTimeTabls'))->render(); 
+            $response['data'] =view('admin.timeTable.timeTableReport.teacher_wise_show',compact('manualTimeTabls'))->render(); 
             return response()->json($response);
           }
          

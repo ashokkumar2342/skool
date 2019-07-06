@@ -12,21 +12,14 @@
               <div class="row">
                 <div class="col-lg-4"> 
                  <label>Teacher Name</label>
-                 <select name="teacher_name" class="form-control" data-table="true" onchange="callAjax(this,'{{ route('admin.teacher.history.table.show') }}','teacher_history_table')">
+                 <select name="teacher_name" class="form-control" data-table="true" onchange="callAjax(this,'{{ route('admin.teacher.history.table.show') }}','teacher_history_table'),callAjax(this,'{{ route('admin.teacher.wise.class') }}','teacher_wise_class')">
                  <option selected disabled>Select Name</option> 
                    @foreach ($teacherFacultys as $teacherFaculty) 
                    <option value="{{ $teacherFaculty->id }}">{{ $teacherFaculty->name }}</option> 
                     @endforeach 
                  </select> 
-                 </div>
-                 <div class="col-lg-4"> 
-                 <label>Class</label>
-                 <select name="class" class="form-control" id="class_id" onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section') }}','class_wise_section')">
-                   <option selected disabled>Select Class</option> 
-                   @foreach ($classTypes as $classType) 
-                   <option value="{{ $classType->id }}">{{ $classType->name }}</option> 
-                    @endforeach 
-                 </select> 
+                 </div> 
+                 <div id="teacher_wise_class"> 
                  </div>
                  <div id="class_wise_section"> 
                  </div> 
