@@ -170,9 +170,10 @@ class StudentController extends Controller
            $cashbook = new Cashbook();
            $fees = $cashbook->getFeeByStudentId($student->id); 
            $cashbooks = $cashbook->getCashbookFeeByStudentId($student->id,$sessionDate,$date);
-           $lastFee = $cashbook->getLastFeeByStudentId($student->id);           
+           $lastFee = $cashbook->getLastFeeByStudentId($student->id);  
+           $feeUpto =$cashbooks->sum('receipt_amount');         
             if (!empty($lastFee)) {
-              return $cashbooks->sum('receipt_amount'); 
+              return ['feeUpto'=>$feeUpto]; 
               // return [$lastFee,$cashbooks->sum('receipt_amount')];   
             }
              return response()->json(['data'=>'null','status'=>'0']);  
