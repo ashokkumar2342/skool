@@ -6,3 +6,5 @@
 [20-Jun-2019 04:29:47 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Front/ParentRegistrationController.php on line 30
 [27-Jun-2019 02:08:47 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Front/PaymentController.php on line 10
 [27-Jun-2019 05:34:52 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Front/ParentRegistrationController.php on line 30
+[03-Jul-2019 00:59:02 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Front/PaymentController.php on line 10
+[03-Jul-2019 07:44:10 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Front/ParentRegistrationController.php on line 30
