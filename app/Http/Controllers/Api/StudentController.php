@@ -151,9 +151,28 @@ class StudentController extends Controller
            $fees = $cashbook->getFeeByStudentId($student->id); 
            $cashbooks = $cashbook->getCashbookFeeByStudentId($student->id,$sessionDate,$date);
            $lastFee = $cashbook->getLastFeeByStudentId($student->id);
-           
+
             if (!empty($lastFee)) {
               return $lastFee; 
+              // return [$lastFee,$cashbooks->sum('receipt_amount')];   
+            }
+             return response()->json(['data'=>'null','status'=>'0']);  
+        } catch (Exception $e) {
+            return $e;
+        }
+       
+    }
+    public function feeUpto(Request $request,$id){ 
+        try { 
+           $student =Student::find($id);  
+           $date = date('Y-m-d');
+            $sessionDate =  AcademicYear::find($student->session_id)->start_date;
+           $cashbook = new Cashbook();
+           $fees = $cashbook->getFeeByStudentId($student->id); 
+           $cashbooks = $cashbook->getCashbookFeeByStudentId($student->id,$sessionDate,$date);
+           $lastFee = $cashbook->getLastFeeByStudentId($student->id);           
+            if (!empty($lastFee)) {
+              return $cashbooks->sum('receipt_amount'); 
               // return [$lastFee,$cashbooks->sum('receipt_amount')];   
             }
              return response()->json(['data'=>'null','status'=>'0']);  
