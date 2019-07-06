@@ -42,6 +42,7 @@ Route::get('test', function(Request $request){
     Route::get('attendance/{id}', 'Api\StudentController@attendance'); 
     Route::get('fee/{id}', 'Api\StudentController@feeDetails'); 
     Route::get('last-fee/{id}', 'Api\StudentController@lastFee'); 
+    Route::get('fee-upto/{id}', 'Api\StudentController@feeUpto'); 
   
  });
 
