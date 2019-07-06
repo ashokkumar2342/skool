@@ -3,6 +3,8 @@ namespace App\Http\Controllers\Api;
 use App\Events\SmsEvent;
 use App\Http\Controllers\Controller;
 use App\Mail\SendMail;
+use App\Model\AcademicYear;
+use App\Model\Cashbook;
 use App\Model\Category;
 use App\Model\ClassType;
 use App\Model\Gender;
@@ -97,6 +99,7 @@ class StudentController extends Controller
         }
        
     }
+
     public function attendance(Request $request,$id){ 
         try {   
            $student =Student::find($id); 
@@ -111,6 +114,47 @@ class StudentController extends Controller
                      
             if (!empty($student)) {
               return ['present'=>$present,'absent'=>$absent,'todayAttendance'=>$todayAttendance];   
+            }
+             return response()->json(['data'=>'null','status'=>'0']);  
+        } catch (Exception $e) {
+            return $e;
+        }
+       
+    }
+
+    public function feeDetails(Request $request,$id){ 
+        try {   
+
+           $student =Student::find($id);  
+           $date = date('Y-m-d');
+            $sessionDate =  AcademicYear::find($student->session_id)->start_date;
+           $cashbook = new Cashbook();
+           $fees = $cashbook->getFeeByStudentId($student->id); 
+           $cashbooks = $cashbook->getCashbookFeeByStudentId($student->id,$sessionDate,$date);
+           $lastFee = $cashbook->getLastFeeByStudentId($student->id);
+            if (!empty($fees)) {
+              return $fees;   
+            }
+             return response()->json(['data'=>'null','status'=>'0']);  
+        } catch (Exception $e) {
+            return $e;
+        }
+       
+    }
+    public function lastFee(Request $request,$id){ 
+        try {   
+
+           $student =Student::find($id);  
+           $date = date('Y-m-d');
+            $sessionDate =  AcademicYear::find($student->session_id)->start_date;
+           $cashbook = new Cashbook();
+           $fees = $cashbook->getFeeByStudentId($student->id); 
+           $cashbooks = $cashbook->getCashbookFeeByStudentId($student->id,$sessionDate,$date);
+           $lastFee = $cashbook->getLastFeeByStudentId($student->id);
+           
+            if (!empty($lastFee)) {
+              return $lastFee; 
+              // return [$lastFee,$cashbooks->sum('receipt_amount')];   
             }
              return response()->json(['data'=>'null','status'=>'0']);  
         } catch (Exception $e) {

@@ -40,6 +40,8 @@ Route::get('test', function(Request $request){
     Route::get('homework/{id}', 'Api\StudentController@homework'); 
     Route::get('homework-latest/{id}', 'Api\StudentController@homeworkToday'); 
     Route::get('attendance/{id}', 'Api\StudentController@attendance'); 
+    Route::get('fee/{id}', 'Api\StudentController@feeDetails'); 
+    Route::get('last-fee/{id}', 'Api\StudentController@lastFee'); 
   
  });
 
