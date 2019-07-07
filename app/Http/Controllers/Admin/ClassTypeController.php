@@ -45,12 +45,12 @@ class ClassTypeController extends Controller
     {
         
         $this->validate($request,[
-            'className' => 'required|max:50|unique:class_types',
+            'name' => 'required|max:50|unique:class_types',
             'shortName' => 'required|max:50',
             'shorting_id' => 'required|max:50'
             ]);
         $class = new ClassType();
-        $class->name = $request->className;
+        $class->name = $request->name;
         $class->alias = $request->shortName;
         $class->shorting_id = $request->shorting_id;
         if ($class->save()) {
@@ -92,10 +92,10 @@ class ClassTypeController extends Controller
     public function update(Request $request, ClassType $classType)
     {
          $this->validate($request,[
-            'className' => 'required|max:199',
+            'name' => 'required|max:199',
             'shortName' => 'required|max:199'
             ]);
-        $classType->name = $request->className;
+        $classType->name = $request->name;
         $classType->alias = $request->shortName;
         if ($classType->save()) {
             return redirect()->route('admin.class.list')->with(['class'=>'success','message'=>'Class updated success ...']);
