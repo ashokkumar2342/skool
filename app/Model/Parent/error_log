@@ -1,0 +1,4 @@
+[21-May-2019 01:50:04 UTC] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/mailinco/public_html/app/Model/Parent/RegistrationDocument.php on line 8
+[24-May-2019 20:18:53 UTC] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/mailinco/public_html/app/Model/Parent/RegistrationDocument.php on line 8
+[30-May-2019 12:48:51 UTC] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/mailinco/public_html/app/Model/Parent/RegistrationDocument.php on line 8
+[31-May-2019 16:55:08 UTC] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/mailinco/public_html/app/Model/Parent/RegistrationDocument.php on line 8

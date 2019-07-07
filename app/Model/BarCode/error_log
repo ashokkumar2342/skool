@@ -1,0 +1,6 @@
+[21-May-2019 09:04:02 UTC] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/mailinco/public_html/app/Model/BarCode/BarCode.php on line 7
+[23-May-2019 05:53:27 UTC] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/mailinco/public_html/app/Model/BarCode/BarCode.php on line 7
+[28-May-2019 01:59:39 UTC] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/mailinco/public_html/app/Model/BarCode/BarCode.php on line 7
+[29-May-2019 06:33:02 UTC] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/mailinco/public_html/app/Model/BarCode/BarCode.php on line 7
+[02-Jun-2019 13:27:17 UTC] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/mailinco/public_html/app/Model/BarCode/BarCode.php on line 7
+[03-Jun-2019 14:57:45 UTC] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/mailinco/public_html/app/Model/BarCode/BarCode.php on line 7

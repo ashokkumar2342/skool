@@ -4,9 +4,6 @@
 /storage/*.key
 /storage
 /vendor
-/attendance
-/demo
-/policy
 /.idea
 /.vscode
 /.vagrant
@@ -17,10 +14,8 @@ yarn-error.log
 .env
 *.zip
 .env.example
-<<<<<<< HEAD
-=======
 /storage/app/public/barcode
+/public
 /demo
 /loksabha
 /policy
->>>>>>> f6090a48ba834bf80c3a84616da1b5ef60c929d9

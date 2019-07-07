@@ -1,0 +1,3 @@
+[23-May-2019 09:01:07 UTC] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/mailinco/public_html/app/Model/Template/BirthdayTemplate.php on line 7
+[30-May-2019 00:33:03 UTC] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/mailinco/public_html/app/Model/Template/BirthdayTemplate.php on line 7
+[29-Jun-2019 20:13:58 UTC] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/mailinco/public_html/app/Model/Template/BirthdayTemplate.php on line 7

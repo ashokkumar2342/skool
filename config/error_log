@@ -1,0 +1,400 @@
+[04-Dec-2018 16:15:33 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/app.php on line 16
+[04-Dec-2018 16:17:39 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/broadcasting.php on line 18
+[04-Dec-2018 16:18:49 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/cache.php on line 18
+[04-Dec-2018 16:39:39 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/database.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/database.php on line 16
+[04-Dec-2018 16:40:56 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/filesystems.php on line 16
+[04-Dec-2018 16:42:50 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/mail.php on line 19
+[04-Dec-2018 17:21:30 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/queue.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/queue.php on line 18
+[04-Dec-2018 17:23:23 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/services.php on line 18
+[04-Dec-2018 17:24:27 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/session.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/session.php on line 19
+[04-Dec-2018 18:12:33 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/mailinco/public_html/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/view.php on line 17
+[03-May-2019 23:31:59 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/mail.php on line 19
+[04-May-2019 00:07:06 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/queue.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/queue.php on line 18
+[04-May-2019 01:42:37 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/filesystems.php on line 16
+[04-May-2019 05:13:10 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/mailinco/public_html/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/view.php on line 17
+[04-May-2019 07:16:59 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/cache.php on line 18
+[04-May-2019 13:33:44 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/database.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/database.php on line 16
+[04-May-2019 15:40:27 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/services.php on line 18
+[04-May-2019 16:04:48 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/broadcasting.php on line 18
+[04-May-2019 16:06:28 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/session.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/session.php on line 19
+[04-May-2019 16:11:10 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/app.php on line 16
+[05-May-2019 19:30:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/cache.php on line 18
+[05-May-2019 19:36:42 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/services.php on line 18
+[05-May-2019 20:17:59 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/mail.php on line 19
+[05-May-2019 23:11:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/database.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/database.php on line 16
+[06-May-2019 00:41:09 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/queue.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/queue.php on line 18
+[06-May-2019 01:18:36 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/filesystems.php on line 16
+[06-May-2019 03:05:07 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/mailinco/public_html/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/view.php on line 17
+[06-May-2019 06:03:19 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/session.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/session.php on line 19
+[06-May-2019 06:46:12 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/app.php on line 16
+[06-May-2019 15:22:48 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/broadcasting.php on line 18
+[06-May-2019 21:02:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/mailinco/public_html/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/view.php on line 17
+[06-May-2019 21:07:46 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/queue.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/queue.php on line 18
+[07-May-2019 02:09:22 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/services.php on line 18
+[07-May-2019 04:21:38 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/database.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/database.php on line 16
+[07-May-2019 08:20:40 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/cache.php on line 18
+[07-May-2019 09:36:09 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/session.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/session.php on line 19
+[07-May-2019 10:03:25 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/filesystems.php on line 16
+[07-May-2019 10:25:39 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/mail.php on line 19
+[07-May-2019 10:40:36 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/broadcasting.php on line 18
+[07-May-2019 14:37:24 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/app.php on line 16
+[13-May-2019 08:08:18 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/mail.php on line 19
+[13-May-2019 08:09:42 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/app.php on line 16
+[13-May-2019 09:12:36 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/services.php on line 18
+[13-May-2019 12:05:44 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/app.php on line 16
+[13-May-2019 12:26:30 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/database.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/database.php on line 16
+[13-May-2019 14:36:33 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/queue.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/queue.php on line 18
+[13-May-2019 14:56:37 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/session.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/session.php on line 19
+[13-May-2019 15:14:42 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/broadcasting.php on line 18
+[13-May-2019 17:00:20 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/cache.php on line 18
+[13-May-2019 17:05:25 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/filesystems.php on line 16
+[13-May-2019 18:28:01 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/services.php on line 18
+[13-May-2019 19:55:02 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/mailinco/public_html/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/view.php on line 17
+[13-May-2019 23:33:00 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/mail.php on line 19
+[14-May-2019 10:20:27 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/services.php on line 18
+[14-May-2019 17:23:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/mailinco/public_html/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/view.php on line 17
+[15-May-2019 01:10:32 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/queue.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/queue.php on line 18
+[15-May-2019 01:28:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/filesystems.php on line 16
+[15-May-2019 16:55:20 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/session.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/session.php on line 19
+[15-May-2019 22:01:35 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/cache.php on line 18
+[16-May-2019 00:57:22 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/broadcasting.php on line 18
+[16-May-2019 11:37:50 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/queue.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/queue.php on line 18
+[16-May-2019 11:38:13 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/database.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/database.php on line 16
+[16-May-2019 17:34:56 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/filesystems.php on line 16
+[16-May-2019 23:13:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/mail.php on line 19
+[16-May-2019 23:50:15 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/mailinco/public_html/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/view.php on line 17
+[17-May-2019 20:41:57 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/session.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/session.php on line 19
+[17-May-2019 23:01:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/broadcasting.php on line 18
+[18-May-2019 00:28:16 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/cache.php on line 18
+[18-May-2019 00:48:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/database.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/database.php on line 16
+[18-May-2019 04:34:07 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/app.php on line 16
+[21-May-2019 10:19:55 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/cache.php on line 18
+[22-May-2019 04:08:49 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/mail.php on line 19
+[22-May-2019 05:47:30 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/queue.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/queue.php on line 18
+[22-May-2019 06:40:38 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/filesystems.php on line 16
+[22-May-2019 11:40:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/mailinco/public_html/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/view.php on line 17
+[22-May-2019 16:06:27 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/services.php on line 18
+[22-May-2019 18:51:56 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/session.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/session.php on line 19
+[22-May-2019 18:56:16 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/queue.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/queue.php on line 18
+[22-May-2019 20:00:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/broadcasting.php on line 18
+[22-May-2019 20:21:47 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/database.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/database.php on line 16
+[22-May-2019 21:02:57 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/mail.php on line 19
+[22-May-2019 23:21:16 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/filesystems.php on line 16
+[23-May-2019 03:10:13 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/cache.php on line 18
+[23-May-2019 03:56:47 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/mail.php on line 19
+[23-May-2019 05:04:26 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/services.php on line 18
+[23-May-2019 06:16:43 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/app.php on line 16
+[23-May-2019 07:35:29 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/session.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/session.php on line 19
+[23-May-2019 07:37:21 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/database.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/database.php on line 16
+[23-May-2019 08:29:51 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/filesystems.php on line 16
+[23-May-2019 10:50:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/session.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/session.php on line 19
+[23-May-2019 12:07:31 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/mailinco/public_html/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/view.php on line 17
+[23-May-2019 12:40:15 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/cache.php on line 18
+[23-May-2019 15:56:50 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/broadcasting.php on line 18
+[23-May-2019 20:55:43 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/database.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/database.php on line 16
+[24-May-2019 05:20:38 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/app.php on line 16
+[24-May-2019 09:15:26 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/app.php on line 16
+[24-May-2019 10:12:10 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/broadcasting.php on line 18
+[24-May-2019 10:53:18 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/queue.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/queue.php on line 18
+[25-May-2019 01:33:06 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/mailinco/public_html/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/view.php on line 17
+[25-May-2019 22:55:57 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/mailinco/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/mailinco/public_html/config/services.php on line 18

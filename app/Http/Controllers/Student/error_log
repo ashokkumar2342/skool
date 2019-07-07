@@ -1,0 +1,4 @@
+[29-May-2019 00:16:07 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Student/DashboardController.php on line 9
+[03-Jun-2019 15:26:24 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Student/DashboardController.php on line 9
+[18-Jun-2019 04:12:09 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Student/DashboardController.php on line 26
+[26-Jun-2019 11:05:21 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Controller' not found in /home/mailinco/public_html/app/Http/Controllers/Student/DashboardController.php on line 26
