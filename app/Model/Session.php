@@ -8,7 +8,7 @@ class Section extends Model
 {
     use SoftDeletes;
     
-   
+   protected $table ='academic_years'
     public function sessions(){
     	return $this->hasOne('App\Model\SessionDate','id','session_id');
     }

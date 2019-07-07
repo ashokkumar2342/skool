@@ -66,10 +66,10 @@
       <div class="modal-body">
          <div class="col">             
           <div class="form-group">
-          {!! Form::label('className', 'Class Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
+          {!! Form::label('name', 'Class Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
             <div class="col-sm-9">
-            {!! Form::text('className', @$classType->name, ['class'=>"form-control",'placeholder'=>"Class Name",'autocomplete'=>'off','maxlength'=>'50']) !!}
-            <p class="text-danger">{{ $errors->first('className') }}</p>
+            {!! Form::text('name', @$classType->name, ['class'=>"form-control",'placeholder'=>"Class Name",'autocomplete'=>'off','maxlength'=>'50']) !!}
+            <p class="text-danger">{{ $errors->first('name') }}</p>
             </div>
           </div>
           <div class="form-group">
