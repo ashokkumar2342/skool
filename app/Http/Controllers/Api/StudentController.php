@@ -36,7 +36,7 @@ class StudentController extends Controller
     public function index($id)
     {
         try {             
-             $student =Student::find($id)->with(['classes','sessions','categorys','sectionTypes','genders','religions','categories','studentStatus','incomes','professions']); 
+             $student =Student::with(['classes','sessions','categories','sectionTypes','genders','religions','categories','studentStatus','incomes','professions'])->find($id);  
              return response()->json(['data'=>$student,'status'=>'success']);     
         } catch (Exception $e) {
            return $e; 
