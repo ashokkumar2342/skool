@@ -64,7 +64,7 @@ class Student extends Authenticatable
 
     }
      Public function incomes(){
-        return $this->hasOne('App\model\IncomeRange','id','income_id');
+        return $this->hasOne('App\Model\IncomeRange','id','income_id');
         
     } 
 
