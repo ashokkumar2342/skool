@@ -56,7 +56,7 @@ class Student extends Authenticatable
         return $this->hasOne('App\Model\Category','id','category_id');
     }
      public function studentStatus(){
-        return $this->hasOne('App\Model\studentStatus','id','student_status_id');
+        return $this->hasOne('App\Model\StudentStatus','id','student_status_id');
     }
 
     Public function siblings(){
