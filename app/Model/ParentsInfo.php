@@ -13,10 +13,10 @@ class ParentsInfo extends Model
 
     Public function relationType(){
 
-    	return $this->hasOne('App\model\GuardianRelationType','id','relation_type_id');
+    	return $this->hasOne('App\Model\GuardianRelationType','id','relation_type_id');
     } 
      Public function incomes(){
-    	return $this->hasOne('App\model\IncomeRange','id','income_id');
+    	return $this->hasOne('App\Model\IncomeRange','id','income_id');
     	
     }  
 

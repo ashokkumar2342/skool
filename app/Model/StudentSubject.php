@@ -11,10 +11,10 @@ class StudentSubject extends Model
 
 
     Public function SubjectTypes(){
-    	return $this->hasOne('App\model\SubjectType','id','subject_type_id');
+    	return $this->hasOne('App\Model\SubjectType','id','subject_type_id');
     	
     }  Public function Isoptionals(){
-    	return $this->hasOne('App\model\Isoptional','id','isoptional_id');
+    	return $this->hasOne('App\Model\Isoptional','id','isoptional_id');
     	
     } 
 

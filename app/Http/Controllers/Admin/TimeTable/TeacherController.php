@@ -270,8 +270,8 @@ class TeacherController extends Controller
     } 
     public function teacherWiseClass(Request $request){
       
-        $teacherFacultys=TeacherFaculty::where('id',$request->id)->get(); 
-      return view('admin.teacher.teacherSubjectClass.teacher_wise_class',compact('teacherFacultys'));
+        $classTypes=ClassType::all(); 
+      return view('admin.teacher.teacherSubjectClass.teacher_wise_class',compact('classTypes'));
     }
     public function classWiseSection(Request $request){
      $sections=Section::where('class_id',$request->id)->get();

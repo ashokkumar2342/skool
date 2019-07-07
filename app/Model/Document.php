@@ -15,7 +15,7 @@ class Document extends Model
     ];
 
     Public function documentTypes(){
-    	return $this->hasOne('App\model\DocumentType','id','document_type_id');
+    	return $this->hasOne('App\Model\DocumentType','id','document_type_id')
     	
     } 
 }
