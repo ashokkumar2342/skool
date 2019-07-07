@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-lg-4">
                   <label>Class</label>
-                  <select name="class_id" class="form-control" onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section') }}','section_id_div')">
+                  <select name="class_id" class="form-control" onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section.addForm') }}','section_id_div')">
                     <option selected disabled>Select Class</option>
                     @foreach($classTypes as $classType)
                     <option value="{{ $classType->id }}"{{ $classType->id==$teacherFacultys->class_id? 'selected="selected"' : '' }}>{{ $classType->name }}</option>
@@ -68,7 +68,7 @@
                   <label>joining Date</label>
                   <input type="date" name="joining_date" class="form-control" placeholder="" value="{{ $teacherFacultys->joining_date }}" maxlength=""> 
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                   <label>Address</label>
                   <textarea name="address" class="form-control" maxlength="">{{ $teacherFacultys->c_address }}</textarea>
                   

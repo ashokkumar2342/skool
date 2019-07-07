@@ -68,7 +68,7 @@
             }
             .auth-form {
 
-            width: 430px; 
+            width: 50%; 
             margin-left: 150px;
             padding-top: 30px;
 

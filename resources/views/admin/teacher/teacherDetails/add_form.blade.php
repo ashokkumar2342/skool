@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-lg-4">
                   <label>Class</label>
-                  <select name="class_id" class="form-control" onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section') }}','section_id_div')">
+                  <select name="class_id" class="form-control" onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section.addForm') }}','section_id_div')">
                     <option selected disabled>Select Class</option>
                     @foreach($classTypes as $classType)
                     <option value="{{ $classType->id }}">{{ $classType->name }}</option>
