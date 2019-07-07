@@ -77,7 +77,7 @@
                            </div>  
                            <div class="form-group">
                                <div class="col-sm-12 bd">
-                                    <p>  Gender : <b>{{ $student->genders->genders }}</b></p> 
+                                    <p>  Gender : <b>{{ $student->genders->genders or '' }}</b></p> 
                                </div>
                            </div> 
                             <div class="form-group">
