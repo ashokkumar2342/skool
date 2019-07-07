@@ -842,7 +842,7 @@ Route::group(['middleware' => 'admin'], function() {
                Route::group(['prefix' => 'teacher-details'], function() {
                	 Route::get('/', 'TimeTable\TeacherController@index')->name('admin.teacher.details');
                	 Route::get('add-form', 'TimeTable\TeacherController@addForm')->name('admin.teacher.details.add.form');
-               	 Route::get('class-section', 'TimeTable\TeacherController@addclassWiseSection')->name('admin.teacher.class.wise.section');
+               	 Route::get('class-section', 'TimeTable\TeacherController@addclassWiseSection')->name('admin.teacher.class.wise.section.addForm');
                	 Route::get('table-show', 'TimeTable\TeacherController@tableShow')->name('admin.teacher.details.table.show'); 
                	 Route::post('store', 'TimeTable\TeacherController@store')->name('admin.teacher.details.store');
                	 Route::get('edit/{id}', 'TimeTable\TeacherController@edit')->name('admin.teacher.details.edit');

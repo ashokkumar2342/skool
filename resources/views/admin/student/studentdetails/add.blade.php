@@ -22,7 +22,7 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('class','Class',['class'=>' control-label']) }}
-                                                    {!! Form::select('class',$classes, $default->class_id, ['class'=>'form-control','placeholder'=>'Select Class','required']) !!}
+                                                    {!! Form::select('class',$classes, @$default->class_id, ['class'=>'form-control','placeholder'=>'Select Class','required']) !!}
                                                     <p class="text-danger">{{ $errors->first('session') }}</p>
                                                 </div>
                                             </div>
@@ -155,28 +155,28 @@
                                               <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('gender','Gender',['class'=>' control-label']) }}
-                                                    {!! Form::select('gender',$genders, $default->genders->id, ['class'=>'form-control','placeholder'=>'Select Gender','required']) !!}
+                                                    {!! Form::select('gender',$genders, @$default->genders->id, ['class'=>'form-control','placeholder'=>'Select Gender','required']) !!}
                                                     <p class="text-danger">{{ $errors->first('gender') }}</p>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('religion','Religion',['class'=>' control-label']) }}
-                                                    {!! Form::select('religion',$religions, $default->religions->id, ['class'=>'form-control','placeholder'=>'Select Religion','required']) !!}
+                                                    {!! Form::select('religion',$religions, @$default->religions->id, ['class'=>'form-control','placeholder'=>'Select Religion','required']) !!}
                                                     <p class="text-danger">{{ $errors->first('religion') }}</p>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('category','Category',['class'=>' control-label']) }}
-                                                    {!! Form::select('category',$categories,$default->categories->id, ['class'=>'form-control','placeholder'=>'Select Category','required']) !!}
+                                                    {!! Form::select('category',$categories,@$default->categories->id, ['class'=>'form-control','placeholder'=>'Select Category','required']) !!}
                                                     <p class="text-danger">{{ $errors->first('category') }}</p>
                                                 </div>
                                             </div>
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('state','State',['class'=>' control-label']) }}
-                                                    {!! Form::text('state', $default->state, ['class'=>'form-control','required']) !!}
+                                                    {!! Form::text('state', @$default->state, ['class'=>'form-control','required']) !!}
                                                     <p class="text-danger">{{ $errors->first('state') }}</p>
                                                 </div>
                                             </div>
@@ -192,7 +192,7 @@
                                             <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('city','City',['class'=>' control-label']) }}
-                                                    {!! Form::text('city',$default->city, ['class'=>'form-control','required']) !!}
+                                                    {!! Form::text('city',@$default->city, ['class'=>'form-control','required']) !!}
                                                     <p class="text-danger">{{ $errors->first('city') }}</p>
                                                 </div>
                                             </div>
@@ -213,7 +213,7 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('pincode','Pincode',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('pincode',$default->pincode,array('class' => 'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'6' )) }}
+                                                    {{ Form::text('pincode',@$default->pincode,array('class' => 'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'6' )) }}
                                                     <p class="text-danger">{{ $errors->first('pincode') }}</p>
                                                 </div>
                                             </div>  
@@ -276,7 +276,7 @@
     });     
     
     if ($("#class").val() > 0) {
-        sectionSearch($("#class").val(),{{ $default->section_id }}); 
+        sectionSearch($("#class").val(),{{ @$default->section_id }}); 
     }
     
      

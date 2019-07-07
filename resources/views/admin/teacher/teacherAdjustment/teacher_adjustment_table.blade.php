@@ -12,7 +12,7 @@
 	<tbody>
 		 
 		@foreach ($teacherAbsents as $teacherAbsent)
-		 <input type="text" name="teacher_id[]" value="{{ $teacherAbsent->teacher_id }}">
+		 <input type="hidden" name="teacher_id[]" value="{{ $teacherAbsent->teacher_id }}">
 				<tr>
 					<td>{{ $teacherAbsent->teacherFaculty->name or '' }}</td>
 					<td>{{ $teacherAbsent->periodTiming->from_time or '' }}</td>
