@@ -695,16 +695,19 @@ class StudentController extends Controller
                      $parentsinfo->save();  
                 }  
              }else {    
-                    $students= Student::where('class_id',$request->class)->where('section_id',$request->section)->where('student_status_id',1)->get();
-                    return view('admin.student.studentdetails.show',compact('students'));
+                    // $students= Student::where('class_id',$request->class)->where('section_id',$request->section)->where('student_status_id',1)->get();
+                    // return view('admin.student.studentdetails.show',compact('students'));
      
              }
+
         }
          
 
-        return 'data null';  
-        
-        // return redirect()->route('admin.student.studentdetails.list')->with(['message'=>'success']);
+           $response=array();
+           $response['status']=1;
+           $response['msg']='Excel Import Data successfully';
+            return $response;
+        // return redirect()->back()->with(['message'=>'Excel Import Data successfully']);
 
  
     }
@@ -717,9 +720,11 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {  
        
-        if ($student->delete()) {
-            
-         return redirect()->back()->with(['class'=>'success','message'=>'student delete success ...']);
+        if ($student->delete()) { 
+        $response=array();
+        $response['status']=1;
+        $response['msg']='Delete successfully';
+        return $response;
            
         }
         return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);

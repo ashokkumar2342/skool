@@ -31,7 +31,9 @@
      
       {{-- <a onclick="return confirm('Are you sure to reset this student password.')" class="btn btn-danger btn-xs" title="Password Reset" href="{{ route('admin.student.passwordreset',$student->id) }}"><i class="fa fa-key"></i></a> --}}
       @if ($menuPermision->d_status==1)
-         <a style="margin-left: 3px;" onclick="return confirm('Are you sure to delete Student.')" class="btn btn-danger btn-xs" title="delete student" href="{{ route('admin.student.delete',$student->id) }}"><i class="fa fa-trash"></i></a>
+         <a style="margin-left: 3px;" onclick="return confirm('Are you sure to delete Student.'),callAjax(this,'{{ route('admin.student.delete',$student->id) }}','','')" class="btn btn-danger btn-xs" button-click="student_details_show" title="delete student" success-popup="true" href="#"><i class="fa fa-trash"></i></a> 
+
+        {{--  <a style="margin-left: 3px;" onclick="return confirm('Are you sure to delete Student.')" class="btn btn-danger btn-xs" title="delete student" href="{{ route('admin.student.delete',$student->id) }}"><i class="fa fa-trash"></i></a> --}}
       @endif
        
       

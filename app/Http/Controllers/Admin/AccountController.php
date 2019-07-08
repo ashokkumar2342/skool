@@ -220,7 +220,7 @@ class AccountController extends Controller
                 $id = $request->id;
             $menus = MinuType::all();
             $subMenus = SubMenu::all();
-           $usersmenus = array_pluck(Minu::where('admin_id',$id)->get(['sub_menu_id'])->toArray(), 'sub_menu_id'); 
+           $usersmenus = array_pluck(Minu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id'])->toArray(), 'sub_menu_id'); 
         $data= view('admin.account.menuTable',compact('menus','subMenus','usersmenus','id'))->render(); 
         return response($data);
     }
@@ -287,7 +287,7 @@ class AccountController extends Controller
 
     // User access Store
     Public function accessStore(Request $request){
-
+ 
             $rules=[
             'sub_menu' => 'required|max:199',             
             'user' => 'required|max:199',  
@@ -311,12 +311,21 @@ class AccountController extends Controller
          
         $data = $request->except('_token');        
         $user_count = count($data['sub_menu']);
+        $menuOldDatas =  Minu::where('admin_id',$request->user)->get();  
+        if ($menuOldDatas->count()!=0) {
+          foreach ($menuOldDatas as $key => $menuOldData) {
+            $menu =  Minu::find($menuOldData->id); 
+            $menu->status = 0;
+            $menu->save();
+          } 
+        }
         for ($i=0; $i < $user_count; $i++) { 
             $menu =  Minu::updateOrCreate(['admin_id'=>$request->user,'sub_menu_id'=>$data['sub_menu'][$i]]);
             $menu->sub_menu_id = $data['sub_menu'] [$i];
              $menuData =SubMenu::find($data['sub_menu'] [$i]);
             $menu->minu_id = $menuData->menu_type_id;
             $menu->admin_id = $data['user'];
+            $menu->status = 1;
 
             $menu->save();             
         }

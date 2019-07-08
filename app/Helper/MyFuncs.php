@@ -502,7 +502,7 @@ class MyFuncs {
   }
        // read write delete permission check
   public static function userHasMinu(){ 
-    return array_pluck(Minu::where('admin_id',Auth::guard('admin')->user()->id)->distinct()->get(['minu_id'])->toArray(), 'minu_id');
+    return array_pluck(Minu::where('admin_id',Auth::guard('admin')->user()->id)->where('status',1)->distinct()->get(['minu_id'])->toArray(), 'minu_id');
                
 
   } 

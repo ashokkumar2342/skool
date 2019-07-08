@@ -42,7 +42,7 @@ class SubjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {return $request;
          
          foreach ($request->value as $key => $value) {
           

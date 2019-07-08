@@ -66,9 +66,9 @@
                 @foreach($manageSubjects as $manageSubject)
                 <tr>
                   <td>{{ $manageSubject->id }}</td>
-                  <td>{{ $manageSubject->classTypes->name }}</td>                 
-                  <td>{{ $manageSubject->subjectTypes->name }}</td>                 
-                  <td>{{ $manageSubject->isoptional->name }}</td>                 
+                  <td>{{ $manageSubject->classTypes->name or ''}}</td>                 
+                  <td>{{ $manageSubject->subjectTypes->name or ''}}</td>                 
+                  <td>{{ $manageSubject->isoptional->name or ''}}</td>                 
                   <td align="center">                    
                     {{-- <a class="btn btn-info btn-xs" href="{{ route('admin.manageSubject.edit',$manageSubject->id) }}"><i class="fa fa-pencil"></i></a> --}}
                      @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)

@@ -922,6 +922,7 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('day-wise-period', 'TimeTable\TimeTablController@daysWisePeriod')->name('admin.time.table.manual.day.wise.period');
                	 Route::get('show', 'TimeTable\TimeTablController@finalResult')->name('admin.time.table.manual.button.wise.final.result');
                	 Route::post('manual-store', 'TimeTable\TimeTablController@store')->name('admin.time.table.manual.store');
+               	 Route::post('manual-outo-generate', 'TimeTable\TimeTablController@outoGenerateManual')->name('admin.time.table.manual.outo.generate');
                	 Route::get('manual-delete/{id}', 'TimeTable\TimeTablController@manualDelete')->name('admin.time.table.manual.delete');
 
        });
