@@ -1,0 +1,4 @@
+name,nick_name,registration_no,admission_no, roll_no, date_of_admission, date_of_leaving,date_of_activation, email, father_name,mother_name,dob,gender_id,religion_id,category_id,p_address,c_address,state,city,pincode,father_mobile,mother_mobile
+Ayush,raj,677,23444,33,10/2/2018,10/2/2018,10/2/2018,ak@gmail.com,ashok,manju,10/2/1991,1,1,1,Jajhar,jajhar,haryana,jajhar,123,8888888888,9999999999
+Ayush,raj,5677,235444,533,10/2/2018,10/2/2018,10/2/2018,ak@gmail.com,ashok,manju,10/3/1991,2,1,2,Jajhar,jajhar,haryana,jajhar,333334,8888888888,9999999999
+,,,,,,,,,,,,,,,,,,,,,

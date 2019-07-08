@@ -40,7 +40,7 @@
                                             </div> 
                                              <div class="col-lg-3" style="padding-top: 20px;">                         
                                                 <div class="form-group">
-                                                  <button class="btn btn-success">Show</button>
+                                                  <button id="student_details_show" class="btn btn-success">Show</button>
                                                     
                                                 </div>
                                             </div> 

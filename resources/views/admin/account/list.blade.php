@@ -29,6 +29,9 @@
                 </thead>
                 <tbody>
                 @foreach($accounts as $account)
+                @if ($account->id==1)
+                  @continue
+                @endif
                 <tr>
                   <td>{{ $account->id }}</td> 
                   <td>{{ $account->first_name }} {{ $account->first_last}}</td>

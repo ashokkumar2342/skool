@@ -145,6 +145,12 @@ class TimeTablController extends Controller
         } 
 
     }
+    public function outoGenerateManual(Request $request){
+      return $request;
+
+    } 
+
+
     public function manualDelete($id){
       $ManualTimeTabl=ManualTimeTabl::find($id);
       $ManualTimeTabl->delete();

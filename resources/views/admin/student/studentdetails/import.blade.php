@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-lg-12 ">                  
                         {{-- {{ Form::open(['route'=>'admin.student.excel.store']) 'method'=>'POST','files'=>'true' }} --}}
-                        {!! Form::open(array('route' => 'admin.student.excel.store','method'=>'POST','files'=>'true')) !!}                            
+                        {!! Form::open(array('route' => 'admin.student.excel.store','method'=>'POST','files'=>'true','class'=>'add_form')) !!}                            
                              <div class="row">{{--row start --}}
                                 <div class="col-md-12 ">
                                     <div class="form-group">
