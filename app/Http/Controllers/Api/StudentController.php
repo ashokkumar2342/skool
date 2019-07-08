@@ -55,18 +55,32 @@ class StudentController extends Controller
         }
        
     }
-    public function Login(Request $request){ 
+    public function Login(Request $request){     $data=array();
+                     
         try {  
 
             $student = Student::orWhere('email',$request->email)->orWhere('username',$request->email)->orWhere('father_mobile',$request->email)->first();
+
              if (!empty($student)) {
                  if (Hash::check($request->password, $student->password)) {
                      auth()->guard('student')->loginUsingId($student->id);
-                     return $student;
+                     $data=array();
+                     $data['status']=1;
+                     $data['id']=$student->id; 
+                     return $data;
 
                  } else {
-                     return 'not Match';
+                     $data=array();
+                     $data['status']=0;
+                     $data['data']='null';
+                     return $data;
                  }
+
+             }else{
+                $data=array();
+                     $data['status']=0;
+                     $data['data']='null';
+                     return $data;
              }
             // return $student =Student::where('email',$request->email)->first(); 
             
