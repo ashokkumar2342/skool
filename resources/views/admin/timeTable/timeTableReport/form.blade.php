@@ -18,14 +18,16 @@
             <div class="box-body">
                  
                   <div class="row">
-                    <form action="{{ route('admin.time.table.report.show') }}"  method="post" class="add_form" no-reset="true"  data-table-without-pagination-disable-sorting="report_data_table" success-content-id="teacher_history_show">
+                    <form action="{{ route('admin.time.table.report.show') }}"  method="post" class="add_form" no-reset="true"  {{-- data-table-without-pagination-disable-sorting="report_data_table" --}} success-content-id="teacher_history_show">
                     {{ csrf_field() }} 
                     <div class="col-lg-4">
                       <label>Report For</label>
-                      <select name="report_for" id="time_table_type" class="form-control" multiselect-form="true" {{-- onchange="callAjax(this,'{{ route('admin.time.table.report.for') }}','time_table_report')" --}}>
+                      <select name="report_for" id="time_table_type" class="form-control" multiselect-form="true" onchange="callAjax(this,'{{ route('admin.time.table.report.for') }}','time_table_report')">
                         <option  selected disabled>Select Option</option> 
-                        <option value="1">Teacher</option> 
-                        <option value="2">Class</option> 
+                        <option value="1">All Teacher</option> 
+                        <option value="2">All Class</option> 
+                        <option value="3">Teacher Wise</option> 
+                        <option value="4">Class  Wise</option> 
                     </select> 
                     </div>
                     <div id="time_table_report"> 

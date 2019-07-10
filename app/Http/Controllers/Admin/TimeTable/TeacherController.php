@@ -425,13 +425,32 @@ class TeacherController extends Controller
     } 
 
     public function teacherAdjustment(Request $request){
-       // return $request;
+        // return $request;
+
 
        foreach ($request->teacher_id as $key => $teacher) {
 
-        return  $teacherFacultys=TeacherFaculty::where('id',$teacher)->get();
+        // $teacherFacultys=TeacherFaculty::where('id',$teacher)->get();
+         // $teacherSubjectClass=TeacherSubjectClass::findOrFail(Crypt::decrypt($id));
         $teacherAbsent=TeacherAbsent::where('teacher_id',$teacher)->first();
-        $teacherAbsentSameClass=ManualTimeTabl::where('teacher_id',$request->teacher_id)->get();
+
+        $absentDay = date('D', strtotime($teacherAbsent->absent_date));
+        $day_id=DaysType::where('name','like','%'.$absentDay.'%')->first()->id;
+ 
+        $absentPeriods=ManualTimeTabl::where('teacher_id',$teacherAbsent->teacher_id)->where('day_id',$day_id)->whereBetween('period_id', [$teacherAbsent->from_period, $teacherAbsent->to_period])->get();
+        foreach ($absentPeriods as $key => $absentPeriod) {
+           return $presentAvailableTeachers=ManualTimeTabl::where('day_id',$day_id)->where('teacher_id','!=',$teacherAbsent->teacher_id)->where('class_id',$absentPeriod->class_id)->get();
+           foreach ($presentAvailableTeachers as $key => $presentAvailableTeacher) {
+          
+             $checkTeacherAvailable =$presentAvailableTeachers=ManualTimeTabl::where('day_id',$day_id)->where('teacher_id','=',$presentAvailableTeacher->teacher_id)->where('period_id',$absentPeriod->period_id)->first();
+             if (empty($checkTeacherAvailable)) {
+                 return $checkTeacherAvailable;
+              }else{
+                   echo 'conting'.$checkTeacherAvailable->teacher_id;
+              }
+
+           }
+        }
        return  $teacherNotAbsent=ManualTimeTabl::whereNotIn('teacher_id',$request->teacher_id)->get();
        }
 
