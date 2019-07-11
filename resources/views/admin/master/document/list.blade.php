@@ -40,11 +40,11 @@
                       <tbody>
                         @php
                            
-                        $document=1;
+                        $documentId=1;
                         @endphp
                       @foreach($documentTypes as $document)
                       <tr>
-                        <td>{{ $document++ }}</td>
+                        <td>{{ $documentId++ }}</td>
                         
                         <td>{{ $document->name }} </td>
                         <td>
