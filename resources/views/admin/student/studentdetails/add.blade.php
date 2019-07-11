@@ -138,17 +138,16 @@
                                                     {{ Form::text('email','',['class'=>'form-control']) }}
                                                     <p class="text-danger">{{ $errors->first('email') }}</p>
                                                 </div>
-                                            </div>  
-                                             <div class="col-lg-3">                         
+                                            </div>
+                                            <div class="col-lg-3">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('date_of_birth','Date of Birth',['class'=>' control-label']) }}      
+                                                    {{ Form::label('date_of_birth','Date of Birth',['class'=>' control-label']) }}   
                                                     <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
-                                                      </div>                   
-                                                       <input type="text" class="form-control" name="date_of_birth" id="date_of_birth" min='1899-01-01' max='2000-13-13' required>
+                                                      </div>                          
+                                                    {{ Form::text('date_of_birth','',array('class' => 'form-control datepicker',' required' )) }}
                                                     </div>
-                                                   
                                                     <p class="text-danger">{{ $errors->first('date_of_birth') }}</p>
                                                 </div>
                                             </div> 
