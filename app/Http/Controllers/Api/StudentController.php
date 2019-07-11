@@ -7,6 +7,7 @@ use App\Model\AcademicYear;
 use App\Model\Cashbook;
 use App\Model\Category;
 use App\Model\ClassType;
+use App\Model\Event\EventDetails;
 use App\Model\Gender;
 use App\Model\Homework;
 use App\Model\ParentRegistration;
@@ -200,7 +201,7 @@ class StudentController extends Controller
     public function event(Request $request,$id){ 
         try { 
            $events = EventDetails::all();
-            return view('student.event.list',compact('events'));       
+              
             if (!empty($events)) {
               return $events; 
               // return [$lastFee,$cashbooks->sum('receipt_amount')];   
