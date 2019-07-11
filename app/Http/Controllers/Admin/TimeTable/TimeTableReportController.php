@@ -37,10 +37,23 @@ class TimeTableReportController extends Controller
     }
 
     public function show(Request $request){
+           
          
-         
-          if ($request->report_for==1) { 
-            $daysTypes=DaysType::all();
+      
+           
+            if ($request->report_for==3) {
+             $daysTypes=DaysType::all();
+            $periodTimings=PeriodTiming::where('time_table_type_id',$request->time_table_type)->get(); 
+            $time_table_type_id=$request->time_table_type; 
+            $periodTypes=PeriodType::all();
+            $sections=Section::all(); 
+             $teacherFacultys=TeacherFaculty::whereIn('id',$request->teacher_id)->get(); 
+             $response = array();
+            $response['status'] = 1; 
+            $response['data'] =view('admin.timeTable.timeTableReport.teacher_wise_show',compact('sections','periodTimings','daysTypes','time_table_type_id','periodTypes','teacherFacultys'))->render(); 
+            return response()->json($response);
+             } if ($request->report_for==1) {
+             $daysTypes=DaysType::all();
             $periodTimings=PeriodTiming::where('time_table_type_id',$request->time_table_type)->get(); 
             $time_table_type_id=$request->time_table_type; 
             $periodTypes=PeriodType::all();
@@ -50,27 +63,28 @@ class TimeTableReportController extends Controller
             $response['status'] = 1; 
             $response['data'] =view('admin.timeTable.timeTableReport.teacher_wise_show',compact('sections','periodTimings','daysTypes','time_table_type_id','periodTypes','teacherFacultys'))->render(); 
             return response()->json($response);
-             
-          }if ($request->report_for==2) {
-             
-            
-            $daysTypes=DaysType::all();
+        }  
+           
+             if ($request->report_for==2) {
+                 $daysTypes=DaysType::all();
+            $periodTimings=PeriodTiming::where('time_table_type_id',$request->time_table_type)->get(); 
+             $time_table_type_id=$request->time_table_type; 
+            $periodTypes=PeriodType::all(); 
+            $sections=Section::all(); 
+             } 
+             if ($request->report_for==4) { 
+                 $daysTypes=DaysType::all();
             $periodTimings=PeriodTiming::where('time_table_type_id',$request->time_table_type)->get(); 
              $time_table_type_id=$request->time_table_type; 
             $periodTypes=PeriodType::all();
-              $sections=Section::all(); 
-               
+           $sections=Section::whereIn('class_id',$request->class_id)->get(); 
+             }  
             $response = array();
             $response['status'] = 1; 
             $response['data'] =view('admin.timeTable.timeTableReport.class_wise_show',compact('sections','periodTimings','daysTypes','time_table_type_id','periodTypes'))->render(); 
             return response()->json($response);
-          }if ($request->subject_id!=null) { 
-           $manualTimeTabls=ManualTimeTabl::where('time_table_type_id',$request->time_table_type)->where('subject_id',$request->subject_id)->get();
-            $response = array();
-            $response['status'] = 1; 
-            $response['data'] =view('admin.timeTable.timeTableReport.teacher_wise_show',compact('manualTimeTabls'))->render(); 
-            return response()->json($response);
-          }
+           
+         
          
     }
 }

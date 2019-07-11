@@ -15,6 +15,7 @@ use App\Model\TimeTable\ManualTimeTabl;
 use App\Model\TimeTable\PeriodTiming;
 use App\Model\TimeTable\PeriodType;
 use App\Model\TimeTable\TeacherAbsent;
+use App\Model\TimeTable\TeacherAdjustment;
 use App\Model\TimeTable\TeacherSubjectClass;
 use App\Model\TimeTable\TeacherWorkingDays;
 use App\Model\TimeTable\TimeTableType;
@@ -424,6 +425,22 @@ class TeacherController extends Controller
       
     } 
 
+    public function saveAdjustment($teacher_id,$class_id,$subject_id,$period_id,$day_id){
+        $teacherAdjustments=TeacherAdjustment::all();
+       $TeacherAdjustment= new TeacherAdjustment();
+       $TeacherAdjustment->teacher_id=$teacher_id;
+       $TeacherAdjustment->class_id=$class_id;
+       $TeacherAdjustment->subject_id=$subject_id;
+       $TeacherAdjustment->period_id=$period_id;
+       $TeacherAdjustment->day_id=$day_id;
+       $TeacherAdjustment->save();
+        $response = array();
+          $response['status'] = 1;
+           
+           $response['data'] = view('admin.teacher.teacherAdjustment.teacher_adjustment_result_form',compact('teacherAdjustments'))->render();
+            return response()->json($response);
+    }
+
     public function teacherAdjustment(Request $request){
         // return $request;
 
@@ -439,28 +456,70 @@ class TeacherController extends Controller
  
         $absentPeriods=ManualTimeTabl::where('teacher_id',$teacherAbsent->teacher_id)->where('day_id',$day_id)->whereBetween('period_id', [$teacherAbsent->from_period, $teacherAbsent->to_period])->get();
         foreach ($absentPeriods as $key => $absentPeriod) {
-           return $presentAvailableTeachers=ManualTimeTabl::where('day_id',$day_id)->where('teacher_id','!=',$teacherAbsent->teacher_id)->where('class_id',$absentPeriod->class_id)->get();
-           foreach ($presentAvailableTeachers as $key => $presentAvailableTeacher) {
-          
+            $checkPeriodDone=0;
+            
+          //class wise teacher find  
+          $presentAvailableTeachers=ManualTimeTabl::where('day_id',$day_id)->where('teacher_id','!=',$teacherAbsent->teacher_id)->where('class_id',$absentPeriod->class_id)->get(); 
+           foreach ($presentAvailableTeachers as $key => $presentAvailableTeacher) { 
              $checkTeacherAvailable =$presentAvailableTeachers=ManualTimeTabl::where('day_id',$day_id)->where('teacher_id','=',$presentAvailableTeacher->teacher_id)->where('period_id',$absentPeriod->period_id)->first();
+
              if (empty($checkTeacherAvailable)) {
-                 return $checkTeacherAvailable;
+                 $this->saveAdjustment($presentAvailableTeacher->teacher_id,$absentPeriod->class_id,$absentPeriod->subject_id,$absentPeriod->period_id,$day_id);
+                 $checkPeriodDone=1;
+                  break;
               }else{
-                   echo 'conting'.$checkTeacherAvailable->teacher_id;
+                
               }
 
+           }  
+          //end class wise teacher find 
+           if ($checkPeriodDone==0) {  
+               //start subject class wise teacher find
+               $presentAvailableTeachersSubjectWises=ManualTimeTabl::where('day_id',$day_id)->where('teacher_id','!=',$teacherAbsent->teacher_id)->where('class_id',$absentPeriod->class_id)->where('subject_id',$absentPeriod->subject_id)->get();  
+                foreach ($presentAvailableTeachersSubjectWises as $key => $presentAvailableTeachersSubjectWise) { 
+                  $checkTeacherAvailableSubject =ManualTimeTabl::where('day_id',$day_id)->where('teacher_id','=',$presentAvailableTeachersSubjectWise->teacher_id)->where('period_id',$absentPeriod->period_id)->first();
+
+                  if (empty($checkTeacherAvailableSubject)) {
+
+                     $this->saveAdjustment($presentAvailableTeachersSubjectWise->teacher_id,$absentPeriod->class_id,$checkTeacherAvailableSubject->subject_id,$absentPeriod->period_id,$day_id);
+
+                      $checkPeriodDone=1;
+                       break;
+
+                   }else{
+                     
+                   }
+
+                } 
            }
+           if ($checkPeriodDone==0) {  
+               //start subject wise teacher find
+               $presentAvailableTeachersSubjectWises=ManualTimeTabl::where('day_id',$day_id)->where('teacher_id','!=',$teacherAbsent->teacher_id)->where('subject_id',$absentPeriod->subject_id)->get();  
+                foreach ($presentAvailableTeachersSubjectWises as $key => $presentAvailableTeachersSubjectWise) { 
+                  $checkTeacherAvailableSubject =ManualTimeTabl::where('day_id',$day_id)->where('teacher_id','=',$presentAvailableTeachersSubjectWise->teacher_id)->where('period_id',$absentPeriod->period_id)->first();
+
+                  if (empty($checkTeacherAvailableSubject)) {
+
+                      $this->saveAdjustment($presentAvailableTeachersSubjectWise->teacher_id,$absentPeriod->class_id,$absentPeriod->subject_id,$absentPeriod->period_id,$day_id);
+                      $checkPeriodDone=1;
+                       break;
+
+                   }else{
+                      
+                   }
+
+                } 
+           }
+
+          
         }
-       return  $teacherNotAbsent=ManualTimeTabl::whereNotIn('teacher_id',$request->teacher_id)->get();
-       }
-
-
-      
-       if (empty($teacherAbsent)) { 
-        $manualTimeTabls=ManualTimeTabl::where('teacher_id',$id)->get();
-       }
+        $teacherAdjustments=TeacherAdjustment::all();
+        $response = array();
+          $response['status'] = 1;
+        $response['data'] = view('admin.teacher.teacherAdjustment.teacher_adjustment_result_form',compact('teacherAdjustments'))->render();
+            return response()->json($response);
        
-       return view('admin.teacher.teacherAdjustment.teacher_adjustment_result_form',compact('manualTimeTabls'));
+       } 
        
     }
 }
