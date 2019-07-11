@@ -196,6 +196,20 @@ class StudentController extends Controller
             return $e;
         }
        
+    } 
+    public function event(Request $request,$id){ 
+        try { 
+           $events = EventDetails::all();
+            return view('student.event.list',compact('events'));       
+            if (!empty($events)) {
+              return $events; 
+              // return [$lastFee,$cashbooks->sum('receipt_amount')];   
+            }
+             return response()->json(['data'=>'null','status'=>'0']);  
+        } catch (Exception $e) {
+            return $e;
+        }
+       
     }
         
 }
