@@ -297,7 +297,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('/', 'HomeworkController@index')->name('admin.homework.list');	 	
 	    Route::post('add', 'HomeworkController@store')->name('admin.homework.post');
 	    Route::get('view/{id}', 'HomeworkController@view')->name('admin.homework.view');
-	    Route::delete('delete', 'HomeworkController@destroy')->name('admin.homework.delete');
+	    Route::get('delete/{id}', 'HomeworkController@destroy')->name('admin.homework.delete');
 	 });
 	
 	 

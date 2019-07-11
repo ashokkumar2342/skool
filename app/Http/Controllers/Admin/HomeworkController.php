@@ -8,6 +8,7 @@ use App\Model\Homework;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Crypt;
 
 class HomeworkController extends Controller
 {
@@ -86,9 +87,10 @@ class HomeworkController extends Controller
      * @param  \App\Model\Homework  $homework
      * @return \Illuminate\Http\Response
      */
-    public function show(Homework $homework)
+    public function view(Homework $homework,$id)
     {
-        //
+         $homework = Homework::find($id);
+         return view('admin.homework.view',compact('homework'));
     }
 
     /**
@@ -120,10 +122,11 @@ class HomeworkController extends Controller
      * @param  \App\Model\Homework  $homework
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
-    {
-        $homework = Homework::findOrFail($request->id)->first();
+    public function destroy(Request $request,$id)
+    {  
+        $id =Crypt::decrypt($id);
+        $homework = Homework::find($id);
         $homework->delete();
-        return  response()->json([$homework,'message'=>'Homework Delete Successfully','class'=>'success']);
+       return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
 }

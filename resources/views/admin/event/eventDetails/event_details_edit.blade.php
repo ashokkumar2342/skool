@@ -19,7 +19,7 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12"> 
-             <form action="{{ route('admin.event.details.update',$eventDetail->id) }}" method="post" class="add_form" button-click="btn_outhor_table_show,btn_close">
+             <form action="{{ route('admin.event.details.update',$eventDetail->id) }}" method="post" class="add_form" button-click="btn_event_details_table_show,btn_close">
                    {{ csrf_field() }}
                    <div class="row">
                     <div class="col-lg-4">
@@ -37,7 +37,7 @@
                     </div> 
                     <div class="col-lg-4">
                       <label>Discription</label>
-                      <textarea class="form-control" value="{{ $eventDetail->discription }}" name="discription"></textarea> 
+                      <textarea class="form-control"   name="discription">{{ $eventDetail->description }}</textarea> 
                     </div> 
                      <div class="col-lg-4">
                       <label>Start Date</label>
@@ -55,7 +55,7 @@
                        <select name="event_for_id"  multiselect-form="true" class="form-control" onchange="callAjax(this,'{{ route('admin.event.details.onchange') }}','select_class')">
                        <option selected disabled>Select Option</option>  
                          @foreach ($eventFors as $eventFor)
-                         <option value="{{ $eventFor->id }}">{{ $eventFor->name }}</option> 
+                         <option value="{{ $eventFor->id }}"{{ $eventFor->id==$eventDetail->event_for_id ?'selected' : '' }}>{{ $eventFor->name }}</option> 
                          @endforeach
                         </select>
                     </div>

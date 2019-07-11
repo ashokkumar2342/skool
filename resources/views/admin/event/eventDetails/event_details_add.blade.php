@@ -19,7 +19,7 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12"> 
-             <form action="{{ route('admin.event.details.store') }}" method="post" class="add_form" button-click="btn_outhor_table_show,btn_close">
+             <form action="{{ route('admin.event.details.store') }}" method="post" class="add_form" button-click="btn_event_details_table_show,btn_close">
                    {{ csrf_field() }}
                    <div class="row">
                     <div class="col-lg-4">
@@ -61,6 +61,11 @@
                     </div>
                     <div id="select_class">
                       
+                    </div>
+                    <div class="col-lg-4">
+                      <label>Color</label>
+                      <input type="text" name="color"   class="form-control" maxlength="100">
+                       
                     </div>
                    
                     

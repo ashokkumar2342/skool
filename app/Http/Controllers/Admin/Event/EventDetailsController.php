@@ -81,5 +81,41 @@ class EventDetailsController extends Controller
         $eventDetail=EventDetails::findOrFail(Crypt::decrypt($id));
          return view('admin.event.eventDetails.event_details_edit',compact('eventDetail','eventTypes','eventFors'));
     }
-}
- 
+
+        public function update(Request $request,$id)
+        {
+            // return $request;
+            $rules=[
+              
+                'name' => 'required', 
+                 
+           
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+            else {
+              $eventDetails= EventDetails::find($id);
+              $eventDetails->event_name=$request->name;
+              $eventDetails->event_type_id=$request->event_type_id;
+              $eventDetails->description=$request->discription;
+              $eventDetails->start_date=$request->start_date;
+              $eventDetails->end_date=$request->end_date;
+              $eventDetails->incharge_name=$request->incharge_name;
+              $eventDetails->event_for_id=$request->event_for_id;
+              if ($request->class_id) { 
+              $eventDetails->class_id=implode(',',$request->class_id); 
+               } 
+              $eventDetails->color=$request->color;
+              $eventDetails->save();
+              $response=['status'=>1,'msg'=>'Created Successfully'];
+                return response()->json($response);
+            } 
+        } 
+    }      

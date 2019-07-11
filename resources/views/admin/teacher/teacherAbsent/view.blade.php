@@ -8,7 +8,7 @@
   
 </style>
  
-  <div class="modal-dialog" style="width:70%">
+  <div class="modal-dialog" style="width:90%">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -22,7 +22,7 @@
              <form action="{{ route('admin.teacher.store') }}" method="post" class="add_form" button-click="btn_close">
           {{ csrf_field() }}
           <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-6">
               <label>Teacher</label>
               <select name="teacher" class="form-control select2">
                 <option selected disabled>Select teacher</option>
@@ -31,11 +31,11 @@
                 @endforeach
               </select> 
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-6">
               <label>Absent Date</label>
               <input type="date" name="date" class="form-control"> 
             </div> 
-            <div class="col-lg-3">
+            <div class="col-lg-6">
               <label>From Period</label>
               <select name="from_period" class="form-control">
                 <option selected disabled>Select Period</option>
@@ -44,7 +44,7 @@
                 @endforeach
               </select> 
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-6">
               <label>To Period</label>
               <select name="to_period" class="form-control">
                 <option selected disabled>Select Period</option>

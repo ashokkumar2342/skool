@@ -434,20 +434,17 @@ class TeacherController extends Controller
     } 
 
     public function saveAdjustment($teacher_id,$class_id,$subject_id,$period_id,$day_id,$teacherAbsent){
-       $teacherAdjustments=TeacherAdjustment::all();
-       $TeacherAdjustment=TeacherAdjustment::firstOrNew(['teacher_absent_id'=>$teacherAbsent]);
-       $TeacherAdjustment->teacher_absent_id=$teacherAbsent;
-       $TeacherAdjustment->teacher_id=$teacher_id;
-       $TeacherAdjustment->class_id=$class_id;
-       $TeacherAdjustment->subject_id=$subject_id;
-       $TeacherAdjustment->period_id=$period_id;
-       $TeacherAdjustment->day_id=$day_id;
-       $TeacherAdjustment->save();
-        $response = array();
-          $response['status'] = 1;
-           
-           $response['data'] = view('admin.teacher.teacherAdjustment.teacher_adjustment_result_form',compact('teacherAdjustments'))->render();
-            return response()->json($response);
+      $teacherAdjustments=TeacherAdjustment::where('teacher_absent_id',$teacherAbsent)->get();
+        if (!empty($teacherAdjustments)) { 
+           $TeacherAdjustment=new TeacherAdjustment();
+           $TeacherAdjustment->teacher_absent_id=$teacherAbsent;
+           $TeacherAdjustment->teacher_id=$teacher_id;
+           $TeacherAdjustment->class_id=$class_id;
+           $TeacherAdjustment->subject_id=$subject_id;
+           $TeacherAdjustment->period_id=$period_id;
+           $TeacherAdjustment->day_id=$day_id;
+           $TeacherAdjustment->save(); 
+        }
     }
 
     public function teacherAdjustment(Request $request){
@@ -522,6 +519,7 @@ class TeacherController extends Controller
 
           
         }
+
         $teacherAdjustments=TeacherAdjustment::all();
         $response = array();
           $response['status'] = 1;

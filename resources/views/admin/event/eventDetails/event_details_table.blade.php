@@ -3,8 +3,8 @@
                  <tr>
                    <th>SI.No.</th> 
                    <th>Event</th> 
-                   <th>Start_date</th>
-                   <th>end_date</th>
+                   <th>Start Date</th>
+                   <th>End Date</th>
                    <th>Event For</th>
                    <th>Action</th>
                  </tr>
