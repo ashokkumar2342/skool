@@ -56,7 +56,7 @@ class StudentController extends Controller
         }
        
     }
-    public function Login(Request $request){     $data=array();
+    public function Login(Request $request){     
                      
         try {  
 
