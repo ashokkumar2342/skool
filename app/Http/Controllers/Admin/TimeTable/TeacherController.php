@@ -424,10 +424,19 @@ class TeacherController extends Controller
         return response()->json($response); 
       
     } 
+    public function teacherAbsentDelete($id){
+       $teacherAbsents=TeacherAbsent::find($id);
+       $teacherAbsents->delete();
+       $response = array();
+              $response['status'] = 1;
+              $response['msg'] = 'Created Successfully'; 
+                return response()->json($response);
+    } 
 
-    public function saveAdjustment($teacher_id,$class_id,$subject_id,$period_id,$day_id){
-        $teacherAdjustments=TeacherAdjustment::all();
-       $TeacherAdjustment= new TeacherAdjustment();
+    public function saveAdjustment($teacher_id,$class_id,$subject_id,$period_id,$day_id,$teacherAbsent){
+       $teacherAdjustments=TeacherAdjustment::all();
+       $TeacherAdjustment=TeacherAdjustment::firstOrNew(['teacher_absent_id'=>$teacherAbsent]);
+       $TeacherAdjustment->teacher_absent_id=$teacherAbsent;
        $TeacherAdjustment->teacher_id=$teacher_id;
        $TeacherAdjustment->class_id=$class_id;
        $TeacherAdjustment->subject_id=$subject_id;
@@ -464,7 +473,7 @@ class TeacherController extends Controller
              $checkTeacherAvailable =$presentAvailableTeachers=ManualTimeTabl::where('day_id',$day_id)->where('teacher_id','=',$presentAvailableTeacher->teacher_id)->where('period_id',$absentPeriod->period_id)->first();
 
              if (empty($checkTeacherAvailable)) {
-                 $this->saveAdjustment($presentAvailableTeacher->teacher_id,$absentPeriod->class_id,$absentPeriod->subject_id,$absentPeriod->period_id,$day_id);
+                 $this->saveAdjustment($presentAvailableTeacher->teacher_id,$absentPeriod->class_id,$absentPeriod->subject_id,$absentPeriod->period_id,$day_id,$teacherAbsent->teacher_id);
                  $checkPeriodDone=1;
                   break;
               }else{
@@ -481,7 +490,7 @@ class TeacherController extends Controller
 
                   if (empty($checkTeacherAvailableSubject)) {
 
-                     $this->saveAdjustment($presentAvailableTeachersSubjectWise->teacher_id,$absentPeriod->class_id,$checkTeacherAvailableSubject->subject_id,$absentPeriod->period_id,$day_id);
+                     $this->saveAdjustment($presentAvailableTeachersSubjectWise->teacher_id,$absentPeriod->class_id,$checkTeacherAvailableSubject->subject_id,$absentPeriod->period_id,$day_id,$teacherAbsent->teacher_id);
 
                       $checkPeriodDone=1;
                        break;
@@ -500,7 +509,7 @@ class TeacherController extends Controller
 
                   if (empty($checkTeacherAvailableSubject)) {
 
-                      $this->saveAdjustment($presentAvailableTeachersSubjectWise->teacher_id,$absentPeriod->class_id,$absentPeriod->subject_id,$absentPeriod->period_id,$day_id);
+                      $this->saveAdjustment($presentAvailableTeachersSubjectWise->teacher_id,$absentPeriod->class_id,$absentPeriod->subject_id,$absentPeriod->period_id,$day_id,$teacherAbsent->teacher_id);
                       $checkPeriodDone=1;
                        break;
 

@@ -16,7 +16,7 @@
               <input type="date" name="absent_date" class="form-control">
             </div>
             <div class="col-lg-3"> 
-              <input type="submit" class="btn btn-success" value="Show" style="margin-top: 24px">
+              <input type="submit" id="teacher_absent_show" class="btn btn-success" value="Show" style="margin-top: 24px">
             </div>
           </div>
            </form> 

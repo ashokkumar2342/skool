@@ -7,7 +7,7 @@
             <!-- /.box-header -->            
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">User Access Menu</h3>
+              <h3 class="box-title">Menu assign</h3>
             </div>             
 
             <!-- /.box-header -->

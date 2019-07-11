@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class TeacherAdjustment extends Model
 {
+     protected $fillable = [
+        'teacher_absent_id'
+    ];
      Public function subjectType(){
      	return $this->hasOne('App\Model\SubjectType','id','subject_id');
      }

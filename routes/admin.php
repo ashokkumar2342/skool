@@ -876,6 +876,7 @@ Route::group(['middleware' => 'admin'], function() {
                 Route::group(['prefix' => 'teacher-absent'], function() {
                 	Route::get('teacher-absent', 'TimeTable\TeacherController@teacherAbsent')->name('admin.teacher.absent');
                 	Route::post('teacher-absent-store', 'TimeTable\TeacherController@teacherAbsentStore')->name('admin.teacher.store');
+                	Route::get('teacher-absent-delete/{id}', 'TimeTable\TeacherController@teacherAbsentDelete')->name('admin.teacher.absent.dalete');
            });
                 Route::group(['prefix' => 'teacher-adjustment'], function() { 
                 	Route::get('adjustment', 'TimeTable\TeacherController@adjustment')->name('admin.teacher.adjustment');
