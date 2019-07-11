@@ -21,7 +21,7 @@ class SubjectController extends Controller
     {
         $subjectTypes = SubjectType::all();
         $manageSubjects = Subject::all();
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id'); 
+        $classes = array_pluck(ClassType::get(['id','name'])->toArray(),'name', 'id'); 
         return view('admin.subject.manageSubject',compact('subjectTypes','manageSubjects','classes'));
     }
 
@@ -42,7 +42,7 @@ class SubjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {return $request;
+    {
          
          foreach ($request->value as $key => $value) {
           
@@ -128,6 +128,8 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        //
+         $subject=Subject::find($subject);
+         $subject->delete();
+          return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
 }

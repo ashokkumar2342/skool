@@ -38,9 +38,12 @@
                          </tr>
                       </thead>
                       <tbody>
+                        @php
+                           $incomeSlabId=1;
+                        @endphp
                       @foreach($incomeSlabs as $incomeSlab)
                       <tr>
-                        <td>{{ $incomeSlab->id }}</td>
+                        <td>{{ $incomeSlabId++ }}</td>
                         
                         <td>{{ $incomeSlab->range }} </td>
                         <td> 

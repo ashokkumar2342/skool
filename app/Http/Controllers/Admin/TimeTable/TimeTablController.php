@@ -82,7 +82,7 @@ class TimeTablController extends Controller
 
     public function subjectWiseTeacher(Request $request){
     	 // return $request;
-    	 $teacherSubjectClasss=TeacherSubjectClass::where('subject_id',$request->id)->get();
+    	 $teacherSubjectClasss=TeacherSubjectClass::where('subject_id',$request->id)->distinct('teacher_id')->get(['teacher_id']);
     	 // $teachers=TeacherFaculty::where('name',$request->id)->get();
     	return view('admin.timeTable.timeTableManual.teacher',compact('teacherSubjectClasss'));
     }
@@ -93,9 +93,10 @@ class TimeTablController extends Controller
       return view('admin.timeTable.timeTableManual.day_period',compact('TeacherWorkingDays'));
     }
      public function daysWisePeriod(Request $request){
-      // return $request;
+       //return $request;
          $TeacherWorkingDays=TeacherWorkingDays::where('days_id',$request->id)->where('teacher_id',$request->teacher_id)->where('time_table_type_id',$request->time_table_type_id)->where('period_type',1)->get();
-      return view('admin.timeTable.timeTableManual.timeing',compact('TeacherWorkingDays'));
+         $manualTimeTabl=ManualTimeTabl::where('teacher_id',$request->teacher_id)->where('day_id',$request->id)->pluck('period_id')->toArray();
+      return view('admin.timeTable.timeTableManual.timeing',compact('TeacherWorkingDays','manualTimeTabl'));
     }
 
 
@@ -146,8 +147,43 @@ class TimeTablController extends Controller
 
     }
     public function outoGenerateManual(Request $request){
-      return $request;
-
+      $timeTableTypes=TimeTableType::all();
+      foreach ($timeTableTypes as $key => $timeTableType) { 
+        $classTypes=ClassType::all();
+        foreach ($classTypes as $key => $classType) {
+           $sections=Section::where('class_id',$classType->id)->get();
+           foreach ($sections as $key => $section) {  
+              $subjects=Subject::where('classType_id',$classType->id)->get();
+              foreach ($subjects as $key => $subject) { 
+                $teacherSubjectClasss=TeacherSubjectClass::where('subject_id',$subject->id)->distinct('teacher_id')->get(['teacher_id']); 
+                  foreach ($teacherSubjectClasss as $key => $teacherSubjectClass) {
+                 
+                     $TeacherWorkingDays=TeacherWorkingDays::where('time_table_type_id',$timeTableType->id)->where('teacher_id',$teacherSubjectClass->teacher_id)->where('period_type',1)->distinct('days_id')->get(['days_id']);
+                     foreach ($TeacherWorkingDays as $key => $TeacherWorkingDay) {
+                   
+                       $TeacherWorkingTimings=TeacherWorkingDays::where('time_table_type_id',$timeTableType->id)->where('days_id',$TeacherWorkingDay->days_id)->where('teacher_id',$teacherSubjectClass->teacher_id)->where('period_type',1)->get();
+                        foreach ($TeacherWorkingTimings as $key => $TeacherWorkingTiming) {  
+                          $manualTimeTablsTable= new ManualTimeTabl();
+                          $manualTimeTablsTable->time_table_type_id=$timeTableType->id;
+                          $manualTimeTablsTable->class_id=$classType->id;
+                          $manualTimeTablsTable->section_id=$section->section_id;
+                          $manualTimeTablsTable->day_id=$TeacherWorkingDay->days_id;
+                          $manualTimeTablsTable->period_id=$TeacherWorkingTiming->period_timeing_id;
+                          $manualTimeTablsTable->teacher_id=$teacherSubjectClass->teacher_id;
+                          $manualTimeTablsTable->subject_id=$subject->subjectType_id;
+                          $manualTimeTablsTable->room_id=1;
+                          $manualTimeTablsTable->status=1; 
+                          $manualTimeTablsTable->save();
+                          
+                    }
+                 } 
+                }
+             } 
+           }
+         } 
+       } 
+          $response=['status'=>1,'msg'=>'Created Successfully'];
+                              return response()->json($response);
     } 
 
 

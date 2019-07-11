@@ -40,7 +40,7 @@
                        
                        @endphp
                        @if (!empty($manualTimeTabl))
-                           {{ $manualTimeTabl->subjectType->name or '' }}  
+                           {{ $manualTimeTabl->subjectType->name or '' }}=>{{ $manualTimeTabl->teacherFaculty->name or '' }}  
 
                         @else
                           

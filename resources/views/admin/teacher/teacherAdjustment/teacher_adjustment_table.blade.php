@@ -17,7 +17,7 @@
 					<td>{{ $teacherAbsent->teacherFaculty->name or '' }}</td>
 					<td>{{ $teacherAbsent->periodTiming->from_time or '' }}</td>
 					<td>{{ $teacherAbsent->periodTimings->from_time or '' }}</td>
-					 
+					 <td><a href="#" button-click="teacher_absent_show" onclick="callAjax(this,'{{ route('admin.teacher.absent.dalete',$teacherAbsent->id) }}','','')" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a></td>
 				</tr> 
 
 		@endforeach 

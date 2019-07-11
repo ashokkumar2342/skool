@@ -20,9 +20,13 @@
                 </tr>
                 </thead>
                 <tbody>
+                  @php
+                     
+                  $subjectId=1;
+                  @endphp
                 @foreach($subjects as $subject)
                 <tr>
-                  <td>{{ ++$loop->index }}</td>
+                  <td>{{$subjectId++}}</td>
                   <td>{{ $subject->name }}</td>
                   <td>{{ $subject->code }}</td>
                   <td > 

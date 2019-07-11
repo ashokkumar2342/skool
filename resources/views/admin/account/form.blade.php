@@ -7,7 +7,7 @@
             <!-- /.box-header -->            
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Account Register</h3>
+              <h3 class="box-title">Add User</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                  <label for="Password">Password (Min 6 Max 15 Charecters )</label>
+                                  <label for="Password">Password (Min 6 Max 15 Characters )</label>
                                   <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                                 </div>                               
                             </div>

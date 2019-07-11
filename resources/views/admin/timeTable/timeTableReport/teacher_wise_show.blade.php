@@ -45,7 +45,7 @@
      <td>
         @if (!empty($manualTimeTabl))
 
-        {{ $manualTimeTabl->subjectType->name or '' }}{{-- /{{ $manualTimeTabl->classTypes->name or '' }} --}}
+        {{ $manualTimeTabl->subjectType->name or '' }}={{ $manualTimeTabl->classTypes->name or '' }}={{ $manualTimeTabl->sectionTypes->name or '' }}
         @else
         @foreach ($periodTypes  as $key=>$periodType) 
         @php

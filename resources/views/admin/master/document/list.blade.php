@@ -38,9 +38,13 @@
                          </tr>
                       </thead>
                       <tbody>
+                        @php
+                           
+                        $documentId=1;
+                        @endphp
                       @foreach($documentTypes as $document)
                       <tr>
-                        <td>{{ $document->id }}</td>
+                        <td>{{ $documentId++ }}</td>
                         
                         <td>{{ $document->name }} </td>
                         <td>
