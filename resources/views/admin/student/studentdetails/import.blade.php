@@ -4,7 +4,7 @@
 @endpush
 @section('body')
 <section class="content-header">
-    <h1> Student Add <small>Details</small> </h1>
+    <h1>Student Excel Import <small>Details</small> </h1>
       <ol class="breadcrumb">
        <li><a href="{{ asset('sample.csv') }}"><i class="fa fa-download"></i> Download Sample</a></li>        
       </ol>
