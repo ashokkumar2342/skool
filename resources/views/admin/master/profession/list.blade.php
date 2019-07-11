@@ -38,9 +38,12 @@
                          </tr>
                       </thead>
                       <tbody>
+                        @php
+                           $professionId=1;
+                        @endphp
                       @foreach($professions as $profession)
                       <tr>
-                        <td>{{ $profession->id }}</td>
+                        <td>{{ $professionId++ }}</td>
                         
                         <td>{{ $profession->name }} </td>
                         <td>
