@@ -63,9 +63,13 @@
                 </tr>
                 </thead>
                 <tbody>
+                  @php
+                     
+                  $subjectId=1;
+                  @endphp
                 @foreach($manageSubjects as $manageSubject)
                 <tr>
-                  <td>{{ $manageSubject->id }}</td>
+                  <td>{{ $subjectId++ }}</td>
                   <td>{{ $manageSubject->classTypes->name or ''}}</td>                 
                   <td>{{ $manageSubject->subjectTypes->name or ''}}</td>                 
                   <td>{{ $manageSubject->isoptional->name or ''}}</td>                 
