@@ -22,24 +22,24 @@
                      </div> 
                    <div class="form-group">
                         {{ Form::label('hb','HB ',['class'=>' control-label']) }}                         
-                        {{ Form::text('hb',14,['class'=>'form-control','maxlength'=>'4']) }}
+                        {{ Form::text('hb',14,['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                         <p class="text-danger">{{ $errors->first('hb') }}</p>
                     </div>
                     <div class="form-group">
                         {{ Form::label('weight','Weight (only kg)',['class'=>' control-label','maxlength'=>'3']) }}                         
-                        {{ Form::text('weight','',['class'=>'form-control','maxlength'=>'3']) }}
+                        {{ Form::text('weight','',['class'=>'form-control',' required','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                         <p class="text-danger">{{ $errors->first('weight') }}</p>
                     </div>
                      
                      <div class="form-group">
-                        {{ Form::label('height','Height (only cm)',['class'=>' control-label ','maxlength'=>'3']) }}                         
-                        {{ Form::text('height','',['class'=>'form-control','maxlength'=>'3']) }}
+                        {{ Form::label('height','Height (only cm)',['class'=>' control-label ',' required','maxlength'=>'3']) }}                         
+                        {{ Form::text('height','',['class'=>'form-control',' required','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                         <p class="text-danger">{{ $errors->first('height') }}</p>
                     </div>
                     
                     <div class="form-group">
                         {{ Form::label('vision','vision',['class'=>' control-label ']) }}                         
-                        {{ Form::text('vision','',['class'=>'form-control ']) }}
+                        {{ Form::text('vision','',['class'=>'form-control ','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                         <p class="text-danger">{{ $errors->first('vision') }}</p>
                     </div> 
                      
@@ -104,7 +104,7 @@
                         <p class="text-danger">{{ $errors->first('bp') }}</p>
                     </div> 
                     <div class="form-group">
-                        {{ Form::label('bp','BP Uper',['class'=>' control-label ']) }}
+                        {{ Form::label('bp','BP Upper',['class'=>' control-label ']) }}
                         {{ Form::text('bp_uper','120',['class'=>'form-control']) }}
                         <p class="text-danger">{{ $errors->first('bp') }}</p>
                     </div>  

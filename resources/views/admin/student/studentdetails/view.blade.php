@@ -200,12 +200,13 @@ b{
                                  <th> <span class="text-nowrap">HB </span></th>
                                  <th> <span class="text-nowrap">Weight </span></th>
                                  <th> <span class="text-nowrap">Height </span></th>
-                                 <th> <span class="text-nowrap">Narration </span></th>
+                                 
                                  <th> <span class="text-nowrap">Vision </span></th>
                                  <th> <span class="text-nowrap">Complextion </span></th>
                                  <th> <span class="text-nowrap">Alergey </span></th>
                                  <th> <span class="text-nowrap">Alergey Vacc </span></th>
                                  <th> <span class="text-nowrap">Physical Handicapped </span></th>
+                                 <th> <span class="text-nowrap">Narration </span></th>
                                  <th> <span class="text-nowrap">Dental </span></th>
                                  <th> <span class="text-nowrap">BP </span></th>
                                  <th> <span class="text-nowrap">Id Marks1 </span></th>
@@ -217,16 +218,17 @@ b{
                             @foreach (App\Model\StudentMedicalInfo::where('student_id',$student->id)->get() as $medicalInfo)
                              <tr>
                                  <td>{{ Carbon\Carbon::parse($medicalInfo->ondate)->format('d-m-Y') }}</td>
-                                 <td>{{ $medicalInfo->bloodgroups->name }}</td>
+                                 <td>{{ $medicalInfo->bloodgroups->name or ''}}</td>
                                  <td>{{ $medicalInfo->hb }}</td>
                                  <td>{{ $medicalInfo->weight }}</td>
                                  <td>{{ $medicalInfo->height }}</td>
-                                 <td>{{ $medicalInfo->narration }}</td>
+                                 
                                  <td>{{ $medicalInfo->vision }}</td>
                                  <td>{{ $medicalInfo->complextion }}</td>
                                  <td>{{ $medicalInfo->alergey }}</td>
-                                 <td>{{ $medicalInfo->alergeyvacc }}</td>
+                                 <td>{{ $medicalInfo->alergey_vacc }}</td>
                                  <td>{{ $medicalInfo->physical_handicapped }}</td>
+                                 <td>{{ $medicalInfo->narration }}</td>
                                  <td>{{ $medicalInfo->dental }}</td>                                  
                                  <td>{{ $medicalInfo->bp }}</td> 
                                  <td>{{ $medicalInfo->id_marks1 }}</td>
