@@ -42,8 +42,10 @@ class DashboardController extends Controller
         $students = Student::where('status',1)->count();                        
         $newRegistraions = ParentRegistration::get();  
         $feeDues = StudentFeeDetail::where('paid',0)->get()->sum('fee_amount');                      
-         $feePaid = StudentFeeDetail::where('paid',1)->get()->sum('fee_amount');                      
-        return view('admin/dashboard/dashboard',compact('students','present','absent','newRegistraions','feeDues','feePaid'));
+         $feePaid = StudentFeeDetail::where('paid',1)->get()->sum('fee_amount');
+         $classTypes=ClassType::orderBy('id','ASC')->get();
+        $students=Student::where('class_id',1)->get()->count(); 
+        return view('admin/dashboard/dashboard',compact('students','present','absent','newRegistraions','feeDues','feePaid','classTypes','students'));
         
     }  
 

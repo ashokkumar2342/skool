@@ -452,17 +452,23 @@
 
       var data = google.visualization.arrayToDataTable([
         ['Task', 'Hours per Day'],
-        ['Class I',     11],
-        ['Class II',      2],
-        ['Class III',  2],
-        ['Class IV', 10],
-        ['Class VI',    12],
-        ['Class VII',    20],
-        ['Class VIII',    7],
-        ['Class IX',    7],
-        ['Class X',    7],
-        ['Class XI',    7],
-        ['Class XII',    7],
+        @foreach ($classTypes as $classType)
+           @php
+              $students=App\Student::where('class_id',$classType->id)->get()->count(); 
+               
+           @endphp
+        ['{{ $classType->name }}', {{ $students }}],
+        @endforeach
+        // ['Class II',      2],
+        // ['Class III',  2],
+        // ['Class IV', 10],
+        // ['Class VI',    12],
+        // ['Class VII',    20],
+        // ['Class VIII',    7],
+        // ['Class IX',    7],
+        // ['Class X',    7],
+        // ['Class XI',    7],
+        // ['Class XII',    7],
       ]);
 
       var options = {
