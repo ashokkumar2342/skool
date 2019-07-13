@@ -217,7 +217,7 @@ class StudentController extends Controller
     public function remarks(Request $request,$id){ 
         try { 
         $student =Student::find($id);
-          return $remarks = StudentRemark::where('student_id',$student->id)->get();
+          return $remarks = StudentRemark::with(['admin'])->where('student_id',$student->id)->get();
               
             if (!empty($remarks)) {
               return $remarks; 
