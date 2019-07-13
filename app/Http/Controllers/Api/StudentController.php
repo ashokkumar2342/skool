@@ -16,6 +16,7 @@ use App\Model\Remark\Remark;
 use App\Model\SessionDate;
 use App\Model\StudentAttendance;
 use App\Model\StudentDefaultValue;
+use App\Model\StudentRemark;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -215,8 +216,8 @@ class StudentController extends Controller
     } 
     public function remarks(Request $request,$id){ 
         try { 
-           $student =Student::find($id);
-           $remarks = Remark::where('student_id',$student->id)->get();
+        $student =Student::find($id);
+          return $remarks = StudentRemark::where('student_id',$student->id)->get();
               
             if (!empty($remarks)) {
               return $remarks; 
