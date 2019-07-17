@@ -44,6 +44,7 @@ Route::get('test', function(Request $request){
     Route::get('last-fee/{id}', 'Api\StudentController@lastFee'); 
     Route::get('fee-upto/{id}', 'Api\StudentController@feeUpto'); 
     Route::get('event/{id}', 'Api\StudentController@event'); 
+    Route::get('remarks/{id}', 'Api\StudentController@remarks'); 
   
  });
 

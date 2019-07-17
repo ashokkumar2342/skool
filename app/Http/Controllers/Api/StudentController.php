@@ -12,9 +12,11 @@ use App\Model\Gender;
 use App\Model\Homework;
 use App\Model\ParentRegistration;
 use App\Model\Religion;
+use App\Model\Remark\Remark;
 use App\Model\SessionDate;
 use App\Model\StudentAttendance;
 use App\Model\StudentDefaultValue;
+use App\Model\StudentRemark;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -204,6 +206,21 @@ class StudentController extends Controller
               
             if (!empty($events)) {
               return $events; 
+              // return [$lastFee,$cashbooks->sum('receipt_amount')];   
+            }
+             return response()->json(['data'=>'null','status'=>'0']);  
+        } catch (Exception $e) {
+            return $e;
+        }
+       
+    } 
+    public function remarks(Request $request,$id){ 
+        try { 
+        $student =Student::find($id);
+          return $remarks = StudentRemark::with(['admin'])->where('student_id',$student->id)->get();
+              
+            if (!empty($remarks)) {
+              return $remarks; 
               // return [$lastFee,$cashbooks->sum('receipt_amount')];   
             }
              return response()->json(['data'=>'null','status'=>'0']);  
