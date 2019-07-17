@@ -15,7 +15,7 @@
               <form action="{{ route('admin.preod.timing.store') }}" method="post" class="add_form" content-refresh="time_table_type_history">
                    {{ csrf_field() }}
                    <div class="row"> 
-                    <div class="col-lg-5">
+                    <div class="col-lg-4">
                       <label>Time Table Type</label>
                       <select name="time_table_type" class="form-control" onchange="callAjax(this,'{{ route('admin.preod.timing.table.show') }}','time_table_type_history')">
                         <option selected disabled>Select Type</option> 
@@ -25,9 +25,13 @@
                       </select>
                          
                     </div>
-                    <div class="col-lg-7">
-                      <label>From Time</label>
+                    <div class="col-lg-4">
+                      <label>Period Time</label>
                         <input type="time" class="form-control" name="time" placeholder="" required="" maxlength="">
+                    </div> 
+                    <div class="col-lg-4">
+                      <label>Period No</label>
+                        <input type="number" class="form-control" name="period_no" placeholder="" required="" maxlength="">
                     </div> 
                   </div>
                    <div class="row">

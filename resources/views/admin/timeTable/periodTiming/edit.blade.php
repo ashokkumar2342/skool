@@ -20,7 +20,7 @@
           <form action="{{ route('admin.preod.timing.update',$periodTimings->id) }}" method="post" class="add_form" content-refresh="time_table_type_history" button-click="btn_close">
                    {{ csrf_field() }}
                    <div class="row"> 
-                    <div class="col-lg-5">
+                    <div class="col-lg-4">
                       <label>Time Table Type</label>
                       <select name="time_table_type" class="form-control">
                         <option selected disabled>Select Type</option>
@@ -33,9 +33,13 @@
                       </select>
                          
                     </div>
-                    <div class="col-lg-7">
-                      <label>From Time</label>
+                    <div class="col-lg-4">
+                      <label>Period Time</label>
                         <input type="time" class="form-control" name="time" placeholder="" required="" maxlength="" value="{{ $periodTimings->from_time }}">
+                    </div> 
+                     <div class="col-lg-4">
+                      <label>Period No</label>
+                        <input type="number" class="form-control" name="period_no" placeholder="" required="" maxlength="" value="{{ $periodTimings->time_no }}">
                     </div> 
                   </div>
                    <div class="row">

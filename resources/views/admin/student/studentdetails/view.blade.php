@@ -20,8 +20,8 @@ b{
           <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.student.preview',$student->id) }}')" style="margin:5px">Preview</button>
           <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-home"></i> Student Details</a></li>
-              <li><a data-toggle="tab" href="#parent"><i class="fa fa-user-circle" id="parent_info"></i> Parent Info</a></li>
-              <li><a data-toggle="tab" href="#medical"><i class="fa fa-user-md" id="medical_info"></i> Medical info</a></li>
+              <li><a data-toggle="tab" data-table="parents_items" href="#parent" id="parent_info"  onclick="callAjax(this,'{{ route('admin.parents.list',$student->id) }}','parent_info_list')"><i class="fa fa-user-circle"></i> Parent Info</a></li>
+              <li><a data-toggle="tab" data-table="medical_info_table" href="#medical" id="medical_info_tab" onclick="callAjax(this,'{{ route('admin.medical.info.list',$student->id) }}','medical_info_page')"><i class="fa fa-user-md" id="medical_info"></i> Medical info</a></li>
               <li><a data-toggle="tab" href="#sibling"><i class="fa fa-users" id="sibling_info"></i> Siblling info</a></li>
               <li><a data-toggle="tab" href="#subjects"><i class="fa fa-book" id="subject_tab"></i>  Subjects</a></li>
               <li><a data-toggle="tab" href="#sport"><i class="fa fa-life-ring" id="sport_tab"></i> Sport hobby</a></li>
@@ -96,7 +96,7 @@ b{
                                      </div>
                                     <div style="padding-left: 15px; padding-top: 5px; padding-bottom: 15px">
                                        <a class="btn_change_image btn btn-success btn-xs" href="javascript:;">Upload Image </a>                              
-                                       <a class="btn_web btn btn-default btn-xs" {{-- onclick="callPopupMd(this,'{{ route('admin.student.camera',$student->id) }}')" --}} href="javascript:;"><i class="fa fa-camera"></i></a>                              
+                                       <a class="btn_web btn btn-default btn-xs" {{-- onclick="callPopupMd(this,'{{ route('admin.student.camera',$student->id) }}')" --}} href="javascript:;"><i class="fa fa-camera" style="margin: 10px"></i></a>                              
                                     </div>
                                 </div>                                  
                             </div>
@@ -118,141 +118,22 @@ b{
                     </div>
                 </div>
                 <div id="parent" class="tab-pane fade">
-                    <div class="box-header">                       
-                      <span  ><button type="button" class="add_btn_parets btn btn-info btn-sm" data-toggle="modal" data-target="#add_parent">Add Parents info</button></span> 
-                    </div>
-                   <div class="col-lg-12 table-responsive">
-                    <table class="table-responsive" id="parents_items"> 
-                        <thead>
-                            <tr>
-                                <th><span class="text-nowrap">Name </span></th>
-                                <th><span class="text-nowrap">Relation </span></th>
-                                <th><span class="text-nowrap">Education </span></th>
-                                <th><span class="text-nowrap">Occupation </span></th>
-                                <th><span class="text-nowrap">Income </span></th>
-                                <th><span class="text-nowrap">Mobile </span></th>
-                                <th><span class="text-nowrap">Email </span></th>
-                                <th><span class="text-nowrap">Date Of Birth </span></th>
-                                <th><span class="text-nowrap">Date Of Anniversary </span></th>
-                                <th><span class="text-nowrap">Office Address </span></th>
-                                <th><span class="text-nowrap">Islive </span></th>
-                                <th><span class="text-nowrap">Photo </span></th>
-                                <th><span class="text-nowrap" style="margin:5px">Action </span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           
-                            @foreach (App\Model\ParentsInfo::where('student_id',$student->id)->get() as $parents) 
-                            <tr>
-                                <td>{{ $parents->name }}</td>
-                                <td>{{ $parents->relationType->name or ''}}</td>
-                                <td>{{ $parents->education }}</td>
-                                <td>{{ $parents->profetions->name or '' }}</td>
-                                <td>{{ $parents->incomes->name or ''}}</td>
-                                <td>{{ $parents->mobile }}</td>
-                                <td>{{ $parents->email }}</td>
-                                <td>{{ $parents->dob }}</td>
-                                <td>{{ $parents->doa }}</td>
-                                <td>{{ $parents->office_address }}</td>
-                                <td>{{ $parents->islive == 1? 'Yes' : 'No' }}</td>                            
-                                                        
-                                 
-                                <td>
-                                  @php
-                             $image = route('admin.parents.image.show',$parents->photo);
-                              
-                             @endphp 
-                               <img  sc="{{ ($parents->photo)? $image : asset('profile-img/user.png') }}" style="width: 50px; height: 50px;  border: 2px solid #d1f7ec">
-
-                                </td>
-        
-
-                                <td width="150px;">
-                                    {{-- <a class="btn btn-warning btn-xs"  title="Edit Parents"><i class="fa fa-edit"></i></a> --}}
-                                    
-                                   {{--  <a href="{{ route('admin.parents.image',$parents->id) }}" title="" class="btn btn-success btn-xs"><i class="fa fa-image"></i></a> --}}
-
-                                    <button type="button" title="Upload Image" class="btn_parents_image btn btn-info btn-xs" data-toggle="modal" data-id="{{ $parents->id }}" data-target="#image_parent"><i class="fa fa-image"></i> </button>
-
-                                    <button type="button" title="Edit" class="parents_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $parents->id }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
-
-                                    <button class="parents_delete btn btn-danger btn-xs" title="Delete" onclick="return confirm('Are you Sure delete')" data-id="{{ $parents->id }}"  ><i class="fa fa-trash"></i></button>
-
-                                                     
-                                </td>                          
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                  </div>
-                    <div class="text-center">
-                     <button type="button" onclick="$('#medical_info').click()" class="btn btn-success btn-sm">Next</button> 
-                     </div> 
+                                        
+                      <span ><button type="button" class="add_btn_parets btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.parents.add.form',$student->id) }}')" style="margin: 10px">Add Parents info</button></span> 
+                    
+                   <div class="table-responsive" id="parent_info_list">
+                    </div> 
                 </div>
                  <div id="medical" class="tab-pane fade">
-                    <button type="button" class="btn btn-info btn-sm btn_add_medical_info" data-toggle="modal" data-target="#add_medical">Add Medical info</button>
-                    <div class="col-lg-12 table-responsive">
-                    <table class="table-responsive" id="medical_items">                         
-                         <thead>
-                             <tr>
-                                 <th> <span class="text-nowrap">Ondate </span></th>
-                                 <th> <span class="text-nowrap">Blood Group </span></th>
-                                 <th> <span class="text-nowrap">HB </span></th>
-                                 <th> <span class="text-nowrap">Weight </span></th>
-                                 <th> <span class="text-nowrap">Height </span></th>
-                                 
-                                 <th> <span class="text-nowrap">Vision </span></th>
-                                 <th> <span class="text-nowrap">Complextion </span></th>
-                                 <th> <span class="text-nowrap">Alergey </span></th>
-                                 <th> <span class="text-nowrap">Alergey Vacc </span></th>
-                                 <th> <span class="text-nowrap">Physical Handicapped </span></th>
-                                 <th> <span class="text-nowrap">Narration </span></th>
-                                 <th> <span class="text-nowrap">Dental </span></th>
-                                 <th> <span class="text-nowrap">BP </span></th>
-                                 <th> <span class="text-nowrap">Id Marks1 </span></th>
-                                 <th> <span class="text-nowrap">Id Marks2 </span></th>
-                                 <th> <span class="text-nowrap"  style="margin :5px">Action </span></th>
-                             </tr>
-                         </thead>
-                         <tbody>
-                            @foreach (App\Model\StudentMedicalInfo::where('student_id',$student->id)->get() as $medicalInfo)
-                             <tr>
-                                 <td>{{ Carbon\Carbon::parse($medicalInfo->ondate)->format('d-m-Y') }}</td>
-                                 <td>{{ $medicalInfo->bloodgroups->name or ''}}</td>
-                                 <td>{{ $medicalInfo->hb }}</td>
-                                 <td>{{ $medicalInfo->weight }}</td>
-                                 <td>{{ $medicalInfo->height }}</td>
-                                 
-                                 <td>{{ $medicalInfo->vision }}</td>
-                                 <td>{{ $medicalInfo->complextion }}</td>
-                                 <td>{{ $medicalInfo->alergey }}</td>
-                                 <td>{{ $medicalInfo->alergey_vacc }}</td>
-                                 <td>{{ $medicalInfo->physical_handicapped }}</td>
-                                 <td>{{ $medicalInfo->narration }}</td>
-                                 <td>{{ $medicalInfo->dental }}</td>                                  
-                                 <td>{{ $medicalInfo->bp }}</td> 
-                                 <td>{{ $medicalInfo->id_marks1 }}</td>
-                                 <td>{{ $medicalInfo->id_marks2 }}</td>
-                                 <td style="width: 100px"> 
-                                  <button class="btn_medical_view btn btn-info btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.medical.view',$medicalInfo->id) }}')" data-id=""  ><i class="fa fa-eye"></i></button>
-
-                                    <button class="btn_medical_edit btn btn-warning btn-xs"  data-id="{{ $medicalInfo->id }}"  ><i class="fa fa-edit"></i></button>
-
-                                     <button class="btn_medical_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $medicalInfo->id }}"  ><i class="fa fa-trash"></i></button>
-                                 </td>
-
-                                                                  
-                             </tr>
-                             @endforeach
-                         </tbody>
-                     </table> 
+                    <button type="button" class="btn btn-info btn-sm btn_add_medical_info" onclick="callPopupLarge(this,'{{ route('admin.medical.info.add.form',$student->id) }}')" style="margin: 10px">Add Medical info</button>
+                     
+                    <div class="table-responsive" id="medical_info_page">
+                   
                    </div>
-                     <div class="text-center">
-                     <button type="button" onclick="$('#sibling_info').click()" class="btn btn-success btn-sm">Next</button> 
-                     </div> 
+                     
                  </div>   
                 <div id="sibling" class="tab-pane fade">
-                 <button type="button" class="btn btn-info btn-sm btn_add_sibling_info" data-toggle="modal" data-target="#add_sibling">Add Sibling info</button>
+                 <button type="button" class="btn btn-info btn-sm btn_add_sibling_info" data-toggle="modal" data-target="#add_sibling" style="margin: 10px">Add Sibling info</button>
                  <div class="col-lg-12 table-responsive">
                  <table class="table" id="sibling_items">                         
                       <thead>
@@ -392,9 +273,9 @@ b{
    
  
 
-@include('admin.student.studentdetails.include.add_parents_info')
+{{-- @include('admin.student.studentdetails.include.add_parents_info') --}}
 @include('admin.student.studentdetails.include.add_parents_image')
-@include('admin.student.studentdetails.include.add_medical_info')
+{{-- @include('admin.student.studentdetails.include.add_medical_info') --}}
 @include('admin.student.studentdetails.include.add_sibling_info')
 @include('admin.student.studentdetails.include.add_subject')
 @include('admin.student.studentdetails.include.add_sport_hobby')

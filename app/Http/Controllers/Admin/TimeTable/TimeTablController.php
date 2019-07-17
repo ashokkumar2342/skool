@@ -125,7 +125,7 @@ class TimeTablController extends Controller
           return response()->json($response);// response as json
       } 
       else {
-        $manualTimeTabl=ManualTimeTabl::where('time_table_type_id',$request->time_table_type)->where('class_id',$request->class)->where('section_id',$request->section)->where('day_id',$request->day)->where('period_id',$request->period)->first();
+        $manualTimeTabl=ManualTimeTabl::where('time_table_type_id',$request->time_table_type)->where('class_id',$request->class)->where('section_id',$request->section)->where('day_id',$request->day)->where('subject_id',$request->subject)->first();
         if (!empty($manualTimeTabl)) {
            $response=['status'=>0,'msg'=>'Already Created'];
             return response()->json($response);

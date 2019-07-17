@@ -44,7 +44,7 @@ class ReportController extends Controller
     }
 
     public function reportfilter(Request $request){
-    	 
+    	   // return $request;
     	if ($request->report_for == 1 && $request->school_class == 1 ) {
     	   $results = Student::
     	            Join('student_medical_infos', 'students.id', '=', 'student_medical_infos.student_id')    	             
@@ -88,6 +88,15 @@ class ReportController extends Controller
         }
         elseif ($request->report_for == 4 &&  $request->school_class == 2){ 
             $results = Student::where(['class_id'=>$request->class,'section_id'=>$request->section])->where('gender_id',$request->gender)->get();
+                   return  $this->responseResult($results);
+             
+        } elseif ($request->report_for == 5 && $request->school_class == 1){       
+             $results=Student::where('city','like',$request->city)->get();
+              return  $this->responseResult($results);
+        
+        }
+        elseif ($request->report_for == 5 &&  $request->school_class == 2){ 
+            $results = Student::where(['class_id'=>$request->class,'section_id'=>$request->section])->where('city','like',$request->city)->get();
                    return  $this->responseResult($results);
              
         } elseif ($request->report_for == 7 &&  $request->school_class == 1){ 

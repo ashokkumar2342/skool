@@ -102,16 +102,20 @@
                                     </select> 
                                  </div>
                              </div>
-                       {{--      <div class="col-lg-3" id="rel" style="display:none">                         
+                            <div class="col-lg-3" id="cit" style="display:none">                         
                                 <div class="form-group">
-                                    <select name="city" id="category" class="form-control">
+                                     {{ Form::label('city','City',['class'=>' control-label']) }}
+                                    <select name="city" id="city" class="form-control">
                                      {{ Form::label('city','city',['class'=>' control-label']) }}
-                                     @foreach (App\model\City::all() as $city)                                            
-                                           <option value="{{ $city->id }}">{{ $city->name }}</option>                                  
+                                     @foreach (App\Student::all() as $student)                                            
+                                           <option value="{{ $student->city }}">{{ $student->city }}</option> 
+                                                                            
                                      @endforeach 
+
                                     </select> 
+                                     
                                  </div>
-                            </div> --}} 
+                            </div> 
                             <div class="col-lg-3" id="school_class1">                         
                                 <div class="form-group">
                                     {{ Form::label('school_class','All Student/Class',['class'=>' control-label']) }}
@@ -210,6 +214,7 @@
                 $("#gender").hide(); 
                 $("#bloodgroup").show();              
                 $("#category").hide();  
+                $("#cit").hide();  
                 break;
             case '2': 
             console.log('2'); 
@@ -220,6 +225,7 @@
                 $("#gen").hide();
                 $("#religion").hide(); 
                 $("#gender").hide(); 
+                $("#cit").hide(); 
                 $("#category").show(); 
                 break;
             case '3':
@@ -231,6 +237,7 @@
                 $("#gen").hide();
                 $("#religion").show(); 
                 $("#gender").hide(); 
+                $("#cit").hide(); 
 
                  
                 break;
@@ -242,10 +249,20 @@
                  $("#rel").hide(); 
                  $("#gen").show();
                  $("#religion").hide(); 
+                 $("#cit").hide(); 
                  $("#gender").show();
                 break;
             case '5':
-                day = "Thursday";
+                $("#cate").hide(); 
+                 $("#blood").hide();
+                 $("#bloodgroup").hide();  
+                 $("#category").hide(); 
+                 $("#rel").hide(); 
+                 $("#gen").hide();
+                 $("#religion").hide(); 
+                 $("#cit").show(); 
+                 $("#gender").hide();
+                 $("#city").show();
                 break;
             case '6':
                 day = "Friday";
@@ -259,6 +276,7 @@
                  $("#gen").hide();
                  $("#religion").hide(); 
                  $("#gender").hide();
+                 $("#city").hide();
         }    
        // if($("#report_for").val() == 1){
        //   $("#blood").show(); 
