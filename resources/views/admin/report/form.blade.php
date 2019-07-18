@@ -102,16 +102,37 @@
                                     </select> 
                                  </div>
                              </div>
-                       {{--      <div class="col-lg-3" id="rel" style="display:none">                         
+                            <div class="col-lg-3" id="cit" style="display:none">                         
                                 <div class="form-group">
-                                    <select name="city" id="category" class="form-control">
+                                     {{ Form::label('city','City',['class'=>' control-label']) }}
+                                    <select name="city" id="city" class="form-control">
                                      {{ Form::label('city','city',['class'=>' control-label']) }}
-                                     @foreach (App\model\City::all() as $city)                                            
-                                           <option value="{{ $city->id }}">{{ $city->name }}</option>                                  
+                                      <option selected disabled>Select</option>
+                                     @foreach (App\Student::all() as $student)   
+                                           <option value="{{ $student->city }}">{{ $student->city }}</option> 
+                                                                            
                                      @endforeach 
+
                                     </select> 
+                                     
                                  </div>
-                            </div> --}} 
+                            </div> 
+                            <div class="col-lg-3" id="stat" style="display:none">                         
+                                <div class="form-group">
+                                     {{ Form::label('state','State',['class'=>' control-label']) }}
+                                    <select name="state" id="state" class="form-control">
+                                     {{ Form::label('state','state',['class'=>' control-label']) }}
+                                      <option selected disabled>Select</option> 
+                                     @foreach (App\Student::all() as $student)
+                                                                                
+                                           <option value="{{ $student->state }}">{{ $student->state }}</option> 
+                                                                            
+                                     @endforeach 
+
+                                    </select> 
+                                     
+                                 </div>
+                            </div> 
                             <div class="col-lg-3" id="school_class1">                         
                                 <div class="form-group">
                                     {{ Form::label('school_class','All Student/Class',['class'=>' control-label']) }}
@@ -206,10 +227,14 @@
                 $("#cate").hide(); 
                 $("#rel").hide(); 
                 $("#gen").hide();
+                $("#cit").hide();  
+                $("#stat").hide();  
                 $("#religion").hide(); 
                 $("#gender").hide(); 
                 $("#bloodgroup").show();              
                 $("#category").hide();  
+                $("#city").hide();  
+                $("#state").hide();  
                 break;
             case '2': 
             console.log('2'); 
@@ -218,9 +243,13 @@
                 $("#bloodgroup").hide(); 
                 $("#rel").hide(); 
                 $("#gen").hide();
+                $("#cit").hide();  
+                $("#stat").hide();  
                 $("#religion").hide(); 
                 $("#gender").hide(); 
                 $("#category").show(); 
+                $("#city").hide();
+                $("#state").hide(); 
                 break;
             case '3':
                $("#cate").hide(); 
@@ -229,8 +258,12 @@
                 $("#category").show(); 
                 $("#rel").show(); 
                 $("#gen").hide();
+                $("#cit").hide();  
+                $("#stat").hide();  
                 $("#religion").show(); 
                 $("#gender").hide(); 
+                $("#city").hide(); 
+                $("#state").hide();
 
                  
                 break;
@@ -241,14 +274,41 @@
                  $("#category").hide(); 
                  $("#rel").hide(); 
                  $("#gen").show();
+                 $("#cit").hide();  
+                 $("#stat").hide();  
                  $("#religion").hide(); 
                  $("#gender").show();
+                 $("#city").hide(); 
+                 $("#state").hide();
                 break;
             case '5':
-                day = "Thursday";
+                $("#cate").hide(); 
+                 $("#blood").hide();
+                 $("#bloodgroup").hide();  
+                 $("#category").hide(); 
+                 $("#rel").hide(); 
+                 $("#gen").hide();
+                 $("#cit").show();  
+                 $("#stat").hide();  
+                 $("#religion").hide(); 
+                 $("#cit").show(); 
+                 $("#gender").hide();
+                 $("#city").show();
+                 $("#state").hide();
                 break;
             case '6':
-                day = "Friday";
+                $("#cate").hide(); 
+                 $("#blood").hide();
+                 $("#bloodgroup").hide();  
+                 $("#category").hide(); 
+                 $("#rel").hide(); 
+                 $("#gen").hide();
+                 $("#cit").hide();  
+                 $("#stat").show();  
+                 $("#religion").hide(); 
+                 $("#gender").hide();
+                 $("#city").hide(); 
+                 $("#state").show();
                 break;
             case '7':
                 $("#cate").hide(); 
@@ -257,8 +317,12 @@
                  $("#category").hide(); 
                  $("#rel").hide(); 
                  $("#gen").hide();
+                 $("#cit").hide();  
+                 $("#stat").hide();  
                  $("#religion").hide(); 
                  $("#gender").hide();
+                 $("#city").hide();
+                 $("#state").hide();
         }    
        // if($("#report_for").val() == 1){
        //   $("#blood").show(); 

@@ -434,8 +434,7 @@ class TeacherController extends Controller
     } 
 
     public function saveAdjustment($teacher_id,$class_id,$subject_id,$period_id,$day_id,$teacherAbsent){
-      $teacherAdjustments=TeacherAdjustment::where('teacher_absent_id',$teacherAbsent)->get();
-        if (!empty($teacherAdjustments)) { 
+           $teacherFacultys=ManualTimeTabl::where('class_id',$class_id)->get();
            $TeacherAdjustment=new TeacherAdjustment();
            $TeacherAdjustment->teacher_absent_id=$teacherAbsent;
            $TeacherAdjustment->teacher_id=$teacher_id;
@@ -444,7 +443,44 @@ class TeacherController extends Controller
            $TeacherAdjustment->period_id=$period_id;
            $TeacherAdjustment->day_id=$day_id;
            $TeacherAdjustment->save(); 
+         
+    }
+    public function teacherAdjustmentView(Request $request,$teacher_id){
+
+      $teacherAdjustments=TeacherAdjustment::where('teacher_absent_id',$request->id)->orderBy('period_id','ASC')->get();
+      return  view('admin.teacher.teacherAdjustment.teacher_adjustment_view',compact('teacherAdjustments')) ;
+         
+    }
+    public function teacherAdjustmentEdit(Request $request,$teacher_id){
+      // $teacherFacultys=ManualTimeTabl::orderBy('teacher_id','DESC')->distinct('teacher_id')->get(['teacher_id']);
+       $teacherAdjustment = TeacherAdjustment::find($teacher_id);
+      $teacherFacultys=ManualTimeTabl::where('day_id',$teacherAdjustment->day_id)->distinct('teacher_id')->get(['teacher_id']);
+      return  view('admin.teacher.teacherAdjustment.teacher_adjustment_edit',compact('teacherFacultys','teacherAdjustment')) ;
+    }
+    public function teacherAdjustmentUpdate(Request $request,$teacher_id){
+      
+        $rules=[ 
+           'teacher'=>'required', 
+            
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
         }
+        else {
+      $teacherAdjustment =TeacherAdjustment::find($teacher_id); 
+      $teacherAdjustment->teacher_id=$request->teacher;
+      $teacherAdjustment->save();
+      $response = array();
+              $response['status'] = 1;
+              $response['msg'] = 'Update Successfully'; 
+                return response()->json($response);
+       }
     }
 
     public function teacherAdjustment(Request $request){
@@ -470,7 +506,7 @@ class TeacherController extends Controller
              $checkTeacherAvailable =$presentAvailableTeachers=ManualTimeTabl::where('day_id',$day_id)->where('teacher_id','=',$presentAvailableTeacher->teacher_id)->where('period_id',$absentPeriod->period_id)->first();
 
              if (empty($checkTeacherAvailable)) {
-                 $this->saveAdjustment($presentAvailableTeacher->teacher_id,$absentPeriod->class_id,$absentPeriod->subject_id,$absentPeriod->period_id,$day_id,$teacherAbsent->teacher_id);
+                 $this->saveAdjustment($presentAvailableTeacher->teacher_id,$presentAvailableTeacher->class_id,$absentPeriod->subject_id,$absentPeriod->period_id,$day_id,$teacherAbsent->teacher_id);
                  $checkPeriodDone=1;
                   break;
               }else{
@@ -487,7 +523,7 @@ class TeacherController extends Controller
 
                   if (empty($checkTeacherAvailableSubject)) {
 
-                     $this->saveAdjustment($presentAvailableTeachersSubjectWise->teacher_id,$absentPeriod->class_id,$checkTeacherAvailableSubject->subject_id,$absentPeriod->period_id,$day_id,$teacherAbsent->teacher_id);
+                     $this->saveAdjustment($presentAvailableTeachersSubjectWise->teacher_id,$presentAvailableTeachersSubjectWise->class_id,$checkTeacherAvailableSubject->subject_id,$absentPeriod->period_id,$day_id,$teacherAbsent->teacher_id);
 
                       $checkPeriodDone=1;
                        break;
@@ -506,7 +542,7 @@ class TeacherController extends Controller
 
                   if (empty($checkTeacherAvailableSubject)) {
 
-                      $this->saveAdjustment($presentAvailableTeachersSubjectWise->teacher_id,$absentPeriod->class_id,$absentPeriod->subject_id,$absentPeriod->period_id,$day_id,$teacherAbsent->teacher_id);
+                      $this->saveAdjustment($presentAvailableTeachersSubjectWise->teacher_id,$presentAvailableTeachersSubjectWise->class_id,$absentPeriod->subject_id,$absentPeriod->period_id,$day_id,$teacherAbsent->teacher_id);
                       $checkPeriodDone=1;
                        break;
 
@@ -520,7 +556,7 @@ class TeacherController extends Controller
           
         }
 
-        $teacherAdjustments=TeacherAdjustment::all();
+        $teacherAdjustments=TeacherAdjustment::orderBy('period_id','ASC')->get();
         $response = array();
           $response['status'] = 1;
         $response['data'] = view('admin.teacher.teacherAdjustment.teacher_adjustment_result_form',compact('teacherAdjustments'))->render();

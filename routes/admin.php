@@ -158,6 +158,7 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('birthday', 'StudentController@birthday')->name('admin.student.birthday.list');	      
 	     Route::post('birthday-search', 'StudentController@birthdaySearch')->name('admin.birthday.search'); 
 	     Route::get('birthday-card/{id}', 'StudentController@birthdayPrint')->name('admin.birthday.card.pdf'); 
+	     Route::get('birthday-sms-send/{id}', 'StudentController@birthdaySmsSend')->name('admin.birthday.card.sms.send'); 
 	     Route::post('birthday-card-all', 'StudentController@birthdayPrintAll')->name('admin.birthday.card.pdfAll');   
 	     Route::post('import', 'StudentController@importStudent')->name('admin.student.excel.store');	      
 	     
@@ -183,19 +184,24 @@ Route::group(['middleware' => 'admin'], function() {
 	 // ---------------Parents Info----------------------------------------
 	 Route::group(['prefix' => 'parents-info'], function() {
 	    Route::post('Parents-add', 'ParentInfoController@store')->name('admin.parents.add');
-	    Route::delete('delete', 'ParentInfoController@destroy')->name('admin.parents.delete');
-	    Route::get('edit', 'ParentInfoController@edit')->name('admin.parents.edit');
+	    Route::get('Parents-list/{id}', 'ParentInfoController@perentTable')->name('admin.parents.list');
+	    Route::get('Parents-add-form/{id}', 'ParentInfoController@perentInfoAddForm')->name('admin.parents.add.form');
+	    Route::get('delete/{id}', 'ParentInfoController@destroy')->name('admin.parents.delete');
+	    Route::get('edit/{id}', 'ParentInfoController@edit')->name('admin.parents.edit');
 	    Route::post('image', 'ParentInfoController@image')->name('admin.parents.image');
 	    Route::get('image/{image}', 'ParentInfoController@imageShow')->name('admin.parents.image.show');
-	    Route::post('update', 'ParentInfoController@update')->name('admin.parents.update');
+	    Route::post('update/{id}', 'ParentInfoController@update')->name('admin.parents.update');
 	 });
 	  	// ---------------Medical Info----------------------------------------
 	 Route::group(['prefix' => 'medical-info'], function() {
 	    Route::post('add', 'StudentMedicalInfoController@store')->name('admin.medical.add');
-	    Route::delete('delete', 'StudentMedicalInfoController@destroy')->name('admin.medical.delete');
-	    Route::get('edit', 'StudentMedicalInfoController@edit')->name('admin.medical.edit');
+
+	    Route::get('list/{id}', 'StudentMedicalInfoController@medicalInfoList')->name('admin.medical.info.list');
+	    Route::get('add-form/{id}', 'StudentMedicalInfoController@medicalInfoAddForm')->name('admin.medical.info.add.form');
+	    Route::get('delete/{id}', 'StudentMedicalInfoController@destroy')->name('admin.medical.delete');
+	    Route::get('edit/{id}', 'StudentMedicalInfoController@edit')->name('admin.medical.edit');
 	    Route::get('view/{id}', 'StudentMedicalInfoController@show')->name('admin.medical.view');
-	    Route::post('update', 'StudentMedicalInfoController@update')->name('admin.medical.update');
+	    Route::post('update/{id}', 'StudentMedicalInfoController@update')->name('admin.medical.update');
 	 }); 
 	   	// ---------------Sibling Info----------------------------------------
 	 Route::group(['prefix' => 'sibling-info'], function() {
@@ -617,6 +623,14 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('quick-sms', 'Sms\SmsController@quickSms')->name('admin.quick.sms'); 
 			    Route::get('send-report', 'Sms\SmsController@smsReport')->name('admin.sms.smsReport'); 
 			    Route::post('quick-email', 'Sms\SmsController@quickEmail')->name('admin.quick.email');
+			    Route::get('sms-template', 'Sms\SmsController@smsTemplate')->name('admin.sms.template');
+			    Route::get('sms-template-add', 'Sms\SmsController@smsTemplateAdd')->name('admin.sms.template.add');
+			    Route::post('sms-template-store', 'Sms\SmsController@smsTemplateStore')->name('admin.sms.template.store');
+			    Route::get('sms-template-table', 'Sms\SmsController@smsTemplateTable')->name('admin.sms.template.table');
+			    Route::get('sms-template-edit/{id}', 'Sms\SmsController@smsTemplateEdit')->name('admin.sms.template.edit');
+			    Route::get('sms-template-delete/{id}', 'Sms\SmsController@smsTemplateDestroy')->name('admin.sms.template.delete');
+			    Route::get('sms-template-view/{id}', 'Sms\SmsController@smsTemplateView')->name('admin.sms.template.view');
+			    Route::post('sms-template-update/{id}', 'Sms\SmsController@smsTemplateUpdate')->name('admin.sms.template.update');
 
 			});	
 
@@ -882,6 +896,9 @@ Route::group(['middleware' => 'admin'], function() {
                 	Route::get('adjustment', 'TimeTable\TeacherController@adjustment')->name('admin.teacher.adjustment');
                 	Route::post('teacher-show', 'TimeTable\TeacherController@teacherAdjustmentShow')->name('admin.teacher.adjustment.show');
                 	Route::post('teacher-adjustment', 'TimeTable\TeacherController@teacherAdjustment')->name('admin.teacher.adjustment.result');
+                	Route::get('adjustment-teacher-edit/{id}', 'TimeTable\TeacherController@teacherAdjustmentEdit')->name('admin.teacher.adjustment.edit');
+                	Route::get('adjustment-teacher-view/{id}', 'TimeTable\TeacherController@teacherAdjustmentView')->name('admin.teacher.adjustment.view');
+                	Route::post('adjustment-teacher-update/{id}', 'TimeTable\TeacherController@teacherAdjustmentUpdate')->name('admin.teacher.adjustment.update');
            });
                Route::group(['prefix' => 'room-details'], function() {
                	 Route::get('/', 'Room\RoomController@index')->name('admin.room.details');

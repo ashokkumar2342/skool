@@ -21,11 +21,12 @@ class PreodController extends Controller
 
      public function store(Request $request)
     {
-    	// return $request;
+    	//return $request;
     	$rules=[
     	  
             'time_table_type' => 'required', 
             'time' => 'required', 
+            'period_no' => 'required', 
               
        
     	];
@@ -42,6 +43,7 @@ class PreodController extends Controller
     	  $timeTableType=new PeriodTiming();
     	  $timeTableType->time_table_type_id=$request->time_table_type;
     	  $timeTableType->from_time=$request->time;
+          $timeTableType->time_no=$request->period_no;
     	  $timeTableType->save();
     	  $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
@@ -64,6 +66,7 @@ class PreodController extends Controller
     	  
             'time_table_type' => 'required', 
             'time' => 'required', 
+            'period_no' => 'required', 
               
        
     	];
@@ -80,6 +83,7 @@ class PreodController extends Controller
     	  $timeTableType= PeriodTiming::find($id);
     	  $timeTableType->time_table_type_id=$request->time_table_type;
     	  $timeTableType->from_time=$request->time;
+           $timeTableType->time_no=$request->period_no;
     	  $timeTableType->save();
     	  $response=['status'=>1,'msg'=>'Update Successfully'];
             return response()->json($response);

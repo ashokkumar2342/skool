@@ -2,7 +2,8 @@
                 <thead>
                   <tr>
                    {{--  <th>Time Table Type</th> --}}
-                    <th>Time</th>
+                    <th>Period Time</th>
+                    <th>Period No</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -11,6 +12,7 @@
                       <tr>
                         {{-- <td>{{ $periodTiming->timeTableType->name or '' }}</td> --}}
                         <td>{{ $periodTiming->from_time }}</td>
+                        <td>{{ $periodTiming->time_no }}</td>
                         <td>
                           <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.preod.timing.edit',Crypt::encrypt($periodTiming->id)) }}')"><i class="fa fa-edit"></i></button>
 

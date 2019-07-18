@@ -6,8 +6,10 @@ use App\Events\SmsEvent;
 use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
+use App\Model\Sms\SmsTemplate;
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class SmsController extends Controller
@@ -124,4 +126,88 @@ class SmsController extends Controller
     public function smsReport(){
     	return view('admin.sms.smsReport');
     }
+//----------------------------------------sms-template-------------------------------------------------------//
+    public function smsTemplate(){
+        return view('admin.sms.smsTemplate.list');
+    }
+    public function smsTemplateAdd(){
+        return view('admin.sms.smsTemplate.add_form');
+    }
+      public function smsTemplateStore(Request $request){  
+   $rules=[
+          
+            'name' => 'required', 
+            'message' => 'required', 
+            
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+        $smsTemplate=new SmsTemplate();
+        $smsTemplate->name=$request->name;
+        $smsTemplate->message=$request->message;
+         
+        $smsTemplate->save();
+        $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
+        } 
+    } 
+    public function smsTemplateTable(Request $request){
+         $smsTemplates=SmsTemplate::all();
+         return view('admin.sms.smsTemplate.table',compact('smsTemplates'));
+    }
+
+    public function smsTemplateEdit($id)
+    {   
+        $smsTemplates=SmsTemplate::findOrFail(Crypt::decrypt($id));
+        return view('admin.sms.smsTemplate.edit',compact('smsTemplates'));
+    } public function smsTemplateView($id)
+    {   
+        $smsTemplates=SmsTemplate::find($id);
+        return view('admin.sms.smsTemplate.view',compact('smsTemplates'));
+    }
+      public function smsTemplateDestroy($id)
+    {
+         $smsTemplates=SmsTemplate::findOrFail(Crypt::decrypt($id));
+         $smsTemplates->delete();
+         return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+
+    public function smsTemplateUpdate(Request $request,$id){  
+   $rules=[
+          
+            'name' => 'required', 
+            'message' => 'required', 
+            
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+        $smsTemplate=SmsTemplate::find($id);
+        $smsTemplate->name=$request->name;
+        $smsTemplate->message=$request->message;
+         
+        $smsTemplate->save();
+        $response=['status'=>1,'msg'=>'Update Successfully'];
+            return response()->json($response);
+        } 
+    } 
+
+
 }

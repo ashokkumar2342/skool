@@ -5,6 +5,29 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Model\StudentMedicalInfo;
 use Illuminate\Http\Request;
+use App\Helper\MyFuncs;
+use App\Model\BloodGroup;
+use App\Model\Category;
+use App\Model\ClassType;
+use App\Model\DiscountType;
+use App\Model\Document;
+use App\Model\DocumentType;
+use App\Model\Gender;
+use App\Model\GuardianRelationType;
+use App\Model\IncomeRange;
+use App\Model\Isoptional;
+use App\Model\Minu;
+use App\Model\ParentsInfo;
+use App\Model\PaymentType;
+use App\Model\Profession;
+use App\Model\Religion;
+use App\Model\SessionDate;
+use App\Model\StudentDefaultValue;
+use App\Model\StudentFee;
+use App\Student;
+use App\Model\StudentSubject;
+use App\Model\Subject;
+use App\Model\SubjectType;
 use Illuminate\Support\Facades\Validator;
  
 
@@ -37,21 +60,28 @@ class StudentMedicalInfoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-         $validator = Validator::make($request->all(), [
-             
+    {   
+        $rules=[
+          
             'ondate' => 'required', 
             'hb' => 'numeric|max:20', 
-            'height' => 'numeric', 
-            'weight' => 'numeric', 
-            'vision' => 'numeric', 
-             
-           
-              
-        ]);
+            'height' => 'required', 
+            'weight' => 'required', 
+            'vision' => 'required', 
+            'bloodgroup_id' => 'required', 
+            'id_marks1' => 'required', 
+       
+        ];
 
-        if ($validator->passes()) {
-
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
         $medical = new StudentMedicalInfo();
         $medical->alergey = $request->alergey;
         $medical->alergey_vacc = $request->alergey_vacc;
@@ -71,11 +101,11 @@ class StudentMedicalInfoController extends Controller
         $medical->vision = $request->vision;
         $medical->weight = $request->weight;
         
-        $medical->save();
-        return response()->json([$medical, 'message'=>'add success','class'=>'success']);
-          }
+       $medical->save();
+        $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
+        }  
 
-        return response()->json(['message'=>$validator->errors()->all(),'class'=>'error']); 
     }
 
     /**
@@ -96,10 +126,19 @@ class StudentMedicalInfoController extends Controller
      * @param  \App\Model\StudentMedicalInfo  $studentMedicalInfo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, StudentMedicalInfo $studentMedicalInfo)
+    public function edit(Request $request, $id)
     {
-        $medicalInfo = StudentMedicalInfo::where('id', $request->id)->get();
-        return response()->json(['medicalInfo'=>$medicalInfo]);
+        $medicalInfo = StudentMedicalInfo::find($id);
+         $student=$request->id; 
+         $parentsType = array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name','id');
+        $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
+        $documentTypes = array_pluck(DocumentType::get(['id','name'])->toArray(),'name', 'id');
+        $subjectTypes = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
+        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
+        $isoptionals = array_pluck(Isoptional::get(['id','name'])->toArray(),'name', 'id');
+        $bloodgroups = array_pluck(BloodGroup::get(['id','name'])->toArray(),'name', 'id');
+        $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 
+       return view('admin.student.studentdetails.include.medical_info_edit',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions','medicalInfo'));
     }
 
     /**
@@ -109,13 +148,34 @@ class StudentMedicalInfoController extends Controller
      * @param  \App\Model\StudentMedicalInfo  $studentMedicalInfo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StudentMedicalInfo $studentMedicalInfo)
-    {    
-        $medical = StudentMedicalInfo::find($request->id);
+    public function update(Request $request,$id)
+    {  
+        $rules=[
+          
+            'ondate' => 'required', 
+            'hb' => 'numeric|max:20', 
+            'height' => 'required', 
+            'weight' => 'required', 
+            'vision' => 'required', 
+            'bloodgroup_id' => 'required', 
+            'id_marks1' => 'required', 
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+        $medical =StudentMedicalInfo::find($id);
         $medical->alergey = $request->alergey;
         $medical->alergey_vacc = $request->alergey_vacc;
-        $medical->bp_uper = $request->bp_uper;
         $medical->bp_lower = $request->bp_lower;
+        $medical->bp_uper = $request->bp_uper;
         $medical->bloodgroup_id = $request->bloodgroup_id;
         $medical->complextion = $request->complextion;
         $medical->dental = $request->dental;
@@ -126,11 +186,15 @@ class StudentMedicalInfoController extends Controller
         $medical->narration = $request->narration;
         $medical->ondate = $request->ondate == null ? $request->ondate : date('Y-m-d',strtotime($request->ondate));
         $medical->physical_handicapped = $request->physical_handicapped;
-        $medical->student_id = $request->student_id;
+        
         $medical->vision = $request->vision;
-        $medical->weight = $request->weight;        
-        $medical->save();
-        return response()->json([$medical, 'message'=>'Update success']);
+        $medical->weight = $request->weight;
+        
+       $medical->save();
+        $response=['status'=>1,'msg'=>'Update Successfully'];
+            return response()->json($response);
+        }  
+
     }
 
     /**
@@ -139,13 +203,41 @@ class StudentMedicalInfoController extends Controller
      * @param  \App\Model\StudentMedicalInfo  $studentMedicalInfo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, StudentMedicalInfo $studentMedicalInfo)
+    public function destroy(Request $request,$id)
     {
-          $medicalInfo = StudentMedicalInfo::find($request->id);
+          $medicalInfo = StudentMedicalInfo::find($id);
            
 
          $medicalInfo->delete();
 
-         return response()->json([$medicalInfo, 'message'=>'Delete Succeefully','class'=>'success']);
+         
+        $response=['status'=>1,'msg'=>'Update Successfully'];
+            return response()->json($response);
+    }
+    public function medicalInfoAddForm(Request $request){
+         $student=$request->id; 
+         $parentsType = array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name','id');
+        $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
+        $documentTypes = array_pluck(DocumentType::get(['id','name'])->toArray(),'name', 'id');
+        $subjectTypes = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
+        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
+        $isoptionals = array_pluck(Isoptional::get(['id','name'])->toArray(),'name', 'id');
+        $bloodgroups = array_pluck(BloodGroup::get(['id','name'])->toArray(),'name', 'id');
+        $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 
+         
+        return view('admin.student.studentdetails.include.add_medical_info',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions'));
+    }
+    public function medicalInfoList(Request $request){ 
+         $parentsType = array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name','id');
+        $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
+        $documentTypes = array_pluck(DocumentType::get(['id','name'])->toArray(),'name', 'id');
+        $subjectTypes = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
+        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
+        $isoptionals = array_pluck(Isoptional::get(['id','name'])->toArray(),'name', 'id');
+        $bloodgroups = array_pluck(BloodGroup::get(['id','name'])->toArray(),'name', 'id');
+        $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 
+        $student=$request->id; 
+        return view('admin.student.studentdetails.include.medical_info_list',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions'));
+
     }
 }

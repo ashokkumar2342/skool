@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
  use App\Http\Controllers\Controller;
+use App\Events\SmsEvent;
 use App\Helper\MyFuncs;
 use App\Model\BloodGroup;
 use App\Model\Category;
@@ -19,6 +20,7 @@ use App\Model\PaymentType;
 use App\Model\Profession;
 use App\Model\Religion;
 use App\Model\SessionDate;
+use App\Model\Sms\SmsTemplate;
 use App\Model\StudentDefaultValue;
 use App\Model\StudentFee;
 use App\Model\StudentMedicalInfo;
@@ -785,6 +787,13 @@ class StudentController extends Controller
        
         return $pdf->download('_birthday_card.pdf');
         
+    }
+    public function birthdaySmsSend($id){
+         $students = Student::find($id);
+         $smsTemplate = SmsTemplate::where('id',1)->first();
+        event(new SmsEvent($students->father_mobile,$smsTemplate->message)); 
+        $response=['status'=>1,'msg'=>'Message Sent successfully'];
+            return response()->json($response);
     }
 
      public function resetAdmission(Request $request)
