@@ -21,7 +21,7 @@
         <div class="col-md-12"> 
              <form id="medical-form" action="{{ route('admin.medical.update',$medicalInfo->id) }}" class="add_form" method="post" button-click="btn_close,medical_info_tab">
              {{ csrf_field() }} 
-              <input type="hidden" name="student_id" value="{{ $student }}">                     
+                               
                     <div class="form-group col-md-4">
                          {{ Form::label('ondate','On Date',['class'=>' control-label']) }} 
                          {{ Form::text('ondate',$medicalInfo->ondate,['class'=>'form-control datepicker']) }}
@@ -122,11 +122,10 @@
                         {{ Form::text('narration',$medicalInfo->narration,['class'=>'form-control ']) }}
                        
                     </div>  
-                     <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn  btn-success">Update</button>
-                    {{-- <button type="button" class="update_btn_medical btn btn-success">Update</button> --}}
-                </div>  
+                    <div class="col-lg-12 text-center">
+                    
+                    <input type="submit" class="btn btn-success" value="Update">
+                   </div>
                     </form>                     
 
                 </div>

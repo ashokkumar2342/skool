@@ -186,7 +186,7 @@ class StudentMedicalInfoController extends Controller
         $medical->narration = $request->narration;
         $medical->ondate = $request->ondate == null ? $request->ondate : date('Y-m-d',strtotime($request->ondate));
         $medical->physical_handicapped = $request->physical_handicapped;
-        $medical->student_id = $request->student_id;
+        
         $medical->vision = $request->vision;
         $medical->weight = $request->weight;
         

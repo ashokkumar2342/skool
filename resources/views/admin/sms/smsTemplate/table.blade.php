@@ -11,7 +11,7 @@
                 @foreach ($smsTemplates as $smsTemplates) 
                  <tr>
                    <td>{{ $smsTemplates->name }}</td>
-                   <td>{{ $smsTemplates->message }}</td>
+                   <td>{{ mb_strimwidth($smsTemplates->message, 0, 90, "............") }}</td>
                    
                    <td>
                      <button class="btn btn-info btn-xs" title="View" onclick="callPopupLarge(this,'{{ route('admin.sms.template.view',$smsTemplates->id) }}')"><i class="fa fa-eye"></i></button>

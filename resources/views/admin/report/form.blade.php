@@ -107,7 +107,8 @@
                                      {{ Form::label('city','City',['class'=>' control-label']) }}
                                     <select name="city" id="city" class="form-control">
                                      {{ Form::label('city','city',['class'=>' control-label']) }}
-                                     @foreach (App\Student::all() as $student)                                            
+                                      <option selected disabled>Select</option>
+                                     @foreach (App\Student::all() as $student)   
                                            <option value="{{ $student->city }}">{{ $student->city }}</option> 
                                                                             
                                      @endforeach 
@@ -121,7 +122,9 @@
                                      {{ Form::label('state','State',['class'=>' control-label']) }}
                                     <select name="state" id="state" class="form-control">
                                      {{ Form::label('state','state',['class'=>' control-label']) }}
-                                     @foreach (App\Student::all() as $student)                                            
+                                      <option selected disabled>Select</option> 
+                                     @foreach (App\Student::all() as $student)
+                                                                                
                                            <option value="{{ $student->state }}">{{ $student->state }}</option> 
                                                                             
                                      @endforeach 
@@ -224,12 +227,14 @@
                 $("#cate").hide(); 
                 $("#rel").hide(); 
                 $("#gen").hide();
+                $("#cit").hide();  
+                $("#stat").hide();  
                 $("#religion").hide(); 
                 $("#gender").hide(); 
                 $("#bloodgroup").show();              
                 $("#category").hide();  
-                $("#cit").hide();  
-                $("#stat").hide();  
+                $("#city").hide();  
+                $("#state").hide();  
                 break;
             case '2': 
             console.log('2'); 
@@ -238,11 +243,13 @@
                 $("#bloodgroup").hide(); 
                 $("#rel").hide(); 
                 $("#gen").hide();
+                $("#cit").hide();  
+                $("#stat").hide();  
                 $("#religion").hide(); 
                 $("#gender").hide(); 
                 $("#category").show(); 
-                $("#cit").hide();
-                $("#stat").hide(); 
+                $("#city").hide();
+                $("#state").hide(); 
                 break;
             case '3':
                $("#cate").hide(); 
@@ -251,10 +258,12 @@
                 $("#category").show(); 
                 $("#rel").show(); 
                 $("#gen").hide();
+                $("#cit").hide();  
+                $("#stat").hide();  
                 $("#religion").show(); 
                 $("#gender").hide(); 
-                $("#cit").hide(); 
-                $("#stat").hide();
+                $("#city").hide(); 
+                $("#state").hide();
 
                  
                 break;
@@ -265,10 +274,12 @@
                  $("#category").hide(); 
                  $("#rel").hide(); 
                  $("#gen").show();
+                 $("#cit").hide();  
+                 $("#stat").hide();  
                  $("#religion").hide(); 
                  $("#gender").show();
-                 $("#cit").hide(); 
-                 $("#stat").hide();
+                 $("#city").hide(); 
+                 $("#state").hide();
                 break;
             case '5':
                 $("#cate").hide(); 
@@ -277,11 +288,13 @@
                  $("#category").hide(); 
                  $("#rel").hide(); 
                  $("#gen").hide();
+                 $("#cit").show();  
+                 $("#stat").hide();  
                  $("#religion").hide(); 
                  $("#cit").show(); 
                  $("#gender").hide();
                  $("#city").show();
-                 $("#stat").hide();
+                 $("#state").hide();
                 break;
             case '6':
                 $("#cate").hide(); 
@@ -290,10 +303,11 @@
                  $("#category").hide(); 
                  $("#rel").hide(); 
                  $("#gen").hide();
+                 $("#cit").hide();  
+                 $("#stat").show();  
                  $("#religion").hide(); 
                  $("#gender").hide();
-                 $("#city").hide();
-                 $("#stat").show();
+                 $("#city").hide(); 
                  $("#state").show();
                 break;
             case '7':
@@ -303,9 +317,12 @@
                  $("#category").hide(); 
                  $("#rel").hide(); 
                  $("#gen").hide();
+                 $("#cit").hide();  
+                 $("#stat").hide();  
                  $("#religion").hide(); 
                  $("#gender").hide();
                  $("#city").hide();
+                 $("#state").hide();
         }    
        // if($("#report_for").val() == 1){
        //   $("#blood").show(); 
