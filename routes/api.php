@@ -31,6 +31,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('imageweb/{id}', 'Admin\StudentController@imageWebUpdate')->name('admin.student.profilepic.webupdate');	
 // Route::post('login', 'Api\StudentController@login');	
 Route::get('login', 'Api\StudentController@login');	
+Route::get('forgot-password', 'Api\StudentController@forgotPassword');	
+Route::get('forgot-password/otp-verify', 'Api\StudentController@forgotPasswordOtpVerify');	
 Route::get('test', function(Request $request){
  return response()->json(['ashok'=>'ashok']);
 });	
