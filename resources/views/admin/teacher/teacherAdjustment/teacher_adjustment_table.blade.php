@@ -18,7 +18,14 @@
 					<td>{{ $teacherAbsent->teacherFaculty->name or '' }}</td>
 					<td>{{ $teacherAbsent->periodTiming->from_time or '' }}</td>
 					<td>{{ $teacherAbsent->periodTimings->from_time or '' }}</td>
-					 <td><a href="#" id="btn_teacher_adjust_view"  onclick="callPopupLarge(this,'{{ route('admin.teacher.adjustment.view',$teacherAbsent->teacher_id) }}','','')" class="btn btn-info btn-xs" title="View"><i class="fa fa-eye"></i></a>
+					 <td>
+			 		  {{--    @php
+			 	          $TeacherAdjustment=App\Model\TimeTable\TeacherAdjustment::where('teacher_absent_id',$teacherAbsent->teacher_id)->first(); 
+			 	        @endphp
+					 	@if (!empty($TeacherAdjustment))
+					 		 
+					 	@endif --}}
+					 	<a href="#" id="btn_teacher_adjust_view"  onclick="callPopupLarge(this,'{{ route('admin.teacher.adjustment.view',$teacherAbsent->teacher_id) }}','','')" class="btn btn-info btn-xs" title="View"><i class="fa fa-eye"></i></a>
 
 					 	<a href="#" button-click="teacher_absent_show" onclick="callAjax(this,'{{ route('admin.teacher.absent.dalete',$teacherAbsent->id) }}','','')" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a>
 					 </td>
@@ -38,3 +45,7 @@
            
 </div>
 </form>
+{{-- <script type="text/javascript">
+	
+	$('#btn_teacher_adjust_view').click();
+</script> --}}

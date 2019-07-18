@@ -10,7 +10,7 @@
         <div class="box">
             
             <div class="box-header">
-              <h3 class="box-title">Manage Section</h3>
+              <h3 class="box-title">Class Section</h3>
               {{-- <span style="float: right"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_section">Manage Section</button></span> --}}
             </div>
             <!-- /.box-header -->

@@ -792,10 +792,8 @@ class StudentController extends Controller
          $students = Student::find($id);
          $smsTemplate = SmsTemplate::where('id',1)->first();
         event(new SmsEvent($students->father_mobile,$smsTemplate->message)); 
-        $response = array();
-        $response['status'] = 1;
-        $response['msg'] = 'Message Sent successfully'; 
-         return $response;
+        $response=['status'=>1,'msg'=>'Message Sent successfully'];
+            return response()->json($response);
     }
 
      public function resetAdmission(Request $request)

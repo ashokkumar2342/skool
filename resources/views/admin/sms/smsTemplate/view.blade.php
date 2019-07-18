@@ -21,8 +21,8 @@
            <div class="col-sm-12 bd"> 
             <p>Tamplate Name :<b>  {{ $smsTemplates->name }} </b> </p>  
            </div>
-       </div> 
-       <p>Message : </p>
+        
+       <p style="margin: 15px">Message : </p>
        <b>{{ $smsTemplates->message }}</b> 
         
           

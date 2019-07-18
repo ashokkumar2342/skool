@@ -45,7 +45,7 @@
        <td>{{ $teacherAdjustment->periodTiming->from_time or '' }}</td>
        <td>{{ $teacherAdjustment->periodTiming->time_no or '' }}</td>
        <td> 
-       <a href="#"  onclick="callPopupLarge(this,'{{ route('admin.teacher.adjustment.edit',$teacherAdjustment->id) }}')" class="btn btn-info btn-xs" title="Edit"><i class="fa fa-edit"></i></a>
+       <a href="#"  onclick="callPopupLevel2(this,'{{ route('admin.teacher.adjustment.edit',$teacherAdjustment->id) }}')" class="btn btn-info btn-xs" title="Edit"><i class="fa fa-edit"></i></a>
      </td>
        
 

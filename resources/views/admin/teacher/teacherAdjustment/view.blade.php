@@ -20,17 +20,17 @@
           </div>
       </div>
   </form> 
-  <form action="{{ route('admin.teacher.adjustment.result') }}" method="post" class="add_form" success-content-id="teacher_adjustment_result">
+  <form action="{{ route('admin.teacher.adjustment.result') }}" method="post" class="add_form"  button-click="teacher_absent_show,btn_teacher_adjust_view" success-content-id="teacher_adjustment_result">
    {{ csrf_field() }} 
    <div id="teacher_history_table">
 
    </div>
    
-   <div class="col-lg-12"> 
+  {{--  <div class="col-lg-12"> 
        <div id="teacher_adjustment_result"> 
        </div>
    </div>
-
+ --}}
 
 
 </div>

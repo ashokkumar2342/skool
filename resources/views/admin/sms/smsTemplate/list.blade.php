@@ -2,8 +2,8 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.sms.template.add')}}')" style="margin:10px">Add Template</button>
-    <h1>Template List<small>Details</small> </h1>
+    <button type="button" class="btn btn-primary pull-right" onclick="callPopupLarge(this,'{{ route('admin.sms.template.add')}}')" style="margin:10px">Add Template</button>
+    <h1>SMS Template List<small>Details</small> </h1>
        
     </section>  
     <section class="content">

@@ -41,7 +41,7 @@
           <th>Day</th>
           <th>Period Time</th> 
           <th>Period No</th> 
-          <th>Action</th> 
+           
       </tr>
   </thead>
   <tbody>
@@ -59,7 +59,7 @@
        <td>
        
 
-        <a href="#"  onclick="callPopupLarge(this,'{{ route('admin.teacher.adjustment.edit',$teacherAdjustment->id) }}','','')" class="btn btn-info btn-xs" title="Edit"><i class="fa fa-edit"></i></a>
+        {{-- <a href="#"  onclick="callPopupLarge(this,'{{ route('admin.teacher.adjustment.edit',$teacherAdjustment->id) }}','','')" class="btn btn-info btn-xs" title="Edit"><i class="fa fa-edit"></i></a> --}}
 
         </td>
 
