@@ -101,9 +101,8 @@ class StudentController extends Controller
                      $data['status']=0;
                      $data['data']='null';
                      return $data;
-                }
-                 
-                 event(new SmsEvent($student->father_mobile,'Forget Password Otp is '.$student->mobile_otp));
+                } 
+                
                  $data=array();
                  $data['status']=1;
                  $data['mobile_no']=$student->father_mobile; 
