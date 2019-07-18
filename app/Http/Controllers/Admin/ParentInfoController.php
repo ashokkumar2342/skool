@@ -155,7 +155,7 @@ class ParentInfoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request,$id)
-    { 
+    {  
         $rules=[
         'name' => 'required',               
         'mobile' => 'required|digits:10',              
@@ -176,7 +176,6 @@ class ParentInfoController extends Controller
           
 
         $parentsinfo = ParentsInfo::find($id);
-        $parentsinfo->student_id = $request->student_id;
         $parentsinfo->name = $request->name;
         $parentsinfo->relation_type_id = $request->relation_type_id;
         $parentsinfo->education = $request->education;
@@ -187,10 +186,10 @@ class ParentInfoController extends Controller
         $parentsinfo->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
         $parentsinfo->doa = $request->doa == null ? $request->doa : date('Y-m-d',strtotime($request->doa));
         $parentsinfo->office_address = $request->office_address;
-        $parentsinfo->islive = $request->islive;
+        $parentsinfo->islive = $request->islive;   
         $parentsinfo->save();
-         $response=['status'=>1,'msg'=>'Parent Information Update Successfully'];
-        return response()->json($response); 
+        $response=['status'=>1,'msg'=>'Parent Information Update Successfully'];
+         return response()->json($response); 
     }
 
     /**
@@ -202,7 +201,7 @@ class ParentInfoController extends Controller
     public function destroy(Request $request,$id)
     {
          $parents = ParentsInfo::find($id);
-          
+       
 
         $parents->delete();
 

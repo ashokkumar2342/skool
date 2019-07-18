@@ -99,6 +99,15 @@ class ReportController extends Controller
             $results = Student::where(['class_id'=>$request->class,'section_id'=>$request->section])->where('city','like',$request->city)->get();
                    return  $this->responseResult($results);
              
+        }elseif ($request->report_for == 6 && $request->school_class == 1){       
+             $results=Student::where('state','like',$request->state)->get();
+              return  $this->responseResult($results);
+        
+        }
+        elseif ($request->report_for == 6 &&  $request->school_class == 2){ 
+            $results = Student::where(['class_id'=>$request->class,'section_id'=>$request->section])->where('state','like',$request->state)->get();
+                   return  $this->responseResult($results);
+             
         } elseif ($request->report_for == 7 &&  $request->school_class == 1){ 
             $results = Student::get();
            return  $this->responseResult($results);

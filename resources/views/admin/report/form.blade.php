@@ -116,6 +116,20 @@
                                      
                                  </div>
                             </div> 
+                            <div class="col-lg-3" id="stat" style="display:none">                         
+                                <div class="form-group">
+                                     {{ Form::label('state','State',['class'=>' control-label']) }}
+                                    <select name="state" id="state" class="form-control">
+                                     {{ Form::label('state','state',['class'=>' control-label']) }}
+                                     @foreach (App\Student::all() as $student)                                            
+                                           <option value="{{ $student->state }}">{{ $student->state }}</option> 
+                                                                            
+                                     @endforeach 
+
+                                    </select> 
+                                     
+                                 </div>
+                            </div> 
                             <div class="col-lg-3" id="school_class1">                         
                                 <div class="form-group">
                                     {{ Form::label('school_class','All Student/Class',['class'=>' control-label']) }}
@@ -215,6 +229,7 @@
                 $("#bloodgroup").show();              
                 $("#category").hide();  
                 $("#cit").hide();  
+                $("#stat").hide();  
                 break;
             case '2': 
             console.log('2'); 
@@ -225,8 +240,9 @@
                 $("#gen").hide();
                 $("#religion").hide(); 
                 $("#gender").hide(); 
-                $("#cit").hide(); 
                 $("#category").show(); 
+                $("#cit").hide();
+                $("#stat").hide(); 
                 break;
             case '3':
                $("#cate").hide(); 
@@ -238,6 +254,7 @@
                 $("#religion").show(); 
                 $("#gender").hide(); 
                 $("#cit").hide(); 
+                $("#stat").hide();
 
                  
                 break;
@@ -249,8 +266,9 @@
                  $("#rel").hide(); 
                  $("#gen").show();
                  $("#religion").hide(); 
-                 $("#cit").hide(); 
                  $("#gender").show();
+                 $("#cit").hide(); 
+                 $("#stat").hide();
                 break;
             case '5':
                 $("#cate").hide(); 
@@ -263,9 +281,20 @@
                  $("#cit").show(); 
                  $("#gender").hide();
                  $("#city").show();
+                 $("#stat").hide();
                 break;
             case '6':
-                day = "Friday";
+                $("#cate").hide(); 
+                 $("#blood").hide();
+                 $("#bloodgroup").hide();  
+                 $("#category").hide(); 
+                 $("#rel").hide(); 
+                 $("#gen").hide();
+                 $("#religion").hide(); 
+                 $("#gender").hide();
+                 $("#city").hide();
+                 $("#stat").show();
+                 $("#state").show();
                 break;
             case '7':
                 $("#cate").hide(); 

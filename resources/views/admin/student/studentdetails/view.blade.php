@@ -183,7 +183,7 @@ b{
                 </div>
 
                 <div id="subjects" class="tab-pane fade">
-                  <button type="button" class="btn btn-info btn-sm add_subject" data-toggle="modal" data-target="#add_subject">Add Subject</button>
+                  <button type="button" class="btn btn-info btn-sm add_subject" style="margin: 10px" data-toggle="modal" data-target="#add_subject">Add Subject</button>
                   <table class="table" id="subject_items">                         
                        <thead>
                            <tr>
@@ -209,7 +209,7 @@ b{
                    </div>
                 </div>
                 <div id="sport" class="tab-pane fade">
-                   <button type="button" class="btn btn-info btn-sm btn_add_sport_hobby" data-toggle="modal"   data-target="#add_sport_hobby">Sport Hobby</button>
+                   <button type="button" class="btn btn-info btn-sm btn_add_sport_hobby" style="margin: 10px" data-toggle="modal"   data-target="#add_sport_hobby">Sport Hobby</button>
                   <table class="table" id="sport_hobby_items">                         
                        <thead>
                            <tr>
@@ -237,7 +237,7 @@ b{
                 </div>
 
                 <div id="document" class="tab-pane fade">
-                  <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_document">Add Document</button>
+                  <button type="button" class="btn btn-info btn-sm" data-toggle="modal" style="margin: 10px" data-target="#add_document">Add Document</button>
                  <table class="table" id="document_items">                         
                       <thead>
                           <tr>

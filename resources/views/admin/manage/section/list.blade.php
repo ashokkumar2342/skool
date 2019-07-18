@@ -14,7 +14,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="dataTable" class="table table-bordered table-striped table-hover">
+              <table id="class_section" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
                   <th>Section id</th>                
@@ -90,11 +90,17 @@
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 @endpush
  @push('scripts')
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script type="text/javascript">
-     $(document).ready(function(){
-        $('#dataTable').DataTable();
-    });
+     $(document).ready(function() {
+    $('#class_section').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
      @if(@$sectionType || $errors->first())
      $('#add_section').modal('show'); 
      @endif

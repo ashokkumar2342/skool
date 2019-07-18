@@ -794,8 +794,7 @@ class StudentController extends Controller
         event(new SmsEvent($students->father_mobile,$smsTemplate->message)); 
         $response = array();
         $response['status'] = 1;
-        $response['msg'] = 'Message Sent successfully';
-    
+        $response['msg'] = 'Message Sent successfully'; 
          return $response;
     }
 

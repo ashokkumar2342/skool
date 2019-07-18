@@ -12,7 +12,10 @@
           </div>
          <div class="modal-body">
              <div class="panel panel-default">
- <div class="panel-heading text-right"><a href=""  class="btn btn-primary btn-sm" title="Print">Print</a></div>
+ <div class="panel-heading text-right">
+
+  <a href=""  class="btn btn-primary btn-sm" title="Print">Print</a></div>
+  
   <div class="panel-body">
     <table class="table "> 
       <thead>
@@ -20,7 +23,7 @@
 
           <th>Teacher</th>
           <th>Class</th>
-          <th>Section</th>
+         {{--  <th>Section</th> --}}
           <th>Subject</th>
           <th>Day</th>
           <th>Period Time</th> 
@@ -36,7 +39,7 @@
 
        <td>{{ $teacherAdjustment->teacherFaculty->name or '' }}</td>
        <td>{{ $teacherAdjustment->classTypes->name or '' }}</td>
-       <td>{{ $teacherAdjustment->sectionTypes->name or '' }}</td>
+      {{--  <td>{{ $teacherAdjustment->sectionTypes->name or '' }}</td> --}}
        <td>{{ $teacherAdjustment->subjectType->name or '' }}</td>
        <td>{{ $teacherAdjustment->dayType->name or '' }}</td>
        <td>{{ $teacherAdjustment->periodTiming->from_time or '' }}</td>

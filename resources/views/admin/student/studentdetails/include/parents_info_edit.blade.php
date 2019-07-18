@@ -20,7 +20,6 @@
        <div class="row"> 
         <div class="col-md-12">
          <form id="parents-form" action="{{ route('admin.parents.update',$parentsInfo->id) }}" class="add_form" method="post" button-click="btn_close,parent_info">
-              <input type="hidden" name="student_id" value="{{ $student }}">
                     <div class="form-group col-md-4">
                          {{ Form::label('relation_type_id','Parents',['class'=>' control-label']) }}
                          {!! Form::select('relation_type_id',$parentsType, $parentsInfo->relation_type_id, ['class'=>'form-control','placeholder'=>'Select Parents','required']) !!}

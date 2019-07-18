@@ -119,9 +119,17 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script type="text/javascript">
-  $(document).ready(function(){
-        $('#dataTable').DataTable();
-    });
+  // $(document).ready(function(){
+  //       $('#dataTable').DataTable();
+  //   });
+  $(document).ready(function() {
+    $('#dataTable').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
     
      @if(@$classType || $errors->first())
      $('#add_class').modal('show'); 

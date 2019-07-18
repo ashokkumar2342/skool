@@ -36,7 +36,7 @@
 
           <th>Teacher</th>
           <th>Class</th>
-          <th>Section</th>
+        {{--   <th>Section</th> --}}
           <th>Subject</th>
           <th>Day</th>
           <th>Period Time</th> 
@@ -51,7 +51,7 @@
 
        <td>{{ $teacherAdjustment->teacherFaculty->name or '' }}</td>
        <td>{{ $teacherAdjustment->classTypes->name or '' }}</td>
-       <td>{{ $teacherAdjustment->SectionTypes->name or '' }}</td>
+      {{--  <td>{{ $teacherAdjustment->sectionTypes->name or '' }}</td> --}}
        <td>{{ $teacherAdjustment->subjectType->name or '' }}</td>
        <td>{{ $teacherAdjustment->dayType->name or '' }}</td>
        <td>{{ $teacherAdjustment->periodTiming->from_time or '' }}</td>
