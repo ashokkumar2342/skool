@@ -288,7 +288,7 @@ class DashboardController extends Controller
             return $response;
         }else{
           $response =array();
-            $response['status'] =;
+            $response['status'] =0;
             $response['msg'] ='Old Password Not Match';
             return $response;
         }
