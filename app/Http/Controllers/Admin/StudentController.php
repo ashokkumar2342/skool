@@ -24,6 +24,7 @@ use App\Model\Sms\SmsTemplate;
 use App\Model\StudentDefaultValue;
 use App\Model\StudentFee;
 use App\Model\StudentMedicalInfo;
+use App\Model\StudentSiblingInfo;
 use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
@@ -102,10 +103,24 @@ class StudentController extends Controller
     }
      
     public function previewshow($id){
+
           $student = Student::find($id);
           $parents = ParentsInfo::where('student_id',$id)->get(); 
-          $documents = Document::all();
-         return view('admin.student.studentdetails.preview',compact('student','parents','documents'));
+          $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 
+          $documents = Document::where('student_id',$id)->get(); 
+         return view('admin.student.studentdetails.preview',compact('student','parents','documents','studentMedicalInfos'));
+    }
+    public function pdfGenerate($id){
+        
+        $student = Student::find($id);
+          $parents = ParentsInfo::where('student_id',$id)->get(); 
+          $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 
+          $documents = Document::where('student_id',$id)->get();
+          $studentSiblingInfos=StudentSiblingInfo::where('student_id',$id)->get();
+          $studentSubjects=StudentSubject::where('student_id',$id)->get(); 
+      $pdf = PDF::loadView('admin.student.studentdetails.pdf_generate',compact('student','parents','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects'));
+      
+      return $pdf->download('student_all_report.pdf');
     }
 
     

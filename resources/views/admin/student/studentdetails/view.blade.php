@@ -18,6 +18,8 @@ b{
     <section class="content">
         <div class="box">  
           <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.student.preview',$student->id) }}')" style="margin:5px">Preview</button>
+          <a href="{{ route('admin.student.pdf.generate',$student->id) }}" class="btn btn-success pull-right" title="Pdf" style="margin:5px">Download Profile</a>
+          
           <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-home"></i> Student Details</a></li>
               <li><a data-toggle="tab" data-table="parents_items" href="#parent" id="parent_info"  onclick="callAjax(this,'{{ route('admin.parents.list',$student->id) }}','parent_info_list')"><i class="fa fa-user-circle"></i> Parent Info</a></li>
@@ -96,7 +98,7 @@ b{
                                      </div>
                                     <div style="padding-left: 15px; padding-top: 5px; padding-bottom: 15px">
                                        <a class="btn_change_image btn btn-success btn-xs" href="javascript:;">Upload Image </a>                              
-                                       <a class="btn_web btn btn-default btn-xs" {{-- onclick="callPopupMd(this,'{{ route('admin.student.camera',$student->id) }}')" --}} href="javascript:;"><i class="fa fa-camera" style="margin: 10px"></i></a>                              
+                                       <a class="btn_web btn btn-default btn-xs" onclick="callPopupMd(this,'{{ route('admin.student.camera',$student->id) }}')" href="javascript:;"><i class="fa fa-camera" style="margin: 10px"></i></a>                              
                                     </div>
                                 </div>                                  
                             </div>
@@ -195,8 +197,8 @@ b{
                        <tbody>
                            @foreach (App\Model\StudentSubject::where('student_id',$student->id)->get() as $studentSubject) 
                           <tr>
-                              <td>{{ $studentSubject->SubjectTypes->name }}</td>
-                              <td>{{ $studentSubject->ISOptionals->name }}</td>                             
+                              <td>{{ $studentSubject->SubjectTypes->name or ''}}</td>
+                              <td>{{ $studentSubject->ISOptionals->name or ''}}</td>                             
                               <td>
                                 {{-- <button class="btn_student_subject_edit btn btn-warning btn-xs"  data-id="{{ $studentSubject->id }}"  ><i class="fa fa-edit"></i></button>   --}}
                                  <button class="btn_student_subject_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $studentSubject->id }}"  ><i class="fa fa-trash"></i></button>

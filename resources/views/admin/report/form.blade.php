@@ -62,7 +62,7 @@
                                 <div class="form-group">  
                                   {{ Form::label('bloodgroup','BloodGroup',['class'=>' control-label']) }}
                                 <select name="bloodgroup" id="bloodgroup" class="form-control">
-                                        <option value="">Select</option>                                    
+                                        <option value="">Select BloodGroup</option>                                    
                                     @foreach (App\model\BloodGroup::all() as $bloodgroup)
                                         <option value="{{ $bloodgroup->id }}">{{ $bloodgroup->name }}</option>                                  
                                      @endforeach 
@@ -73,7 +73,7 @@
                                 <div class="form-group">
                                     {{ Form::label('category','Category',['class'=>' control-label']) }}
                                     <select name="category" id="category" class="form-control">
-                                        <option value="">Select</option>
+                                        <option value="">Select Category</option>
                                       @foreach (App\model\Category::all() as $category)                                            
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>                                  
                                       @endforeach 
@@ -85,7 +85,8 @@
                                     {{ Form::label('religion','Religion',['class'=>' control-label']) }}
                                     <select name="religion" id="religion" class="form-control">
                                      {{ Form::label('religion','Religion',['class'=>' control-label']) }}
-                                     @foreach (App\model\Religion::all() as $religion)                                            
+                                     <option selected disabled>Select Religion</option>
+                                     @foreach (App\model\Religion::all() as $religion) 
                                            <option value="{{ $religion->id }}">{{ $religion->name }}</option>                                  
                                      @endforeach 
                                  </select> 
@@ -96,6 +97,7 @@
                                     {{ Form::label('gender','Gender',['class'=>' control-label']) }}
                                     <select name="gender" id="gender" class="form-control">
                                      {{ Form::label('gender','gender',['class'=>' control-label']) }}
+                                     <option selected disabled>Select Gender</option>
                                      @foreach (App\model\Gender::all() as $gender)                                            
                                            <option value="{{ $gender->id }}">{{ $gender->genders }}</option>                                  
                                      @endforeach 
@@ -107,7 +109,7 @@
                                      {{ Form::label('city','City',['class'=>' control-label']) }}
                                     <select name="city" id="city" class="form-control">
                                      {{ Form::label('city','city',['class'=>' control-label']) }}
-                                      <option selected disabled>Select</option>
+                                      <option selected disabled>Select City</option>
                                      @foreach (App\Student::all() as $student)   
                                            <option value="{{ $student->city }}">{{ $student->city }}</option> 
                                                                             
@@ -122,7 +124,7 @@
                                      {{ Form::label('state','State',['class'=>' control-label']) }}
                                     <select name="state" id="state" class="form-control">
                                      {{ Form::label('state','state',['class'=>' control-label']) }}
-                                      <option selected disabled>Select</option> 
+                                      <option selected disabled>Select State</option> 
                                      @foreach (App\Student::all() as $student)
                                                                                 
                                            <option value="{{ $student->state }}">{{ $student->state }}</option> 

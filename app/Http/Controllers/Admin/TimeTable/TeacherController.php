@@ -454,7 +454,7 @@ class TeacherController extends Controller
     public function teacherAdjustmentEdit(Request $request,$teacher_id){
       // $teacherFacultys=ManualTimeTabl::orderBy('teacher_id','DESC')->distinct('teacher_id')->get(['teacher_id']);
        $teacherAdjustment = TeacherAdjustment::find($teacher_id);
-      $teacherFacultys=ManualTimeTabl::where('day_id',$teacherAdjustment->day_id)->distinct('teacher_id')->get(['teacher_id']);
+      $teacherFacultys=ManualTimeTabl::where('day_id',$teacherAdjustment->day_id)->where('teacher_id','!=',$teacherAdjustment->teacher_absent_id)->distinct('teacher_id')->get(['teacher_id']);
       return  view('admin.teacher.teacherAdjustment.teacher_adjustment_edit',compact('teacherFacultys','teacherAdjustment')) ;
     }
     public function teacherAdjustmentUpdate(Request $request,$teacher_id){

@@ -228,6 +228,133 @@
                               </div>
                             </div> 
                         </div> 
+                @endforeach <div class="modal-body">
+        
+        <div class="row"> 
+          @foreach($studentMedicalInfos as $studentMedicalInfo)
+        <h4 align="center"><b>Medical Details</b></h4><hr>                                             
+           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+               <div class="col-lg-6 b-r">
+                   <div class="form-horizontal">
+                       <div class="box-body"> 
+                            <div class="form-group">
+                               <div class="col-sm-12 bd">
+                                {{-- <td>{{ Carbon\Carbon::parse($medicalInfo->ondate)->format('d-m-Y') }}</td>
+                                 <td>{{ $medicalInfo->bloodgroups->name or ''}}</td>
+                                 <td>{{ $medicalInfo->hb }}</td>
+                                 <td>{{ $medicalInfo->weight }}</td>
+                                 <td>{{ $medicalInfo->height }}</td>
+                                 
+                                 <td>{{ $medicalInfo->vision }}</td>
+                                 <td>{{ $medicalInfo->complextion }}</td>
+                                 <td>{{ $medicalInfo->alergey }}</td>
+                                 <td>{{ $medicalInfo->alergey_vacc }}</td>
+                                 <td>{{ $medicalInfo->physical_handicapped }}</td>
+                                 <td>{{ $medicalInfo->narration }}</td>
+                                 <td>{{ $medicalInfo->dental }}</td>                                  
+                                 <td>{{ $medicalInfo->bp }}</td> 
+                                 <td>{{ $medicalInfo->id_marks1 }}</td>
+                                 <td>{{ $medicalInfo->id_marks2 }}</td> --}}
+
+                                    <p>On Date: <b>{{ Carbon\Carbon::parse($studentMedicalInfo->ondate)->format('d-m-Y') }}</b></p> 
+                               </div>
+                           </div>  
+                           
+                           <div class="form-group">
+                               <div class="col-sm-12 bd"> 
+                                <p>Blood Group :<b> {{ $studentMedicalInfo->bloodgroups->name or ''}} </b> </p>  
+                               </div>
+                           </div> 
+                            <div class="form-group">
+                               <div class="col-sm-12 bd"> 
+                                <p>HB :<b> {{ $studentMedicalInfo->hb }} </b> </p>  
+                               </div>
+                           </div>  
+                           <div class="form-group">
+                               <div class="col-sm-12 bd"> 
+                                <p>Weight :<b> {{ $studentMedicalInfo->weight }} </b> </p>  
+                               </div>
+                           </div>  
+                           
+                           <div class="form-group">
+                               <div class="col-sm-12 bd"> 
+                                @if ($studentMedicalInfo->physical_handicapped==0)
+                              
+                                <p>Physical Handicapped:<b>No</b> </p>  
+                                  @else
+                                  <p>Physical Handicapped :<b>Yes</b> </p>  
+                                @endif 
+                                 
+                               </div>
+                           </div> 
+                           <div class="form-group">
+                               <div class="col-sm-12 bd">
+                               @if ($studentMedicalInfo->alergey==0)
+                              
+                                <p>Alergey :<b>No</b> </p>  
+                                  @else
+                                  <p>Alergey :<b>Yes</b> </p>  
+                                @endif 
+                               </div>
+                           </div> 
+                           <div class="form-group">
+                               <div class="col-sm-12 bd"> 
+                                <p>ID Mark 1 :<b> {{ $studentMedicalInfo->id_marks1 }}</b> </p>  
+                               </div>
+                           </div> 
+                           <div class="form-group">
+                               <div class="col-sm-12 bd"> 
+                                <p>Dental :<b> {{ $studentMedicalInfo->dental }}</b> </p>  
+                               </div>
+                           </div> 
+                         </div>
+                        </div>
+                       </div> 
+                                           
+                    <div class="col-lg-6">
+                           <div class="form-horizontal">
+                               <div class="box-body">
+                                <div class="form-group"> 
+                                    <div class="col-sm-12 bd">
+                                    <p>Vision :<b> {{ $studentMedicalInfo->vision }}</b> </p>
+                                    </div>
+                                </div> 
+                                <div class="form-group"> 
+                                    <div class="col-sm-12 bd">
+                                    <p>BP :<b> {{ $studentMedicalInfo->bp }}</b> </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                   <div class="col-sm-12 bd"> 
+                                    <p>Complextion :<b> {{ $studentMedicalInfo->complextion }}</b> </p>  
+                                   </div>
+                                </div>  
+                                <div class="form-group"> 
+                                    <div class="col-sm-12 bd">
+                                   <p>Height :<b> {{ $studentMedicalInfo->height }}</b> </p>
+                                    </div>
+                                </div>
+                                <div class="form-group"> 
+                                    <div class="col-sm-12 bd">
+                                   <p>Narration :<b> {{ $studentMedicalInfo->narration }}</b> </p>
+                                    </div>
+                                </div> 
+                                <div class="form-group"> 
+                                    <div class="col-sm-12 bd">
+                                   <p>Alergey Vacc :<b> {{ $studentMedicalInfo->alergey_vacc }}</b> </p>
+                                    </div>
+                                </div>
+                                 <div class="form-group"> 
+                                    <div class="col-sm-12 bd">
+                                   <p>ID Marks 2 :<b> {{ $studentMedicalInfo->id_marks2 }}</b> </p>
+                                    </div>
+                                </div> 
+                                 
+                                
+                              </div>
+                            </div> 
+                        </div>
+                        </div> 
                 @endforeach 
  
       <div class="modal-body">
@@ -239,9 +366,16 @@
                <div class="col-lg-6 b-r">
                    <div class="form-horizontal">
                        <div class="box-body"> 
-                            <div class="form-group">
+                       
+                           
+                         
+                            <div class="form-group col-lg-12">
                                <div class="col-sm-12 bd">
-                                    <p>Weight : <b>{{ $documents->name or ''  }}</b></p> 
+                                    <p>DOCUMENT NAME : 
+                                       @foreach ($documents as $document)
+                                      <b>{{ $document->documentTypes->name or ''  }}  /</b>&nbsp;&nbsp;
+                                      @endforeach
+                                    </p> 
                                </div>
                            </div> 
                           
@@ -250,18 +384,12 @@
                        </div>              
                     <div class="col-lg-6">
                       <div class="form-horizontal">
-                         <div class="box-body">
-                            <div class="form-group">
-                               <div class="col-sm-12 bd">
-                                    <p>Height : <b>{{ $documents->student_id or ''   }}</b></p> 
-                               </div>
-                           </div> 
-                            
-                                
-                              </div>
-                            </div> 
-                        </div>
-                        </div>
+                         <div class="box-body"> 
+                         
+                         </div>
+                      </div> 
+                    </div>
+                 </div>
                  
                      
               </div>

@@ -135,6 +135,7 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('add', 'StudentController@create')->name('admin.student.form');	     
 	     Route::get('{student}/view', 'StudentController@show')->name('admin.student.view');	   
 	     Route::get('preview/{id}', 'StudentController@previewshow')->name('admin.student.preview');	   
+	     Route::get('pdf/{id}', 'StudentController@pdfGenerate')->name('admin.student.pdf.generate');	   
 	     Route::get('{student}/edit', 'StudentController@edit')->name('admin.student.edit');
 	     Route::get('{student}/delete', 'StudentController@destroy')->name('admin.student.delete');
 	     Route::get('{student}/profileedit', 'StudentController@profileedit')->name('admin.student.profileedit');

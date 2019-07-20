@@ -22,7 +22,7 @@
             <p>Tamplate Name :<b>  {{ $smsTemplates->name }} </b> </p>  
            </div>
         
-       <p style="margin: 15px">Message : </p>
+       <p style="margin-left:12px">Message : </p>
        <b>{{ $smsTemplates->message }}</b> 
         
           
