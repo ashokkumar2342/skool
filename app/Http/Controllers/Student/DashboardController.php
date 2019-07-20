@@ -287,7 +287,10 @@ class DashboardController extends Controller
             $response['msg'] ='Password Updated Successfully';
             return $response;
         }else{
-           return 'not fond';
+          $response =array();
+            $response['status'] =;
+            $response['msg'] ='Old Password Not Match';
+            return $response;
         }
 
     }
