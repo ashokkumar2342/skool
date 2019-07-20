@@ -58,11 +58,70 @@ class StudentController extends Controller
         }
        
     }
+    public function forgotPassword(Request $request)
+    {
+        try {
+            $student = Student::orWhere('email',$request->email)->orWhere('username',$request->email)->orWhere('father_mobile',$request->email)->where('status',1)->first();
+            if (!empty($student)) {
+                $otp =mt_rand(100000,999999);
+                 $student->mobile_otp = $otp;
+                 $student->save();
+                 event(new SmsEvent($student->father_mobile,'Forget Password Otp is '.$student->mobile_otp));
+                 $data=array();
+                 $data['status']=1;
+                 $data['mobile_no']=$student->father_mobile; 
+                 return $data; 
+            }else{
+               $data=array();
+                    $data['status']=0;
+                    $data['data']='null';
+                    return $data;
+            }
+        } catch (Exception $e) {
+           return $e; 
+        }
+    }
+    //otp verification
+    public function forgotPasswordOtpVerify(Request $request)
+    {
+        try {
+            $student = Student::orWhere('email',$request->email)->orWhere('username',$request->email)->orWhere('father_mobile',$request->email)->where('status',1)->first();
+            if (!empty($student)) {
+                if ($student->mobile_otp==$request->otp) {
+                    $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
+                    $student->mobile_otp = 0;
+                    $student->password = bcrypt($char);
+                    $student->save();
+                    event(new SmsEvent($student->father_mobile,'Login Password '.$char));
+                    $data=array();
+                    $data['status']=1;
+                    $data['mobile_no']=$student->father_mobile;  
+                }else{
+                    $data=array();
+                     $data['status']=0;
+                     $data['data']='null';
+                     return $data;
+                } 
+                
+                 $data=array();
+                 $data['status']=1;
+                 $data['mobile_no']=$student->father_mobile; 
+                 return $data; 
+            }else{
+               $data=array();
+                    $data['status']=0;
+                    $data['data']='null';
+                    return $data;
+            }
+        } catch (Exception $e) {
+           return $e; 
+        }
+    }
     public function Login(Request $request){     
                      
         try {  
 
-            $student = Student::orWhere('email',$request->email)->orWhere('username',$request->email)->orWhere('father_mobile',$request->email)->first();
+            $student = Student::orWhere('email',$request->email)->orWhere('username',$request->email)->orWhere('father_mobile',$request->email)->where('status',1)->first();
 
              if (!empty($student)) {
                  if (Hash::check($request->password, $student->password)) {
