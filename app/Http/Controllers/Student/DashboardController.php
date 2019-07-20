@@ -11,7 +11,7 @@ use App\Model\Homework;
 use App\Model\Library\BookAccession;
 use App\Model\Library\Book_Reserve;
 use App\Model\Library\Booktype; 
-use App\Model\Library\memberShipDetails;
+use App\Model\Library\MemberShipDetails;
 use App\Model\StudentAttendance;
 use App\Model\StudentFeeDetail;
 use App\Model\StudentRemark;
@@ -174,7 +174,7 @@ class DashboardController extends Controller
     public function library()
     {
        $student = Auth::guard('student')->user();
-      $memberShipDetails=memberShipDetails::where('member_ship_registration_no',$student->registration_no)->first(); 
+      $memberShipDetails=MemberShipDetails::where('member_ship_registration_no',$student->registration_no)->first(); 
       $bookReserves = Book_Reserve::where('member_ship_no_id',$memberShipDetails->id)->get(); 
          return view('student.library.list',compact('bookReserves'));
            
