@@ -72,7 +72,7 @@
                          <td> {{ $bookReserve->reserve_date==null? '' : date('d-m-Y',strtotime($bookReserve->reserve_date)) }} </td> 
                          <td> {{$bookReserve->reserve_upto_date==null? '' : date('d-m-Y',strtotime($bookReserve->reserve_upto_date)) }} </td>  
                          <td>
-                          <span class="{{ $bookReserve->bookReserveStatus->color  }}">{{ $bookReserve->bookReserveStatus->name or '' }}</span>
+                          <span class="{{ $bookReserve->bookReserveStatus->color  or ''}}">{{ $bookReserve->bookReserveStatus->name or '' }}</span>
                         </td> 
                          
                          
