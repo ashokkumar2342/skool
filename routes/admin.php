@@ -266,6 +266,14 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('/', 'ReportController@index')->name('admin.student.report');
 	     Route::post('search', 'ReportController@reportfilter')->name('admin.student.report.post');      
          
+	 }); 
+	 Route::group(['prefix' => 'student-report'], function() {
+	     Route::get('report', 'ReportController@finalReportIndex')->name('admin.student.final.report');
+	     Route::get('report-for', 'ReportController@finalReportForChange')->name('admin.student.final.report.for.change');
+	     Route::get('class-wise-section', 'ReportController@finalReportClassWiseSection')->name('admin.student.final.report.class.wise.section');
+	     Route::post('report-show', 'ReportController@finalReportShow')->name('admin.student.final.report.show');
+	      
+         
 	 });
 	   // ---------------Certificate----------------------------------------
 	 Route::group(['prefix' => 'certificate'], function() {
@@ -800,6 +808,17 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('table-show', 'SchoolDetails\SchoolDetailsController@tableShow')->name('admin.school.details.table.show');
 
           }); 
+           Route::group(['prefix' => 'quotes'], function() {
+			    Route::get('quotes', 'SchoolDetails\SchoolDetailsController@quotesindex')->name('admin.school.details.quotes');
+			    Route::get('quotes-add', 'SchoolDetails\SchoolDetailsController@quotesAddForm')->name('admin.school.details.quotes.addForm');
+			    Route::post('quotes-store', 'SchoolDetails\SchoolDetailsController@quotesStore')->name('admin.school.details.quotes.store');
+			    Route::get('quotes-table', 'SchoolDetails\SchoolDetailsController@quotesTableShow')->name('admin.school.details.quotes.table.show');
+			    Route::get('quotes-edit/{id}', 'SchoolDetails\SchoolDetailsController@quotesEdit')->name('admin.school.details.quotes.edit');
+			    Route::get('quotes-delete/{id}', 'SchoolDetails\SchoolDetailsController@quotesDestroy')->name('admin.school.details.quotes.delete');
+			    Route::post('quotes-update/{id}', 'SchoolDetails\SchoolDetailsController@quotesUpdate')->name('admin.school.details.quotes.update');
+			     
+
+          }); 
                Route::group(['prefix' => 'student-id-card'], function() {
 			    Route::get('/', 'StudentIDCard\StudentIDCardController@index')->name('admin.student.id.card');
 			    Route::get('generate-class-wise', 'StudentIDCard\StudentIDCardController@generateClassWise')->name('admin.student.idcard.generate.classwise');
@@ -952,6 +971,7 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::post('show', 'TimeTable\TimeTableReportController@show')->name('admin.time.table.report.show');
 
        });
+            
            
 
             

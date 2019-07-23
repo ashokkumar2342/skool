@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin\SchoolDetails;
 
 use App\Http\Controllers\Controller;
+use App\Model\Quote;
 use App\School_details;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class SchoolDetailsController extends Controller
@@ -69,4 +71,103 @@ class SchoolDetailsController extends Controller
          $SchoolDetails=School_details::all();
          return view('schoolDetails.table_show',compact('SchoolDetails'));
     }
+
+
+
+
+    public function quotesindex(){
+        return view('schoolDetails.quotes.index'); 
+    }
+
+    public function quotesAddForm(){
+        return view('schoolDetails.quotes.add_form'); 
+    }
+    public function quotesStore(Request $request)
+    {
+
+        $rules=[
+          
+            // 'name' => 'required', 
+            // 'mobile' => 'required|digits:10', 
+            // 'contact' => 'required|digits:10', 
+            // 'logo' => 'required', 
+            // 'image' => 'required', 
+            // 'address' => 'required', 
+             
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else { 
+         $userId=Auth::guard('admin')->user()->id;
+        $Quotes= new Quote(); 
+        $Quotes->created_by=$userId; 
+        $Quotes->date=$request->date; 
+        $Quotes->discription=$request->discription; 
+        $Quotes->save();
+        $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
+        
+
+        }  
+    }
+    public function quotesTableShow()
+    {
+         $Quotes=Quote::all();
+         return view('schoolDetails.quotes.table_show',compact('Quotes'));
+    }
+    public function quotesEdit($id)
+    {
+         $Quotes=Quote::find($id);
+         return view('schoolDetails.quotes.edit',compact('Quotes'));
+    }
+    public function quotesUpdate(Request $request,$id)
+    {
+
+        $rules=[
+          
+            // 'name' => 'required', 
+            // 'mobile' => 'required|digits:10', 
+            // 'contact' => 'required|digits:10', 
+            // 'logo' => 'required', 
+            // 'image' => 'required', 
+            // 'address' => 'required', 
+             
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else { 
+         $userId=Auth::guard('admin')->user()->id;
+        $Quotes=Quote::find($id); 
+        $Quotes->created_by=$userId; 
+        $Quotes->date=$request->date; 
+        $Quotes->discription=$request->discription; 
+        $Quotes->save();
+        $response=['status'=>1,'msg'=>'Update Successfully'];
+            return response()->json($response);
+        
+
+        }  
+    }
+    public function quotesDestroy($id){
+         $Quotes=Quote::find($id); 
+         $Quotes->delete();
+         return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
 }
+
