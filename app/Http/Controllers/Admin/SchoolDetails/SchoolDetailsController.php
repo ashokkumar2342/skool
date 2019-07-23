@@ -87,13 +87,8 @@ class SchoolDetailsController extends Controller
 
         $rules=[
           
-            // 'name' => 'required', 
-            // 'mobile' => 'required|digits:10', 
-            // 'contact' => 'required|digits:10', 
-            // 'logo' => 'required', 
-            // 'image' => 'required', 
-            // 'address' => 'required', 
-             
+             'date' => 'required', 
+            'discription' => 'required',
        
         ];
 
@@ -133,12 +128,9 @@ class SchoolDetailsController extends Controller
 
         $rules=[
           
-            // 'name' => 'required', 
-            // 'mobile' => 'required|digits:10', 
-            // 'contact' => 'required|digits:10', 
-            // 'logo' => 'required', 
-            // 'image' => 'required', 
-            // 'address' => 'required', 
+            'date' => 'required', 
+            'discription' => 'required', 
+            
              
        
         ];
