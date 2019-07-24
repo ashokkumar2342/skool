@@ -174,8 +174,8 @@ class DashboardController extends Controller
     public function library()
     {
        $student = Auth::guard('student')->user();
-      $memberShipDetails=MemberShipDetails::where('member_ship_registration_no',$student->registration_no)->first(); 
-      $bookReserves = Book_Reserve::where('member_ship_no_id',$memberShipDetails->id)->get(); 
+       $memberShipDetails=MemberShipDetails::where('member_ship_registration_no',$student->registration_no)->first(); 
+       $bookReserves = Book_Reserve::where('member_ship_no_id',$memberShipDetails->id or '')->get(); 
          return view('student.library.list',compact('bookReserves'));
            
     }

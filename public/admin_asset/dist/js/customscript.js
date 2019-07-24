@@ -1,6 +1,6 @@
 var full_url_js=window.location.protocol+'//'+ window.location.hostname;
 function callAjax(obj,url,divId,callback){
-	$('#'+divId).html('Please Wait......'); 
+	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center" width="150px" style="padding-top:100px"></div>'); 
     $.get(url,
     {
         id: obj.value
@@ -138,7 +138,7 @@ function callSuccessPopup(msg){
 function callPopupLarge(obj,url){
 	$('#ModalLargeId').modal("show"); 
 	var divId='ModalLargeContentId';
-	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center"></div>'); 
+	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center" width="150px" style="padding-top:200px"></div>'); 
     $.get(url,{},
     function(response, status){
         if(status=="success"){
@@ -207,7 +207,7 @@ function callPopupLarge(obj,url){
 function callPopupsm(obj,url){
 	$('#ModalSmId').modal("show"); 
 	var divId='ModalSmContentId';
-	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center"></div>'); 
+	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center" width="150px" style="padding-top:200px"></div>'); 
     $.get(url,{},
     function(response, status){
         if(status=="success"){
@@ -236,7 +236,7 @@ function callPopupsm(obj,url){
 function callPopupMd(obj,url){
 	$('#ModalMdId').modal("show"); 
 	var divId='ModalMdContentId';
-	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center"></div>'); 
+	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center" width="150px" style="padding-top:200px"></div>'); 
     $.get(url,{},
     function(response, status){
         if(status=="success"){
@@ -266,7 +266,7 @@ function callPopupMd(obj,url){
 function callPopupLevel2(obj,url){
 	$('#Modallevel2').modal("show"); 
 	var divId='Modallevel2ContentId';
-	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center"></div>'); 
+	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center" width="150px" style="padding-top:200px"></div>'); 
     $.get(url,{},
     function(response, status){
         if(status=="success"){
@@ -299,7 +299,7 @@ function callPopupLevel2(obj,url){
 function callPopupLevel3(obj,url){
 	$('#Modallevel3').modal("show"); 
 	var divId='Modallevel3ContentId';
-	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center"></div>'); 
+	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center" width="150px" style="padding-top:200px"></div>'); 
     $.get(url,{},
     function(response, status){
         if(status=="success"){
@@ -328,7 +328,7 @@ function callPopupLevel3(obj,url){
 function callPopupLevel4(obj,url){
 	$('#Modallevel4').modal("show"); 
 	var divId='Modallevel4ContentId';
-	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center"></div>'); 
+	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center" width="150px" style="padding-top:200px"></div>'); 
     $.get(url,{},
     function(response, status){
         if(status=="success"){

@@ -272,7 +272,7 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('report-for', 'ReportController@finalReportForChange')->name('admin.student.final.report.for.change');
 	     Route::get('class-wise-section', 'ReportController@finalReportClassWiseSection')->name('admin.student.final.report.class.wise.section');
 	     Route::post('report-show', 'ReportController@finalReportShow')->name('admin.student.final.report.show');
-	      
+	     Route::get('student-check', 'ReportController@finalReportStudentDetailsCheck')->name('admin.student.final.report.student.details.check'); 
          
 	 });
 	   // ---------------Certificate----------------------------------------

@@ -165,8 +165,39 @@
                                     </select>
                                    
                                 </div>
+                            </div> 
                             </div>
-                             <div class="col-lg-3" style="padding-top: 20px;">                         
+                            <div id="bloodgroupcheck" style="">
+                            <div class="row">
+
+                                <div class="form-group col-sm-2" id="phone">
+                                    <label for="reg_input">Phone Number</label>
+                                   <input name="student_phone"value="1" type="checkbox">
+                               </div>
+                                
+                                <div class="form-group col-sm-2" id="email">
+                                    <label for="reg_input">Email</label>
+                                    <input name="student_email" value="2" type="checkbox">
+                                </div> 
+                                <div class="form-group col-sm-2" id="email">
+                                    <label for="reg_input">Date of Birth</label>
+                                    <input name="student_dob" value="3" type="checkbox">
+                                </div> 
+                                <div class="form-group col-sm-2" id="email">
+                                    <label for="reg_input">Gender</label>
+                                    <input name="student_gen" value="4" type="checkbox">
+                                </div> 
+                                <div class="form-group col-sm-2" id="email">
+                                    <label for="reg_input">Religion</label>
+                                    <input name="student_rel" value="5" type="checkbox">
+                                </div> 
+                                <div class="form-group col-sm-2" id="email">
+                                    <label for="reg_input">Address</label>
+                                    <input name="student_add" value="6" type="checkbox">
+                                </div>  
+                            </div>
+                        </div>
+                             <div class="col-lg-6" style="padding-top: 20px;">                         
                                 <div class="form-group">
                                   <button class="btn btn-success" type="submit">Show</button>
                                     

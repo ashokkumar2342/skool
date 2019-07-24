@@ -107,8 +107,10 @@ class StudentController extends Controller
           $student = Student::find($id);
           $parents = ParentsInfo::where('student_id',$id)->get(); 
           $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 
-          $documents = Document::where('student_id',$id)->get(); 
-         return view('admin.student.studentdetails.preview',compact('student','parents','documents','studentMedicalInfos'));
+          $documents = Document::where('student_id',$id)->get();
+          $studentSiblingInfos=StudentSiblingInfo::where('student_id',$id)->get();
+          $studentSubjects=StudentSubject::where('student_id',$id)->get(); 
+         return view('admin.student.studentdetails.preview',compact('student','parents','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects'));
     }
     public function pdfGenerate($id){
         

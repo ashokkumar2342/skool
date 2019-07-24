@@ -4,16 +4,23 @@
   }
   
 </style>
-   <div class="modal-dialog" style="width:90%"> 
+   <div class="modal-dialog" style="width:60%"> 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header"> 
-        <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Student Details</h4>
-
-      </div>
+      
       <div class="modal-body">
-        <div class="row"> 
+       <div class="row"> 
+        <div class="col-lg-12 text-right"> 
+        <button type="button" id="btn_close" class="close text-right" data-dismiss="modal">&times;</button> 
+        </div> 
+      </div>
+        @include('admin.student.studentdetails.pdf_generate')
+         <div class="modal-footer">
+         <a href="{{ route('admin.student.pdf.generate',$student->id) }}" class="btn btn-success btn-sm" title="Pdf" style="">Download Profile</a>
+         <button type="button" id="btn_close" class="btn btn-danger btn-sm pull-right" data-dismiss="modal">Close</button>
+         </div> 
+        
+    {{--     <div class="row"> 
         <h4 align="center"><b>Student Details</b></h4><hr>                                             
            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                <div class="form-group">
@@ -238,7 +245,7 @@
                    <div class="form-horizontal">
                        <div class="box-body"> 
                             <div class="form-group">
-                               <div class="col-sm-12 bd">
+                               <div class="col-sm-12 bd"> --}}
                                 {{-- <td>{{ Carbon\Carbon::parse($medicalInfo->ondate)->format('d-m-Y') }}</td>
                                  <td>{{ $medicalInfo->bloodgroups->name or ''}}</td>
                                  <td>{{ $medicalInfo->hb }}</td>
@@ -254,7 +261,7 @@
                                  <td>{{ $medicalInfo->dental }}</td>                                  
                                  <td>{{ $medicalInfo->bp }}</td> 
                                  <td>{{ $medicalInfo->id_marks1 }}</td>
-                                 <td>{{ $medicalInfo->id_marks2 }}</td> --}}
+                                 <td>{{ $medicalInfo->id_marks2 }}</td>
 
                                     <p>On Date: <b>{{ Carbon\Carbon::parse($studentMedicalInfo->ondate)->format('d-m-Y') }}</b></p> 
                                </div>
@@ -394,9 +401,9 @@
                      
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </div> --}}
+        
     </div>
   </div>
+</div>
 

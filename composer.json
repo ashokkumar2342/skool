@@ -8,6 +8,7 @@
         "php": ">=7.0.0",
         "barryvdh/laravel-dompdf": "^0.8.3",
         "codeitnowin/barcode": "^3.0",
+        "daltcore/lara-pdf-merger": "^2.0",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/passport": "^4.0",

@@ -24,7 +24,7 @@
                   </select> 
                 </div>
                 <div class="col-lg-4">
-                <label>Class</label>
+                <label>Class</label></br>
                 <select name="class[]" class="form-control multiselect" multiple="multiple" id="class_id" onchange="callAjax(this,'{{ route('admin.class.period.schedule.show') }}'+'?time_table_type_id='+$('#time_table_type').val()+'&class_id='+$('#class_id').val(),'history_wise_timing')"> 
                   
                   @foreach ($classTypes as $classType) 
@@ -60,6 +60,7 @@
     });
 
      $('#btn_outhor_table_show').click();
+
   </script>
   @endpush
      

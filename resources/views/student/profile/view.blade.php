@@ -65,7 +65,7 @@
                             <b>DOB</b> <a class="float-right">{{ date('d-m-Y',strtotime($student->dob)) }}</a>
                           </li>
                           <li class="list-group-item">
-                            <b>Gender</b> <a class="float-right">{{ $student->genders->genders }} </a>
+                            <b>Gender</b> <a class="float-right">{{ $student->genders->genders or ''}} </a>
                           </li>  
                         </ul>  
                       </div>
