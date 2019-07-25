@@ -11,6 +11,7 @@ use App\Model\Event\EventDetails;
 use App\Model\Gender;
 use App\Model\Homework;
 use App\Model\ParentRegistration;
+use App\Model\Quote;
 use App\Model\Religion;
 use App\Model\Remark\Remark;
 use App\Model\SessionDate;
@@ -276,10 +277,25 @@ class StudentController extends Controller
     public function remarks(Request $request,$id){ 
         try { 
         $student =Student::find($id);
-          return $remarks = StudentRemark::with(['admin'])->where('student_id',$student->id)->get();
+        $remarks = StudentRemark::with(['admin'])->where('student_id',$student->id)->get();
               
             if (!empty($remarks)) {
               return $remarks; 
+              // return [$lastFee,$cashbooks->sum('receipt_amount')];   
+            }
+             return response()->json(['data'=>'null','status'=>'0']);  
+        } catch (Exception $e) {
+            return $e;
+        }
+       
+    }
+    public function quotes(Request $request,$id){ 
+        try { 
+       
+           $quotes = Quote::orderBy('id','DSEC')->get();
+              
+            if (!empty($quotes)) {
+              return $quotes; 
               // return [$lastFee,$cashbooks->sum('receipt_amount')];   
             }
              return response()->json(['data'=>'null','status'=>'0']);  
