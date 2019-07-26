@@ -255,7 +255,7 @@ b{
                               <td>{{ $document->documentTypes->name }}</td>
                               <td>{{ $document->name }}</td>                             
                               <td> 
-                                <a href="{{ url('storage/document/'.$document->name) }}" target="blank" class="btn btn-success btn-xs"><i class="fa fa-download"></i></a>
+                                <a href="{{ url('storage/'.$document->document_url) }}" target="blank" class="btn btn-success btn-xs"><i class="fa fa-download"></i></a>
                                 <a class="btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" href="{{ route('admin.document.delete',$document->id) }}"  ><i class="fa fa-trash"></i></a></td>
                           </tr>
                          @endforeach

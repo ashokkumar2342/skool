@@ -22,7 +22,7 @@
                    <div class="form-group">
                    <input type="date" class="form-control" name="date" placeholder="Date">
                   </div> 
-                  <textarea class="textarea" name="discription" placeholder="Discription"
+                  <textarea class="textarea" name="discription" placeholder="Enter Quotes"
                             style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                
                    <div class="row">

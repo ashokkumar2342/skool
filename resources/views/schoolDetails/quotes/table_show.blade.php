@@ -2,7 +2,7 @@
 	<thead>
 		<tr>
 			<th>Date</th>
-			<th>Discription</th>
+			<th>Quotes</th>
 			<th>Action</th>
 		</tr>
 	</thead>

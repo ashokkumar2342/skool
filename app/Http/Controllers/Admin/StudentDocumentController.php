@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 use App\Model\Document;
+use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\Controller;
 use Storage;
 
 class StudentDocumentController extends Controller
@@ -37,7 +38,7 @@ class StudentDocumentController extends Controller
      */
     public function store(Request $request)
     {
-           
+         $student = Student::find($request->student_id);  
           $rules=[
             "file" => "required|mimes:pdf|max:10000",
             'document_type_id' => 'required',
@@ -52,9 +53,11 @@ class StudentDocumentController extends Controller
               return response()->json($response);// response as json
           } 
          $file = $request->file('file');
-         $file->store('public/document');
+         $path ='student/document/'.$student->class_id.'/'.$student->section_id.'/'.$student->registration_no.'/';
+         $file->store($path);
          $document = new Document();
-         $document->name = $file->hashName();        
+         $document->name = $file->getClientOriginalName();     
+         $document->document_url = $path.$file->hashName();        
          $document->student_id = $request->student_id;        
          $document->document_type_id = $request->document_type_id;        
 

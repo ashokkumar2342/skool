@@ -31,10 +31,12 @@ use Carbon;
 use DB;
 use Excel;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
-use PDF;
-use LynX39\LaraPdfMerger\Facades\PdfMerger;
 use Storage;
+use PDF;
+use setasign\Fpdi\Fpdi;
+use setasign\Fpdi\PdfParser\StreamReader;
 
 class ReportController extends Controller
 {
@@ -162,72 +164,112 @@ class ReportController extends Controller
         return view('admin.report.finalReport.section',compact('classWiseSections'));
     }
     public function finalReportShow(Request $request){
-        
-        $studentDetails=$request->student_details;
-        $perentDetails=$request->perent_details;
-        $medicalDetails=$request->medical_details;
-        $siblingDetails=$request->sibling_details;
-        $subjectDetails=$request->subject_details;
-        $documentDetails=$request->document_details;
-
+          // return $request;
+           if ($request->report_wise==2) { 
+                $fieldNames=$request->fild_name; 
+                if ($request->report_for==2) {
+                 $students = Student::where('id',$request->registration_no)->get(); 
+                 } 
+                if ($request->report_for==3) {
+                      $students = Student::where('class_id',$request->class_id)->where('section_id',$request->section_id)->get(); 
+                     }
+                 $pdf = PDF::loadView('admin.report.finalReport.filed_wise_pdf',compact('students','fieldNames')); 
+                  return $pdf->stream('student_all_report.pdf'); 
+           }
+       if ($request->report_wise==1) {     
+        $sectionWiseDetails=$request->section_wise; 
          if ($request->report_for==2) {
          $students = Student::where('id',$request->registration_no)->get();
          $parents = ParentsInfo::where('student_id',$request->registration_no)->get(); 
-          
-          // $documents = Document::where('student_id',$id)->get();
-           // $studentSiblingInfos=StudentSiblingInfo::where('student_id',$id)->get();
-          // $studentSubjects=StudentSubject::where('student_id',$id)->get();  
          } 
-         // if ($request->report_for==1) {
-         // $students = Student::orderBy('id','ASC')->get();
-         // $parents = ParentsInfo::orderBy('id','ASC')->get();  
-         // }
          if ($request->report_for==3) {
           $students = Student::where('class_id',$request->class_id)->where('section_id',$request->section_id)->get(); 
          }
         
         if ($request->report_for==1) {
-         $students = Student::orderBy('id','ASC')->get();
-         $parents = ParentsInfo::orderBy('id','ASC')->get();
+          $students = Student::orderBy('id','ASC')->get();
+          $parents = ParentsInfo::orderBy('id','ASC')->get();
           $studentSiblingInfos=StudentSiblingInfo::orderBy('id','ASC')->get();
           $studentSubjects=StudentSubject::orderBy('id','ASC')->get();
           $documents = Document::orderBy('id','ASC')->get(); 
         } 
-         
+        foreach ($students as $student) {
+             $docs=$student->documents;
+            
+           $documentUrl = Storage_path() . '/app/student/document/'.$student->class_id.'/'.$student->section_id.'/'.$student->registration_no.'/profile.pdf';  
+          $pdf = PDF::loadView('admin.report.finalReport.pdf_generate',compact('sectionWiseDetails','perentDetails','medicalDetails','siblingDetails','subjectDetails','documentDetails','students','parents','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','fieldNames'))->save($documentUrl);
+          // $path=  public_path('storage/class_test/abc6.pdf');
+          $path2=  Storage_path('app/'.$student->document->document_url);
+          
+          
+           $pdfMerge = new Fpdi();
+           $dt =array();
+           $dt['student']=$documentUrl;
+           foreach ($docs as $key=>$document) {
+             $dt[$key]=Storage_path('app/'.$document->document_url);  
+           }
         
-      
-      
-      
-           
-      $pdf = PDF::loadView('admin.report.finalReport.pdf_generate',compact('studentDetails','perentDetails','medicalDetails','siblingDetails','subjectDetails','documentDetails','students','parents','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects'));
-      
-      return $pdf->stream('student_all_report.pdf');
-      // $pdfMerger = PDFMerger::init(); //Initialize the merger
+           $files =$dt;
+           foreach ($files as $file) {
+              $pageCount =$pdfMerge->setSourceFile($file);
+              for ($pageNo=1; $pageNo <=$pageCount ; $pageNo++) { 
+                  $pdfMerge->AddPage();
+                  $pageId = $pdfMerge->importPage($pageNo, '/MediaBox');
+                  //$pageId = $pdfMerge->importPage($pageNo, Fpdi\PdfReader\PageBoundaries::ART_BOX);
+                  $s = $pdfMerge->useTemplate($pageId, 10, 10, 200);
+              }
+           }
+           $file = uniqid().'.pdf';
+           // $pdfMerge->Output('I', 'simple.pdf');
+           dd($pdfMerge->Output('I', 'simple.pdf'));
+        }
+       
+          // $pdfTemp=$pdf->stream('student_all_report.pdf'); 
 
-      // $pdfMerger->addPDF('samplepdfs/one.pdf', '1, 3, 4');
-      // $pdfMerger->addPDF('samplepdfs/two.pdf', '1-2');
-      // $pdfMerger->addPDF('samplepdfs/three.pdf', 'all');
-
-      // //You can optionally specify a different orientation for each PDF
-      // $pdfMerger->addPDF('samplepdfs/one.pdf', '1, 3, 4', 'L');
-      // $pdfMerger->addPDF('samplepdfs/two.pdf', '1-2', 'P');
-
-      // $pdfMerger->merge(); //For a normal merge (No blank page added)
-
-      // // OR..
-      // $pdfMerger->duplexMerge(); //Merges your provided PDFs and adds blank pages between documents as needed to allow duplex printing
-
-      // // optional parameter can be passed to the merge functions for orientation (P for protrait, L for Landscape). 
-      // // This will be used for every PDF that doesn't have an orientation specified
-
-      // $pdfMerger->save("http://www.africau.edu/images/default/sample.pdf.pdf");
-
-      // // OR...
-      // $pdfMerger->save("file_name.pdf", "download");
-    }
+        
+      }
+   }
     public function finalReportStudentDetailsCheck(Request $request){
           $checkMenuID= $request->id; 
-        return view('admin.report.finalReport.student_details_select',compact('students','checkMenuID'));
+        return view('admin.report.finalReport.section_wise',compact('students','checkMenuID'));
 
+    }
+
+    public function finalReportTest(){
+
+      
+        $path=  public_path('storage/class_test/abc.pdf');
+        $path2=  public_path('storage/class_test/abc2.pdf');
+ 
+ 
+         $pdf = new Fpdi();
+         $files =[
+                 $path,
+                 $path2,
+               
+            ];
+         foreach ($files as $file) {
+            $pageCount =$pdf->setSourceFile($file);
+            for ($pageNo=1; $pageNo <=$pageCount ; $pageNo++) { 
+                $pdf->AddPage();
+                $pageId = $pdf->importPage($pageNo, '/MediaBox');
+                //$pageId = $pdf->importPage($pageNo, Fpdi\PdfReader\PageBoundaries::ART_BOX);
+                $s = $pdf->useTemplate($pageId, 10, 10, 200);
+            }
+         }
+         $file = uniqid().'.pdf';
+         $pdf->Output('I', 'simple.pdf');
+        
+         // $fileContent = file_get_contents($path2,'rb'); 
+         // $pdf->setSourceFile(StreamReader::createByString($fileContent));
+        
+         // $tplIdx = $pdf->importPage(1);
+         // $pdf->useTemplate($tplIdx, 10, 10, 100);
+         // $pdf->SetFont('Helvetica');
+         // $pdf->SetTextColor(255, 0, 0);
+         // $pdf->SetXY(130, 230);
+         // $pdf->Write(0, 'This is just a simple text');
+         // dd( $pdf->Output());
+              
     }
 }

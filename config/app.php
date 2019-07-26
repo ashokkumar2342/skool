@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
+      
 
     ],
 
@@ -231,6 +232,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'MyFuncs' => App\Helpers\MyFuncs::class,
         'MailHelper' => App\Helpers\MailHelper::class,
+        
 
     ],
 

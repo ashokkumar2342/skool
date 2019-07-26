@@ -11,16 +11,16 @@
                                </div> 
                                <div class="form-group col-sm-12" id="phone">
                                     <label for="reg_input">Name</label>
-                                   <input name="student_name"value="1" type="checkbox" multiselect="true"> 
+                                   <input name="student_details[]"value="name" type="checkbox" multiselect="true"> 
                                </div> 
                                 
                                 <div class="form-group col-sm-12" id="email">
                                     <label for="reg_input">Father Name</label>
-                                    <input name="student_father" value="1" type="checkbox">
+                                    <input name="student_details[]" value="father_name" type="checkbox">
                                 </div>  
                                 <div class="form-group col-sm-12" id="email">
                                     <label for="reg_input">Mother Name</label>
-                                    <input name="student_mother" value="1" type="checkbox">
+                                    <input name="student_details[]" value="mother_name" type="checkbox">
                                 </div> 
                                 <div class="form-group col-sm-12" id="email">
                                     <label for="reg_input">Mobile</label>

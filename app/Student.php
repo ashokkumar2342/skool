@@ -71,6 +71,12 @@ class Student extends Authenticatable
     Public function professions(){
         return $this->hasOne('App\Model\Profession','id','occupation'); 
     }
+     Public function document(){
+        return $this->hasOne('App\Model\Document','student_id','id'); 
+    }
+     Public function documents(){
+        return $this->hasMany('App\Model\Document','student_id','id'); 
+    }
     
     
 }

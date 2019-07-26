@@ -19,11 +19,24 @@
                   <option value="3">Class With Section</option> 
                 </select> 
               </div> 
-              <div id="report_for">
-                
+              <div id="report_for"> 
+              </div> 
+            </div></br>
+            <div class="row">
+            <div class="col-lg-4" style="margin-left: 15px">
+              <label>Report Wise</label>
+              <select name="report_wise" class="form-control"multiselect-form="true" onchange="callAjax(this,'{{ route('admin.student.final.report.student.details.check') }}','student_details_select')">
+                <option selected disabled>Select Option</option>
+                <option value="1">Section</option>
+                <option value="2">Filed</option> 
+              </select> 
               </div>
+            <div id="student_details_select">
             </div>
-              <div id="bloodgroupcheck" style="margin-top: 20px">
+
+            </div>
+            
+              {{-- <div id="bloodgroupcheck" style="margin-top: 20px">
                             <div class="row" style="margin-left: 10px"> 
                                 <div class="form-group col-sm-2" id="phone">
                                     <label for="reg_input">Student Details</label>
@@ -59,14 +72,12 @@
                                     <input name="document_details" value="6" type="checkbox">
                                 </div>  
                             </div>
-                        </div>
-              <div class="col-lg-12 text-center"> 
-               <input type="submit" value="DownLoad PDF" class="btn btn-success" style="margin: 28px;margin-right: 10px">
-              </div>
+                        </div> --}}
+              
               <div id="final_report_result">
                 
               </div>
-            </div> 
+              
            
           </form>
         </div>
