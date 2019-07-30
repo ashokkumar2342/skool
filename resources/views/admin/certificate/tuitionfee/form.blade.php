@@ -1,37 +1,48 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Student Fee Collection </h1>
+    <h1>Certificate Generate</h1>
       <ol class="breadcrumb">
       </ol>
 </section>
     <section class="content">
-        <div class="box">             
-            <!-- /.box-header -->
+        <div class="box"> 
             <div class="box-body"> 
-                <div class="row">  
-                    <div class="col-md-12"> 
-                        <form class="form-vertical fee_collection_form"> 
-                            <div class="col-lg-2">                           
-                                 <div class="form-group">
-                                  {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
-                                   {{ Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required',]) }}
-                                   <p class="errorAmount1 text-center alert alert-danger hidden"></p>
-                                 </div>    
-                            </div>                                                             
-                           <div class="col-lg-1" style="padding-top: 20px;"> 
-                           <button class="btn btn-success" type="button" id="btn_student_registration_show">Show</button>
+                        <form action="{{ route('admin.student.certificateIssu.report.certificate.generate') }}" method="post"  button-click="btn_report_request_show">
+                        {{ csrf_field() }} 
+                              <div class="row">
+                                 <div class="col-lg-3">
+                                  <label>Report For</label>
+                                   <select name="report_for" class="form-control">
+                                    <option selected disabled>Select Option</option>
+                                    <option value="1">Fee Certificate</option>
+                                    <option value="2">School Leaving Certificate</option>
+                                    <option value="3">Character Certificate</option>
+                                    <option value="4">Whomsoever</option> 
+                                   </select> 
+                                  </div>
+                                 <div class="col-lg-3">
+                                  <label>Report Wise</label>
+                                  <select name="report_wise" select2="true" class="form-control" onchange="callAjax(this,'{{ route('admin.student.certificateIssu.report.wise') }}','report_wise_pase')">
+                                    <option selected disabled>Select Option</option>
+                                    <option value="1">All</option>
+                                    <option value="2">Student</option>
+                                    <option value="3">Class</option>
+                                    <option value="4">Class With Section</option> 
+                                  </select> 
+                                 </div>
+                                 <div id="report_wise_pase"> 
+                                 </div>                                                     
+                           <div class="col-lg-12 text-center" style="padding-top: 20px;"> 
+                           <button class="btn btn-success" type="submit" id="btn_student_registration_show">Download</button>
+                          </div>
                           </div>                     
                         </form> 
-                      <div class="col-md-1" style="padding-top: 20px;">
-                           <button class="btn btn-warning" type="button" id="btn_student_registration_show" data-toggle="modal" data-target="#myModal">Search</button>
-                           
-                      </div>
-                     
-                    </div> 
-
-                 </div>  
-            </div>
+                           <button class="btn btn-warning hidden" type="button" id="btn_report_request_show" data-table="report_dataTable" onclick="callAjax(this,'{{ route('admin.student.report.request.show') }}','report_request_show')" >Button Show</button> 
+                     <div  id="report_request_show"> 
+                     </div> 
+                  
+            {{-- </div>
             <!-- /.box-body -->
          </div>
           <!-- /.box -->
@@ -90,10 +101,11 @@
                         
                     </table>
                   </div>
-                </div>
+                </div> --}}
 
               </div>
-            </div> 
+            </div>
+             
     </section>
     <!-- /.content -->
 @endsection
@@ -109,9 +121,17 @@
  @push('scripts')
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  {{-- <script src="{{ asset('admin_asset/plugins/select2/select2.full.min.js') }}"></script> --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script type="text/javascript">
+  
+ $(document).ready(function(){
+        $('#report_dataTable').DataTable();
+    });
+ $('#btn_report_request_show').click();
+  
+</script> 
  
-  <script>
+  {{-- <script>
     $('#btn_student_registration_show').click(function(event) {        
       $.ajaxSetup({
                 headers: {
@@ -289,7 +309,7 @@
 
 
 
-  </script>
+  </script> --}}
   <script>
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function() {

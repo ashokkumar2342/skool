@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Model\HistoryCertificateIssue;
 use App\Http\Controllers\Controller;
 use App\Model\CertificateIssueDetail;
+use App\Model\ClassType;
+use App\Model\HistoryCertificateIssue;
+use App\Model\ReportRequest;
+use App\Model\Section;
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use PDF;
 use Storage;
 
@@ -240,5 +244,165 @@ class CertificateIssueDetailController extends Controller
      // file_put_contents("certificate/$filename", $pdf->output()); 
      return $pdf->stream('invoice.pdf');
     
+    }
+    public function reportWise(Request $request){
+        
+          $reportWise=$request->id;
+          $registrationNOs=Student::orderBy('id','ASC')->get();
+          $classTypes=ClassType::orderBy('id','ASC')->get();
+          return view('admin.certificate.tuitionfee.all_report',compact('reportWise','registrationNOs','classTypes'));
+    }
+    public function reportClassWithSection(Request $request){
+        
+        $sections=Section::where('class_id',$request->id)->get();
+        return view('admin.certificate.tuitionfee.class_wise_section',compact('sections'));
+    }
+    public function reportCertificateGenerate(Request $request){
+          // return $request;
+       if ($request->report_for==1) {
+        if ($request->registratin_no!=null) { 
+       $students=Student::where('id',$request->registratin_no)->where('student_status_id',1)->first(); 
+         $pdf = PDF::loadView('admin.certificate.tuitionfee.print',compact('students')); 
+         return $pdf->stream('invoice.pdf');
+         }
+         if ($request->report_wise==1) { 
+         $students=Student::where('student_status_id',1)->orderBy('class_id','ASC')->get();
+         }if ($request->report_wise==3) { 
+         $students=Student::where('class_id',$request->class_id)->where('student_status_id',1)->orderBy('class_id','ASC')->get();
+         }if ($request->report_wise==4) { 
+          $students=Student::where('class_id',$request->class_id)->where('section_id',$request->section_id)->where('student_status_id',1)->orderBy('class_id','ASC')->get();
+         }
+        
+            $rules=[ 
+          ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+        foreach ($students as $student) {
+        $reportRequest=new ReportRequest();
+        $reportRequest->student_id=$student->id;
+        $reportRequest->class_id=$student->class_id;
+        $reportRequest->section_id=$student->section_id;
+        $reportRequest->registration_no=$student->id;
+        $reportRequest->report_type_id=$request->report_for;
+        $reportRequest->status=0;
+        $reportRequest->save();
+        }
+        $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
+        }  
+       }
+
+       if ($request->report_for==2) {
+         if ($request->registratin_no!=null) {
+        $students=Student::where('id',$request->registratin_no)->where('student_status_id',1)->first(); 
+             $pdf = PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('students')); 
+            return $pdf->stream('invoice.pdf'); 
+         }
+         if ($request->report_wise==1) { 
+         $students=Student::where('student_status_id',1)->orderBy('class_id','ASC')->get();
+         }if ($request->report_wise==3) { 
+         $students=Student::where('class_id',$request->class_id)->where('student_status_id',1)->orderBy('class_id','ASC')->get();
+         }if ($request->report_wise==4) { 
+          $students=Student::where('class_id',$request->class_id)->where('section_id',$request->section_id)->where('student_status_id',1)->orderBy('class_id','ASC')->get();
+         } 
+        
+            $rules=[ 
+          ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+        foreach ($students as $student) {
+        $reportRequest=new ReportRequest();
+        $reportRequest->student_id=$student->id;
+        $reportRequest->class_id=$student->class_id;
+        $reportRequest->section_id=$student->section_id;
+        $reportRequest->registration_no=$student->id;
+        $reportRequest->report_type_id=$request->report_for;
+        $reportRequest->status=0;
+        $reportRequest->save();
+        }
+        $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
+        }  
+       }if ($request->report_for==3) {
+         if ($request->registratin_no!=null) { 
+         $students=Student::where('id',$request->registratin_no)->where('student_status_id',1)->first();
+         $pdf = PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('student')); 
+         return $pdf->stream('invoice.pdf');
+         }
+         if ($request->report_wise==1) { 
+         $students=Student::where('student_status_id',1)->orderBy('class_id','ASC')->get();
+         }if ($request->report_wise==3) { 
+         $students=Student::where('class_id',$request->class_id)->where('student_status_id',1)->orderBy('class_id','ASC')->get();
+         }if ($request->report_wise==4) { 
+          $students=Student::where('class_id',$request->class_id)->where('section_id',$request->section_id)->where('student_status_id',1)->orderBy('class_id','ASC')->get();
+         }
+        
+        
+            $rules=[ 
+          ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+        foreach ($students as $student) {
+        $reportRequest=new ReportRequest();
+        $reportRequest->student_id=$student->id;
+        $reportRequest->class_id=$student->class_id;
+        $reportRequest->section_id=$student->section_id;
+        $reportRequest->registration_no=$student->id;
+        $reportRequest->report_type_id=$request->report_for;
+        $reportRequest->status=0;
+        $reportRequest->save();
+        }
+        $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
+        }  
+       }
+       return 'notfound';
+    }
+    public  function reportRequestShow(Request $request)
+    {
+       $reportRequests=ReportRequest::all();
+       return view('admin.certificate.tuitionfee.report_request',compact('reportRequests'));  
+    }
+    public function reportRequestPendingGenerate(Request $request,$student_id,$report_type_id)
+    {
+          
+        $students=Student::find($student_id);
+        if ($report_type_id==1) {
+          $pdf = PDF::loadView('admin.certificate.tuitionfee.print',compact('students')); 
+          return $pdf->stream('invoice.pdf'); 
+        }
+        if ($report_type_id==2) {
+          $pdf = PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('students')); 
+          return $pdf->stream('invoice.pdf'); 
+        }
+        if ($report_type_id==3) {
+          $pdf = PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('students')); 
+          return $pdf->stream('invoice.pdf'); 
+        }
+        return 'notfound';
     }
 }

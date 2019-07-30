@@ -276,6 +276,10 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('report-test', 'ReportController@finalReportTest')->name('admin.student.final.report.test'); 
          
 	 });
+	 Route::group(['prefix' => 'general-report'], function() {
+	     Route::get('report', 'ReportController@generalReport')->name('admin.student.general.report'); 
+	     Route::get('report-for', 'ReportController@generalReportFor')->name('admin.student.general.report.for'); 
+	 });
 	   // ---------------Certificate----------------------------------------
 	 Route::group(['prefix' => 'certificate'], function() {
 	     Route::get('/', 'CertificateIssueDetailController@index')->name('admin.student.certificateIssu.list');	 	
@@ -294,8 +298,11 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('/', 'CertificateIssueDetailController@tuitionFeeShowForm')->name('admin.student.certificateIssu.tuition');	 
 	     Route::get('result', 'CertificateIssueDetailController@tuitionFeeShowResult')->name('admin.student.certificateIssu.tuition.result');	 	
 	     Route::get('show/{id}', 'CertificateIssueDetailController@tuitionPrint')->name('admin.student.certificateIssu.tuition.print');
-	     // Route::post('store', 'CertificateIssueDetailController@store')->name('admin.student.certificateIssu.post');
-	     // Route::get('edit', 'CertificateIssueDetailController@edit')->name('admin.student.certificateIssu.edit');
+	     Route::get('report-wise', 'CertificateIssueDetailController@reportWise')->name('admin.student.certificateIssu.report.wise');
+	     Route::get('class-with-section', 'CertificateIssueDetailController@reportClassWithSection')->name('admin.student.certificateIssu.report.class.with.section');
+	     Route::post('certificate-generate', 'CertificateIssueDetailController@reportCertificateGenerate')->name('admin.student.certificateIssu.report.certificate.generate');
+	      Route::get('report-request-show', 'CertificateIssueDetailController@reportRequestShow')->name('admin.student.report.request.show');
+	      Route::get('pendin-generate/{student_id}/{report_type_id}', 'CertificateIssueDetailController@reportRequestPendingGenerate')->name('admin.student.report.request.pending.generate');
 	     // Route::get('show/{certificate}', 'CertificateIssueDetailController@show')->name('admin.student.certificateIssu.show');
 	     // Route::get('delete', 'CertificateIssueDetailController@edit')->name('admin.student.certificateIssu.delete');
 	     // Route::get('download/{certificate}', 'CertificateIssueDetailController@download')->name('admin.student.attachment.download');

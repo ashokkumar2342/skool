@@ -199,15 +199,20 @@ class ReportController extends Controller
            $documentUrl = Storage_path() . '/app/student/document/'.$student->class_id.'/'.$student->section_id.'/'.$student->registration_no.'/profile.pdf';  
           $pdf = PDF::loadView('admin.report.finalReport.pdf_generate',compact('sectionWiseDetails','perentDetails','medicalDetails','siblingDetails','subjectDetails','documentDetails','students','parents','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','fieldNames'))->save($documentUrl);
           // $path=  public_path('storage/class_test/abc6.pdf');
+          
           $path2=  Storage_path('app/'.$student->document->document_url);
           
           
+              
+         
            $pdfMerge = new Fpdi();
            $dt =array();
            $dt['student']=$documentUrl;
            foreach ($docs as $key=>$document) {
+            if ($request->document_marge==1) {
              $dt[$key]=Storage_path('app/'.$document->document_url);  
            }
+          }
         
            $files =$dt;
            foreach ($files as $file) {
@@ -221,9 +226,10 @@ class ReportController extends Controller
            }
            $file = uniqid().'.pdf';
            // $pdfMerge->Output('I', 'simple.pdf');
+
            dd($pdfMerge->Output('I', 'simple.pdf'));
         }
-       
+        
           // $pdfTemp=$pdf->stream('student_all_report.pdf'); 
 
         
@@ -272,4 +278,16 @@ class ReportController extends Controller
          // dd( $pdf->Output());
               
     }
+
+    //-----------------------genearl-report----------------------------------------------//
+  
+  public function generalReport(){
+    return view('admin.report.generalReport.view',compact('students','checkMenuID')); 
+  }
+
+  public function generalReportFor(Request $request){
+    
+    return view('admin.report.generalReport.stationery',compact('students','checkMenuID')); 
+  }   
 }
+
