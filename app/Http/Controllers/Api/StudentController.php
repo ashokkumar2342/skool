@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Api;
+use App\Admin;
 use App\Events\SmsEvent;
 use App\Http\Controllers\Controller;
 use App\Mail\SendMail;
