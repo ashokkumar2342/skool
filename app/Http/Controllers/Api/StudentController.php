@@ -135,15 +135,23 @@ class StudentController extends Controller
                      $data['role_id']=6; 
                      return $data;
 
-                 } elseif (Hash::check($request->password, $admin->password)) {
-                    auth()->guard('admin')->loginUsingId($admin->id);
-                    $data=array();
-                    $data['status']=1;
-                    $data['id']=$admin->id; 
-                    $data['role_id']=$admin->role_id; 
-                    return $data;
+                 }elseif (!empty($admin)){
+                    if (Hash::check($request->password, $admin->password)) {
+                        auth()->guard('admin')->loginUsingId($admin->id);
+                        $data=array();
+                        $data['status']=1;
+                        $data['id']=$admin->id; 
+                        $data['role_id']=$admin->role_id; 
+                        return $data;
 
-                } else {
+                    } else {
+                    $data=array();
+                    $data['status']=0;
+                    $data['data']='null';
+                    return $data;
+                    }
+                 }
+                 else {
                     $data=array();
                     $data['status']=0;
                     $data['data']='null';
