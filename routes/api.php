@@ -51,5 +51,20 @@ Route::get('test', function(Request $request){
   
  });
 
+ Route::group(['prefix' => 'admin'], function() {
+ 	Route::get('details/{id}', 'Api\AdminController@index'); 
+    Route::get('image/{id}', 'Api\AdminController@image'); 
+    Route::get('homework/{id}', 'Api\AdminController@homework'); 
+    Route::get('homework-latest/{id}', 'Api\AdminController@homeworkToday'); 
+    Route::get('attendance/{id}', 'Api\AdminController@attendance'); 
+    Route::get('fee/{id}', 'Api\AdminController@feeDetails'); 
+    Route::get('last-fee/{id}', 'Api\AdminController@lastFee'); 
+    Route::get('fee-upto/{id}', 'Api\AdminController@feeUpto'); 
+    Route::get('event/{id}', 'Api\AdminController@event'); 
+    Route::get('remarks/{id}', 'Api\AdminController@remarks'); 
+    Route::get('quotes/{id}', 'Api\AdminController@quotes'); 
+  
+ });
+
 
  
