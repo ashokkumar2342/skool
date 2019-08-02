@@ -84,6 +84,45 @@
          <!-- Left col -->
          <section class="col-lg-7 connectedSortable">
           <!-- quick email widget -->
+       
+              <!-- USERS LIST -->
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Student Birthday</h3>
+
+                  <div class="box-tools pull-right">
+                    <span class="label label-danger">8 New Members</span>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <ul class="users-list clearfix">
+                    @foreach ($studentDOBs as $studentDOB)
+                    @php
+                    $profile = route('admin.student.image',$studentDOB->picture);
+                    @endphp
+                    <li>
+                      <img src="{{ ($studentDOB->picture)? $profile : asset('profile-img/user.png') }}" alt="{{ $studentDOB->name }}" style="width: 100px; height: 100px;  border: 2px solid #d1f7ec">
+                      <a class="users-list-name" href="#">{{ $studentDOB->name }}</a>
+                      <span class="users-list-date">{{ $studentDOB->classes->name or ''}}</span>
+                      <span class="users-list-date">{{ $studentDOB->sectionTypes->name or ''}}</span>
+                    </li> 
+                     @endforeach 
+                  </ul> 
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer text-center">
+                  <a href="javascript:void(0)" class="uppercase">View All Users</a>
+                </div>
+                <!-- /.box-footer -->
+              </div>
+              <!--/.box -->
+         
+           
           <div class="box box-info">
             <div class="box-header">
               <i class="fa fa-envelope"></i>
