@@ -8,9 +8,9 @@
     <h1>Fee Certificate</h1>
   </div>
   <div style="padding-top: 50px; padding-left: 100px;">
-    <p>This is to certify that Km. <b>{{  $students->name }} </b></p>
-    <p>Admn.No. <b>{{  $students->admission_no }}</b> D/o <b>{{  $students->father_name }}</b> & Smt.<b>{{  $students->mother_name }}</b> </p>
-    <p>This been a bonafide student of class <b>{{  $students->classes->name or '' }}</b> of this school   </p> 
+    <p>This is to certify that Km. <b>{{  $student->name }} </b></p>
+    <p>Admn.No. <b>{{  $student->admission_no }}</b> D/o <b>{{  $student->father_name }}</b> & Smt.<b>{{  $student->mother_name }}</b> </p>
+    <p>This been a bonafide student of class <b>{{  $student->classes->name or '' }}</b> of this school   </p> 
     <p style="padding-top: 50px">The guardian has paid a sum of _____2345.00____</p>
     <p>(___Rs Twent Seven THousant___)</p>
     <p>towards the fee of his/her ward from___April-2019___</p>

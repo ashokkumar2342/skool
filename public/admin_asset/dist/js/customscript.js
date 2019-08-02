@@ -1,6 +1,6 @@
 var full_url_js=window.location.protocol+'//'+ window.location.hostname;
 function callAjax(obj,url,divId,callback){
-	$('#'+divId).html('<div align="center"><img src="'+full_url_js+'/img/loader.gif" align="center" width="150px" style="padding-top:100px"></div>'); 
+	$('#'+divId).html('Please Wait......');
     $.get(url,
     {
         id: obj.value

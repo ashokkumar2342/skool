@@ -17,9 +17,9 @@ b{
 @section('body')
     <section class="content">
         <div class="box">  
-          <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.student.preview',$student->id) }}')" style="margin:5px">Preview</button>
+          <button type="button" class="btn btn-xs btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.student.preview',$student->id) }}')" style="margin:5px">Preview</button>
 
-          <a href="{{ route('admin.student.pdf.generate',$student->id) }}" class="btn btn-success pull-right" title="Pdf" target="_blank" style="margin:5px">Download Profile</a>
+          <a href="{{ route('admin.student.pdf.generate',$student->id) }}" class="btn btn-xs btn-success pull-right" title="Pdf" target="_blank" style="margin:5px">Profile PDF</a>
           
           <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-home"></i> Student Details</a></li>
@@ -255,6 +255,7 @@ b{
                               <td>{{ $document->documentTypes->name }}</td>
                               <td>{{ $document->name }}</td>                             
                               <td> 
+                                {{-- <a href="{{ route('admin.document.download',$document->document_url) }}" target="blank" class="btn btn-success btn-xs"><i class="fa fa-download"></i></a>  --}}
                                 <a href="{{ url('storage/'.$document->document_url) }}" target="blank" class="btn btn-success btn-xs"><i class="fa fa-download"></i></a>
                                 <a class="btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" href="{{ route('admin.document.delete',$document->id) }}"  ><i class="fa fa-trash"></i></a></td>
                           </tr>

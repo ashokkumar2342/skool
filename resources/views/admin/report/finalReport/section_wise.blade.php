@@ -1,6 +1,6 @@
 @if ($checkMenuID==1)
   
-<div class="col-lg-4">
+           <div class="col-lg-4">
               <label>Section Name</label></br>
               <select name="section_wise[]"  class="form-control multiselect" multiple="multiple">
                 <option value="1">Student Details</option>
@@ -8,10 +8,12 @@
                 <option value="3">Medical Details</option>
                 <option value="4">Sibling Details</option>
                 <option value="5">Subject Details</option>
-                <option value="6">Document Details</option>
-                
-              </select>
-              
+                <option value="6">Document Details</option> 
+              </select> 
+            </div>
+           <div class="col-lg-2" style="margin-top: 20px">
+              <label>Document Marge</label>
+              <input type="checkbox" name="document_marge" value="1">
             </div>
    @endif
    @if ($checkMenuID==2)
@@ -57,6 +59,12 @@
               
             </div>
    @endif
-<div class="col-lg-10 text-center"> 
-               <input type="submit" value="DownLoad PDF" class="btn btn-success" style="margin: 28px;margin-right: 10px">
+          @if (empty($registration))
+              <div class="col-lg-10 text-center"> 
+               <input type="submit" value="Request" class="btn btn-success" style="margin: 28px;margin-right: 10px">
+              </div> 
+              @else
+              <div class="col-lg-10 text-center"> 
+               <input type="submit" value="Download PDF" class="btn btn-success" style="margin: 28px;margin-right: 10px">
               </div>
+          @endif

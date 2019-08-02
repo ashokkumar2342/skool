@@ -3,8 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Model\ReportRequest;
+use App\Student;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\log;
+use PDF;
 
 class ReportGenrate extends Command
 {
@@ -39,13 +41,35 @@ class ReportGenrate extends Command
      */
     public function handle()
     {
-        $requestReports=ReportRequest::where('status',0)->orderBy('class_id','ASC')->get();
+        $requestReports=ReportRequest::where('status',0)->get();
         foreach ($requestReports as $requestReport) {
-        $requestReportStatus=ReportRequest::find($requestReport->id);
+            if ($requestReport->report_wise==1) {
+                $students=Student::where('student_status_id',1)->orderBy('class_id','ASC')->get();
+            }
+            if ($requestReport->report_wise==3) {
+                $students=Student::where('class_id',$requestReport->class_id)->where('student_status_id',1)->orderBy('class_id','ASC')->get();
+            }
+            if ($requestReport->report_wise==4) {
+                $students=Student::where('class_id',$requestReport->class_id)->where('section_id',$requestReport->section_id)->where('student_status_id',1)->orderBy('class_id','ASC')->get();
+            }
+            foreach ($students as $student) {
+                
+               $documentUrl = Storage_path() . '/app/student/document/'.$student->class_id.'/'.$student->section_id.'/'.$student->registration_no;                 
+                if ($requestReport->report_type_id==1) {  
+                    $pdf = PDF::loadView('admin.certificate.tuitionfee.print',compact('student'))->save($documentUrl.'/fee_certificate.pdf'); 
+                } 
+                if ($requestReport->report_type_id==2) 
+                    $pdf = PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student'))->save($documentUrl.'/leaving_certificate.pdf'); 
+                } 
+                if ($requestReport->report_type_id==3) 
+                    $pdf = PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('student'))->save($documentUrl.'/character_certificate.pdf'); 
+                } 
+            
+        $requestReportStatus = ReportRequest::find($requestReport->id);
         $requestReportStatus->status=1;
         $requestReportStatus->save(); 
         }
 
          
-    }
+   
 }
