@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\Admin\reportGenerateBarcode;
  
 Route::get('/', 'Auth\LoginController@index')->name('admin.home');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('admin.login'); 
@@ -16,7 +18,10 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::get('registration-show-details', 'DashboardController@showStudentRegistrationDetails')->name('admin.student.Registration.details');
 	Route::get('token', 'DashboardController@passportTokenCreate')->name('admin.token');
 	Route::get('profile', 'DashboardController@proFile')->name('admin.profile');
+	Route::post('profile-update', 'DashboardController@profileUpdate')->name('admin.profile.update');
 	Route::post('password-change', 'DashboardController@passwordChange')->name('admin.password.change');
+	Route::get('profile-photo', 'DashboardController@profilePhoto')->name('admin.profile.photo');
+	Route::post('upload-photo', 'DashboardController@profilePhotoUpload')->name('admin.profile.photo.upload');
 	//---------------account-----------------------------------------	
 	Route::prefix('account')->group(function () {
 	    Route::get('form', 'AccountController@form')->name('admin.account.form');
@@ -273,12 +278,14 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('class-wise-section', 'ReportController@finalReportClassWiseSection')->name('admin.student.final.report.class.wise.section');
 	     Route::post('report-show', 'ReportController@finalReportShow')->name('admin.student.final.report.show');
 	     Route::get('student-check', 'ReportController@finalReportStudentDetailsCheck')->name('admin.student.final.report.student.details.check'); 
-	     Route::get('report-test', 'ReportController@finalReportTest')->name('admin.student.final.report.test'); 
+	     Route::get('report-pendin-show', 'ReportController@finalReportPendingShow')->name('admin.student.final.report.pending.show'); 
+	     Route::get('report-pendin-download', 'ReportController@finalReportPendingDownload')->name('admin.student.final.report.pending.download'); 
          
 	 });
 	 Route::group(['prefix' => 'general-report'], function() {
 	     Route::get('report', 'ReportController@generalReport')->name('admin.student.general.report'); 
 	     Route::get('report-for', 'ReportController@generalReportFor')->name('admin.student.general.report.for'); 
+	     Route::post('report-generate', 'ReportController@reportGenerateBarcode')->name('admin.student.general.report.barcode'); 
 	 });
 	   // ---------------Certificate----------------------------------------
 	 Route::group(['prefix' => 'certificate'], function() {

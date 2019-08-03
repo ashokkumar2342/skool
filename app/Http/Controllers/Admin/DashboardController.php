@@ -39,13 +39,16 @@ class DashboardController extends Controller
                     ->count();
         
         $date = date('Y-m-d');
-        $students = Student::where('status',1)->count();                        
+        $students = Student::where('status',1)->count();
+        $studentDOBs = Student::whereMonth('dob',date('m'))
+                            ->whereDay('dob',date('d'))
+                            ->get(); 
         $newRegistraions = ParentRegistration::get();  
         $feeDues = StudentFeeDetail::where('paid',0)->get()->sum('fee_amount');                      
          $feePaid = StudentFeeDetail::where('paid',1)->get()->sum('fee_amount');
          $classTypes=ClassType::orderBy('id','ASC')->get();
         
-        return view('admin/dashboard/dashboard',compact('students','present','absent','newRegistraions','feeDues','feePaid','classTypes','students'));
+        return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','newRegistraions','feeDues','feePaid','classTypes','students'));
         
     }  
 
@@ -82,6 +85,76 @@ class DashboardController extends Controller
     {
         $admins = Auth::guard('admin')->user();
          return view('admin/dashboard/profile/view',compact('admins'));
+    }
+    public function profileUpdate(Request $request)
+    {
+           
+        $admins = Auth::guard('admin')->user();
+         $rules=[
+          
+            'first_name' => 'required',
+            'mobile' => 'required|digits:10',
+            'email' => 'required',
+            'dob' => 'required',
+          
+            
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else { 
+                $admins=Admin::find($admins->id);
+                $admins->first_name=$request->first_name;
+                $admins->email=$request->email;
+                $admins->mobile=$request->mobile;
+                $admins->dob=$request->dob; 
+                $admins->save(); 
+                $response=['status'=>1,'msg'=>'Upload Successfully'];
+                return response()->json($response); 
+            } 
+          
+    }
+    public function profilePhoto()
+    {
+         
+         return view('admin/dashboard/profile/profile_upload',compact('admins'));
+    } 
+    public function profilePhotoUpload(Request $request)
+    {
+        $admins = Auth::guard('admin')->user();
+         $rules=[
+          
+            'profile_photo' => 'required',
+          
+            
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else { 
+            if ($request->hasFile('profile_photo')) { 
+                $profilePhoto=$request->profile_photo;
+                $filename='admin'.date('d-m-Y').time().'.jpg'; 
+                $profilePhoto->storeAs('public/profile/',$filename); 
+                $admins=Admin::find($admins->id); 
+                $admins->profile_pic=$filename; 
+                $admins->save(); 
+                $response=['status'=>1,'msg'=>'Upload Successfully'];
+                return response()->json($response); 
+            }
+          }
     } 
      public function passwordChange(Request $request)
     {

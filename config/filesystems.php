@@ -59,6 +59,11 @@ return [
             'root' => storage_path('app/student'),
             'visibility' => 'public',
         ],
+        'document' => [
+            'driver' => 'local',
+            'root' => storage_path('document'),
+            'visibility' => 'public',
+        ],
 
         's3' => [
             'driver' => 's3',

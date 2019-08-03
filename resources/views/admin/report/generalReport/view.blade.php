@@ -6,16 +6,26 @@
     <section class="content">
        <div class="box"> 
         <div class="box-body">
-          <form action="" method="post">
+          <form action="{{ route('admin.student.general.report.barcode') }}" method="post" target="blank" >
             {{ csrf_field() }}
             <div class="row">
-              <div class="col-lg-4">
-                <select name="report_for" class="form-control" onchange="callAjax(this,'{{ route('admin.student.general.report.for') }}','report_for_page')">
+              <div class="col-lg-3">
+                <label>Report For</label>
+                <select name="report_for" class="form-control">
                   <option selected disabled>Select Option</option> 
                   <option value="1">Stationery</option> 
                   <option value="2">Address</option> 
-                  <option value="3">Select Option</option> 
+                  <option value="3">Identity Card</option> 
                 </select> 
+              </div>
+              <div class="col-lg-3">
+              <label>Report Wise</label> 
+                <select name="report_wise" class="form-control" select2="true" onchange="callAjax(this,'{{ route('admin.student.general.report.for') }}','report_for_page')">
+                  <option selected disabled>Select Option</option>
+                  <option value="1">All</option>
+                  <option value="2">Student</option>
+                  <option value="3">Class</option> 
+                </select>
               </div>
               <div id="report_for_page">
                 

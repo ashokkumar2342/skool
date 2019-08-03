@@ -17,13 +17,13 @@
     <p>File No.2344 <span style="padding-left: 300px">Date of issue</span></p>
   </div>
     <div style="padding-top: 2px; padding-left: 100px;"> 
-    <p>Pupils Name Mr. <b>{{ $students->name }}</b></p>
-    <p>Date of Birth <b>{{ date('d-M-Y',strtotime($students->dob)) }}</b></p>
-    <p>Student Registration No.(SRN) <b>{{ $students->registration_no }}</b><span style="padding-left: 50px">No.InAdmission Registre <b>{{ $students->admission_no }}</b></span></p>
-    <p style="padding-top: 2px">Name Of Father/Guardian <b>{{ $students->father_name }}</b></p>
-    <p>Mother Mrs.<b>{{ $students->mother_name }}</b></p>
-    <p style="padding-top: 5px">Cretified that Mr.<b>{{ $students->name }}</b> attended this school up-to 17-jul-2019 He/she has paid all sum due to the school and was allowed on the above date to withdraw his/her name He/she was reading in class <b>{{ $students->classes->name or '' }}</b> in this school</p>
-    <p style="padding-top: 5px">1.he/she was examined in <b>{{ $students->classes->name or '' }}</b> and</p>
+    <p>Pupils Name Mr. <b>{{ $student->name }}</b></p>
+    <p>Date of Birth <b>{{ date('d-M-Y',strtotime($student->dob)) }}</b></p>
+    <p>Student Registration No.(SRN) <b>{{ $student->registration_no }}</b><span style="padding-left: 50px">No.InAdmission Registre <b>{{ $student->admission_no }}</b></span></p>
+    <p style="padding-top: 2px">Name Of Father/Guardian <b>{{ $student->father_name }}</b></p>
+    <p>Mother Mrs.<b>{{ $student->mother_name }}</b></p>
+    <p style="padding-top: 5px">Cretified that Mr.<b>{{ $student->name }}</b> attended this school up-to 17-jul-2019 He/she has paid all sum due to the school and was allowed on the above date to withdraw his/her name He/she was reading in class <b>{{ $student->classes->name or '' }}</b> in this school</p>
+    <p style="padding-top: 5px">1.he/she was examined in <b>{{ $student->classes->name or '' }}</b> and</p>
     <p style="padding-left: 20px">a.was allowed/promised promotion to .............</p>
     <p style="padding-left: 20px">b.Passed the examination in the highest class available in the school, OR</p>
     <p style="padding-left: 20px">c.Left the school min-session to join a different school,OR</p>
