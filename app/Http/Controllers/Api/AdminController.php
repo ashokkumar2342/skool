@@ -52,8 +52,8 @@ class AdminController extends Controller
 
     public function image($id){ 
         try {
-            $student =Student::find($id); 
-            $img = Storage::disk('student')->get('profile/'.$student->picture); 
+            $admin =Admin::find($id); 
+            $img = Storage::disk('student')->get('profile/'.$admin->picture); 
             return response($img)->header('Content-Type', 'image/jpeg');
         } catch (Exception $e) {
             return $e;
