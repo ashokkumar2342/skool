@@ -18,6 +18,7 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::get('registration-show-details', 'DashboardController@showStudentRegistrationDetails')->name('admin.student.Registration.details');
 	Route::get('token', 'DashboardController@passportTokenCreate')->name('admin.token');
 	Route::get('profile', 'DashboardController@proFile')->name('admin.profile');
+	Route::get('profile-show/{profile_pic}', 'DashboardController@proFilePhotoShow')->name('admin.profile.photo.show'); 
 	Route::post('profile-update', 'DashboardController@profileUpdate')->name('admin.profile.update');
 	Route::post('password-change', 'DashboardController@passwordChange')->name('admin.password.change');
 	Route::get('profile-photo', 'DashboardController@profilePhoto')->name('admin.profile.photo');

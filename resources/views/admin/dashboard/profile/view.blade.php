@@ -17,8 +17,14 @@
                 <div class="">
                   <div class="box-body box-profile">
                     {{-- <img src="{{ url('storage/public/profile/'.'admin01-08-20191564664767.jpg') }}"  title="" width="50" height="50" /> --}}
-                    <img class="profile-user-img img-responsive img-circle" src="{{ url('storage/profile/'.$admins->profile_pic) }}">
+                    @php
+                      $profile = route('admin.profile.photo.show',$admins->profile_pic);
+                    @endphp
+                    <img  class="profile-user-img img-responsive img-circle" src="{{ ($admins->profile_pic)? $profile : asset('profile-img/user.png') }}" alt="{{ $admins->first_name }}">
 
+
+                   {{--  <img class="profile-user-img img-responsive img-circle" src="{{ url('storage/profile/'.$admins->profile_pic) }}">
+ --}}
                     <h3 class="profile-username text-center">{{ $admins->first_name or '' }}</h3>
 
                     <p class="text-muted text-center">Role:</p>

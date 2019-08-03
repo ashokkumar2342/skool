@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Passport\createToken;
-
+use Storage;
 class DashboardController extends Controller
 {
     // public function __construct()
@@ -147,7 +147,7 @@ class DashboardController extends Controller
             if ($request->hasFile('profile_photo')) { 
                 $profilePhoto=$request->profile_photo;
                 $filename='admin'.date('d-m-Y').time().'.jpg'; 
-                $profilePhoto->storeAs('public/profile/',$filename); 
+                $profilePhoto->storeAs('student/profile/admin/',$filename); 
                 $admins=Admin::find($admins->id); 
                 $admins->profile_pic=$filename; 
                 $admins->save(); 
@@ -155,7 +155,12 @@ class DashboardController extends Controller
                 return response()->json($response); 
             }
           }
-    } 
+    }
+     public function proFilePhotoShow(Request $request,$profile_pic)
+     {
+         $profile_pic = Storage::disk('student')->get('profile/admin/'.$profile_pic);
+          return response($profile_pic);
+     } 
      public function passwordChange(Request $request)
     {
         $rules=[
