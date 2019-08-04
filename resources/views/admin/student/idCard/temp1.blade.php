@@ -47,7 +47,7 @@
 						</div> 
 							<div  style="font-size: 22px;text-align:center">{{ $student->academicYear->name }}</div> 
 						  <div align="center">
-							  <img  src="{{ asset('img/student.jpg') }}" alt="" width="100px" style="border:solid 2px Black">
+							  <img  src="{{ public_path("1517293077.png") }}" alt="" width="100px" style="border:solid 2px Black">
 						 </div>
 						 <div  style="font-size: 20px;text-align:center"><b>{{ $student->name }} {{ $student->last_name }}</b></div> 
 						  <div  style="font-size: 15px;text-align:center">Parent s Name</div> 
