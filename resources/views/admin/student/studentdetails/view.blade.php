@@ -50,7 +50,7 @@ b{
                                       <li class="list-group-item">Date Of Addmission :-<span class="fs"><input type="text" maxlength="50" value="{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}" name="date_of_admission"> </span></li>
                                       <li class="list-group-item">Date of Activation :-<span class="fs"><input type="text" maxlength="50" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation"> </span></li>
                                       <li class="list-group-item">Date Of Birth :-<span class="fs"><input type="text" maxlength="10" value="{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}" name="date_of_birth"> </span></li>
-                                      <li class="list-group-item">Gender :-<span class="fs"><input type="text" value="{{ $student->genders->genders }}" disabled=""> </span></li>
+                                      <li class="list-group-item">Gender :-<span class="fs"><input type="text" value="{{ $student->genders->genders or ''}}" disabled=""> </span></li>
                                        
                                       <li class="list-group-item" style="min-height: 90px">Parmanent Address  :-<span class="fs"><textarea  name="p_address" maxlength="200" rows="3"> {{ $student->p_address }}</textarea></span></li>
 
@@ -69,7 +69,7 @@ b{
                                       <li class="list-group-item">Father's Mobile :-<span  class="fs"><input type="text" maxlength="10" value="{{ $student->father_mobile }}" name="father_mobile"></span></li>
                                       <li class="list-group-item">Mother's Mobile :-<span class="fs"><input type="text" maxlength="10" value="{{ $student->mother_mobile}}" name="mother_mobile"> </span></li>                                     
                                       
-                                      <li class="list-group-item">Category :-<span class="fs"><input type="text" value="{{ $student->categories->name }}" disabled=""> </span></li>
+                                      <li class="list-group-item">Category :-<span class="fs"><input type="text" value="{{ $student->categories->name or ''}}" disabled=""> </span></li>
                                       <li class="list-group-item">Religion :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->religions->name }}" disabled=""> </span></li> 
                                       <li class="list-group-item">City :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->city }}" name="city"> </span></li>
                                       <li class="list-group-item">State :-<span class="fs"><input type="text" value="{{ $student->state }}" name="state"> </span></li>
@@ -252,7 +252,7 @@ b{
                       <tbody>
                         @foreach (App\Model\Document::where('student_id',$student->id)->get() as $document) 
                           <tr>
-                              <td>{{ $document->documentTypes->name }}</td>
+                              <td>{{ $document->documentTypes->name or ''}}</td>
                               <td>{{ $document->name }}</td>                             
                               <td> 
                                 {{-- <a href="{{ route('admin.document.download',$document->document_url) }}" target="blank" class="btn btn-success btn-xs"><i class="fa fa-download"></i></a>  --}}
