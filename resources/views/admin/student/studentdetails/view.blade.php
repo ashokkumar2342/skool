@@ -64,7 +64,7 @@ b{
                                     <ul class="list-group">
                                        <li class="list-group-item">User Name :-<span class="fs"><input type="text" value="{{ $student->username }}" disabled=""> </span></li>
                                       <li class="list-group-item">Password :-<span class="fs"><input type="text" disabled="" value="{{ $student->tem_pass }}" name=""> </span></li>
-                                      <li class="list-group-item">Father's Name :-<span class="fs"><input type="text" maxlength="10" value="{{ $student->father_name }}" name="father_name"> </span></li>
+                                      <li class="list-group-item">Father's Name :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->father_name }}" name="father_name"> </span></li>
                                       <li class="list-group-item">Mother's Name :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->mother_name }}" name="mother_name"> </span></li>
                                       <li class="list-group-item">Father's Mobile :-<span  class="fs"><input type="text" maxlength="10" value="{{ $student->father_mobile }}" name="father_mobile"></span></li>
                                       <li class="list-group-item">Mother's Mobile :-<span class="fs"><input type="text" maxlength="10" value="{{ $student->mother_mobile}}" name="mother_mobile"> </span></li>                                     
