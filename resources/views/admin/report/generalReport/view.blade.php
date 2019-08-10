@@ -15,7 +15,7 @@
                   <option selected disabled>Select Option</option> 
                   <option value="1">Stationery</option> 
                   <option value="2">Address</option> 
-                  <option value="3">Identity Card</option> 
+                 {{--  <option value="3">Identity Card</option>  --}}
                 </select> 
               </div>
               <div class="col-lg-3">
