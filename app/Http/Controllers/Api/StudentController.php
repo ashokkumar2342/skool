@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 class StudentController extends Controller
 {
     /**
@@ -59,6 +60,37 @@ class StudentController extends Controller
             return $e;
         }
        
+    }
+    public function imageUpload(Request $request,$id)
+    {
+        
+         $rules=[
+          
+            'image' => 'required',
+          
+            
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else { 
+            if ($request->hasFile('image')) { 
+                $profilePhoto=$request->image;
+                $filename='pic'.date('d-m-Y').time().'.jpg'; 
+                $profilePhoto->storeAs('student/profile/',$filename); 
+                $student=Student::find($id); 
+                $student->picture=$filename; 
+                $student->save(); 
+                $response=['status'=>1,'msg'=>'Upload Successfully'];
+                return response()->json($response); 
+            }
+          } 
     }
     public function forgotPassword(Request $request)
     {
