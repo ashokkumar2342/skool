@@ -2,7 +2,7 @@
 @section('body')
 <!-- Main content -->
 <section class="content">
-  <button type="button" id="btn_profile_show" onclick="callAjax(this,'{{ route('admin.profile.show') }}','profile_show')">Show</button>
+  <button type="button" class="hidden" id="btn_profile_show" onclick="callAjax(this,'{{ route('admin.profile.show') }}','profile_show')">Show</button>
           <div id="profile_show"> 
           </div> 
    
