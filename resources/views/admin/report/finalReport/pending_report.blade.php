@@ -7,6 +7,7 @@
 			<th>Section</th>
 			<th>Section Name</th>
 			<th>Field Name</th>
+			<th>Document Marge</th>
 			<th>Status</th>
 			<th>Action</th>
 		</tr>
@@ -14,12 +15,21 @@
 	<tbody>
 		@foreach ($studentProfileReports as $studentProfileReport)
 					<tr>
-						<td>{{ $studentProfileReport->report_for_id }}</td>
-						<td>{{ $studentProfileReport->report_wise_id }}</td>
+						<td>{{ $studentProfileReport->reportFor->name or ''}}</td>
+						@if ($studentProfileReport->report_wise_id==1)
+								<td>Section Wise</td> 
+							@else	
+						<td>Field Wise</td>
+						@endif
 						<td>{{ $studentProfileReport->classTypes->name or '' }}</td>
 						<td>{{ $studentProfileReport->sectionTypes->name or '' }}</td>
 						<td>{{ $studentProfileReport->section_name or '' }}</td>
 						<td>{{ $studentProfileReport->field_name or '' }}</td>
+						@if ($studentProfileReport->document_marge==1) 
+						   <td>Yes</td>
+						   @else
+						   <td>No</td>
+						@endif
 						 
 						@if ($studentProfileReport->status==0)
 						 <td> <span class="label label-warning">Pending</span></td> 

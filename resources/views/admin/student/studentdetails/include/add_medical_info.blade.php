@@ -19,7 +19,7 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12"> 
-             <form id="medical-form" action="{{ route('admin.medical.add',$student) }}" class="add_form" method="post" button-click="btn_close,medical_info_tab">
+             <form  action="{{ route('admin.medical.add',$student) }}"  method="post" button-click="btn_close,medical_info_tab">
              {{ csrf_field() }}  
 
                 <input type="hidden" name="student_id" value="{{ $student }}">                  

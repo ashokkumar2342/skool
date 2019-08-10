@@ -8,6 +8,7 @@ use App\Model\ClassType;
 use App\Model\HistoryCertificateIssue;
 use App\Model\ReportRequest;
 use App\Model\Section;
+use App\Model\AcademicYear;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -25,6 +26,7 @@ class CertificateIssueDetailController extends Controller
     public function index()
     {
         $certificates =CertificateIssueDetail::orderBy('created_at','desc')->get();
+
         return view('admin.certificate.apply_list',compact('certificates'));
     }
 
@@ -35,7 +37,14 @@ class CertificateIssueDetailController extends Controller
      */
     public function create()
     {
-        return view('admin.certificate.form');
+        $students=Student::where('student_status_id',1)->get();
+         $academicYears=AcademicYear::orderBy('id','ASC')->get();
+        return view('admin.certificate.form',compact('students','academicYears'));
+    }
+    public function tableShow()
+    {
+        $certificates =CertificateIssueDetail::orderBy('created_at','desc')->get();
+        return view('admin.certificate.certificate_table_show',compact('certificates'));
     }
 
     public function print(CertificateIssueDetail $certificate)
@@ -78,14 +87,19 @@ class CertificateIssueDetailController extends Controller
              "attachment" => 'mimes:pdf|max:1024',
          ]);   
           
-          $student = Student::where('registration_no',$request->registration_no)->first();  
+          $student = Student::where('id',$request->registration_no)->first();  
             $certificate = new CertificateIssueDetail();
             $file = $request->file('attachment');
             $file->store('student/document');
             $certificate->attachment = $file->hashName(); 
+             $certificate->academic_year_id =$request->academic_year_id; 
              $certificate->student_id =  $student->id; 
              $certificate->date= $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
              $certificate->reason = $request->reason;
+             $certificate->slc_no = $request->slc_no;
+             $certificate->udise_code = $request->udise_code;
+             $certificate->department_school_code = $request->department_school_code;
+             $certificate->file_no = $request->file_no;
              $certificate->certificate_type = $request->certificate_type;
                 if($certificate->save())
                 {
@@ -109,14 +123,19 @@ class CertificateIssueDetailController extends Controller
              // "attachment" => 'mimes:pdf|max:1024',
          ]);   
           
-            $student = Student::where('registration_no',$request->registration_no)->first();  
+            $student = Student::where('id',$request->registration_no)->first();  
             $certificate = new CertificateIssueDetail();
             // $file = $request->file('attachment');
             // $file->store('student/document');
-            // $certificate->attachment = $file->hashName(); 
+            // $certificate->attachment = $file->hashName();
+             $certificate->academic_year_id =$request->academic_year_id; 
              $certificate->student_id =  $student->id; 
              $certificate->date= $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
              $certificate->reason = $request->reason;
+             $certificate->slc_no = $request->slc_no;
+             $certificate->udise_code = $request->udise_code;
+             $certificate->department_school_code = $request->department_school_code;
+             $certificate->file_no = $request->file_no;
              $certificate->certificate_type = $request->certificate_type;
                 if($certificate->save())
                 {
@@ -150,9 +169,12 @@ class CertificateIssueDetailController extends Controller
      * @param  \App\Model\CertificateIssueDetail  $certificateIssueDetail
      * @return \Illuminate\Http\Response
      */
-    public function edit(CertificateIssueDetail $certificateIssueDetail)
-    {
-        //
+    public function edit($id)
+    {  
+         $certificate = CertificateIssueDetail::find($id);
+         $students=Student::where('student_status_id',1)->get();
+         return view('admin.certificate.certificate_edit',compact('certificate','students'));
+
     }
 
     /**
@@ -162,9 +184,93 @@ class CertificateIssueDetailController extends Controller
      * @param  \App\Model\CertificateIssueDetail  $certificateIssueDetail
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CertificateIssueDetail $certificateIssueDetail)
+    public function update(Request $request,$id)
     {
-        //
+          
+          if ($request->file('attachment') != null) 
+        {
+            
+            $rules=[
+          
+            "registration_no" => 'required|max:199',            
+              
+             "date" => 'required',
+             "certificate_type" => 'required|max:199',
+             "reason" => 'required|max:199',
+             "attachment" => 'mimes:pdf|max:1024', 
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+          
+          $student = Student::where('registration_no',$request->registration_no)->first();  
+            $certificate =  CertificateIssueDetail::find($id);
+            $file = $request->file('attachment');
+            $file->store('student/document');
+            $certificate->attachment = $file->hashName(); 
+             
+             $certificate->date= $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
+             $certificate->reason = $request->reason;
+             $certificate->slc_no = $request->slc_no;
+             $certificate->udise_code = $request->udise_code;
+             $certificate->department_school_code = $request->department_school_code;
+             $certificate->file_no = $request->file_no;
+             $certificate->certificate_type = $request->certificate_type;
+             $certificate->save();
+               $response=['status'=>1,'msg'=>'Update Successfully'];
+            return response()->json($response);
+        }   
+        }
+        else {
+            // return $request->all();
+
+          $rules=[
+          
+            "registration_no" => 'required|max:199',            
+              
+             "date" => 'required',
+             "certificate_type" => 'required|max:199',
+             "reason" => 'required|max:199',
+             "attachment" => 'mimes:pdf|max:1024', 
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+            $student = Student::where('registration_no',$request->registration_no)->first();  
+            $certificate =  CertificateIssueDetail::find($id);
+            // $file = $request->file('attachment');
+            // $file->store('student/document');
+            // $certificate->attachment = $file->hashName(); 
+              
+             $certificate->date= $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
+             $certificate->reason = $request->reason;
+             $certificate->slc_no = $request->slc_no;
+             $certificate->udise_code = $request->udise_code;
+             $certificate->department_school_code = $request->department_school_code;
+             $certificate->file_no = $request->file_no;
+             $certificate->certificate_type = $request->certificate_type;
+                 $certificate->save(); 
+               $response=['status'=>1,'msg'=>'Update Successfully'];
+               return response()->json($response);
+           }
+
+        }    
     }
 
     /**
@@ -181,8 +287,26 @@ class CertificateIssueDetailController extends Controller
     //download
     public function download(CertificateIssueDetail $certificate)
     { 
-        $path = storage_path('app/student/document/'.$certificate->attachment);
-         return response()->download($path);
+          
+
+        $student=Student::where('id',$certificate->student_id)->where('student_status_id',1)->first();
+        $CertificateIssueDetail=CertificateIssueDetail::where('student_id',$student->id)->first();
+         
+
+           $documentUrl = Storage_path() . '/app/student/document/certificate';
+           @mkdir($documentUrl, 0755, true); 
+                if ($certificate->certificate_type==4) {
+                $pdf = PDF::loadView('admin.certificate.tuitionfee.date_of_birth_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_date_of_birth_certificate.pdf'); 
+                return $pdf->stream('date_of_birth_certificate.pdf'); 
+                 } if ($certificate->certificate_type==2) {
+                $pdf = PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student','CertificateIssueDetail'))->save($documentUrl.'/'.$certificate->students->registration_no.'_leaving_certificate.pdf'); 
+                return $pdf->stream('leaving_certificate.pdf'); 
+                 } if ($certificate->certificate_type==3) {
+                $pdf = PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_character_certificate.pdf'); 
+                return $pdf->stream('character_certificate.pdf'); 
+                
+             }
+             
     }
 
     //verify
@@ -264,13 +388,7 @@ class CertificateIssueDetailController extends Controller
                 if ($request->report_for==1) {
                 $pdf = PDF::loadView('admin.certificate.tuitionfee.print',compact('student')); 
                 return $pdf->stream('invoice.pdf'); 
-                 } if ($request->report_for==2) {
-                $pdf = PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student')); 
-                return $pdf->stream('invoice.pdf'); 
-                 } if ($request->report_for==3) {
-                $pdf = PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('student')); 
-                return $pdf->stream('invoice.pdf'); 
-                 } 
+                 }  
              }  
           
            $rules=[]; 
@@ -319,7 +437,7 @@ class CertificateIssueDetailController extends Controller
         $zip = new \ZipArchive();
         $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
 
-        $path = storage_path('app/student/document');
+        $path = storage_path('app/student/document/certificate/fee_certificate');
         $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
         foreach ($files as $name => $file)
         {
@@ -327,7 +445,7 @@ class CertificateIssueDetailController extends Controller
             if (!$file->isDir()) {
                 $filePath     = $file->getRealPath();
                 // extracting filename with substr/strlen
-                $relativePath = 'document/' . substr($filePath, strlen($path) + 1);
+                $relativePath = 'fee_certificate/' . substr($filePath, strlen($path) + 1);
                 $zip->addFile($filePath, $relativePath);
             }
         }
@@ -339,14 +457,6 @@ class CertificateIssueDetailController extends Controller
           $pdf = PDF::loadView('admin.certificate.tuitionfee.print',compact('students')); 
           return $pdf->stream('invoice.pdf'); 
         }
-        if ($report_type_id==2) {
-          $pdf = PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('students')); 
-          return $pdf->stream('invoice.pdf'); 
-        }
-        if ($report_type_id==3) {
-          $pdf = PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('students')); 
-          return $pdf->stream('invoice.pdf'); 
-        }
-        return 'notfound';
+         
     }
 }

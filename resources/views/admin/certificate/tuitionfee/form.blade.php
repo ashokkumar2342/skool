@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Certificate Generate</h1>
+    <h1>Fee Certificate Generate</h1>
       <ol class="breadcrumb">
       </ol>
 </section>
@@ -16,9 +16,7 @@
                                    <select name="report_for" class="form-control">
                                     <option selected disabled>Select Option</option>
                                     <option value="1">Fee Certificate</option>
-                                    <option value="2">School Leaving Certificate</option>
-                                    <option value="3">Character Certificate</option>
-                                    <option value="4">Whomsoever</option> 
+                                     
                                    </select> 
                                   </div>
                                  <div class="col-lg-3">

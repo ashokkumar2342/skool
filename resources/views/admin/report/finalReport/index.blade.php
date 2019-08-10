@@ -13,11 +13,10 @@
               <div class="col-lg-3">
                 <label>Report For</label>
                 <select name="report_for" class="form-control" select2="true" onchange="callAjax(this,'{{ route('admin.student.final.report.for.change') }}','report_for')">
-                  <option selected disabled>Select Option</option>
-                  <option id="all" value="1">All</option>
-                  <option value="2">Student </option>
-                  <option value="3">Class </option>
-                  <option value="4">Class With Section</option> 
+                  <option selected disabled>Select Option</option> 
+                  @foreach ($reportFors as $reportFor)
+                  <option value="{{ $reportFor->id }}">{{ $reportFor->name }}</option> 
+                  @endforeach
                 </select> 
               </div> 
               <div id="report_for"> 
@@ -26,8 +25,8 @@
               <label>Report Wise</label>
               <select name="report_wise" class="form-control"multiselect-form="true" onchange="callAjax(this,'{{ route('admin.student.final.report.student.details.check') }}'+'?registration_no='+$('#registration_no').val(),'student_details_select')">
                 <option selected disabled>Select Option</option>
-                <option value="1">Section</option>
-                <option id="filed" value="2">Field</option> 
+                <option value="1">Section Wise</option>
+                <option id="filed" value="2">Field Wise</option> 
               </select> 
               </div>
             <div id="student_details_select">

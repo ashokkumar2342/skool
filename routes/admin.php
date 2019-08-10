@@ -18,6 +18,7 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::get('registration-show-details', 'DashboardController@showStudentRegistrationDetails')->name('admin.student.Registration.details');
 	Route::get('token', 'DashboardController@passportTokenCreate')->name('admin.token');
 	Route::get('profile', 'DashboardController@proFile')->name('admin.profile');
+	Route::get('profile-show', 'DashboardController@proFileShow')->name('admin.profile.show');
 	Route::get('profile-show/{profile_pic}', 'DashboardController@proFilePhotoShow')->name('admin.profile.photo.show'); 
 	Route::post('profile-update', 'DashboardController@profileUpdate')->name('admin.profile.update');
 	Route::post('password-change', 'DashboardController@passwordChange')->name('admin.password.change');
@@ -168,6 +169,8 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('birthday-sms-send/{id}', 'StudentController@birthdaySmsSend')->name('admin.birthday.card.sms.send'); 
 	     Route::post('birthday-card-all', 'StudentController@birthdayPrintAll')->name('admin.birthday.card.pdfAll');   
 	     Route::post('import', 'StudentController@importStudent')->name('admin.student.excel.store');	      
+	     Route::get('birthday-dashboard', 'StudentController@birthdayDashboard')->name('admin.student.birthday.dashboard');	      
+	     Route::get('birthday-upcoming', 'StudentController@birthdayDashboardUpcoming')->name('admin.student.birthday.dashboard.upcoming');	      
 	     
 		 Route::get('new-admission', 'StudentController@newAdmission')->name('admin.student.new.adminssion');
 		 Route::get('new-admission-status-change/{id}', 'StudentController@newAdmissionStatusChange')->name('admin.new.student.status.change');
@@ -209,6 +212,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('edit/{id}', 'StudentMedicalInfoController@edit')->name('admin.medical.edit');
 	    Route::get('view/{id}', 'StudentMedicalInfoController@show')->name('admin.medical.view');
 	    Route::post('update/{id}', 'StudentMedicalInfoController@update')->name('admin.medical.update');
+	    Route::get('pdf-generate/{id}', 'StudentMedicalInfoController@pdfGenerate')->name('admin.medical.pdf.generate');
 	 }); 
 	   	// ---------------Sibling Info----------------------------------------
 	 Route::group(['prefix' => 'sibling-info'], function() {
@@ -292,11 +296,13 @@ Route::group(['middleware' => 'admin'], function() {
 	 Route::group(['prefix' => 'certificate'], function() {
 	     Route::get('/', 'CertificateIssueDetailController@index')->name('admin.student.certificateIssu.list');	 	
 	     Route::get('show', 'CertificateIssueDetailController@create')->name('admin.student.certificateIssu.apply');
+	     Route::get('table-show', 'CertificateIssueDetailController@tableShow')->name('admin.student.certificateIssu.apply.table.show');
 	     Route::get('print/{certificate}', 'CertificateIssueDetailController@print')->name('admin.student.certificateIssu.print');
 	     Route::post('store', 'CertificateIssueDetailController@store')->name('admin.student.certificateIssu.post');
-	     Route::get('edit', 'CertificateIssueDetailController@edit')->name('admin.student.certificateIssu.edit');
+	     Route::get('edit/{id}', 'CertificateIssueDetailController@edit')->name('admin.student.certificateIssu.edit');
 	     Route::get('show/{certificate}', 'CertificateIssueDetailController@show')->name('admin.student.certificateIssu.show');
 	     Route::get('delete', 'CertificateIssueDetailController@edit')->name('admin.student.certificateIssu.delete');
+	     Route::post('update/{id}', 'CertificateIssueDetailController@update')->name('admin.student.certificateIssu.update');
 	     Route::get('download/{certificate}', 'CertificateIssueDetailController@download')->name('admin.student.attachment.download');
 	     Route::get('verify/{certificate}', 'CertificateIssueDetailController@verify')->name('admin.student.attachment.virify');
 	     Route::get('approval/{certificate}', 'CertificateIssueDetailController@approval')->name('admin.student.attachment.approval');
@@ -349,6 +355,7 @@ Route::group(['middleware' => 'admin'], function() {
 	        Route::get('{attendance}/edit', 'StudentAttendanceController@edit')->name('admin.attendance.student.edit');
 	        Route::post('{attendance}update', 'StudentAttendanceController@update')->name('admin.attendance.student.update');
 	        Route::get('{attendance}/delete', 'StudentAttendanceController@destroy')->name('admin.attendance.student.delete');
+	        Route::get('attendance-continue', 'StudentAttendanceController@attendanceContinue')->name('admin.attendance.student.attendance.continue');
 	    });
 	});
 	//------------------------- Finance ---------------------------------
@@ -986,6 +993,16 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('teacher-for', 'TimeTable\TimeTableReportController@teacherFor')->name('admin.time.table.teacher.for');
                	 Route::post('show', 'TimeTable\TimeTableReportController@show')->name('admin.time.table.report.show');
 
+       });
+           Route::group(['prefix' => 'award'], function() {
+               	 Route::get('/', 'AwardController@index')->name('admin.award.list');
+               	 Route::get('add-form', 'AwardController@addForm')->name('admin.award.add.form');
+               	 Route::post('store', 'AwardController@store')->name('admin.award.store');
+               	 Route::get('table-show', 'AwardController@tableShow')->name('admin.award.table.show');
+               	 Route::get('edit/{id}', 'AwardController@edit')->name('admin.award.edit');
+               	 Route::get('delete/{id}', 'AwardController@destroy')->name('admin.award.delete');
+               	 Route::post('update/{id}', 'AwardController@update')->name('admin.award.update');
+               	 
        });
             
            

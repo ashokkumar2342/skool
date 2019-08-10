@@ -23,9 +23,12 @@
                 </tr>
                 </thead>
                 <tbody>
+                  @php 
+                   $sectionId=1;
+                  @endphp
                 @foreach($sections as $section)
                 <tr>
-                  <td>{{ $section->id }}</td>
+                  <td>{{ $sectionId ++ }}</td>
                   <td>{{ $section->name }}</td>                 
                   <td align="center">
                    @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)

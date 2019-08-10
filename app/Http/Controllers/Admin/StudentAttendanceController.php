@@ -6,10 +6,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\SessionDate;
- 
 use App\Model\StudentAttendance;
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class StudentAttendanceController extends Controller
 {
@@ -113,5 +113,14 @@ class StudentAttendanceController extends Controller
     public function destroy(StudentAttendance $studentAttendance)
     {
         //
+    }
+    public function attendanceContinue($value='')
+    {
+        
+        $studentAttendances= StudentAttendance::where('attendance_type_id',2)->where('date', '>', Carbon::now()->subDays(2))->distinct('student_id')->get(['student_id']);
+
+          
+
+        return  view('admin.attendance.student.absent_continue',compact('studentAttendances'));
     }
 }

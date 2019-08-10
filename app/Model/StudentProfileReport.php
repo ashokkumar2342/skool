@@ -18,4 +18,7 @@ class StudentProfileReport extends Model
     public function sectionTypes(){
         return $this->hasOne('App\Model\SectionType','id','section_id');
     }
+    public function reportFor(){
+        return $this->hasOne('App\Model\ReportFor','id','report_for_id');
+    }
 }

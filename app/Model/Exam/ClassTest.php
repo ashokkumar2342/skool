@@ -9,6 +9,9 @@ class ClassTest extends Model
     public function classes(){
         return $this->hasOne('App\Model\ClassType','id','class_id');
     }
+    public function students(){
+        return $this->hasOne('App\Student','id','student_id');
+    }
      public function sectionTypes(){
         return $this->hasOne('App\Model\SectionType','id','section_id');
     }

@@ -799,11 +799,39 @@ class StudentController extends Controller
         $this->validate($request,[ 
             'student' => 'required', 
         ]);   
-        $students = Student::find($request->student); 
-        $pdf = PDF::loadView('admin.student.birthday.birthday_card_all', compact('students')); 
+        $students = Student::where('id',$request->student)->first(); 
+         $customPaper = array(0,0,355.00,530.80);
+        $pdf = PDF::loadView('admin.student.birthday.birthday_card', compact('students'))->setPaper($customPaper, 'landscape');; 
        
-        return $pdf->download('_birthday_card.pdf');
+        return $pdf->stream('_birthday_card.pdf');
         
+    }
+    public function birthdayDashboard($value='')
+    {
+        $studentDOBs = Student::whereMonth('dob',date('m'))
+                            ->whereDay('dob',date('d'))
+                            ->get(); 
+         return view('admin.student.birthday.birthday',compact('studentDOBs'));
+    } 
+    public function birthdayDashboardUpcoming($value='')
+    {   $date = date('Y-m-d'); 
+        $tommowDate = date('Y-m-d',strtotime($date ."+1 days"));   
+         $nextWeek=date('Y-m-d',strtotime($tommowDate ."+7 days"));  
+         $data = array();
+            for ($i=1; $i <7 ; $i++) { 
+               $students = Student::where('student_status_id',1)->whereMonth('dob',date('m',strtotime($date ." +1 days")))->whereDay('dob',date('d',strtotime($date .'+'.$i."days")))->get(); 
+               if (!empty($students)) {
+                 foreach ($students as $key => $student) {
+                 $data[]= $student->id;
+                }  
+               }
+                
+            }
+            $st = new Student();
+            $studentDOBs=$st->getStudentsByArrId($data);
+        
+         
+         return view('admin.student.birthday.birthday',compact('studentDOBs'));
     }
     public function birthdaySmsSend($id){
          $students = Student::find($id);

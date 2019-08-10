@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Admin;
 use App\Http\Controllers\Controller;
+use App\Model\Exam\classTest;
 use App\Model\ClassType;
 use App\Model\ParentRegistration;
 use App\Model\StudentAttendance;
@@ -47,8 +48,8 @@ class DashboardController extends Controller
         $feeDues = StudentFeeDetail::where('paid',0)->get()->sum('fee_amount');                      
          $feePaid = StudentFeeDetail::where('paid',1)->get()->sum('fee_amount');
          $classTypes=ClassType::orderBy('id','ASC')->get();
-        
-        return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','newRegistraions','feeDues','feePaid','classTypes','students'));
+         $classTests=classTest::orderBy('id','ASC')->get();
+        return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','newRegistraions','feeDues','feePaid','classTypes','students','classTests'));
         
     }  
 
@@ -85,6 +86,11 @@ class DashboardController extends Controller
     {
         $admins = Auth::guard('admin')->user();
          return view('admin/dashboard/profile/view',compact('admins'));
+    }
+    public function proFileShow()
+    {
+        $admins = Auth::guard('admin')->user();
+         return view('admin/dashboard/profile/profile_show',compact('admins'));
     }
     public function profileUpdate(Request $request)
     {

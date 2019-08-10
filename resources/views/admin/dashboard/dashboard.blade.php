@@ -88,10 +88,11 @@
               <!-- USERS LIST -->
               <div class="box box-danger">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Student Birthday</h3>
-
+                  <h3 class="box-title"><button type="button" class="btn btn-success btn-xs" onclick="callAjax(this,'{{ route('admin.student.birthday.dashboard') }}','student_birthday')">Today Birthday &nbsp;&nbsp;<span data-toggle="tooltip" title="" class="badge bg-blue"><b>{{ $studentDOBs->count() }}</b></span></button>&nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-warning btn-xs" onclick="callAjax(this,'{{ route('admin.student.birthday.dashboard.upcoming') }}','student_birthday')" >Upcoming Birthday</button></h3>&nbsp;
+                     
                   <div class="box-tools pull-right">
-                    <span class="label label-danger">8 New Members</span>
+                    <span class="label label-success"></span>
+                    
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
@@ -99,28 +100,47 @@
                   </div>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body no-padding">
-                  <ul class="users-list clearfix">
-                    @foreach ($studentDOBs as $studentDOB)
-                    @php
-                    $profile = route('admin.student.image',$studentDOB->picture);
-                    @endphp
-                    <li>
-                      <img src="{{ ($studentDOB->picture)? $profile : asset('profile-img/user.png') }}" alt="{{ $studentDOB->name }}" style="width: 100px; height: 100px;  border: 2px solid #d1f7ec">
-                      <a class="users-list-name" href="#">{{ $studentDOB->name }}</a>
-                      <span class="users-list-date">{{ $studentDOB->classes->name or ''}}</span>
-                      <span class="users-list-date">{{ $studentDOB->sectionTypes->name or ''}}</span>
-                    </li> 
-                     @endforeach 
-                  </ul> 
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer text-center">
-                  <a href="javascript:void(0)" class="uppercase">View All Users</a>
-                </div>
-                <!-- /.box-footer -->
+                <div class="box-body no-padding" style="max-height: 305px;overflow-y:auto">
+                   <div id="student_birthday">
+                     @include('admin.student.birthday.birthday')
+                   </div>
               </div>
-              <!--/.box -->
+
+
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Class Test</h3> 
+                  <div class="box-tools pull-right"> 
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                  <table class="table"> 
+                    <thead>
+                      <tr>
+                        <th>Student</th>
+                        <th>Subject</th>
+                        <th>Maximum Marks</th>
+                        <th>Test Date</th>
+                        <th>Discriptoin</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($classTests as $classTest)
+                      <tr>
+                        <td>{{ $classTest->students->name or ''}}</td>
+                        <td>{{ $classTest->subjects->name or ''}}</td>
+                        <td>{{ $classTest->max_marks }}</td>
+                        <td>{{ $classTest->test_date }}</td>
+                        <td>{{ $classTest->discription }}</td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+                
          
            
           <div class="box box-info">
@@ -207,12 +227,17 @@
            <div class="box box-solid bg-light-blue-gradient">
              <div class="box-header">
                
-
+               
                <h3 class="box-title">
                  Attendance
+                <a  class="btn btn-danger btn-xs" style="margin-left: 110px"  onclick="callPopupLarge(this,'{{ route('admin.attendance.student.attendance.continue') }}','attendence')" title="">3 Day Continue Absent</a>
+
+                 <a  class="btn btn-danger btn-xs" style="margin-left: 10px"  onclick="callPopupLarge(this,'{{ route('admin.attendance.student.attendance.continue') }}','attendence')" title="">4 Week Absent</a>
+                
                </h3>
              </div>
              <div class="box-body">
+              
                   <div id="piechart_3d" style="width: 100%; height: 290px;"></div>
                   <input type="hidden" name="present" id="present" value="{{ $present }}">
                   <input type="hidden" name="absent" id="absent" value="{{ $absent }}"> 

@@ -19,7 +19,7 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12"> 
-             <form id="parents-form" action="{{ route('admin.parents.add') }}" class="add_form" method="post" button-click="btn_close,parent_info" content-refresh="parents_items">
+             <form id="parents-form" action="{{ route('admin.parents.add') }}"  method="post" button-click="btn_close,parent_info" content-refresh="parents_items">
                  <input type="hidden" name="student_id" value="{{ $student }}">   
                     <div class="form-group col-md-4">
                          {{ Form::label('relation_type_id','Parents',['class'=>' control-label']) }}

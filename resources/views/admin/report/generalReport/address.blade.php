@@ -7,7 +7,7 @@
  <body>
  	@foreach ($students as $student)
 	 	<div >
-		<p>Name : <b>{{ $student->name }}</b></p>
+		      <p>Name : <b>{{ $student->name }}</b></p>
 			  <p>Father'Name : <b>{{ $student->father_name }}</b></p>
 			  <p> Address : <b>{{ $student->p_address }}</b></p> 
 			  

@@ -77,6 +77,36 @@ class Student extends Authenticatable
      Public function documents(){
         return $this->hasMany('App\Model\Document','student_id','id'); 
     }
+    //single student get data
+    public function getStudentById($id)
+    {
+        try {
+           return $this->find($id);
+        } catch (Exception $e) {
+            return $e;
+        }
+
+    }
+    //single student get data
+    public function getAllStudents()
+    {
+        try {
+           return $this->where('student_status_id',1)->get();
+        } catch (Exception $e) {
+            return $e;
+        }
+
+    }
+    //single student get data
+    public function getStudentsByArrId($arrId)
+    {
+        try {
+           return $this->whereIn('id',$arrId)->where('student_status_id',1)->get();
+        } catch (Exception $e) {
+            return $e;
+        }
+
+    }
     
     
 }

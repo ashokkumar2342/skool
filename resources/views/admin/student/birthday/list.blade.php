@@ -44,7 +44,7 @@
                   </div> 
                   </form>
                    <div class="col-lg-12" >
-                    <form action="{{ route('admin.birthday.card.pdfAll') }}" method="post" accept-charset="utf-8">
+                    <form action="{{ route('admin.birthday.card.pdfAll') }}" method="post" accept-charset="utf-8" target="blank">
                       {{ csrf_field() }}
                    		<table id="" class="table table-bordered table-striped table-hover">
                    		  <thead>

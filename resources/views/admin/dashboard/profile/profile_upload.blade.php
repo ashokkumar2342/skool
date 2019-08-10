@@ -17,7 +17,7 @@
          
       </div>
       <div class="modal-body"> 
-              <form action="{{ route('admin.profile.photo.upload') }}" method="post" class="add_form" enctype="multipart/form-data" button-click="btn_close">
+              <form action="{{ route('admin.profile.photo.upload') }}" method="post" class="add_form" enctype="multipart/form-data" button-click="btn_close,btn_profile_show">
                    {{ csrf_field() }}
                    <div class="row">
                     <div class="col-lg-12">

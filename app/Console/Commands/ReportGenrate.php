@@ -40,9 +40,9 @@ class ReportGenrate extends Command
      * @return mixed
      */
     public function handle()
-    {
+    { 
         $requestReports=ReportRequest::where('status',0)->get();
-        foreach ($requestReports as $requestReport) {
+        foreach ($requestReports as $requestReport) { 
             if ($requestReport->report_wise==1) {
                 $students=Student::where('student_status_id',1)->orderBy('class_id','ASC')->get();
             }
@@ -52,24 +52,21 @@ class ReportGenrate extends Command
             if ($requestReport->report_wise==4) {
                 $students=Student::where('class_id',$requestReport->class_id)->where('section_id',$requestReport->section_id)->where('student_status_id',1)->orderBy('class_id','ASC')->get();
             }
-            foreach ($students as $student) {
+            foreach ($students as $student) { 
                 
-               $documentUrl = Storage_path() . '/app/student/document/'.$student->class_id.'/'.$student->section_id.'/'.$student->registration_no;                 
-                if ($requestReport->report_type_id==1) {  
-                    $pdf = PDF::loadView('admin.certificate.tuitionfee.print',compact('student'))->save($documentUrl.'/fee_certificate.pdf'); 
-                } 
-                if ($requestReport->report_type_id==2) 
-                    $pdf = PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student'))->save($documentUrl.'/leaving_certificate.pdf'); 
-                } 
-                if ($requestReport->report_type_id==3) 
-                    $pdf = PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('student'))->save($documentUrl.'/character_certificate.pdf'); 
-                } 
+               $documentUrl = Storage_path() . '/app/student/document/certificate/fee_certificate/'.'/'.$student->classes->name.'/'.$student->sectionTypes->name;   
+               @mkdir($documentUrl, 0755, true); 
+                   
+                    $pdf = PDF::loadView('admin.certificate.tuitionfee.print',compact('student'))->save($documentUrl.'/'.$student->registration_no.'_fee_certificate.pdf'); 
+                
+                
             
         $requestReportStatus = ReportRequest::find($requestReport->id);
         $requestReportStatus->status=1;
         $requestReportStatus->save(); 
         }
 
-         
+      } 
+    }    
    
 }

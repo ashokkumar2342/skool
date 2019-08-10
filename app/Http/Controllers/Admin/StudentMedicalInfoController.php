@@ -29,7 +29,7 @@ use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
 use Illuminate\Support\Facades\Validator;
- 
+use PDF;
 
 class StudentMedicalInfoController extends Controller
 {
@@ -239,5 +239,25 @@ class StudentMedicalInfoController extends Controller
         $student=$request->id; 
         return view('admin.student.studentdetails.include.medical_info_list',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions'));
 
+    }
+    public function pdfGenerate($student_id)
+    {
+
+         
+           $medicalInfos = StudentMedicalInfo::where('student_id',$student_id)->get(); 
+           if (1==1) {
+            $pdf = PDF::loadView('admin.student.studentdetails.include.medical_info_pdf_generate',compact('medicalInfos'));
+                return  $pdf->stream('student_medical.pdf');
+            }else{   
+               $pdf = PDF::loadView('admin.student.studentdetails.include.medical_info_pdf_generate_blank',compact('medicalInfos'));
+               return  $pdf->stream('student_medical.pdf');
+              }    
+            
+
+          
+
+            
+           
+          
     }
 }

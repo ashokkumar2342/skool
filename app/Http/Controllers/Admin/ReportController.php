@@ -26,6 +26,7 @@ use App\Model\StudentSiblingInfo;
 use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
+use App\Model\ReportFor;
 use App\Student;
 use Auth;
 use Carbon;
@@ -146,7 +147,8 @@ class ReportController extends Controller
     public function finalReportIndex(){
         $classTypes=ClassType::orderBy('id','ASC')->get();
         $students=Student::orderBy('name','ASC')->get();
-    return view('admin.report.finalReport.index',compact('classTypes','students'));
+        $reportFors=ReportFor::orderBy('id','ASC')->get();
+    return view('admin.report.finalReport.index',compact('classTypes','students','reportFors'));
     }
     public function finalReportForChange(Request $request){
          $reportforId=$request->id;
@@ -168,51 +170,50 @@ class ReportController extends Controller
         $classWiseSections=Section::where('class_id',$request->id)->get();
         return view('admin.report.finalReport.section',compact('classWiseSections'));
     }
-    public function finalReportShow(Request $request){
-             
+    public function finalReportShow(Request $request){ 
            if ($request->report_for==2) { 
                $fieldNames=$request->fild_name;
                 $sectionWiseDetails=$request->section_wise;  
                  $student = Student::where('id',$request->registration_no)->first(); 
-                     if ($request->report_wise==2) {
-                       $pdf = PDF::loadView('admin.report.finalReport.filed_wise_pdf',compact('student','fieldNames')); 
-                        return $pdf->stream('student_all_report.pdf'); 
-                     }if ($request->report_wise==1) {
-                       
-                       $pdf = PDF::loadView('admin.report.finalReport.pdf_generate',compact('student','sectionWiseDetails')); 
-                       $path=  public_path('storage/class_test/abc6.pdf');
-          
-          $path2=  Storage_path('app/'.$student->document->document_url); 
-         
-           $pdfMerge = new Fpdi();
-           $dt =array();
-           $dt['student']=$documentUrl;
-           foreach ($docs as $key=>$document) {
-            if ($request->document_marge==1) {
-             $dt[$key]=Storage_path('app/'.$document->document_url);  
-           }
-          }
-        
-           $files =$dt;
-           foreach ($files as $file) {
-              $pageCount =$pdfMerge->setSourceFile($file);
-              for ($pageNo=1; $pageNo <=$pageCount ; $pageNo++) { 
-                  $pdfMerge->AddPage();
-                  $pageId = $pdfMerge->importPage($pageNo, '/MediaBox');
-                  //$pageId = $pdfMerge->importPage($pageNo, Fpdi\PdfReader\PageBoundaries::ART_BOX);
-                  $s = $pdfMerge->useTemplate($pageId, 10, 10, 200);
-              }
-           }
-           $file = uniqid().'.pdf';
-           // $pdfMerge->Output('I', 'simple.pdf');
+                   $profilePdfUrl = Storage_path() . '/app/student/document/profile/'.$student->class_id.'/'.$student->section_id; 
+                     if ($request->report_wise==2) { 
+                           @mkdir($profilePdfUrl, 0755, true); 
+                       $pdf = PDF::loadView('admin.report.finalReport.filed_wise_pdf',compact('student','fieldNames'))->save($profilePdfUrl.'/'.$student->registration_no.'_profile.pdf'); 
+                      }
+                     if ($request->report_wise==1) { 
+                           @mkdir($profilePdfUrl, 0755, true); 
+                       $pdf = PDF::loadView('admin.report.finalReport.pdf_generate',compact('student','sectionWiseDetails'))->save($profilePdfUrl.'/'.$student->registration_no.'_profile.pdf');
+                     }
+                 $docs=$student->documents; 
+                   $pdfMerge = new Fpdi();
+                   $dt =array();
+                  $dt['student']=$profilePdfUrl.'/'.$student->registration_no.'_profile.pdf';
+                   foreach ($docs as $key=>$document) {
+                    if ($request->document_marge==1) {
+                     $dt[$key]=Storage_path('app/'.$document->document_url);  
+                   }
+                  }
+                
+                   $files =$dt;
+                   foreach ($files as $file) {
+                      $pageCount =$pdfMerge->setSourceFile($file);
+                      for ($pageNo=1; $pageNo <=$pageCount ; $pageNo++) { 
+                          $pdfMerge->AddPage();
+                          $pageId = $pdfMerge->importPage($pageNo, '/MediaBox');
+                          //$pageId = $pdfMerge->importPage($pageNo, Fpdi\PdfReader\PageBoundaries::ART_BOX);
+                          $s = $pdfMerge->useTemplate($pageId, 10, 10, 200);
+                      }
+                   }
+                   $file = uniqid().'.pdf';
+                   // $pdfMerge->Output('I', 'simple.pdf');
+                      $pdf->stream('student_all_report.pdf'); 
+                   dd($pdfMerge->Output('I', 'simple.pdf'));
 
-           dd($pdfMerge->Output('I', 'simple.pdf'));
-        }
+                }
         
-          // $pdfTemp=$pdf->stream('student_all_report.pdf'); 
-                     
-           }
             
+                     
+          
           $rules=[]; 
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()) {
@@ -229,32 +230,29 @@ class ReportController extends Controller
         }
         if ($request->report_for==3) {
           $studentProfileReport->class_id=$request->class_id; 
-          if ($request->report_wise==1) {
-            foreach ($request->section_wise as $key => $section_wise) {
-               $studentProfileReport->section_name=$section_wise;
+          if ($request->report_wise==1) { 
+               $studentProfileReport->section_name=implode(',', $request->section_wise); 
              } 
           } 
-          if ($request->report_wise==2) {
-            foreach ($request->fild_name as $fild_name) {
-              $studentProfileReport->field_name=$fild_name;
-             } 
+          if ($request->report_wise==2) { 
+              $studentProfileReport->field_name=implode(',', $request->fild_name);
+             
           } 
-        }if ($request->report_for==4) {
+         if ($request->report_for==4) {
           $studentProfileReport->class_id=$request->class_id;
           $studentProfileReport->section_id=$request->section_id;
-          if ($request->report_wise==1) {
-            foreach ($request->section_wise as $key => $section_wise) {
-               $studentProfileReport->section_name=$section_wise;
-             } 
-          } 
-          if ($request->report_wise==2) {
-            foreach ($request->fild_name as $fild_name) {
-              $studentProfileReport->field_name=$fild_name;
-             } 
+          if ($request->report_wise==1) { 
+               $studentProfileReport->section_name=implode(',', $request->section_wise);
+            
           } 
         }
+          if ($request->report_wise==2) { 
+              $studentProfileReport->field_name=implode(',', $request->fild_name);
+             
+          } 
         $studentProfileReport->report_for_id=$request->report_for;
         $studentProfileReport->report_wise_id=$request->report_wise;
+        $studentProfileReport->document_marge=$request->document_marge;
         $studentProfileReport->status=0;
         $studentProfileReport->save(); 
         return  redirect()->back()->with(['message'=>'Successfully','class'=>'success']);
@@ -331,7 +329,7 @@ class ReportController extends Controller
         $zip = new \ZipArchive();
         $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
 
-        $path = storage_path('app/student/profile');
+        $path = storage_path('app/student/profile/pdf');
         $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
         foreach ($files as $name => $file)
         {

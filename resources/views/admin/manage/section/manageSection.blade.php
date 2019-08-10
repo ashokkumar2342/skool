@@ -43,18 +43,21 @@
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
-                  <th> id</th>                
+                  <th>id</th>                
                   <th>class Name</th>                   
                   <th>Section Name</th>                   
                   {{-- <th width="80px">Action</th>--}}
                 </tr>
                 </thead>
                 <tbody>
+                  @php
+                    $classSectionId=1;
+                  @endphp
                 @foreach($manageSections as $manageSection)
                 <tr>
-                  <td>{{ $manageSection->id }}</td>
-                  <td>{{ $manageSection->classes->name }}</td>                 
-                  <td>{{ $manageSection->sectionTypes->name }}</td>                 
+                  <td>{{ $classSectionId ++ }}</td>
+                  <td>{{ $manageSection->classes->name or ''}}</td>                 
+                  <td>{{ $manageSection->sectionTypes->name or ''}}</td>                 
                   {{-- <td align="center">                     --}}
                     {{-- <a class="btn btn-info btn-xs" href="{{ route('admin.manageSection.edit',$manageSection->id) }}"><i class="fa fa-pencil"></i></a> --}}
                {{--      <a class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data ?')" href="{{ route('admin.manageSection.delete',$manageSection->id) }}"><i class="fa fa-trash"></i></a>  --}}                    

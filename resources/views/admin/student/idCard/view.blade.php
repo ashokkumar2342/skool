@@ -55,7 +55,12 @@
                     @endforeach
                   </select> 
                 </div>
-                
+                 <div class="col-lg-4" style="padding-top: 20px"> 
+                 <label>Student ID Card</label>
+                <input type="checkbox" name="student_idcard" value="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label>Perent ID Card</label>
+                <input type="checkbox" name="perent_idcard" value="2">
+                </div>
               </div>
               <div class="row text-center">
                 <input type="submit" value="Generate" class="btn btn-success" style="margin: 15px">

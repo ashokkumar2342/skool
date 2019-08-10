@@ -110,8 +110,9 @@ class ClassTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(ClassType $classType)
-    {
-        if ($classType->delete()) {
+    { 
+         $classes = ClassType::find($classType->id);
+        if ($classes->delete()) {
             return redirect()->back()->with(['class'=>'success','message'=>'class deleted success ...']);
         }
         return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);

@@ -55,6 +55,9 @@
                      </table> 
                  
                      <div class="text-center">
-                     <button type="button" onclick="$('#sibling_info').click()" class="btn btn-success btn-sm">Next</button> 
+                     <button type="button" onclick="$('#sibling_info').click()" class="btn btn-success btn-sm">Next</button>
+
+                     <a href="{{ route('admin.medical.pdf.generate',$medicalInfo->student_id) }}"  class="btn btn-success btn-sm" target="_blank" title="">PDF Generate</a>
+ 
                      </div> 
                   
