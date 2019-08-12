@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Admin;
 use App\Http\Controllers\Controller;
-use App\Model\Exam\classTest;
+use App\Model\Exam\ClassTest;
 use App\Model\ClassType;
 use App\Model\ParentRegistration;
 use App\Model\StudentAttendance;
@@ -48,7 +48,7 @@ class DashboardController extends Controller
         $feeDues = StudentFeeDetail::where('paid',0)->get()->sum('fee_amount');                      
          $feePaid = StudentFeeDetail::where('paid',1)->get()->sum('fee_amount');
          $classTypes=ClassType::orderBy('id','ASC')->get();
-         $classTests=classTest::orderBy('id','ASC')->get();
+         $classTests=ClassTest::orderBy('id','ASC')->get();
         return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','newRegistraions','feeDues','feePaid','classTypes','students','classTests'));
         
     }  
