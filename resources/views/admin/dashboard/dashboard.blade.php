@@ -119,7 +119,7 @@
                   <table class="table"> 
                     <thead>
                       <tr>
-                        <th>Student</th>
+                        <th>Class</th>
                         <th>Subject</th>
                         <th>Maximum Marks</th>
                         <th>Test Date</th>
@@ -129,7 +129,7 @@
                     <tbody>
                       @foreach($classTests as $classTest)
                       <tr>
-                        <td>{{ $classTest->students->name or ''}}</td>
+                        <td>{{ $classTest->classes->name or ''}}</td>
                         <td>{{ $classTest->subjects->name or ''}}</td>
                         <td>{{ $classTest->max_marks }}</td>
                         <td>{{ $classTest->test_date }}</td>
