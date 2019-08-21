@@ -8,6 +8,8 @@ use App\Model\Library\BookPurchaseBill;
 use App\Model\Library\BookStatus;
 use App\Model\Library\Booktype;
 use App\Model\Library\LibraryStatus;
+use CodeItNow\BarcodeBundle\Utils\BarcodeGenerator;
+use Faker\Provider\Barcode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
@@ -120,4 +122,34 @@ class bookAccessionController extends Controller
             return response()->json($response);
         } 
    }
+   public function accessionNoBarcode()
+   {
+      $bookaccessions= BookAccession::orderBy('accession_no','ASC')->get();
+
+       foreach ($bookaccessions as $key => $value) {   
+       $value=$value->accession_no;     
+       $barcode = new BarcodeGenerator();
+       $barcode->setText($value);
+       $barcode->setType(BarcodeGenerator::Code128);
+       $barcode->setScale(2);
+       $barcode->setThickness(25);
+       $barcode->setFontSize(10);
+       $code = $barcode->generate();
+     
+       $image_name= $value.'.png';     
+       $path = Storage_path() . "/app/public/barcode/" . $image_name;       
+       file_put_contents($path, $data);  
+       $imgs[$value]=$code;
+       
+       } 
+       
+   }
+    public function barcodestore($imageNmae,$img_barcode,$type){
+      $insbarcode = new Barcode();
+      $insbarcode->img_name=$imageNmae;
+      $insbarcode->img_barcode=$img_barcode;
+      $insbarcode->img_base64=$img_barcode;
+      $insbarcode->type=$type;
+      $insbarcode->save(); 
+     } 
 }
