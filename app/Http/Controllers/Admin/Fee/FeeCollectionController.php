@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers\Admin\Fee;
 
+use App\Events\SmsEvent;
 use App\Http\Controllers\Controller;
 use App\Model\BalanceAmount;
 use App\Model\Cashbook;
+use App\Model\Month;
 use App\Model\StudentDefaultValue;
 use App\Model\StudentFeeDetail;
 use App\Model\StudentLedger;
 use App\Model\StudentSiblingInfo;
 use App\Student;
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\increment;
 use Illuminate\Http\Request;
-use App\Events\SmsEvent;
-use Auth;
+use Illuminate\Support\Facades\DB;
 
  
 
@@ -32,18 +34,42 @@ class FeeCollectionController extends Controller
     	$student = Student::find($request->student_id); 
        $defultDate = StudentDefaultValue::find(1);
 
-
-    	$data = view('admin.finance.feecollection.fee_collection_detail',compact('student','defultDate'))->render();
+        $months=Month::orderBy('id','ASC')->get();
+    	$data = view('admin.finance.feecollection.fee_collection_detail',compact('student','defultDate','months'))->render();
     	return response()->json($data);
     }
 
 
     // show show all fee deatial
-    public function feeDetail(Request $request){
+    public function feeDetail(Request $request){  
+        
+       $fromFullDate = StudentFeeDetail::where('student_id',$request->student_id)->whereMonth('last_date' , $request->month)->whereYear('last_date' , $request->year)->first()->from_date; 
+       $lastFullDate = StudentFeeDetail::where('student_id',$request->student_id)->whereMonth('last_date' , $request->month)->whereYear('last_date' , $request->year)->first()->last_date;   
+ 
+        $day =date('d',strtotime($lastFullDate));
+        $toMonth= $request->month;
+       // Specify the start date. This date can be any English textual format  
+       $date_from = date('Y-m-d',strtotime($fromFullDate ."+9 days"));   
+
+       $date_from = strtotime($date_from); // Convert date to a UNIX timestamp  
+         
+       // Specify the end date. This date can be any English textual format  
+      $date_to =  $request->year.'-'.$request->month.'-'.$day;  
+       $date_to = strtotime($date_to); // Convert date to a UNIX timestamp  
+         $monthArr=array();
+       // Loop from the start date to end date and output all dates inbetween  
+       for ($i=$date_from; $i<=$date_to; $i+=2628000) {  
+            $date_create=  date("Y", $i).'-'.date("m", $i).'-'.$day;  
+            $monthArr[]=$date_create; 
+       }
+     
         $student = Student::find($request->student_id) ;
         $siblings = StudentSiblingInfo::where('student_id',$request->student_id)->get();
 
-    	$StudentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)->whereMonth('from_date' , $request->month)->whereYear('from_date' , $request->year)->get(); 
+         $StudentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)->whereIn('last_date',$monthArr)->where('paid',0)->get(); 
+
+        
+    	// $StudentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)->whereIn(DB::raw('MONTH(last_date)'), $monthArr)->whereYear('last_date' , $request->year)->where('paid',0)->get(); 
     	 
     	$data = view('admin.finance.feecollection.fee_detail_show',compact('StudentFeeDetails','siblings','request','student'))->render();
     	return response()->json($data);
@@ -55,7 +81,7 @@ class FeeCollectionController extends Controller
         $students = $request->student_id; 
         foreach ($students as $key => $student) {
             $student = Student::find($student);
-            $StudentFeeDetails = StudentFeeDetail::where('student_id',$student->id)->whereMonth('from_date' , $request->month)->whereYear('from_date' , $request->year)->get();
+            $StudentFeeDetails = StudentFeeDetail::where('student_id',$student->id)->whereMonth('last_date' , $request->month)->whereYear('last_date' , $request->year)->get();
 
             $cashbook = new Cashbook();
             $cashbook->student_id = $student->id; 
@@ -78,6 +104,8 @@ class FeeCollectionController extends Controller
             $cashbook->on_account = 1;
             $cashbook->student_name = $student->name;
             $cashbook->class = $student->classes->name;
+            $cashbook->class_id = $student->class_id;
+            $cashbook->section_id = $student->section_id;
             $cashbook->roll_no = $student->roll_no;
             $cashbook->registration_no = $student->registration_no;
             $cashbook->father_name = $student->father_name;

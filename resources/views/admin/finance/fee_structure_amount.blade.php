@@ -61,9 +61,9 @@
                         @foreach ($feeStructureAmounts as $feeStructureAmount)
                         	<tr>
                         		<td width="30px">{{ ++$loop->index }}  </td>
-                            <td>{{ $feeStructureAmount->academicYears->name }}</td>
+                            <td>{{ $feeStructureAmount->academicYears->name or ''}}</td>
 
-                        		<td>{{ $feeStructureAmount->feeStructures->name}}</td>
+                        		<td>{{ $feeStructureAmount->feeStructures->name or ''}}</td>
                                 
                                 <td>{{ $feeStructureAmount->amount }}</td>
                                

@@ -226,7 +226,14 @@ class ReportController extends Controller
         else { 
         $studentProfileReport=new StudentProfileReport();
         if ($request->report_for==1) { 
+          if ($request->report_wise==1) { 
+               $studentProfileReport->section_name=implode(',', $request->section_wise); 
+             } 
           
+          if ($request->report_wise==2) { 
+              $studentProfileReport->field_name=implode(',', $request->fild_name);
+             
+          } 
         }
         if ($request->report_for==3) {
           $studentProfileReport->class_id=$request->class_id; 

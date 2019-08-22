@@ -24,7 +24,7 @@
 						<td>{{ $studentProfileReport->classTypes->name or '' }}</td>
 						<td>{{ $studentProfileReport->sectionTypes->name or '' }}</td>
 						<td>{{ $studentProfileReport->section_name or '' }}</td>
-						<td>{{ $studentProfileReport->field_name or '' }}</td>
+						<td>{{mb_strimwidth($studentProfileReport->field_name , 0, 60, ".......") }}</td>
 						@if ($studentProfileReport->document_marge==1) 
 						   <td>Yes</td>
 						   @else

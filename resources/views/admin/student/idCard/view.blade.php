@@ -57,9 +57,9 @@
                 </div>
                  <div class="col-lg-4" style="padding-top: 20px"> 
                  <label>Student ID Card</label>
-                <input type="checkbox" name="student_idcard" value="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="student_idcard" id="student_idcard" value="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <label>Perent ID Card</label>
-                <input type="checkbox" name="perent_idcard" value="2">
+                <input type="radio" name="student_idcard" id="perent_idcard" value="2">
                 </div>
               </div>
               <div class="row text-center">
@@ -91,6 +91,14 @@
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script>
        $('#student_remark_data_table').DataTable();
+       $(document).ready(function(){
+     
+        $("#student_idcard").prop("checked", true);
+    });
+    $(".check-female").click(function(){
+        $("#perent_idcard").prop("checked", true);
+    });
+ 
     </script>
     
 @endpush

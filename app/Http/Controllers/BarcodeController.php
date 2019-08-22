@@ -40,7 +40,7 @@ class BarcodeController extends Controller
          $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data); 
          $data = base64_decode(base64_encode($data));
            $image_name= $name;     
-           $path = Storage_path() . "/app/public/barcode/" . $image_name;       
+           $path = Storage_path() . "/app/public/barcode/" . $image_name;
            file_put_contents($path, $data);  
            if ($value!=null) {
                sleep(1); 

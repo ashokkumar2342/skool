@@ -69,7 +69,7 @@ class StudentDefaultValueController extends Controller
     public function store(Request $request)
     {
          
-        $default = StudentDefaultValue::find(1);
+        $default = StudentDefaultValue::firstOrNew(['id'=>1]);
         $default->class_id = $request->class;
         $default->section_id = $request->section;
         $default->religion_id = $request->religion;

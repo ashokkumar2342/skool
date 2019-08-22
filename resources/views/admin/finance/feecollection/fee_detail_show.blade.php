@@ -1,4 +1,7 @@
  
+@php
+	$paid=0;
+@endphp
 <form  method="post" id="fee_collection_submit_form" accept-charset="utf-8">
 
 <div class="panel panel-default" style="margin-top: 20px">
@@ -16,12 +19,33 @@
 		  		<tbody>
 		  			 <input type="checkbox" checked name="student_id[]" value="{{ $student->id }}" style="display: none"> 
 		  				 
-		  			 
+		  			 @php
+		  			 	$key='';
+		  			 	$feeName='';
+		  			 	$feeAmount='';
+		  			 	$title='';
+		  			 	$no='';
+		  			 @endphp
 		  			@foreach ($StudentFeeDetails as $StudentFeeDetail)
-		  				<tr>
-		  					<td style="width: 250px">{{ $StudentFeeDetail->feeStructureLastDates->feeStructures->name }}</td>
-		  					<td>{{ $StudentFeeDetail->fee_amount}}</td> 
+		  			@php
+		  			   
+		  				$paid=$StudentFeeDetail->paid; 
+		  				 $feeAmount=$StudentFeeDetail->fee_amount;
+		  			 
+		  			@endphp 
+		  				@if ($feeName!=$StudentFeeDetail->feeStructureLastDates->feeStructures->name)
+		  				<tr>  
+		  				  <td style="width: 250px">
+		  						 	{{ $StudentFeeDetail->feeStructureLastDates->feeStructures->name }}  
+		  					 </td>  
+					     			<td> 
+					 			    {{ $feeAmount}}  
+					 		     </td> 
 		  				</tr> 
+		  				@endif
+		  				@php
+		  					$feeName=$StudentFeeDetail->feeStructureLastDates->feeStructures->name;
+		  				@endphp
 		  			@endforeach
 		  			<tr>
 		  				<td>Concession</td>
@@ -108,7 +132,7 @@
  		</div> 
   </div>
   <div class="panel-footer text-center">
-  	 @if ($StudentFeeDetail->paid==0)
+  	 @if ($paid==0)
   	 	 <button type="button" id="feeCollectionSubmit_btn" class="btn btn-success" onclick="feeCollectionSubmit()">Submit</button> 
    	{{-- <button type="button" class="btn btn-success" onclick="feeCollectionPrint()">Print</button>  --}}
    	  {{-- <label style="margin-left: 10px;" class="btn btn-default"> --}}

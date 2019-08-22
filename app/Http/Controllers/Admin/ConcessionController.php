@@ -54,7 +54,7 @@ class ConcessionController extends Controller
             $concession->amount = $request->amount;
             $concession->percentage = $request->percentage;
             $concession->save();
-            return response()->json([$concession,'class'=>'success','message'=>'Fee Group Created Successfully']);
+            return response()->json([$concession,'class'=>'success','message'=>'Concession Created Successfully']);
         }
     }
 

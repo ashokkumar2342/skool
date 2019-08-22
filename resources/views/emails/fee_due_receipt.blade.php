@@ -1,8 +1,40 @@
- @foreach ($cashbooks as $key => $datas) 
-    @foreach ($datas as $cashbook)
-       
-   
-<div>
+  <!DOCTYPE html>
+<html>
+<head>
+	<title>Message</title>
+	 <style type="text/css">
+	body{
+		padding:20px;
+	}
+		p{
+			font-size: 11px;
+		}
+		li{
+			font-size: 11px;
+		}
+		ul {
+	    	padding-left:15px;margin-top:-10px; 
+		}
+		#logo{ 
+			padding-bottom: 40px;
+		}
+		#main-div{
+			/*border: solid 1px #000;*/
+			padding:20px;
+			background-color: rgb(240,240,240);
+			font-family: Tahoma;
+
+		}
+
+</style>
+</head>
+
+<body> 
+<div id="main-div">
+	<div id="logo"> 
+	 
+</div>
+	 <div>
     <div id="p1" style="font-family:Arial;">    
         <center>
             <table>
@@ -24,41 +56,41 @@
                                         <span id="lblRegistraionFees0" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Receipt No : </span>
                                     </td>
                                     <td class="style4">
-                                        <span id="lblReceiptNo" style="font-size:Small;">{{ $cashbook->receipt_no }}</span>
+                                        <span id="lblReceiptNo" style="font-size:Small;">hhhhhhhhhh</span>
                                     </td>
                                     <td align="left" style="font-weight: bold; font-size: small;">
                                         <span id="lblRegistraionFees4" style="font-family:Arial;font-size:Small;text-align: left;">Date :</span>
                                     </td>
                                     <td>
-                                        <span id="lblReceiptDate" style="font-size:Small;">{{ $cashbook->receipt_date }}</span>
+                                        <span id="lblReceiptDate" style="font-size:Small;">fffffffff</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="left" style="font-weight: bold; font-size: small;">
-                                        <span id="lblRegistraionFees1" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Student Id : </span>
+                                        <span id="lblRegistraionFees1" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Name : </span>
                                     </td>
                                     <td class="style4">
-                                        <span id="lblStudentId" style="font-size:Small;">{{ $cashbook->registration_no }}</span>
+                                        <span id="lblStudentId" style="font-size:Small;">{{ $msg->students->name }}</span>
                                     </td>
                                     <td align="left" style="font-weight: bold; font-size: small;">
-                                        <span id="lblRegistraionFees5" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Class : </span>
+                                        <span id="lblRegistraionFees5" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Registration No : </span>
                                     </td>
                                     <td>
-                                        <span id="lblClass" style="font-size:Small;">{{ $cashbook->class }}</span>
+                                        <span id="lblClass" style="font-size:Small;">{{ $msg->students->registration_no }}</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="left" style="font-weight: bold; font-size: small;">
-                                        <span id="lblStudentName" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Name: </span>
+                                        <span id="lblStudentName" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Class: </span>
                                     </td>
                                     <td>
-                                        <span id="lblName" style="font-size:Small;">{{ $cashbook->student_name }}</span>
+                                        <span id="lblName" style="font-size:Small;"> {{ $msg->students->classes->name }}</span>
                                     </td>
                                     <td align="left" style="font-weight: bold; font-size: small;">
                                         <span id="lblRegistraionFees6" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Section:</span>
                                     </td>
                                     <td>
-                                        <span id="lblSection" style="font-size:Small;">Crystal</span>
+                                        <span id="lblSection" style="font-size:Small;">{{ $msg->students->sectionTypes->name }}</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -66,7 +98,7 @@
                                         <span id="lblRegistraionFees3" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Father's Name:</span>
                                     </td>
                                     <td>
-                                        <span id="lblFather" style="font-size:Small;">{{ $cashbook->father_name }}</span>
+                                        <span id="lblFather" style="font-size:Small;"> {{ $msg->students->father_name }}</span>
                                     </td>
                                     <td class="style1">
                                         
@@ -74,7 +106,7 @@
                                     </td>
                                     <td>
                                         
-                                        <span id="lblMother1" style="font-size:Small;">{{ $cashbook->mother_name }}</span>
+                                        <span id="lblMother1" style="font-size:Small;"> {{ $msg->students->mother_name }}</span>
                                     </td>
                                 </tr>
                             </table>
@@ -89,35 +121,31 @@
                                         font-size: small;">
                                         Amount
                                     </td>
-                                </tr>
-                               <?php $StudentFeeDetails = App\Model\StudentFeeDetail::where('student_id',$cashbook->student_id)->whereMonth('last_date' , $request->month)->whereYear('last_date' , $request->year)->get(); ?>
-                                @foreach ($StudentFeeDetails as $StudentFeeDetail)
+                                </tr> 
                                      <tr>
                                          <td align="left" style="font-weight: bold; font-size: small;">
-                                             <span id="lblRegistraionFees" style="display:inline-block;font-family:Arial;font-size:Small;text-align: left;">{{ $StudentFeeDetail->feeStructureLastDates->feeStructures->name }}</span>
+                                             <span id="lblRegistraionFees" style="display:inline-block;font-family:Arial;font-size:Small;text-align: left;"> dddddddd</span>
                                          </td>
                                          <td align="right" style="font-size: small;">
-                                             <span id="lblRegFees" style="font-family:Arial;font-size:Small;">{{ $StudentFeeDetail->fee_amount}}</span>
+                                             <span id="lblRegFees" style="font-family:Arial;font-size:Small;"> dddd</span>
                                          </td>
-                                     </tr>
-                                @endforeach
-                                @if ($StudentFeeDetails->sum('concession_amount') !=0 )
+                                     </tr> 
                                      <tr>
                                     <td align="left" style="font-weight: bold; font-size: small;">
                                         <span id="lblAdmissionFee" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Concession (-)</span>
                                     </td>
                                     <td align="right" style="font-size: small;">
-                                        <span id="lblAdmissionFees" style="font-family:Arial;font-size:Small;">{{ $StudentFeeDetails->sum('concession_amount') }}</span>
+                                        <span id="lblAdmissionFees" style="font-family:Arial;font-size:Small;">999088</span>
                                     </td>
                                 </tr> 
-                                @endif
+                                 
                                 
                                 <tr>
                                     <td align="Right" style="font-weight: bold; font-size: small;">
                                         <span id="lblSSDiscount1" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Payable Fee</span>
                                     </td>
                                     <td align="right" style="border-style: solid none none none; font-size: small;">
-                                        <span id="lblPayableFees" style="font-family:Arial;font-size:Small;">{{ $netamount=$StudentFeeDetails->sum('fee_amount') - $StudentFeeDetails->sum('concession_amount') }}</span>
+                                        <span id="lblPayableFees" style="font-family:Arial;font-size:Small;">4444444</span>
                                     </td>
                                 </tr>
                                 
@@ -136,10 +164,10 @@
                                         <span id="lblSSDiscount3" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Received Amount </span>
                                     </td>
                                     <td align="right" style="border-style: solid none Solid none; font-size: small;">
-                                        <span id="lblNetPaid" style="font-family:Arial;font-size:Small;">{{ $cashbook->deposit_amount }}</span>
+                                        <span id="lblNetPaid" style="font-family:Arial;font-size:Small;">4444444</span>
                                     </td>
                                 </tr>
-                                 @if ($cashbook->balance_amount !=0)
+                                  
                                 <tr>  
                                    <td align="Right" style="font-weight: bold; font-size: small;">
                                         <span id="lblLessLbl" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Balance Amount </span>
@@ -147,9 +175,9 @@
                                    
                                     
                                     <td align="right" style=" font-size: small;">
-                                        <span id="lblLess" style="font-family:Arial;font-size:Small;">{{ $cashbook->balance_amount }}</span>
+                                        <span id="lblLess" style="font-family:Arial;font-size:Small;"> 4444444</span>
                                     </td>
-                                </tr> @endif
+                                </tr> 
                             </table>
                             <hr />
                         </div>
@@ -198,5 +226,11 @@
 <div style="padding-top: 500px;">
     
 </div>
- @endforeach
-@endforeach
+  
+</div>
+		 
+</body>
+</html>
+       
+   
+

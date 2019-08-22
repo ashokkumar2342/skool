@@ -28,4 +28,8 @@ class Cashbook extends Model
     				->where('status',1)
     				->get();
     }
+    public function admins()
+    {
+        return $this->hasOne('App\Admin','id','user_id');
+    }
 }

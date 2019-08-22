@@ -1,4 +1,4 @@
-  
+   
   <!-- Main content -->
    
     <style type="text/css" media="screen">
@@ -14,12 +14,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Virify</h4>
+        <h4 class="modal-title">Approval</h4>
       </div>
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12">
-        <form class="add_form" content-refresh="vehicle_table" button-click="btn_close,btn_certificateIssu_apply_table_show" action="{{ route('admin.student.certificateIssu.update',$certificate->id) }}" no-reset="true" method="post" enctype="multipart/form-data">              
+        <form class="add_form" content-refresh="vehicle_table" button-click="btn_close,btn_certificateIssu_apply_table_show" action="{{ route('admin.student.attachment.approval.status',$certificate->id) }}" no-reset="true" method="post" enctype="multipart/form-data">              
                   {{ csrf_field() }}  
                                          
                              <div class="row">{{--row start --}}
@@ -46,7 +46,7 @@
                                                 <div class="form-group">
                                                     {{ Form::label('certificate_type','Certificate Type',['class'=>' control-label']) }}
                                                     {!! Form::select('certificate_type',[
-                                                                 
+                                                                
                                                                 '2'=>'School Leaving Certificate',
                                                                 '3'=>'Character Certificate',
                                                                 '4'=>'Date of Birth Certificate',
@@ -61,8 +61,8 @@
                                                   {{ Form::textarea('reason',$certificate->reason,['class'=>'form-control datepicker','rows'=>'2',' required']) }}
                                                   <p class="text-danger">{{ $errors->first('reason') }}</p>
                                               </div>
-                                            </div> 
-                                          </div>
+                                            </div>
+                                              </div>
                                             <div class="col-lg-3">
                                               <label>SLC No</label>
                                               <input type="text" name="slc_no" class="form-control" 
@@ -85,7 +85,7 @@
                                          
                                              <div class="col-lg-6 text-right" style="padding-top: 20px;">                         
                                                 <div class="form-group">
-                                                  <button class="btn btn-success">Virify</button>
+                                                  <button class="btn btn-success">Approval</button>
                                                     
                                                 </div>
                                             </div>

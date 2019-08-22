@@ -90,6 +90,14 @@ function callAjax(obj,url,divId,callback){
 			{  
 			   $('.pre-selected-options').multiSelect();
 			}
+			if(obj.getAttribute('daterangepicker'))
+			{  
+			     $('input[name="daterange"]').daterangepicker({
+				     autoUpdateInput: true,
+				       
+				  });
+			}
+			 
 				 
 		}
     });

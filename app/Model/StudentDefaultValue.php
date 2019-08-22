@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class StudentDefaultValue extends Model
 {
-    
+    protected $fillable = [
+        'id', 'class_id', 'section_id',
+    ];
       public function genders(){
         return $this->hasOne('App\Model\Gender','id','gender_id');
     }

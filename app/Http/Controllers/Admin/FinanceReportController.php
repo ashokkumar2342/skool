@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\Cashbook;
 use App\Model\ClassType;
+use App\Model\PaymentMode;
 use App\Model\StudentFeeDetail;
 use App\Student;
 use Illuminate\Http\Request;
@@ -20,8 +22,9 @@ class FinanceReportController extends Controller
   }
    public function index($value='')
    {
+    $paymentModes=PaymentMode::orderBy('id','ASC')->get();
     $cashbooks=Cashbook::orderBy('user_id','ASC')->distinct('user_id')->get(['user_id']);
-    return view('admin.financeReport.view',compact('cashbooks'));
+    return view('admin.financeReport.view',compact('cashbooks','paymentModes'));
    }
    public function feeReport(Request $request)
    {
@@ -34,14 +37,13 @@ class FinanceReportController extends Controller
    }
    public function feeReportShow(Request $request)
    {     
-        $rules=array(); 
-        $error=""; 
-      
+        $rules=array();  
         $date = date('Y-m-d',strtotime(date('Y-m-d') ."1 days"));
            $report_for='';
            $user_id='';
            $report_wise='';
            $weekMonthYear='';
+          $paymentMode=$request->payment_mode;
            if ($request->has('report_for')) {
              $report_for = $request->report_for;
              if ($report_for==1) {
@@ -66,37 +68,43 @@ class FinanceReportController extends Controller
              $report_wise = $request->report_wise;
            }
            
-        
-   	    if ($request->has('report_for') || $request->has('user_id') || $request->has('report_wise')) {  
-             
-            if ($request->report_for==$report_for && $request->has('user_id') && $request->report_wise==4) { 
+         
+   	    if ($request->has('report_for') || $request->has('user_id') || $request->has('payment_mode') || $request->has('report_wise')) {  
+            
+            if ($request->report_for==$report_for && $request->has('user_id') && $request->report_wise==4 && $request->has('payment_mode')) { 
+                $rules['class_id']='required';
+                $rules['section_id']='required';
+               $cashbooks = Cashbook::whereBetween('created_at', [$weekMonthYear,$date ])->where('user_id', $user_id)->where('class_id', $request->class_id)->where('section_id', $request->section_id)->where('payment_mode','like', '%'.$paymentMode.'%')->get();
+             }elseif ($request->report_for==$report_for && $request->has('user_id') && $request->report_wise==4) {   
                 $rules['class_id']='required';
                 $rules['section_id']='required';
                $cashbooks = Cashbook::whereBetween('created_at', [$weekMonthYear,$date ])->where('user_id', $user_id)->where('class_id', $request->class_id)->where('section_id', $request->section_id)->get();
-             } elseif ($request->report_for==$report_for && $request->has('user_id') && $request->report_wise==3) { 
+             } elseif ($request->report_for==$report_for && $request->has('user_id') && $request->report_wise==3) {   
                 $rules['class_id']='required';
-               $cashbooks = Cashbook::whereBetween('created_at', [$weekMonthYear,$date ])->where('user_id', $user_id)->where('class_id', $request->class_id)->get();
+               $cashbooks = Cashbook::whereBetween('created_at', [$weekMonthYear,$date ])->where('user_id', $user_id)->where('class_id', $request->class_id)->where('payment_mode','like', '%'.$paymentMode.'%')->get();
              }elseif ($request->report_for==$report_for && $request->has('user_id') && $request->report_wise==2) { 
                 $rules['registration_no']='required';
-               $cashbooks = Cashbook::whereBetween('created_at', [$weekMonthYear,$date ])->where('user_id', $user_id)->where('student_id', $request->registration_no)->get();
+               $cashbooks = Cashbook::whereBetween('created_at', [$weekMonthYear,$date ])->where('user_id', $user_id)->where('student_id', $request->registration_no)->where('payment_mode','like', '%'.$paymentMode.'%')->get();
              }elseif ($request->report_for==$report_for && $request->has('user_id')) {
-               $cashbooks = Cashbook::whereBetween('created_at', [$weekMonthYear,$date ])->where('user_id', $user_id)->get();
+               $cashbooks = Cashbook::whereBetween('created_at', [$weekMonthYear,$date ])->where('user_id', $user_id)->where('payment_mode','like', '%'.$paymentMode.'%')->get();  
              }
              elseif ($request->report_for==$report_for && $request->report_for!='') { 
-               $cashbooks = Cashbook::whereBetween('created_at', [$weekMonthYear,$date ])->get();
+               $cashbooks = Cashbook::whereBetween('created_at', [$weekMonthYear,$date ])->where('payment_mode','like', '%'.$paymentMode.'%')->get();
              }
-             elseif ($request->has('user_id')) {
-               $cashbooks = Cashbook::where('user_id', $user_id)->get();
+             elseif ($request->has('user_id')) {   
+               $cashbooks = Cashbook::where('user_id', $user_id)->where('payment_mode','like', '%'.$paymentMode.'%')->get();
+             }elseif ($request->has('payment_mode')) { 
+               $cashbooks = Cashbook::where('payment_mode','like', '%'.$paymentMode.'%')->get();
              }elseif ($request->report_wise==2) { 
                $rules['registration_no']='required';
-               $cashbooks = Cashbook::where('student_id', $request->registration_no)->get();
+               $cashbooks = Cashbook::where('student_id', $request->registration_no)->where('payment_mode','like', '%'.$paymentMode.'%')->get();
              }elseif ($request->report_wise==3) {
                $rules['class_id']='required';
-               $cashbooks = Cashbook::where('class_id', $request->class_id)->get();
-             }elseif ($request->report_wise==4) {
+               $cashbooks = Cashbook::where('class_id', $request->class_id)->where('payment_mode','like', '%'.$paymentMode.'%')->get();
+             }elseif ($request->report_wise==4) {  
                $rules['class_id']='required';
                $rules['section_id']='required';
-               $cashbooks = Cashbook::where('class_id', $request->class_id)->where('section_id', $request->section_id)->get();
+               $cashbooks = Cashbook::where('class_id', $request->class_id)->where('section_id', $request->section_id)->where('payment_mode','like', '%'.$paymentMode.'%')->get();
              }
             
               
@@ -130,6 +138,25 @@ class FinanceReportController extends Controller
                   $response['status'] = 1; 
                   $response['data'] =view('admin.financeReport.feeDue.show' ,compact('StudentFeeDetails','month'))->render(); 
                     return response()->json($response); 
+   }
+   public function feeDueReportReceipt(Request $request)
+   {
+       $student=Student::find($request->id);
+       $studentFeeDetail=StudentFeeDetail::where('student_id',$request->id)->first();  
+        $message = $studentFeeDetail;         
+        $emailto = $student->email;         
+        $subject = 'Fee Due Receipt'; 
+        $up_u=array();
+         
+        $up_u['msg']=$message;
+        $up_u['subject']=$subject; 
+        $mailHelper =new MailHelper();
+       
+        $mailHelper->mailsend('emails.fee_due_receipt',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5);
+        return redirect()->back()->with(['Message Sent successfully']);
+        
+    
+
    }
 
    //---------------new-admission-report--------------------------//////////

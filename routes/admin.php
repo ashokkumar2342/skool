@@ -265,7 +265,16 @@ Route::group(['middleware' => 'admin'], function() {
 	 	    Route::post('{manageSubject}/update', 'SubjectController@update')->name('admin.manageSubject.update');
 	 	    Route::get('{manageSubject}/delete', 'SubjectController@destroy')->name('admin.manageSubject.delete');        
 	 	});
-	 // ---------------Subject----------------------------------------
+	 // ---------------Signature-stamp---------------------------------------
+	 Route::group(['prefix' => 'Signature-stamp'], function() {
+	     Route::get('/', 'SignatureStampController@index')->name('admin.signature.stamp');
+	     Route::get('add-form', 'SignatureStampController@addForm')->name('admin.signature.stamp.add.form');
+	     Route::post('store', 'SignatureStampController@store')->name('admin.signature.stamp.store');
+	     Route::get('table-show', 'SignatureStampController@tableShow')->name('admin.signature.stamp.table.show');
+	     
+	      
+         
+	 });
 	 Route::group(['prefix' => 'activity'], function() {
 	     Route::get('/', 'ActivityController@index')->name('admin.activity.list');
 	     Route::get('delete/{activity}', 'ActivityController@destroy')->name('admin.activity.delete');
@@ -301,11 +310,13 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::post('store', 'CertificateIssueDetailController@store')->name('admin.student.certificateIssu.post');
 	     Route::get('edit/{id}', 'CertificateIssueDetailController@edit')->name('admin.student.certificateIssu.edit');
 	     Route::get('show/{certificate}', 'CertificateIssueDetailController@show')->name('admin.student.certificateIssu.show');
-	     Route::get('delete', 'CertificateIssueDetailController@edit')->name('admin.student.certificateIssu.delete');
+	     Route::get('delete/{id}', 'CertificateIssueDetailController@reject')->name('admin.student.certificateIssu.delete');
 	     Route::post('update/{id}', 'CertificateIssueDetailController@update')->name('admin.student.certificateIssu.update');
 	     Route::get('download/{certificate}', 'CertificateIssueDetailController@download')->name('admin.student.attachment.download');
-	     Route::get('verify/{certificate}', 'CertificateIssueDetailController@verify')->name('admin.student.attachment.virify');
-	     Route::get('approval/{certificate}', 'CertificateIssueDetailController@approval')->name('admin.student.attachment.approval');
+	     Route::get('verify', 'CertificateIssueDetailController@verify')->name('admin.student.attachment.virify');
+	     Route::get('approval', 'CertificateIssueDetailController@approval')->name('admin.student.attachment.approval');
+	     Route::get('aproval-check/{id}', 'CertificateIssueDetailController@approvalCheck')->name('admin.student.attachment.approval.check');
+	     Route::post('aproval/{id}', 'CertificateIssueDetailController@approvalStatus')->name('admin.student.attachment.approval.status');
 	 });
 	   // ---------------Tuition Fee Certificate----------------------------------------
 	 Route::group(['prefix' => 'certificate-tuition'], function() {
@@ -477,6 +488,25 @@ Route::group(['middleware' => 'admin'], function() {
     	      
     	    
     	 });
+    	Route::group(['prefix' => 'finance-report'], function() {
+    	    Route::get('/', 'FinanceReportController@index')->name('admin.finance.report');	 	
+    	    Route::get('fee-report', 'FinanceReportController@feeReport')->name('admin.finance.report.fee.report');	 	
+    	    Route::post('report-show', 'FinanceReportController@feeReportShow')->name('admin.finance.report.fee.report.show');	 	
+    	    
+    	      
+    	    
+    	 });Route::group(['prefix' => 'date-range'], function() {
+    	    Route::get('date-range', 'FinanceReportController@dateRange')->name('admin.finance.report.date.range'); 
+    	 });
+    	Route::group(['prefix' => 'fee-due-report'], function() {
+    	    Route::get('fee-due', 'FinanceReportController@feeDueReport')->name('admin.finance.report.fee-due'); 
+    	    Route::post('fee-due-show', 'FinanceReportController@feeDueReportShow')->name('admin.finance.report.fee.due.show'); 
+    	    Route::get('fee-due-receipt/{id}', 'FinanceReportController@feeDueReportReceipt')->name('admin.finance.report.fee.due.receipt'); 
+    	  });
+    	Route::group(['prefix' => 'adminssion-report'], function() {
+    	    Route::get('admission', 'FinanceReportController@adminssionReport')->name('admin.finance.report.adminssion'); 
+    	    Route::post('admission-show', 'FinanceReportController@adminssionReportShow')->name('admin.finance.report.adminssion.show'); 
+    	  });
      
 
     	 //------------------------- Student Search --------------------------------- 
@@ -724,6 +754,7 @@ Route::group(['middleware' => 'admin'], function() {
 			 Route::get('edit/{id}', 'Library\bookAccessionController@edit')->name('admin.library.book.accession.edit');
 			  Route::get('delete/{id}', 'Library\bookAccessionController@destroy')->name('admin.library.book.accession.delete');
              Route::post('update/{id}', 'Library\bookAccessionController@update')->name('admin.library.book.accession.update');
+             Route::get('barcode', 'Library\bookAccessionController@accessionNoBarcode')->name('admin.library.book.accession.barcode');
 
 		    }); 
 		    Route::group(['prefix' => 'library-member-type'], function() {
@@ -793,12 +824,13 @@ Route::group(['middleware' => 'admin'], function() {
             });  Route::group(['prefix' => 'book-return'], function() {
 		    Route::get('book-return', 'Library\BookIssueDetailsController@bookReturn')->name('admin.library.book.return'); 
 		    Route::post('book-search', 'Library\BookIssueDetailsController@bookSearch')->name('admin.library.book.issue.details.search');
-		    Route::get('return/{id}', 'Library\BookIssueDetailsController@returnUpdate')->name('admin.library.book.issue.return');
-		    // Route::post('store', 'Library\BookIssueDetailsController@store')->name('admin.library.book.issue.details.store'); 
-		    // Route::get('registration-onchange', 'Library\BookIssueDetailsController@registrationOnchange')->name('admin.library.book.issue.onchange.registration.details');
-		    // Route::get('accession-onchange', 'Library\BookIssueDetailsController@accessionOnchange')->name('admin.library.book.issue.onchange.accession.details');
-		    // Route::get('book-issue-history/{id}', 'Library\BookIssueDetailsController@bookIssueHistory')->name('admin.library.book.issue.history');
-
+		    Route::get('return/{id}', 'Library\BookIssueDetailsController@returnUpdate')->name('admin.library.book.issue.return'); 
+			     
+            }); 
+            Route::group(['prefix' => 'ticket-card'], function() {
+		    Route::get('/', 'Library\TicketController@index')->name('admin.library.ticket.card'); 
+		    Route::post('generate', 'Library\TicketController@generate')->name('admin.library.ticket.card.generate'); 
+		     
 			     
             }); 
 		      Route::group(['prefix' => 'event-type'], function() {
@@ -829,6 +861,17 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('add-form', 'SchoolDetails\SchoolDetailsController@addForm')->name('admin.school.details.addForm');
 			    Route::post('store', 'SchoolDetails\SchoolDetailsController@store')->name('admin.school.details.store');
 			    Route::get('table-show', 'SchoolDetails\SchoolDetailsController@tableShow')->name('admin.school.details.table.show');
+
+          });
+           Route::group(['prefix' => 'school-dominos'], function() {
+			    Route::get('/', 'SchoolDominosController@index')->name('admin.school.dominos');
+			    Route::get('add-form', 'SchoolDominosController@addForm')->name('admin.school.dominos.add.form');
+			    Route::post('store', 'SchoolDominosController@store')->name('admin.school.dominos.store');
+			    Route::get('table-show', 'SchoolDominosController@tableShow')->name('admin.school.dominos.table.show');
+			    Route::get('edit/{id}', 'SchoolDominosController@edit')->name('admin.school.dominos.edit');
+			    Route::get('delete/{id}', 'SchoolDominosController@destroy')->name('admin.school.dominos.delete');
+			    Route::post('update/{id}', 'SchoolDominosController@update')->name('admin.school.dominos.update');
+			    
 
           }); 
            Route::group(['prefix' => 'quotes'], function() {

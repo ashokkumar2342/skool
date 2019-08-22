@@ -18,6 +18,9 @@
 	  
 </style>
  @include('admin.include.boostrap')
+ @foreach ($students as $student)
+ 	 
+
 <body style="margin: 0px; padding:0px;">  
   <div  id="front">
 	 
@@ -34,16 +37,16 @@
 			    </div>
 			    <div class="col-lg-10" style="padding-top: 12px;margin-left: 18px"> 
 
-			    	 <span> Name :<b>{{ $students->name }}</b></span><br>
-			    	 <span>F Name :<b>{{ $students->father_name }}</b></span><br>
-			    <span>Mobile No :<b>{{ $students->father_mobile }}</b></span><br>
+			    	 <span> Name :<b>{{ $student->name }}</b></span><br>
+			    	 <span>F Name :<b>{{ $student->father_name }}</b></span><br>
+			    <span>Mobile No :<b>{{ $student->father_mobile }}</b></span><br>
 			     
-			    <span>Date of Birth :<b>{{ date('d-m-Y',strtotime($students->dob)) }}</b></span><br>
-			    <span>Class :<b>{{ $students->classes->name or ''}}</b></span><br>
-			    <span>Section :<b>{{ $students->sectionTypes->name or '' }}</b></span>
+			    <span>Date of Birth :<b>{{ date('d-m-Y',strtotime($student->dob)) }}</b></span><br>
+			    <span>Class :<b>{{ $student->classes->name or ''}}</b></span><br>
+			    <span>Section :<b>{{ $student->sectionTypes->name or '' }}</b></span>
 			    </div> 
 			    <div style="padding-left: 4px;padding-right: 4px">
-			    <span >Address :<b>{{ $students->p_address }}</b></span> 
+			    <span >Address :<b>{{ $student->p_address }}</b></span> 
 			    </div>
 			    <div style="padding-left:230px"> 
 			    <span>Principal</span>	
@@ -52,9 +55,10 @@
 			    
 			
 		  <div id="footer">
-		   <h3 style="color:#FF33FF;text-align:center;padding-bottom:7px">{{ $students->classes->name or '' }} - {{ $students->sectionTypes->name or '' }}</h3>
+		   <h3 style="color:#FF33FF;text-align:center;padding-bottom:7px">{{ $student->classes->name or '' }} - {{ $student->sectionTypes->name or '' }}</h3>
 
 	  	  </div>   
 	</div> 
 </body>
+ @endforeach
 </html>

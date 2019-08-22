@@ -26,25 +26,20 @@
   <div class="form-group">
     <input type="hidden" name="student_id" value="{{ $student->id }}">
     <label for="email">Fee Paid Upto:</label> 
-    {!! Form::select('month',[
-    	'1'=>'Jan',
-    	'2'=>'Feb',
-    	'3'=>'March',
-    	'4'=>'April',
-    	'5'=>'May',
-    	'6'=>'Jun',
-    	'7'=>'July',
-    	'8'=>'Aug',
-    	'9'=>'Sep',
-    	'10'=>'Oct',
-    	'11'=>'Nov',
-    	'12'=>'Dec',
-    	], $defultDate->month, ['class'=>'form-control','placeholder'=>'Select Month','required']) !!}
-   
+    
+    <select name="month" class="form-control">
+    	<option value="" selected disabled>Select Month</option>
+    	@foreach ($months as $month)
+    	 <option value="{{ $month->id }}" {{ $month->id==$defultDate->month }}>{{ $month->name }}</option>
+    	@endforeach
+     
+    </select>
+    
       
     {!! Form::select('year',[
     	'2018'=>'2018',
     	'2019'=>'2019',
+        '2020'=>'2020',
     	
     	], $defultDate->year, ['class'=>'form-control','placeholder'=>'Select Year','required']) !!}
   </div> 

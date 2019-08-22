@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
+use App\Model\AcademicYear;
 use App\Model\CertificateIssueDetail;
 use App\Model\ClassType;
 use App\Model\HistoryCertificateIssue;
 use App\Model\ReportRequest;
 use App\Model\Section;
-use App\Model\AcademicYear;
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 use Storage;
@@ -25,9 +27,9 @@ class CertificateIssueDetailController extends Controller
      */
     public function index()
     {
-        $certificates =CertificateIssueDetail::orderBy('created_at','desc')->get();
+        $certificates =CertificateIssueDetail::where('status',3)->orderBy('created_at','desc')->get();
 
-        return view('admin.certificate.apply_list',compact('certificates'));
+        return view('admin.certificate.certificate_table_show',compact('certificates'));
     }
 
     /**
@@ -41,11 +43,7 @@ class CertificateIssueDetailController extends Controller
          $academicYears=AcademicYear::orderBy('id','ASC')->get();
         return view('admin.certificate.form',compact('students','academicYears'));
     }
-    public function tableShow()
-    {
-        $certificates =CertificateIssueDetail::orderBy('created_at','desc')->get();
-        return view('admin.certificate.certificate_table_show',compact('certificates'));
-    }
+   
 
     public function print(CertificateIssueDetail $certificate)
     {     
@@ -73,7 +71,7 @@ class CertificateIssueDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {  $admin= Auth::guard('admin')->user()->id;
         if ($request->file('attachment') != null) 
         {
            
@@ -101,14 +99,13 @@ class CertificateIssueDetailController extends Controller
              $certificate->department_school_code = $request->department_school_code;
              $certificate->file_no = $request->file_no;
              $certificate->certificate_type = $request->certificate_type;
+             $certificate->apply_by = $admin;
                 if($certificate->save())
                 {
 
-                 return redirect()->route('admin.student.certificateIssu.list')->with(['message'=>'Apply Certificate Successfully','class'=>'success']);
+                 return redirect()->back()->with(['message'=>'Apply Certificate Successfully','class'=>'success']);
                 } 
-                else {
-                    return redirect()->route('admin.student.certificateIssu.list')->with(['message'=>'Something went wrong','class'=>'success']); 
-                }
+               
         }
         else {
             // return $request->all();
@@ -137,14 +134,13 @@ class CertificateIssueDetailController extends Controller
              $certificate->department_school_code = $request->department_school_code;
              $certificate->file_no = $request->file_no;
              $certificate->certificate_type = $request->certificate_type;
+             $certificate->apply_by = $admin;
                 if($certificate->save())
                 {
 
-                 return redirect()->route('admin.student.certificateIssu.list')->with(['message'=>'Apply Certificate Successfully','class'=>'success']);
+                 return redirect()->back()->with(['message'=>'Apply Certificate Successfully','class'=>'success']);
                 } 
-                else {
-                    return redirect()->route('admin.student.certificateIssu.list')->with(['message'=>'Something went wrong','class'=>'success']); 
-                }
+                 
         
 
         }    
@@ -186,7 +182,7 @@ class CertificateIssueDetailController extends Controller
      */
     public function update(Request $request,$id)
     {
-          
+         $admin= Auth::guard('admin')->user()->id;
           if ($request->file('attachment') != null) 
         {
             
@@ -224,8 +220,10 @@ class CertificateIssueDetailController extends Controller
              $certificate->department_school_code = $request->department_school_code;
              $certificate->file_no = $request->file_no;
              $certificate->certificate_type = $request->certificate_type;
+             $certificate->status =2;
+             $certificate->virify_by =$admin;
              $certificate->save();
-               $response=['status'=>1,'msg'=>'Update Successfully'];
+               $response=['status'=>1,'msg'=>'Virify Successfully'];
             return response()->json($response);
         }   
         }
@@ -265,8 +263,10 @@ class CertificateIssueDetailController extends Controller
              $certificate->department_school_code = $request->department_school_code;
              $certificate->file_no = $request->file_no;
              $certificate->certificate_type = $request->certificate_type;
+             $certificate->status =2;
+             $certificate->virify_by =$admin;
                  $certificate->save(); 
-               $response=['status'=>1,'msg'=>'Update Successfully'];
+               $response=['status'=>1,'msg'=>'Virify Successfully'];
                return response()->json($response);
            }
 
@@ -279,9 +279,14 @@ class CertificateIssueDetailController extends Controller
      * @param  \App\Model\CertificateIssueDetail  $certificateIssueDetail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CertificateIssueDetail $certificateIssueDetail)
-    {
-        //
+    public function reject(CertificateIssueDetail $certificateIssueDetail,$id)
+    { 
+         $admins= Auth::guard('admin')->user()->id;
+          $CertificateIssueDetail=CertificateIssueDetail::find($id);
+        return  $certificate->reject_by=$admins;
+         $CertificateIssueDetail->status=4;
+         $CertificateIssueDetail->save();
+          return redirect()->back()->with(['message'=>'Reject Successfully','class'=>'success']);
     }
 
     //download
@@ -311,24 +316,154 @@ class CertificateIssueDetailController extends Controller
 
     //verify
     public function verify(Request $request, CertificateIssueDetail $certificate)
-    { 
+    {      $certificates =CertificateIssueDetail::where('status',1)->orderBy('created_at','desc')->get();
+          return view('admin.certificate.virify',compact('certificates','students'));
          
-        $certificate->status = 2;
-         if ($certificate->save()) {
-              return redirect()->back()->with(['message'=>'Verify Successfully','class'=>'success']);       
-            }   
-        return redirect()->back()->with(['message'=>'Something went wrong','class'=>'danger']); 
 
+    }
+     public function tableShow()
+    {
+        $certificates =CertificateIssueDetail::where('status',1)->orderBy('created_at','desc')->get();
+        $admin=Auth::guard('admin')->user()->id;
+        return view('admin.certificate.virify_list',compact('certificates','admin'));
     }
 
     //aproval
     public function approval(Request $request, CertificateIssueDetail $certificate)
     { 
-         $certificate->status = 3;
-         if ($certificate->save()) {
-              return redirect()->back()->with(['message'=>'Approval Successfully','class'=>'success']);       
-            }   
-        return redirect()->back()->with(['message'=>'Something went wrong','class'=>'danger']); 
+          $certificates =CertificateIssueDetail::where('status',2)->orderBy('created_at','desc')->get();
+         return view('admin.certificate.approval',compact('certificates','students'));
+        
+    }
+    public function approvalCheck(Request $request,$id)
+    {     $certificate = CertificateIssueDetail::find($id);
+         $students=Student::where('student_status_id',1)->get();
+         return view('admin.certificate.approval_check',compact('certificate','students'));
+         
+
+    }
+     
+   public function approvalStatus(Request $request,$id)
+    {
+        
+         $admin= Auth::guard('admin')->user()->id;
+          if ($request->file('attachment') != null) 
+        {
+            
+            $rules=[
+          
+            "registration_no" => 'required|max:199',            
+              
+             "date" => 'required',
+             "certificate_type" => 'required|max:199',
+             "reason" => 'required|max:199',
+             "attachment" => 'mimes:pdf|max:1024', 
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+          
+          $student = Student::where('registration_no',$request->registration_no)->first();  
+            $certificate =  CertificateIssueDetail::find($id);
+            $file = $request->file('attachment');
+            $file->store('student/document');
+            $certificate->attachment = $file->hashName(); 
+             
+             $certificate->date= $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
+             $certificate->reason = $request->reason;
+             $certificate->slc_no = $request->slc_no;
+             $certificate->udise_code = $request->udise_code;
+             $certificate->department_school_code = $request->department_school_code;
+             $certificate->file_no = $request->file_no;
+             $certificate->certificate_type = $request->certificate_type;
+             $certificate->status =3;
+             $certificate->virify_by =$admin;
+             $certificate->save();
+               $response=['status'=>1,'msg'=>'Approval Successfully'];
+            return response()->json($response);
+        }   
+        }
+        else {
+            // return $request->all();
+
+          $rules=[
+          
+            "registration_no" => 'required|max:199',            
+              
+             "date" => 'required',
+             "certificate_type" => 'required|max:199',
+             "reason" => 'required|max:199',
+             "attachment" => 'mimes:pdf|max:1024', 
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+            $student = Student::where('registration_no',$request->registration_no)->first();  
+            $certificate =  CertificateIssueDetail::find($id);
+            // $file = $request->file('attachment');
+            // $file->store('student/document');
+            // $certificate->attachment = $file->hashName(); 
+              
+             $certificate->date= $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
+             $certificate->reason = $request->reason;
+             $certificate->slc_no = $request->slc_no;
+             $certificate->udise_code = $request->udise_code;
+             $certificate->department_school_code = $request->department_school_code;
+             $certificate->file_no = $request->file_no;
+             $certificate->certificate_type = $request->certificate_type;
+             $certificate->status =3;
+             $certificate->virify_by =$admin;
+                 $certificate->save();
+                return  $this->CertificateCardMail($request->certificate_type,$id); 
+               $response=['status'=>1,'msg'=>'Approval Successfully'];
+               return response()->json($response);
+           }
+
+        }    
+    }
+        
+    public function CertificateCardMail($certificate_type,$id)
+    {
+          
+     $CertificateIssueDetail =  CertificateIssueDetail::find($id);
+     $student=Student::where('id',$CertificateIssueDetail->student_id)->first();
+        $student = $student;         
+        $CertificateIssueDetail = $CertificateIssueDetail;         
+        $emailto = $student->email;         
+        $subject = 'certifiate'; 
+        $up_u=array();
+         
+        $up_u['student']=$student;
+        $up_u['CertificateIssueDetail']=$CertificateIssueDetail;
+        $up_u['subject']=$subject; 
+        $mailHelper =new MailHelper();
+         if ($certificate_type==2) {
+          $mailHelper->mailsend('admin.certificate.tuitionfee.leaving_certificate',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5); 
+         }if ($certificate_type==3) {
+          $mailHelper->mailsend('admin.certificate.tuitionfee.character_certificate',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5); 
+         }if ($certificate_type==4) {
+          $mailHelper->mailsend('admin.certificate.tuitionfee.date_of_birth_certificate',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5); 
+         }
+        $response = array();
+        $response['status'] = 1;
+        $response['msg'] = 'Approval Successfully';
+        return $response;
     }
 
     //Tution fee certificate

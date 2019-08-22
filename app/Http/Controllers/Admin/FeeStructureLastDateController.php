@@ -60,7 +60,8 @@ class FeeStructureLastDateController extends Controller
              return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
 
         } else {
-            $date = date_create('2018-04-10');             
+            $academicYear=AcademicYear::find($request->academic_year_id);
+             $date =  date_create(date('Y-m-d',strtotime($academicYear->start_date ."+9 days")));              
             $data = ForSessionMonth::find($request->for_session_month_id)->times;
             for ($i=0; $i < $data; $i++) {  
              $feeStructureLastDate = new FeeStructureLastDate();
