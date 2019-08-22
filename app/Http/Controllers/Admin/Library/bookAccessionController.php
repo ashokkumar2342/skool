@@ -13,7 +13,8 @@ use Faker\Provider\Barcode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
-
+use PDF;
+use Storage;
 class bookAccessionController extends Controller
 {
    public function index()
@@ -126,8 +127,8 @@ class bookAccessionController extends Controller
    {
       $bookaccessions= BookAccession::orderBy('accession_no','ASC')->get();
 
-       foreach ($bookaccessions as $key => $value) {   
-       $value=$value->accession_no;     
+       foreach ($bookaccessions as $values) {   
+       $value=$values->accession_no;     
        $barcode = new BarcodeGenerator();
        $barcode->setText($value);
        $barcode->setType(BarcodeGenerator::Code128);
@@ -135,15 +136,28 @@ class bookAccessionController extends Controller
        $barcode->setThickness(25);
        $barcode->setFontSize(10);
        $code = $barcode->generate();
-     
+       $data = base64_decode($code);
        $image_name= $value.'.png';     
        $path = Storage_path() . "/app/public/barcode/" . $image_name;       
        file_put_contents($path, $data);  
        $imgs[$value]=$code;
-       
-       } 
+       $bookaccessions= BookAccession::find($values->id);
+       $bookaccessions->barcode=$image_name;
+       $bookaccessions->save();
+       }
+         $bookaccessions= BookAccession::orderBy('id','ASC')->get();
+          $customPaper = array(0,0,62.00,105.80);
+          $pdf = PDF::loadView('admin.library.bookaccession.accession_barcode',compact('bookaccessions'))->setPaper($customPaper, 'landscape'); 
+        
+       return $pdf->stream('accession_barcode.pdf');
+     
+         
        
    }
+    public function accessionNoBarcodeImage($image){
+        $img = Storage::disk('public')->get('barcode/'.$image);
+        return response($img);
+    }
     public function barcodestore($imageNmae,$img_barcode,$type){
       $insbarcode = new Barcode();
       $insbarcode->img_name=$imageNmae;
