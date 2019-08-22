@@ -755,6 +755,7 @@ Route::group(['middleware' => 'admin'], function() {
 			  Route::get('delete/{id}', 'Library\bookAccessionController@destroy')->name('admin.library.book.accession.delete');
              Route::post('update/{id}', 'Library\bookAccessionController@update')->name('admin.library.book.accession.update');
              Route::get('barcode', 'Library\bookAccessionController@accessionNoBarcode')->name('admin.library.book.accession.barcode');
+             Route::get('barcode-image/{image}', 'Library\bookAccessionController@accessionNoBarcodeImage')->name('admin.library.book.accession.barcode.image');
 
 		    }); 
 		    Route::group(['prefix' => 'library-member-type'], function() {
