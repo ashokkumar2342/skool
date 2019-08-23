@@ -831,6 +831,7 @@ Route::group(['middleware' => 'admin'], function() {
             Route::group(['prefix' => 'ticket-card'], function() {
 		    Route::get('/', 'Library\TicketController@index')->name('admin.library.ticket.card'); 
 		    Route::post('generate', 'Library\TicketController@generate')->name('admin.library.ticket.card.generate'); 
+		    Route::get('barcode/{barcode}', 'Library\TicketController@barcode')->name('admin.library.ticket.card.barcode'); 
 		     
 			     
             }); 

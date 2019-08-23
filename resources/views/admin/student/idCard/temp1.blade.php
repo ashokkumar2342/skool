@@ -27,6 +27,13 @@
 	 #front{
 	 	width: 100%;
 	  	height: 350px;
+	  }
+	  	span.a {
+  
+  -ms-transform: rotate(-90deg); /* IE 9 */
+  -webkit-transform: rotate(-90deg); /* Safari 3-8 */
+  transform: rotate(-90deg);
+}
 
 	</style>
 </head>
@@ -54,7 +61,15 @@
 			  	@php
 			  		$path =storage_path('app/student/profile/'.$student->picture);
 			  	@endphp
+			  	@php
+			  		$paths =storage_path('app/student/profile/'.$student->barcode);
+			  	@endphp
 				  <img  src="{{ $path }}" alt="" width="103px" height="103px" style="border:solid 2px Black">
+			 </div>
+			 <div style="padding-top: 4px">
+			 <span class="a">
+				  <img  src="{{ $paths }}" width="130px" height="45px" style="float:left;">
+			</span> 
 			 </div>
 			 <div  style="font-size: 17px;text-align:center"><b>{{ $student->name }} {{ $student->last_name }}</b></div> 
 			  <div  style="font-size: 17px;text-align:center">Parent's Name</div> 
