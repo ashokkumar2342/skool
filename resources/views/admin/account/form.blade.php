@@ -2,12 +2,17 @@
 @section('body')
   <!-- Main content -->
     <section class="content">
+
       <div class="row">
         <div class="col-xs-12">          
             <!-- /.box-header -->            
           <div class="box">
-            <div class="box-header">
+            <div class="box-header"> 
               <h3 class="box-title">Add User</h3>
+              <div class="col-lg-6 pull-right">
+               @includeIf('admin.include.hot_menu', ['menu_type_id' =>1])
+             </div>
+
             </div>
             <!-- /.box-header -->
             <div class="box-body">

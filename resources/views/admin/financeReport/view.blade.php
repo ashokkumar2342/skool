@@ -3,7 +3,7 @@
   <!-- Main content -->
   <section class="content-header"> 
     <h1>Cashbook  Reports<small></small> </h1>
-       
+      @includeIf('admin.include.hot_menu', ['menu_type_id' =>26]) 
     </section>  
     <section class="content">  
       <div class="box"> 

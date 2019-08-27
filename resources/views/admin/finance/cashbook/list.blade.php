@@ -2,8 +2,7 @@
 @section('body')
 <section class="content-header">
     <h1>Cashbook </h1>
-      <ol class="breadcrumb">
-      </ol>
+      @includeIf('admin.include.hot_menu', ['menu_type_id' => 4])
 </section>
     <section class="content">
         <div class="box">             
