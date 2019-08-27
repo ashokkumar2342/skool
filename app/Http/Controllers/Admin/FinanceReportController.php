@@ -95,6 +95,9 @@ class FinanceReportController extends Controller
                $cashbooks = Cashbook::where('user_id', $user_id)->where('payment_mode','like', '%'.$paymentMode.'%')->get();
              }elseif ($request->has('payment_mode')) { 
                $cashbooks = Cashbook::where('payment_mode','like', '%'.$paymentMode.'%')->get();
+             }elseif ($request->report_wise==1) { 
+               
+               $cashbooks = Cashbook::whereBetween('created_at', [$weekMonthYear,$date ])->where('payment_mode','like', '%'.$paymentMode.'%')->get();
              }elseif ($request->report_wise==2) { 
                $rules['registration_no']='required';
                $cashbooks = Cashbook::where('student_id', $request->registration_no)->where('payment_mode','like', '%'.$paymentMode.'%')->get();

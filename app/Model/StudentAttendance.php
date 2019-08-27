@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class StudentAttendance extends Model
 {
     
-    // protected $fillable = ['student_id'];
+    protected $fillable = ['student_id'];
 
     // public function student(){
     //     return $this->hasOne(Student::class);

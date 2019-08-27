@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\SmsEvent;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Homework;
+use App\Model\Sms\SmsTemplate;
+use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Crypt;
 
 class HomeworkController extends Controller
 {
@@ -128,5 +131,17 @@ class HomeworkController extends Controller
         $homework = Homework::find($id);
         $homework->delete();
        return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+    public function sendHomework(Request $request)
+    {
+        
+          $studentHomeworkSendSms=Student::whereIn('class_id',$request->class_id)->whereIn('section_id',$request->section_id)->get();
+         foreach ($studentHomeworkSendSms as  $value) {
+             
+         $smsTemplate = SmsTemplate::where('id',3)->first();
+        event(new SmsEvent($value->father_mobile,$smsTemplate->message)); 
+         }
+        $response=['status'=>1,'msg'=>'Message Sent successfully'];
+            return response()->json($response); 
     }
 }

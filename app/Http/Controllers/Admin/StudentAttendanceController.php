@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
  
+use App\Events\SmsEvent;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\SessionDate;
+use App\Model\Sms\SmsTemplate;
 use App\Model\StudentAttendance;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class StudentAttendanceController extends Controller
 {
@@ -122,5 +125,59 @@ class StudentAttendanceController extends Controller
           
 
         return  view('admin.attendance.student.absent_continue',compact('studentAttendances'));
+    }
+    //-------------------student-absent-------------------------------------------------//
+    public function studentAbsent()
+    {
+        return  view('admin.attendance.student.student_absent_list');
+    }
+     public function studentAbsentList()
+    {
+        $StudentAttendances=StudentAttendance::where('date',date('Y-m-d'))->where('attendance_type_id',2)->get();
+        return  view('admin.attendance.student.student_absent_list_show',compact('StudentAttendances'));
+    }
+    public function studentAbsentSendSms(Request $request)
+    {
+         $studentAbsentSendSms=Student::whereIn('id',$request->student_id)->get();
+         foreach ($studentAbsentSendSms as  $value) {
+             
+         $smsTemplate = SmsTemplate::where('id',4)->first();
+        event(new SmsEvent($value->father_mobile,$smsTemplate->message)); 
+         }
+        $response=['status'=>1,'msg'=>'Message Sent successfully'];
+            return response()->json($response);
+    }
+//-------------------attendance-barcode------------------------------------------------//
+    public function attendanceBarcode()
+    {
+      return  view('admin.attendance.student.barcode');   
+    }
+    public function attendanceBarcodeSave(Request $request)
+    {
+         $StudentAttendancesBarcode=Student::where('registration_no',$request->registration_no)->first();
+        $date=date('d-m-Y');
+        
+        $rules=[];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+         $student = StudentAttendance::where(['date'=>date('Y-m-d',strtotime($date)),'student_id'=>$StudentAttendancesBarcode->id])->firstOrNew(['student_id'=>$StudentAttendancesBarcode->id]);
+           $student->student_id = $StudentAttendancesBarcode->id;
+           $student->attendance_type_id =1;
+           $student->date = date('Y-m-d',strtotime($date));
+           $student->save();
+        $response=['status'=>1,'msg'=>'Save Successfully'];
+            return response()->json($response);
+        } 
+           
+         
+         
     }
 }

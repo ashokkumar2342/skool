@@ -3,7 +3,7 @@
   <!-- Main content -->
   <section class="content-header">
     <h1>Member Ship Registration <small>Details</small> </h1>
-       
+     @includeIf('admin.include.hot_menu', ['menu_type_id' => 17])  
     </section>  
     <section class="content">
       <div class="row">

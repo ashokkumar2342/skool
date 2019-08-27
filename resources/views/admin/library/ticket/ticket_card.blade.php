@@ -4,7 +4,7 @@
   <section class="content-header">
      
     <h1>Ticket Card <small></small> </h1>
-       
+       @includeIf('admin.include.hot_menu', ['menu_type_id' => 17])   
     </section>  
     <section class="content">
           <div class="box"> 
