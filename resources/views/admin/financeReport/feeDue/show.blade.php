@@ -7,14 +7,14 @@
 			<th class="text-nowrap">Registration No</th>
 			<th class="text-nowrap">Mobile No</th>
 			<th class="text-nowrap">Father Name</th>
-			<th class="text-nowrap">Admission fee</th>
+			{{-- <th class="text-nowrap">Admission fee</th>
 			<th class="text-nowrap">Tuition Fee</th>
 			<th class="text-nowrap">Registration Fees</th>
 			<th class="text-nowrap">Admission Form Fees</th>
 			<th class="text-nowrap">Bus Fees</th>
 			<th class="text-nowrap">Meal</th>
 			<th class="text-nowrap">Annual Charge</th>
-	        <th class="text-nowrap">Activity Charges</th>
+	        <th class="text-nowrap">Activity Charges</th> --}}
 			<th class="text-nowrap">Fee Amount</th>
 			<th>Action</th>
 		</tr>
@@ -27,14 +27,14 @@
 				<td>{{ $StudentFeeDetail->students->registration_no or '' }}</td>
 				<td>{{ $StudentFeeDetail->students->father_mobile or '' }}</td>
 				<td>{{ $StudentFeeDetail->students->father_name or '' }}</td>
+				{{-- <td></td>
 				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
-				<td></td>
-				<td></td>
+				<td></td> --}}
 				 
 				<td>@php
 					$studentAmount=App\Model\StudentFeeDetail::where('student_id',$StudentFeeDetail->student_id)->whereMonth('last_date',$month)->get();

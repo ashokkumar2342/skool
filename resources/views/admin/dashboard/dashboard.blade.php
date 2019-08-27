@@ -107,7 +107,7 @@
               </div>
 
 
-              <div class="box box-danger">
+              <div class="box box-danger no-padding" style="max-height: 150px;overflow-y:auto">
                 <div class="box-header with-border">
                   <h3 class="box-title">Class Test</h3> 
                   <div class="box-tools pull-right"> 
@@ -134,6 +134,38 @@
                         <td>{{ $classTest->max_marks }}</td>
                         <td>{{ $classTest->test_date }}</td>
                         <td>{{ $classTest->discription }}</td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="box box-danger" style="max-height: 150px;overflow-y:auto">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Event</h3> 
+                  <div class="box-tools pull-right"> 
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                  <table class="table"> 
+                    <thead>
+                      <tr>
+                        <th>Event</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Event For</th> 
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($events as $event)
+                      <tr>
+                         <td>{{ $event->event_name}}</td>
+                         <td>{{ date('d-m-Y', strtotime($event->start_date )) }}</td> 
+                         <td>{{  date('d-m-Y',strtotime($event->end_date)) }}</td> 
+                         <td>{{ $event->eveneFor->name or '' }}</td>
+                         
                       </tr>
                       @endforeach
                     </tbody>

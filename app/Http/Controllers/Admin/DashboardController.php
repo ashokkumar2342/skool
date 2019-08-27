@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\Event\EventDetails;
 use App\Admin;
 use App\Http\Controllers\Controller;
-use App\Model\Exam\ClassTest;
 use App\Model\ClassType;
+use App\Model\Exam\ClassTest;
 use App\Model\ParentRegistration;
 use App\Model\StudentAttendance;
 use App\Model\StudentFeeDetail;
@@ -49,7 +50,10 @@ class DashboardController extends Controller
          $feePaid = StudentFeeDetail::where('paid',1)->get()->sum('fee_amount');
          $classTypes=ClassType::orderBy('id','ASC')->get();
          $classTests=ClassTest::orderBy('id','ASC')->get();
-        return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','newRegistraions','feeDues','feePaid','classTypes','students','classTests'));
+         $EventComing=date('Y-m-d',strtotime($date ."+1 days")); 
+         $events=EventDetails::where('start_date',$EventComing)->get();
+          
+        return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','newRegistraions','feeDues','feePaid','classTypes','students','classTests','events'));
         
     }  
 

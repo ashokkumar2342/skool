@@ -9,6 +9,7 @@ use App\Model\IdCard\IdCardTemplate;
 use App\Model\ReportFor;
 use App\Student;
 use Barryvdh\DomPDF\Facade as PDF;
+use CodeItNow\BarcodeBundle\Utils\BarcodeGenerator;
 use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -33,7 +34,7 @@ class StudentIdCardController extends Controller
 
     public function store(Request $request)
     { 
-        
+         
          
         if ($request->report_for==1) {
         $students=Student::where('student_status_id',1)->get(); 
@@ -44,6 +45,27 @@ class StudentIdCardController extends Controller
         }if ($request->report_for==4) {
         $students=Student::where('class_id',$request->class_id)->where('section_id',$request->section_id)->where('student_status_id',1)->get(); 
         } 
+    if ($request->barcode==1) { 
+       foreach ($students as $values) {   
+       $value=$values->registration_no;     
+       $barcode = new BarcodeGenerator();
+       $barcode->setText($value);
+       $barcode->setType(BarcodeGenerator::Code128);
+       $barcode->setScale(2);
+       $barcode->setThickness(25);
+       $barcode->setFontSize(10);
+       $code = $barcode->generate();
+       $data = base64_decode($code);
+       $image_name= $value.'.png';     
+       $path = Storage_path() . "/app/student/profile/" . $image_name;       
+       file_put_contents($path, $data);  
+       $imgs[$value]=$code;
+       $student= Student::find($values->id);
+       $student->barcode=$image_name;
+       $student->save();
+       }
+    }  
+       
       if ($request->student_idcard==1) {
          
          if ($request->template_name==1) {

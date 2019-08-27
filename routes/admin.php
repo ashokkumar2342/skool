@@ -346,6 +346,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::post('add', 'HomeworkController@store')->name('admin.homework.post');
 	    Route::get('view/{id}', 'HomeworkController@view')->name('admin.homework.view');
 	    Route::get('delete/{id}', 'HomeworkController@destroy')->name('admin.homework.delete');
+	    Route::post('send-homework', 'HomeworkController@sendHomework')->name('admin.homework.send.homework');
 	 });
 	
 	 
@@ -369,6 +370,17 @@ Route::group(['middleware' => 'admin'], function() {
 	        Route::get('attendance-continue', 'StudentAttendanceController@attendanceContinue')->name('admin.attendance.student.attendance.continue');
 	    });
 	});
+	    Route::group(['prefix' => 'student-absent'], function() { 
+	        Route::get('student-absent', 'StudentAttendanceController@studentAbsent')->name('admin.attendance.student.absent');
+	        Route::get('student-absent-list', 'StudentAttendanceController@studentAbsentList')->name('admin.attendance.student.absent.list');
+	        Route::post('student-absent-sms', 'StudentAttendanceController@studentAbsentSendSms')->name('admin.attendance.student.absent.send.sms');
+	        
+	    });
+	    Route::group(['prefix' => 'attendance-barcode'], function() { 
+	        Route::get('barcode', 'StudentAttendanceController@attendanceBarcode')->name('admin.attendance.barcode');
+	        Route::post('save', 'StudentAttendanceController@attendanceBarcodeSave')->name('admin.attendance.barcode.save');
+	        
+	    });
 	//------------------------- Finance ---------------------------------
 	Route::group(['prefix' => 'finance'], function() {
 		//------------------------- fee acoout ---------------------------------
@@ -831,6 +843,7 @@ Route::group(['middleware' => 'admin'], function() {
             Route::group(['prefix' => 'ticket-card'], function() {
 		    Route::get('/', 'Library\TicketController@index')->name('admin.library.ticket.card'); 
 		    Route::post('generate', 'Library\TicketController@generate')->name('admin.library.ticket.card.generate'); 
+		    Route::get('barcode/{barcode}', 'Library\TicketController@barcode')->name('admin.library.ticket.card.barcode'); 
 		     
 			     
             }); 

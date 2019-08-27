@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
-use App\Model\StudentMedicalInfo;
-use Illuminate\Http\Request;
 use App\Helper\MyFuncs;
+use App\Helpers\MailHelper;
+use App\Http\Controllers\Controller;
 use App\Model\BloodGroup;
 use App\Model\Category;
 use App\Model\ClassType;
@@ -24,10 +23,12 @@ use App\Model\Religion;
 use App\Model\SessionDate;
 use App\Model\StudentDefaultValue;
 use App\Model\StudentFee;
-use App\Student;
+use App\Model\StudentMedicalInfo;
 use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
+use App\Student;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 
@@ -63,13 +64,13 @@ class StudentMedicalInfoController extends Controller
     {   
         $rules=[
           
-            'ondate' => 'required', 
-            'hb' => 'numeric|max:20', 
-            'height' => 'required', 
-            'weight' => 'required', 
-            'vision' => 'required', 
-            'bloodgroup_id' => 'required', 
-            'id_marks1' => 'required', 
+            // 'ondate' => 'required', 
+            // 'hb' => 'numeric|max:20', 
+            // 'height' => 'required', 
+            // 'weight' => 'required', 
+            // 'vision' => 'required', 
+            // 'bloodgroup_id' => 'required', 
+            // 'id_marks1' => 'required', 
        
         ];
 
@@ -99,13 +100,32 @@ class StudentMedicalInfoController extends Controller
         $medical->physical_handicapped = $request->physical_handicapped;
         $medical->student_id = $request->student_id;
         $medical->vision = $request->vision;
-        $medical->weight = $request->weight;
-        
-       $medical->save();
+        $medical->weight = $request->weight; 
+        $medical->save();
+      $this->medicalSendEmail($request->student_id);
         $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
         }  
 
+    }
+    public function medicalSendEmail($student_id)
+    {
+        $medicals =StudentMedicalInfo::where('student_id',$student_id)->orderBy('id','DESC')->first();
+      $student=Student::where('id',$medicals->student_id)->first();
+        $message = $medicals;         
+        $emailto = $student->email;         
+        $subject = 'Medical Details'; 
+        $up_u=array(); 
+        $up_u['medicalInfo']=$message;
+        $up_u['subject']=$subject;
+                 
+        $mailHelper =new MailHelper();
+       
+        $mailHelper->mailsend('admin.student.studentdetails.include.medical_send_email',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5);
+        // $response = array();
+        // $response['status'] = 1;
+        // $response['msg'] = 'Message Sent successfully';
+        // return $response;
     }
 
     /**

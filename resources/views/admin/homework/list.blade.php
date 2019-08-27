@@ -51,6 +51,12 @@
             <div class="box">             
               <!-- /.box-header -->
                 <div class="box-body">
+                  <form action="{{ route('admin.homework.send.homework') }}" method="post" class="add_form">
+                    {{ csrf_field() }}
+                    
+                    
+                  
+                  <input type="submit" class="btn btn-primary btn-sm" value="Send Homework" style="margin: 5px;float: right;">
                     <table id="homework_table" class="display table">                     
                         <thead>
                             <tr>
@@ -68,7 +74,9 @@
                                     <td>{{ ++$loop->index}}</td>
                                     <td>{{ $homework->created_at }}</td>
                                     <td>{{ $homework->classes->name }}</td>
+                                    <input type="text" hidden="" name="class_id[]" value="{{ $homework->class_id }}">
                                     <td>{{ $homework->sectionTypes->name }}</td>
+                                    <input type="text" hidden name="section_id[]" value="{{ $homework->section_id }}">
                                     <td>{{ $homework->homework }}</td>
                                     <td>
                                         <a href="{{ url('storage/homework/'.$homework->homework_doc) }}" target="blank" title=""><button type="button" class="btn_parents_image btn btn-success btn-xs"><i class="fa fa-download"></i> </button></a> 
@@ -96,6 +104,7 @@
                              {{ $homeworks->links() }} 
 
                     </table>
+                    </form>
                 </div>
             </div>    
 
