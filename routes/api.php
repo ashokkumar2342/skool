@@ -49,6 +49,7 @@ Route::get('test', function(Request $request){
     Route::get('event/{id}', 'Api\StudentController@event'); 
     Route::get('remarks/{id}', 'Api\StudentController@remarks'); 
     Route::get('quotes/{id}', 'Api\StudentController@quotes'); 
+    Route::post('request-update/{id}', 'Api\StudentController@requestUpdate'); 
   
  });
 

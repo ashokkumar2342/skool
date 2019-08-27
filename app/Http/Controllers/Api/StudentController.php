@@ -15,6 +15,7 @@ use App\Model\ParentRegistration;
 use App\Model\Quote;
 use App\Model\Religion;
 use App\Model\Remark\Remark;
+use App\Model\RequestUpdate;
 use App\Model\SessionDate;
 use App\Model\StudentAttendance;
 use App\Model\StudentDefaultValue;
@@ -366,6 +367,41 @@ class StudentController extends Controller
               // return [$lastFee,$cashbooks->sum('receipt_amount')];   
             }
              return response()->json(['data'=>'null','status'=>'0']);  
+        } catch (Exception $e) {
+            return $e;
+        }
+       
+    } 
+    //request update
+    public function requestUpdate(Request $request,$id){ 
+        try { 
+                
+       
+              $student_id=$id;
+              $student=RequestUpdate::firstOrNew(['student_id'=>$student_id]);
+              $student->student_id= $student_id;
+              $student->name= $request->student_name;
+              $student->nick_name= $request->nick_name;
+              $student->father_name= $request->father_name;
+              $student->mother_name= $request->mother_name; 
+              $student->father_mobile= $request->father_mobile;
+              $student->mother_mobile= $request->mother_mobile;
+              $student->email= $request->email;
+              $student->dob= $request->date_of_birth == null ? $request->date_of_birth : date('Y-m-d',strtotime($request->date_of_birth));
+              $student->gender_id= $request->gender;
+              $student->religion_id= $request->religion;
+              $student->category_id= $request->category;
+              $student->c_address= $request->c_address;
+              $student->p_address= $request->p_address;
+              $student->state= $request->state;
+              $student->city= $request->city;
+              $student->pincode= $request->pincode;        
+               $student->save();           
+                 $response= array();
+                 $response['status']= 1;
+                 $response['msg']= 'Save Successfully';
+              return $response;   
+         
         } catch (Exception $e) {
             return $e;
         }
