@@ -460,6 +460,8 @@ class CertificateIssueDetailController extends Controller
          }if ($certificate_type==4) {
           $mailHelper->mailsend('admin.certificate.tuitionfee.date_of_birth_certificate',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5); 
          }
+         $smsTemplate = SmsTemplate::where('id',4)->first();
+         event(new SmsEvent($student->father_mobile,$smsTemplate->message));
         $response = array();
         $response['status'] = 1;
         $response['msg'] = 'Approval Successfully';

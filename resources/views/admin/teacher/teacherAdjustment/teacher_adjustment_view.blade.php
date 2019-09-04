@@ -12,10 +12,11 @@
           </div>
          <div class="modal-body">
              <div class="panel panel-default">
- <div class="panel-heading text-right">
-
-  <a href=""  class="btn btn-primary btn-sm" title="Print">Print</a></div>
-  
+ <div class="panel-heading text-right"> 
+ 
+</div>
+ <form action="{{ route('admin.teacher.absent.send.sms.email') }}" method="post" class="add_form">
+  {{ csrf_field() }} 
   <div class="panel-body">
     <table class="table "> 
       <thead>
@@ -36,7 +37,7 @@
 
      @foreach ($teacherAdjustments as $teacherAdjustment)
      <tr>
-
+         <input type="hidden" name="teacher_id[]" value="{{ $teacherAdjustment->teacher_id }}">
        <td>{{ $teacherAdjustment->teacherFaculty->name or '' }}</td>
        <td>{{ $teacherAdjustment->classTypes->name or '' }}</td>
       {{--  <td>{{ $teacherAdjustment->sectionTypes->name or '' }}</td> --}}
@@ -57,7 +58,11 @@
 </tbody>
 </table>
 </div>
-
+<div class="text-center">
+  
+ <input type="submit" class="btn btn-primary btn-sm" value="Sms/Email" style="margin: 5px">
+</div>
+</form>
 </div>
         </div>
       </div> 

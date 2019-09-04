@@ -59,7 +59,12 @@
                       </div>
 	                 
                        
-	                     <div class="col-lg-12 text-center">                                             
+	                     <div class="col-lg-12 text-center">
+                        <a href="#" title="" onclick="callPopupLevel2(this,'{{ route('admin.medical.template.view',1) }}')" >Template View</a>&nbsp;&nbsp;
+                       Send Sms
+                       <input type="checkbox" name="send_sms" value="1">&nbsp;&nbsp;
+                       Send Email
+                       <input type="checkbox" name="send_email" value=2>&nbsp;&nbsp;           
 	                     <button class="btn btn-success" type="submit" id="btn_fee_account_create">Submit</button> 
 	                    </div>                     
 	                </form> 
@@ -83,7 +88,7 @@
                                 <th>Test Date</th>                                                            
                                 <th>Max marks</th>                                                             
                                 <th>Discription</th>                                                             
-                                <th>Action</th>                                                            
+                                <th width="200">Action</th>                                                            
                             </tr>
                         </thead>
                         <tbody>
@@ -102,7 +107,9 @@
                         			<a href="{{ route('admin.exam.classtest.delete',Crypt::encrypt($classTest->id)) }}"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
                               @endif
 
-                              <a href="{{ url('storage/class_test/'.$classTest->sylabus) }}" {{ $classTest->sylabus==null?'disabled':'' }} target="_blank"  class="btn btn-info btn-xs"    ><i class="fa fa-download"></i></a>
+                              <a href="{{ url('storage/class_test/'.$classTest->sylabus) }}" {{ $classTest->sylabus==null?'disabled':'' }} target="_blank"  class="btn btn-success btn-xs"    ><i class="fa fa-download"></i></a>
+                              <a href="{{ route('admin.exam.classtest.send.sms',[$classTest->class_id,$classTest->section_id,$classTest->id]) }}"  class="btn btn-primary btn-xs"></i>Send Sms</a>
+                              <a href="{{ route('admin.exam.classtest.send.email',[$classTest->class_id,$classTest->section_id,$classTest->id]) }}"  class="btn btn-info btn-xs"></i>Send Email</a>
                         		</td>
                         	</tr>  	 
                         @endforeach	

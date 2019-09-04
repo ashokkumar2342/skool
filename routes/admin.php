@@ -213,6 +213,9 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('view/{id}', 'StudentMedicalInfoController@show')->name('admin.medical.view');
 	    Route::post('update/{id}', 'StudentMedicalInfoController@update')->name('admin.medical.update');
 	    Route::get('pdf-generate/{id}', 'StudentMedicalInfoController@pdfGenerate')->name('admin.medical.pdf.generate');
+	    Route::get('send-sms/{id}', 'StudentMedicalInfoController@medicalSendSms')->name('admin.medical.send.sms');
+	    Route::get('send-email/{id}', 'StudentMedicalInfoController@medicalSendEmail')->name('admin.medical.send.email');
+	    Route::get('template-view/{id}', 'StudentMedicalInfoController@temolateView')->name('admin.medical.template.view');
 	 }); 
 	   	// ---------------Sibling Info----------------------------------------
 	 Route::group(['prefix' => 'sibling-info'], function() {
@@ -347,6 +350,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('view/{id}', 'HomeworkController@view')->name('admin.homework.view');
 	    Route::get('delete/{id}', 'HomeworkController@destroy')->name('admin.homework.delete');
 	    Route::post('send-homework', 'HomeworkController@sendHomework')->name('admin.homework.send.homework');
+	    Route::get('homework-send/{id}', 'HomeworkController@HomeworkSend')->name('admin.homework.homework.send');
 	 });
 	
 	 
@@ -378,6 +382,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    });
 	    Route::group(['prefix' => 'attendance-barcode'], function() { 
 	        Route::get('barcode', 'StudentAttendanceController@attendanceBarcode')->name('admin.attendance.barcode');
+	        Route::get('show', 'StudentAttendanceController@attendanceBarcodeshow')->name('admin.attendance.barcode.show');
 	        Route::post('save', 'StudentAttendanceController@attendanceBarcodeSave')->name('admin.attendance.barcode.save');
 	        
 	    });
@@ -629,7 +634,9 @@ Route::group(['middleware' => 'admin'], function() {
 			Route::group(['prefix' => 'class-test'], function() {
 			    Route::get('/', 'Exam\ClassTestController@index')->name('admin.exam.test');	 	
 			    Route::post('store', 'Exam\ClassTestController@store')->name('admin.exam.classtest.store');	 	
-			    Route::get('delete/{id}', 'Exam\ClassTestController@destroy')->name('admin.exam.classtest.delete');	 	
+			    Route::get('delete/{id}', 'Exam\ClassTestController@destroy')->name('admin.exam.classtest.delete');
+			    Route::get('send-sms/{class_id}/{section_id}/{id}', 'Exam\ClassTestController@sendSms')->name('admin.exam.classtest.send.sms');	 	
+			    Route::get('send-email/{class_id}/{section_id}/{id}', 'Exam\ClassTestController@sendEmail')->name('admin.exam.classtest.send.email');	 	
 			    
 			 });
 			   //------------------------- Exam Test Details ---------------------------------
@@ -651,6 +658,8 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'Exam\ExamScheduleController@index')->name('admin.exam.schedule');	 	
 			    Route::post('store', 'Exam\ExamScheduleController@store')->name('admin.exam.schedule.store');	 	
 			    Route::get('delete/{id}', 'Exam\ExamScheduleController@destroy')->name('admin.exam.schedule.delete');
+			    Route::get('send-sms/{id}', 'Exam\ExamScheduleController@sendSms')->name('admin.exam.schedule.send.sms');
+			    Route::get('send-email/{id}', 'Exam\ExamScheduleController@SendEmail')->name('admin.exam.schedule.send.email');
 			 });
 			  //------------------------- Exam marks details ---------------------------------
 			Route::group(['prefix' => 'exam-marks-details'], function() {
@@ -672,6 +681,17 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'Exam\GradeDetailController@index')->name('admin.exam.grade.detail');	 	
 			    Route::post('store', 'Exam\GradeDetailController@store')->name('admin.exam.grade.detail.store');	 	
 			    Route::get('delete/{id}', 'Exam\GradeDetailController@destroy')->name('admin.exam.mark.grade.delete');
+			 });
+			Route::group(['prefix' => 'class-test-report'], function() {
+			   Route::get('/', 'Exam\ExamReportController@index')->name('admin.exam.report'); 
+			   Route::get('filter', 'Exam\ExamReportController@filter')->name('admin.exam.report.filter');	 	
+			     
+			 });
+			Route::group(['prefix' => 'teacher-remark'], function() {
+			    Route::get('/', 'Exam\TeacherRemarkController@index')->name('admin.exam.teacher.remark');	 	
+			    Route::post('store', 'Exam\TeacherRemarkController@store')->name('admin.exam.teacher.remark.store');	 	
+			    Route::get('table-show', 'Exam\TeacherRemarkController@tableShow')->name('admin.exam.teacher.remark.table.show');	 	
+			     
 			 });
 			   //------------------------- Income ---------------------------------
 			Route::group(['prefix' => 'incomeSlab'], function() {
@@ -705,6 +725,11 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('sms-template-delete/{id}', 'Sms\SmsController@smsTemplateDestroy')->name('admin.sms.template.delete');
 			    Route::get('sms-template-view/{id}', 'Sms\SmsController@smsTemplateView')->name('admin.sms.template.view');
 			    Route::post('sms-template-update/{id}', 'Sms\SmsController@smsTemplateUpdate')->name('admin.sms.template.update');
+
+			    Route::get('email-template', 'Sms\SmsController@emailTemplate')->name('admin.email.template');
+			    Route::get('email-template-addform', 'Sms\SmsController@emailTemplateAddForm')->name('admin.email.template.addform');
+			    Route::post('email-template-store', 'Sms\SmsController@emailTemplateStore')->name('admin.email.template.store');
+			    Route::get('email-template-table', 'Sms\SmsController@emailTemplateTable')->name('admin.email.template.table');
 
 			});	
 
@@ -991,6 +1016,8 @@ Route::group(['middleware' => 'admin'], function() {
                 	Route::get('teacher-absent', 'TimeTable\TeacherController@teacherAbsent')->name('admin.teacher.absent');
                 	Route::post('teacher-absent-store', 'TimeTable\TeacherController@teacherAbsentStore')->name('admin.teacher.store');
                 	Route::get('teacher-absent-delete/{id}', 'TimeTable\TeacherController@teacherAbsentDelete')->name('admin.teacher.absent.dalete');
+                	Route::get('teacher-absent-send-sms/{id}', 'TimeTable\TeacherController@teacherAbsentSendSms')->name('admin.teacher.absent.send.sms');
+                	Route::post('teacher-absent-sms-email', 'TimeTable\TeacherController@teacherAbsentSendSmsEmail')->name('admin.teacher.absent.send.sms.email');
            });
                 Route::group(['prefix' => 'teacher-adjustment'], function() { 
                 	Route::get('adjustment', 'TimeTable\TeacherController@adjustment')->name('admin.teacher.adjustment');

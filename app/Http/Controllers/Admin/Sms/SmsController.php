@@ -6,7 +6,9 @@ use App\Events\SmsEvent;
 use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
+use App\Model\Sms\EmailTemplate;
 use App\Model\Sms\SmsTemplate;
+use App\Model\Sms\TemplateType;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -131,7 +133,8 @@ class SmsController extends Controller
         return view('admin.sms.smsTemplate.list');
     }
     public function smsTemplateAdd(){
-        return view('admin.sms.smsTemplate.add_form');
+        $templteNames=TemplateType::orderBy('id','ASC')->get();
+        return view('admin.sms.smsTemplate.add_form',compact('templteNames'));
     }
       public function smsTemplateStore(Request $request){  
    $rules=[
@@ -152,7 +155,7 @@ class SmsController extends Controller
         }
         else {
         $smsTemplate=new SmsTemplate();
-        $smsTemplate->name=$request->name;
+        $smsTemplate->template_type_id=$request->name;
         $smsTemplate->message=$request->message;
          
         $smsTemplate->save();
@@ -209,5 +212,44 @@ class SmsController extends Controller
         } 
     } 
 
+    public function emailTemplate()
+    {
+         return view('admin.sms.emailTemplate.list');
+    }
+    public function emailTemplateAddForm(){
+        $templteNames=TemplateType::orderBy('id','ASC')->get();
+        return view('admin.sms.emailTemplate.add_form',compact('templteNames'));
+    }
+    public function emailTemplateStore(Request $request)
+    {
+        $rules=[
+          
+            'name' => 'required', 
+            'message' => 'required', 
+            
+       
+        ];
 
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+        $smsTemplate=new EmailTemplate();
+        $smsTemplate->template_type_id=$request->name;
+        $smsTemplate->message=$request->message;
+         
+        $smsTemplate->save();
+        $response=['status'=>1,'msg'=>'Update Successfully'];
+            return response()->json($response);
+        } 
+    }
+    public function emailTemplateTable(Request $request){
+         $EmailTemplates=EmailTemplate::all();
+         return view('admin.sms.emailTemplate.table',compact('EmailTemplates'));
+    }
 }

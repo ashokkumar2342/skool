@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin\TimeTable;
 
+use App\Events\SmsEvent;
+use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Library\TeacherFaculty;
 use App\Model\Section;
+use App\Model\Sms\SmsTemplate;
 use App\Model\Subject;
 use App\Model\SubjectType;
 use App\Model\TimeTable\ClassPeriodSchedule;
@@ -482,9 +485,51 @@ class TeacherController extends Controller
                 return response()->json($response);
        }
     }
+   public function teacherAbsentSendSms(Request $request ,$id)
+   {
 
+      $date=date('Y-m-d');
+      $teacherFacultys=TeacherAbsent::where('teacher_id',$id)->where('absent_date',$date)->first();
+      $TeacherFacultys=TeacherFaculty::where('id',$teacherFacultys->teacher_id)->first();
+      $smsTemplate = SmsTemplate::where('id',3)->first();
+        event(new SmsEvent($TeacherFacultys->father_mobile,$smsTemplate->message)); 
+  
+        return  redirect()->back()->with(['message'=>'Message Send Successfully','class'=>'success']); 
+   }
+   public function teacherAbsentSendSmsEmail(Request $request)
+   {
+      
+      $TeacherFacultys=TeacherFaculty::whereIn('id',$request->teacher_id)->get();
+      $rules=[]; 
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        } 
+        foreach ($TeacherFacultys as $TeacherFaculty) { 
+       $message = $request->message;         
+        $emailto = $TeacherFaculty->email;         
+        $subject = $request->subject; 
+        $up_u=array();
+         
+        $up_u['msg']=$message;
+        $up_u['subject']=$subject;
+                 
+        $mailHelper =new MailHelper();
+       
+        $mailHelper->mailsend('emails.message',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5);
+      }
+        $response = array();
+        $response['status'] = 1;
+        $response['msg'] = 'Message Sent successfully';
+        return $response;
+     
+   }
     public function teacherAdjustment(Request $request){
-        // return $request;
+         
 
 
        foreach ($request->teacher_id as $key => $teacher) {

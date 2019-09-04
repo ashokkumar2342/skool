@@ -55,8 +55,8 @@
                     {{ csrf_field() }}
                     
                     
-                  
                   <input type="submit" class="btn btn-primary btn-sm" value="Send Homework" style="margin: 5px;float: right;">
+                  <a href="#" title="" onclick="callPopupLevel2(this,'{{ route('admin.medical.template.view',1) }}')" style="float: right; margin-top:10px">Template View</a>
                     <table id="homework_table" class="display table">                     
                         <thead>
                             <tr>
@@ -95,6 +95,7 @@
                                           <a href="{{ route('admin.homework.delete',Crypt::encrypt($homework->id)) }}"  class="btn btn-danger btn-xs"  onclick="return confirm('Are you sure to delete this data ?');" title="Delete"><i class="fa fa-trash"></i></a> 
                                        
                                         @endif
+                                        <a href="{{ route('admin.homework.homework.send',$homework->id) }}" title="" class="btn btn-primary btn-xs">Send Homework</a>
                                     </td>
                                 
                                 </tr>

@@ -138,6 +138,7 @@ class StudentAttendanceController extends Controller
     }
     public function studentAbsentSendSms(Request $request)
     {
+        return $request;
          $studentAbsentSendSms=Student::whereIn('id',$request->student_id)->get();
          foreach ($studentAbsentSendSms as  $value) {
              
@@ -152,8 +153,15 @@ class StudentAttendanceController extends Controller
     {
       return  view('admin.attendance.student.barcode');   
     }
+    public function attendanceBarcodeshow(Request $request)
+    {
+       $StudentAttendancesBarcode=Student::where('registration_no',$request->id)->first();
+       return  view('admin.attendance.student.student_list_barcode',compact('StudentAttendancesBarcode'));  
+    }
+
     public function attendanceBarcodeSave(Request $request)
     {
+        
          $StudentAttendancesBarcode=Student::where('registration_no',$request->registration_no)->first();
         $date=date('d-m-Y');
         

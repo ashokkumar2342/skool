@@ -1,4 +1,4 @@
-
+{{-- <a href="{{ route('admin.teacher.absent.send.sms',$teacherAbsent->teacher_id) }}" title="" class="btn btn-primary btn-sm" style="float: right;margin-right:140px">Sms</a> --}}
 
 <table class="table"> 
 	<thead>
@@ -28,6 +28,7 @@
 					 	<a href="#" id="btn_teacher_adjust_view"  onclick="callPopupLarge(this,'{{ route('admin.teacher.adjustment.view',$teacherAbsent->teacher_id) }}','','')" class="btn btn-info btn-xs" title="View"><i class="fa fa-eye"></i></a>
 
 					 	<a href="#" button-click="teacher_absent_show" onclick="callAjax(this,'{{ route('admin.teacher.absent.dalete',$teacherAbsent->id) }}','','')" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a>
+					 	<a href="{{ route('admin.teacher.absent.send.sms',$teacherAbsent->teacher_id) }}" title="" class="btn btn-primary btn-xs" >Sms</a>
 					 </td>
 				</tr> 
 

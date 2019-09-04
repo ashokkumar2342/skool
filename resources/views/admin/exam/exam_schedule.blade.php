@@ -110,6 +110,8 @@
                               @endif
 
                               <a href="{{ url('storage/class_test/'.$examSchedule->sylabus) }}" {{ $examSchedule->sylabus==null?'disabled':'' }} target="_blank"  class="btn btn-info btn-xs"    ><i class="fa fa-download"></i></a>
+                              <a href="{{ route('admin.exam.schedule.send.sms',$examSchedule->id) }}" class="btn btn-primary btn-xs" title="">Sms</a>
+                              <a href="{{ route('admin.exam.schedule.send.email',$examSchedule->id) }}" class="btn btn-info btn-xs" title="">Email</a>
                         		</td>
                         	</tr>  	 
                         @endforeach	

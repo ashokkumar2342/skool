@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin\Exam;
 
+use App\Events\SmsEvent;
+use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Exam\ExamSchedule;
 use App\Model\Exam\ExamTerm;
+use App\Model\Sms\SmsTemplate;
 use App\Model\SubjectType;
+use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -76,6 +80,40 @@ class ExamScheduleController extends Controller
         $response['msg'] = 'Submit Successfully';
         $response['status'] = 1;
         return response()->json($response);
+    }
+
+
+
+    public function sendSms($id)
+    {
+        $examSchedule =ExamSchedule::find($id);
+        $students=Student::where('class_id',$examSchedule->class_id)->get();
+        foreach ($students as  $value) {
+         $smsTemplate = SmsTemplate::where('id',3)->first()->message;
+         $message = $smsTemplate.' '.$examSchedule->examTerms->from_date.' '.$examSchedule->subjects->name;
+         event(new SmsEvent($value->father_mobile,$message));     
+         } 
+         return  redirect()->back()->with(['message'=>'Send  Successfully','class'=>'success']);
+    }
+    public function sendEmail($id)
+    {
+        $examSchedule =ExamSchedule::find($id);
+        $students=Student::where('class_id',$examSchedule->class_id)->get();
+        foreach ($students as  $value) {
+            $message = 'ExamSchedule';         
+            $emailto = $value->email;         
+            $subject = 'ExamSchedule'; 
+            $up_u=array();
+             
+            $up_u['msg']=$message;
+            $up_u['subject']=$subject;
+                     
+            $mailHelper =new MailHelper();
+           
+            $mailHelper->mailsend('emails.message',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5);  
+         } 
+         return  redirect()->back()->with(['message'=>'Send  Successfully','class'=>'success']);
+        
     }
 
     /**

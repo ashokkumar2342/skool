@@ -29,7 +29,7 @@ class HomeworkController extends Controller
     public function index()
     {
         $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
-        $homeworks = Homework::latest('created_at')->paginate(10);
+        $homeworks = Homework::where('date',date('Y-m-d'))->paginate(10);
 
        return view('admin.homework.list',compact('classes','homeworks'));
     }
@@ -134,14 +134,26 @@ class HomeworkController extends Controller
     }
     public function sendHomework(Request $request)
     {
-        
+         
           $studentHomeworkSendSms=Student::whereIn('class_id',$request->class_id)->whereIn('section_id',$request->section_id)->get();
          foreach ($studentHomeworkSendSms as  $value) {
-             
-         $smsTemplate = SmsTemplate::where('id',3)->first();
-        event(new SmsEvent($value->father_mobile,$smsTemplate->message)); 
+           $homework = Homework::where('date',date('Y-m-d'))->first();  
+         $smsTemplate = SmsTemplate::where('id',3)->first()->message;
+         $message = $smsTemplate.' '.$homework->homework;
+        event(new SmsEvent($value->father_mobile,$message)); 
          }
         $response=['status'=>1,'msg'=>'Message Sent successfully'];
             return response()->json($response); 
+    }
+    public function HomeworkSend(Request $request,$id)
+    {
+         $homework = Homework::find($id);
+         $studentHomeworkSendSms=Student::where('class_id',$homework->class_id)->where('section_id',$homework->section_id)->get(); 
+        foreach ($studentHomeworkSendSms as  $value) {
+         $smsTemplate = SmsTemplate::where('id',3)->first()->message;
+         $message = $smsTemplate.' '.$homework->homework;
+        event(new SmsEvent($value->father_mobile,$message)); 
+         }
+         return  redirect()->back()->with(['message'=>'Send  Successfully','class'=>'success']);  
     }
 }

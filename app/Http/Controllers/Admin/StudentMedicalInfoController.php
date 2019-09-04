@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Events\SmsEvent;
 use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
@@ -21,6 +22,7 @@ use App\Model\PaymentType;
 use App\Model\Profession;
 use App\Model\Religion;
 use App\Model\SessionDate;
+use App\Model\Sms\SmsTemplate;
 use App\Model\StudentDefaultValue;
 use App\Model\StudentFee;
 use App\Model\StudentMedicalInfo;
@@ -102,16 +104,36 @@ class StudentMedicalInfoController extends Controller
         $medical->vision = $request->vision;
         $medical->weight = $request->weight; 
         $medical->save();
-      $this->medicalSendEmail($request->student_id);
+        if ($request->send_sms==1) {
+         $this->medicalSendSms($request->student_id); 
+        }
+        if ($request->send_email==2) {
+         $this->medicalSendEmail($request->student_id);
+        }
+       
         $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
         }  
 
     }
+    public function medicalSendSms($student_id)
+    {
+        
+         $medicals =StudentMedicalInfo::where('student_id',$student_id)->orderBy('id','DESC')->first();
+         $medicals =StudentMedicalInfo::find($student_id);
+         $student=Student::where('id',$medicals->student_id)->first(); 
+         $smsTemplate = SmsTemplate::where('id',3)->first()->message;
+         $message = $smsTemplate;
+         event(new SmsEvent($student->father_mobile,$message)); 
+        return  redirect()->back()->with(['message'=>'Send  Successfully','class'=>'success']);   
+         
+        
+    }
     public function medicalSendEmail($student_id)
     {
         $medicals =StudentMedicalInfo::where('student_id',$student_id)->orderBy('id','DESC')->first();
-      $student=Student::where('id',$medicals->student_id)->first();
+        $medicals =StudentMedicalInfo::find($student_id);
+        $student=Student::where('id',$medicals->student_id)->first();
         $message = $medicals;         
         $emailto = $student->email;         
         $subject = 'Medical Details'; 
@@ -122,10 +144,13 @@ class StudentMedicalInfoController extends Controller
         $mailHelper =new MailHelper();
        
         $mailHelper->mailsend('admin.student.studentdetails.include.medical_send_email',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5);
-        // $response = array();
-        // $response['status'] = 1;
-        // $response['msg'] = 'Message Sent successfully';
-        // return $response;
+       return  redirect()->back()->with(['message'=>'Send  Successfully','class'=>'success']);  
+    }
+    public function temolateView($id)
+    {
+
+         $templateView=SmsTemplate::where('id',$id)->first();
+         return view('admin.sms.smsTemplate.template_view',compact('templateView'));
     }
 
     /**

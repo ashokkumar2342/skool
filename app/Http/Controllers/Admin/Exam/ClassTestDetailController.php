@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Exam;
 
+use App\Events\SmsEvent;
+use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\Exam\ClassTest;
 use App\Model\Exam\ClassTestDetail;
+use App\Model\Sms\SmsTemplate;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -45,7 +48,7 @@ class ClassTestDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {  
         $rules=[
         'class_test_id' => 'required|max:30', 
         'student_id' => 'required|max:30', 
@@ -66,7 +69,33 @@ class ClassTestDetailController extends Controller
           $classTestDetail->student_id = $value;
           $classTestDetail->marksobt = $request->marksobt[$key];     
           $classTestDetail->any_remarks = $request->any_remarks[$key]; 
-          $classTestDetail->save();      
+          $classTestDetail->save();
+          $studentclassTestSendSms=Student::whereIn('id',$request->student_id)->get();
+        if ($request->send_sms==1) { 
+            foreach ($studentclassTestSendSms as  $value) {
+                $smsTemplate = SmsTemplate::where('id',3)->first()->message; 
+                $message=$smsTemplate.''.$request->test_date.' '.$request->subject.' '.$request->max_marks.' '.$request->discription;
+
+            event(new SmsEvent($value->father_mobile,$message)); 
+             } 
+        }
+        if ($request->send_email==2) {
+            
+             foreach ($studentclassTestSendSms as  $value) {
+                $message = 'ClassText';         
+                $emailto = $value->email;         
+                $subject = 'ClassText'; 
+                $up_u=array();
+                 
+                $up_u['msg']=$message;
+                $up_u['subject']=$subject;
+                         
+                $mailHelper =new MailHelper();
+               
+                $mailHelper->mailsend('emails.message',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5);
+             }
+        }
+      
         }  
         
         $response = array();

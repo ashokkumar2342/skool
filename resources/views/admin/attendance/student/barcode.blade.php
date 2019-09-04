@@ -20,13 +20,17 @@
                      <form  action="{{ route('admin.attendance.barcode.save') }}" method="post" class="add_form">
                       {{ csrf_field() }}
                       <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-4" style="margin-left: 20px">
                           <label>Registration No</label>
-                          <input type="text" class="form-control" name="registration_no"> 
+                          <input type="text" class="form-control" name="registration_no" onkeypress="callAjax(this,'{{ route('admin.attendance.barcode.show') }}','div_show')"> 
                         </div>
-                        <input type="submit" class="btn btn-success" value="Save" style="margin-top: 24px">
-                        
                       </div>
+                        <div class="col-lg-12" id="div_show" style="padding-top: 20px">
+                        
+                          
+                        </div>
+                        
+                       
 
                              
                       {{ Form::close() }}
