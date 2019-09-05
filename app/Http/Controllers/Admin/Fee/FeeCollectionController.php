@@ -65,14 +65,26 @@ class FeeCollectionController extends Controller
      
         $student = Student::find($request->student_id) ;
         $siblings = StudentSiblingInfo::where('student_id',$request->student_id)->get();
-
-         $StudentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)->whereIn('last_date',$monthArr)->where('paid',0)->get(); 
+         $StudentFeeDetails = StudentFeeDetail::
+                            join('fee_structure_last_dates', 'student_fee_details.fee_structure_last_date_id', '=', 'fee_structure_last_dates.id')
+                            ->join('fee_structures', 'fee_structures.id', '=', 'fee_structure_last_dates.fee_structure_id')
+                            ->where('student_id',$request->student_id)
+                            ->get(); 
+        $FeeDetails=$StudentFeeDetails->whereIn('last_date',$monthArr)
+                                  ->where('paid',0)->groupBy('name');
+                                          
+        $data = view('admin.finance.feecollection.fee_detail_show',compact('FeeDetails','siblings','request','student'))->render();
+        return response()->json($data);                                                                  
+                             
+       // $StudentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)
+       //                            ->whereIn('last_date',$monthArr)
+       //                            ->where('paid',0)
+       //                            ->get(); 
 
         
     	// $StudentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)->whereIn(DB::raw('MONTH(last_date)'), $monthArr)->whereYear('last_date' , $request->year)->where('paid',0)->get(); 
     	 
-    	$data = view('admin.finance.feecollection.fee_detail_show',compact('StudentFeeDetails','siblings','request','student'))->render();
-    	return response()->json($data);
+    	
     }
 
     // store fee collection form

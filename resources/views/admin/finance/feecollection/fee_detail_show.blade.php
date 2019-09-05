@@ -1,6 +1,8 @@
  
 @php
 	$paid=0;
+	$concession_amount=0;
+	$net_amount=0;
 @endphp
 <form  method="post" id="fee_collection_submit_form" accept-charset="utf-8">
 
@@ -17,39 +19,26 @@
 		  			</tr>
 		  		</thead>
 		  		<tbody>
-		  			 <input type="checkbox" checked name="student_id[]" value="{{ $student->id }}" style="display: none"> 
-		  				 
-		  			 @php
-		  			 	$key='';
-		  			 	$feeName='';
-		  			 	$feeAmount='';
-		  			 	$title='';
-		  			 	$no='';
-		  			 @endphp
-		  			@foreach ($StudentFeeDetails as $StudentFeeDetail)
+		  			 <input type="checkbox" checked name="student_id[]" value="{{ $student->id }}" style="display: none">  
+		  			  
+		  			@foreach ($FeeDetails as $feeName =>$FeeDetail) 
 		  			@php
-		  			   
-		  				$paid=$StudentFeeDetail->paid; 
-		  				 $feeAmount=$StudentFeeDetail->fee_amount;
-		  			 
-		  			@endphp 
-		  				@if ($feeName!=$StudentFeeDetail->feeStructureLastDates->feeStructures->name)
+		  				$concession_amount+=$FeeDetail->sum('concession_amount');
+		  				$net_amount+=$FeeDetail->sum('fee_amount')+$FeeDetail->sum('concession_amount');
+		  			@endphp
 		  				<tr>  
 		  				  <td style="width: 250px">
-		  						 	{{ $StudentFeeDetail->feeStructureLastDates->feeStructures->name }}  
+		  						 	{{ $feeName}}  
 		  					 </td>  
 					     			<td> 
-					 			    {{ $feeAmount}}  
+					 			    {{ $FeeDetail->sum('fee_amount')}}  
 					 		     </td> 
 		  				</tr> 
-		  				@endif
-		  				@php
-		  					$feeName=$StudentFeeDetail->feeStructureLastDates->feeStructures->name;
-		  				@endphp
+		  				 
 		  			@endforeach
 		  			<tr>
 		  				<td>Concession</td>
-		  				<td>{{ $StudentFeeDetails->sum('concession_amount') }}</td>
+		  				<td>{{ $concession_amount }}</td>
 		  			</tr>
 		  			<tr>
 		  				<td>Previous Balance </td>
@@ -57,7 +46,7 @@
 		  			</tr>
 		  			<tr>
 		  				<td>Net Amount </td>
-		  				<td><input type="hidden" name="net_amount" value="{{ $netamount=$StudentFeeDetails->sum('fee_amount') - $StudentFeeDetails->sum('concession_amount') }}">{{ $netamount=$StudentFeeDetails->sum('fee_amount') - $StudentFeeDetails->sum('concession_amount') }}
+		  				<td><input type="hidden" name="net_amount" value="{{ $net_amount }}">{{ $net_amount }}
 		  				</td>
 		  			</tr>
 		  			<tr>
@@ -65,7 +54,15 @@
 		  					Amount Deposit 
 		  				</td>
 		  				<td>
-		  					 <input type="text" name="deposit_amount" value="{{ $StudentFeeDetails->sum('fee_amount') - $StudentFeeDetails->sum('concession_amount') }}">
+		  					 <input type="text" name="deposit_amount" onkeyup="$('#fee_balance').val({{ $net_amount }}-this.value)" value="{{ $net_amount }}" >
+		  				</td>
+		  			</tr>
+		  			<tr>
+		  				<td>
+		  					Balance 
+		  				</td>
+		  				<td>
+		  					 <input type="text" name="fee_balance" id="fee_balance" readonly="">
 		  				</td>
 		  			</tr>
 		  			<tr>
@@ -127,7 +124,7 @@
 		 	 			</tr>
 		 	 		</tbody>
 		 	 	</table>
-		 	 	<h4>Grand Total : {{ $netamount + $sib }}</h4>
+		 	 	<h4>Grand Total : {{ $net_amount + $sib }}</h4>
 			 </div> 
  		</div> 
   </div>
