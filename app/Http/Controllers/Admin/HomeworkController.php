@@ -138,7 +138,7 @@ class HomeworkController extends Controller
           $studentHomeworkSendSms=Student::whereIn('class_id',$request->class_id)->whereIn('section_id',$request->section_id)->get();
          foreach ($studentHomeworkSendSms as  $value) {
            $homework = Homework::where('date',date('Y-m-d'))->first();  
-         $smsTemplate = SmsTemplate::where('id',3)->first()->message;
+         $smsTemplate = SmsTemplate::where('id',4)->where('template_type_id',2)->first()->message;
          $message = $smsTemplate.' '.$homework->homework;
         event(new SmsEvent($value->father_mobile,$message)); 
          }

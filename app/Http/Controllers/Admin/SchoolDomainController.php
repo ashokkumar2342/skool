@@ -25,6 +25,13 @@ class SchoolDomainController extends Controller
             'school_code' => 'required', 
             'school_name' => 'required', 
             'school_url' => 'required', 
+            'from_date' => 'required', 
+            'to_date' => 'required', 
+            'user_id' => 'required', 
+            'password' => 'required', 
+            'person_name' => 'required', 
+            'mobile' => 'required', 
+            'email' => 'required', 
              
        
     	];
@@ -42,6 +49,14 @@ class SchoolDomainController extends Controller
     	$schoolDominos->school_code=$request->school_code; 
     	$schoolDominos->school_name=$request->school_name; 
     	$schoolDominos->school_url=$request->school_url;  
+        $schoolDominos->from_date=$request->from_date;  
+        $schoolDominos->to_date=$request->to_date;  
+        $schoolDominos->user_id=$request->user_id;  
+        $schoolDominos->password=$request->password;  
+        $schoolDominos->person_name=$request->person_name;  
+        $schoolDominos->mobile=$request->mobile;  
+        $schoolDominos->email=$request->email;  
+        $schoolDominos->address=$request->address;  
     	$schoolDominos->save();
     	$response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
@@ -68,31 +83,45 @@ class SchoolDomainController extends Controller
     }
     public function update(Request $request,$id)
     {
-
-    	$rules=[
-    	  
+$rules=[
+          
             'school_code' => 'required', 
             'school_name' => 'required', 
             'school_url' => 'required', 
+            'from_date' => 'required', 
+            'to_date' => 'required', 
+            'user_id' => 'required', 
+            'password' => 'required', 
+            'person_name' => 'required', 
+            'mobile' => 'required', 
+            'email' => 'required', 
              
        
-    	];
+        ];
 
-    	$validator = Validator::make($request->all(),$rules);
-    	if ($validator->fails()) {
-    	    $errors = $validator->errors()->all();
-    	    $response=array();
-    	    $response["status"]=0;
-    	    $response["msg"]=$errors[0];
-    	    return response()->json($response);// response as json
-    	}
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
         else { 
-    	$schoolDominos= SchoolDomain::find($id); 
-    	$schoolDominos->school_code=$request->school_code; 
-    	$schoolDominos->school_name=$request->school_name; 
-    	$schoolDominos->school_url=$request->school_url;  
-    	$schoolDominos->save();
-    	$response=['status'=>1,'msg'=>'Update Successfully'];
+        $schoolDominos=SchoolDomain::find($id); 
+        $schoolDominos->school_code=$request->school_code; 
+        $schoolDominos->school_name=$request->school_name; 
+        $schoolDominos->school_url=$request->school_url;  
+        $schoolDominos->from_date=$request->from_date;  
+        $schoolDominos->to_date=$request->to_date;  
+        $schoolDominos->user_id=$request->user_id;  
+        $schoolDominos->password=$request->password;  
+        $schoolDominos->person_name=$request->person_name;  
+        $schoolDominos->mobile=$request->mobile;  
+        $schoolDominos->email=$request->email;  
+        $schoolDominos->address=$request->address;  
+        $schoolDominos->save();
+        $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
         
 

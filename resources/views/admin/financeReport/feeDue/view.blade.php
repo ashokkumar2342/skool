@@ -13,11 +13,10 @@
               <div class="row">
                 <div class="col-lg-3">
                   <label>Academic Year</label>
-                  <select name="academic_year" class="form-control">
+                  <select name="year" class="form-control">
                     <option selected disabled>Select Option</option>
                     @foreach ($academicYears as $academicYear)
-                        <option value="{{ $academicYear->id }}">{{ $academicYear->name }}</option> 
-                         
+                        <option value="2019">{{ $academicYear->name }}</option> 
                      @endforeach 
                   </select> 
                 </div> 

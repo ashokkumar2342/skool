@@ -56,7 +56,7 @@
                     
                     
                   <input type="submit" class="btn btn-primary btn-sm" value="Send Homework" style="margin: 5px;float: right;">
-                  <a href="#" title="" onclick="callPopupLevel2(this,'{{ route('admin.medical.template.view',1) }}')" style="float: right; margin-top:10px">Template View</a>
+                  <a href="#" title="" onclick="callPopupLevel2(this,'{{ route('admin.medical.template.view',2) }}')" style="float: right; margin-top:10px">Template View</a>
                     <table id="homework_table" class="display table">                     
                         <thead>
                             <tr>

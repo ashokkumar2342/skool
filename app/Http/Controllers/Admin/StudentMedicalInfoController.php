@@ -146,11 +146,11 @@ class StudentMedicalInfoController extends Controller
         $mailHelper->mailsend('admin.student.studentdetails.include.medical_send_email',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5);
        return  redirect()->back()->with(['message'=>'Send  Successfully','class'=>'success']);  
     }
-    public function temolateView($id)
+    public function templateView($id)
     {
-
-         $templateView=SmsTemplate::where('id',$id)->first();
-         return view('admin.sms.smsTemplate.template_view',compact('templateView'));
+         $templateId=$id;
+         $templateView=SmsTemplate::where('template_type_id',$id)->first();
+         return view('admin.sms.smsTemplate.template_view',compact('templateView','templateId'));
     }
 
     /**

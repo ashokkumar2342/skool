@@ -1,6 +1,7 @@
  <table id="author_table" class="table table-bordered table-striped table-hover table-responsive"> 
                <thead>
                  <tr>
+                   <th>ID</th>
                    <th>Template Name</th>
                    <th>Massage</th>
                    <th>Action</th>
@@ -10,6 +11,7 @@
                <tbody>
                 @foreach ($smsTemplates as $smsTemplates) 
                  <tr>
+                   <td>{{ $smsTemplates->id }}</td>
                    <td>{{ $smsTemplates->templateType->name or '' }}</td>
                    <td>{{ mb_strimwidth($smsTemplates->message, 0, 90, "............") }}</td>
                    

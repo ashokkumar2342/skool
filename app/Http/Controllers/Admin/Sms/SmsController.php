@@ -136,8 +136,9 @@ class SmsController extends Controller
         $templteNames=TemplateType::orderBy('id','ASC')->get();
         return view('admin.sms.smsTemplate.add_form',compact('templteNames'));
     }
-      public function smsTemplateStore(Request $request){  
-   $rules=[
+      public function smsTemplateStore(Request $request){ 
+
+      $rules=[
           
             'name' => 'required', 
             'message' => 'required', 
@@ -173,8 +174,8 @@ class SmsController extends Controller
         $smsTemplates=SmsTemplate::findOrFail(Crypt::decrypt($id));
         return view('admin.sms.smsTemplate.edit',compact('smsTemplates'));
     } public function smsTemplateView($id)
-    {   
-        $smsTemplates=SmsTemplate::find($id);
+    {  
+        $smsTemplates=SmsTemplate::where('template_type_id',$id)->first();
         return view('admin.sms.smsTemplate.view',compact('smsTemplates'));
     }
       public function smsTemplateDestroy($id)

@@ -90,7 +90,7 @@ class ClassTestController extends Controller
         $studentclassTestSendSms=Student::where('class_id',$request->class)->where('section_id',$request->section)->get();
         if ($request->send_sms==1) { 
             foreach ($studentclassTestSendSms as  $value) {
-                $smsTemplate = SmsTemplate::where('id',3)->first()->message; 
+                $smsTemplate = SmsTemplate::where('template_type_id',3)->first()->message; 
                 $message=$smsTemplate.''.$request->test_date.' '.$request->subject.' '.$request->max_marks.' '.$request->discription;
 
             event(new SmsEvent($value->father_mobile,$message)); 
@@ -134,7 +134,7 @@ class ClassTestController extends Controller
           $ClassTest=ClassTest::find($id);
 
         foreach ($studentclassTestSendSms as  $value) {
-            $smsTemplate = SmsTemplate::where('id',3)->first()->message; 
+            $smsTemplate = SmsTemplate::where('template_type_id',3)->first()->message; 
             $message=$smsTemplate.''.$ClassTest->test_date.' '.$ClassTest->subject.' '.$ClassTest->max_marks.' '.$ClassTest->discription;
 
             event(new SmsEvent($value->father_mobile,$message)); 

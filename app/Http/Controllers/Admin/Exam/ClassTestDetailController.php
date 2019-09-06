@@ -48,7 +48,7 @@ class ClassTestDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  
+    {   
         $rules=[
         'class_test_id' => 'required|max:30', 
         'student_id' => 'required|max:30', 
@@ -73,7 +73,7 @@ class ClassTestDetailController extends Controller
           $studentclassTestSendSms=Student::whereIn('id',$request->student_id)->get();
         if ($request->send_sms==1) { 
             foreach ($studentclassTestSendSms as  $value) {
-                $smsTemplate = SmsTemplate::where('id',3)->first()->message; 
+                $smsTemplate = SmsTemplate::where('template_type_id',4)->first()->message; 
                 $message=$smsTemplate.''.$request->test_date.' '.$request->subject.' '.$request->max_marks.' '.$request->discription;
 
             event(new SmsEvent($value->father_mobile,$message)); 

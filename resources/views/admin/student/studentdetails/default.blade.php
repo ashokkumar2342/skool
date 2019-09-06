@@ -68,6 +68,15 @@
                                                     <p class="text-danger">{{ $errors->first('pincode') }}</p>
                                                 </div>
                                             </div>  
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    <label>Sms Template</label>
+                                                     <select name="template_id" class="form-control">
+                                                         <option value=""></option>
+                                                         
+                                                     </select>
+                                                </div>
+                                            </div>  
                                         </div>
                                     </div>
                                 </div>

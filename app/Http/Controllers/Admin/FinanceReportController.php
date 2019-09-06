@@ -134,13 +134,37 @@ class FinanceReportController extends Controller
      return view('admin.financeReport.feeDue.view',compact('academicYears'));
    }
    public function feeDueReportShow(Request $request)
-   {   
-        $StudentFeeDetails = StudentFeeDetail::where('paid',0)->whereMonth('last_date',$request->month)->distinct('student_id')->get(['student_id']);
-      $month =$request->month;
+   {    
+
+      $fromFullDate = StudentFeeDetail::whereMonth('last_date' , $request->month)->whereYear('last_date' , $request->year)->first()->from_date; 
+       $lastFullDate = StudentFeeDetail::whereMonth('last_date' , $request->month)->whereYear('last_date' , $request->year)->first()->last_date;   
+ 
+        $day =date('d',strtotime($lastFullDate));
+        $toMonth= $request->month;
+       // Specify the start date. This date can be any English textual format  
+       $date_from = date('Y-m-d',strtotime($fromFullDate ."+9 days"));   
+
+       $date_from = strtotime($date_from); // Convert date to a UNIX timestamp  
+         
+       // Specify the end date. This date can be any English textual format  
+      $date_to =  $request->year.'-'.$request->month.'-'.$day;  
+       $date_to = strtotime($date_to); // Convert date to a UNIX timestamp  
+         $monthArr=array();
+       // Loop from the start date to end date and output all dates inbetween  
+       for ($i=$date_from; $i<=$date_to; $i+=2628000) {  
+            $date_create=  date("Y", $i).'-'.date("m", $i).'-'.$day;  
+            $monthArr[]=$date_create; 
+       }
+      $StudentFeeDetails = StudentFeeDetail::
+                            join('fee_structure_last_dates', 'student_fee_details.fee_structure_last_date_id', '=', 'fee_structure_last_dates.id')
+                            ->join('fee_structures', 'fee_structures.id', '=', 'fee_structure_last_dates.fee_structure_id') 
+                            ->get(); 
+            $FeeDetails=$StudentFeeDetails->whereIn('last_date',$monthArr)
+                                  ->where('paid',0)->groupBy('name');
       $response = array();
-                  $response['status'] = 1; 
-                  $response['data'] =view('admin.financeReport.feeDue.show' ,compact('StudentFeeDetails','month'))->render(); 
-                    return response()->json($response); 
+      $response['status'] = 1; 
+      $response['data'] =view('admin.financeReport.feeDue.show' ,compact('FeeDetails','siblings','request','student'))->render();
+        return response()->json($response); 
    }
    public function feeDueReportReceipt(Request $request)
    {

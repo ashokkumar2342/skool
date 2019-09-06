@@ -20,9 +20,23 @@
         <label>Message</label>
          <textarea class="textarea" name="message" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $templateView->message }} 
          </textarea>
+         @if ($templateId==4)
+         @php
+           $templateView=App\Model\Sms\SmsTemplate::where('id',10)->first();
+         @endphp
+         @php
+           $templateViews=App\Model\Sms\SmsTemplate::where('id',11)->first();
+         @endphp
+          
+         <textarea class="textarea" name="message" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $templateView->message }} 
+         </textarea><textarea class="textarea" name="message" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $templateViews->message }} 
+         </textarea> 
+         @endif
+         @if ($templateId!=4)
          <label>Email</label>
          <textarea class="textarea" name="message" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $templateView->message }} 
-         </textarea>
+         </textarea> 
+         @endif
       </div>  
     </div>
   </div>   
