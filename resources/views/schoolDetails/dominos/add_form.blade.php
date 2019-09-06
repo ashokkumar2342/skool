@@ -29,7 +29,7 @@
                       <input type="text" name="school_name" class="form-control" placeholder="Enter Name"> 
                     </div> 
                     <div class="col-lg-12">
-                      <label>School Dominos</label>
+                      <label>School Domain</label>
                      <textarea  name="school_url" style="width: 100%; height: 50px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea> 
                     </div> 
                    <div class="col-lg-12 text-center" style="padding-top: 20px">

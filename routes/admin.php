@@ -215,7 +215,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('pdf-generate/{id}', 'StudentMedicalInfoController@pdfGenerate')->name('admin.medical.pdf.generate');
 	    Route::get('send-sms/{id}', 'StudentMedicalInfoController@medicalSendSms')->name('admin.medical.send.sms');
 	    Route::get('send-email/{id}', 'StudentMedicalInfoController@medicalSendEmail')->name('admin.medical.send.email');
-	    Route::get('template-view/{id}', 'StudentMedicalInfoController@temolateView')->name('admin.medical.template.view');
+	    Route::get('template-view/{id}', 'StudentMedicalInfoController@templateView')->name('admin.medical.template.view');
 	 }); 
 	   	// ---------------Sibling Info----------------------------------------
 	 Route::group(['prefix' => 'sibling-info'], function() {
@@ -684,7 +684,7 @@ Route::group(['middleware' => 'admin'], function() {
 			 });
 			Route::group(['prefix' => 'class-test-report'], function() {
 			   Route::get('/', 'Exam\ExamReportController@index')->name('admin.exam.report'); 
-			   Route::get('filter', 'Exam\ExamReportController@filter')->name('admin.exam.report.filter');	 	
+			   Route::post('filter', 'Exam\ExamReportController@filter')->name('admin.exam.report.filter');	 	
 			     
 			 });
 			Route::group(['prefix' => 'teacher-remark'], function() {
@@ -903,13 +903,13 @@ Route::group(['middleware' => 'admin'], function() {
 
           });
            Route::group(['prefix' => 'school-dominos'], function() {
-			    Route::get('/', 'SchoolDominosController@index')->name('admin.school.dominos');
-			    Route::get('add-form', 'SchoolDominosController@addForm')->name('admin.school.dominos.add.form');
-			    Route::post('store', 'SchoolDominosController@store')->name('admin.school.dominos.store');
-			    Route::get('table-show', 'SchoolDominosController@tableShow')->name('admin.school.dominos.table.show');
-			    Route::get('edit/{id}', 'SchoolDominosController@edit')->name('admin.school.dominos.edit');
-			    Route::get('delete/{id}', 'SchoolDominosController@destroy')->name('admin.school.dominos.delete');
-			    Route::post('update/{id}', 'SchoolDominosController@update')->name('admin.school.dominos.update');
+			    Route::get('/', 'SchoolDomainController@index')->name('admin.school.dominos');
+			    Route::get('add-form', 'SchoolDomainController@addForm')->name('admin.school.dominos.add.form');
+			    Route::post('store', 'SchoolDomainController@store')->name('admin.school.dominos.store');
+			    Route::get('table-show', 'SchoolDomainController@tableShow')->name('admin.school.dominos.table.show');
+			    Route::get('edit/{id}', 'SchoolDomainController@edit')->name('admin.school.dominos.edit');
+			    Route::get('delete/{id}', 'SchoolDomainController@destroy')->name('admin.school.dominos.delete');
+			    Route::post('update/{id}', 'SchoolDomainController@update')->name('admin.school.dominos.update');
 			    
 
           }); 
