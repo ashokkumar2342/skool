@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Model\SchoolDominos;
+use App\Model\SchoolDomain;
 
-class SchoolDominosController extends Controller
+class SchoolDomainController extends Controller
 {
     public function index($value='')
     {
@@ -38,7 +38,7 @@ class SchoolDominosController extends Controller
     	    return response()->json($response);// response as json
     	}
         else { 
-    	$schoolDominos= new SchoolDominos(); 
+    	$schoolDominos= new SchoolDomain(); 
     	$schoolDominos->school_code=$request->school_code; 
     	$schoolDominos->school_name=$request->school_name; 
     	$schoolDominos->school_url=$request->school_url;  
@@ -51,17 +51,17 @@ class SchoolDominosController extends Controller
     }
     public function tableShow()
     {
-    	$schoolDominos=SchoolDominos::orderBy('id','ASC')->get();
+    	$schoolDominos=SchoolDomain::orderBy('id','ASC')->get();
     	return view('schoolDetails.dominos.table_show',compact('schoolDominos')); 
     }
     public function edit($id)
     {
-    	 $schoolDominos=SchoolDominos::find($id);
+    	 $schoolDominos=SchoolDomain::find($id);
     	return view('schoolDetails.dominos.edit',compact('schoolDominos')); 
     }
     public function destroy($id)
     {
-    	 $schoolDominos=SchoolDominos::find($id);
+    	 $schoolDominos=SchoolDomain::find($id);
     	 $schoolDominos->delete();
     	 return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     	  
@@ -87,7 +87,7 @@ class SchoolDominosController extends Controller
     	    return response()->json($response);// response as json
     	}
         else { 
-    	$schoolDominos= SchoolDominos::find($id); 
+    	$schoolDominos= SchoolDomain::find($id); 
     	$schoolDominos->school_code=$request->school_code; 
     	$schoolDominos->school_name=$request->school_name; 
     	$schoolDominos->school_url=$request->school_url;  
