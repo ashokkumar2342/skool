@@ -16,6 +16,7 @@ use App\Model\Quote;
 use App\Model\Religion;
 use App\Model\Remark\Remark;
 use App\Model\RequestUpdate;
+use App\Model\SchoolDomain;
 use App\Model\SessionDate;
 use App\Model\StudentAttendance;
 use App\Model\StudentDefaultValue;
@@ -40,6 +41,17 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function searchSchool(Request $request)
+    {
+        try {             
+
+             $schoolDomain =SchoolDomain::where('school_code',$request->school_code)->first();  
+             return response()->json($schoolDomain);    
+        } catch (Exception $e) {
+           return $e; 
+        }
+       
+    }  
     public function index($id)
     {
         try {             
