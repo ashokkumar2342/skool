@@ -36,9 +36,9 @@
               <div class="col-md-3" id="menu_list">  
                  
               </div>
-              <div class="col-md-5">  
+              <div class="col-md-2 text-center">  
                 <br>
-                <button type="submit" class="btn btn-primary"> Save</button>
+                <button type="submit" class="btn btn-primary" style="margin: 7px"> Save</button>
 
               </div>
 
