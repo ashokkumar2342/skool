@@ -19,7 +19,7 @@
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
-                  <th>Sn</th> 
+                  <th>Sr.No.</th> 
                   <th>Name</th>
                   <th>Mobile</th> 
                   <th>Email Id</th>
@@ -31,12 +31,15 @@
                 </tr>
                 </thead>
                 <tbody>
+                  @php
+                    $arryId=1;
+                  @endphp
                 @foreach($accounts as $account)
                 @if ($account->id==1)
                   @continue
                 @endif
                 <tr>
-                  <td>{{ $account->id }}</td> 
+                  <td>{{ $arryId ++ }}</td> 
                   <td>{{ $account->first_name }} {{ $account->first_last}}</td>
                   <td>{{ $account->mobile }}</td> 
                   <td>{{ $account->email }}</td>
