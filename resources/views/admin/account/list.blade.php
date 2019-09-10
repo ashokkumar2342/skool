@@ -19,7 +19,7 @@
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
-                  <th>Sn</th> 
+                  <th>Sr.No.</th> 
                   <th>Name</th>
                   <th>Mobile</th> 
                   <th>Email Id</th>
