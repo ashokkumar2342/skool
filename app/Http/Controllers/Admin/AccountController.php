@@ -12,6 +12,7 @@ use App\Model\Minu;
 use App\Model\MinuType;
 use App\Model\Role;
 use App\Model\Section;
+use App\Model\Session;
 use App\Model\SubMenu;
 use App\Model\UserClass;
 use App\Model\UserClassType;
