@@ -15,7 +15,7 @@ function callAjax(obj,url,divId,callback){
 				$("#"+divId).find('.multiselect').multiselect({
 					includeSelectAllOption: true,
            			 maxHeight: 400, 
-            		buttonWidth: 305,
+            		buttonWidth: '80%',
             	 
                      
             
