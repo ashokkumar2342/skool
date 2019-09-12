@@ -392,7 +392,7 @@ class StudentController extends Controller
               $student_id=$id;
               $student=RequestUpdate::firstOrNew(['student_id'=>$student_id]);
               $student->student_id= $student_id;
-              $student->name= $request->student_name;
+              $student->name= $request->name;
               $student->nick_name= $request->nick_name;
               $student->father_name= $request->father_name;
               $student->mother_name= $request->mother_name; 

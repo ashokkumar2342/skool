@@ -113,7 +113,7 @@
        
                     includeSelectAllOption: true,
                              maxHeight: 400, 
-                          buttonWidth: 405,
+                          buttonWidth: '80%',
                          
                                 
                        
