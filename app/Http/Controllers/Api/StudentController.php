@@ -25,6 +25,7 @@ use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -388,7 +389,7 @@ class StudentController extends Controller
     public function requestUpdate(Request $request,$id){ 
         try { 
                 
-            
+                Log::info($request);
               $student_id=$id;
               $student=RequestUpdate::firstOrNew(['student_id'=>$student_id]);
               $student->student_id= $student_id;
