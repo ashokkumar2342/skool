@@ -388,18 +388,14 @@ class StudentController extends Controller
     //request update
     public function requestUpdate(Request $request,$id){ 
         try { 
-               $obj = json_decode($request->all(),true);
-                
-                // Populate Student name from JSON $obj array and store into $S_Name.
-                $name = $obj['name'];
-                
-                Log::info($obj['name']);
+              
+                Log::info('aso'.$request->name);
                 Log::info($request);
        
               $student_id=$id;
               $student=RequestUpdate::firstOrNew(['student_id'=>$student_id]);
               $student->student_id= $student_id;
-              $student->name= $name;
+              $student->name= $request->name;
               $student->nick_name= $request->nick_name;
               $student->father_name= $request->father_name;
               $student->mother_name= $request->mother_name; 
