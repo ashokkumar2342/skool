@@ -388,10 +388,7 @@ class StudentController extends Controller
     //request update
     public function requestUpdate(Request $request,$id){ 
         try { 
-              
-                Log::info('aso'.$request->name);
-                Log::info($request);
-       
+               
               $student_id=$id;
               $student=RequestUpdate::firstOrNew(['student_id'=>$student_id]);
               $student->student_id= $student_id;
