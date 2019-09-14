@@ -13,25 +13,13 @@
       <div class="modal-body">
       <div class="row">
         <div class="col-xs-12">          
-            <!-- /.box-header -->            
-          <div class="box">
-            <div class="box-header">
-              <div class="row">
-             
-                 
-                  <div class="row">
-                    <div class="col-lg-12 text-right">
-                      <input type="submit" class="btn btn-success" value="Submit" >
-                    </div>
-                  </div>
-              </div>       
-            </div>
-            <!-- /.box-header -->
+                   
+           
             <div class="box-body">
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
-                  <th>Sn</th>                  
+                  <th>Sr.No.</th>                  
                   <th>Menu Name</th>                   
                   <th>Sub Menu</th>                   
                   <th>R - W - D</th>                  
@@ -39,10 +27,13 @@
                 </tr>
                 </thead>
                 <tbody>
-
+                @php
+                  $arrayId=1;
+                     
+                  @endphp
                 @foreach($minus as $minu)
                 <tr>
-                  <td>{{ $minu->id }}</td>
+                  <td>{{ $arrayId ++ }}</td>
                   <td>{{ $minu->minutypes->name or ''}}</td>                  
                   <td>{{ $minu->subMenuTypes->name or '' }}</td>                  
                   <td> 

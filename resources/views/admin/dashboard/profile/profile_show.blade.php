@@ -23,20 +23,9 @@
  --}}
                     <h3 class="profile-username text-center">{{ $admins->first_name or '' }}</h3>
 
-                    <p class="text-muted text-center">Role:</p>
+                     
                     <button type="button" id="btn_upload_photo" style="margin-left: 70px" class="btn btn-primary btn-xs" onclick="callPopupLarge(this,'{{ route('admin.profile.photo') }}')">Upload Photo</button>
 
-                    <ul class="list-group list-group-unbordered">
-                      <li class="list-group-item">
-                        <b>Menu</b> <a class="pull-right"></a>
-                      </li>
-                      <li class="list-group-item">
-                        <b>Class</b> <a class="pull-right"></a>
-                      </li>
-                      <li class="list-group-item">
-                        <b>Section</b> <a class="pull-right"></a>
-                      </li>
-                    </ul> 
                      
                   </div> 
                 </div> 
@@ -54,15 +43,15 @@
                     <div class="active tab-pane" id="activity">
                      <ul class="list-group list-group-unbordered mb-3">
                       <li class="list-group-item"> 
-                        <b>Name.</b> <a class="float-right"> <input type="text" name="first_name" class="form-control" id="first_name" value="{{ $admins->first_name or '' }}"> </a>
+                        <b>Name</b> <a class="float-right"> <input type="text" name="first_name" class="form-control" id="first_name" value="{{ $admins->first_name or '' }}"> </a>
                       </li> 
                       <li class="list-group-item"> 
                         <b>Mobile No.</b> <a class="float-right"> <input type="text" name="mobile" class="form-control" value="{{ $admins->mobile or '' }}"> </a>
                       </li>
                        <li class="list-group-item"> 
-                        <b>Birthday.</b> <a class="float-right"> <input type="text" name="dob" class="form-control" value="{{ $admins->dob or '' }}"> </a>
+                        <b>Date of Birth</b> <a class="float-right"> <input type="text" name="dob" class="form-control" value="{{ date('d-m-Y',strtotime(  $admins->dob))}}"> </a>
                       </li> <li class="list-group-item"> 
-                        <b>Email.</b> <a class="float-right"> <input type="text" name="email" class="form-control" value="{{ $admins->email or '' }}"> </a>
+                        <b>Email ID</b> <a class="float-right"> <input type="text" name="email" class="form-control" value="{{ $admins->email or '' }}"> </a>
                       </li> 
                     </ul>
                      <input type="submit" value="Update" class="btn btn-success" style="margin-left: 350px">
@@ -72,28 +61,28 @@
                       <form class="form-horizontal add_form" action="{{ route('admin.password.change') }}" method="post">
                               {{ csrf_field() }}
                               <div class="form-group">
-                                <label  class="col-sm-2 control-label">Old Password</label>
+                                <label  class="col-sm-4 control-label">Old Password</label>
 
-                                <div class="col-sm-10">
+                                <div class="col-sm-8">
                                   <input type="password" class="form-control" name="old_password" >
                                 </div>
                               </div>
                               <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">New Password</label>
+                                <label for="inputEmail" class="col-sm-4 control-label">New Password</label>
 
-                                <div class="col-sm-10">
+                                <div class="col-sm-8">
                                   <input type="password" class="form-control" name="password" id="password">
                                 </div>
                               </div>
                               <div class="form-group">
-                                <label for="password" class="col-sm-2 control-label">Confirm Password</label>
+                                <label for="password" class="col-sm-4 control-label">Confirm Password</label>
 
-                                <div class="col-sm-10">
+                                <div class="col-sm-8">
                                   <input type="password" class="form-control" name="confirm_password" id="confirm_password">
                                 </div>
                               </div> 
                               <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
+                                <div class="col-sm-offset-2 col-sm-10 text-center">
                                   <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
                               </div>

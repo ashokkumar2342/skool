@@ -7,7 +7,7 @@
             <!-- /.box-header -->            
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">User Class assign</h3>
+              <h3 class="box-title">Class Assign</h3>
                <div class="col-lg-6 pull-right">
                @includeIf('admin.include.hot_menu', ['menu_type_id' =>1])
              </div>
@@ -19,7 +19,7 @@
               <div class="col-md-4"> 
                
                  
-                  {{ Form::label('User','User',['class'=>' control-label']) }}
+                  {{ Form::label('User','Users',['class'=>' control-label']) }}
                   <select class="form-control"  multiselect-form="true"  name="user" id="user_id"  onchange="callAjax(this,'{{route('admin.account.classAllSelect')}}'+'?id='+this.value,'class_all')" > 
                    <option value="" disabled selected>Select User</option>
                   @foreach ($users as $user)

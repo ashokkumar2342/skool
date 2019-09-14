@@ -1,4 +1,4 @@
- {{ Form::label('sub_menu','Class Assign',['class'=>' control-label']) }} <br>
+ {{ Form::label('sub_menu','Section Assign',['class'=>' control-label']) }} <br>
 <select class="multiselect" multiple="multiple"  name="section[]" > 
   {{-- @foreach ($classes as $class) 
     <optgroup label="{{ $class->name }}">  --}}

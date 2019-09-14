@@ -23,4 +23,8 @@ class RequestUpdate extends Model
 'city',  
 'pincode',
    ];
+   public function students($value='')
+   {
+   	 return $this->hasOne('App\Student','id','student_id');
+   }
 }

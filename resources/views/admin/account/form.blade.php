@@ -59,13 +59,13 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                  <label for="exampleInputEmail1">Mobile</label>
+                                  <label for="exampleInputEmail1">Mobile No.</label>
                                   <input type="text" Name="mobile" class="form-control" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Enter Mobile Number">
                                 </div>                                
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                  <label for="exampleInputEmail1">Date Of Birth (DD-MM-YY)</label>
+                                  <label for="exampleInputEmail1">Date Of Birth</label>
                                   {{ Form::date('dob','',['class'=>'form-control', 'placeholder'=>'  Test Date']) }} 
                                 </div>                                
                             </div>

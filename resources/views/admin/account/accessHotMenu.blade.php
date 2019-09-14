@@ -7,7 +7,7 @@
             <!-- /.box-header -->            
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Hot Menu assign</h3>
+              <h3 class="box-title">Hot Menu Assign</h3>
                <div class="col-lg-6 pull-right">
                @includeIf('admin.include.hot_menu', ['menu_type_id' =>1])
              </div>
@@ -20,7 +20,7 @@
                  {{ csrf_field() }}
               <div class="col-md-4">
                 <div class="form-group col-md-12">
-                  {{ Form::label('User','User',['class'=>' control-label']) }}                         
+                  {{ Form::label('User','Users',['class'=>' control-label']) }}                         
                   <div class="form-group">  
                          <select class="form-control"  multiselect-form="true"  name="user"  onchange="callAjax(this,'{{route('admin.account.access.hotmenuTable')}}'+'?id='+this.value,'menu_list')" > 
                           <option value="" disabled selected>Select User</option>

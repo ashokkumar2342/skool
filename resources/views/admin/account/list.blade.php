@@ -7,7 +7,7 @@
             <!-- /.box-header -->            
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">User List</h3>
+              <h3 class="box-title">List Users</h3>
                <div class="col-lg-6 pull-right">
                @includeIf('admin.include.hot_menu', ['menu_type_id' =>1])
              </div>
@@ -31,12 +31,16 @@
                 </tr>
                 </thead>
                 <tbody>
+                  @php
+                  $arrayId=1;
+                     
+                  @endphp
                 @foreach($accounts as $account)
                 @if ($account->id==1)
                   @continue
                 @endif
                 <tr>
-                  <td>{{ $loop->iteration }}</td> 
+                  <td>{{ $arrayId ++ }}</td> 
                   <td>{{ $account->first_name }} {{ $account->first_last}}</td>
                   <td>{{ $account->mobile }}</td> 
                   <td>{{ $account->email }}</td>

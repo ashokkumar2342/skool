@@ -19,6 +19,7 @@ use App\Model\ParentsInfo;
 use App\Model\PaymentType;
 use App\Model\Profession;
 use App\Model\Religion;
+use App\Model\RequestUpdate;
 use App\Model\SessionDate;
 use App\Model\Sms\SmsTemplate;
 use App\Model\StudentDefaultValue;
@@ -984,5 +985,10 @@ class StudentController extends Controller
         $student->student_status_id =1;
         $student->save();
     return redirect()->back()->with(['class'=>'success','message'=>'Final Addmission Successfully']);
+    }
+    public function studentRequestUpdate($value='')
+    {
+        $studentRequests=RequestUpdate::orderBy('id','DESC')->get();
+        return view('admin.student.requestUpdation.request_list',compact('studentRequests')); 
     }
 }

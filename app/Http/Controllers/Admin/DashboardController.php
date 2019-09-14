@@ -31,6 +31,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $admins=Auth::guard('admin')->user();
         $date = date('Y-m-d');
         $present = StudentAttendance::where('attendance_type_id',1)
                     ->Where('date',$date)
@@ -53,7 +54,7 @@ class DashboardController extends Controller
          $EventComing=date('Y-m-d',strtotime($date ."+1 days")); 
          $events=EventDetails::where('start_date',$EventComing)->get();
           
-        return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','newRegistraions','feeDues','feePaid','classTypes','students','classTests','events'));
+        return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','newRegistraions','feeDues','feePaid','classTypes','students','classTests','events','admins'));
         
     }  
 

@@ -181,6 +181,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::post('reset-roll-no-show', 'StudentController@resetRollNoshow')->name('admin.student.reset.roll.no.show');
 		Route::post('reset-roll-no-show-update', 'StudentController@resetRollNoshowUpdate')->name('admin.student.reset.roll.no.show.update');
 		Route::post('reset-roll-no-update', 'StudentController@resetRollNoUpdate')->name('admin.student.reset.roll.no.update');
+		Route::get('student-request-update', 'StudentController@studentRequestUpdate')->name('admin.student.request.update');
 
 
 		});
@@ -633,7 +634,9 @@ Route::group(['middleware' => 'admin'], function() {
 			  //------------------------- Exam Test ---------------------------------
 			Route::group(['prefix' => 'class-test'], function() {
 			    Route::get('/', 'Exam\ClassTestController@index')->name('admin.exam.test');	 	
+			    Route::get('add-form', 'Exam\ClassTestController@addForm')->name('admin.exam.test.add.form');	 	
 			    Route::post('store', 'Exam\ClassTestController@store')->name('admin.exam.classtest.store');	 	
+			    Route::post('table-show', 'Exam\ClassTestController@tableShow')->name('admin.exam.classtest.table.show'); 
 			    Route::get('delete/{id}', 'Exam\ClassTestController@destroy')->name('admin.exam.classtest.delete');
 			    Route::get('send-sms/{class_id}/{section_id}/{id}', 'Exam\ClassTestController@sendSms')->name('admin.exam.classtest.send.sms');	 	
 			    Route::get('send-email/{class_id}/{section_id}/{id}', 'Exam\ClassTestController@sendEmail')->name('admin.exam.classtest.send.email');	 	
@@ -644,7 +647,8 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'Exam\ClassTestDetailController@index')->name('admin.exam.test.details');	 	
 			    Route::post('store', 'Exam\ClassTestDetailController@store')->name('admin.exam.classdetail.store');	
 			    Route::get('delete/{id}', 'Exam\ClassTestDetailController@destroy')->name('admin.exam.classdetail.delete');	 	
-			    Route::get('search', 'Exam\ClassTestDetailController@searchStudent')->name('admin.classdetail.studentSearch');	 	
+			    Route::get('search', 'Exam\ClassTestDetailController@searchStudent')->name('admin.classdetail.studentSearch');
+			    Route::get('compile/{id}', 'Exam\ClassTestDetailController@compile')->name('admin.exam.classtest.compile');	 	
 			    
 			 });
 			  //------------------------- Exam Term ---------------------------------
@@ -677,6 +681,12 @@ Route::group(['middleware' => 'admin'], function() {
 			    
 			 });
 			  //------------------------- Exam marks details ---------------------------------
+			Route::group(['prefix' => 'grade'], function() {
+			    Route::get('grade', 'Exam\GradeDetailController@grade')->name('admin.exam.grade');	 	
+			    Route::post('grade-store', 'Exam\GradeDetailController@gradeStore')->name('admin.exam.grade.detail.grade.store');	 	
+			     	 	
+			     
+			 });
 			Route::group(['prefix' => 'grade-details'], function() {
 			    Route::get('/', 'Exam\GradeDetailController@index')->name('admin.exam.grade.detail');	 	
 			    Route::post('store', 'Exam\GradeDetailController@store')->name('admin.exam.grade.detail.store');	 	
@@ -685,6 +695,14 @@ Route::group(['middleware' => 'admin'], function() {
 			Route::group(['prefix' => 'class-test-report'], function() {
 			   Route::get('/', 'Exam\ExamReportController@index')->name('admin.exam.report'); 
 			   Route::post('filter', 'Exam\ExamReportController@filter')->name('admin.exam.report.filter');	 	
+			   Route::get('print', 'Exam\ExamReportController@print')->name('admin.exam.report.print');	 	
+			     
+			 });
+			Route::group(['prefix' => 'exam-report'], function() {
+			   Route::get('exam-report', 'Exam\ExamReportController@examReport')->name('admin.exam.exam.report'); 
+			   Route::post('exam-report-filter', 'Exam\ExamReportController@examReportFilter')->name('admin.exam.exam.report.filter'); 
+			   Route::get('exam-report-print', 'Exam\ExamReportController@examReportPrint')->name('admin.exam.exam.report.print'); 
+			    
 			     
 			 });
 			Route::group(['prefix' => 'teacher-remark'], function() {

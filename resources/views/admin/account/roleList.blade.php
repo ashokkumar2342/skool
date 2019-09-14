@@ -142,7 +142,7 @@
             <div class="box-body"> 
               <div class="row">
                 <div class="col-lg-6">
-                  <table id="dataTable" class="table table-bordered table-striped">
+                  <table  class="table table-bordered table-striped">
                     <thead>
                     <tr>
                       <th>Sn</th>
