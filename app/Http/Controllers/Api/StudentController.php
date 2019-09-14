@@ -390,7 +390,7 @@ class StudentController extends Controller
         try { 
                
               $student_id=$id;
-              $student=RequestUpdate::first($id);
+              $student=new RequestUpdate();
               $student->student_id= $student_id;
               $student->name= $request->name;
               $student->nick_name= $request->nick_name;
