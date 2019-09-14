@@ -25,6 +25,7 @@ use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -387,12 +388,11 @@ class StudentController extends Controller
     //request update
     public function requestUpdate(Request $request,$id){ 
         try { 
-                
-       
+               
               $student_id=$id;
-              $student=RequestUpdate::firstOrNew(['student_id'=>$student_id]);
+              $student=new RequestUpdate();
               $student->student_id= $student_id;
-              $student->name= $request->student_name;
+              $student->name= $request->name;
               $student->nick_name= $request->nick_name;
               $student->father_name= $request->father_name;
               $student->mother_name= $request->mother_name; 
