@@ -63,7 +63,7 @@
                   <td> 
                      
                   @if(App\Helper\MyFuncs::menuPermission()->r_status == 1)
-                  <a href="{{ route('admin.account.edit',[$account->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></a>
+                  <a href="#" onclick="callPopupLarge(this,'{{ route('admin.account.edit',[$account->id]) }}')" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></a>
                   @endif
                 
                   @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
