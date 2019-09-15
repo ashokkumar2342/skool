@@ -1,17 +1,14 @@
-@extends('admin.layout.base')
-@section('body')
-  <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">          
-            <!-- /.box-header -->            
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">User Edit</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <form action="{{ route('admin.account.edit.post',$account->id) }}" method="post">
+ 
+    
+    
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"> List User Edit </h4>
+      </div>
+      <div class="modal-body"> 
+        <div class="box-body"> 
+           <form action="{{ route('admin.account.edit.post',$account->id) }}" method="post">
                 {{ csrf_field() }}
                     <div class="box-body">
                         <div class="row">
@@ -64,37 +61,14 @@
                         </div>                     
                                         
                     <!-- /.box-body -->
-                    <div class="box-footer">
+                    <div class="box-footer text-center">
                       <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </form>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
+    </div>
+
+      
     </section>
-    <!-- /.content -->
-
-@endsection
-@push('links')
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
-@endpush
- @push('scripts')
- <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
- <script> 
- $( function() {
-    $( "#min" ).datepicker({dateFormat:'dd-mm-yy'});
-    $( "#max" ).datepicker({dateFormat:'dd-mm-yy'});   
-});  
-
- </script>
-
-@endpush
-
+   
