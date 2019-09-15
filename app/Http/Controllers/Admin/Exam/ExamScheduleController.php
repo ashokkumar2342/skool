@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Exam;
 use App\Events\SmsEvent;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
+use App\Model\AcademicYear;
 use App\Model\ClassType;
 use App\Model\Exam\ExamSchedule;
 use App\Model\Exam\ExamTerm;
@@ -23,12 +24,13 @@ class ExamScheduleController extends Controller
      */
     public function index()
     {
+        $academicYears=AcademicYear::orderBy('id','ASC')->get();
         $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');
         $subjects = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
         $examTerms = ExamTerm::all();
         $examSchedules = ExamSchedule::all();
         
-        return view('admin.exam.exam_schedule',compact('classes','subjects','examTerms','examSchedules'));
+        return view('admin.exam.exam_schedule',compact('classes','subjects','examTerms','examSchedules','academicYears'));
     }
 
     /**
@@ -68,6 +70,7 @@ class ExamScheduleController extends Controller
             return response()->json($response);// response as json
         } 
         $examSchedule = new ExamSchedule();
+        $examSchedule->academic_year_id = $request->academic_year_id;
         $examSchedule->class_id = $request->class;
         $examSchedule->subject_id = $request->subject;
         $examSchedule->exam_term_id = $request->exam_term;

@@ -10,20 +10,35 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-                                 
-                   <div class="col-lg-12">                         
+                  <div class="col-lg-3">                         
+                      <div class="form-group">
+                        <label>Academic Year</label>
+                           <select name="academic_year_id" id="academic_year_id" class="form-control" onchange="callAjax(this,'{{ route('admin.mark.detail.studentSearch') }}'+'?academic_year_id='+$('#academic_year_id').val(),'exam_term_id')">
+                             <option selected disabled>Select Academic Year</option>
+                             @foreach ($academicYears as $academicYear)
+                                <option value="{{ $academicYear->id }}">{{ $academicYear->name }}</option> 
+                             @endforeach
+                             
+                           </select>
+                      </div>
+                  </div>
+                  <div class="col-lg-3">                         
+                      <div class="form-group">
+                        <label>Exam Term</label>
+                        <select name="exam_term_id" id="exam_term_id" class="form-control"  onchange="callAjax(this,'{{ route('admin.mark.detail.studentSearch') }}'+'?exam_term_id='+$('#exam_term_id').val(),'exam_schedule_value_page')">
+                        </select>
+                      </div>
+                  </div>    
+                   <div class="col-lg-4">                         
                       <div class="form-group">
                           {{ Form::label('exam_schedule','Exam Schedule',['class'=>' control-label']) }}
-                           <select name="exam_schedule" class="form-control" onchange="callAjaxUrl('{{ route('admin.mark.detail.studentSearch') }}'+'?exam_schedule='+this.value+'','student_details_Result')">
-                             <option value="" selected disabled>Select Exam Schedule</option>
-                             @foreach ($examSchedules as $examSchedule)
-                                <option value="{{ $examSchedule->id }}">Class: {{ $examSchedule->classes->name }},  &nbsp;&nbsp;&nbsp; Subject: {{ $examSchedule->subjects->name }}</option>
-                             @endforeach 
+                           <select name="exam_schedule" class="form-control" id="exam_schedule_value_page" onchange="callAjax(this,'{{ route('admin.mark.detail.studentSearch') }}'+'?exam_term='+$('#exam_term_id').val(),'student_details_Result')">
+                             
                            </select>
                       </div>
                   </div>
                    
-                  </form> 
+                  
                 </div> 
             </div>
             <!-- /.box-body -->

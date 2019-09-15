@@ -649,6 +649,8 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('delete/{id}', 'Exam\ClassTestDetailController@destroy')->name('admin.exam.classdetail.delete');	 	
 			    Route::get('search', 'Exam\ClassTestDetailController@searchStudent')->name('admin.classdetail.studentSearch');
 			    Route::get('compile/{id}', 'Exam\ClassTestDetailController@compile')->name('admin.exam.classtest.compile');	 	
+			    Route::get('todays-class-test', 'Exam\ClassTestDetailController@todayClassTest')->name('admin.exam.today.class.test');	 	
+			    Route::get('upcoming-class-test', 'Exam\ClassTestDetailController@upcomingClassTest')->name('admin.exam.upcoming.class.test');	 	
 			    
 			 });
 			  //------------------------- Exam Term ---------------------------------
@@ -910,6 +912,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('edit/{id}', 'Event\EventDetailsController@edit')->name('admin.event.details.edit');
 			    Route::get('delete/{id}', 'Event\EventDetailsController@destroy')->name('admin.event.details.delete');
 			    Route::post('update/{id}', 'Event\EventDetailsController@update')->name('admin.event.details.update');
+			    Route::get('todays-event/{id}', 'Event\EventDetailsController@todayEventDashboard')->name('admin.event.today.event.dashboard');
 			     
 			     
             });

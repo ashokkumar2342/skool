@@ -49,12 +49,8 @@ class DashboardController extends Controller
         $newRegistraions = ParentRegistration::get();  
         $feeDues = StudentFeeDetail::where('paid',0)->get()->sum('fee_amount');                      
          $feePaid = StudentFeeDetail::where('paid',1)->get()->sum('fee_amount');
-         $classTypes=ClassType::orderBy('id','ASC')->get();
-         $classTests=ClassTest::orderBy('id','ASC')->get();
-         $EventComing=date('Y-m-d',strtotime($date ."+1 days")); 
-         $events=EventDetails::where('start_date',$EventComing)->get();
-          
-        return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','newRegistraions','feeDues','feePaid','classTypes','students','classTests','events','admins'));
+         $classTypes=ClassType::orderBy('id','ASC')->get(); 
+        return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','newRegistraions','feeDues','feePaid','classTypes','students','admins'));
         
     }  
 

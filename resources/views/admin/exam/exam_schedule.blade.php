@@ -11,7 +11,18 @@
             <div class="box-body">             
                 <div class="col-md-12"> 
 	                <form class="add_form" content-refresh="route_table" action="{{ route('admin.exam.schedule.store') }}" method="post">              
-                  {{ csrf_field() }}                  
+                  {{ csrf_field() }}
+                  <div class="col-lg-3">                         
+                      <div class="form-group">
+                        <label>Academic Year</label>
+                           <select name="academic_year_id" class="form-control">
+                             <option selected disabled>Select Academic Year</option>
+                             @foreach ($academicYears as $academicYear)
+                                <option value="{{ $academicYear->id }}">{{ $academicYear->name }}</option> 
+                             @endforeach 
+                           </select>
+                      </div>
+                  </div>                   
                    <div class="col-lg-3">                         
                       <div class="form-group">
                           {{ Form::label('class','Exam Term',['class'=>' control-label']) }}
@@ -82,6 +93,7 @@
                         <thead>
                             <tr>
                                 <th>Sn</th>                               
+                                <th>Academic Year</th> 
                                 <th>Exam Term</th> 
                                 <th>Class</th>  
                                 <th>Subject</th>                                                            
@@ -89,13 +101,14 @@
                                 <th>Max marks</th>                                                             
                                 <th>Pass marks</th>                                                             
                                 <th>Fail marks</th>                                          
-                                <th>Action</th>                                                            
+                                <th width="">Action</th>                                                            
                             </tr>
                         </thead>
                         <tbody>
                         @foreach ($examSchedules as $examSchedule)
                         	<tr>
                         		<td>{{ ++$loop->index }}</td>
+                            <td>{{ $examSchedule->academicYear->name or ''}}</td>
                             <td>{{ $examSchedule->examTerms->from_date or ''}}</td>
                             <td>{{ $examSchedule->classes->name or ''}}</td> 
                             <td>{{ $examSchedule->subjects->name }}</td>
@@ -110,8 +123,9 @@
                               @endif
 
                               <a href="{{ url('storage/class_test/'.$examSchedule->sylabus) }}" {{ $examSchedule->sylabus==null?'disabled':'' }} target="_blank"  class="btn btn-info btn-xs"    ><i class="fa fa-download"></i></a>
-                              <a href="{{ route('admin.exam.schedule.send.sms',$examSchedule->id) }}" class="btn btn-primary btn-xs" title="">Sms</a>
-                              <a href="{{ route('admin.exam.schedule.send.email',$examSchedule->id) }}" class="btn btn-info btn-xs" title="">Email</a>
+                              <a href="{{ route('admin.exam.schedule.send.sms',$examSchedule->id) }}" class="btn btn-primary btn-xs" title="">Email<i class="fa fa-send"></i></a>
+                              <a href="{{ route('admin.exam.schedule.send.email',$examSchedule->id) }}" class="btn btn-danger btn-xs" title="">Email<i class="fa fa-envelope"></i></a>
+                              <button type="button" class="btn btn-warning btn-xs">Compile</button>
                         		</td>
                         	</tr>  	 
                         @endforeach	

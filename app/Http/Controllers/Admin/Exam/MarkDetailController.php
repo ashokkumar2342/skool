@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Exam\ExamSchedule;
 use App\Model\Exam\MarkDetail;
+use App\Model\Exam\ExamTerm;
+use App\Model\AcademicYear;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -19,10 +21,12 @@ class MarkDetailController extends Controller
      */
     public function index()
     {
+        $academicYears=AcademicYear::orderBy('id','ASC')->get();
+        $examTerms=ExamTerm::orderBy('id','ASC')->get();
         $markDetails = MarkDetail::all();
         $students = Student::all();
         $examSchedules = ExamSchedule::all();         
-        return view('admin.exam.marks_details',compact('markDetails','students','examSchedules'));
+        return view('admin.exam.marks_details',compact('markDetails','students','examSchedules','academicYears','examTerms'));
     }
 
     /**
@@ -36,9 +40,19 @@ class MarkDetailController extends Controller
     }
 
     public function searchStudent(Request $request)
-    {   
-       $examSchedule = ExamSchedule::find($request->exam_schedule);
-        $marksDetails = MarkDetail::where('exam_schedule_id',$request->exam_schedule)->get();
+    {  
+       if ($request->academic_year_id!=0) { 
+         $examTerms=ExamTerm::where('academic_year_id',$request->academic_year_id)->get();
+         return view('admin.exam.value_page',compact('examTerms','examSchedule')); 
+        }
+        if($request->exam_term_id!=0){
+        $examSchedule = ExamSchedule::find($request->exam_term_id); 
+          $examSchedules = ExamSchedule::where('exam_term_id',$request->exam_term_id)->get();
+         return view('admin.exam.exam_schedule_value',compact('examTerms','examSchedules'));  
+        } 
+         
+       $examSchedule = ExamSchedule::find($request->id);
+        $marksDetails = MarkDetail::where('exam_schedule_id',$request->id)->get();
          $students = Student::where('class_id',$examSchedule->class_id)->get();
          return view('admin.exam.student_marks_details',compact('students','examSchedule','marksDetails'))->render();
     }
@@ -50,7 +64,7 @@ class MarkDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {  
         $rules=[ 
         'student_id' => 'nullable|max:30', 
         'marksobt' => 'required|max:30',  
@@ -64,24 +78,38 @@ class MarkDetailController extends Controller
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
         }
-        foreach ($request->student_id as $key => $value) { 
-          $marksDetail = MarkDetail::firstOrNew(['student_id'=>$value,'exam_schedule_id'=>$request->exam_schedule_id[$key]]);
-          $marksDetail->exam_schedule_id = $request->exam_schedule_id[$key];
+        $examScheduleMaxmarks = ExamSchedule::find($request->exam_schedule_id)->max_marks;
+        foreach ($request->student_id as $key => $value) {
+         $max =$examScheduleMaxmarks;
+         $marObt =$request->marksobt[$key];
+         $percentile=($marObt/$max)*100; 
+          $maxmimum=max($request->marksobt); 
+          $minmimum=min($request->marksobt); 
+          $average = collect($request->marksobt)->avg(); 
+          $marksDetail = MarkDetail::firstOrNew(['student_id'=>$value,'exam_schedule_id'=>$request->exam_schedule_id]);
+          $marksDetail->exam_schedule_id = $request->exam_schedule_id;
           $marksDetail->student_id = $value;
           $marksDetail->marksobt = $request->marksobt[$key];     
+          $marksDetail->percentile = $percentile; 
           $marksDetail->discription = $request->any_remarks[$key]; 
-          $marksDetail->save();      
+          $marksDetail->save();
         }  
-        $this->rankSave($request->student_id);
+          $examScheduleMaxmark = ExamSchedule::find($request->exam_schedule_id);      
+          $examScheduleMaxmark->height_marks=$maxmimum;      
+          $examScheduleMaxmark->lowest_marks=$minmimum;      
+          $examScheduleMaxmark->aug_marks=$average;      
+          $examScheduleMaxmark->save();      
+        $this->rankSave($request->student_id,$request->exam_schedule_id);
         $response = array();
         $response['msg'] = 'Submit Successfully';
         $response['status'] = 1;
         return response()->json($response);
     }
 
-    public function rankSave($student_id){
+    public function rankSave($student_id,$exam_schedule_id){
 
-        $markDetails =MarkDetail::whereIn('student_id',$student_id)
+        $markDetails =MarkDetail::where('exam_schedule_id',$exam_schedule_id)
+                                ->whereIn('student_id',$student_id)
                                 ->orderBy('marksobt','desc')
                                 ->get(['student_id','marksobt']);
          
@@ -95,18 +123,18 @@ class MarkDetailController extends Controller
        for($x = 0; $x < $arrlength; $x++) {
 
            if ($x==0) { 
-               $this->rankSaveByStudentId($student[$x],$rank);
+               $this->rankSaveByStudentId($student[$x],$exam_schedule_id,$rank);
            }
 
           elseif ($numbers[$x] != $numbers[$x-1]) {
                $rank++;
                $prev_rank = $rank; 
-               $this->rankSaveByStudentId($student[$x],$rank);
+               $this->rankSaveByStudentId($student[$x],$exam_schedule_id,$rank);
           }
 
           else{
                $rank++; 
-               $this->rankSaveByStudentId($student[$x],$prev_rank);
+               $this->rankSaveByStudentId($student[$x],$exam_schedule_id,$prev_rank);
            }
  
        }
@@ -121,9 +149,9 @@ class MarkDetailController extends Controller
      * @param  \App\Model\Exam\MarkDetail  $markDetail
      * @return \Illuminate\Http\Response
      */
-    public function rankSaveByStudentId($student_id,$rank)
+    public function rankSaveByStudentId($student_id,$exam_schedule_id,$rank)
     {
-        $marksDetail = MarkDetail::firstOrNew(['student_id'=>$student_id]); 
+        $marksDetail = MarkDetail::where('exam_schedule_id',$exam_schedule_id)->firstOrNew(['student_id'=>$student_id]); 
         $marksDetail->rank = $rank; 
         $marksDetail->save(); 
        

@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExamSchedule extends Model
 {
-    public function classes(){
+    public function academicYear(){
+        return $this->hasOne('App\Model\AcademicYear','id','academic_year_id');
+    } public function classes(){
         return $this->hasOne('App\Model\ClassType','id','class_id');
     }
      public function examTerms(){

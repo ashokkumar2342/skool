@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Exam;
 
 use App\Http\Controllers\Controller;
+use App\Model\AcademicYear;
 use App\Model\Exam\ExamTerm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -17,8 +18,9 @@ class ExamTermController extends Controller
      */
     public function index()
     {
+         $academicYears=AcademicYear::orderBy('id','ASC')->get();
          $examTerms = ExamTerm::latest()->get();
-        return view('admin.exam.exam_term',compact('examTerms'));
+        return view('admin.exam.exam_term',compact('examTerms','academicYears'));
     }
 
     /**
@@ -64,6 +66,7 @@ class ExamTermController extends Controller
         
         
         $examTerm = new ExamTerm();
+        $examTerm->academic_year_id = $request->academic_year_id;
         $examTerm->to_date = $request->to_date;
         $examTerm->from_date = $request->from_date;
         $examTerm->percentage_include_final_exam = $request->percentage; 

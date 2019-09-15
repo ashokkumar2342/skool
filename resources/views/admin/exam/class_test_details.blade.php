@@ -9,12 +9,12 @@
         <div class="box">             
             <!-- /.box-header -->
             <div class="box-body">             
-                <div class="col-md-12"> 
-	                               
-                   <div class="col-lg-12">                         
+                <div class="col-md-12">
+                    
+                   <div class="col-lg-4">                         
                       <div class="form-group">
                           {{ Form::label('class','Class Test',['class'=>' control-label']) }}
-                           <select name="classTest" class="form-control" onchange="callAjaxUrl('{{ route('admin.classdetail.studentSearch') }}'+'?class_test_id='+this.value+'','student_details_Result')">
+                           <select name="classTest" class="form-control" onchange="callAjax(this,'{{ route('admin.classdetail.studentSearch') }}','student_details_Result')">
                              <option value="" selected disabled>Select Class Test</option>
                              @foreach ($classTests as $classTest)
                                 <option value="{{ $classTest->id }}">Class: {{ $classTest->classes->name }}, &nbsp;&nbsp;&nbsp;Section : {{ $classTest->sectionTypes->name }},&nbsp;&nbsp;&nbsp; Subject: {{ $classTest->subjects->name }}</option>

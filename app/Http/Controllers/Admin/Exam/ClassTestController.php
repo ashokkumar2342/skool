@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Exam;
 use App\Events\SmsEvent;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
+use App\Model\AcademicYear;
 use App\Model\ClassType;
 use App\Model\Exam\ClassTest;
 use App\Model\Sms\SmsTemplate;
@@ -23,10 +24,11 @@ class ClassTestController extends Controller
      */
     public function index()
     {
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');
-        $subjects = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
-        $classTests = ClassTest::All();
-        return view('admin.exam.class_test',compact('classes','subjects','classTests'));
+        $academicYears=AcademicYear::orderBy('id','ASC')->get();
+        $classTypes =ClassType::orderBy('id','ASC')->get();
+        $subjects = SubjectType::orderBy('id','name')->get();
+       
+        return view('admin.exam.class_test',compact('classTypes','subjects','classTests','academicYears'));
     }
 
     /**
@@ -34,9 +36,13 @@ class ClassTestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addForm()
     {
-        
+        $academicYears=AcademicYear::orderBy('id','ASC')->get();
+        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');
+        $subjects = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
+        $classTypes=ClassType::orderBy('id','ASC')->get(); 
+        return view('admin.exam.class_test_add_form',compact('classes','subjects','classTests','academicYears','classTypes'));
     }
 
     /**
@@ -73,6 +79,7 @@ class ClassTestController extends Controller
         
   
         $classTest = new ClassTest();
+        $classTest->academic_year_id = $request->academic_year_id;
         $classTest->class_id = $request->class;
         $classTest->section_id = $request->section;
         $classTest->test_date = $request->test_date;
@@ -120,6 +127,29 @@ class ClassTestController extends Controller
 
 
     }
+    public function tableShow(Request $request)
+    {
+           
+        if ($request->has('academic_year_id') && ($request->has('class_id')&& ($request->has('section_id')&& ($request->has('subject'))))) {
+            
+          $classTests = ClassTest::where('academic_year_id',$request->academic_year_id)->where('class_id',$request->class_id)->where('section_id',$request->section_id)->where('subject_id',$request->subject)->get(); 
+        }elseif ($request->has('academic_year_id') && ($request->has('class_id')&& ($request->has('section_id')))) {
+            
+          $classTests = ClassTest::where('academic_year_id',$request->academic_year_id)->where('class_id',$request->class_id)->where('section_id',$request->section_id)->get(); 
+        }elseif ($request->has('academic_year_id') && ($request->has('class_id'))) {
+            
+          $classTests = ClassTest::where('academic_year_id',$request->academic_year_id)->where('class_id',$request->class_id)->get(); 
+        }elseif($request->has('academic_year_id')&&($request->has('subject'))){
+          $classTests = ClassTest::where('academic_year_id',$request->academic_year_id)->where('subject_id',$request->subject)->get();
+        }elseif($request->has('academic_year_id')){
+          $classTests = ClassTest::where('academic_year_id',$request->academic_year_id)->get();
+        }
+        $response = array(); 
+        $response['status'] = 1;
+        $response['data'] = view('admin.exam.class_test_table_show',compact('classTests'))->render();
+        return response()->json($response);
+    }
+    
      
 
     /**

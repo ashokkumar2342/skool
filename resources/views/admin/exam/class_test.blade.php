@@ -1,8 +1,9 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Class Test </h1>
+    <h1>Class Test Show <small>List</small></h1>
       <ol class="breadcrumb">
+        <button type="button" class="btn btn-primary btn-sm" onclick="callPopupLarge(this,'{{ route('admin.exam.test.add.form') }}')">Add New</button>
       </ol>
 </section>
     <section class="content">
@@ -10,62 +11,53 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-	                <form class="add_form" content-refresh="route_table" action="{{ route('admin.exam.classtest.store') }}" method="post">              
+	                <form class="add_form" success-content-id="class_test_show" action="{{ route('admin.exam.classtest.table.show') }}" method="post" no-reset="true">              
                   {{ csrf_field() }}                  
                    <div class="col-lg-3">                         
                       <div class="form-group">
-                          {{ Form::label('class','Class',['class'=>' control-label']) }}
-                          {!! Form::select('class',$classes, null, ['class'=>'form-control','placeholder'=>'Select Class','required']) !!}
-                          <p class="text-danger">{{ $errors->first('session') }}</p>
+                        <label>Academic Year</label>
+                           <select name="academic_year_id" class="form-control">
+                             <option selected disabled>Select Academic Year</option>
+                             @foreach ($academicYears as $academicYear)
+                                <option value="{{ $academicYear->id }}">{{ $academicYear->name }}</option> 
+                             @endforeach 
+                           </select>
                       </div>
                   </div>
                   <div class="col-lg-3">                         
-                      <div class="form-group">
-                          {{ Form::label('section','Section',['class'=>' control-label']) }}
-                          {!! Form::select('section',[], null, ['class'=>'form-control','placeholder'=>'Select Section','required']) !!}
-                          <p class="text-danger">{{ $errors->first('session') }}</p>
+                      <div class="form-group"> 
+                        <label>Class</label>
+                        <select name="class_id" class="form-control" onchange="callAjax(this,'{{ route('admin.student.final.report.class.wise.section') }}','section_div')">
+                           <option disabled selected>Select Class</option>
+                           @foreach ($classTypes as $classType)
+                            <option value="{{ $classType->id }}">{{ $classType->name }}</option>
+                           @endforeach
+                         </select> 
                       </div>
-                  </div>    
+                      </div> 
+                      <div class="col-lg-3">
+                        <div class="form-group">
+                        <label>Section</label>
+                         <select name="section_id" class="form-control" id="section_div"> 
+                         </select> 
+                      </div>
+                  </div> 
                   <div class="col-lg-3">                         
-                      <div class="form-group">
-                          {{ Form::label('subject','Subject',['class'=>' control-label']) }}
-                          {!! Form::select('subject',$subjects, null, ['class'=>'form-control','placeholder'=>'Select Section','required']) !!}
-                           
-                      </div>
+                     <div class="form-group">
+                      <label>Subject</label>
+                     <select name="subject" class="form-control">
+                        <option selected disabled>Select Subject</option>
+                        @foreach ($subjects as $subject)
+                         <option value="{{ $subject->id }}">{{ $subject->name }}</option> 
+                        @endforeach 
+                      </select> 
+                  </div>
                   </div>                  
-	                   <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          {{ Form::label('test_date','Test Date',['class'=>' control-label']) }}
-                           {{ Form::date('test_date','',['class'=>'form-control', 'placeholder'=>'  Test Date']) }} 
-                         </div>                                         
-                      </div>
-                      <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          {{ Form::label('max_marks','Max Marks',['class'=>' control-label']) }}
-                           {{ Form::text('max_marks','',['class'=>'form-control', 'placeholder'=>'  Max Marks','maxlength'=>'4','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','required']) }} 
-                         </div>                                         
-                      </div> 
-                      <div class="col-lg-6">                                             
-                         <div class="form-group">
-                          {{ Form::label('discription','Discription',['class'=>' control-label']) }}
-                           {{ Form::textarea('discription','',['class'=>'form-control', 'placeholder'=>' Discription','rows'=>1,'required']) }} 
-                         </div>                                         
-                      </div> 
-                       <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          {{ Form::label('sylabus','Sylabus',['class'=>' control-label']) }}
-                           {{ Form::file('sylabus',['class'=>'form-control']) }} 
-                         </div>                                         
-                      </div>
+	                   
 	                 
                        
-	                     <div class="col-lg-12 text-center">
-                        <a href="#" title="" onclick="callPopupLevel2(this,'{{ route('admin.medical.template.view',3) }}')" >Template View</a>&nbsp;&nbsp;
-                       Send Sms
-                       <input type="checkbox" name="send_sms" value="1">&nbsp;&nbsp;
-                       Send Email
-                       <input type="checkbox" name="send_email" value=2>&nbsp;&nbsp;           
-	                     <button class="btn btn-success" type="submit" id="btn_fee_account_create">Submit</button> 
+	                     <div class="col-lg-12 text-center"> 
+	                     <button class="btn btn-success" type="submit" id="btn_class_test_details_show">Show</button> 
 	                    </div>                     
 	                </form> 
                 </div> 
@@ -75,49 +67,11 @@
           <!-- /.box -->
 
             <div class="box">             
-              <!-- /.box-header -->
+               
                 <div class="box-body">
-                    <table id="route_table" class="display table">                     
-                        <thead>
-                            <tr>
-                                <th>Sn</th>
-                               
-                                <th>Class</th> 
-                                <th>Section</th> 
-                                <th>Subject</th>                                                            
-                                <th>Test Date</th>                                                            
-                                <th>Max marks</th>                                                             
-                                <th>Discription</th>                                                             
-                                <th width="200">Action</th>                                                            
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($classTests as $classTest)
-                        	<tr>
-                        		<td>{{ ++$loop->index }}</td>
-                        	 
-                            <td>{{ $classTest->classes->name or ''}}</td>
-                            <td>{{ $classTest->sectionTypes->name or '' }}</td>
-                            <td>{{ $classTest->subjects->name or '' }}</td>
-                            <td>{{ $classTest->test_date }}</td>
-                            <td>{{ $classTest->max_marks }}</td> 
-                            <td>{{ $classTest->discription or ''}}</td> 
-                        		<td> 
-                             @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
-                        			<a href="{{ route('admin.exam.classtest.delete',Crypt::encrypt($classTest->id)) }}"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
-                              @endif
-
-                              <a href="{{ url('storage/class_test/'.$classTest->sylabus) }}" {{ $classTest->sylabus==null?'disabled':'' }} target="_blank"  class="btn btn-success btn-xs"    ><i class="fa fa-download"></i></a>
-                              <a href="{{ route('admin.exam.classtest.send.sms',[$classTest->class_id,$classTest->section_id,$classTest->id]) }}"  class="btn btn-primary btn-xs"></i>Send Sms</a>
-                              <a href="{{ route('admin.exam.classtest.send.email',[$classTest->class_id,$classTest->section_id,$classTest->id]) }}"  class="btn btn-info btn-xs"></i>Send Email</a>
-                        		</td>
-                        	</tr>  	 
-                        @endforeach	
-                           
-                        </tbody>
-                             
-
-                    </table>
+                   <div id="class_test_show">
+                     
+                   </div>
                 </div>
             </div>    
 

@@ -117,5 +117,18 @@ class EventDetailsController extends Controller
               $response=['status'=>1,'msg'=>'Created Successfully'];
                 return response()->json($response);
             } 
-        } 
-    }      
+        }
+
+    public function todayEventDashboard($id)
+     {
+         if ($id==1) {
+           $events=EventDetails::where('start_date',date('Y-m-d'))->get(); 
+         }elseif ($id=2) {
+          $EventComing=date('Y-m-d',strtotime(date('Y-m-d') ."+1 days")); 
+          $EventComings=date('Y-m-d',strtotime($EventComing ."+7 days")); 
+          $events=EventDetails::whereBetween('start_date', [$EventComing,$EventComings])->get(); 
+         }
+         return view('admin.event.eventDashboard.today',compact('events'));
+
+     } 
+}      

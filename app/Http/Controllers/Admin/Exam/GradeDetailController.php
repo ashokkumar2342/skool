@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Exam\ExamTerm;
+use App\Model\Exam\Grade;
 use App\Model\Exam\GradeDetail;
 use App\Model\SubjectType;
 use App\Student;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
+use PDF;
 class GradeDetailController extends Controller
 {
     /**
@@ -107,4 +109,39 @@ class GradeDetailController extends Controller
     {
         //
     }
+    public function grade()
+    {
+        $grades=Grade::orderBy('id','DESC')->get();
+         return view('admin.exam.grade',compact('grades'));
+    }
+    public function gradeStore(Request $request)
+    {
+        $rules=[
+          
+             
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+     
+        $gradeDetail = new Grade();
+        $gradeDetail->from_marks = $request->from_marks;
+        $gradeDetail->to_marks = $request->to_marks;
+        $gradeDetail->grade_short = $request->grade_short; 
+        $gradeDetail->grade_full = $request->grade_full; 
+        $gradeDetail->color = $request->color; 
+        $gradeDetail->save();
+        $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
+        } 
+    }
+     
 }

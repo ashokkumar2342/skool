@@ -11,7 +11,18 @@
             <div class="box-body">             
                 <div class="col-md-12"> 
 	                <form class="add_form" content-refresh="route_table" action="{{ route('admin.exam.term.store') }}" method="post">              
-                  {{ csrf_field() }}                  
+                  {{ csrf_field() }}
+                  <div class="col-lg-3">                         
+                      <div class="form-group">
+                        <label>Academic Year</label>
+                           <select name="academic_year_id" class="form-control">
+                             <option selected disabled>Select Academic Year</option>
+                             @foreach ($academicYears as $academicYear)
+                                <option value="{{ $academicYear->id }}">{{ $academicYear->name }}</option> 
+                             @endforeach 
+                           </select>
+                      </div>
+                  </div>                  
                                 
 	                   <div class="col-lg-3">                                             
                          <div class="form-group">
@@ -32,7 +43,7 @@
                            {{ Form::text('percentage','',['class'=>'form-control', 'placeholder'=>'  Percentage','maxlength'=>'4','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','required']) }} 
                          </div>                                         
                       </div>                  
-                      <div class="col-lg-3">                                             
+                      <div class="col-lg-12">                                             
                          <div class="form-group">
                           {{ Form::label('discription','Discription',['class'=>' control-label']) }}
                            {{ Form::textarea('discription','',['class'=>'form-control', 'placeholder'=>' Discription','rows'=>1,'maxlength'=>'200']) }} 
@@ -55,11 +66,12 @@
                         <thead>
                             <tr>
                                 <th>Sn</th>
-                               
-                                <th>To Date</th> 
+                                <th>Academic Year</th> 
                                 <th>From Date</th> 
-                                <th>Percentage</th>                                                              
-                                <th>Discription</th>                                                             
+                                 
+                                <th>To Date</th> 
+                                <th>Percentage</th> 
+                                <th>Discription</th>                       
                                 <th>Action</th>                                                            
                             </tr>
                         </thead>
@@ -67,8 +79,9 @@
                         @foreach ($examTerms as $examTerm)
                         	<tr>
                         		<td>{{ ++$loop->index }}</td>                        	 
-                            <td>{{ $examTerm->to_date}}</td>
+                            <td>{{ $examTerm->academicYear->name or '' }}</td>
                             <td>{{ $examTerm->from_date }}</td>
+                            <td>{{ $examTerm->to_date}}</td>
                             <td>{{ $examTerm->percentage_include_final_exam }}</td> 
                             <td>{{ $examTerm->discription }}</td> 
                         		<td> 

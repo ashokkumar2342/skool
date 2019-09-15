@@ -3,6 +3,8 @@
 namespace App\Model\Exam;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Model\Exam\Grade;
+use App\Model\Exam\ClassTest;
 
 class ClassTestDetail extends Model
 {
@@ -23,6 +25,9 @@ class ClassTestDetail extends Model
     }
 
       Public function classTests(){
-    	return $this->hasOne('App\Model\ClassTest','id','class_test_id');
+    	return $this->hasOne(ClassTest::class,'id','class_test_id');
     }
+    Public function grade(){
+        return $this->hasOne(Grade::class,'id','grade');
+     }
 }

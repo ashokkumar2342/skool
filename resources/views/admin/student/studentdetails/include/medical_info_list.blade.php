@@ -18,7 +18,7 @@
                                  <th> <span class="text-nowrap">BP </span></th>
                                  <th> <span class="text-nowrap">Id Marks1 </span></th>
                                  <th> <span class="text-nowrap">Id Marks2 </span></th>
-                                 <th> <span class="text-nowrap"  style="margin :20px">Action </span></th>
+                                 <th> <span class="text-nowrap"  style="margin :35px">Action </span></th>
                              </tr>
                          </thead>
                          <tbody>
@@ -46,8 +46,9 @@
                                     <button class="btn_medical_view btn btn-warning btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.medical.edit',$medicalInfo->id) }}')" data-id=""  ><i class="fa fa-edit"></i></button>
 
                                      <button class="btn_medical_delete btn btn-danger btn-xs" button-click="medical_info_tab" onclick="return confirm('Are you Sure delete'),callAjax(this,'{{ route('admin.medical.delete',$medicalInfo->id) }}')"  ><i class="fa fa-trash"></i></button>
-                                     <a href="{{ route('admin.medical.send.sms',$medicalInfo->id) }}" title="" class="btn btn-primary btn-xs">Sms</a>
-                                     <a href="{{ route('admin.medical.send.email',$medicalInfo->id) }}" title="" class="btn btn-info btn-xs">Email</a>
+                                     <a href="{{ route('admin.medical.send.sms',$medicalInfo->id) }}" title="Send SMS"><i class=" btn btn-primary btn-xs fa fa-send"></i></a>
+                                     <a href="{{ route('admin.medical.send.email',$medicalInfo->id) }}" title="Send Email" style="color: red"><i class="btn btn-danger btn-xs fa fa-envelope"></i></a>
+
                                  </td>
 
                                                                   

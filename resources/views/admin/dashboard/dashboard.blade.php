@@ -55,7 +55,7 @@
                <p>Fee Paid</p>
              </div>
              <div class="icon">
-               <i class="ion ion-stats-bars"></i>
+               <i class="fa fa-rupee"></i>
              </div>
              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
            </div>
@@ -71,7 +71,7 @@
                <p>Fee Due</p>
              </div>
              <div class="icon">
-               <i class="ion ion-pie-graph"></i>
+               <i class="fa fa-rupee"></i>
              </div>
              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
            </div>
@@ -88,14 +88,13 @@
               <!-- USERS LIST -->
               <div class="box box-danger">
                 <div class="box-header with-border">
-                  <h3 class="box-title"><button type="button" class="btn btn-success btn-xs" onclick="callAjax(this,'{{ route('admin.student.birthday.dashboard') }}','student_birthday')">Today Birthday &nbsp;&nbsp;<span data-toggle="tooltip" title="" class="badge bg-blue"><b>{{ $studentDOBs->count() }}</b></span></button>&nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-warning btn-xs" onclick="callAjax(this,'{{ route('admin.student.birthday.dashboard.upcoming') }}','student_birthday')" >Upcoming Birthday</button></h3>&nbsp;
+                  <h3 class="box-title"><button type="button" class="btn btn-success btn-xs" onclick="callAjax(this,'{{ route('admin.student.birthday.dashboard') }}','student_birthday')">Today's Birthday &nbsp;&nbsp;<span data-toggle="tooltip" title="" class="badge bg-blue"><b>{{ $studentDOBs->count() }}</b></span></button>&nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-warning btn-xs" onclick="callAjax(this,'{{ route('admin.student.birthday.dashboard.upcoming') }}','student_birthday')" >Upcoming Birthdays</button></h3>&nbsp;
                      
                   <div class="box-tools pull-right">
                     <span class="label label-success"></span>
                     
+                     
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
                     </button>
                   </div>
                 </div>
@@ -109,80 +108,44 @@
 
               <div class="box box-danger no-padding" style="max-height: 150px;overflow-y:auto">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Class Test</h3> 
+                  <div class="box-title"><button type="button" class="btn btn-success btn-xs" onclick="callAjax(this,'{{ route('admin.exam.today.class.test') }}','class_test')">Today's Class Test &nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-warning btn-xs" onclick="callAjax(this,'{{ route('admin.exam.upcoming.class.test') }}','class_test')" >Upcoming Class Tests</button></h3>&nbsp;</div> 
                   <div class="box-tools pull-right"> 
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                    </button>
-                  </div>
-                  <table class="table"> 
-                    <thead>
-                      <tr>
-                        <th>Class</th>
-                        <th>Subject</th>
-                        <th>Maximum Marks</th>
-                        <th>Test Date</th>
-                        <th>Discriptoin</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach($classTests as $classTest)
-                      <tr>
-                        <td>{{ $classTest->classes->name or ''}}</td>
-                        <td>{{ $classTest->subjects->name or ''}}</td>
-                        <td>{{ $classTest->max_marks }}</td>
-                        <td>{{ $classTest->test_date }}</td>
-                        <td>{{ $classTest->discription }}</td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-                </div>
+                  </div> 
+                </div> 
+             <div class="box-body no-padding" style="max-height: 305px;overflow-y:auto">
+                   <div id="class_test">
+                     
+                   </div>
               </div>
+            </div>  
               <div class="box box-danger" style="max-height: 150px;overflow-y:auto">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Event</h3> 
+                  <div class="box-title"><button type="button" class="btn btn-success btn-xs" onclick="callAjax(this,'{{ route('admin.event.today.event.dashboard',1) }}','event_today')">Today's Event &nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-warning btn-xs" onclick="callAjax(this,'{{ route('admin.event.today.event.dashboard',2) }}','event_today')" >Upcoming Events</button></h3>&nbsp;</div> 
                   <div class="box-tools pull-right"> 
+                     
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                    </button>
-                  </div>
-                  <table class="table"> 
-                    <thead>
-                      <tr>
-                        <th>Event</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Event For</th> 
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach($events as $event)
-                      <tr>
-                         <td>{{ $event->event_name}}</td>
-                         <td>{{ date('d-m-Y', strtotime($event->start_date )) }}</td> 
-                         <td>{{  date('d-m-Y',strtotime($event->end_date)) }}</td> 
-                         <td>{{ $event->eveneFor->name or '' }}</td>
-                         
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
+                  </div> 
                 </div>
+                <div class="box-body no-padding" style="max-height: 305px;overflow-y:auto">
+                   <div id="event_today">
+                     
+                   </div>
+              </div>
               </div>
                 
          
            
-          <div class="box box-info">
+          {{-- <div class="box box-info">
             <div class="box-header">
               <i class="fa fa-envelope"></i>
 
               <h3 class="box-title">Quick SMS</h3>
               <!-- tools box -->
               <div class="pull-right box-tools">
-                <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"
+                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip"
                         title="Remove">
                   <i class="fa fa-times"></i></button>
               </div>
@@ -240,7 +203,7 @@
                 <i class="fa fa-arrow-circle-right"></i></button>
             </div>
             </form>
-          </div>
+          </div> --}}
          
             
 
@@ -262,9 +225,9 @@
                
                <h3 class="box-title">
                  Attendance
-                <a  class="btn btn-danger btn-xs" style="margin-left: 110px"  onclick="callPopupLarge(this,'{{ route('admin.attendance.student.attendance.continue') }}','attendence')" title="">3 Day Continue Absent</a>
+                <a  class="btn btn-danger btn-xs" style="margin-left: 50px"  onclick="callPopupLarge(this,'{{ route('admin.attendance.student.attendance.continue') }}','attendence')" title="">Absent For Last 3 Days</a>
 
-                 <a  class="btn btn-danger btn-xs" style="margin-left: 10px"  onclick="callPopupLarge(this,'{{ route('admin.attendance.student.attendance.continue') }}','attendence')" title="">4 Week Absent</a>
+                 <a  class="btn btn-danger btn-xs" style="margin-left: 10px"  onclick="callPopupLarge(this,'{{ route('admin.attendance.student.attendance.continue') }}','attendence')" title="">Absent 4 Days In Last 7 Dyas</a>
                 
                </h3>
              </div>
