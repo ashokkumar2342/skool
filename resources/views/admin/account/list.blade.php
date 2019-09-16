@@ -36,9 +36,9 @@
                      
                   @endphp
                 @foreach($accounts as $account)
-                @if ($account->id==1)
+                {{-- @if ($account->id==1)
                   @continue
-                @endif
+                @endif --}}
                 <tr>
                   <td>{{ $arrayId ++ }}</td> 
                   <td>{{ $account->first_name }} {{ $account->first_last}}</td>
