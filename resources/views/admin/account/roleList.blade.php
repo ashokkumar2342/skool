@@ -145,7 +145,7 @@
                   <table  class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                      <th>Sn</th>
+                      <th>Sr.No.</th>
                        
                       <th>Name</th>
                        </tr>
