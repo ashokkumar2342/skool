@@ -1109,6 +1109,53 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::post('update/{id}', 'AwardController@update')->name('admin.award.update');
                	 
        });
+           Route::group(['prefix' => 'teacher-appoinment'], function() {
+               	 Route::get('/', 'AppointmentController@index')->name('admin.teacher.appointment');
+               	 Route::get('add-form', 'AppointmentController@addForm')->name('admin.teacher.appointment.addFprm');
+               	 Route::post('/', 'AppointmentController@store')->name('admin.teacher.appointment.store');
+               	 Route::get('table-show', 'AppointmentController@tableShow')->name('admin.teacher.appointment.table.show');
+               	 Route::get('edit/{id}', 'AppointmentController@edit')->name('admin.teacher.appointment.edit');
+               	 Route::get('delete/{id}', 'AppointmentController@destroy')->name('admin.teacher.appointment.delete');
+               	 Route::get('update/{id}', 'AppointmentController@update')->name('admin.teacher.appointment.update');
+               	 
+               	 
+       });
+           Route::group(['prefix' => 'lesson-plan'], function() {
+               	 Route::get('/', 'LessonPlanController@index')->name('admin.teacher.lesson.plan');
+               	 Route::get('add-form', 'LessonPlanController@addForm')->name('admin.teacher.lesson.plan.addFprm');
+               	 Route::post('/', 'LessonPlanController@store')->name('admin.teacher.lesson.plan.store');
+               	 Route::get('table-show', 'LessonPlanController@tableShow')->name('admin.teacher.lesson.plan.table.show');
+               	 Route::get('edit/{id}', 'LessonPlanController@edit')->name('admin.teacher.lesson.plan.edit');
+               	 Route::get('delete/{id}', 'LessonPlanController@destroy')->name('admin.teacher.lesson.plan.delete');
+               	 Route::post('update/{id}', 'LessonPlanController@update')->name('admin.teacher.lesson.plan.update');
+
+//--------------lesson-plan-follow---------------------------------------
+
+               	 Route::get('lesson-plan-follow', 'LessonPlanController@lessonPlanFollow')->name('admin.teacher.lesson.plan.follow');
+               	 Route::get('lesson-plan-follow-add', 'LessonPlanController@lessonPlanFollowAddForm')->name('admin.teacher.lesson.plan.follow.add.form');
+               	 Route::post('lesson-plan-follow-store', 'LessonPlanController@lessonPlanFollowStore')->name('admin.teacher.lesson.plan.follow.store');
+               	 Route::get('lesson-plan-follow-table', 'LessonPlanController@lessonPlanFollowTable')->name('admin.teacher.lesson.plan.follow.table');
+               	 Route::get('lesson-plan-follow-edit/{id}', 'LessonPlanController@lessonPlanFollowEdit')->name('admin.teacher.lesson.plan.follow.edit');
+               	 Route::post('lesson-plan-follow-update/{id}', 'LessonPlanController@lessonPlanFollowUpdate')->name('admin.teacher.lesson.plan.follow.update');
+               	 
+               	 
+       });   
+           Route::group(['prefix' => 'teacher-diary'], function() {
+               	 Route::get('/', 'TeacherDiaryController@index')->name('admin.teacher.diary');
+               	 Route::get('add-form', 'TeacherDiaryController@addForm')->name('admin.teacher.diary.add.form'); 
+               	 
+       });
+           Route::group(['prefix' => 'house'], function() {
+               	 Route::get('/', 'HouseController@index')->name('admin.house.details');
+               	 Route::get('add-form', 'HouseController@addForm')->name('admin.house.add.form'); 
+               	 Route::post('store', 'HouseController@store')->name('admin.house.store'); 
+               	Route::get('table-show', 'HouseController@tableShow')->name('admin.house.table.show'); 
+               	 Route::get('edit/{id}', 'HouseController@edit')->name('admin.house.edit'); 
+               	 Route::get('delete/{id}', 'HouseController@destroy')->name('admin.house.delete'); 
+               	 Route::post('update/{id}', 'HouseController@update')->name('admin.house.update'); 
+               	  
+               	 
+       });
             
            
 

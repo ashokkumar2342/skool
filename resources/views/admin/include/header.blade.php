@@ -20,14 +20,34 @@
             <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">4</span>
+              <span class="label label-success">1</span>
             </a>
             <ul class="dropdown-menu">
               <li class="header">You have 4 messages</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  
+                  @php
+                   $notifications=App\Model\Notification::orderBy('id','DESC')->get(); 
+                  @endphp
+                  @foreach ($notifications as $notification)
+                    @php
+                    $admin=App\Admin::where('id',$notification->user_id)->first();
+                     $profile = route('admin.profile.photo.show',$admin->profile_pic); 
+                   @endphp
+                  <li><!-- start message -->
+                    <a href="{{ $notification->link }}">
+                      <div class="pull-left">
+                        <img src="{{ $profile }}" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        {{ $notification->admins->first_name or ''}}
+                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                      </h4>
+                      <p>{{ $notification->message }}</p>
+                    </a>
+                  </li>
+                  @endforeach
                 </ul>
               </li>
               <li class="footer"><a href="#">See All Messages</a></li>
