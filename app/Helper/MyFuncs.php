@@ -484,6 +484,7 @@ class MyFuncs {
   public static function mainMenu($menu_type_id){ 
       $mainMenus = Minu::where('admin_id',Auth::guard('admin')->user()->id)
                           ->where('minu_id',$menu_type_id)
+                          ->where('status',1)
                           ->get(['sub_menu_id']); 
         
        return $subMenus = SubMenu::whereIn('id',$mainMenus)
@@ -496,7 +497,7 @@ class MyFuncs {
     $routeName= Route::currentRouteName();
    $subMenuId =SubMenu::where('url',$routeName)->first()->id; 
    // $subMenuId =1; 
-    return Minu::where('admin_id',$user_id)->where('sub_menu_id',$subMenuId)->first();
+    return Minu::where('admin_id',$user_id)->where('status',1)->where('sub_menu_id',$subMenuId)->first();
               
 
   }
