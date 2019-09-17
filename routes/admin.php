@@ -1143,6 +1143,7 @@ Route::group(['middleware' => 'admin'], function() {
            Route::group(['prefix' => 'teacher-diary'], function() {
                	 Route::get('/', 'TeacherDiaryController@index')->name('admin.teacher.diary');
                	 Route::get('add-form', 'TeacherDiaryController@addForm')->name('admin.teacher.diary.add.form'); 
+               	 Route::post('diary-details', 'TeacherDiaryController@diaryDetails')->name('admin.teacher.diary.details'); 
                	 
        });
            Route::group(['prefix' => 'house'], function() {
