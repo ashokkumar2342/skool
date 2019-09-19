@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Room;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
-use App\Model\SubjectType;
 use App\Model\Room\ClassWiseRoom;
-use App\Model\Room\SubjectWiseRoom;
 use App\Model\Room\RoomType;
+use App\Model\Room\SubjectWiseRoom;
+use App\Model\SubjectType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
@@ -18,16 +19,18 @@ class ClassRoomController extends Controller
      	$classWiseRooms=ClassWiseRoom::all();
         $classWiseRoomSaveId=ClassWiseRoom::pluck('room_id')->toArray();
     	$roomTypes=RoomType::all();
-    	$classTypes=ClassType::all();
+    	$classTypes=MyFuncs::getClassByHasUser();
     	return view('admin.room.classWiseRoom.class_wise_room_view',compact('roomTypes','classTypes','classWiseRooms','classWiseRoomSaveId'));
     }
 
     public function store(Request $request){
-    	// return $request;
+    	 
     	$rules=[
     	  
             
             'room_name' => 'required', 
+            'class_id' => 'required', 
+            'section_id' => 'required', 
              
        
     	];
@@ -41,8 +44,16 @@ class ClassRoomController extends Controller
     	    return response()->json($response);// response as json
     	}
         else {
+             
+          $classWiseRoom= ClassWiseRoom::where('class_id',$request->class_id)
+                                        ->where('section_id',$request->section_id)->first();
+           if ($classWiseRoom!=null) {
+              $response=['status'=>0,'msg'=>'Already Existing'];
+              return response()->json($response);  
+           }
          $classWiseRoom=new ClassWiseRoom();
          $classWiseRoom->class_id=$request->class_id;
+         $classWiseRoom->section_id=$request->section_id;
          $classWiseRoom->room_id=$request->room_name;
          $classWiseRoom->save();
          $response=['status'=>1,'msg'=>'Created Successfully'];
@@ -52,7 +63,7 @@ class ClassRoomController extends Controller
     public function edit($id){
     	 
     	$roomTypes=RoomType::all();
-    	$classTypes=ClassType::all();
+    	$classTypes=MyFuncs::getClassByHasUser();
         $classWiseRoomSaveId=ClassWiseRoom::pluck('room_id')->toArray();
       $classWiseRooms=ClassWiseRoom::findOrFail(Crypt::decrypt($id));
     return view('admin.room.classWiseRoom.class_wise_room_edit',compact('classWiseRooms','roomTypes','classTypes','classWiseRoomSaveId'));

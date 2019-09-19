@@ -48,6 +48,8 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::post('role-menu-store', 'AccountController@roleMenuStore')->name('admin.roleAccess.subMenu');
 		Route::get('class-access', 'AccountController@classAccess')->name('admin.account.classAccess'); 
 		Route::get('class-all', 'AccountController@classAllSelect')->name('admin.account.classAllSelect'); 
+		Route::get('reset-password', 'AccountController@resetPassWord')->name('admin.account.reset.password'); 
+		Route::post('reset-password-change', 'AccountController@resetPassWordChange')->name('admin.account.reset.password.change'); 
 		
 						
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 
@@ -202,6 +204,10 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::post('image', 'ParentInfoController@image')->name('admin.parents.image');
 	    Route::get('image/{image}', 'ParentInfoController@imageShow')->name('admin.parents.image.show');
 	    Route::post('update/{id}', 'ParentInfoController@update')->name('admin.parents.update');
+	    Route::get('parent-add-new', 'ParentInfoController@parentAddNew')->name('admin.parents.add.new');
+	    Route::get('parent-search', 'ParentInfoController@parentSearch')->name('admin.parents.search');
+	    Route::post('parent-search-post', 'ParentInfoController@parentSearchPost')->name('admin.parents.search.post');
+	    Route::get('parent-add-existing', 'ParentInfoController@parentExisting')->name('admin.parents.existing');
 	 });
 	  	// ---------------Medical Info----------------------------------------
 	 Route::group(['prefix' => 'medical-info'], function() {
@@ -321,6 +327,8 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('approval', 'CertificateIssueDetailController@approval')->name('admin.student.attachment.approval');
 	     Route::get('aproval-check/{id}', 'CertificateIssueDetailController@approvalCheck')->name('admin.student.attachment.approval.check');
 	     Route::post('aproval/{id}', 'CertificateIssueDetailController@approvalStatus')->name('admin.student.attachment.approval.status');
+	     Route::get('check-status', 'CertificateIssueDetailController@checkStatus')->name('admin.student.certificate.check.status');
+	     Route::post('check-status-show', 'CertificateIssueDetailController@checkStatusShow')->name('admin.student.certificate.check.status.show');
 	 });
 	   // ---------------Tuition Fee Certificate----------------------------------------
 	 Route::group(['prefix' => 'certificate-tuition'], function() {
@@ -350,6 +358,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::post('add', 'HomeworkController@store')->name('admin.homework.post');
 	    Route::get('view/{id}', 'HomeworkController@view')->name('admin.homework.view');
 	    Route::get('delete/{id}', 'HomeworkController@destroy')->name('admin.homework.delete');
+	    Route::get('search', 'HomeworkController@search')->name('admin.homework.search');
 	    Route::post('send-homework', 'HomeworkController@sendHomework')->name('admin.homework.send.homework');
 	    Route::get('homework-send/{id}', 'HomeworkController@HomeworkSend')->name('admin.homework.homework.send');
 	 });
@@ -1154,6 +1163,13 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('edit/{id}', 'HouseController@edit')->name('admin.house.edit'); 
                	 Route::get('delete/{id}', 'HouseController@destroy')->name('admin.house.delete'); 
                	 Route::post('update/{id}', 'HouseController@update')->name('admin.house.update'); 
+               	  
+               	 
+       });
+
+
+           Route::group(['prefix' => 'genders'], function() {
+               	 Route::get('gender', 'GenderController@gender')->name('admin.gender.gender'); 
                	  
                	 
        });

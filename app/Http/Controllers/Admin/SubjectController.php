@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\UserActivity;
+use App\Helper\MyFuncs;
+use App\Http\Controllers\Controller;
+use App\Model\ClassType;
 use App\Model\Subject;
 use App\Model\SubjectType;
-use App\Model\ClassType;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Event;
-use App\Events\UserActivity;
 
 class SubjectController extends Controller
 {
@@ -21,7 +22,7 @@ class SubjectController extends Controller
     {
         $subjectTypes = SubjectType::all();
         $manageSubjects = Subject::all();
-        $classes = array_pluck(ClassType::get(['id','name'])->toArray(),'name', 'id'); 
+        $classes = MyFuncs::getClasses(); 
         return view('admin.subject.manageSubject',compact('subjectTypes','manageSubjects','classes'));
     }
 

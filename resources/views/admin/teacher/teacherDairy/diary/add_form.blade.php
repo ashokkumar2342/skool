@@ -6,57 +6,26 @@
       <h4 align="center"><b>Teacher Diary</b></h4>
       </div>
      <div class="modal-body">
-        <form action="{{ route('admin.teacher.lesson.plan.follow.store') }}" method="post" class="add_form" button-click="btn_close,btn_appoinment">
+        <form action="{{ route('admin.teacher.diary.details') }}" method="post" class="add_form" button-click="btn_appoinment" success-content-id="diary_details">
       {{ csrf_field() }}
       <div class="row">
-        <div class="col-lg-4"> 
-          <label>Class</label>
-            <select name="class_id" class="form-control" onchange="callAjax(this,'{{ route('admin.student.final.report.class.wise.section') }}','section_div')">
-               <option disabled selected>Select Class</option>
-               @foreach ($classTypes as $classType)
-                <option value="{{ $classType->id }}">{{ $classType->name }}</option>
-               @endforeach
-             </select> 
-          </div> 
-          <div class="col-lg-4">
-            <label>Section</label>
-             <select name="section_id" class="form-control" id="section_div"> 
-             </select> 
-          </div>
-        <div class="col-lg-4">
-          <label>Subject</label>
-          <select name="subject_id" class="form-control">
-            <option selected disabled>Select Subject</option>
-            @foreach ($subjectTypes as $subjectType)
-              <option value="{{ $subjectType->id }}">{{ $subjectType->name }}</option> 
-            @endforeach
-          </select> 
-        </div> 
-        <div class="col-lg-4">
+        <div class="col-lg-6">
           <label>Teacher</label>
-          <select name="teacher_id" class="form-control">
+          <select name="teacher_id" class="form-control" onchange="callAjax(this,'')">
             <option selected disabled>Select Teacher Name</option>
             @foreach ($TeacherFacultys as $TeacherFaculty)
               <option value="{{ $TeacherFaculty->id }}">{{ $TeacherFaculty->name }}</option> 
             @endforeach
           </select> 
         </div>
-        <div class="col-lg-4">
-          <label>Lesson Plan</label>
-          <select name="lesson_plan_id" class="form-control">
-            <option selected disabled>Select Lesson Plan</option>
-            @foreach ($lessonPlans as $lessonPlan)
-              <option value="{{ $lessonPlan->id }}">{{ $lessonPlan->topic_covered }}</option> 
-            @endforeach
-          </select> 
-        </div> 
-        <div class="col-lg-4">
+        <div class="col-lg-6">
           <label>Ondate</label>
           <input type="date" name="ondate" class="form-control"> 
-        </div> 
-        
-        <div class="col-lg-12 text-center">
-          <input type="submit" class="btn btn-success" style="margin-top: 20px">
+        </div>
+        <div class="col-lg-12 text-center" style="margin-top: 20px"> 
+          <input type="submit" value="Show" class="btn btn-success"> 
+        </div>
+        <div id="diary_details">
            
          </div> 
       </div>

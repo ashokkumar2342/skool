@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Events\SmsEvent;
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\BloodGroup;
@@ -63,7 +64,7 @@ class ParentRegistrationController extends Controller
     public function resitrationForm($id=null)
     {
        $pr = ParentRegistration::find(Crypt::decrypt($id));
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+        $classes = MyFuncs::getClasses();    
         $incomeRanges = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
         $documentTypes = array_pluck(DocumentType::get(['id','name'])->toArray(),'name', 'id');    
         $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id');    
@@ -625,7 +626,7 @@ class ParentRegistrationController extends Controller
     public function preview($id)
     {
          $pr = ParentRegistration::find(Crypt::decrypt($id));
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+        $classes = MyFuncs::getClasses();    
         $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');

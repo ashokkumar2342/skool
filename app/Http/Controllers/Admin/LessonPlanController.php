@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\LessonPlan;
@@ -20,7 +21,7 @@ class LessonPlanController extends Controller
     }
     public function addForm($value='')
     {
-    	$classTypes=ClassType::orderBy('id','ASC')->get();
+    	$classTypes=MyFuncs::getClassByHasUser();
     	$subjectTypes=SubjectType::orderBy('id','ASC')->get();
     	return view('admin.teacher.teacherDairy.lessonPlan.add_form',compact('subjectTypes','classTypes')); 
     }
@@ -63,7 +64,7 @@ class LessonPlanController extends Controller
     }
     public function edit($id)
     {
-    	$classTypes=ClassType::orderBy('id','ASC')->get();
+    	$classTypes=MyFuncs::getClassByHasUser();
     	$subjectTypes=SubjectType::orderBy('id','ASC')->get();
     	$lessonPlans=LessonPlan::find($id);
     	return view('admin.teacher.teacherDairy.lessonPlan.edit',compact('subjectTypes','classTypes','lessonPlans'));
@@ -108,7 +109,7 @@ class LessonPlanController extends Controller
     }
     public function lessonPlanFollowAddForm($value='')
     {
-        $classTypes=ClassType::orderBy('id','ASC')->get();
+        $classTypes=MyFuncs::getClassByHasUser();
         $subjectTypes=SubjectType::orderBy('id','ASC')->get();
         $TeacherFacultys=TeacherFaculty::orderBy('name','ASC')->get();
         $lessonPlans=LessonPlan::orderBy('id','DESC')->get();
@@ -156,7 +157,7 @@ class LessonPlanController extends Controller
     public function lessonPlanFollowEdit($id)
     {
        $lessonPlanFollows =LessonPlanFollow::find($id);
-        $classTypes=ClassType::orderBy('id','ASC')->get();
+        $classTypes=MyFuncs::getClassByHasUser();
         $subjectTypes=SubjectType::orderBy('id','ASC')->get();
         $TeacherFacultys=TeacherFaculty::orderBy('name','ASC')->get();
         $lessonPlans=LessonPlan::orderBy('id','DESC')->get();

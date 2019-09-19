@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\Cashbook;
@@ -31,7 +32,7 @@ class StudentFeeDetailController extends Controller
         $studentFeeDetails = StudentFeeDetail::latest('created_at')->paginate(20);        
         $acardemicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(), 'name', 'id');
         $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
-        $classess = array_pluck(ClassType::get(['id','name'])->toArray(), 'name', 'id');
+        $classess = MyFuncs::getClasses();
         $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
         return view('admin.finance.student_fee_detail',compact('studentFeeDetails','acardemicYear','feeStructurLastDate','concession','classess'));
     }
@@ -120,7 +121,7 @@ class StudentFeeDetailController extends Controller
         $students = array_pluck(Student::get(['id','registration_no'])->toArray(),'registration_no', 'id');
         $acardemicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(), 'name', 'id');
         $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
-        $classess = array_pluck(ClassType::get(['id','name'])->toArray(), 'name', 'id');
+        $classess = MyFuncs::getClasses();
         $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
         return view('admin.finance.student_fee_assign',compact('studentFeeDetails','acardemicYear','feeStructurLastDate','concession','classess','students'));   
     }

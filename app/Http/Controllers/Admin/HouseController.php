@@ -96,4 +96,7 @@ class HouseController extends Controller
             return response()->json($response);
         } 
     }
+
+    
+
 }

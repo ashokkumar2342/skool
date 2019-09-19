@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\StudentIdCard;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Event\EveneFor;
@@ -26,7 +27,7 @@ class StudentIdCardController extends Controller
     public function generateClassWise(Request $request)
     {
     	 $reportforId=$request->id;
-    	 	 $classTypes=ClassType::all();
+    	 	 $classTypes=MyFuncs::getClassByHasUser();
              $students=Student::where('student_status_id',1)->get();
     	 return view('admin.student.idCard.class_select_box',compact('classTypes','reportforId','students'));
     	  

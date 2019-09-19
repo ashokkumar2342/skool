@@ -12,6 +12,7 @@ use App\Model\Document;
 use App\Model\DocumentType;
 use App\Model\Gender;
 use App\Model\GuardianRelationType;
+use App\Model\House;
 use App\Model\IncomeRange;
 use App\Model\Isoptional;
 use App\Model\Minu;
@@ -76,12 +77,12 @@ class StudentController extends Controller
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
         $default = StudentDefaultValue::find(1); 
-           
-        return view('admin.student.studentdetails.add',compact('classes','sessions','default','genders','religions','categories'));
+        $houses=House::orderBy('id','ASC')->get();   
+        return view('admin.student.studentdetails.add',compact('classes','sessions','default','genders','religions','categories','houses'));
     }
     public function showForm()
     {        
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+        $classes = MyFuncs::getClasses();    
         $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
@@ -136,7 +137,7 @@ class StudentController extends Controller
     public function store(Request $request)
     {   
        // dd($request->all());
-        $this->validate($request,[ 
+       $rules=[
             'class' => 'required|numeric|max:20',
             "section" => 'required|numeric|max:20',
             "registration_no" => 'required|max:20|unique:students',
@@ -145,24 +146,21 @@ class StudentController extends Controller
             "date_of_admission" => 'required|date', 
             "date_of_activation" => 'required|date',
             "student_name" => 'required|max:199',
-            "nick_name" => 'max:30|nullable',
-            "father_name" => 'required|max:30',
-            "mother_name" => 'required|max:30',
-            "father_mobile" => 'required|digits:10',
-            "mother_mobile" => 'required|digits:10',
-            "date_of_birth" => 'required|max:199',
-            "religion" => "required|max:30",
-            "category" => "required|max:30",
-            "c_address" => 'required|max:1000',
-            "p_address" => 'required|max:1000',
-            "state" => "required|max:30",
-            "email" => "required|max:50|email",
-            "city" => "required|max:30",
-            "pincode" => 'required|numeric|digits:6',
-                      
-      
-        ]);   
-         
+            "nick_name" => 'max:30|nullable', 
+            "date_of_birth" => 'required|max:199', 
+            
+            "aadhaar_no" => "required|digits:12",
+            "house_name" => "required", 
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
         $admin_id = Auth::guard('admin')->user()->id;
         $username = str_random('10');
         $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
@@ -170,35 +168,24 @@ class StudentController extends Controller
         $student->username= $username;    
         $student->password = bcrypt($char);
         $student->tem_pass = $char; 
-        $student->admin_id = $admin_id;                               
-        $student->session_id= 1;
+        $student->admin_id = $admin_id; 
         $student->class_id= $request->class;
         $student->section_id= $request->section;     
         $student->registration_no= $request->registration_no;     
         $student->admission_no= $request->admission_no;     
         $student->roll_no= $request->roll_no;     
+        $student->roll_no= $request->aadhaar_no;     
+        $student->roll_no= $request->house_name;     
         $student->date_of_admission= $request->date_of_admission == null ? $request->date_of_admission : date('Y-m-d',strtotime($request->date_of_admission));        
         $student->date_of_activation= $request->date_of_activation == null ? $request->date_of_activation : date('Y-m-d',strtotime($request->date_of_activation));
         $student->name= $request->student_name;
-        $student->nick_name= $request->nick_name;
-        $student->father_name= $request->father_name;
-        $student->mother_name= $request->mother_name; 
-        $student->father_mobile= $request->father_mobile;
-        $student->mother_mobile= $request->mother_mobile;
+        $student->nick_name= $request->nick_name; 
         $student->email= $request->email;
         $student->dob= $request->date_of_birth == null ? $request->date_of_birth : date('Y-m-d',strtotime($request->date_of_birth));
-        $student->gender_id= $request->gender;
-        $student->religion_id= $request->religion;
-        $student->category_id= $request->category;
-        $student->c_address= $request->c_address;
-        $student->p_address= $request->p_address;
-        $student->state= $request->state;
-        $student->city= $request->city;
-        $student->pincode= $request->pincode;        
+        $student->gender_id= $request->gender; 
         if($student->save()){            
             $student->username= 'ISKOOL10'.$student->id;
-            $student->save();
-
+            $student->save(); 
             $subjects = Subject::where('classType_id',$student->class_id)->get();
             if ($subjects != NULL) {
                 foreach ($subjects as $subject){                 
@@ -206,29 +193,15 @@ class StudentController extends Controller
                  $studentSubject->subject_type_id = $subject->subjectType_id;
                  $studentSubject->student_id = $student->id;
                  $studentSubject->isoptional_id = $subject->isoptional_id;
-                 $studentSubject->session_id = $student->session_id; 
+                  
                  $studentSubject->save();                     
                 }
            
             } 
-            if ($student->father_name != NULL) {                                 
-                 $parentsinfo = new ParentsInfo();                
-                 $parentsinfo->student_id = $student->id; 
-                 $parentsinfo->relation_type_id = 1; 
-                 $parentsinfo->name = $student->father_name; 
-                 $parentsinfo->mobile = $student->father_mobile; 
-                 $parentsinfo->save();  
-            }
-            if ($student->mother_name != NULL) {
-                                 
-                 $parentsinfo = new ParentsInfo();
-                 $parentsinfo->student_id = $student->id;                
-                $parentsinfo->relation_type_id = 2;                
-                 $parentsinfo->name = $student->mother_name; 
-                 $parentsinfo->mobile = $student->mother_mobile; 
-                 $parentsinfo->save();  
-            } 
-            return redirect()->route('admin.student.view',$student->id)->with(['class'=>'success','message'=>'Student Registration Success ...']);
+             
+            $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
+          } 
         }
 
 
@@ -342,7 +315,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {       
-       $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+       $classes = MyFuncs::getClasses();    
        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
        $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
        $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
@@ -420,30 +393,20 @@ class StudentController extends Controller
     }
 
     public function update(Request $request, Student $student)
-    {
+    { 
         $rules=[
-            'class' => 'required|numeric',
-            "section" => 'required|numeric',
-            
-            "roll_no" => 'max:199',
-            "date_of_admission" => 'required|date',
-            // "date_of_leaving" => 'required|date',
-            // "date_of_activation" => 'required|date',
+            'class' => 'required|numeric|max:20',
+            "section" => 'required|numeric|max:20',
+            "registration_no" => 'required|max:20|unique:students',
+            "admission_no" => 'max:20|unique:students',
+            "roll_no" => 'max:20',
+            "date_of_admission" => 'required|date', 
+            "date_of_activation" => 'required|date',
             "student_name" => 'required|max:199',
-            // "nick_name" => 'required|max:199',
-            "father_name" => 'required|max:199',
-            "mother_name" => 'required|max:199',
-            "father_mobile" => 'required|numeric|digits:10',
-            "mother_mobile" => 'required|numeric|digits:10',
-            "date_of_birth" => 'required|max:199',
-            "religion" => "required|max:199",
-            "category" => "required|max:199",
-            "c_address" => 'required|max:500',
-            "p_address" => 'required|max:500',
-            "state" => "required|max:199",
-            "email" => "required|max:199|email",
-            "city" => "required|max:199",
-            "pincode" => 'required|numeric|digits:6',
+            "nick_name" => 'max:30|nullable', 
+            "date_of_birth" => 'required|max:199', 
+            "aadhaar_no" => "required|digits:12",
+            "house_name" => "required", 
           ];
 
          $validator = Validator::make($request->all(),$rules);
@@ -462,25 +425,16 @@ class StudentController extends Controller
         $student->class_id= $request->class;
         $student->section_id= $request->section;  
         $student->roll_no= $request->roll_no;     
+        $student->roll_no= $request->aadhaar_no;     
+        $student->roll_no= $request->house_name;     
         $student->date_of_admission= $request->date_of_admission == null ? $request->date_of_admission : date('Y-m-d',strtotime($request->date_of_admission));
         $student->date_of_leaving= $request->date_of_leaving == null ? $request->date_of_leaving : date('Y-m-d',strtotime($request->date_of_leaving)); 
         $student->date_of_activation= $request->date_of_activation == null ? $request->date_of_activation : date('Y-m-d',strtotime($request->date_of_activation));
         $student->name= $request->student_name;
-        $student->nick_name= $request->nick_name;
-        $student->father_name= $request->father_name;
-        $student->mother_name= $request->mother_name; 
-        $student->father_mobile= $request->father_mobile;
-        $student->mother_mobile= $request->mother_mobile;
+        $student->nick_name= $request->nick_name; 
         $student->email= $request->email;
         $student->dob= $request->date_of_birth == null ? $request->date_of_birth : date('Y-m-d',strtotime($request->date_of_birth));
-        $student->gender_id= $request->gender;
-        $student->religion_id= $request->religion;
-        $student->category_id= $request->category;
-        $student->c_address= $request->c_address;
-        $student->p_address= $request->p_address;
-        $student->state= $request->state;
-        $student->city= $request->city;
-        $student->pincode= $request->pincode;        
+        $student->gender_id= $request->gender; 
          $student->save();           
            $response= array();
            $response['status']= 1;
@@ -495,23 +449,16 @@ class StudentController extends Controller
         $rules=[
              
             
-            "roll_no" => 'max:199',
+             
+             
             
+            "date_of_admission" => 'required|date', 
+            "date_of_activation" => 'required|date',
             "student_name" => 'required|max:199',
-             "nick_name" => 'required|max:199',
-            "father_name" => 'required|max:199',
-            "mother_name" => 'required|max:199',
-            "father_mobile" => 'required|numeric|digits:10',
-            "mother_mobile" => 'required|numeric|digits:10',
-            "date_of_birth" => 'required|max:199',
-            // "religion" => "required|max:199",
-            // "category" => "required|max:199",
-            "c_address" => 'required|max:500',
-            "p_address" => 'required|max:500',
-            "state" => "required|max:199",
-            // "email" => "required|max:199|email",
-            "city" => "required|max:199",
-            "pincode" => 'required|numeric|digits:6',
+            "nick_name" => 'max:30|nullable', 
+            "date_of_birth" => 'required|max:199', 
+            "aadhaar_no" => "required|digits:12",
+            "house_name" => "required", 
           ];
 
          $validator = Validator::make($request->all(),$rules);
@@ -608,7 +555,7 @@ class StudentController extends Controller
     }
     public function importview() {
          
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+        $classes = MyFuncs::getClasses();    
         $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');

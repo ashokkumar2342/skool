@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\TimeTable;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Library\TeacherFaculty;
@@ -24,7 +25,7 @@ class TimeTablController extends Controller
 {
      public function index(){
      	$timeTableTypes=TimeTableType::all();
-     	 $classTypes=ClassType::all();
+     	 $classTypes=MyFuncs::getClassByHasUser();
     	return view('admin.timeTable.timeTableManual.view',compact('timeTableTypes','classTypes'));
     }
     public function classWiseSection(Request $request){
@@ -35,7 +36,7 @@ class TimeTablController extends Controller
 
     public  function  manual(Request $request){
           
-        $classTypes=ClassType::all();
+        $classTypes=MyFuncs::getClassByHasUser();
         $subjects=Subject::where('classType_id',$request->class_id)->get();
         $daysTypes=DaysType::all();
         $periodTimings=PeriodTiming::where('time_table_type_id',$request->time_table_type_id)->get();
@@ -52,7 +53,7 @@ class TimeTablController extends Controller
 
     public  function  finalResult(Request $request){
             // return $request;
-        $classTypes=ClassType::all();
+        $classTypes=MyFuncs::getClassByHasUser();
         $subjects=Subject::where('classType_id',$request->class_id)->get();
         $daysTypes=DaysType::all();
         $periodTimings=PeriodTiming::where('time_table_type_id',$request->time_table_type_id)->get();
@@ -149,7 +150,7 @@ class TimeTablController extends Controller
     public function outoGenerateManual(Request $request){
       $timeTableTypes=TimeTableType::all();
       foreach ($timeTableTypes as $key => $timeTableType) { 
-        $classTypes=ClassType::all();
+        $classTypes=MyFuncs::getClassByHasUser();
         foreach ($classTypes as $key => $classType) {
            $sections=Section::where('class_id',$classType->id)->get();
            foreach ($sections as $key => $section) {  

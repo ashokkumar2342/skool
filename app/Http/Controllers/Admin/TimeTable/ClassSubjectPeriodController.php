@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\TimeTable;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Section;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 class ClassSubjectPeriodController extends Controller
 {
     public function index(){
-    	$classTypes=ClassType::all();
+    	$classTypes=MyFuncs::getClassByHasUser();
     	$classSubjectPeriods=ClassSubjectPeriod::orderBy('id', 'DESC')->get();
     	return view('admin.timeTable.classSubjectPeriod.view',compact('classTypes','classSubjectPeriods'));
     }
@@ -86,7 +87,7 @@ class ClassSubjectPeriodController extends Controller
     //------------Option-subject-group-------------------------------------------------------------------------------
 
     public function optionSubjectGroup(){
-        $classTypes=ClassType::all();
+        $classTypes=MyFuncs::getClassByHasUser();
        
         // $subjectTypes=SubjectType::all();
     	return view('admin.timeTable.optionSubjectGroup.view',compact('classTypes'));

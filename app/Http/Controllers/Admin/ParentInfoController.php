@@ -82,7 +82,7 @@ class ParentInfoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {  
         $rules=[
         'name' => 'required',               
         'mobile' => 'required|digits:10',              
@@ -207,5 +207,29 @@ class ParentInfoController extends Controller
 
         $response=['status'=>1,'msg'=>'Delete Successfully'];
         return response()->json($response);
+    }
+    public function parentAddNew(Request $request)
+    {
+         $parentsType= array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name', 'id'); 
+        $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 
+        $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
+        $student=$request->id;
+          return view('admin.student.studentdetails.parent.new',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions'));
+        
+    }
+    public function parentSearch(Request $request)
+    {
+          
+          return view('admin.student.studentdetails.parent.search',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions'));
+        
+    }
+    public function parentSearchPost(Request $request)
+    {
+            $parentInfos = ParentsInfo::where('mobile', 'like', '%' . $request->mobile_no . '%')->get(); 
+            $response=array();                       
+            $response["status"]=1;
+            $response["data"]=view('admin.student.studentdetails.parent.existing',compact('parentInfos'))->render();
+            return $response;
+        
     }
 }

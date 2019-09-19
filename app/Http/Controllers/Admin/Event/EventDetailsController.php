@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Event;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Event\EveneFor;
@@ -27,8 +28,8 @@ class EventDetailsController extends Controller
     public function onChange(Request $request)
     {
     	
-    	 if ($request->id==2) {
-    	 	 $classTypes=ClassType::all();
+    	 if ($request->id==3) {
+    	 	 $classTypes=MyFuncs::getClassByHasUser();
     	 return view('admin.event.eventDetails.class_select_box',compact('classTypes'));
     	 }  
     }

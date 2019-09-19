@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
@@ -32,7 +33,7 @@ class FinanceReportController extends Controller
    	$reportWise=$request->id;
 
    	$registrations=Student::where('student_status_id',1)->get();
-   	$classTypes=ClassType::orderBy('id','ASC')->get();
+   	$classTypes=MyFuncs::getClassByHasUser();
     return view('admin.financeReport.fee_report' ,compact('classTypes','reportWise','registrations'));
    }
    public function feeReportShow(Request $request)

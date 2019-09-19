@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
  use App\Http\Controllers\Controller;
+use App\Helper\MyFuncs;
 use App\Model\BloodGroup;
 use App\Model\Category;
 use App\Model\ClassType;
@@ -21,6 +22,7 @@ use App\Model\StudentFee;
 use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
+use App\Model\AcademicYear;
 use App\Student;
 use Auth;
 use Carbon;
@@ -40,14 +42,15 @@ class StudentDefaultValueController extends Controller
     public function index()
     {
     
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+        $classes = MyFuncs::getClasses();    
         $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
+        $academicYears = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
         $default = StudentDefaultValue::find(1); 
            
-        return view('admin.student.studentdetails.default',compact('classes','sessions','default','genders','religions','categories','default'));
+        return view('admin.student.studentdetails.default',compact('classes','sessions','default','genders','religions','categories','default','academicYears'));
     }
 
     /**
@@ -70,6 +73,7 @@ class StudentDefaultValueController extends Controller
     {
          
         $default = StudentDefaultValue::firstOrNew(['id'=>1]);
+        $default->year = $request->academic_year;
         $default->class_id = $request->class;
         $default->section_id = $request->section;
         $default->religion_id = $request->religion;

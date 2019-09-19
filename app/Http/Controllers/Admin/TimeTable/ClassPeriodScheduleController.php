@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin\TimeTable;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Section;
 use App\Model\TimeTable\ClassPeriodSchedule;
 use App\Model\TimeTable\DaysType;
-use App\Model\TimeTable\TimeTableGroup;
 use App\Model\TimeTable\PeriodTiming;
 use App\Model\TimeTable\PeriodType;
+use App\Model\TimeTable\TimeTableGroup;
 use App\Model\TimeTable\TimeTableType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +19,7 @@ class ClassPeriodScheduleController extends Controller
 {
      public function index(){
      	$classPeriodSchedule= ClassPeriodSchedule::all();
-     	$classTypes=ClassType::all();
+     	$classTypes=MyFuncs::getClassByHasUser();
         $timeTableTypes=TimeTableType::all();
     	return view('admin.timeTable.classPeriodSchedule.view',compact('classTypes','classPeriodSchedule','timeTableTypes'));
     }
@@ -27,7 +28,7 @@ class ClassPeriodScheduleController extends Controller
     	$timeTableGroupWises=TimeTableGroup::all();
     	$timeTableTypes=TimeTableType::all();
     	$periodTypes=PeriodType::all();
-    	$classTypes=ClassType::all();
+    	$classTypes=MyFuncs::getClassByHasUser();
     	$periodTimings=PeriodTiming::all();
     	$daysTypes=DaysType::all();
     	return view('admin.timeTable.classPeriodSchedule.add_form',compact('classTypes','periodTimings','daysTypes','periodTypes','timeTableTypes','timeTableGroupWises'));
@@ -35,7 +36,7 @@ class ClassPeriodScheduleController extends Controller
 
     public  function  scheduleShow(Request $request){
         // return $request;
-        $classTypes=ClassType::all();
+        $classTypes=MyFuncs::getClassByHasUser();
         $daysTypes=DaysType::all();
         $periodTimings=PeriodTiming::where('time_table_type_id',$request->time_table_type_id)->get();
         $classPeriodSchedule=ClassPeriodSchedule::where('class_id',$request->class_id)->where('time_table_type_id',$request->time_table_type_id)->first();
@@ -98,7 +99,7 @@ class ClassPeriodScheduleController extends Controller
     // 	$timeTableGroupWises=TimeTableGroup::all();
     // 	$timeTableTypes=TimeTableType::all();
     // 	$periodTypes=PeriodType::all();
-    // 	$classTypes=ClassType::all();
+    // 	$classTypes=MyFuncs::getClassByHasUser();
     // 	$periodTimings=PeriodTiming::all();
     // 	$daysTypes=DaysType::all();
     //    $classPeriodSchedules= ClassPeriodSchedule::where('class_id',$request->class_id)->get();
@@ -115,7 +116,7 @@ class ClassPeriodScheduleController extends Controller
     public function multipleClassPeriodSchedule(){
 
       $classPeriodSchedule= ClassPeriodSchedule::all();
-      $classTypes=ClassType::all();
+      $classTypes=MyFuncs::getClassByHasUser();
         $timeTableTypes=TimeTableType::all();
       return view('admin.timeTable.multipleClassPeriodSchedule.multiple_class_period_schedule',compact('classTypes','classPeriodSchedule','timeTableTypes'));
 

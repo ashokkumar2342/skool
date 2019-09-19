@@ -23,7 +23,7 @@ class SectionController extends Controller
     {
         $sections = SectionType::all();
         $manageSections = Section::all();
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');     
+        $classes = MyFuncs::getClasses();     
         return view('admin.manage.section.manageSection',compact('sections','classes','manageSections'));
     }
 
@@ -112,7 +112,7 @@ class SectionController extends Controller
     public function edit(Section $sectionEdit)
     {
         $sections = Section::all();
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');
+        $classes = MyFuncs::getClasses();
         $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         return view('admin.manage.section.list',compact('sections','sectionEdit','classes','sessions'));
     }

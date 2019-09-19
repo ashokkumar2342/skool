@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\BloodGroup;
 use App\Model\Category;
@@ -16,6 +17,7 @@ use App\Model\Isoptional;
 use App\Model\ParentsInfo;
 use App\Model\PaymentType;
 use App\Model\Religion;
+use App\Model\ReportFor;
 use App\Model\Section;
 use App\Model\SessionDate;
 use App\Model\StudentDefaultValue;
@@ -26,7 +28,6 @@ use App\Model\StudentSiblingInfo;
 use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
-use App\Model\ReportFor;
 use App\Student;
 use Auth;
 use Carbon;
@@ -44,7 +45,7 @@ use setasign\Fpdi\PdfParser\StreamReader;
 class ReportController extends Controller
 {
     public function index(){
-    	$classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+    	$classes = MyFuncs::getClasses();   
         $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
@@ -145,7 +146,7 @@ class ReportController extends Controller
 
     //----------------------final-report-------------------------------------------------------------//
     public function finalReportIndex(){
-        $classTypes=ClassType::orderBy('id','ASC')->get();
+        $classTypes=MyFuncs::getClassByHasUser();
         $students=Student::orderBy('name','ASC')->get();
         $reportFors=ReportFor::orderBy('id','ASC')->get();
     return view('admin.report.finalReport.index',compact('classTypes','students','reportFors'));
@@ -158,10 +159,10 @@ class ReportController extends Controller
             $registrations=Student::orderBy('registration_no','ASC')->get();
              return view('admin.report.finalReport.registration',compact('registrations'));   
          }if ($request->id==3) {
-             $classTypes=ClassType::orderBy('id','ASC')->get();
+             $classTypes=MyFuncs::getClassByHasUser();
             return view('admin.report.finalReport.class',compact('classTypes','students','reportforId'));  
          }if ($request->id==4) {
-             $classTypes=ClassType::orderBy('id','ASC')->get();
+             $classTypes=MyFuncs::getClassByHasUser();
             return view('admin.report.finalReport.class',compact('classTypes','students','reportforId'));  
          }
         
@@ -371,7 +372,7 @@ class ReportController extends Controller
      
          $reportWise=$request->id;
          $students=Student::where('student_status_id',1)->orderBy('class_id','ASC')->get();
-         $classTypes=ClassType::orderBy('id','ASC')->get();
+         $classTypes=MyFuncs::getClassByHasUser();
     return view('admin.report.generalReport.select_box',compact('students','reportWise','classTypes')); 
   }  
   public function reportGenerateBarcode(Request $request)

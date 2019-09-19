@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\SmsEvent;
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Homework;
@@ -28,7 +29,7 @@ class HomeworkController extends Controller
      */
     public function index()
     {
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+        $classes = MyFuncs::getClasses();    
         $homeworks = Homework::where('date',date('Y-m-d'))->paginate(10);
 
        return view('admin.homework.list',compact('classes','homeworks'));
@@ -131,6 +132,14 @@ class HomeworkController extends Controller
         $homework = Homework::find($id);
         $homework->delete();
        return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+    public function search(Request $request)
+    {
+        
+       $classes = MyFuncs::getClasses();    
+       $homeworks=Homework::where('date',date('Y-m-d',strtotime($request->date)))->get(); 
+       return view('admin.homework.search',compact('classes','homeworks'));
+
     }
     public function sendHomework(Request $request)
     {
