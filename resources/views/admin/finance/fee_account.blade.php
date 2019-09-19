@@ -48,7 +48,7 @@
                     <table id="fee_account_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>
+                                <th>Sr.No.</th>
                                 <th>Code</th>
                                 <th>Name</th>
                                 <th>Description</th>
@@ -96,15 +96,15 @@
                             <form id="form_model_fee_account"> 
                             		<input type="hidden" name="id" id="edit_id">
                                    <div class="form-group">
-                                     {{ Form::text('code','',['class'=>'form-control','id'=>'edit_code', 'placeholder'=>'Enter fee account code']) }}
+                                     {{ Form::text('code','',['class'=>'form-control','id'=>'edit_code', 'placeholder'=>'Enter fee account code','maxlength'=>'3']) }}
                                      <p class="errorCode text-center alert alert-danger hidden"></p>
                                    </div>       
                                    <div class="form-group">
-                                     {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee account name']) }}
+                                     {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee account name','maxlength'=>'50']) }}
                                      <p class="errorName text-center alert alert-danger hidden"></p>
                                    </div>      
                                     <div class="form-group">
-                                      {{ Form::textarea('description','',['class'=>'form-control','id'=>'edit_description','rows'=>1, 'placeholder'=>'Enter Description']) }}
+                                      {{ Form::textarea('description','',['class'=>'form-control','id'=>'edit_description','rows'=>1, 'placeholder'=>'Enter Description','maxlength'=>'250']) }}
                                       <p class="errorDescription text-center alert alert-danger hidden"></p> 
                                 </div>
                                                       

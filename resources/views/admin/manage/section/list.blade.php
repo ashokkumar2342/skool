@@ -19,6 +19,7 @@
                 <tr>
                   <th>Section id</th>                
                   <th>Section Name</th>                   
+                  <th>Section Code</th>                   
                   <th width="80px">Action</th>                  
                 </tr>
                 </thead>
@@ -30,6 +31,7 @@
                 <tr>
                   <td>{{ $sectionId ++ }}</td>
                   <td>{{ $section->name }}</td>                 
+                  <td>{{ $section->code }}</td>                 
                   <td align="center">
                    @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
 
@@ -70,6 +72,13 @@
             <div class="col-sm-9">
             {!! Form::text('name', @$sectionType->name, ['class'=>"form-control",'placeholder'=>"Section Name",'autocomplete'=>'off','maxlength'=>'50',]) !!}
             <p class="text-danger">{{ $errors->first('name') }}</p>
+            </div>
+          </div>
+          <div class="form-group">
+          {!! Form::label('code', 'Section Code : ', ['class'=>"col-sm-3 control-label"]) !!}            
+            <div class="col-sm-9">
+            {!! Form::text('code', @$sectionType->name,  ['class'=>"form-control",'placeholder'=>"Section Code",'autocomplete'=>'off','maxlength'=>'6',]) !!}
+            <p class="text-danger">{{ $errors->first('code') }}</p>
             </div>
           </div>
            

@@ -21,43 +21,50 @@
                                         <div class="col-md-12">                                          
                                              <div class="col-lg-2">                         
                                                 <div class="form-group">
+                                                    {{ Form::label('academic_year','Academic Year',['class'=>' control-label']) }}
+                                                    {!! Form::select('academic_year',$academicYears, @$default->academicYears->id, ['class'=>'form-control','placeholder'=>'Select Academic Year']) !!}
+                                                    <p class="text-danger">{{ $errors->first('Academic Year') }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
                                                     {{ Form::label('class','Class',['class'=>' control-label']) }}
-                                                    {!! Form::select('class',$classes, @$default->class_id, ['class'=>'form-control','placeholder'=>'Select Class','required']) !!}
-                                                    <p class="text-danger">{{ $errors->first('session') }}</p>
+                                                    {!! Form::select('class',$classes, @$default->class_id, ['class'=>'form-control','placeholder'=>'Select Class']) !!}
+                                                    <p class="text-danger">{{ $errors->first('Class') }}</p>
                                                 </div>
                                             </div>
                                                 <div class="col-lg-2">                         
                                                 <div class="form-group">
                                                     {{ Form::label('section','Section',['class'=>' control-label']) }}
-                                                    {!! Form::select('section',[], null, ['class'=>'form-control','placeholder'=>'Select Section','required']) !!}
-                                                    <p class="text-danger">{{ $errors->first('session') }}</p>
+                                                    {!! Form::select('section',[], null, ['class'=>'form-control','placeholder'=>'Select Section']) !!}
+                                                    <p class="text-danger">{{ $errors->first('Section') }}</p>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">                         
                                                 <div class="form-group">
                                                     {{ Form::label('religion','Religion',['class'=>' control-label']) }}
-                                                    {!! Form::select('religion',$religions, @$default->religions->id, ['class'=>'form-control','placeholder'=>'Select Religion','required']) !!}
+                                                    {!! Form::select('religion',$religions, @$default->religions->id, ['class'=>'form-control','placeholder'=>'Select Religion']) !!}
                                                     <p class="text-danger">{{ $errors->first('religion') }}</p>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">                         
                                                 <div class="form-group">
                                                     {{ Form::label('category','Category',['class'=>' control-label']) }}
-                                                    {!! Form::select('category',$categories,@$default->categories->id, ['class'=>'form-control','placeholder'=>'Select Category','required']) !!}
+                                                    {!! Form::select('category',$categories,@$default->categories->id, ['class'=>'form-control','placeholder'=>'Select Category']) !!}
                                                     <p class="text-danger">{{ $errors->first('category') }}</p>
                                                 </div>
                                             </div>
                                              <div class="col-lg-2">                         
                                                 <div class="form-group">
                                                     {{ Form::label('state','State',['class'=>' control-label']) }}
-                                                    {!! Form::text('state', @$default->state, ['class'=>'form-control','required']) !!}
+                                                    {!! Form::text('state', @$default->state, ['class'=>'form-control']) !!}
                                                     <p class="text-danger">{{ $errors->first('state') }}</p>
                                                 </div>
                                             </div>
                                               <div class="col-lg-2">                         
                                                 <div class="form-group">
                                                     {{ Form::label('city','City',['class'=>' control-label']) }}
-                                                    {!! Form::text('city', @$default->city, ['class'=>'form-control','required']) !!}
+                                                    {!! Form::text('city', @$default->city, ['class'=>'form-control']) !!}
                                                     <p class="text-danger">{{ $errors->first('city') }}</p>
                                                 </div>
                                             </div>

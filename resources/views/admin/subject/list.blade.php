@@ -36,14 +36,14 @@
                   <td>{{ $subject->name }}</td>
                   <td>{{ $subject->code }}</td>
                   <td > 
-                   @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)                   
+                  {{--  @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)  --}}                  
                     <a class="btn btn-info btn-xs col-md-4 col-md-offset-2" href="{{ route('admin.subjectType.edit',$subject->id) }}"><i class="fa fa-pencil"></i></a>
-                    @endif
-                     @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
+                   {{--  @endif --}}
+                    {{--  @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) --}}
                     {!! Form::open(['method' => 'delete', 'route' => ['admin.subjectType.delete', $subject->id]]) !!}
                     {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs col-md-4', 'onclick'=>"return confirm('Are you sure to delete this data ?')"]) !!}
                     {!! Form::close() !!}
-                    @endif
+                   {{--  @endif --}}
                     
             
                   </td>
@@ -76,14 +76,14 @@
           <div class="form-group">
           {!! Form::label('SubjectName', 'Subjcet Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
             <div class="col-sm-9">
-            {!! Form::text('subjectName',@$subjectType->name, ['class'=>"form-control",'placeholder'=>"Subject Name",'autocomplete'=>'off']) !!}
+            {!! Form::text('subjectName',@$subjectType->name, ['class'=>"form-control",'placeholder'=>"Subject Name",'autocomplete'=>'off','maxlength'=>'50',]) !!}
             <p class="text-danger">{{ $errors->first('subjectName') }}</p>
             </div>
           </div>
           <div class="form-group">
           {!! Form::label('Code', 'Code :', ['class'=>"col-sm-3 control-label"]) !!}
             <div class="col-sm-9">
-            {!! Form::text('code', @$subjectType->code, ['class'=>"form-control",'placeholder'=>"Subject Code",'autocomplete'=>'off']) !!}
+            {!! Form::text('code', @$subjectType->code, ['class'=>"form-control",'placeholder'=>"Subject Code",'autocomplete'=>'off','maxlength'=>'6',]) !!}
             <p class="text-danger">{{ $errors->first('code') }}</p>
             </div>
           </div>   

@@ -46,9 +46,11 @@ class SectionTypeController extends Controller
       
         $this->validate($request,[
             'name' => 'required|max:199|unique:section_types',             
+            'code' => 'required|max:199|unique:section_types',             
             ]);
         $section = new SectionType();
         $section->name = $request->name;        
+        $section->code = $request->code;        
         if ($section->save()) {
             return redirect()->back()->with(['section'=>'success','message'=>'Section created success ...']);
         }
@@ -89,6 +91,7 @@ class SectionTypeController extends Controller
     {
          $rules=[
          'name' => 'required|max:50', 
+         'code' => 'required|max:50', 
             
            
          ];
@@ -104,6 +107,7 @@ class SectionTypeController extends Controller
           else {
               
              $sectionType->name = $request->name; 
+             $sectionType->code = $request->code; 
              $sectionType->save();
               $response=['status'=>1,'msg'=>'Updated Successfully'];
              return response()->json($response); 

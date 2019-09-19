@@ -43,7 +43,7 @@ class FeeAccountController extends Controller
         
             'code' => 'required|max:3|unique:fee_accounts', 
             'name' => 'required|max:30|unique:fee_accounts', 
-            'description' => 'max:100', 
+              
               
         ]);
         if ($validator->fails()) {                    

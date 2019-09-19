@@ -50,6 +50,9 @@ class FeeStructureController extends Controller
         
             'code' => 'required|max:3|unique:fee_structures', 
             'name' => 'required|max:30|unique:fee_structures', 
+            'fee_account_id' => 'required', 
+            'fine_scheme_id' => 'required', 
+            'is_refundable' => 'required', 
              
               
         ]);
@@ -101,8 +104,11 @@ class FeeStructureController extends Controller
     {
         $validator = Validator::make($request->all(), [
         
-            'code' => 'required|max:3', 
-            'name' => 'required|max:30', 
+           'code' => 'required|max:3|unique:fee_structures', 
+            'name' => 'required|max:30|unique:fee_structures', 
+            'fee_account_id' => 'required', 
+            'fine_scheme_id' => 'required', 
+            'is_refundable' => 'required',  
              
              
               

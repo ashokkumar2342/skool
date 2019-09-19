@@ -27,7 +27,7 @@ class AwardController extends Controller
     	  
             'registration_no' => 'required', 
             'award_name' => 'required', 
-            'description' => "required", 
+             
        
     	];
 
@@ -40,15 +40,32 @@ class AwardController extends Controller
     	    return response()->json($response);// response as json
     	}
         else {
-    	$award=new Award();
-    	$award->registration_no=$request->registration_no;
-    	$award->award_name=$request->award_name;
-    	$award->description=$request->description;
-    	 
-    	$award->save();
-    	$response=['status'=>1,'msg'=>'Created Successfully'];
-            return response()->json($response);
-        } 
+              if ($request->hasFile('image')) { 
+                $image=$request->image;
+                $filename='award'.date('d-m-Y').time().'.jpg'; 
+                $image->storeAs('public/student/bookimage/',$filename);
+            	$award=new Award();
+            	$award->registration_no=$request->registration_no;
+            	$award->award_name=$request->award_name;
+            	$award->description=$request->description;
+                $award->image=$filename;
+            	 
+            	$award->save();
+            	$response=['status'=>1,'msg'=>'Created Successfully'];
+                    return response()->json($response);
+                }
+         else { 
+                $award=new Award();
+                $award->registration_no=$request->registration_no;
+                $award->award_name=$request->award_name;
+                $award->description=$request->description;
+                 
+                 
+                $award->save();
+                $response=['status'=>1,'msg'=>'Created Successfully'];
+                    return response()->json($response);
+         }
+       }
     }
     public function tableShow($value='')
     {
@@ -75,7 +92,7 @@ class AwardController extends Controller
     	  
             'registration_no' => 'required', 
             'award_name' => 'required', 
-            'description' => "required", 
+            
        
     	];
 
@@ -87,15 +104,32 @@ class AwardController extends Controller
     	    $response["msg"]=$errors[0];
     	    return response()->json($response);// response as json
     	}
-        else {
-    	$award= Award::find($id);
-    	$award->registration_no=$request->registration_no;
-    	$award->award_name=$request->award_name;
-    	$award->description=$request->description;
-    	 
-    	$award->save();
-    	$response=['status'=>1,'msg'=>'Created Successfully'];
-            return response()->json($response);
-        } 
+    else { 
+        if ($request->hasFile('image')) { 
+                $image=$request->image;
+                $filename='award'.date('d-m-Y').time().'.jpg'; 
+                $image->storeAs('public/student/bookimage/',$filename);
+                $award= Award::find($id);
+                $award->registration_no=$request->registration_no;
+                $award->award_name=$request->award_name;
+                $award->description=$request->description;
+                $award->image=$filename;
+                 
+                $award->save();
+                $response=['status'=>1,'msg'=>'Created Successfully'];
+                    return response()->json($response);
+                }
+         else { 
+                $award= Award::find($id);
+                $award->registration_no=$request->registration_no;
+                $award->award_name=$request->award_name;
+                $award->description=$request->description;
+                 
+                 
+                $award->save();
+                $response=['status'=>1,'msg'=>'Created Successfully'];
+                    return response()->json($response);
+         }
+       }
     }
 }

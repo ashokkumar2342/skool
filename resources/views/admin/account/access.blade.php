@@ -2,18 +2,10 @@
 @section('body')
   <!-- Main content -->
     <section class="content">
-      <div class="row">
-        <div class="col-xs-12">          
-            <!-- /.box-header -->            
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Menu assign</h3>
-               <div class="col-lg-6 pull-right">
-               @includeIf('admin.include.hot_menu', ['menu_type_id' =>1])
-             </div>
-            </div>             
-
-            <!-- /.box-header -->
+      <div class="box-header">
+              <h3 class="box-title">Menu assign</h3>      
+       </div>         
+          <div class="box"> 
             <div class="box-body"> 
                 
                <form action="{{ route('admin.userAccess.add') }}" method="post" class="add_form form-horizontal" accept-charset="utf-8" no-reset="true"> 

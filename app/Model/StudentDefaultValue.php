@@ -9,7 +9,10 @@ class StudentDefaultValue extends Model
     protected $fillable = [
         'id', 'class_id', 'section_id',
     ];
-      public function genders(){
+      public function academicYears(){
+        return $this->hasOne('App\Model\Gender','id','year');
+    }
+    public function genders(){
         return $this->hasOne('App\Model\Gender','id','gender_id');
     }
     public function religions(){

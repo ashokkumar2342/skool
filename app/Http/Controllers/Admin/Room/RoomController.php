@@ -19,6 +19,7 @@ class RoomController extends Controller
     	$rules=[
     	  
             'room_name' => 'required', 
+            'location' => 'required', 
              
        
     	];
@@ -34,6 +35,7 @@ class RoomController extends Controller
         else {
          $roomType=new RoomType();
          $roomType->name=$request->room_name;
+         $roomType->location=$request->location;
          $roomType->save();
          $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
@@ -53,6 +55,7 @@ class RoomController extends Controller
     	$rules=[
     	  
             'room_name' => 'required', 
+            'location' => 'required', 
              
        
     	];
@@ -68,6 +71,7 @@ class RoomController extends Controller
         else {
          $roomType= RoomType::find($id);
          $roomType->name=$request->room_name;
+         $roomType->location=$request->location;
          $roomType->save();
          $response=['status'=>1,'msg'=>'Update Successfully'];
             return response()->json($response);

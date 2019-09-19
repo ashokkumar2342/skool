@@ -53,7 +53,15 @@
                 <div class="box-body">
                   <form action="{{ route('admin.homework.send.homework') }}" method="post" class="add_form">
                     {{ csrf_field() }}
-                    
+                    <div class="row">
+                      <div class="col-lg-3">
+                      <label>Date</label>
+                      <input type="date" name="date" id="search_date" class="form-control">
+                      </div>
+                      <div class="col-lg-3" style="margin-top: 26px">
+                      <button type="button" class="btn btn-success btn-sm" onclick="callAjax(this,'{{ route('admin.homework.search') }}'+'?date='+$('#search_date').val(),'homework_table')">Search Homework</button>
+                      </div> 
+                    </div>
                     
                   <button type="submit" class="btn btn-primary btn-sm" style="margin: 5px;float: right;">Send Homework <i class="fa fa-send"></i></button>
                   <a href="#" title="" onclick="callPopupLevel2(this,'{{ route('admin.medical.template.view',2) }}')" style="float: right; margin-top:10px">Template View</a>

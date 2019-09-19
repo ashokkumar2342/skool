@@ -25,7 +25,7 @@
                                                <select name="academic_year_id" class="form-control">
                                                 <option selected disabled>Select Academic Year</option>
                                                  @foreach ($academicYears as $academicYear)
-                                                   <option value="{{ $academicYear->id }}">{{ $academicYear->name }}</option>
+                                                   <option value="{{ $academicYear->id }}"{{ @$default->year==$academicYear->id? 'selected' : ''  }}>{{ $academicYear->name }}</option>
                                                  @endforeach
                                                </select>
                                             </div>                   
@@ -42,10 +42,10 @@
                                             <div class="col-lg-4">                         
                                               <div class="form-group">
                                                   {{ Form::label('date','Date',['class'=>' control-label ']) }}                         
-                                                  {{ Form::text('date','',['class'=>'form-control datepicker',' required']) }}
+                                                  {{ Form::text('date',date('d-m-Y'),['class'=>'form-control datepicker','id'=>'date','placeholder'=>'Date',' required']) }}
                                                   <p class="text-danger">{{ $errors->first('date') }}</p>
                                               </div>
-                                            </div>
+                                            </div> 
                                             <div class="col-lg-4">                         
                                                 <div class="form-group">
                                                     {{ Form::label('certificate_type','Certificate Type',['class'=>' control-label']) }}
