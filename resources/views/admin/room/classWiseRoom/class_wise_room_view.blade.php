@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-lg-4">
                   <label>Room No</label>
-                  <select name="room_name" class="form-control">
+                  <select name="room_name" class="form-control" id="room_name">
                     <option selected disabled>Select Room Name</option>
                      @foreach ($roomTypes as $roomType)
                       @if (in_array($roomType->id,$classWiseRoomSaveId))
@@ -85,6 +85,9 @@
      $(document).ready(function(){
         $('#class_wise_room_table').DataTable();
     });
+      
+        $('#room_name').reload();
+ 
 
      $('#btn_outhor_table_show').click();
   </script>

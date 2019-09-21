@@ -12,15 +12,21 @@
               <div class="row">
                 <div class="col-lg-4">
                   <label>E-mail</label>
-                  <input type="email" name="email" class="form-control" placeholder="Enter Your E-mail" maxlength="50" required=""> 
+                  <select name="email" class="form-control select2">
+                    <option >Select E-mail</option>
+                    @foreach ($admins as $admin)
+                      <option value="{{ $admin->id }}">{{ $admin->email }}</option> 
+                    @endforeach 
+                  </select>
+                  
                 </div>
                 <div class="col-lg-4">
                   <label>New Password</label>
-                  <input type="text" name="new_pass" class="form-control" placeholder="Enter New Password" maxlength="15" required=""> 
+                  <input type="password" name="new_pass" class="form-control" placeholder="Enter New Password" maxlength="15" required=""> 
                 </div>
                 <div class="col-lg-4">
                   <label>Confrm Password</label>
-                  <input type="text" name="con_pass" class="form-control" placeholder="Enter Confrm Password" maxlength="15" required=""> 
+                  <input type="password" name="con_pass" class="form-control" placeholder="Enter Confrm Password" maxlength="15" required=""> 
                 </div>
                 <div class="col-lg-12 text-center" style="margin-top: 10px">
                   <input type="submit" value="Change Password" class="btn btn-success"> 

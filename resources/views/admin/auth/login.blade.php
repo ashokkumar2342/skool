@@ -137,7 +137,7 @@
                                                     </div>
                                                     <div class="form-group has-feedback">
                                                       <div class="captcha">
-                                                           <span>{!! captcha_img() !!}</span>
+                                                           <span>{!! captcha_img('math') !!}</span>
                                                            <button type="button" class="btn btn-success"><i class="fa fa-refresh" id="refresh"></i></button>
                                                            </div>
                                                         </div>

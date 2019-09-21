@@ -413,7 +413,8 @@ class AccountController extends Controller
  
     public function resetPassWord($value='')
     {
-       return view('admin.account.reset_password');
+       $admins=Admin::orderBy('email','ASC')->get();
+       return view('admin.account.reset_password',compact('admins'));
     }
     public function resetPassWordChange(Request $request)
     {
