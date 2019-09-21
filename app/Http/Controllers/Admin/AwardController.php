@@ -49,6 +49,7 @@ class AwardController extends Controller
             	$award->award_name=$request->award_name;
             	$award->description=$request->description;
                 $award->image=$filename;
+                $award->shown=1;
             	 
             	$award->save();
             	$response=['status'=>1,'msg'=>'Created Successfully'];

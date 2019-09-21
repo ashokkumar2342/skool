@@ -87,7 +87,9 @@
                                     <input type="text" hidden name="section_id[]" value="{{ $homework->section_id }}">
                                     <td>{{ $homework->homework }}</td>
                                     <td>
-                                        <a href="{{ url('storage/homework/'.$homework->homework_doc) }}" target="blank" title=""><button type="button" class="btn_parents_image btn btn-success btn-xs"><i class="fa fa-download"></i> </button></a> 
+                                        <a href="{{ url('storage/homework/'.$homework->homework_doc) }}" target="blank" title="Download" class="btn_parents_image btn btn-success btn-xs {{ $homework->homework_doc==null?'disabled':'' }}">
+                                           <i class="fa fa-download "></i>
+                                        </a> 
 
                                         <a href="#" onclick="callPopupLarge(this,'{{ route('admin.homework.view',$homework->id) }}')" target="blank" title="View" class="btn_parents_image btn btn-info btn-xs" ><i class="fa fa-eye"></i></button></a>
 

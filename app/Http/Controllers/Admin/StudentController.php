@@ -736,9 +736,9 @@ class StudentController extends Controller
     public function birthdayPrint($id){
         $template = BirthdayTemplate::find(1);
         $viewUrl = 'admin.student.birthday.'.$template->name;
-        $student = Student::find($id);  
-        $pdf = PDF::loadView($viewUrl,compact('student'));  
-        return $pdf->download($student->registration_no.'_birthday_card.pdf');
+        $students = Student::find($id);  
+        $pdf = PDF::loadView($viewUrl,compact('students'));  
+        return $pdf->download($students->registration_no.'_birthday_card.pdf');
     }
 
     //birthday print all

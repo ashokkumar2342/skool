@@ -22,10 +22,12 @@ b{
           <a href="{{ route('admin.student.pdf.generate',$student->id) }}" class="btn btn-xs btn-success pull-right" title="Pdf" target="_blank" style="margin:5px">Profile PDF</a>
           
           <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-home"></i> Student Details</a></li>
+              <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-user"></i> Student Details</a></li>
               <li><a data-toggle="tab" href="#sibling"><i class="fa fa-users" id="sibling_info"></i> Siblling info</a></li>
               <li><a data-toggle="tab" data-table="parents_items" href="#parent" id="parent_info"  onclick="callAjax(this,'{{ route('admin.parents.list',$student->id) }}','parent_info_list')"><i class="fa fa-user-circle"></i> Parent Info</a></li>
-              <li><a data-toggle="tab" href="#sibling"><i class="fa fa-users" id="sibling_info"></i> Address</a></li>
+
+              <li><a data-toggle="tab" href="#address" data-table="address_info_table" id="address_info" onclick="callAjax(this,'{{ route('admin.parents.address',$student->id) }}','address_list')"><i class="fa fa-home"></i> Address</a></li>
+
               <li><a data-toggle="tab" data-table="medical_info_table" href="#medical" id="medical_info_tab" onclick="callAjax(this,'{{ route('admin.medical.info.list',$student->id) }}','medical_info_page')"><i class="fa fa-user-md" id="medical_info"></i> Medical info</a></li>
               <li><a data-toggle="tab" href="#subjects"><i class="fa fa-book" id="subject_tab"></i>  Subjects</a></li>
               <li><a data-toggle="tab" href="#sport"><i class="fa fa-life-ring" id="sport_tab"></i> Sport hobby</a></li>
@@ -120,6 +122,15 @@ b{
                    <div class="table-responsive" id="parent_info_list">
                     </div> 
                 </div>
+                <div id="address" class="tab-pane fade">
+                                        
+                      <span ><button type="button" class="add_btn_parets btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.parents.add.address',$student->id) }}')" style="margin: 10px">Add Address</button>
+                         
+                        
+                    
+                   <div class="table-responsive" id="address_list">
+                    </div> 
+                </div>
                  <div id="medical" class="tab-pane fade">
                     <button type="button" class="btn btn-info btn-sm btn_add_medical_info" onclick="callPopupLarge(this,'{{ route('admin.medical.info.add.form',$student->id) }}')" style="margin: 10px">Add Medical info</button>
                      
@@ -134,6 +145,7 @@ b{
                  <table class="table" id="sibling_items">                         
                       <thead>
                           <tr>
+
                               <th><span class="text-nowrap">Sibling Registration No</span></th>
                               <th><span class="text-nowrap">Name</span></th>
                               <th><span class="text-nowrap">Class</span></th>
@@ -142,15 +154,20 @@ b{
                           </tr>
                       </thead>
                       <tbody>
-                         @foreach (App\Model\StudentSiblingInfo::where('student_id',$student->id)->get() as $sibling)
+                        @php
+                        $studentSiblingId=App\Model\StudentSiblingInfo::where('student_id',$student->id)->first();
+                        $studentSiblingIdFind=App\Model\StudentSiblingInfo::where('student_sibling_id',$studentSiblingId->student_sibling_id)->where('student_id','!=',$student->id)->get(); 
+                        @endphp
+                         @foreach($studentSiblingIdFind as $studentSiblingIdFind)   
+                             
                           <tr> 
-                              <td>{{ $sibling->siblings->registration_no or '' }}</td>
-                              <td>{{ $sibling->siblings->name  or ''}}</td>
-                              <td>{{ $sibling->siblings->classes->name  or '' }}</td>
-                              <td>{{ $sibling->siblings->sectionTypes->name or ''  }}</td> 
+                              <td>{{ $studentSiblingIdFind->studentSiblings->registration_no or '' }}</td>
+                              <td>{{ $studentSiblingIdFind->studentSiblings->name  or ''}}</td>
+                              <td>{{ $studentSiblingIdFind->studentSiblings->classes->name  or '' }}</td>
+                              <td>{{ $studentSiblingIdFind->studentSiblings->sectionTypes->name or ''  }}</td> 
                               <td>
-                                 <button class="btn_sibling_edit btn btn-warning btn-xs"  data-id="{{ $sibling->id }}"  ><i class="fa fa-edit"></i></button>  
-                                  <button class="btn_sibling_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $sibling->id }}"  ><i class="fa fa-trash"></i></button>
+                                 <button class="btn_sibling_edit btn btn-warning btn-xs"  data-id="{{ $studentSiblingIdFind->id }}"  ><i class="fa fa-edit"></i></button>  
+                                  <button class="btn_sibling_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $studentSiblingIdFind->id }}"  ><i class="fa fa-trash"></i></button>
                               </td>
 
                                                                
@@ -305,6 +322,7 @@ b{
         $('#medical_items').DataTable();
         $('#parents_items').DataTable();
         $('#sibling_items').DataTable();
+        $('#address_items').DataTable();
 
     });
      var errors = '{{ $errors->first() }}';

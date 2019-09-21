@@ -1,6 +1,11 @@
 @extends('admin.layout.base')
 @section('body')
-  <!-- Main content -->
+   <style>
+     .fa-asterisk {
+    color: red;
+    font-size:10px; 
+}
+   </style>
     <section class="content">
 
       <div class="row">
@@ -23,18 +28,21 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">First Name</label>
+                                  <span class="fa fa-asterisk"></span>
                                   <input Name="first_name" class="form-control"  placeholder="Enter First Name" required="" maxlength="50">
                                 </div>                                
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Last Name</label>
+                                  <span class="fa fa-asterisk"></span>
                                   <input Name="last_name" class="form-control"  placeholder="Enter Last Name" maxlength="50">
                                 </div>                                
                             </div>
                             <div class="col-lg-6">
                                <div class="form-group">
                                  <label>Role</label>
+                                 <span class="fa fa-asterisk"></span>
                                  <select class="form-control" name="role_id">
                                  @foreach($roles as $role)
                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
@@ -48,24 +56,28 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Email Id</label>
+                                  <span class="fa fa-asterisk"></span>
                                   <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Email">
                                 </div>                                
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="Password">Password (Min 6 Max 15 Characters )</label>
+                                  <span class="fa fa-asterisk"></span>
                                   <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                                 </div>                               
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Mobile No.</label>
+                                  <span class="fa fa-asterisk"></span>
                                   <input type="text" Name="mobile" class="form-control" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Enter Mobile Number">
                                 </div>                                
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Date Of Birth</label>
+                                  <span class="fa fa-asterisk"></span>
                                   {{ Form::date('dob','',['class'=>'form-control', 'placeholder'=>'']) }} 
                                 </div>                                
                             </div>

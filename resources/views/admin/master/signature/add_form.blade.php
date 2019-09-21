@@ -46,6 +46,22 @@
                         <label>Stamp</label>
                         <input type="file" name="stamp" class="form-control"> 
                       </div> 
+                     <div class="col-lg-4">
+                        <label>Stamp Type</label>
+                        <select name="stamp_type" class="form-control">
+                          <option selected disabled>Select Option</option> 
+                            <option value="1">Approval</option>
+                            <option value="2">Virify</option> 
+                        </select> 
+                      </div>
+                       <div class="col-lg-4">
+                        <label>From Date</label>
+                        <input type="date" name="from_date" class="form-control"> 
+                      </div> 
+                      <div class="col-lg-4">
+                        <label>To Date</label>
+                        <input type="date" name="to_date" class="form-control"> 
+                      </div> 
                     <div class="col-lg-12 text-center" style="padding-top: 10px">
                       <input type="submit" class="btn btn-success">
                     </div> 

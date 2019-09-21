@@ -1,5 +1,12 @@
 @extends('admin.layout.base')
+@push('links')
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
+    
+@endpush
 @section('body')
+
 <section class="content-header">
     <h1>Fee Account </h1>
      @includeIf('admin.include.hot_menu', ['menu_type_id' => 4])
@@ -24,13 +31,20 @@
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>                     
-	                    <div class="col-lg-6">                         
+	                    <div class="col-lg-2">                         
 	                        <div class="form-group">
-                            <label>Description</label>
-	                          {{ Form::textarea('description','',['class'=>'form-control','id'=>'description','rows'=>1, 'placeholder'=>'Enter Description','maxlength'=>'250']) }}
+                            <label>Sorting Order No </label>
+	                          {{ Form::text('orderby_no','',['class'=>'form-control','id'=>'description','rows'=>1, 'placeholder'=>'Enter Order No','maxlength'=>'20']) }}
 	                          <p class="errorDescription text-center alert alert-danger hidden"></p>
 	                        </div>
 	                    </div>
+                      <div class="col-lg-4">                         
+                          <div class="form-group">
+                            <label>Description</label>
+                            {{ Form::textarea('description','',['class'=>'form-control','id'=>'description','rows'=>1, 'placeholder'=>'Enter Description','maxlength'=>'250']) }}
+                            <p class="errorDescription text-center alert alert-danger hidden"></p>
+                          </div>
+                      </div>
 	                     <div class="col-lg-2"> 
                         </br>                                          
 	                     <button class="btn btn-success" type="button" id="btn_fee_account_create">Create</button> 
@@ -104,6 +118,10 @@
                                      <p class="errorName text-center alert alert-danger hidden"></p>
                                    </div>      
                                     <div class="form-group">
+                                      {{ Form::textarea('orderby_no','',['class'=>'form-control','id'=>'edit_orderby_no','rows'=>1, 'placeholder'=>'Enter Orderby No','maxlength'=>'250']) }}
+                                      <p class="errorDescription text-center alert alert-danger hidden"></p> 
+                                </div>
+                                <div class="form-group">
                                       {{ Form::textarea('description','',['class'=>'form-control','id'=>'edit_description','rows'=>1, 'placeholder'=>'Enter Description','maxlength'=>'250']) }}
                                       <p class="errorDescription text-center alert alert-danger hidden"></p> 
                                 </div>
@@ -233,4 +251,27 @@
  	});
      
   </script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+ <script type="text/javascript">
+     $(document).ready(function() {
+    $('#fee_account_table').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+     @if(@$sectionType || $errors->first())
+     $('#add_section').modal('show'); 
+     @endif
+ </script>
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+ <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+ <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+ <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+ <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+ <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+ <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
 @endpush

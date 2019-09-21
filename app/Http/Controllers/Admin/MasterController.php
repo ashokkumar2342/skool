@@ -114,7 +114,9 @@ class MasterController extends Controller
                  
             ]);
             if ($validator->fails()) {                    
-                 return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
+                $response['status'] = 0; 
+            $response['msg'] = 'Already Create'; 
+            return $response; 
 
             }
            $profession = new Profession();

@@ -64,7 +64,7 @@ class ParentRegistrationController extends Controller
     public function resitrationForm($id=null)
     {
        $pr = ParentRegistration::find(Crypt::decrypt($id));
-        $classes = MyFuncs::getClasses();    
+        $classes = MyFuncs::getAllClasses();    
         $incomeRanges = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
         $documentTypes = array_pluck(DocumentType::get(['id','name'])->toArray(),'name', 'id');    
         $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id');    

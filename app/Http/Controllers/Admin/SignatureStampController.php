@@ -30,6 +30,9 @@ class SignatureStampController extends Controller
           
             'certificate_type_id' => 'required', 
             'user_id' => 'required', 
+            'stamp_type' => 'required', 
+            'from_date' => 'required', 
+            'to_date' => 'required', 
             
             
             
@@ -58,6 +61,10 @@ class SignatureStampController extends Controller
                 $signatureStamp->user_id=$request->user_id; 
                 $signatureStamp->signature=$signaturename;
                 $signatureStamp->stamp=$stampname;
+                $signatureStamp->from_date=$request->from_date;
+                $signatureStamp->to_date=$request->to_date;
+                $signatureStamp->stamp_type=$request->stamp_type;
+                $signatureStamp->status=1;
                 $signatureStamp->save();
                $response=['status'=>1,'msg'=>'Created Successfully'];
                 return response()->json($response);
@@ -67,7 +74,11 @@ class SignatureStampController extends Controller
             else{
                $signatureStamp= new SignatureStamp(); 
                $signatureStamp->certificate_type_id=$request->certificate_type_id;
-               $signatureStamp->user_id=$request->user_id; 
+                $signatureStamp->user_id=$request->user_id; 
+                $signatureStamp->from_date=$request->from_date;
+                $signatureStamp->to_date=$request->to_date;
+                $signatureStamp->stamp_type=$request->stamp_type;
+                $signatureStamp->status=1;
                $signatureStamp->save();
                $response=['status'=>1,'msg'=>'Created Successfully'];
                return response()->json($response);  

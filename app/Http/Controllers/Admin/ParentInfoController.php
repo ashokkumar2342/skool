@@ -7,6 +7,10 @@ use App\Model\GuardianRelationType;
 use App\Model\IncomeRange;
 use App\Model\ParentsInfo;
 use App\Model\Profession;
+use App\Model\Category;
+use App\Model\Religion;
+use App\Model\Address;
+use App\Model\StudentPerentDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -25,7 +29,7 @@ class ParentInfoController extends Controller
     public function perentTable(Request $request)
     {
         $student=$request->id;
-          return view('admin.student.studentdetails.include.parents_info_list',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions'));
+          return view('admin.student.studentdetails.include.parents_info_list',compact('student'));
     }
     public function perentInfoAddForm(Request $request)
     {
@@ -82,7 +86,7 @@ class ParentInfoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  
+    {   
         $rules=[
         'name' => 'required',               
         'mobile' => 'required|digits:10',              
@@ -208,6 +212,51 @@ class ParentInfoController extends Controller
         $response=['status'=>1,'msg'=>'Delete Successfully'];
         return response()->json($response);
     }
+
+    public function address(Request $request)
+    {  
+       $address=Address::all(); 
+      return view('admin.student.studentdetails.parent.address_list',compact('student_id','address'));   
+    }
+    public function addAddress(Request $request,$student_id)
+    {
+
+        $cotegorys=Category::orderBy('id','ASC')->get();
+        $religions=Religion::orderBy('id','ASC')->get(); 
+        return view('admin.student.studentdetails.parent.add_address',compact('cotegorys','religions','student_id'));   
+    }
+    public function addressStore(Request $request)
+    { 
+        $rules=[
+        
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();                       
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        } 
+        
+        $address = Address::firstOrNew(['student_id' => $request->student_id]);
+        $address->student_id=$request->student_id;
+        $address->primary_mobile=$request->primary_mobile;
+        $address->primary_email=$request->primary_email;
+        $address->cotegory_id=$request->cotegory_id;
+        $address->religion=$request->religion_id;
+        $address->state=$request->state;
+        $address->city=$request->city;
+        $address->p_address=$request->p_address;
+        $address->c_address=$request->c_address;
+        $address->p_pincode=$request->p_pincode;
+        $address->c_pincode=$request->c_pincode;
+        $address->nationality=$request->nationality; 
+        $address->save();
+         $response=['status'=>1,'msg'=>'Address Save Successfully'];
+        return response()->json($response);
+    }
     public function parentAddNew(Request $request)
     {
          $parentsType= array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name', 'id'); 
@@ -218,18 +267,45 @@ class ParentInfoController extends Controller
         
     }
     public function parentSearch(Request $request)
-    {
-          
-          return view('admin.student.studentdetails.parent.search',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions'));
+    {  
+          $relation_type_id=$request->relation_type_id;
+          return view('admin.student.studentdetails.parent.search',compact('relation_type_id'));
         
     }
     public function parentSearchPost(Request $request)
-    {
+    {    $relation_type_id= $request->relation_type_id;
             $parentInfos = ParentsInfo::where('mobile', 'like', '%' . $request->mobile_no . '%')->get(); 
             $response=array();                       
             $response["status"]=1;
-            $response["data"]=view('admin.student.studentdetails.parent.existing',compact('parentInfos'))->render();
+            $response["data"]=view('admin.student.studentdetails.parent.existing',compact('parentInfos','relation_type_id'))->render();
             return $response;
+        
+    }
+    public function parentExistingStore(Request $request)
+    { 
+        $rules=[
+          
+             
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+         $studentParentDetails=StudentPerentDetail::firstOrNew(['relation_type_id' => $request->relation_type_id, 'student_id' => $request->student_id]);
+        $studentParentDetails->student_id=$request->student_id;
+        $studentParentDetails->perent_info_id=$request->perent_info_id;
+        $studentParentDetails->relation_id=$request->relation_type_id;
+        $studentParentDetails->save();
+        $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
+        } 
+        
         
     }
 }

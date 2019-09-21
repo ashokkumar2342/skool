@@ -3,6 +3,12 @@
    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 @endpush
 @section('body')
+<style>
+     .fa-asterisk {
+    color: red;
+    font-size:10px; 
+}
+   </style>
 <section class="content-header">
     <h1> Student Add <small>Details</small> </h1>
        @includeIf('admin.include.hot_menu', ['menu_type_id' => 3]) 
@@ -23,6 +29,8 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('class','Class',['class'=>' control-label']) }}
+                                                    <span class="fa fa-asterisk"></span>
+                                                    
                                                     {!! Form::select('class',$classes, @$default->class_id, ['class'=>'form-control','placeholder'=>'Select Class','required']) !!}
                                                     <p class="text-danger">{{ $errors->first('session') }}</p>
                                                 </div>
@@ -30,13 +38,15 @@
                                             <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('section','Section',['class'=>' control-label']) }}
+                                                    <span class="fa fa-asterisk"></span>
                                                     {!! Form::select('section',[], null, ['class'=>'form-control','placeholder'=>'Select Section','required']) !!}
                                                     <p class="text-danger">{{ $errors->first('session') }}</p>
                                                 </div>
                                             </div>
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('registration_no','Registration no',['class'=>' control-label ']) }}                         
+                                                    {{ Form::label('registration_no','Registration no',['class'=>' control-label ']) }}
+                                                    <span class="fa fa-asterisk"></span>                         
                                                     {{ Form::text('registration_no','',['class'=>'form-control',' required','maxlength'=>'20']) }}
                                                     <p class="text-danger">{{ $errors->first('registration_no') }}</p>
                                                 </div>
@@ -44,6 +54,7 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('admission_no','Admission No',['class'=>' control-label']) }}
+                                                    <span class="fa fa-asterisk"></span>
                                                     {{ Form::text('admission_no','',['class'=>'form-control',' required','maxlength'=>'20']) }}
                                                     <p class="text-danger">{{ $errors->first('admission_no') }}</p>
                                                 </div>
@@ -51,13 +62,15 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('roll_no','Roll No',['class'=>' control-label']) }}
+                                                    <span class="fa fa-asterisk"></span>
                                                     {{ Form::text('roll_no','',['class'=>'form-control',' required','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'4']) }}
                                                     <p class="text-danger">{{ $errors->first('roll_no') }}</p>
                                                 </div>
                                             </div> 
                                             <div class="col-lg-3">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('date_of_admission','Date of Admission',['class'=>' control-label']) }}   
+                                                    {{ Form::label('date_of_admission','Date of Admission',['class'=>' control-label']) }}
+                                                    <span class="fa fa-asterisk"></span>   
                                                     <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
@@ -70,7 +83,8 @@
                                              
                                             <div class="col-lg-6">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('date_of_activation','Date of Activation',['class'=>' control-label']) }}   
+                                                    {{ Form::label('date_of_activation','Date of Activation',['class'=>' control-label']) }}
+                                                    <span class="fa fa-asterisk"></span>   
                                                     <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
@@ -91,21 +105,24 @@
                                         <div class="col-md-12">
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('student_name','Student Name',['class'=>' control-label']) }}                         
+                                                    {{ Form::label('student_name','Student Name',['class'=>' control-label']) }}
+                                                    <span class="fa fa-asterisk"></span>                         
                                                     {{ Form::text('student_name','',['class'=>'form-control',' required','maxlength'=>'50']) }}
                                                     <p class="text-danger">{{ $errors->first('student_name') }}</p>
                                                 </div>
                                             </div>  
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('nick_name','Nick Name',['class'=>' control-label']) }}                         
+                                                    {{ Form::label('nick_name','Nick Name',['class'=>' control-label']) }}
+                                                    <span class="fa fa-asterisk"></span>                         
                                                     {{ Form::text('nick_name','',['class'=>'form-control','maxlength'=>'50']) }}
                                                     <p class="text-danger">{{ $errors->first('nick_name') }}</p>
                                                 </div>
                                             </div> 
                                             <div class="col-lg-6">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('date_of_birth','Date of Birth',['class'=>' control-label']) }}   
+                                                    {{ Form::label('date_of_birth','Date of Birth',['class'=>' control-label']) }}
+                                                    <span class="fa fa-asterisk"></span>   
                                                     <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
@@ -118,6 +135,7 @@
                                               <div class="col-lg-4">                         
                                                 <div class="form-group">
                                                     {{ Form::label('gender','Gender',['class'=>' control-label']) }}
+                                                    <span class="fa fa-asterisk"></span>
                                                     {!! Form::select('gender',$genders, @$default->genders->id, ['class'=>'form-control','placeholder'=>'Select Gender','required']) !!}
                                                     <p class="text-danger">{{ $errors->first('gender') }}</p>
                                                 </div>
@@ -125,12 +143,14 @@
                                             <div class="col-lg-4">                         
                                                 <div class="form-group">
                                                     <label>Aadhaar No</label>
+                                                    <span class="fa fa-asterisk"></span>
                                                     <input type="text" name="aadhaar_no" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">                         
                                                 <div class="form-group">
                                                     <label>House Name</label>
+                                                    <span class="fa fa-asterisk"></span>
                                                     <select name="house_name" class="form-control">
                                                         <option selected disabled>Select House</option>
                                                         @foreach ($houses as $house)

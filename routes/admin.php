@@ -11,7 +11,7 @@ Route::post('login', 'Auth\LoginController@login');
 Route::get('forget-password', 'Auth\LoginController@forgetPassword')->name('admin.forget.password');
 Route::post('forget-password-send-link', 'Auth\LoginController@forgetPasswordSendLink')->name('admin.forget.password.send.link');
 Route::post('reset-password', 'Auth\LoginController@resetPassword')->name('admin.reset.password');
- 
+Route::get('refreshcaptcha', 'Auth\LoginController@refreshCaptcha')->name('admin.refresh.captcha');
 Route::group(['middleware' => 'admin'], function() {
 	Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard'); 
 	Route::get('show-details', 'DashboardController@showStudentDetails')->name('admin.student.show.details');
@@ -205,9 +205,13 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('image/{image}', 'ParentInfoController@imageShow')->name('admin.parents.image.show');
 	    Route::post('update/{id}', 'ParentInfoController@update')->name('admin.parents.update');
 	    Route::get('parent-add-new', 'ParentInfoController@parentAddNew')->name('admin.parents.add.new');
+	    Route::get('address', 'ParentInfoController@address')->name('admin.parents.address');
+	    Route::get('add-address/{student_id}', 'ParentInfoController@addAddress')->name('admin.parents.add.address');
+	    Route::post('address-store', 'ParentInfoController@addressStore')->name('admin.parents.address.store');
 	    Route::get('parent-search', 'ParentInfoController@parentSearch')->name('admin.parents.search');
 	    Route::post('parent-search-post', 'ParentInfoController@parentSearchPost')->name('admin.parents.search.post');
 	    Route::get('parent-add-existing', 'ParentInfoController@parentExisting')->name('admin.parents.existing');
+	    Route::post('parent-add-existing-store', 'ParentInfoController@parentExistingStore')->name('admin.parents.existing.store');
 	 });
 	  	// ---------------Medical Info----------------------------------------
 	 Route::group(['prefix' => 'medical-info'], function() {
