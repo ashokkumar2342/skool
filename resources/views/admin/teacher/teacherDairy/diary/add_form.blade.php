@@ -25,13 +25,15 @@
         <div class="col-lg-12 text-center" style="margin-top: 20px"> 
           <input type="submit" value="Show" class="btn btn-success"> 
         </div>
-        <div id="diary_details">
+       
+      
+     </form>
+     <form action="{{ route('admin.teacher.diary.details.store') }}" method="post" class="add_form">
+      {{ csrf_field() }}
+         <div id="diary_details">
            
-         </div> 
-      </div>
-       
-       
-     </form>    
+         </div>   
+    </form>    
     </div>
   </div>  
 

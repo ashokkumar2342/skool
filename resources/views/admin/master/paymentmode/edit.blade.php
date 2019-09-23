@@ -16,8 +16,15 @@
               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
             </div>    
        </div>
+       <div class="col-lg-12">                           
+       <div class="form-group">
+        {{ Form::label('sorting_order_id','Sorting Order No',['class'=>' control-label']) }}
+         {{ Form::text('sorting_order_id',$paymentMode->sorting_order_id,['class'=>'form-control','placeholder'=>'Enter Sorting Order No','maxlength'=>'5']) }}
+         <p class="errorAmount1 text-center alert alert-danger hidden"></p>
+       </div>    
+  </div>
        <div class="col-lg-12">
-         <div class="text-right"><br>
+         <div class="text-center"><br>
              <input type="submit" class="btn btn-success btn-sm" name="submit" id="btn-update" value="Update" {{-- onclick="submit_jq();" --}} />
               
            </div>

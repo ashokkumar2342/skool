@@ -21,7 +21,7 @@
 				<td>{{ $parentInfo->mobile }}</td>
 				<td>{{ $parentInfo->email }}</td>
 				<td>{{ $parentInfo->office_address }}</td>
-				<td><input type="radio" name="perent_info_id" value="{{ $parentInfo->id }}" id="perent_idcard" value="{{ $parentInfo->p }}"></td>
+				<td><input type="radio" name="perent_detail" value="{{ $parentInfo->id }}" id="perent_idcard" value="{{ $parentInfo->p }}"></td>
 
 			</tr> 
 		@endforeach

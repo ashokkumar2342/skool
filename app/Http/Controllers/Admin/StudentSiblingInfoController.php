@@ -44,40 +44,30 @@ class StudentSiblingInfoController extends Controller
             $arrayStudentIdSiblingIds=[$request->student_id,$sibling_student->id]; 
             $studentSiblingInfo=StudentSiblingInfo::where('student_id',$request->student_id)->first();
             $studentSiblingGropId=StudentSiblingInfo::orderBy('student_sibling_id','DESC')->first();
-             foreach ($arrayStudentIdSiblingIds as  $key => $arrayStudentIdSiblingId) {
-             $sibling =StudentSiblingInfo::firstOrNew(['student_id' =>  $arrayStudentIdSiblingId]);
-                        $sibling->student_id = $arrayStudentIdSiblingId;
-                        if (!empty($studentSiblingInfo->student_id)) {
-                          $sibling->student_sibling_id =$studentSiblingInfo->student_sibling_id;
-                         } 
-                         if (empty($studentSiblingInfo->student_id)) {
-                          $sibling->student_sibling_id =$studentSiblingGropId->student_sibling_id+1;
-                         }   
-                        $sibling->save(); 
-                 
-                  }
-            // $self = StudentSiblingInfo::firstOrNew(['student_sibling_id' => $request->student_id, 'student_id' => $sibling_student->id]);
-            // $self->student_sibling_id = $request->student_id; 
-            // $self->student_id = $sibling_student->id;
-            // $self->save();
-
-
-            // foreach ($siblings as $key => $sibling) {
-            //     if ($key == 0) {
-            //         $pre_sibling = new StudentSiblingInfo();
-            //          $pre_sibling->student_sibling_id = $sibling->student_sibling_id; 
-            //         $pre_sibling->student_id = $sibling_student->id; 
-            //         $pre_sibling->save();                  
-            //     }
-            //     else {
-            //         $pre_sibling = new StudentSiblingInfo();
-            //         $pre_sibling->student_sibling_id = $sibling_student->id; 
-            //         $pre_sibling->student_id = $sibling->student_id; 
-            //         $pre_sibling->save();
-
-            //     }
-                
-            // } 
+            if ($studentSiblingGropId==null) {
+               foreach ($arrayStudentIdSiblingIds as  $key => $arrayStudentIdSiblingId) {
+                $sibling =StudentSiblingInfo::firstOrNew(['student_id' =>  $arrayStudentIdSiblingId]);
+                           $sibling->student_id = $arrayStudentIdSiblingId; 
+                           $sibling->student_sibling_id =1; 
+                           $sibling->save(); 
+                    
+                     }
+            }else{
+                foreach ($arrayStudentIdSiblingIds as  $key => $arrayStudentIdSiblingId) {
+                $sibling =StudentSiblingInfo::firstOrNew(['student_id' =>  $arrayStudentIdSiblingId]);
+                           $sibling->student_id = $arrayStudentIdSiblingId;
+                           if (!empty($studentSiblingInfo->student_id)) {
+                             $sibling->student_sibling_id =$studentSiblingInfo->student_sibling_id;
+                            } 
+                            if (empty($studentSiblingInfo->student_id)) {
+                             $sibling->student_sibling_id =$studentSiblingGropId->student_sibling_id+1;
+                            }   
+                           $sibling->save(); 
+                    
+                     }
+            }
+             
+             
 
         return response()->json(['message'=>'add success']);
 
@@ -117,6 +107,20 @@ class StudentSiblingInfoController extends Controller
         
         $data2 = Student::find($student->id)->siblings;
          return $data2;
+    }
+    public function tableShow($student_id)
+    { 
+         $studentSibling=StudentSiblingInfo::where('student_id',$student_id)->count();
+         if ($studentSibling!=0) {
+           $studentSiblingId=StudentSiblingInfo::where('student_id',$student_id)->first();
+         $studentSiblingIdFind=StudentSiblingInfo::
+                                                   where('student_sibling_id',$studentSiblingId->student_sibling_id)
+                                                 ->where('student_id','!=',$student_id)->get();
+         }else{
+            $studentSiblingIdFind=array();
+         } 
+        
+        return view('admin.student.studentdetails.include.sibling_info_list',compact('studentSiblingIdFind'));                
     }
 
     /**

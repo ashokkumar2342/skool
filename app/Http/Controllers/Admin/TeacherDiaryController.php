@@ -39,4 +39,9 @@ class TeacherDiaryController extends Controller
       $response['data'] =view('admin.teacher.teacherDairy.diary.diary' ,compact('lessonPlanFollows','lessonPlanFollows','classTypes','subjectTypes','lessonPlans'))->render(); 
       return response()->json($response); 
    }
+   public function diaryDetailsStore(Request $request)
+   {
+      return $request;
+       
+   }
 }

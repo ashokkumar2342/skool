@@ -282,10 +282,12 @@ class ParentInfoController extends Controller
         
     }
     public function parentExistingStore(Request $request)
-    { 
+    {  
         $rules=[
           
-             
+              'relation_type_id' => 'required', 
+              'perent_detail' => 'required', 
+               
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -297,9 +299,9 @@ class ParentInfoController extends Controller
             return response()->json($response);// response as json
         }
         else {
-         $studentParentDetails=StudentPerentDetail::firstOrNew(['relation_type_id' => $request->relation_type_id, 'student_id' => $request->student_id]);
+         $studentParentDetails=StudentPerentDetail::firstOrNew(['relation_id' => $request->relation_type_id, 'student_id' => $request->student_id]);
         $studentParentDetails->student_id=$request->student_id;
-        $studentParentDetails->perent_info_id=$request->perent_info_id;
+        $studentParentDetails->perent_info_id=$request->perent_detail;
         $studentParentDetails->relation_id=$request->relation_type_id;
         $studentParentDetails->save();
         $response=['status'=>1,'msg'=>'Created Successfully'];

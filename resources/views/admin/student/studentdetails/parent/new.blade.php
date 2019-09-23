@@ -66,7 +66,7 @@
       ], null, ['class'=>'form-control']) !!}
       <p class="text-danger">{{ $errors->first('islive') }}</p>
   </div>
-<div class="form-group col-md-8">
+<div class="form-group col-md-12">
     {{ Form::label('office_address','Office Address',['class'=>' control-label']) }}
     <span class="fa fa-asterisk"></span>                         
     {{ Form::textarea('office_address','',['class'=>'form-control','rows'=>2 ]) }}

@@ -21,7 +21,7 @@
             @endforeach
           </select> 
         </div> 
-        <div class="col-lg-6">
+        <div class="col-lg-5">
           <label>Topic To Be Covered</label>
           <select name="lesson_plan_id" class="form-control" disabled="" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
             <option selected disabled>Select Lesson Plan</option>
@@ -30,8 +30,15 @@
             @endforeach
           </select> 
         </div> 
-        <div class="col-lg-6">
-          <label>Topic Covered</label>
+        <div class="col-lg-2" style="margin-top: 60px">
+          <label>Yes</label>
+          <input type="checkbox" name="yes" value="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <label>No</label>
+           <input type="checkbox" name="no" value="0">
+          
+        </div>
+        <div class="col-lg-5">
+          <label>Remark</label>
           <textarea class="form-control" name="topic_covered" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
         </div> 
         

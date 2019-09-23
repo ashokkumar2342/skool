@@ -24,14 +24,14 @@
               <div class="row">
                 <div class="col-lg-4">
                   <label>Class</label>
-                  <select name="class_id" class="form-control" onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section.addForm') }}','section_id_div')">
+                  <select name="class_id" class="form-control" onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section.addForm') }}','section_dddid_div')">
                     <option selected disabled>Select Class</option>
                      @foreach ($classTypes as $classType)
-                     <option value="{{ $classType->id }}"{{ $classWiseRooms->class_id==$classType->id? 'selected' : '' }}>{{ $classType->name }}</option> 
+                     <option value="{{ $classType->id }}">{{ $classType->name }}</option> 
                      @endforeach
                   </select>
                 </div>
-                <div class="col-lg-4" id="section_id_div">
+                <div class="col-lg-4" id="section_dddid_div">
                   <label>Section</label>
                   <select  class="form-control">
                     <option selected disabled>Select Section</option> 

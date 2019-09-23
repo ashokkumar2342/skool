@@ -17,7 +17,7 @@
             <!-- /.box-header -->
             <div class="box-body">
               
-
+               <a href="{{ route('admin.class.pdf.generate') }}" class="btn btn-default btn-sm" title="Download PDF" target="blank">PDF</a>
               </body>
               </html>
               <table id="dataTable" class="table table-bordered table-striped table-hover">
@@ -126,7 +126,7 @@
     $('#dataTable').DataTable( {
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'copy', 'csv', 'excel'
         ]
     } );
 } );

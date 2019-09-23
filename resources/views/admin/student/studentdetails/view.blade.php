@@ -23,8 +23,8 @@ b{
           
           <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-user"></i> Student Details</a></li>
-              <li><a data-toggle="tab" href="#sibling"><i class="fa fa-users" id="sibling_info"></i> Siblling info</a></li>
-              <li><a data-toggle="tab" data-table="parents_items" href="#parent" id="parent_info"  onclick="callAjax(this,'{{ route('admin.parents.list',$student->id) }}','parent_info_list')"><i class="fa fa-user-circle"></i> Parent Info</a></li>
+              <li><a data-toggle="tab" href="#sibling" id="sibling_info_tab"  onclick="callAjax(this,'{{ route('admin.sibling.table.show',$student->id) }}','sibling_info_list')"><i class="fa fa-users" id="sibling_info"></i> Siblling info</a></li>
+              <li><a data-toggle="tab" data-table="parents_items" href="#parent" id="parent_info_tab"  onclick="callAjax(this,'{{ route('admin.parents.list',$student->id) }}','parent_info_list')"><i class="fa fa-user-circle"></i> Parent Info</a></li>
 
               <li><a data-toggle="tab" href="#address" data-table="address_info_table" id="address_info" onclick="callAjax(this,'{{ route('admin.parents.address',$student->id) }}','address_list')"><i class="fa fa-home"></i> Address</a></li>
 
@@ -52,7 +52,7 @@ b{
                                       <li class="list-group-item">Date Of Addmission :-<span class="fs"><input type="text" maxlength="50" value="{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}" name="date_of_admission"> </span></li>
                                      
                                       <li class="list-group-item">Date Of Birth :-<span class="fs"><input type="text" maxlength="10" value="{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}" name="date_of_birth"> </span></li>
-                                      <li class="list-group-item">Aadhaar No :-<span class="fs"><input type="text" maxlength="10" value="{{ $student->adhar_no}}" name="date_of_birth"> </span></li>
+                                      <li class="list-group-item">Aadhaar No :-<span class="fs"><input type="text" maxlength="12" value="{{ $student->adhar_no}}" name="aadhaar_no"> </span></li>
                                      
                                        
                                       
@@ -70,7 +70,7 @@ b{
                                       <li class="list-group-item">Addmission No :-<span class="fs"><input type="text" disabled="" value="{{ $student->admission_no }}" > </span></li>
                                        <li class="list-group-item">Date of Activation :-<span class="fs"><input type="text" maxlength="50" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation"> </span></li> 
                                         <li class="list-group-item">Gender :-<span class="fs"><input type="text" value="{{ $student->genders->genders or ''}}" disabled=""> </span></li>
-                                        <li class="list-group-item">House No :-<span class="fs"><input type="text" value="{{ $student->houses->name or ''}}" disabled=""> </span></li> 
+                                        <li class="list-group-item">House No :-<span class="fs"><input type="text" value="{{ $student->houses->name or ''}}" disabled="" name="house"> </span></li> 
                                     </ul>
                                     
                                 </div> 
@@ -141,58 +141,9 @@ b{
                  </div>   
                 <div id="sibling" class="tab-pane fade">
                  <button type="button" class="btn btn-info btn-sm btn_add_sibling_info" data-toggle="modal" data-target="#add_sibling" style="margin: 10px">Add Sibling info</button>
-                 <div class="col-lg-12 table-responsive">
-                 <table class="table" id="sibling_items">                         
-                      <thead>
-                          <tr>
-
-                              <th><span class="text-nowrap">Sibling Registration No</span></th>
-                              <th><span class="text-nowrap">Name</span></th>
-                              <th><span class="text-nowrap">Class</span></th>
-                              <th><span class="text-nowrap">Section</span></th>
-                              <th><span class="text-nowrap">Action</span></th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                        @php
-                        $studentSiblingId=App\Model\StudentSiblingInfo::where('student_id',$student->id)->first();
-                        $studentSiblingIdFind=App\Model\StudentSiblingInfo::where('student_sibling_id',$studentSiblingId->student_sibling_id)->where('student_id','!=',$student->id)->get(); 
-                        @endphp
-                         @foreach($studentSiblingIdFind as $studentSiblingIdFind)   
-                             
-                          <tr> 
-                              <td>{{ $studentSiblingIdFind->studentSiblings->registration_no or '' }}</td>
-                              <td>{{ $studentSiblingIdFind->studentSiblings->name  or ''}}</td>
-                              <td>{{ $studentSiblingIdFind->studentSiblings->classes->name  or '' }}</td>
-                              <td>{{ $studentSiblingIdFind->studentSiblings->sectionTypes->name or ''  }}</td> 
-                              <td>
-                                 <button class="btn_sibling_edit btn btn-warning btn-xs"  data-id="{{ $studentSiblingIdFind->id }}"  ><i class="fa fa-edit"></i></button>  
-                                  <button class="btn_sibling_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $studentSiblingIdFind->id }}"  ><i class="fa fa-trash"></i></button>
-                              </td>
-
-                                                               
-                          </tr>
-                          @endforeach
-                        {{--    @foreach (App\Student::find($student->id)->siblings as $sibling)
-                          <tr> 
-                              <td>{{ $sibling->registration_no  }}</td>
-                              <td>{{ $sibling->name  or ''}}</td>
-                              <td>{{ $sibling->classes->name  or '' }}</td>
-                              <td>{{ $sibling->sectionTypes->name or ''  }}</td> 
-                              <td>
-                                 <button class="btn_sibling_edit btn btn-warning btn-xs"  data-id="{{ $sibling->id }}"  ><i class="fa fa-edit"></i></button>  
-                                  <button class="btn_sibling_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $sibling->id }}"  ><i class="fa fa-trash"></i></button>
-                              </td>
-
-                                                               
-                          </tr>
-                          @endforeach --}}
-                      </tbody>
-                  </table>
-                </div>
-                  <div class="text-center">
-                     <button type="button" onclick="$('#subject_tab').click()" class="btn btn-success btn-sm">Next</button> 
-                  </div>
+                 
+                 <div class="table-responsive" id="sibling_info_list">
+                    </div> 
                 </div>
 
                 <div id="subjects" class="tab-pane fade">

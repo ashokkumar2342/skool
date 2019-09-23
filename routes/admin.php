@@ -50,6 +50,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('class-all', 'AccountController@classAllSelect')->name('admin.account.classAllSelect'); 
 		Route::get('reset-password', 'AccountController@resetPassWord')->name('admin.account.reset.password'); 
 		Route::post('reset-password-change', 'AccountController@resetPassWordChange')->name('admin.account.reset.password.change'); 
+		Route::get('menu-ordering', 'AccountController@menuOrdering')->name('admin.account.menu.ordering'); 
 		
 						
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 
@@ -60,6 +61,8 @@ Route::group(['middleware' => 'admin'], function() {
 		    Route::get('list', 'AcademicYearController@index')->name('admin.academicYear.list');
 		    Route::post('store', 'AcademicYearController@store')->name('admin.academicYear.store');
 		    Route::get('edit/{id}', 'AcademicYearController@edit')->name('admin.academicYear.edit');
+		    Route::get('default-value/{id}', 'AcademicYearController@defaultValue')->name('admin.academicYear.default.value');
+		    Route::get('pdf-generate', 'AcademicYearController@pdfGenerate')->name('admin.academicYear.pdf.generate');
 		    Route::post('update/{id}', 'AcademicYearController@update')->name('admin.academicYear.update');
 		    Route::get('delete/{id}', 'AcademicYearController@destroy')->name('admin.academicYear.delete');
 		    Route::get('document-type', 'DocumentTypeController@index')->name('admin.document.type');
@@ -98,6 +101,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('{classType}/edit', 'ClassTypeController@edit')->name('admin.class.edit');
 	    Route::post('{classType}/update', 'ClassTypeController@update')->name('admin.class.update');
 	    Route::get('{classType}/delete', 'ClassTypeController@destroy')->name('admin.class.delete');
+	    Route::get('pdf-generate', 'ClassTypeController@pdfGenerate')->name('admin.class.pdf.generate');
 	});
 		//---------------Section Type create----------------------------------------
 	Route::group(['prefix' => 'section'], function() {
@@ -108,6 +112,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('{sectionType}/edit', 'SectionTypeController@edit')->name('admin.section.edit');
 	    Route::post('{sectionType}/update', 'SectionTypeController@update')->name('admin.section.update');
 	    Route::get('{sectionType}/delete', 'SectionTypeController@destroy')->name('admin.section.delete');
+	    Route::get('pdf-generate', 'SectionTypeController@pdfGenerate')->name('admin.section.pdf.generate');
 
 	});
 	// ---------------Section with class----------------------------------------
@@ -231,6 +236,7 @@ Route::group(['middleware' => 'admin'], function() {
 	   	// ---------------Sibling Info----------------------------------------
 	 Route::group(['prefix' => 'sibling-info'], function() {
 	    Route::get('show/{student}', 'StudentSiblingInfoController@show')->name('admin.sibling.show');
+	    Route::get('table-show/{student_id}', 'StudentSiblingInfoController@tableShow')->name('admin.sibling.table.show');
 	    Route::post('add/{student}', 'StudentSiblingInfoController@store')->name('admin.sibling.add');
 	    Route::delete('delete', 'StudentSiblingInfoController@destroy')->name('admin.sibling.delete');
 	    Route::get('edit', 'StudentSiblingInfoController@edit')->name('admin.sibling.edit');
@@ -267,6 +273,7 @@ Route::group(['middleware' => 'admin'], function() {
 	 	   Route::get('{subjectType}/edit', 'SubjectTypeController@edit')->name('admin.subjectType.edit');
 	 	   Route::post('{subjectType}/update', 'SubjectTypeController@update')->name('admin.subjectType.update');
 	 	   Route::delete('{subjectType}/delete', 'SubjectTypeController@destroy')->name('admin.subjectType.delete');
+	 	   Route::get('pdf-generate', 'SubjectTypeController@pdfGenerate')->name('admin.subjectType.pdf.generate');
 	         
 	 	}); 
   
@@ -278,6 +285,7 @@ Route::group(['middleware' => 'admin'], function() {
 	 	    Route::get('{manageSubjectEdit}/edit', 'SubjectController@edit')->name('admin.manageSubject.edit');
 	 	    Route::post('{manageSubject}/update', 'SubjectController@update')->name('admin.manageSubject.update');
 	 	    Route::get('{manageSubject}/delete', 'SubjectController@destroy')->name('admin.manageSubject.delete');        
+	 	    Route::get('class-subject-pdf', 'SubjectController@classSubjectPDF')->name('admin.manageSubject.pdf.generate');        
 	 	});
 	 // ---------------Signature-stamp---------------------------------------
 	 Route::group(['prefix' => 'Signature-stamp'], function() {
@@ -734,6 +742,16 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('update/{id}', 'MasterController@incomeSlabUpdate')->name('admin.incomeSlab.update');
 			    Route::get('delete/{id}', 'MasterController@incomeSlabDestroy')->name('admin.incomeSlab.delete');
 
+			}); 
+		    Route::group(['prefix' => 'guardian'], function() {
+			    Route::get('guardian', 'MasterController@guardian')->name('admin.guardian.list');	 	
+			    Route::post('guardian-store', 'MasterController@guardianStore')->name('admin.guardian.store');	 	
+			    Route::get('guardian-edit/{id}', 'MasterController@guardianEdit')->name('admin.guardian.edit');	 	
+			    Route::get('guardian-delete/{id}', 'MasterController@guardianDelete')->name('admin.guardian.delete');	 	
+			    Route::get('guardian-update/{id}', 'MasterController@guardianUpdate')->name('admin.guardian.update');	 	
+			    	 	
+			    
+
 			});   //------------------------- Profession ---------------------------------
 			Route::group(['prefix' => 'profession'], function() {
 			    Route::get('/', 'MasterController@profession')->name('admin.profession.list');	 	
@@ -1157,6 +1175,7 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('/', 'TeacherDiaryController@index')->name('admin.teacher.diary');
                	 Route::get('add-form', 'TeacherDiaryController@addForm')->name('admin.teacher.diary.add.form'); 
                	 Route::post('diary-details', 'TeacherDiaryController@diaryDetails')->name('admin.teacher.diary.details'); 
+               	 Route::post('diary-details-store', 'TeacherDiaryController@diaryDetailsStore')->name('admin.teacher.diary.details.store'); 
                	 
        });
            Route::group(['prefix' => 'house'], function() {

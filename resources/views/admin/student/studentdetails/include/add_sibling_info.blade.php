@@ -9,7 +9,7 @@
                      <h4 class="modal-title"> Add</h4>
                  </div>
                  <div class="modal-body">
-                   <form id="sibling-form">                    
+                   <form id="sibling-form" button-click="sibling_info_tab">                    
                     <div class="form-group">
                          {{ Form::label('student_sibling_id','Student Sibling Registration No',['class'=>'control-label', 'required','maxlength'=>'20','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}                         
                          {{ Form::text('student_sibling_id','',['class'=>'form-control']) }}

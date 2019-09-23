@@ -447,7 +447,12 @@ class CertificateIssueDetailController extends Controller
     }
     public function checkStatusShow(Request $request)
     {
-        $CertificateIssueDetail =  CertificateIssueDetail::where('student_id',$request->registration_no)->where('certificate_type',$request->certificate_type_id)->get();
+        if ($request->registration_no!=null &&  $request->certificate_type_id!=null){
+            $CertificateIssueDetail =  CertificateIssueDetail::where('student_id',$request->registration_no)->where('certificate_type',$request->certificate_type_id)->get();  
+        }elseif ($request->registration_no!=null){
+            $CertificateIssueDetail =  CertificateIssueDetail::where('student_id',$request->registration_no)->get();  
+        }
+        
        $response = array();
         $response['status'] = 1;
         $response['data'] = view('admin.certificate.check_status_show',compact('CertificateIssueDetail'))->render();

@@ -314,7 +314,7 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Student $student)
-    {       
+    {   $houses=House::orderBy('id','ASC')->get();      
        $classes = MyFuncs::getClasses();    
        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
        $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
@@ -322,7 +322,7 @@ class StudentController extends Controller
        $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
        $default = StudentDefaultValue::find(1); 
           
-       return view('admin.student.studentdetails.edit',compact('student','classes','sessions','default','genders','religions','categories'));
+       return view('admin.student.studentdetails.edit',compact('student','classes','sessions','default','genders','religions','categories','houses'));
     }
 
      public function profileedit(Student $student)
@@ -425,8 +425,8 @@ class StudentController extends Controller
         $student->class_id= $request->class;
         $student->section_id= $request->section;  
         $student->roll_no= $request->roll_no;     
-        $student->roll_no= $request->aadhaar_no;     
-        $student->roll_no= $request->house_name;     
+        $student->adhar_no= $request->aadhaar_no;     
+        $student->house_no= $request->house_name;     
         $student->date_of_admission= $request->date_of_admission == null ? $request->date_of_admission : date('Y-m-d',strtotime($request->date_of_admission));
         $student->date_of_leaving= $request->date_of_leaving == null ? $request->date_of_leaving : date('Y-m-d',strtotime($request->date_of_leaving)); 
         $student->date_of_activation= $request->date_of_activation == null ? $request->date_of_activation : date('Y-m-d',strtotime($request->date_of_activation));
@@ -445,7 +445,7 @@ class StudentController extends Controller
     }
 
     public function viewUpdate(Request $request, Student $student)
-    {
+    {   
         $rules=[
              
             
@@ -458,7 +458,7 @@ class StudentController extends Controller
             "nick_name" => 'max:30|nullable', 
             "date_of_birth" => 'required|max:199', 
             "aadhaar_no" => "required|digits:12",
-            "house_name" => "required", 
+             
           ];
 
          $validator = Validator::make($request->all(),$rules);
@@ -485,6 +485,8 @@ class StudentController extends Controller
         $student->mother_name= $request->mother_name; 
         $student->father_mobile= $request->father_mobile;
         $student->mother_mobile= $request->mother_mobile;
+        $student->adhar_no= $request->aadhaar_no;     
+        
          $student->dob= $request->date_of_birth == null ? $request->date_of_birth : date('Y-m-d',strtotime($request->date_of_birth));
         
         // $student->religion_id= $request->religion;

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Model\SubjectType;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use PDF;
 class SubjectTypeController extends Controller
 {
     /**
@@ -15,7 +17,7 @@ class SubjectTypeController extends Controller
      */
     public function index()
     {
-        $subjects = SubjectType::all();
+        $subjects = SubjectType::orderBy('sorting_order_id','ASC')->get();
         return view('admin.subject.list',compact('subjects'));
     }
 
@@ -46,6 +48,7 @@ class SubjectTypeController extends Controller
         $subject = new SubjectType();
         $subject->name = $request->subjectName;
         $subject->code = $request->code;
+        $subject->sorting_order_id = $request->sorting_order_id;
         if ($subject->save()) {
             return redirect()->back()->with(['subject'=>'success','message'=>'subject created success ...']);
         }
@@ -71,10 +74,11 @@ class SubjectTypeController extends Controller
      * @param  \App\Model\SubjectType  $subjectType
      * @return \Illuminate\Http\Response
      */
-    public function edit(SubjectType $subjectType)
+    public function edit($id)
     {
-        $subjects = SubjectType::all();
-        return view('admin.subject.list',compact('subjects','subjectType'));
+
+        $subjects = SubjectType::find($id);
+        return view('admin.subject.subject_edit',compact('subjects'));
     }
 
     /**
@@ -84,18 +88,34 @@ class SubjectTypeController extends Controller
      * @param  \App\Model\SubjectType  $subjectType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubjectType $subjectType)
+    public function update(Request $request,$subjectType)
     {
-        $request->validate([
-         'subjectName' => 'required|max:199',
-         'code' => 'required|max:199',
-         ]);         
+        $admin=Auth::guard('admin')->user()->id;
+        $rules=[
+          'subjectName' => 'required|max:199',
+         'code' => 'required|max:199', 
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+        $subjectType= SubjectType::find($subjectType);
         $subjectType->name = $request->subjectName;
         $subjectType->code = $request->code;
-        if ($subjectType->save()) {
-            return redirect()->route('admin.subjectType.list')->with(['class'=>'success','message'=>'Subject updated successfully']);
-        }
-        return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong']);
+        $subjectType->sorting_order_id = $request->sorting_order_id;
+        $subjectType->last_updated_by = $admin;
+        $subjectType->save();
+        $response=['status'=>1,'msg'=>'Update Successfully'];
+            return response()->json($response);
+        } 
+        
     }
 
     /**
@@ -114,5 +134,11 @@ class SubjectTypeController extends Controller
 
             
         
+    }
+    public function pdfGenerate($value='')
+    {
+        $subjects=SubjectType::orderBy('code','ASC')->get();
+         $pdf = PDF::loadView('admin.subject.subject_pdf',compact('subjects'));
+        return $pdf->stream('section.pdf');
     }
 }

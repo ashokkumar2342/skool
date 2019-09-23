@@ -10,7 +10,7 @@ use App\Model\Subject;
 use App\Model\SubjectType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
-
+use PDF;
 class SubjectController extends Controller
 {
     /**
@@ -132,5 +132,11 @@ class SubjectController extends Controller
          $subject=Subject::find($subject);
          $subject->delete();
           return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+    public function classSubjectPDF($value='')
+    {
+        $manageSubjects=Subject::orderBy('classType_id','ASC')->get();
+         $pdf = PDF::loadView('admin.subject.class_subject_pdf',compact('manageSubjects'));
+        return $pdf->stream('section.pdf');
     }
 }

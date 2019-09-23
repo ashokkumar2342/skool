@@ -435,5 +435,10 @@ class AccountController extends Controller
       return response()->json($response);
         
     }
+    public function menuOrdering($value='')
+    {
+      $menuTypes=MinuType::orderBy('id','ASC')->get();
+      return view('admin.account.menu_sorting_order',compact('menuTypes'));
+    }
 
 }

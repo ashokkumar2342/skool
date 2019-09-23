@@ -12,7 +12,7 @@
               <h3 class="box-title">Section List</h3>
               <span style="float: right"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_section">Add Section</button></span>
             </div>
-            <!-- /.box-header -->
+         <a href="{{ route('admin.section.pdf.generate') }}" class="btn btn-default btn-sm" title="Download PDF" target="blank">PDF</a>
             <div class="box-body">
               <table id="class_section" class="table table-bordered table-striped table-hover">
                 <thead>
@@ -20,6 +20,7 @@
                   <th>Section id</th>                
                   <th>Section Name</th>                   
                   <th>Section Code</th>                   
+                  <th>Sorting Order No</th>                   
                   <th width="80px">Action</th>                  
                 </tr>
                 </thead>
@@ -32,6 +33,7 @@
                   <td>{{ $sectionId ++ }}</td>
                   <td>{{ $section->name }}</td>                 
                   <td>{{ $section->code }}</td>                 
+                  <td>{{ $section->sorting_order_id }}</td>                 
                   <td align="center">
                    @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
 
@@ -81,6 +83,13 @@
             <p class="text-danger">{{ $errors->first('code') }}</p>
             </div>
           </div>
+          <div class="form-group">
+          {!! Form::label('sorting_order_id', 'Sorting Order No : ', ['class'=>"col-sm-3 control-label"]) !!}            
+            <div class="col-sm-9">
+            {!! Form::text('sorting_order_id', @$sectionType->sorting_order_id,  ['class'=>"form-control",'placeholder'=>"Sorting Order No",'autocomplete'=>'off','maxlength'=>'6',]) !!}
+            <p class="text-danger">{{ $errors->first('code') }}</p>
+            </div>
+          </div>
            
           </div>   
  
@@ -109,7 +118,7 @@
     $('#class_section').DataTable( {
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'copy', 'csv', 'excel'
         ]
     } );
 } );

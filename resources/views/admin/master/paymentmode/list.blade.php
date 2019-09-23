@@ -11,10 +11,17 @@
             <div class="box-body">             
                 <div class="col-md-12"> 
                   <form class="form-vertical" id="form_academic_year">                     
-                        <div class="col-lg-2">                           
+                        <div class="col-lg-4">                           
                              <div class="form-group">
                               {{ Form::label('name','Payment Mode',['class'=>' control-label']) }}
                                {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Enter Payment Mode Name','maxlength'=>'50']) }}
+                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
+                             </div>    
+                        </div>
+                        <div class="col-lg-2">                           
+                             <div class="form-group">
+                              {{ Form::label('sorting_order_id','Sorting Order No',['class'=>' control-label']) }}
+                               {{ Form::text('sorting_order_id',null,['class'=>'form-control','placeholder'=>'Enter Sorting Order No','maxlength'=>'5']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
@@ -37,6 +44,7 @@
                         <thead>
                             <tr>
                                 <th>Payment Mode</th>
+                                <th>Sorting Order No</th>
                                 <th>Action</th>
                                 
                             </tr>
@@ -45,6 +53,7 @@
                             @foreach ($paymentmodes as $paymentmode) 
                                 <tr>
                                     <td>{{ $paymentmode->name }}</td>
+                                    <td>{{ $paymentmode->sorting_order_id}}</td>
                                     <td> @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
                                         <?php $url = route('admin.paymentMode.edit',Crypt::encrypt($paymentmode->id)) ?>
                                       <a class="btn btn-success btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a> 

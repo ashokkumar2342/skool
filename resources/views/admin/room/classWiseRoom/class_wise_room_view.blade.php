@@ -81,12 +81,15 @@
 @endpush
 @push('scripts')
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+ 
  <script type="text/javascript">
      $(document).ready(function(){
         $('#class_wise_room_table').DataTable();
     });
-      
-        $('#room_name').reload();
+      $(document).ready(function(){
+          $("#room_name").append($('<option>', {value:'0',text:'0'));
+        });
  
 
      $('#btn_outhor_table_show').click();
