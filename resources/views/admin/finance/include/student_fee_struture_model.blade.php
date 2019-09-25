@@ -33,7 +33,7 @@
                <div class="col-md-4">
                  {{ Form::label('concession','Concession',['class'=>' control-label']) }}
                  
-                <select name="concession" id="concession" class="form-control" onchange="concessitonAmount($('#concession').val())" required>
+                <select name="concession" id="concession" class="form-control" onchange="concessitonAmount($('#concession').val())" >
                   <option value="" selected="" disabled="">Select Concession</option> 
                   
                   @foreach ($concession as $key=>$value)
@@ -44,7 +44,7 @@
               </div>
               <div class="col-md-4">
                 {{ Form::label('concession_amount','Concession Amount',['class'=>' control-label']) }}
-              {!! Form::text('concession_amount','', ['class'=>'form-control concession','placeholder'=>'Select Concession','required','id'=>'concession_amount']) !!}
+              {!! Form::text('concession_amount','', ['class'=>'form-control concession','placeholder'=>'Select Concession','id'=>'concession_amount']) !!}
               </div>
               <input type="hidden" name="academic_year_id" value="{{ $academicYears->id }}">
               <div class="col-md-4">

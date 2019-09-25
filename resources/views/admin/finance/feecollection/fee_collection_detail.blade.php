@@ -27,21 +27,22 @@
     <input type="hidden" name="student_id" value="{{ $student->id }}">
     <label for="email">Fee Paid Upto:</label> 
     
-    <select name="month" class="form-control">
+  {{--   <select name="month" class="form-control">
     	<option value="" selected disabled>Select Month</option>
     	@foreach ($months as $month)
     	 <option value="{{ $month->id }}" {{ $month->id==$defultDate->month }}>{{ $month->name }}</option>
     	@endforeach
      
+    </select>   --}} 
+    <select name="StudentFeeDetailMonthYear" class="form-control">    	
+    	@foreach ($StudentFeeDetailMonthYears as $StudentFeeDetailMonthYear)
+    	 <option value="{{ $StudentFeeDetailMonthYear }}"> {{date("M-Y",strtotime($StudentFeeDetailMonthYear)) }} </option>
+    	@endforeach
+     
     </select>
     
       
-    {!! Form::select('year',[
-    	'2018'=>'2018',
-    	'2019'=>'2019',
-        '2020'=>'2020',
-    	
-    	], $defultDate->year, ['class'=>'form-control','placeholder'=>'Select Year','required']) !!}
+     
   </div> 
   <button type="button" id="fee_collection_details_btn" class="btn btn-warning" onclick="callAjax()">Show</button>
 </form>

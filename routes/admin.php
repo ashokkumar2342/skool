@@ -491,6 +491,7 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::get('fee-detail', 'Fee\FeeCollectionController@feeDetail')->name('admin.studentFeeCollection.search');
     	    Route::delete('delete', 'Fee\FeeCollectionController@destroy')->name('admin.studentFeeCollection.delete');
     	    Route::put('update', 'Fee\FeeCollectionController@update')->name('admin.studentFeeCollection.update');
+    	    Route::get('fine', 'Fee\FeeCollectionController@fineScheme')->name('admin.studentFeeCollection.fine.scheme');
     	 });
     	 //------------------------- Fee Cashbook --------------------------------- 
     	Route::group(['prefix' => 'cashbook'], function() {
