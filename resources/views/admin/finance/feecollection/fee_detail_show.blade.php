@@ -20,11 +20,12 @@
 		  		</thead>
 		  		<tbody>
 		  			 <input type="checkbox" checked name="student_id[]" value="{{ $student->id }}" style="display: none">  
+		  			 <input type="hidden"  name="toDate" value="{{ $toDate }}">  
 		  			  
 		  			@foreach ($FeeDetails as $feeName =>$FeeDetail) 
 		  			@php
 		  				$concession_amount+=$FeeDetail->sum('concession_amount');
-		  				$net_amount+=$FeeDetail->sum('fee_amount')+$FeeDetail->sum('concession_amount');
+		  				$net_amount+=$FeeDetail->sum('fee_amount')-$FeeDetail->sum('concession_amount');
 		  			@endphp
 		  				<tr>  
 		  				  <td style="width: 250px">
@@ -36,17 +37,38 @@
 		  				</tr> 
 		  				 
 		  			@endforeach
+		  			@php
+		  				$net_amount+=$BalanceAmount;
+		  			@endphp
 		  			<tr>
 		  				<td>Concession</td>
-		  				<td>{{ $concession_amount }}</td>
+		  				<td>
+		  					<input type="hidden" name="concession" value="{{ $concession_amount }}">{{ $concession_amount }}
+		  				</td>
 		  			</tr>
 		  			<tr>
 		  				<td>Previous Balance </td>
-		  				<td>0 </td>
+		  				<td>{{ $BalanceAmount }}
+		  					<input type="hidden" name="previous_balance" value="{{ $BalanceAmount }}">
+		  				</td>
+		  			</tr>
+		  			<tr>
+		  				<td>
+		  					Fine Scheme
+		  				</td>
+		  				<td>
+		  					<select name="fine_amount" id="fine_amount" onchange="($('#net_amount').val(parseInt({{ $net_amount }})+parseInt(this.value)),$('#deposit_amount').val(parseInt({{ $net_amount }})+parseInt(this.value)))">
+		  						<option disabled selected>Select </option> 
+		  						@foreach ($FineSchemes as $FineScheme)
+		  							<option value="{{ $FineScheme->fine_amount1 }}">Days After {{ $FineScheme->day_after1 }}</option> 
+		  						@endforeach 
+		  					</select> 
+		  				</td>
 		  			</tr>
 		  			<tr>
 		  				<td>Net Amount </td>
-		  				<td><input type="hidden" name="net_amount" value="{{ $net_amount }}">{{ $net_amount }}
+		  				<td> 
+		  					<input type="text" name="net_amount" id="net_amount" value="{{ $net_amount }}" readonly>
 		  				</td>
 		  			</tr>
 		  			<tr>
@@ -54,7 +76,7 @@
 		  					Amount Deposit 
 		  				</td>
 		  				<td>
-		  					 <input type="text" name="deposit_amount" onkeyup="$('#fee_balance').val({{ $net_amount }}-this.value)" value="{{ $net_amount }}" >
+		  					 <input type="text" name="deposit_amount" id="deposit_amount" onkeyup="$('#fee_balance').val({{ $net_amount }}-this.value)" value="{{ $net_amount }}" >
 		  				</td>
 		  			</tr>
 		  			<tr>
@@ -62,7 +84,7 @@
 		  					Balance 
 		  				</td>
 		  				<td>
-		  					 <input type="text" name="fee_balance" id="fee_balance" readonly="">
+		  					 <input type="text" name="fee_balance" value="0" id="fee_balance" readonly="">
 		  				</td>
 		  			</tr>
 		  			<tr>
@@ -71,7 +93,7 @@
 		  				</td>
 		  				<td>
 		  					<select name="payment_mode" id="payment_mode" onchange="paymentmode($('#payment_mode').val())">
-		  						@foreach (App\Model\PaymentMode::all() as $mode)
+		  						@foreach ($paymentModes as $mode)
 		  							<option value="{{ $mode->name }}">{{ $mode->name }}</option> 
 		  						@endforeach 
 		  					</select> 

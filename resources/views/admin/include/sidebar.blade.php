@@ -45,7 +45,7 @@
             $SMSs = App\Helper\MyFuncs::mainMenu(16);
             $menus=App\Helper\MyFuncs::showMenu();
             $userHasMenus=App\Helper\MyFuncs::userHasMinu();
-            $menuTypes = App\Model\MinuType::whereIn('id',$userHasMenus)->orderBy('id','asc')->get();
+            $menuTypes = App\Model\MinuType::whereIn('id',$userHasMenus)->orderBy('sorting_id','asc')->get();
            
          @endphp
 
