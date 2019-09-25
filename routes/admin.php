@@ -51,6 +51,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('reset-password', 'AccountController@resetPassWord')->name('admin.account.reset.password'); 
 		Route::post('reset-password-change', 'AccountController@resetPassWordChange')->name('admin.account.reset.password.change'); 
 		Route::get('menu-ordering', 'AccountController@menuOrdering')->name('admin.account.menu.ordering'); 
+		Route::get('menu-ordering-store', 'AccountController@menuOrderingStore')->name('admin.account.menu.ordering.store'); 
 		
 						
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 

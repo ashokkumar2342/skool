@@ -1,9 +1,9 @@
  @extends('admin.layout.base')
+ @push('links')
+
+ @endpush
 @section('body')
- <style type="">
-   var el = document.getElementById('items');
-var sortable = Sortable.create(el);
- </style>
+ 
    <section class="content-header">
     
     <h1>Menu Ordering<small>List</small> </h1>
@@ -12,17 +12,15 @@ var sortable = Sortable.create(el);
     <section class="content">
        
           <div class="box"> 
-            <div class="box-body"> 
-            <div id="simpleList" class="list-group">
-              @php
-                $arrayId=1;
-              @endphp
-              @foreach ($menuTypes as $menuType)
-              <div class="list-group-item" name="menu_id"  >{{ $menuType->name }}<a ondragend="callAjax(alert('ddd'))" style="float: right;">{{ $arrayId ++ }}</a></div>
- 
-              @endforeach
-              
-            </div> 
+            <div class="box-body">  
+              <div class="col-lg-6">
+                <ul class="sortable-posts">
+                   @foreach($menuTypes as $menuType)
+                    <ol class="ui-state-default" style="padding: 4px;font-size:20px" id="{{ $menuType->id }}">{{ $menuType->sorting_id+1 }}<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>{{ $menuType->name }}</ol>
+                  @endforeach
+                </ul>
+              </div>
+            
           </div>
         </div>
 
@@ -30,30 +28,36 @@ var sortable = Sortable.create(el);
     <!-- /.content -->
 
 @endsection
-@push('links')
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-@endpush
+
 @push('scripts')
+ 
 
- <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-   <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
-
- <script type="text/javascript">
-  // Simple list
-Sortable.create(simpleList, { /* options */ });
-
-// List with handle
-Sortable.create(listWithHandle, {
-  handle: '.glyphicon-move',
-  animation: 150
-});
-
-     $(document).ready(function(){
-        $('#event_type_data_table').DataTable();
+  <script>
+    $(function() {
+        $("#sortable").sortable();
+        $("#sortable").disableSelection();
     });
+  $( function() { 
 
-     $('#btn_event_type_table_show').click();
+    $(".sortable-posts").sortable({
+        stop: function() { 
+            $.map($(this).find('ol'), function(el) {
+                var id = el.id;
+                var sorting = $(el).index();
+                $.ajax({
+                    url: '{{ route('admin.account.menu.ordering.store') }}',
+                    type: 'GET',
+                    data: {
+                        id: id,
+                        sorting: sorting
+                    },
+                });
+            });
+        }
+    });
+  } );
   </script>
+ 
   @endpush
      
  

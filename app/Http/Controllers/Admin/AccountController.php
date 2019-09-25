@@ -17,6 +17,7 @@ use App\Model\UserClass;
 use App\Model\UserClassType;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Mail;
 use Symfony\Component\HttpKernel\DataCollector\collect;
@@ -435,10 +436,30 @@ class AccountController extends Controller
       return response()->json($response);
         
     }
-    public function menuOrdering($value='')
+    public function menuOrdering()
     {
-      $menuTypes=MinuType::orderBy('id','ASC')->get();
+      $menuTypes=MinuType::orderBy('sorting_id','ASC')->get();
       return view('admin.account.menu_sorting_order',compact('menuTypes'));
     }
+
+    public function menuOrderingStore(Request $request)
+        {  
+           
+          $MinuTypes = MinuType::orderBy('sorting_id', 'ASC')->get();
+                $id = Input::get('id');
+                $sorting = Input::get('sorting');
+                foreach ($MinuTypes as $item) {
+                    return MinuType::where('id', '=', $id)->update(array('sorting_id' => $sorting));
+                }
+         //   $count=MinuType::orderBy('id','ASC')->count();
+         //   $MinuTypes=MinuType::all();
+         // foreach ($MinuTypes as   $MinuType) {
+         //    $MinuType=MinuType::find($MinuType->id);
+         //    $MinuType->sorting_id =$MinuType->id;
+         //    $MinuType->save();
+
+         // }
+           
+        }
 
 }
