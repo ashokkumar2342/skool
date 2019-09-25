@@ -122,11 +122,7 @@ b{
                    <div class="table-responsive" id="parent_info_list">
                     </div> 
                 </div>
-                <div id="address" class="tab-pane fade">
-                                        
-                      <span ><button type="button" class="add_btn_parets btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.parents.add.address',$student->id) }}')" style="margin: 10px">Add Address</button>
-                         
-                        
+                <div id="address" class="tab-pane fade"> 
                     
                    <div class="table-responsive" id="address_list">
                     </div> 
@@ -140,7 +136,7 @@ b{
                      
                  </div>   
                 <div id="sibling" class="tab-pane fade">
-                 <button type="button" class="btn btn-info btn-sm add_btn_parets" style="margin: 10px">Add Sibling info</button>
+                 <button type="button" class="btn btn-info btn-sm btn_add_sibling_info"  data-toggle="modal" data-target="#add_sibling"  style="margin: 10px">Add Sibling info</button>
                  
                  <div class="table-responsive" id="sibling_info_list">
                     </div> 

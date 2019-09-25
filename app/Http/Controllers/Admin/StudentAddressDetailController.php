@@ -29,7 +29,7 @@ class StudentAddressDetailController extends Controller
     }
     public function addAddress(Request $request,$student_id)
     {
-
+        
         $cotegorys=Category::orderBy('id','ASC')->get();
         $religions=Religion::orderBy('id','ASC')->get(); 
         return view('admin.student.studentdetails.parent.add_address',compact('cotegorys','religions','student_id'));   
@@ -49,8 +49,8 @@ class StudentAddressDetailController extends Controller
             return response()->json($response);// response as json
         } 
         
-        $address = Address::firstOrNew(['student_id' => $request->student_id]);
-        $address->student_id=$request->student_id;
+        $address = new Address();
+        
         $address->primary_mobile=$request->primary_mobile;
         $address->primary_email=$request->primary_email;
         $address->cotegory_id=$request->cotegory_id;

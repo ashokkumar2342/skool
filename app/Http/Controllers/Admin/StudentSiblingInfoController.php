@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\SiblingGroup;
+use App\Model\StudentAddressDetail;
 use App\Model\StudentPerentDetail;
 use App\Student;
 use Illuminate\Http\Request;
@@ -40,6 +41,7 @@ class StudentSiblingInfoController extends Controller
     {
           
             $StudentPerentDetail = new StudentPerentDetail();
+            $StudentAddressDetail = new StudentAddressDetail();
             $sibling_student = Student::where('registration_no',$request->student_sibling_id)->first();
             $arrayStudentIdSiblingIds=array(); 
             $arrayStudentIdSiblingIds=[$request->student_id,$sibling_student->id]; 
@@ -74,6 +76,7 @@ class StudentSiblingInfoController extends Controller
              
            
            $StudentPerentDetailArrId =$StudentPerentDetail->getParentArrId($request->student_id,$sibling_student->id);  
+           $StudentAddressDetailArrId =$StudentAddressDetail->getAddressArrId($request->student_id,$sibling_student->id);  
 
         return response()->json(['message'=>'add success']);
 

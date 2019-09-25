@@ -1,3 +1,7 @@
+ @if ($address->count()==0)
+    <button type="button" class="add_btn_parets btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.parents.add.address',$student_id) }}')" style="margin: 10px">Add Address</button>
+ @endif
+ 
 <table class="table-responsive" id="address_info_table"> 
                         <thead>
                             <tr>
