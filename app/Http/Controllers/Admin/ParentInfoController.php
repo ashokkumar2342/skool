@@ -11,6 +11,7 @@ use App\Model\Category;
 use App\Model\Religion;
 use App\Model\Address;
 use App\Model\StudentPerentDetail;
+use App\Model\SiblingGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -28,8 +29,16 @@ class ParentInfoController extends Controller
     }
     public function perentTable(Request $request)
     {
-        $student=$request->id;
-          return view('admin.student.studentdetails.include.parents_info_list',compact('student'));
+       
+      $studentPerentDetail=StudentPerentDetail::where('student_id',$request->id)->first(); 
+      if ($studentPerentDetail==null) {
+          $parents=ParentsInfo::where('id',$studentPerentDetail)->get(); 
+       }else{
+         $studentPerentDetails=StudentPerentDetail::where('student_id',$studentPerentDetail->student_id)->pluck('perent_info_id')->toArray(); 
+           $parents=ParentsInfo::whereIn('id',$studentPerentDetails)->get();
+        
+       } 
+      return view('admin.student.studentdetails.include.parents_info_list',compact('student','parents'));
     }
     public function perentInfoAddForm(Request $request)
     {
@@ -86,13 +95,13 @@ class ParentInfoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {    
         $rules=[
         'name' => 'required',               
         'mobile' => 'required|digits:10',              
         'education' => 'required',              
         'relation_type_id' => 'required',              
-        'relation_type_id' => 'required', 
+        
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -102,14 +111,9 @@ class ParentInfoController extends Controller
             $response["status"]=0;
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
-        }
-         
-          
-
-        $parentsinfo = ParentsInfo::firstOrNew(['relation_type_id' => $request->relation_type_id, 'student_id' => $request->student_id]);
-        $parentsinfo->student_id = $request->student_id;
-        $parentsinfo->name = $request->name;
-        $parentsinfo->relation_type_id = $request->relation_type_id;
+        } 
+        $parentsinfo = new ParentsInfo(); 
+        $parentsinfo->name = $request->name; 
         $parentsinfo->education = $request->education;
         $parentsinfo->occupation = $request->occupation;
         $parentsinfo->income_id = $request->income;
@@ -120,8 +124,37 @@ class ParentInfoController extends Controller
         $parentsinfo->office_address = $request->office_address;
         $parentsinfo->islive = $request->islive;
         $parentsinfo->save();
+        $parentsinfo_id= $parentsinfo->id;
+
+       
+        $this->parentDetailsStore($request->student_id,$parentsinfo_id,$request->relation_type_id);
          $response=['status'=>1,'msg'=>'Parent Information Save Successfully'];
         return response()->json($response); 
+    }
+    //parentDetailsStore
+    public function parentDetailsStore($student_id,$perent_info_id,$relation_id)
+    {   
+       $StudentSiblingInfo = new SiblingGroup();
+       $StudentSiblingArrId =$StudentSiblingInfo->getStudentSiblingArrId($student_id);
+       if (!empty($StudentSiblingArrId)) {
+         foreach ($StudentSiblingArrId as $key => $student_id) {
+           $studentParentDetails=StudentPerentDetail::firstOrNew(['relation_id' => $relation_id, 'student_id' => $student_id]);
+           $studentParentDetails->student_id=$student_id; 
+           $studentParentDetails->perent_info_id=$perent_info_id;
+           $studentParentDetails->relation_id=$relation_id;
+           $studentParentDetails->save();
+          
+         }
+       }else{
+        $studentParentDetails=StudentPerentDetail::firstOrNew(['relation_id' => $relation_id, 'student_id' => $student_id]);
+        $studentParentDetails->student_id=$student_id; 
+        $studentParentDetails->perent_info_id=$perent_info_id;
+        $studentParentDetails->relation_id=$relation_id;
+        $studentParentDetails->save();
+      
+       }
+
+      
     }
 
     /**
@@ -159,13 +192,12 @@ class ParentInfoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request,$id)
-    {  
+    {   
         $rules=[
         'name' => 'required',               
         'mobile' => 'required|digits:10',              
         'education' => 'required',              
-        'relation_type_id' => 'required',              
-        'relation_type_id' => 'required', 
+        
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -180,8 +212,7 @@ class ParentInfoController extends Controller
           
 
         $parentsinfo = ParentsInfo::find($id);
-        $parentsinfo->name = $request->name;
-        $parentsinfo->relation_type_id = $request->relation_type_id;
+        $parentsinfo->name = $request->name; 
         $parentsinfo->education = $request->education;
         $parentsinfo->occupation = $request->occupation;
         $parentsinfo->income_id = $request->income;
@@ -189,7 +220,7 @@ class ParentInfoController extends Controller
         $parentsinfo->email = $request->email;
         $parentsinfo->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
         $parentsinfo->doa = $request->doa == null ? $request->doa : date('Y-m-d',strtotime($request->doa));
-        $parentsinfo->office_address = $request->office_address;
+        $parentsinfo->organization_address = $request->organization_address;
         $parentsinfo->islive = $request->islive;   
         $parentsinfo->save();
         $response=['status'=>1,'msg'=>'Parent Information Update Successfully'];
@@ -204,59 +235,18 @@ class ParentInfoController extends Controller
      */
     public function destroy(Request $request,$id)
     {
-         $parents = ParentsInfo::find($id);
-       
-
-        $parents->delete();
-
-        $response=['status'=>1,'msg'=>'Delete Successfully'];
-        return response()->json($response);
-    }
-
-    public function address(Request $request)
-    {  
-       $address=Address::all(); 
-      return view('admin.student.studentdetails.parent.address_list',compact('student_id','address'));   
-    }
-    public function addAddress(Request $request,$student_id)
-    {
-
-        $cotegorys=Category::orderBy('id','ASC')->get();
-        $religions=Religion::orderBy('id','ASC')->get(); 
-        return view('admin.student.studentdetails.parent.add_address',compact('cotegorys','religions','student_id'));   
-    }
-    public function addressStore(Request $request)
-    { 
-        $rules=[
         
-        ];
-
-        $validator = Validator::make($request->all(),$rules);
-        if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            $response=array();                       
-            $response["status"]=0;
-            $response["msg"]=$errors[0];
-            return response()->json($response);// response as json
-        } 
-        
-        $address = Address::firstOrNew(['student_id' => $request->student_id]);
-        $address->student_id=$request->student_id;
-        $address->primary_mobile=$request->primary_mobile;
-        $address->primary_email=$request->primary_email;
-        $address->cotegory_id=$request->cotegory_id;
-        $address->religion=$request->religion_id;
-        $address->state=$request->state;
-        $address->city=$request->city;
-        $address->p_address=$request->p_address;
-        $address->c_address=$request->c_address;
-        $address->p_pincode=$request->p_pincode;
-        $address->c_pincode=$request->c_pincode;
-        $address->nationality=$request->nationality; 
-        $address->save();
-         $response=['status'=>1,'msg'=>'Address Save Successfully'];
-        return response()->json($response);
+         $studentParentDetails=StudentPerentDetail::where('perent_info_id',$id)->get();
+         foreach ($studentParentDetails as $studentParentDetail) {
+                  $studentParentDetail->delete();
+         }
+         $parents = ParentsInfo::find($id); 
+         $parents->delete(); 
+         $response=['status'=>1,'msg'=>'Delete Successfully'];
+         return response()->json($response);
     }
+
+    
     public function parentAddNew(Request $request)
     {
          $parentsType= array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name', 'id'); 
@@ -281,32 +271,18 @@ class ParentInfoController extends Controller
             return $response;
         
     }
+   
     public function parentExistingStore(Request $request)
-    {  
-        $rules=[
-          
-              'relation_type_id' => 'required', 
-              'perent_detail' => 'required', 
-               
-        ];
-
-        $validator = Validator::make($request->all(),$rules);
-        if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            $response=array();
-            $response["status"]=0;
-            $response["msg"]=$errors[0];
-            return response()->json($response);// response as json
-        }
-        else {
-         $studentParentDetails=StudentPerentDetail::firstOrNew(['relation_id' => $request->relation_type_id, 'student_id' => $request->student_id]);
-        $studentParentDetails->student_id=$request->student_id;
-        $studentParentDetails->perent_info_id=$request->perent_detail;
-        $studentParentDetails->relation_id=$request->relation_type_id;
+    {    
+       
+         $studentParentDetails=StudentPerentDetail::firstOrNew(['relation_id' => $request->relation_id, 'student_id' => $request->student_id]);
+        $studentParentDetails->student_id=$request->student_id; 
+        $studentParentDetails->perent_info_id=$request->perent_info_id;
+        $studentParentDetails->relation_id=$request->relation_id;
         $studentParentDetails->save();
         $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
-        } 
+          
         
         
     }

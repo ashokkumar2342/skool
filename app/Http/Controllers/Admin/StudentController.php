@@ -136,7 +136,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {   
-       // dd($request->all());
+       dd($request->all());
        $rules=[
             'class' => 'required|numeric|max:20',
             "section" => 'required|numeric|max:20',
@@ -174,8 +174,8 @@ class StudentController extends Controller
         $student->registration_no= $request->registration_no;     
         $student->admission_no= $request->admission_no;     
         $student->roll_no= $request->roll_no;     
-        $student->roll_no= $request->aadhaar_no;     
-        $student->roll_no= $request->house_name;     
+        $student->adhar_no= $request->aadhaar_no;     
+        $student->house_no= $request->house_name;     
         $student->date_of_admission= $request->date_of_admission == null ? $request->date_of_admission : date('Y-m-d',strtotime($request->date_of_admission));        
         $student->date_of_activation= $request->date_of_activation == null ? $request->date_of_activation : date('Y-m-d',strtotime($request->date_of_activation));
         $student->name= $request->student_name;
@@ -472,30 +472,15 @@ class StudentController extends Controller
          
          
         $admin_id = Auth::guard('admin')->user()->id; 
-        $student->admin_id = $admin_id;                               
-        
-          
+        $student->admin_id = $admin_id; 
         $student->roll_no= $request->roll_no;     
         $student->date_of_admission= $request->date_of_admission == null ? $request->date_of_admission : date('Y-m-d',strtotime($request->date_of_admission));
         $student->date_of_leaving= $request->date_of_leaving == null ? $request->date_of_leaving : date('Y-m-d',strtotime($request->date_of_leaving)); 
         $student->date_of_activation= $request->date_of_activation == null ? $request->date_of_activation : date('Y-m-d',strtotime($request->date_of_activation));
         $student->name= $request->student_name;
-        $student->nick_name= $request->nick_name;
-        $student->father_name= $request->father_name;
-        $student->mother_name= $request->mother_name; 
-        $student->father_mobile= $request->father_mobile;
-        $student->mother_mobile= $request->mother_mobile;
-        $student->adhar_no= $request->aadhaar_no;     
-        
-         $student->dob= $request->date_of_birth == null ? $request->date_of_birth : date('Y-m-d',strtotime($request->date_of_birth));
-        
-        // $student->religion_id= $request->religion;
-        // $student->category_id= $request->category;
-        $student->c_address= $request->c_address;
-        $student->p_address= $request->p_address;
-        $student->state= $request->state;
-        $student->city= $request->city;
-        $student->pincode= $request->pincode;        
+       $student->nick_name= $request->nick_name; 
+        $student->adhar_no= $request->aadhaar_no; 
+         $student->dob= $request->date_of_birth == null ? $request->date_of_birth : date('Y-m-d',strtotime($request->date_of_birth)); 
          $student->save();           
            $response= array();
            $response['status']= 1;

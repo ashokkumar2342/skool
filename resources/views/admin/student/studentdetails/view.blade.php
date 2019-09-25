@@ -23,7 +23,7 @@ b{
           
           <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-user"></i> Student Details</a></li>
-              <li><a data-toggle="tab" href="#sibling" id="sibling_info_tab"  onclick="callAjax(this,'{{ route('admin.sibling.table.show',$student->id) }}','sibling_info_list')"><i class="fa fa-users" id="sibling_info"></i> Siblling info</a></li>
+              <li><a data-toggle="tab" data-table="sibling_items" href="#sibling" id="sibling_info_tab"  onclick="callAjax(this,'{{ route('admin.sibling.table.show',$student->id) }}','sibling_info_list')"><i class="fa fa-users" id="sibling_info"></i> Siblling info</a></li>
               <li><a data-toggle="tab" data-table="parents_items" href="#parent" id="parent_info_tab"  onclick="callAjax(this,'{{ route('admin.parents.list',$student->id) }}','parent_info_list')"><i class="fa fa-user-circle"></i> Parent Info</a></li>
 
               <li><a data-toggle="tab" href="#address" data-table="address_info_table" id="address_info" onclick="callAjax(this,'{{ route('admin.parents.address',$student->id) }}','address_list')"><i class="fa fa-home"></i> Address</a></li>
@@ -45,7 +45,7 @@ b{
                                      
                                       <li class="list-group-item">Name :-<span class="fs"><input type="text" value="{{ $student->name }}" maxlength="50" name="student_name"> </span></li>
                                      
-                                      <li class="list-group-item">Class :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->classes->name or ''}}" name="nick_name"> </span></li>
+                                      <li class="list-group-item">Class :-<span class="fs"><input type="text" maxlength="50" disabled value="{{ $student->classes->name or ''}}" name="nick_name"> </span></li>
                                      
                                       <li class="list-group-item">Registration No :-<span class="fs"><input type="text" disabled="" value="{{ $student->registration_no or ''}}" > </span></li>
                                       
@@ -65,8 +65,8 @@ b{
 
                                 <div class="col-md-6 border_bottom">
                                     <ul class="list-group">
-                                     <li class="list-group-item">Nick Name :-<span  class="fs"><input type="text" maxlength="50" value="{{ $student->nick_name }}" name=""> </span></li>
-                                      <li class="list-group-item">Section :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->sectionTypes->name or ''}}" > </span></li>
+                                     <li class="list-group-item">Nick Name :-<span  class="fs"><input type="text" name="nick_name" maxlength="50" value="{{ $student->nick_name }}" name=""> </span></li>
+                                      <li class="list-group-item">Section :-<span class="fs"><input type="text" maxlength="50" disabled value="{{ $student->sectionTypes->name or ''}}" > </span></li>
                                       <li class="list-group-item">Addmission No :-<span class="fs"><input type="text" disabled="" value="{{ $student->admission_no }}" > </span></li>
                                        <li class="list-group-item">Date of Activation :-<span class="fs"><input type="text" maxlength="50" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation"> </span></li> 
                                         <li class="list-group-item">Gender :-<span class="fs"><input type="text" value="{{ $student->genders->genders or ''}}" disabled=""> </span></li>
@@ -140,7 +140,7 @@ b{
                      
                  </div>   
                 <div id="sibling" class="tab-pane fade">
-                 <button type="button" class="btn btn-info btn-sm btn_add_sibling_info" data-toggle="modal" data-target="#add_sibling" style="margin: 10px">Add Sibling info</button>
+                 <button type="button" class="btn btn-info btn-sm add_btn_parets" style="margin: 10px">Add Sibling info</button>
                  
                  <div class="table-responsive" id="sibling_info_list">
                     </div> 

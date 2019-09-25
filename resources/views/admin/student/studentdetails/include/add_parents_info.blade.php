@@ -25,7 +25,7 @@
                     <div class="form-group col-md-4">
                          {{ Form::label('relation_type_id','Relation Type',['class'=>' control-label']) }}
                       
-                         <select name="relation_type_id" class="form-control" onchange="showHideDiv(1,'btnNewExiting')">
+                         <select name="relation_type_id" id="relation_type_id" class="form-control" onchange="showHideDiv(1,'btnNewExiting')">
                           <option value="" disabled selected>Select</option>
                           
                           @foreach ($parentsType as $key=>$value)

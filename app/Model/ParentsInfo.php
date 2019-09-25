@@ -22,6 +22,8 @@ class ParentsInfo extends Model
 
     Public function profetions(){
         return $this->hasOne('App\Model\Profession','id','occupation'); 
-    }    
+    }  
+
+    
  
 }

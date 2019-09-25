@@ -14,14 +14,14 @@
 		</tr>
 	</thead>
 	<tbody>
-		<input type="hidden" name="relation_type_id" value="{{ $relation_type_id }}">
+		<input type="hidden" name="relation_id" value="{{ $relation_type_id }}">
 		 @foreach ($parentInfos as $parentInfo)
 			<tr>
 				<td>{{ $parentInfo->name }}</td>
 				<td>{{ $parentInfo->mobile }}</td>
 				<td>{{ $parentInfo->email }}</td>
 				<td>{{ $parentInfo->office_address }}</td>
-				<td><input type="radio" name="perent_detail" value="{{ $parentInfo->id }}" id="perent_idcard" value="{{ $parentInfo->p }}"></td>
+				<td><input type="radio" name="perent_info_id" value="{{ $parentInfo->id }}"></td>
 
 			</tr> 
 		@endforeach

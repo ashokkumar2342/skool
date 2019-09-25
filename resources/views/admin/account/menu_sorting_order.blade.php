@@ -1,7 +1,10 @@
-@extends('admin.layout.base')
+ @extends('admin.layout.base')
 @section('body')
-  <!-- Main content -->
-  <section class="content-header">
+ <style type="">
+   var el = document.getElementById('items');
+var sortable = Sortable.create(el);
+ </style>
+   <section class="content-header">
     
     <h1>Menu Ordering<small>List</small> </h1>
        
@@ -9,20 +12,20 @@
     <section class="content">
        
           <div class="box"> 
-            <div class="box-body" id="event_type_table_show_div">
-              <div class="col-lg-3">
-                <label>Menu Type</label>
-                <select name="" class="form-control">
-                   <option selected disabled>Select Menu</option>
-                  @foreach ($menuTypes as $menuType)
-                      <option value="{{ $menuType->id }}">{{ $menuType->name }}</option> 
-                  @endforeach
-                  
-                </select> 
-              </div>
-            </div>
+            <div class="box-body"> 
+            <div id="simpleList" class="list-group">
+              @php
+                $arrayId=1;
+              @endphp
+              @foreach ($menuTypes as $menuType)
+              <div class="list-group-item" name="menu_id"  >{{ $menuType->name }}<a ondragend="callAjax(alert('ddd'))" style="float: right;">{{ $arrayId ++ }}</a></div>
+ 
+              @endforeach
+              
+            </div> 
           </div>
-       
+        </div>
+
     </section>
     <!-- /.content -->
 
@@ -31,8 +34,20 @@
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 @endpush
 @push('scripts')
+
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+   <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+
  <script type="text/javascript">
+  // Simple list
+Sortable.create(simpleList, { /* options */ });
+
+// List with handle
+Sortable.create(listWithHandle, {
+  handle: '.glyphicon-move',
+  animation: 150
+});
+
      $(document).ready(function(){
         $('#event_type_data_table').DataTable();
     });

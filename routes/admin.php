@@ -209,14 +209,16 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::post('image', 'ParentInfoController@image')->name('admin.parents.image');
 	    Route::get('image/{image}', 'ParentInfoController@imageShow')->name('admin.parents.image.show');
 	    Route::post('update/{id}', 'ParentInfoController@update')->name('admin.parents.update');
-	    Route::get('parent-add-new', 'ParentInfoController@parentAddNew')->name('admin.parents.add.new');
-	    Route::get('address', 'ParentInfoController@address')->name('admin.parents.address');
-	    Route::get('add-address/{student_id}', 'ParentInfoController@addAddress')->name('admin.parents.add.address');
-	    Route::post('address-store', 'ParentInfoController@addressStore')->name('admin.parents.address.store');
+	    Route::get('parent-add-new', 'ParentInfoController@parentAddNew')->name('admin.parents.add.new'); 
 	    Route::get('parent-search', 'ParentInfoController@parentSearch')->name('admin.parents.search');
 	    Route::post('parent-search-post', 'ParentInfoController@parentSearchPost')->name('admin.parents.search.post');
 	    Route::get('parent-add-existing', 'ParentInfoController@parentExisting')->name('admin.parents.existing');
 	    Route::post('parent-add-existing-store', 'ParentInfoController@parentExistingStore')->name('admin.parents.existing.store');
+	 });
+	 Route::group(['prefix' => 'address'], function() {
+	     Route::get('address/{student_id}', 'StudentAddressDetailController@address')->name('admin.parents.address');
+	    Route::get('add-address/{student_id}', 'StudentAddressDetailController@addAddress')->name('admin.parents.add.address');
+	    Route::post('address-store', 'StudentAddressDetailController@addressStore')->name('admin.parents.address.store');
 	 });
 	  	// ---------------Medical Info----------------------------------------
 	 Route::group(['prefix' => 'medical-info'], function() {
