@@ -16,7 +16,7 @@ class FeeAccountController extends Controller
      */
     public function index()
     {
-        $feeAccounts = FeeAccount::latest('created_at')->paginate(20);
+        $feeAccounts = FeeAccount::orderBy('orderby_no','ASC')->get();
         return view('admin.finance.fee_account',compact('feeAccounts'));
     }
 
@@ -43,7 +43,7 @@ class FeeAccountController extends Controller
         
             'code' => 'required|max:3|unique:fee_accounts', 
             'name' => 'required|max:30|unique:fee_accounts', 
-            'description' => 'max:100', 
+              
               
         ]);
         if ($validator->fails()) {                    
@@ -54,6 +54,7 @@ class FeeAccountController extends Controller
             $feeAccount->code = $request->code;
             $feeAccount->name = $request->name;
             $feeAccount->description = $request->description;
+            $feeAccount->orderby_no = $request->orderby_no;
             $feeAccount->save();
             return response()->json([$feeAccount,'class'=>'success','message'=>'Fee Account Created Successfully']);
         }
@@ -107,6 +108,7 @@ class FeeAccountController extends Controller
             $feeAccount->code = $request->code;
             $feeAccount->name = $request->name;
             $feeAccount->description = $request->description;
+            $feeAccount->orderby_no = $request->orderby_no;
             $feeAccount->save();
             return response()->json([$feeAccount,'class'=>'success','message'=>'Fee Account Created Successfully']);
         }

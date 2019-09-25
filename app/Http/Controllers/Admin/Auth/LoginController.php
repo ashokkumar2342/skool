@@ -58,7 +58,8 @@ class LoginController extends Controller
      
           $this->validate($request, [
               'email' => 'required', 
-              'password' => 'required', 
+              'password' => 'required',
+              'captcha' => 'required|captcha' 
           ]);
           $credentials = [
                      'email' => $request['email'],
@@ -91,6 +92,10 @@ class LoginController extends Controller
             return Redirect()->back()->with(['message'=>'Invalid User or Password','class'=>'error']); 
         
        
+    }
+     public function refreshCaptcha()
+    {  
+        return  captcha_img('math');
     }
     // protected function credentials(Request $request)
     // {

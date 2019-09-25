@@ -10,11 +10,9 @@
       	<div class="box">
             <div class="box-header">
               <h3 class="box-title">Subjects List</h3>
-              <span style="float: right"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_class">Add Subject</button></span>
-
-
+              <span style="float: right"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_class">Add Subject</button></span> 
             </div>
-            <!-- /.box-header -->
+            <a href="{{ route('admin.subjectType.pdf.generate') }}" class="btn btn-default btn-sm" title="Download PDF" target="blank">PDF</a>
             <div class="box-body">
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
@@ -22,7 +20,8 @@
                   <th>Subject id</th>                
                   <th>Subject Name</th>
                   <th>Subject Code</th>
-                  <th width="80px">Action</th>                  
+                  <th>Sorting Order No</th>
+                  <th width="100px">Action</th>                  
                 </tr>
                 </thead>
                 <tbody>
@@ -35,13 +34,14 @@
                   <td>{{$subjectId++}}</td>
                   <td>{{ $subject->name }}</td>
                   <td>{{ $subject->code }}</td>
+                  <td>{{ $subject->sorting_order_id }}</td>
                   <td > 
                    @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)                   
-                    <a class="btn btn-info btn-xs col-md-4 col-md-offset-2" href="{{ route('admin.subjectType.edit',$subject->id) }}"><i class="fa fa-pencil"></i></a>
+                    <button class="btn btn-info btn-xs col-md-3" onclick="callPopupLarge(this,'{{ route('admin.subjectType.edit',$subject->id) }}')"><i class="fa fa-pencil"></i></button>
                     @endif
                      @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                     {!! Form::open(['method' => 'delete', 'route' => ['admin.subjectType.delete', $subject->id]]) !!}
-                    {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs col-md-4', 'onclick'=>"return confirm('Are you sure to delete this data ?')"]) !!}
+                    {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs col-md-3', 'onclick'=>"return confirm('Are you sure to delete this data ?')"]) !!}
                     {!! Form::close() !!}
                     @endif
                     
@@ -76,15 +76,22 @@
           <div class="form-group">
           {!! Form::label('SubjectName', 'Subjcet Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
             <div class="col-sm-9">
-            {!! Form::text('subjectName',@$subjectType->name, ['class'=>"form-control",'placeholder'=>"Subject Name",'autocomplete'=>'off']) !!}
+            {!! Form::text('subjectName',@$subjectType->name, ['class'=>"form-control",'placeholder'=>"Subject Name",'autocomplete'=>'off','maxlength'=>'50',]) !!}
             <p class="text-danger">{{ $errors->first('subjectName') }}</p>
             </div>
           </div>
           <div class="form-group">
           {!! Form::label('Code', 'Code :', ['class'=>"col-sm-3 control-label"]) !!}
             <div class="col-sm-9">
-            {!! Form::text('code', @$subjectType->code, ['class'=>"form-control",'placeholder'=>"Subject Code",'autocomplete'=>'off']) !!}
+            {!! Form::text('code', @$subjectType->code, ['class'=>"form-control",'placeholder'=>"Subject Code",'autocomplete'=>'off','maxlength'=>'6',]) !!}
             <p class="text-danger">{{ $errors->first('code') }}</p>
+            </div>
+          </div>   
+          <div class="form-group">
+          {!! Form::label('Code', 'Sorting Order No :', ['class'=>"col-sm-3 control-label"]) !!}
+            <div class="col-sm-9">
+            {!! Form::text('sorting_order_id', @$subjectType->code, ['class'=>"form-control",'placeholder'=>"Subject Code",'autocomplete'=>'off','maxlength'=>'6',]) !!}
+            <p class="text-danger">{{ $errors->first('Sorting Order') }}</p>
             </div>
           </div>   
          </div>
@@ -115,7 +122,7 @@
     $('#dataTable').DataTable( {
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'copy', 'csv', 'excel' 
         ]
     } );
 } );

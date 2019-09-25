@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\TimeTable;
 
 use App\Events\SmsEvent;
+use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
@@ -33,7 +34,7 @@ class TeacherController extends Controller
     	return view('admin.teacher.teacherDetails.view',compact('teacherFacultys'));
     }
     public function addForm(){
-      $classTypes=ClassType::all();
+      $classTypes=MyFuncs::getClassByHasUser();
       return view('admin.teacher.teacherDetails.add_form',compact('classTypes'));
     }
      public function addClassWiseSection(Request $request){
@@ -96,7 +97,7 @@ class TeacherController extends Controller
     }
      public function edit($id){
       $teacherFacultys=TeacherFaculty::findOrFail(Crypt::decrypt($id));
-      $classTypes=ClassType::all();
+      $classTypes=MyFuncs::getClassByHasUser();
        return view('admin.teacher.teacherDetails.edit',compact('teacherFacultys','classTypes'));
     }
     public function destroy($id)
@@ -267,14 +268,14 @@ class TeacherController extends Controller
     //---------------------teacher-subject-class------------------------------------------------------------//
     public function teacherClassSubject(){
         $teacherFacultys=TeacherFaculty::orderBy('name', 'DESC')->get();
-        $classTypes=ClassType::all();
+        $classTypes=MyFuncs::getClassByHasUser();
         $subjectTypes=SubjectType::all();
        
     	return view('admin.teacher.teacherSubjectClass.view_subject_class',compact('teacherFacultys','classTypes','subjectTypes'));
     } 
     public function teacherWiseClass(Request $request){
       
-        $classTypes=ClassType::all(); 
+        $classTypes=MyFuncs::getClassByHasUser(); 
       return view('admin.teacher.teacherSubjectClass.teacher_wise_class',compact('classTypes'));
     }
     public function classWiseSection(Request $request){

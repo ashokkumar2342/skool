@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
@@ -11,6 +12,7 @@ use App\Model\HistoryCertificateIssue;
 use App\Model\ReportRequest;
 use App\Model\Section;
 use App\Student;
+use App\Model\StudentDefaultValue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -41,7 +43,8 @@ class CertificateIssueDetailController extends Controller
     {
         $students=Student::where('student_status_id',1)->get();
          $academicYears=AcademicYear::orderBy('id','ASC')->get();
-        return view('admin.certificate.form',compact('students','academicYears'));
+         $default = StudentDefaultValue::find(1);
+        return view('admin.certificate.form',compact('students','academicYears','default'));
     }
    
 
@@ -437,6 +440,24 @@ class CertificateIssueDetailController extends Controller
 
         }    
     }
+    public function checkStatus()
+    {
+         $students=Student::where('student_status_id',1)->get();
+         return view('admin.certificate.check_status',compact('certificates','students'));
+    }
+    public function checkStatusShow(Request $request)
+    {
+        if ($request->registration_no!=null &&  $request->certificate_type_id!=null){
+            $CertificateIssueDetail =  CertificateIssueDetail::where('student_id',$request->registration_no)->where('certificate_type',$request->certificate_type_id)->get();  
+        }elseif ($request->registration_no!=null){
+            $CertificateIssueDetail =  CertificateIssueDetail::where('student_id',$request->registration_no)->get();  
+        }
+        
+       $response = array();
+        $response['status'] = 1;
+        $response['data'] = view('admin.certificate.check_status_show',compact('CertificateIssueDetail'))->render();
+        return $response;
+    }
         
     public function CertificateCardMail($certificate_type,$id)
     {
@@ -510,7 +531,7 @@ class CertificateIssueDetailController extends Controller
         
           $reportWise=$request->id;
           $registrationNOs=Student::orderBy('id','ASC')->get();
-          $classTypes=ClassType::orderBy('id','ASC')->get();
+          $classTypes=MyFuncs::getClassByHasUser(); 
           return view('admin.certificate.tuitionfee.all_report',compact('reportWise','registrationNOs','classTypes'));
     }
     public function reportClassWithSection(Request $request){

@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\PaymentMode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class PaymentModeController extends Controller
 {
     public function index(){
-    	$paymentmodes = PaymentMode::all();
+    	$paymentmodes = PaymentMode::orderBy('sorting_order_id','ASC')->get();
         return view('admin.master.paymentmode.list',compact('paymentmodes'));
 
     }
@@ -27,6 +28,7 @@ class PaymentModeController extends Controller
         }
        $paymentmode = new PaymentMode();
        $paymentmode->name = $request->name; 
+       $paymentmode->sorting_order_id = $request->sorting_order_id; 
        $paymentmode->save();
        return response()->json([$paymentmode,'class'=>'success','message'=>'Payment Mode Created Successfully']);
     }
@@ -41,9 +43,12 @@ class PaymentModeController extends Controller
 
     public function update(Request $request,$id)
     {   
+        $admin=Auth::guard('admin')->user()->id;
         $id =Crypt::decrypt($id); 
         $paymentMode =PaymentMode::find($id); 
         $paymentMode->name = $request->name; 
+        $paymentMode->sorting_order_id = $request->sorting_order_id; 
+        $paymentMode->last_updated_by=$admin; 
         $paymentMode->save(); 
         $response = array();
         $response['status'] = 1; 

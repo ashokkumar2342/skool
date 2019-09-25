@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Fee;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\StudentFeeDetail;
@@ -16,7 +17,7 @@ class FeeDueController extends Controller
      */
     public function index()
     {
-        $classes = array_pluck(ClassType::get(['name','alias'])->toArray(),'alias', 'name');
+        $classes = MyFuncs::getClasses();
           
         return view('admin.finance.feedue.list',compact('classes'));
     }

@@ -17,7 +17,7 @@
             <!-- /.box-header -->
             <div class="box-body">
               
-
+               <a href="{{ route('admin.class.pdf.generate') }}" class="btn btn-default btn-sm" title="Download PDF" target="blank">PDF</a>
               </body>
               </html>
               <table id="dataTable" class="table table-bordered table-striped table-hover">
@@ -25,8 +25,8 @@
                 <tr>
                   <th>Class id</th>                
                   <th>Class Name</th>
-                  <th>Sort Name</th>
-                  <th>Shorting Order No</th>
+                  <th>Class Code</th>
+                  <th>Sorting Order No</th>
                   <th width="80px">Action</th>                  
                 </tr>
                 </thead>
@@ -79,14 +79,14 @@
             </div>
           </div>
           <div class="form-group">
-          {!! Form::label('shortName', 'Short Name :', ['class'=>"col-sm-3 control-label"]) !!}
+          {!! Form::label('code', 'Class Code :', ['class'=>"col-sm-3 control-label"]) !!}
             <div class="col-sm-9">
-            {!! Form::text('shortName', @$classType->alias, ['class'=>"form-control",'placeholder'=>"Numeric Name",'autocomplete'=>'off','maxlength'=>'50']) !!}
-            <p class="text-danger">{{ $errors->first('shortName') }}</p>
+            {!! Form::text('code', @$classType->alias, ['class'=>"form-control",'placeholder'=>"Numeric Name",'autocomplete'=>'off','maxlength'=>'50']) !!}
+            <p class="text-danger">{{ $errors->first('code') }}</p>
             </div>
           </div> 
           <div class="form-group">
-          {!! Form::label('shorting_id', 'Shorting Order No :', ['class'=>"col-sm-3 control-label"]) !!}
+          {!! Form::label('shorting_id', 'Sorting Order No :', ['class'=>"col-sm-3 control-label"]) !!}
             <div class="col-sm-9">
             {!! Form::text('shorting_id', @$classType->shorting_id, ['class'=>"form-control",'placeholder'=>"Shorting id",'autocomplete'=>'off','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) !!}
             <p class="text-danger">{{ $errors->first('shorting_id') }}</p>
@@ -126,7 +126,7 @@
     $('#dataTable').DataTable( {
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'copy', 'csv', 'excel'
         ]
     } );
 } );

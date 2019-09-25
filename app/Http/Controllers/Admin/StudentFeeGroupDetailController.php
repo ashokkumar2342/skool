@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\ClassType;
@@ -21,7 +22,7 @@ class StudentFeeGroupDetailController extends Controller
     {        
           
         $academicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(), 'name', 'id');
-        $classess = array_pluck(ClassType::get(['id','name'])->toArray(), 'name', 'id');
+        $classess = MyFuncs::getClasses();
          
         return view('admin.finance.student_fee_group_detail',compact('academicYear','classess'));
     }

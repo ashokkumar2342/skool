@@ -2,7 +2,7 @@
 @section('body')
 <!-- Main content -->
 <section class="content-header">
-   <button type="button" class="btn btn-info pull-right "  select2="true"  onclick="callPopupLarge(this,'{{ route('admin.teacher.diary.add.form')}}')"  >Add Form</button> 
+   <button type="button" class="btn btn-info pull-right "  select2="true"  onclick="callPopupLarge(this,'{{ route('admin.teacher.diary.add.form')}}')"  >Teacher Diary</button> 
   <h1>Teacher Diary<small>List</small> </h1> 
 </section>  
 <section class="content"> 

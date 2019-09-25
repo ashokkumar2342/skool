@@ -36,7 +36,7 @@ class RegistrationController extends Controller
     
     public function index()
     {    
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');    
+        $classes = MyFuncs::getClasses();   
         $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');

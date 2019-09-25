@@ -7,7 +7,7 @@
             <!-- /.box-header -->            
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Hot Menu Assign</h3>
+              <h3 class="box-title">Quick Links</h3>
                <div class="col-lg-6 pull-right">
                @includeIf('admin.include.hot_menu', ['menu_type_id' =>1])
              </div>

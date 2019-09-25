@@ -10,35 +10,34 @@
                                 <th><span class="text-nowrap">Email </span></th>
                                 <th><span class="text-nowrap">Date Of Birth </span></th>
                                 <th><span class="text-nowrap">Date Of Anniversary </span></th>
-                                <th><span class="text-nowrap">Office Address </span></th>
+                                <th><span class="text-nowrap">Organization Address </span></th>
                                 <th><span class="text-nowrap">Islive </span></th>
                                 <th><span class="text-nowrap">Photo </span></th>
                                 <th><span class="text-nowrap" style="margin:5px">Action </span></th>
                             </tr>
                         </thead>
-                        <tbody>
-                           
-                            @foreach (App\Model\ParentsInfo::where('student_id',$student)->get() as $parents) 
+                        <tbody> 
+                            @foreach($parents as $parent)
                             <tr>
-                                <td>{{ $parents->name }}</td>
-                                <td>{{ $parents->relationType->name or ''}}</td>
-                                <td>{{ $parents->education }}</td>
-                                <td>{{ $parents->profetions->name or '' }}</td>
-                                <td>{{ $parents->incomes->name or ''}}</td>
-                                <td>{{ $parents->mobile }}</td>
-                                <td>{{ $parents->email }}</td>
-                                <td>{{ $parents->dob }}</td>
-                                <td>{{ $parents->doa }}</td>
-                                <td>{{ $parents->office_address }}</td>
-                                <td>{{ $parents->islive == 1? 'Yes' : 'No' }}</td>                            
+                                <td>{{ $parent->name }}</td>
+                                <td>{{ $parent->relationType->name or ''}}</td>
+                                <td>{{ $parent->education }}</td>
+                                <td>{{ $parent->profetions->name or '' }}</td>
+                                <td>{{ $parent->incomes->name or ''}}</td>
+                                <td>{{ $parent->mobile }}</td>
+                                <td>{{ $parent->email }}</td>
+                                <td>{{ $parent->dob }}</td>
+                                <td>{{ $parent->doa }}</td>
+                                <td>{{ $parent->organization_address }}</td>
+                                <td>{{ $parent->islive == 1? 'Yes' : 'No' }}</td>                            
                                                         
                                  
                                 <td>
                                   @php
-                             $image = route('admin.parents.image.show',$parents->photo);
+                             $image = route('admin.parents.image.show',$parent->photo);
                               
                              @endphp 
-                               <img  sc="{{ ($parents->photo)? $image : asset('profile-img/user.png') }}" style="width: 50px; height: 50px;  border: 2px solid #d1f7ec">
+                               <img  sc="{{ ($parent->photo)? $image : asset('profile-img/user.png') }}" style="width: 50px; height: 50px;  border: 2px solid #d1f7ec">
 
                                 </td>
         
@@ -48,11 +47,11 @@
                                     
                                    {{--  <a href="{{ route('admin.parents.image',$parents->id) }}" title="" class="btn btn-success btn-xs"><i class="fa fa-image"></i></a> --}}
 
-                                    <button type="button" title="Upload Image" class="btn_parents_image btn btn-info btn-xs" data-toggle="modal" data-id="{{ $parents->id }}" data-target="#image_parent"><i class="fa fa-image"></i> </button>
+                                    <button type="button" title="Upload Image" class="btn_parents_image btn btn-info btn-xs" data-toggle="modal" data-id="{{ $parent->id }}" data-target="#image_parent"><i class="fa fa-image"></i> </button>
 
-                                    <button class="btn_medical_view btn btn-warning btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.parents.edit',$parents->id) }}')" data-id=""  ><i class="fa fa-edit"></i></button>
+                                    <button class="btn_medical_view btn btn-warning btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.parents.edit',$parent->id) }}')" data-id=""  ><i class="fa fa-edit"></i></button>
 
-                                    <button class="btn btn-danger btn-xs" button-click="parent_info" title="Delete" onclick="return confirm('Are you Sure delete'),callAjax(this,'{{ route('admin.parents.delete',$parents->id) }}')"  ><i class="fa fa-trash"></i></button>
+                                    <button class="btn btn-danger btn-xs" success-popup="true" button-click="parent_info_tab" title="Delete" onclick="return confirm('Are you Sure delete'),callAjax(this,'{{ route('admin.parents.delete',$parent->id) }}')"  ><i class="fa fa-trash"></i></button>
 
                                                      
                                 </td>                          

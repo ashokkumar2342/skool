@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
  
 use App\Events\SmsEvent;
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\SessionDate;
@@ -24,7 +25,7 @@ class StudentAttendanceController extends Controller
     public function index()
     {
  
-        $classes = array_pluck(ClassType::get(['id','name'])->toArray(),'name', 'id');
+        $classes = MyFuncs::getClasses();
         return view('admin.attendance.student.list',compact('centers','classes'));
     }
 

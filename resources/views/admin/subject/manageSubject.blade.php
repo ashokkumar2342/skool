@@ -57,6 +57,7 @@
                  
                 </div> 
             </div>
+            <a href="{{ route('admin.manageSubject.pdf.generate') }}" class="btn btn-default btn-sm" title="Download PDF" target="blank">PDF</a>
             <div class="col-md-8">
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
@@ -113,7 +114,7 @@
     $('#dataTable').DataTable( {
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'copy', 'csv', 'excel'
         ]
     } );
 } );     

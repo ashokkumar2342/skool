@@ -8,7 +8,7 @@
   
 </style>
  
-  <div class="modal-dialog" style="width:40%">
+  <div class="modal-dialog" style="width:80%">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -22,17 +22,22 @@
               <form action="{{ route('admin.class.wise.room.details.update',$classWiseRooms->id) }}" method="post" class="add_form" content-refresh="class_wise_room_table" button-click="btn_close">
               {{ csrf_field() }}
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                   <label>Class</label>
-                  <select name="class_id" class="form-control">
-                    <option value=""></option>
+                  <select name="class_id" class="form-control" onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section.addForm') }}','section_dddid_div')">
+                    <option selected disabled>Select Class</option>
                      @foreach ($classTypes as $classType)
-                     <option value="{{ $classType->id }}"{{ $classWiseRooms->class_id==$classType->id? 'selected' : '' }}>{{ $classType->name }}</option> 
+                     <option value="{{ $classType->id }}">{{ $classType->name }}</option> 
                      @endforeach
                   </select>
-                  
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4" id="section_dddid_div">
+                  <label>Section</label>
+                  <select  class="form-control">
+                    <option selected disabled>Select Section</option> 
+                  </select>
+                </div> 
+                <div class="col-lg-4">
                   <label>Room No</label>
                   <select name="room_name" class="form-control">
                     <option selected disabled>Select Room No</option>

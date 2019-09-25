@@ -3,7 +3,7 @@
 <div class="modal-content">
   <div class="modal-header"> 
     <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button> 
-      <h4 align="center"><b>Teacher Adjust List</b></h4>
+      <h4 align="center"><b>Appoinment Edit</b></h4>
       </div>
      <div class="modal-body">
         <form action="{{ route('admin.teacher.appointment.update',$appointments->id) }}" method="post" class="add_form" button-click="btn_close,btn_appoinment">

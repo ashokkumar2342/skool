@@ -19,21 +19,16 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12">
-         <form id="parents-form" action="{{ route('admin.parents.update',$parentsInfo->id) }}" class="add_form" method="post" button-click="btn_close,parent_info">
-                    <div class="form-group col-md-4">
-                         {{ Form::label('relation_type_id','Parents',['class'=>' control-label']) }}
-                         {!! Form::select('relation_type_id',$parentsType, $parentsInfo->relation_type_id, ['class'=>'form-control','placeholder'=>'Select Parents','required']) !!}
-                         <p class="text-danger">{{ $errors->first('parents') }}</p>
-                    </div>
+         <form id="parents-form" action="{{ route('admin.parents.update',$parentsInfo->id) }}" class="add_form" method="post" button-click="btn_close,parent_info_tab"> 
                     <div class="form-group col-md-4">
                         {{ Form::label('name','Parents Name',['class'=>' control-label','maxlength'=>'50']) }}                         
                         {{ Form::text('name',$parentsInfo->name ,['class'=>'form-control',' required','maxlength'=>'50']) }}
-                        <p class="text-danger">{{ $errors->first('name') }}</p>
+                         
                     </div>
                     <div class="form-group col-md-4">
                         {{ Form::label('education','Education',['class'=>' control-label','maxlength'=>'50']) }}                         
                         {{ Form::text('education',$parentsInfo->education ,['class'=>'form-control','maxlength'=>'50']) }}
-                        <p class="text-danger">{{ $errors->first('education') }}</p>
+                         
                     </div>
                     <div class="form-group col-md-4">
                       {{ Form::label('occupation','Profession',['class'=>' control-label']) }}{!! Form::select('occupation',$professions, $parentsInfo->occupation, ['class'=>'form-control','placeholder'=>'Select Profession','required']) !!} 
@@ -55,19 +50,14 @@
                     </div>
                      <div class="form-group col-md-4">
                         {{ Form::label('dob','Date of Birth',['class'=>' control-label']) }}                         
-                        {{ Form::text('dob',$parentsInfo->dob ,['class'=>'form-control datepicker']) }}
+                        {{ Form::date('dob',$parentsInfo->dob ,['class'=>'form-control datepicker']) }}
                         <p class="text-danger">{{ $errors->first('dob') }}</p>
                     </div>
                      <div class="form-group col-md-4">
                         {{ Form::label('doa','Date of Anniversary',['class'=>' control-label ']) }}                         
-                        {{ Form::text('doa',$parentsInfo->doa ,['class'=>'form-control datepicker']) }}
+                        {{ Form::date('doa',$parentsInfo->doa ,['class'=>'form-control datepicker']) }}
                         <p class="text-danger">{{ $errors->first('doa') }}</p>
                     </div>                  
-                    <div class="form-group col-md-8">
-                        {{ Form::label('office_address','Office Address',['class'=>' control-label']) }}                         
-                        {{ Form::textarea('office_address',$parentsInfo->office_address,['class'=>'form-control','rows'=>2 ]) }}
-                        <p class="text-danger">{{ $errors->first('office_address') }}</p>
-                    </div>
                     <div class="form-group col-md-4">
                         {{ Form::label('islive','IsLive',['class'=>' control-label']) }}                         
                         {!! Form::select('islive',[
@@ -76,6 +66,11 @@
                           ], null, ['class'=>'form-control']) !!}
                         <p class="text-danger">{{ $errors->first('islive') }}</p>
                     </div> 
+                    <div class="form-group col-md-12">
+                        {{ Form::label('organization_address','Organization Address',['class'=>' control-label']) }}                         
+                        {{ Form::textarea('organization_address',$parentsInfo->office_address,['class'=>'form-control','rows'=>2 ]) }}
+                        <p class="text-danger">{{ $errors->first('organization_address') }}</p>
+                    </div>
                 <div class="col-lg-12 text-center">
                     
                     <input type="submit" class="btn btn-success" value="Update">

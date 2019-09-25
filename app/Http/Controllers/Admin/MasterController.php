@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
+use App\Model\GuardianRelationType;
 use App\Model\IncomeRange;
 use App\Model\Profession;
 use Illuminate\Http\Request;
@@ -114,7 +115,9 @@ class MasterController extends Controller
                  
             ]);
             if ($validator->fails()) {                    
-                 return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
+                $response['status'] = 0; 
+            $response['msg'] = 'Already Create'; 
+            return $response; 
 
             }
            $profession = new Profession();
@@ -165,5 +168,68 @@ class MasterController extends Controller
             $profession =Profession::find($id);
             $profession->delete();
              return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+        }
+
+
+
+
+//-----------------guardian------------------------------------------------------------------        
+        public function guardian()
+        {
+           $guardianRelationTypes= GuardianRelationType::orderBy('id','ASC')->get();
+            return view('admin.master.guardian.list',compact('guardianRelationTypes')); 
+        }
+        public function guardianStore(Request $request)
+        {
+           $rules=[ 
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+        $guardianRelationType=new GuardianRelationType();
+        $guardianRelationType->name=$request->guardian; 
+        $guardianRelationType->save();
+        $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
+          }  
+        }
+        public function guardianEdit($id)
+        {
+            $guardianRelationType=GuardianRelationType::find($id);
+            return view('admin.master.guardian.edit',compact('guardianRelationType')); 
+        }
+        public function guardianDelete($id)
+        {
+            $guardianRelationType=GuardianRelationType::find($id);
+            $guardianRelationType->delete();
+             return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+        }
+        public function guardianUpdate(Request $request ,$id)
+        {
+           $rules=[ 
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+        $guardianRelationType= GuardianRelationType::find($id);
+        $guardianRelationType->name=$request->guardian; 
+        $guardianRelationType->save();
+        $response=['status'=>1,'msg'=>'Update Successfully'];
+            return response()->json($response);
+          }  
         }
 }

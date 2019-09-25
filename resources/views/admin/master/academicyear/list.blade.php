@@ -32,7 +32,7 @@
                                <p class="end_date text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
-                        <div class="col-lg-2">                           
+                        <div class="col-lg-4">                           
                              <div class="form-group">
                               {{ Form::label('description','Description',['class'=>' control-label']) }}
                                {{ Form::text('description',null,['class'=>'form-control','placeholder'=>'Enter Description']) }}
@@ -52,6 +52,7 @@
             <div class="box">             
               <!-- /.box-header -->
                 <div class="box-body">
+                  <a href="{{ route('admin.academicYear.pdf.generate') }}" class="btn btn-default btn-sm" title="PDF" target="blank">PDF Download</a>
                     <table class="table" id="table_academic_year">
                          
                         <thead>
@@ -59,21 +60,35 @@
                                 <th>Academic Year</th>
                                 <th>Start date</th>
                                 <th>End date</th>
-                                <th>Description date</th>
+                                <th>Description</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($academicYears as $academicYear) 
                                 <tr>
-                                    <td>{{ $academicYear->name }}</td>
+                                  @if ($academicYear->status==1)
+                                     
+                                    <td><span class="label label-success">{{ $academicYear->name }}</span></td>
+                                    <td><span class="label label-success">{{ date('d-m-Y',strtotime($academicYear->start_date)) }}</span></td>
+                                    <td><span class="label label-success">{{ date('d-m-Y',strtotime($academicYear->end_date))  }}</span></td>
+                                    <td><span class="label label-success">{{ $academicYear->description }}</span></td>
+                                    @else
+                                     <td>{{ $academicYear->name }}</td>
                                     <td>{{ date('d-m-Y',strtotime($academicYear->start_date)) }}</td>
                                     <td>{{ date('d-m-Y',strtotime($academicYear->end_date))  }}</td>
                                     <td>{{ $academicYear->description }}</td>
+                                  @endif
                                     <td>
-                                       @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
+                                      @if ($academicYear->status==1)
+                                        <a href="{{ route('admin.academicYear.default.value',$academicYear->id) }}" title="" class="btn-xs btn-success btn">Default</a>
+                                        @else
+                                        <a href="{{ route('admin.academicYear.default.value',$academicYear->id) }}" title="" class="btn-xs btn-default btn">Default</a>
+                                      @endif
+                                       
+                                      @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
                                       <?php $url = route('admin.academicYear.edit',Crypt::encrypt($academicYear->id)) ?>
-                                      <a class="btn btn-success btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a>
+                                      <a class="btn btn-info btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a>
                                       @endif 
                                       @if(App\Helper\MyFuncs::menuPermission()->d_status==1)
                                       <a href="{{ route('admin.academicYear.delete',Crypt::encrypt($academicYear->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>

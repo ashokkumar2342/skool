@@ -18,4 +18,8 @@ class StudentSiblingInfo extends Model
     	return $this->belongsTo('App\Student','student_sibling_id','id');  
 
     }
+    Public function studentSiblings(){
+    	return $this->hasOne('App\Student','id','student_id');  
+
+    }
 }

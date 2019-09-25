@@ -7,6 +7,7 @@ use App\Model\Section;
 use App\Model\SectionType;
 use Illuminate\Http\Request;
 use Validator;
+use PDF;
 
 class SectionTypeController extends Controller
 {
@@ -17,7 +18,7 @@ class SectionTypeController extends Controller
      */
     public function index()
     {
-         $sections = SectionType::all();
+         $sections = SectionType::orderBy('sorting_order_id','ASC')->get();
         return view('admin.manage.section.list',compact('sections'));
     }
 
@@ -46,9 +47,12 @@ class SectionTypeController extends Controller
       
         $this->validate($request,[
             'name' => 'required|max:199|unique:section_types',             
+            'code' => 'required|max:199|unique:section_types',             
             ]);
         $section = new SectionType();
         $section->name = $request->name;        
+        $section->code = $request->code;        
+        $section->sorting_order_id = $request->sorting_order_id;        
         if ($section->save()) {
             return redirect()->back()->with(['section'=>'success','message'=>'Section created success ...']);
         }
@@ -89,6 +93,7 @@ class SectionTypeController extends Controller
     {
          $rules=[
          'name' => 'required|max:50', 
+         'code' => 'required|max:50', 
             
            
          ];
@@ -104,6 +109,8 @@ class SectionTypeController extends Controller
           else {
               
              $sectionType->name = $request->name; 
+             $sectionType->code = $request->code; 
+             $sectionType->sorting_order_id = $request->sorting_order_id; 
              $sectionType->save();
               $response=['status'=>1,'msg'=>'Updated Successfully'];
              return response()->json($response); 
@@ -122,6 +129,12 @@ class SectionTypeController extends Controller
             return redirect()->route('admin.section.list')->with(['class'=>'success','message'=>'Section Delete successfully']);
         }
     }
-
+    public function pdfGenerate($value='')
+    {
+        $sections=SectionType::orderBy('code','ASC')->get();
+         $pdf = PDF::loadView('admin.manage.section.section_pdf',compact('sections'));
+        return $pdf->stream('section.pdf');
+       
+    }
      
 }

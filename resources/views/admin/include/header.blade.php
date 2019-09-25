@@ -20,16 +20,19 @@
             <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">1</span>
+               @php
+                   $notifications=App\Model\Notification::orderBy('id','DESC')->get(); 
+               @endphp
+               @foreach ($notifications as $notification)
+                 <span class="label label-success">{{ $notification->count('id') }}</span> 
+               @endforeach
             </a>
             <ul class="dropdown-menu">
               <li class="header">You have 4 messages</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  @php
-                   $notifications=App\Model\Notification::orderBy('id','DESC')->get(); 
-                  @endphp
+                   
                   @foreach ($notifications as $notification)
                     @php
                     $admin=App\Admin::where('id',$notification->user_id)->first();

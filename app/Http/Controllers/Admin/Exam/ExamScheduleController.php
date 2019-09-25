@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Exam;
 
 use App\Events\SmsEvent;
+use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
@@ -25,7 +26,7 @@ class ExamScheduleController extends Controller
     public function index()
     {
         $academicYears=AcademicYear::orderBy('id','ASC')->get();
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');
+        $classes = MyFuncs::getClasses();
         $subjects = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
         $examTerms = ExamTerm::all();
         $examSchedules = ExamSchedule::all();

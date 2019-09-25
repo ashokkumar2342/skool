@@ -107,35 +107,7 @@
                                                     <p class="text-danger">{{ $errors->first('nick_name') }}</p>
                                                 </div>
                                             </div>
-                                             <div class="col-lg-3">                         
-                                                <div class="form-group">
-                                                    {{ Form::label('father_name','Father Name',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('father_name',$student->father_name,['class'=>'form-control',' required','maxlength'=>'50']) }}
-                                                    <p class="text-danger">{{ $errors->first('father_name') }}</p>
-                                                </div>
-                                            </div>
-                                             <div class="col-lg-3">                         
-                                                <div class="form-group">
-                                                    {{ Form::label('mother_name','Mother Name',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('mother_name',$student->mother_name,['class'=>'form-control ',' required','maxlength'=>'50']) }}
-                                                    <p class="text-danger">{{ $errors->first('mother_name') }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">                         
-                                                <div class="form-group">
-                                                    {{ Form::label('father_mobile','Father Mobile Number',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('father_mobile',$student->father_mobile,['class'=>'form-control ',' required','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'10']) }}
-                                                    <p class="text-danger">{{ $errors->first('father_mobile') }}</p>
-                                                     
-                                                </div>
-                                            </div>
-                                             <div class="col-lg-3">                         
-                                                <div class="form-group">
-                                                    {{ Form::label('mother_mobile','Mother Mobile Number',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('mother_mobile',$student->mother_mobile,['class'=>'form-control ',' required','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'10']) }}
-                                                    <p class="text-danger">{{ $errors->first('mother_mobile') }}</p>
-                                                </div>
-                                            </div>
+                                              
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('email','Email Id',['class'=>' control-label']) }}
@@ -156,34 +128,35 @@
                                                     <p class="text-danger">{{ $errors->first('date_of_birth') }}</p>
                                                 </div>
                                             </div> 
-                                              <div class="col-lg-3">                         
+                                              <div class="col-lg-4">                         
                                                 <div class="form-group">
                                                     {{ Form::label('gender','Gender',['class'=>' control-label']) }}
                                                     {!! Form::select('gender',$genders, $student->genders->id, ['class'=>'form-control','placeholder'=>'Select Gender','required']) !!}
                                                     <p class="text-danger">{{ $errors->first('gender') }}</p>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">                         
+                                             <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('religion','Religion',['class'=>' control-label']) }}
-                                                    {!! Form::select('religion',$religions, $student->religions->id, ['class'=>'form-control','placeholder'=>'Select Religion','required']) !!}
-                                                    <p class="text-danger">{{ $errors->first('religion') }}</p>
+                                                    <label>Aadhaar No</label>
+                                                    <span class="fa fa-asterisk"></span>
+                                                    <input type="text" name="aadhaar_no" class="form-control" value="{{ $student->adhar_no }}">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">                         
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('category','Category',['class'=>' control-label']) }}
-                                                    {!! Form::select('category',$categories, $student->categories->id, ['class'=>'form-control','placeholder'=>'Select Religion','required']) !!}
-                                                    <p class="text-danger">{{ $errors->first('category') }}</p>
+                                                    <label>House Name</label>
+                                                    <span class="fa fa-asterisk"></span>
+                                                    <select name="house_name" class="form-control">
+                                                        <option selected disabled>Select House</option>
+                                                        @foreach ($houses as $house)
+                                                          <option value="{{ $house->id }}"{{ $house->id==$student->house_no?'selected' : '' }}>{{ $house->name }}</option> 
+                                                        @endforeach 
+                                                    </select>
+                                                  
                                                 </div>
-                                            </div>
-                                             <div class="col-lg-3">                         
-                                                <div class="form-group">
-                                                    {{ Form::label('state','State',['class'=>' control-label']) }}
-                                                    {!! Form::text('state', $student->state, ['class'=>'form-control','required','maxlength'=>'50']) !!}
-                                                    <p class="text-danger">{{ $errors->first('state') }}</p>
-                                                </div>
-                                            </div>
+                                            </div>       
+                                             
+                                              
                                         </div>
                                     </div>
                                 </div>
@@ -193,34 +166,7 @@
                                 <div class="col-md-12 ">
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <div class="col-lg-3">                         
-                                                <div class="form-group">
-                                                    {{ Form::label('city','City',['class'=>' control-label']) }}
-                                                    {!! Form::text('city',$student->city, ['class'=>'form-control','required','maxlength'=>'50']) !!}
-                                                    <p class="text-danger">{{ $errors->first('city') }}</p>
-                                                </div>
-                                            </div>
-                                             <div class="col-lg-3">                         
-                                                <div class="form-group">
-                                                    {{ Form::label('p_address','Permanent Address',['class'=>'control-label']) }}
-                                                     {{ Form::textarea('p_address',$student->p_address,['class'=>'form-control','rows'=>2  ,'style'=>'resize:none']) }}
-                                                     <p class="text-danger">{{ $errors->first('p_address') }}</p>
-                                                </div>
-                                            </div>
-                                             <div class="col-lg-3">                         
-                                                <div class="form-group">
-                                                    {{ Form::label('c_address',' Correspondence Address',['class'=>'control-label']) }}
-                                                     {{ Form::textarea('c_address',$student->c_address,['class'=>'form-control','rows'=>2  ,'style'=>'resize:none']) }}
-                                                     <p class="text-danger">{{ $errors->first('c_address') }}</p>
-                                                </div>
-                                            </div>
-                                             <div class="col-lg-3">                         
-                                                <div class="form-group">
-                                                    {{ Form::label('pincode','Pincode',['class'=>' control-label']) }}                         
-                                                    {{ Form::text('pincode',$student->pincode,array('class' => 'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'6' )) }}
-                                                    <p class="text-danger">{{ $errors->first('pincode') }}</p>
-                                                </div>
-                                            </div>  
+                                             
                                             
                                         </div>
                                     </div>

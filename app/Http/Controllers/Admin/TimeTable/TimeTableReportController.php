@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\TimeTable;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Library\TeacherFaculty;
@@ -29,7 +30,7 @@ class TimeTableReportController extends Controller
      	 	$teachers=TeacherFaculty::all();
              return view('admin.timeTable.timeTableReport.teacher',compact('teachers')); 
      	 }if ($request->id==4) {
-            $classTypes=ClassType::all();
+            $classTypes=MyFuncs::getClassByHasUser();
              return view('admin.timeTable.timeTableReport.class',compact('classTypes'));
      	 	
      	 }

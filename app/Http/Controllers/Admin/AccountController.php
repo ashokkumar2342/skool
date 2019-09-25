@@ -411,6 +411,34 @@ class AccountController extends Controller
 
 
  
-
+    public function resetPassWord($value='')
+    {
+       $admins=Admin::orderBy('email','ASC')->get();
+       return view('admin.account.reset_password',compact('admins'));
+    }
+    public function resetPassWordChange(Request $request)
+    {
+       $accounts=Admin::pluck('email')->toArray();
+       if ($request->new_pass!=$request->con_pass) {
+          $response=['status'=>0,'msg'=>'Password Not Match'];
+            return response()->json($response);
+        }
+       elseif (in_array($request->email,$accounts)) {                   
+            $accounts =Admin::where('email', 'like', '%' . $request->email . '%')->first(); 
+            $accounts =Admin::find($accounts->id); 
+            $accounts->password= bcrypt($request['new_pass']);
+            $accounts->save(); 
+            $response=['status'=>1,'msg'=>'Password Change Successfully'];
+            return response()->json($response); 
+              }
+      $response=['status'=>0,'msg'=>'Email Not Match'];
+      return response()->json($response);
+        
+    }
+    public function menuOrdering($value='')
+    {
+      $menuTypes=MinuType::orderBy('id','ASC')->get();
+      return view('admin.account.menu_sorting_order',compact('menuTypes'));
+    }
 
 }

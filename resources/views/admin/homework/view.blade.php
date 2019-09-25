@@ -1,5 +1,5 @@
   
- {{--  <!-- Main content -->
+  <!-- Main content -->
    
     <style type="text/css" media="screen">
   .bd{
@@ -23,17 +23,8 @@
          
         
         
-      </div> --}}
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>sdfgh</title>
-      </head>
-      <body>
-      asdfghjkl
-      </body>
-      </html>
-     
+      </div>
+      
     
 
  

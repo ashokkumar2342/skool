@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Exam;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Exam\ExamTerm;
@@ -21,7 +22,7 @@ class GradeDetailController extends Controller
      */
     public function index()
     {
-         $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');
+         $classes = MyFuncs::getClasses();
         $subjects = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
         $students = array_pluck(Student::get(['id','registration_no'])->toArray(),'registration_no', 'id');
         $examTerms = ExamTerm::all();

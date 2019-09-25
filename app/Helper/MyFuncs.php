@@ -32,9 +32,20 @@ class MyFuncs {
     }
 
     public static function getClasses(){
+
+        $user = MyFuncs::getUser();    
+        $userClass = UserClassType::where('admin_id',$user->id)->distinct()->get(['class_id']);
+        return $classes = array_pluck(ClassType::whereIn('id',$userClass)->get(['id','name'])->toArray(),'name', 'id');
+    }
+
+    public static function getClassByHasUser(){
         $user = MyFuncs::getUser();
         $userClass = UserClassType::where('admin_id',$user->id)->distinct()->get(['class_id']);
-        return $classes = array_pluck(ClassType::whereIn('id',$userClass)->get(['id','alias'])->toArray(),'alias', 'id');
+        return $classes = ClassType::whereIn('id',$userClass)->get();
+    }
+
+    public static function getAllClasses(){ 
+        return $classes = array_pluck(ClassType::get(['id','name'])->toArray(),'name', 'id');
     }
 
     public static function getSections($class_id){

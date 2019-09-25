@@ -24,7 +24,11 @@
               <div class="row">
                 <div class="col-lg-12">
                   <label>Room No</label>
-                  <input type="text" name="room_name" class="form-control" value="{{ $roomTypes->name }}"> 
+                  <input type="text" name="room_name" class="form-control" value="{{ $roomTypes->name }}" maxlength="50"> 
+                </div>
+                <div class="col-lg-12">
+                  <label>Room Location</label>
+                  <input type="text" name="location" class="form-control" placeholder="Enter Location " maxlength="50" value="{{ $roomTypes->location }}"  > 
                 </div>
                 <div class="col-lg-12 text-center">
                   

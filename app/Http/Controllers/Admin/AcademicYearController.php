@@ -7,7 +7,8 @@ use App\Model\AcademicYear;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Auth;
+use PDF;
 class AcademicYearController extends Controller
 {
     /**
@@ -17,7 +18,7 @@ class AcademicYearController extends Controller
      */
     public function index()
     {
-        $academicYears = AcademicYear::all();
+        $academicYears = AcademicYear::orderBy('start_date','DESC')->get();
         return view('admin.master.academicyear.list',compact('academicYears'));
     }
 
@@ -68,6 +69,7 @@ class AcademicYearController extends Controller
 
     public function update(Request $request,$id)
     {  
+        $admin=Auth::guard('admin')->user()->id;
          $validator = Validator::make($request->all(), [ 
              'name' => 'required|max:30',
              'start_date' => 'required|max:30', 
@@ -82,6 +84,7 @@ class AcademicYearController extends Controller
         $academicYears->start_date = date('Y-m-d',strtotime($request->start_date)) ;
         $academicYears->end_date = date('Y-m-d',strtotime($request->end_date));
         $academicYears->description = $request->description; 
+        $academicYears->last_updated_by = $admin; 
         $academicYears->save(); 
         $response = array();
         $response['status'] = 1; 
@@ -129,5 +132,24 @@ class AcademicYearController extends Controller
         $academicYear =AcademicYear::find($id);
         $academicYear->delete();
          return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+    public function defaultValue($id)
+    {
+          $academicYear =AcademicYear::all(); 
+          foreach ($academicYear as  $value) {
+             $academicYear =AcademicYear::find($value->id);
+             $academicYear->status=0;
+             $academicYear->save(); 
+          }
+          $academicYear =AcademicYear::find($id); 
+          $academicYear->status=1;
+          $academicYear->save();
+          return  redirect()->back()->with(['message'=>'Default Value Set Successfully','class'=>'success']);
+    }
+    public function pdfGenerate()
+    {
+        $academicYears = AcademicYear::orderBy('start_date','DESC')->get();
+        $pdf=PDF:: loadView('admin.master.academicyear.pdf_generate',compact('academicYears'));
+        return $pdf->stream('academicYear.pdf');
     }
 }

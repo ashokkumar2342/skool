@@ -33,12 +33,16 @@
                       <label>Award Name</label>
                       <input type="text" name="award_name" class="form-control" placeholder="" maxlength="100" value="{{ $award->award_name }}"> 
                     </div> 
-                    <div class="col-lg-12">
+                    <div class="col-lg-8">
                       <label>Description</label>
                       <textarea class="textarea" name="description" placeholder="description"
                             style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $award->description }}</textarea>
                        
-                    </div> 
+                    </div>
+                    <div class="col-lg-4" style="margin-top: 30px">
+                    <label>Image</label>
+                    <input type="file" name="image" class="form-control"> 
+                   </div> 
                    </div>
                    <div class="row">
                     <div class="col-lg-12 text-center" style="padding-top: 10px">

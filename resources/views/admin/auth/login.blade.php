@@ -135,10 +135,24 @@
                                                       <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                                       <p class="text-danger">{{ $errors->first('password') }}</p>
                                                     </div>
+                                                    <div class="form-group has-feedback">
+                                                      <div class="captcha">
+                                                           <span>{!! captcha_img('math') !!}</span>
+                                                           <button type="button" class="btn btn-success"><i class="fa fa-refresh" id="refresh"></i></button>
+                                                           </div>
+                                                        </div>
+                                                        <div class="form-group has-feedback">
+                                                           <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha"> 
+                                                            <p class="text-danger">{{ $errors->first('captcha') }}</p>
+                                                        </div>
+                                                    
+                                                    </div> 
+                                                    <div class="row">
+                                                       
                                                     <div class="row">
                                                        
                                                       <a href="#" onclick="callPopupLarge(this,'{{ route('admin.forget.password') }}')">Forgot Password</a>
-                                                      <div class="col-xs-4">
+                                                      <div class="col-xs-4" style="margin-left: 35px;margin-top: -10px">
                                                         <button type="submit" class="btn btn-primary btn-rounded">Sign In</button>
                                                       </div>
                                                       <!-- /.col -->
@@ -161,9 +175,20 @@
             
         </div>
         @endsection 
-        <!-- /#wrapper -->
-   
-       
-        
-        <!-- jQuery -->
-        
+@push('links')
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+@endpush
+@push('scripts')
+ 
+<script type="text/javascript">
+$('#refresh').click(function(){
+  $.ajax({
+     type:'GET',
+     url:'{{ route('admin.refresh.captcha') }}',
+     success:function(data){
+        $(".captcha span").html(data);
+     }
+  });
+});
+</script>
+  @endpush

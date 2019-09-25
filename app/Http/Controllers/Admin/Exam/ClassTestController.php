@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Exam;
 
 use App\Events\SmsEvent;
+use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
@@ -25,7 +26,7 @@ class ClassTestController extends Controller
     public function index()
     {
         $academicYears=AcademicYear::orderBy('id','ASC')->get();
-        $classTypes =ClassType::orderBy('id','ASC')->get();
+        $classTypes =MyFuncs::getClassByHasUser();
         $subjects = SubjectType::orderBy('id','name')->get();
        
         return view('admin.exam.class_test',compact('classTypes','subjects','classTests','academicYears'));
@@ -39,9 +40,9 @@ class ClassTestController extends Controller
     public function addForm()
     {
         $academicYears=AcademicYear::orderBy('id','ASC')->get();
-        $classes = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id');
+        $classes = MyFuncs::getClasses();
         $subjects = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
-        $classTypes=ClassType::orderBy('id','ASC')->get(); 
+        $classTypes=MyFuncs::getClassByHasUser(); 
         return view('admin.exam.class_test_add_form',compact('classes','subjects','classTests','academicYears','classTypes'));
     }
 

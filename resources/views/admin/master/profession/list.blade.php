@@ -31,7 +31,7 @@
                     <table id="dataTable" class="table table-bordered table-striped">
                       <thead>
                       <tr>
-                        <th>Sn</th>
+                        <th>Sr.No.</th>
                          
                         <th>Profession</th>
                         <th>Action</th>

@@ -84,7 +84,7 @@
     <script src="{{ asset('admin_asset/plugins/fastclick/fastclick.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('admin_asset/dist/js/app.min.js') }}"></script>
-    <script src="{{ asset('admin_asset/plugins/multiple-select/js/jQuery.multi-select.js') }}"></script>
+    <script src="{{ asset('admin_asset/plugins/multiple-select/js/jquery.multi-select.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('admin_asset/dist/js/demo.js') }}"></script>
     <script src="{{ asset('admin_asset/dist/js/toastr.min.js') }}"></script>

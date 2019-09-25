@@ -77,6 +77,9 @@ class Student extends Authenticatable
      Public function documents(){
         return $this->hasMany('App\Model\Document','student_id','id'); 
     }
+    Public function houses(){
+        return $this->hasOne('App\Model\House','id','house_no'); 
+    }
     //single student get data
     public function getStudentById($id)
     {

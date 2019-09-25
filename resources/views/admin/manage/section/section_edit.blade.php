@@ -12,8 +12,17 @@
      
       		<div class="row">
       			<div class="col-lg-8">
+              <label>Section Name</label>
       				<input type="text" name="name" class="form-control" value="{{$sectionType->name}}"> 
       			</div> 
+            <div class="col-lg-8">
+              <label>Section Code</label>
+              <input type="text" name="code" class="form-control" value="{{$sectionType->code}}"> 
+            </div> 
+            <div class="col-lg-8">
+              <label>Sorting Order No</label>
+              <input type="text" name="sorting_order_id" class="form-control" value="{{$sectionType->sorting_order_id}}"> 
+            </div> 
       			<div class="col-lg-2"> 
       			  <input type="submit" value="Save" class="btn btn-success">
       			</div> 

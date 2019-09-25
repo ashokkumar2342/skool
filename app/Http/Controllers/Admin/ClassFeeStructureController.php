@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\ClassFeeStructure;
 use App\Model\ClassType;
@@ -22,7 +23,7 @@ class ClassFeeStructureController extends Controller
     {
         $classFeeStructures = ClassFeeStructure::orderBy('isapplicable_id','desc')->get();
         $feeStructur = array_pluck(FeeStructure::get(['id','name'])->toArray(),'name', 'id'); 
-        $classess = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id'); 
+        $classess = MyFuncs::getClasses(); 
         return view('admin.finance.class_fee_structure',compact('feeStructur','classess','classFeeStructures'));
     }
     public function form()

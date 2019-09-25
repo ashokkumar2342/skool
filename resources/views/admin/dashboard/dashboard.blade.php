@@ -94,7 +94,7 @@
                     <span class="label label-success"></span>
                     
                      
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    
                     </button>
                   </div>
                 </div>
@@ -110,7 +110,7 @@
                 <div class="box-header with-border">
                   <div class="box-title"><button type="button" class="btn btn-success btn-xs" onclick="callAjax(this,'{{ route('admin.exam.today.class.test') }}','class_test')">Today's Class Test &nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-warning btn-xs" onclick="callAjax(this,'{{ route('admin.exam.upcoming.class.test') }}','class_test')" >Upcoming Class Tests</button></h3>&nbsp;</div> 
                   <div class="box-tools pull-right"> 
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    
                     </button>
                   </div> 
                 </div> 
@@ -125,7 +125,7 @@
                   <div class="box-title"><button type="button" class="btn btn-success btn-xs" onclick="callAjax(this,'{{ route('admin.event.today.event.dashboard',1) }}','event_today')">Today's Event &nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-warning btn-xs" onclick="callAjax(this,'{{ route('admin.event.today.event.dashboard',2) }}','event_today')" >Upcoming Events</button></h3>&nbsp;</div> 
                   <div class="box-tools pull-right"> 
                      
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    
                     </button>
                   </div> 
                 </div>

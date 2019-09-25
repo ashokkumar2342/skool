@@ -6,6 +6,7 @@
                    <th>User Name</th>
                    <th>Signature</th>
                    <th>Stamp</th>
+                   <th>Stamp Type</th>
                    <th>Action</th>
                  </tr>
                </thead>
@@ -24,12 +25,15 @@
                     @endif
                    <td>{{ $signatureStamp->admins->first_name or ''}}</td>  
                    <td>{{ $signatureStamp->signature }}</td> 
-                   <td>{{ $signatureStamp->stamp }}</td> 
+                   <td>{{ $signatureStamp->stamp }}</td>
+                    @if ($signatureStamp->stamp_type==1)
+                       <td>Approval</td>
+                       @else
+                       <td>Virify</td>
+                    @endif 
                    <td>
-                     <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.event.type.edit',Crypt::encrypt($signatureStamp->id)) }}')"><i class="fa fa-edit"></i></button>
-
-                        <a href="{{ route('admin.event.type.delete',Crypt::encrypt($signatureStamp->id)) }}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a>
-
+                     <button class="btn btn-info btn-xs" title="Edit" ><i class="fa fa-edit"></i></button> 
+                     <a href="#" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a> 
                    </td> 
                  </tr>
                 @endforeach
