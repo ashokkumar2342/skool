@@ -202,17 +202,20 @@ class StudentSiblingInfoController extends Controller
     public function destroy(Request $request,$student_id)
     {
         
-           
-            $SiblingGroup=SiblingGroup::where('student_id',$student_id)->first();
-            $SiblingGroup->delete();
-
+           $SiblingGroup=SiblingGroup::where('student_id',$student_id)->first();
+           if ($SiblingGroup!=null) {
+               $SiblingGroup->delete(); 
+            }
             $StudentAddressDetail=StudentAddressDetail::where('student_id',$student_id)->first();
-            $StudentAddressDetail->delete();
-
+           if ($StudentAddressDetail!=null) { 
+              $StudentAddressDetail->delete();
+            }
             $StudentAddressDetails=StudentPerentDetail::where('student_id',$student_id)->get();     
+            if($StudentAddressDetails!=null){
             foreach ($StudentAddressDetails as   $StudentAddressDetail) {
                   $StudentAddressDetail->delete();
               }  
+            }
             
            $response=['status'=>1,'msg'=>'Delete Successfully'];
             return response()->json($response);
