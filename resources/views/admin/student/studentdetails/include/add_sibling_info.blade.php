@@ -76,7 +76,7 @@ $(document).ready(function(event) {
         });
         $.ajax(
         {
-            url: "{{ route('admin.sibling.delete') }}",
+            url: " ",
             type: 'delete', // replaced from put
             dataType: "JSON",
             data: {
@@ -104,7 +104,7 @@ $(document).ready(function(event) {
     });
     $.ajax(
     {
-        url: "{{ route('admin.sibling.edit') }}",
+        url: " ",
         type: 'GET', // replaced from put
         dataType: "JSON",
         data: {
@@ -138,7 +138,7 @@ $(document).ready(function(event) {
                 }
             })
             $.ajax({
-                url: "{{ route('admin.sibling.update') }}",
+                url: " ",
                 type: "POST",            
                 data:   
                     $('#sibling-form').serialize() + '&student_id=' + {{ $student->id }},                  

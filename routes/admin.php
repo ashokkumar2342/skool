@@ -241,9 +241,9 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('show/{student}', 'StudentSiblingInfoController@show')->name('admin.sibling.show');
 	    Route::get('table-show/{student_id}', 'StudentSiblingInfoController@tableShow')->name('admin.sibling.table.show');
 	    Route::post('add/{student}', 'StudentSiblingInfoController@store')->name('admin.sibling.add');
-	    Route::delete('delete', 'StudentSiblingInfoController@destroy')->name('admin.sibling.delete');
-	    Route::get('edit', 'StudentSiblingInfoController@edit')->name('admin.sibling.edit');
-	    Route::post('update', 'StudentSiblingInfoController@update')->name('admin.sibling.update');
+	    Route::get('delete/{id}', 'StudentSiblingInfoController@destroy')->name('admin.sibling.delete');
+	    Route::get('edit/{id}', 'StudentSiblingInfoController@edit')->name('admin.sibling.edit');
+	    Route::post('update/{id}', 'StudentSiblingInfoController@update')->name('admin.sibling.update');
 	 });
 	  Route::group(['prefix' => 'student-subject'], function() {
 	    Route::post('add', 'StudentSubjectController@store')->name('admin.studentSubject.add');

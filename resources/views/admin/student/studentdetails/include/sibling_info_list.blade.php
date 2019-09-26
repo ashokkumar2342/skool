@@ -6,7 +6,7 @@
                               <th><span class="text-nowrap">Name</span></th>
                               <th><span class="text-nowrap">Class</span></th>
                               <th><span class="text-nowrap">Section</span></th>
-                             {{--  <th><span class="text-nowrap">Action</span></th> --}}
+                              <th><span class="text-nowrap">Action</span></th>
                           </tr>
                       </thead>
                       <tbody> 
@@ -17,10 +17,11 @@
                               <td>{{ $studentSiblingIdFind->studentSiblings->name  or ''}}</td>
                               <td>{{ $studentSiblingIdFind->studentSiblings->classes->name  or '' }}</td>
                               <td>{{ $studentSiblingIdFind->studentSiblings->sectionTypes->name or ''  }}</td> 
-                              {{-- <td>
-                                 <button class="btn_sibling_edit btn btn-warning btn-xs"  data-id="{{ $studentSiblingIdFind->id }}"  ><i class="fa fa-edit"></i></button>  
-                                  <button class="btn_sibling_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $studentSiblingIdFind->id }}"  ><i class="fa fa-trash"></i></button>
-                              </td> --}}
+                              <td>
+                                <button type="button" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.sibling.edit',$studentSiblingIdFind->student_id) }}')"><i class="fa fa-edit"></i></button></button>
+                                  
+                                  <button class="btn btn-danger btn-xs" success-popup="true" button-click="sibling_info_tab" onclick="callAjax(this,'{{ route('admin.sibling.delete',$studentSiblingIdFind->student_id) }}')"><i class="fa fa-trash"></i></button>
+                              </td>
 
                                                                
                           </tr>

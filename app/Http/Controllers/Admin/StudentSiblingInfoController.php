@@ -4,10 +4,12 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\SiblingGroup;
+use App\Model\StudentSiblingInfo;
 use App\Model\StudentAddressDetail;
 use App\Model\StudentPerentDetail;
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class StudentSiblingInfoController extends Controller
 {
@@ -150,10 +152,11 @@ class StudentSiblingInfoController extends Controller
      * @param  \App\Model\StudentSiblingInfo  $studentSiblingInfo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, StudentSiblingInfo $studentSiblingInfo)
+    public function edit(Request $request,$student_id)
     {
-         $siblingInfo = SiblingGroup::where('id', $request->id)->get();
-        return response()->json(['siblingInfo'=>$siblingInfo]);
+         
+        $stidents=Student::find($student_id);
+        return  view('admin.student.studentdetails.include.sibling_info_edit',compact('stidents'));
     }
 
     /**
@@ -163,13 +166,31 @@ class StudentSiblingInfoController extends Controller
      * @param  \App\Model\StudentSiblingInfo  $studentSiblingInfo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StudentSiblingInfo $studentSiblingInfo)
+    public function update(Request $request,$student_id)
     {
-         $sibling = SiblingGroup::find($request->id);
-          $sibling->group = $request->student_sibling_id;
-        $sibling->student_id = $request->student_id;    
-        $sibling->save();
-        return response()->json([$sibling, 'message'=>'Update success']);
+        $rules=[
+           
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+        $stidents=Student::find($student_id);
+         $stidents->registration_no=$request->registration_no;
+         $stidents->name=$request->name;
+         $stidents->save();
+        $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
+        } 
+         
+         
     }
 
     /**
@@ -178,13 +199,25 @@ class StudentSiblingInfoController extends Controller
      * @param  \App\Model\StudentSiblingInfo  $studentSiblingInfo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, StudentSiblingInfo $studentSiblingInfo)
+    public function destroy(Request $request,$student_id)
     {
         
-          $sibling = SiblingGroup::find($request->id);          
+           
+            $SiblingGroup=SiblingGroup::where('student_id',$student_id)->first();
+            $SiblingGroup->delete();
 
-         $sibling->delete();
+            $StudentAddressDetail=StudentAddressDetail::where('student_id',$student_id)->first();
+            $StudentAddressDetail->delete();
 
-         return response()->json([$sibling, 'message'=>'Delete Succeefully']);
+            $StudentAddressDetails=StudentPerentDetail::where('student_id',$student_id)->get();     
+            foreach ($StudentAddressDetails as   $StudentAddressDetail) {
+                  $StudentAddressDetail->delete();
+              }  
+            
+           $response=['status'=>1,'msg'=>'Delete Successfully'];
+            return response()->json($response);
+
+        
+
     }
 }
