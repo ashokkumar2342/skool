@@ -425,8 +425,9 @@ class AccountController extends Controller
           $response=['status'=>0,'msg'=>'Password Not Match'];
             return response()->json($response);
         }
-        $accounts=Admin::find($request->email); 
-        $accounts->password= bcrypt($request['new_pass']);
+         $resetPassWordChange=bcrypt($request['new_pass']);
+         $accounts=Admin::find($request->email); 
+         $accounts->password=$resetPassWordChange;
         $accounts->save(); 
         $response=['status'=>1,'msg'=>'Password Change Successfully'];
         return response()->json($response); 

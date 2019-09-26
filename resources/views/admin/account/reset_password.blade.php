@@ -7,7 +7,7 @@
     <section class="content"> 
           <div class="box"> 
             <div class="box-body">
-              <form action="{{ route('admin.account.reset.password.change') }}" method="post" class="add_form">
+              <form action="{{ route('admin.account.reset.password.change') }}" method="post" class="add_form" no-reset="true">
               {{ csrf_field() }} 
               <div class="row">
                 <div class="col-lg-4">
