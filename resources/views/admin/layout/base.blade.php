@@ -10,7 +10,7 @@
   <!-- Bootstrap 3.3.6 -->
   <meta name="_token" content="{!! csrf_token() !!}" />
   <link rel="stylesheet" href="{{ asset('admin_asset/bootstrap/css/bootstrap.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/font-awesome.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/AdminLTE.min.css')}}">
   <!-- Font Awesome --> 
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">

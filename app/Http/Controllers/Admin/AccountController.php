@@ -447,7 +447,7 @@ class AccountController extends Controller
            
           $MinuTypes = MinuType::orderBy('sorting_id', 'ASC')->get();
                 $id = Input::get('id');
-                $sorting = Input::get('sorting_id');
+                $sorting = Input::get('sorting');
                 foreach ($MinuTypes as $item) {
                     return MinuType::where('id', '=', $id)->update(array('sorting_id' => $sorting));
                 }
