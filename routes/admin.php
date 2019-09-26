@@ -220,6 +220,9 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('address/{student_id}', 'StudentAddressDetailController@address')->name('admin.parents.address');
 	    Route::get('add-address/{student_id}', 'StudentAddressDetailController@addAddress')->name('admin.parents.add.address');
 	    Route::post('address-store', 'StudentAddressDetailController@addressStore')->name('admin.parents.address.store');
+	    Route::get('address-edit/{id}', 'StudentAddressDetailController@addressEdit')->name('admin.parents.address.edit');
+	    Route::get('address-delete/{id}', 'StudentAddressDetailController@addressDelete')->name('admin.parents.address.delete');
+	    Route::post('address-update/{id}', 'StudentAddressDetailController@addressUpdate')->name('admin.parents.address.update');
 	 });
 	  	// ---------------Medical Info----------------------------------------
 	 Route::group(['prefix' => 'medical-info'], function() {

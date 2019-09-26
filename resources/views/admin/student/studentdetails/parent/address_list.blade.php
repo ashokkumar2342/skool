@@ -17,7 +17,7 @@
                                 <th><span class="text-nowrap">C Pincode </span></th>
                                 <th><span class="text-nowrap">Nationality </span></th>
                                 
-                               {{--  <th><span class="text-nowrap" style="margin:5px">Action </span></th> --}}
+                                <th><span class="text-nowrap" style="margin:5px">Action </span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,6 +34,11 @@
                                        <td>{{ $addres->p_pincode }}</td>
                                        <td>{{ $addres->c_pincode }}</td>
                                        <td>{{ $addres->nationality }}</td>
+                                       <td>
+                                         <button type="button" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.parents.address.edit',$addres->id) }}')"><i class="fa fa-edit"></i></button>
+
+                                         <a href="#" class="btn btn-danger btn-xs" success-popup="true" button-click="address_info"  title="Delete" onclick="callAjax(this,'{{ route('admin.parents.address.delete',$addres->id) }}')"><i class="fa fa-trash"></i></a>
+                                       </td>
                                        
                                    </tr>
                             @endforeach
