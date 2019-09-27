@@ -52,6 +52,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::post('reset-password-change', 'AccountController@resetPassWordChange')->name('admin.account.reset.password.change'); 
 		Route::get('menu-ordering', 'AccountController@menuOrdering')->name('admin.account.menu.ordering'); 
 		Route::get('menu-ordering-store', 'AccountController@menuOrderingStore')->name('admin.account.menu.ordering.store'); 
+		Route::get('menu-filter', 'AccountController@menuFilter')->name('admin.account.menu.filte'); 
 		
 						
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 
@@ -1103,9 +1104,9 @@ Route::group(['middleware' => 'admin'], function() {
            Route::group(['prefix' => 'subject-wise-room'], function() {
                	 Route::get('subject-room', 'Room\ClassRoomController@subjectWiseRoom')->name('admin.subject.wise.room');
                	 Route::post('subject-room-store', 'Room\ClassRoomController@subjectWiseRoomStore')->name('admin.subject.wise.room.store');
-               	 Route::get('edit/{id}', 'Room\ClassRoomController@edit')->name('admin.class.wise.room.details.edit');
-               	 Route::get('delete/{id}', 'Room\ClassRoomController@destroy')->name('admin.class.wise.room.details.delete');
-               	 Route::post('update/{id}', 'Room\ClassRoomController@update')->name('admin.class.wise.room.details.update');
+               	 Route::get('edit/{id}', 'Room\ClassRoomController@edit')->name('admin.subject.wise.room.edit');
+               	 Route::get('delete/{id}', 'Room\ClassRoomController@Delete')->name('admin.subject.wise.room.delete');
+               	 Route::post('update/{id}', 'Room\ClassRoomController@update')->name('admin.subject.wise.room.update');
           });
            Route::group(['prefix' => 'combine-class-subject-group'], function() {
                	 Route::get('/', 'Room\CombineClassSubjectGroupController@index')->name('admin.combine.class.subject.group');
@@ -1145,6 +1146,27 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('edit/{id}', 'AwardController@edit')->name('admin.award.edit');
                	 Route::get('delete/{id}', 'AwardController@destroy')->name('admin.award.delete');
                	 Route::post('update/{id}', 'AwardController@update')->name('admin.award.update');
+               	 Route::get('image-show/{id}{image_id}', 'AwardController@imageShow')->name('admin.award.image.show');
+               	 
+       });
+           Route::group(['prefix' => 'award-for'], function() {
+               	 Route::get('award-for', 'AwardController@awardFor')->name('admin.award.for.list');
+               	 Route::get('award-for-addform', 'AwardController@awardForAddForm')->name('admin.award.for.addform');
+               	 Route::post('store', 'AwardController@awardForStore')->name('admin.award.for.store');
+               	 Route::get('table-shoe', 'AwardController@awardForTableShow')->name('admin.award.for.table.show');
+               	Route::get('edit/{id}', 'AwardController@awardForEdit')->name('admin.award.for.edit');
+               	 Route::get('delete/{id}', 'AwardController@awardForDelete')->name('admin.award.for.delete');
+               	 Route::post('update/{id}', 'AwardController@awardForUpdate')->name('admin.award.for.update');
+               	 
+       });
+           Route::group(['prefix' => 'award-photo'], function() {
+               	 Route::get('photo', 'AwardController@awardPhotoIndex')->name('admin.award.photo.list');
+               	 Route::get('add-form', 'AwardController@awardPhotoAddForm')->name('admin.award.photo.add.form');
+               	 Route::post('store', 'AwardController@awardPhotoStore')->name('admin.award.photo.store');
+               	 Route::get('table-show', 'AwardController@awardPhotoTableShow')->name('admin.award.photo.table.show');
+               	 Route::get('edit/{id}', 'AwardController@awardPhotoEdit')->name('admin.award.photo.edit');
+               	 Route::post('update/{id}', 'AwardController@awardPhotoUpdate')->name('admin.award.photo.update');
+               	 Route::get('delete/{id}', 'AwardController@awardPhotoDelete')->name('admin.award.photo.delete');
                	 
        });
            Route::group(['prefix' => 'teacher-appoinment'], function() {

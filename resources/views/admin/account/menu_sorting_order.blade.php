@@ -13,12 +13,27 @@
        
           <div class="box"> 
             <div class="box-body">  
-              <div class="col-lg-6">
+              <div class="col-lg-3" style="margin-left: -40px">
                 <ul class="sortable-posts">
                    @foreach($menuTypes as $menuType)
                     <ol class="ui-state-default" style="padding: 4px;font-size:20px" id="{{ $menuType->id }}">{{ $menuType->sorting_id+1 }}<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>{{ $menuType->name }}</ol>
                   @endforeach
                 </ul>
+              </div>
+              <div class="col-lg-4">
+                <label>Menu Type</label>
+                <select name="menu_id" class="form-control" onchange="callAjax(this,'{{ route('admin.account.menu.filte') }}','sub_menu_table')">
+                  <option selected disabled>Select Menu Type</option> 
+                  @foreach ($menuTypes as $menuType)
+                       <option value="{{ $menuType->id }}">{{ $menuType->name }}</option>
+                    
+                  @endforeach
+                  
+                </select>
+                
+              </div> 
+              <div class="col-lg-5" id="sub_menu_table">
+
               </div>
             
           </div>
