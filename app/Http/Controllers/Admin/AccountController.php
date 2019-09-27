@@ -457,5 +457,12 @@ class AccountController extends Controller
          // }
            
         }
+        public function menuFilter(Request $request)
+        {
+           
+          $submenus=SubMenu::where('menu_type_id',$request->id)->get();
+           return view('admin.account.sub_menu_ordering',compact('submenus'));
+
+        }
 
 }
