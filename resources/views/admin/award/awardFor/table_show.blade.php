@@ -11,8 +11,8 @@
                <tbody>
                 @foreach ($awardfors as $awardfor) 
                  <tr>
-                   <td >{{ $awardfor->awardTypes->award_name }}</td> 
-                   <td>{{ $awardfor->students->name}}</td> 
+                   <td >{{ $awardfor->awardTypes->award_name or ''}}</td> 
+                   <td>{{ $awardfor->students->name or ''}}</td> 
                    <td>{{ $awardfor->rank_position}}</td> 
                    <td>{{ $awardfor->description }}</td>
                     
