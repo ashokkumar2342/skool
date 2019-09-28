@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\House;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class HouseController extends Controller
@@ -17,13 +18,14 @@ class HouseController extends Controller
    {
    	return view('admin.house.add_form');
    }
-   public function store(Request $request)
+   public function store(Request $request) 
     {
+        $admin=Auth::guard('admin')->user()->id;
        
     	$rules=[
     	  
-            'code' => 'required', 
-            'name' => 'required', 
+            'name' => 'required|min:2|max:50', 
+            'code' => 'required|min:2|max:5|unique:houses', 
             
              
              
@@ -43,6 +45,7 @@ class HouseController extends Controller
     	 
     	$house->code=$request->code; 
     	$house->name=$request->name; 
+        $house->last_updated_by=$admin; 
     	$house->save();
     	$response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
@@ -67,12 +70,11 @@ class HouseController extends Controller
     }
     public function update(Request $request,$id)
     {
-       
+       $admin=Auth::guard('admin')->user()->id;
     	$rules=[
     	  
-            'code' => 'required', 
             'name' => 'required', 
-            
+            'code' => 'required|min:2|max:50', 
              
              
        
@@ -91,6 +93,7 @@ class HouseController extends Controller
     	 
     	$house->code=$request->code; 
     	$house->name=$request->name; 
+        $house->last_updated_by=$admin; 
     	$house->save();
     	$response=['status'=>1,'msg'=>'Update Successfully'];
             return response()->json($response);

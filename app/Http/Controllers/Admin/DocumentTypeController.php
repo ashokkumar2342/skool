@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\DocumentType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
@@ -36,9 +37,11 @@ class DocumentTypeController extends Controller
   }
 
   public function update(Request $request,$id)
-  {    
+  {  
+       $admin=Auth::guard('admin')->user()->id;  
      $rules=[
         'documentType' => 'required|string|min:2|max:50', 
+        'code' => 'required|min:2|max:5',
         ];
       $validator = Validator::make($request->all(),$rules);
       if ($validator->fails()) {
@@ -52,6 +55,8 @@ class DocumentTypeController extends Controller
     $id =Crypt::decrypt($id);   
       $document = DocumentType::find($id);
       $document->name = $request->documentType; 
+      $document->code = $request->code; 
+      $document->last_updated_by = $admin; 
       $document->save(); 
       $response = array();
       $response['status'] = 1; 
@@ -68,8 +73,10 @@ class DocumentTypeController extends Controller
      */
     public function store(Request $request)
     {
+         $admin=Auth::guard('admin')->user()->id;
          $rules=[
-        'documentType' => 'required|string|min:2|max:50', 
+       'name' => 'required|string|min:2|max:50|unique:document_types', 
+        'code' => 'required|min:2|max:5|unique:document_types',
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -83,7 +90,9 @@ class DocumentTypeController extends Controller
        
              
         $document = new DocumentType();
-        $document->name = $request->documentType; 
+        $document->name = $request->name; 
+        $document->code = $request->code; 
+        $document->last_updated_by = $admin; 
         $document->save();  
         $response['msg'] = 'Account created Successfully';
         $response['status'] = 1;

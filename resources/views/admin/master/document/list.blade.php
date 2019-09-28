@@ -12,28 +12,32 @@
               
 
             <!-- /.box-header -->
-            <div class="box-body">
-              <div class="row">
-                <div class="col-lg-6">
+            <div class="box-body"> 
                       <form action="{{ route('admin.document.store') }}" redirect-to="{{ route('admin.document.type') }}" method="post" class="add_form form-horizontal" accept-charset="utf-8"> 
-                        {{ csrf_field() }} 
-                        <label>Document Type</label>
-                     <input type="text" name="documentType" maxlength="50" class="form-control" placeholder="Enter Document Type Name">
-                     <div class="text-right" style="padding-top: 5px">
+                        {{ csrf_field() }}
+                        <div class="row">
+                          <div class="col-lg-4"> 
+                            <label>Document Type</label>
+                              <input type="text" name="name" maxlength="50" class="form-control" placeholder="Enter Document Type Name">
+                            </div>
+                            <div class="col-lg-4">
+                              <label>Code</label>
+                              <input type="text" name="code" class="form-control" maxlength="5"> 
+                            </div> 
+                       </form>
+                       <div class="col-lg-4" style="padding-top: 24px">
                        <input type="submit" value="save" class="btn btn-success btn-sm">
-                     </div>
-                     
-
-                  </form>
+                     </div> 
                   
-                </div>
-                <div class="col-lg-6">
+ 
+                <div class="col-lg-12" style="margin-top: 20px">
                     <table id="dataTable" class="table table-bordered table-striped">
                       <thead>
                       <tr>
                         <th>Sn</th>
                          
                         <th>Document Type   Name</th>
+                        <th>Document code</th>
                         <th>Action</th>
                          </tr>
                       </thead>
@@ -47,6 +51,7 @@
                         <td>{{ $documentId++ }}</td>
                         
                         <td>{{ $document->name }} </td>
+                        <td>{{ $document->code }} </td>
                         <td>
                          @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
                             <?php $url = route('admin.document.type.edit',Crypt::encrypt($document->id)) ?>

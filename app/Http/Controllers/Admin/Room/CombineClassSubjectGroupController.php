@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Admin\Room;
 
 use App\Http\Controllers\Controller;
 use App\Model\Room\CombineClassSubjectGroup;
+use App\Model\Room\RoomType;
+use App\Model\Section;
 use App\Model\Subject;
 use App\Model\SubjectType;
-use App\Model\Section;
-use App\Model\Room\RoomType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CombineClassSubjectGroupController extends Controller
@@ -41,6 +42,7 @@ class CombineClassSubjectGroupController extends Controller
 
      public function store(Request $request){
     	    // return $request;
+      $admin=Auth::guard('admin')->user()->id;
     	$rules=[
     	  
              'subject' => 'required', 
@@ -77,6 +79,7 @@ class CombineClassSubjectGroupController extends Controller
              $combineClassSubjectGroup->section_id=$section_id;
              $combineClassSubjectGroup->group_no=$request->group_no;
              $combineClassSubjectGroup->room_id=$request->room_no; 
+             $combineClassSubjectGroup->last_updated_by=$admin; 
              $combineClassSubjectGroup->save();
               }
             }else{ 

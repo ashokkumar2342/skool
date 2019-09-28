@@ -15,6 +15,12 @@
                      <input type="text" name="name" value="{{ $profession->name }}" maxlength="50" class="form-control" placeholder="Enter profession " required="">
             </div>    
        </div>
+       <div class="col-lg-12">                           
+            <div class="form-group">
+             <label>Code </label>
+                     <input type="text" name="code" value="{{ $profession->code }}" maxlength="5" class="form-control" placeholder="Enter Code " required="">
+            </div>    
+       </div>
        <div class="col-lg-12">
          <div class="text-right"><br>
              <input type="submit" class="btn btn-success btn-sm" name="update" id="btn-update" value="Update"   />

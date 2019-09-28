@@ -8,6 +8,7 @@ use App\Model\GuardianRelationType;
 use App\Model\IncomeRange;
 use App\Model\Profession;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,17 +34,23 @@ class MasterController extends Controller
      */
     public function incomeSlabStore(Request $request)
     { 
-        $validator = Validator::make($request->all(), [
-        
-            'range' => 'required|max:30|unique:income_ranges',
-             
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
-
-        }
+        $admin=Auth::guard('admin')->user()->id;
+        $rules=[
+        'range' => 'required|max:30|unique:income_ranges',
+            'code' => 'required|string|min:2|max:5|unique:income_ranges',
+        ];
+      $validator = Validator::make($request->all(),$rules);
+      if ($validator->fails()) {
+          $errors = $validator->errors()->all();
+          $response=array();
+          $response["status"]=0;
+          $response["msg"]=$errors[0];
+          return response()->json($response);// response as json
+      } 
        $IncomeRange = new IncomeRange();
        $IncomeRange->range = $request->range;
+       $IncomeRange->code = $request->code;
+       $IncomeRange->last_updated_by =$admin;
         
        $IncomeRange->save();
         $response = array();
@@ -61,17 +68,24 @@ class MasterController extends Controller
     }
 
     public function incomeSlabUpdate(Request $request,$id)
-    {  
-         $validator = Validator::make($request->all(), [ 
-             'range' => 'required|max:30',
-            
-         ]);
-         if ($validator->fails()) {                    
-              return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
-         }
+    {   $admin=Auth::guard('admin')->user()->id;
+        $rules=[
+        'range' => 'required|max:30',
+            'code' => 'required|string|min:2|max:5',
+        ];
+      $validator = Validator::make($request->all(),$rules);
+      if ($validator->fails()) {
+          $errors = $validator->errors()->all();
+          $response=array();
+          $response["status"]=0;
+          $response["msg"]=$errors[0];
+          return response()->json($response);// response as json
+      } 
         $id =Crypt::decrypt($id);
         $incomeRange = IncomeRange::find($id);;
         $incomeRange->range = $request->range;
+        $incomeRange->code = $request->code;
+        $incomeRange->last_updated_by =$admin;
          
         $incomeRange->save(); 
         $response = array();
@@ -108,21 +122,23 @@ class MasterController extends Controller
          * @return \Illuminate\Http\Response
          */
         public function professionStore(Request $request)
-        {  
-            $validator = Validator::make($request->all(), [
-            
-                'name' => 'required|max:30|unique:professions',
-                 
-            ]);
-            if ($validator->fails()) {                    
-                $response['status'] = 0; 
-            $response['msg'] = 'Already Create'; 
-            return $response; 
-
-            }
+        {  $admin=Auth::guard('admin')->user()->id;
+            $rules=[
+            'name' => 'required|max:30|unique:professions',
+                'code' => 'required|min:2|max:5|unique:professions',
+        ];
+          $validator = Validator::make($request->all(),$rules);
+          if ($validator->fails()) {
+              $errors = $validator->errors()->all();
+              $response=array();
+              $response["status"]=0;
+              $response["msg"]=$errors[0];
+              return response()->json($response);// response as json
+          }  
            $profession = new Profession();
            $profession->name = $request->name;
-            
+           $profession->code = $request->code;
+           $profession->last_updated_by = $admin; 
            $profession->save();
             $response = array();
             $response['status'] = 1; 
@@ -140,16 +156,24 @@ class MasterController extends Controller
 
         public function professionUpdate(Request $request,$id)
         {  
-             $validator = Validator::make($request->all(), [ 
-                 'name' => 'required|max:30',
-                
-             ]);
-             if ($validator->fails()) {                    
-                  return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
-             }
+            $admin=Auth::guard('admin')->user()->id;
+            $rules=[
+            'name' => 'required|max:30',
+            'code' => 'required|min:2|max:5',
+        ];
+          $validator = Validator::make($request->all(),$rules);
+          if ($validator->fails()) {
+              $errors = $validator->errors()->all();
+              $response=array();
+              $response["status"]=0;
+              $response["msg"]=$errors[0];
+              return response()->json($response);// response as json
+          }  
             $id =Crypt::decrypt($id);
             $profession = Profession::find($id);;
             $profession->name = $request->name;
+            $profession->code = $request->code;
+            $profession->last_updated_by = $admin;
              
             $profession->save(); 
             $response = array();

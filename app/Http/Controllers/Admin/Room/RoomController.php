@@ -7,6 +7,7 @@ use App\Model\Room\RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class RoomController extends Controller
 {
@@ -16,6 +17,7 @@ class RoomController extends Controller
     }
 
     public function store(Request $request){
+      $admin=Auth::guard('admin')->user()->id;
     	$rules=[
     	  
             'room_name' => 'required', 
@@ -36,6 +38,7 @@ class RoomController extends Controller
          $roomType=new RoomType();
          $roomType->name=$request->room_name;
          $roomType->location=$request->location;
+         $roomType->last_updated_by=$admin;
          $roomType->save();
          $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
@@ -52,6 +55,7 @@ class RoomController extends Controller
     	 return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
      public function update(Request $request,$id){
+      $admin=Auth::guard('admin')->user()->id;
     	$rules=[
     	  
             'room_name' => 'required', 
@@ -72,6 +76,7 @@ class RoomController extends Controller
          $roomType= RoomType::find($id);
          $roomType->name=$request->room_name;
          $roomType->location=$request->location;
+         $roomType->last_updated_by=$admin;
          $roomType->save();
          $response=['status'=>1,'msg'=>'Update Successfully'];
             return response()->json($response);

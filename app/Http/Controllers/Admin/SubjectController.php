@@ -10,6 +10,7 @@ use App\Model\Subject;
 use App\Model\SubjectType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 class SubjectController extends Controller
 {
@@ -44,13 +45,14 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-         
+         $admin=Auth::guard('admin')->user()->id;
          foreach ($request->value as $key => $value) {
           
            $subject = Subject::where(['classType_id'=>$request->class,'subjectType_id'=>$key])->firstOrNew(['subjectType_id'=>$key]);
            $subject->subjectType_id = $key;
            $subject->isoptional_id = $value;
            $subject->classType_id = $request->class;
+           $subject->last_updated_by = $admin;
            $subject->save();
 
         }

@@ -9,18 +9,25 @@
      {{ csrf_field() }}
     <div class="row" style="padding-bottom: 30px;">
        
-       <div class="col-lg-12">                           
+       <div class="col-lg-6">                           
             <div class="form-group">
              {{ Form::label('documentType','Document Type',['class'=>' control-label']) }}
               {{ Form::text('documentType',$document->name ,['class'=>'form-control','placeholder'=>'Enter Document Type','maxlength'=>'50']) }}
               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
             </div>    
        </div>
-       <div class="col-lg-12">
-         <div class="text-right"><br>
+       <div class="col-lg-6">                           
+            <div class="form-group">
+             {{ Form::label('code','Document code',['class'=>' control-label']) }}
+              {{ Form::text('code',$document->code ,['class'=>'form-control','placeholder'=>'Enter Document code','maxlength'=>'5']) }}
+              <p class="errorAmount1 text-center alert alert-danger hidden"></p>
+            </div>    
+       </div>
+       <div class="col-lg-12 text-center">
+          
              <input type="submit" class="btn btn-success btn-sm" name="update" id="btn-update" value="Update" {{-- onclick="submit_jq();" --}} />
               
-           </div>
+           
        </div>
       </div> 
      
