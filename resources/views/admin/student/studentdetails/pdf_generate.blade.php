@@ -7043,8 +7043,8 @@ button.close {
 	                          	@foreach ($studentSubjects as $studentSubject)
 	                          	 	 
 	                          		<tr>
-	                          			 <td> {{ $studentSubject->SubjectTypes->name }}</td>
-	                          			 <td>{{ $studentSubject->ISOptionals->name }}</td>
+	                          			 <td> {{ $studentSubject->SubjectTypes->name or '' }}</td>
+	                          			 <td>{{ $studentSubject->ISOptionals->name or ''}}</td>
 	                          		</tr>
 	                          	 @endforeach 
 	                          	 
