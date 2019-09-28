@@ -137,7 +137,8 @@ class DashboardController extends Controller
         $admins = Auth::guard('admin')->user();
          $rules=[
           
-            'profile_photo' => 'required',
+            'profile_photo' => 'required|mimes:jpeg,bmp,png|max:500',
+
           
             
         ];
@@ -165,8 +166,8 @@ class DashboardController extends Controller
     }
      public function proFilePhotoShow(Request $request,$profile_pic)
      {
-         $profile_pic = Storage::disk('student')->get('profile/admin/'.$profile_pic);
-          return response($profile_pic);
+         $profile_pic = Storage::disk('student')->get('profile/admin/'.$profile_pic);           
+         return  response($profile_pic)->header('Content-Type', 'image/jpeg');
      } 
      public function passwordChange(Request $request)
     {

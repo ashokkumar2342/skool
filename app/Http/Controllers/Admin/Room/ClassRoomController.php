@@ -11,7 +11,8 @@ use App\Model\Room\SubjectWiseRoom;
 use App\Model\SubjectType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Validator; 
+use Illuminate\Support\Facades\Auth;
 
 class ClassRoomController extends Controller
 {
@@ -24,7 +25,7 @@ class ClassRoomController extends Controller
     }
 
     public function store(Request $request){
-    	 
+    	 $admin=Auth::guard('admin')->user()->id;
     	$rules=[
     	  
             
@@ -55,6 +56,7 @@ class ClassRoomController extends Controller
          $classWiseRoom->class_id=$request->class_id;
          $classWiseRoom->section_id=$request->section_id;
          $classWiseRoom->room_id=$request->room_name;
+         $classWiseRoom->last_updated_by=$admin;
          $classWiseRoom->save();
          $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
@@ -75,7 +77,7 @@ class ClassRoomController extends Controller
     	 return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
      public function update(Request $request,$id){
-         
+         $admin=Auth::guard('admin')->user()->id;
     	$rules=[
     	  
             'room_name' => 'required', 
@@ -102,6 +104,7 @@ class ClassRoomController extends Controller
          $classWiseRooms->class_id=$request->class_id;
          $classWiseRooms->section_id=$request->section_id;
          $classWiseRooms->room_id=$request->room_name;
+         $classWiseRooms->last_updated_by=$admin;
          $classWiseRooms->save();
          $response=['status'=>1,'msg'=>'Update Successfully'];
             return response()->json($response);
@@ -120,6 +123,7 @@ class ClassRoomController extends Controller
     }
 
      public function subjectWiseRoomStore(Request $request){
+         $admin=Auth::guard('admin')->user()->id;
         $rules=[
           
             'subject' => 'required', 
@@ -140,10 +144,18 @@ class ClassRoomController extends Controller
          $subjectWiseRoom=new SubjectWiseRoom();
          $subjectWiseRoom->subject_id=$request->subject;
          $subjectWiseRoom->room_id=$request->room;
+         $subjectWiseRoom->last_updated_by=$admin;
          $subjectWiseRoom->save();
          $response=['status'=>1,'msg'=>'Create Successfully'];
             return response()->json($response);
         } 
          
+    }
+    public function Delete($id)
+    {
+       $subjectWiseRoom= SubjectWiseRoom::findOrFail(Crypt::decrypt($id));
+       $subjectWiseRoom->delete();
+       return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+
     }
 }

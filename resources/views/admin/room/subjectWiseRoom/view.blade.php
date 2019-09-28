@@ -47,9 +47,9 @@
                     <tr>
                       <td>{{ $subjectWiseRoom->subjectType->name or ''}}</td>
                       <td>{{ $subjectWiseRoom->roomType->name or ''}}</td>
-                      <td><button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.room.details.edit',Crypt::encrypt($subjectWiseRoom->id)) }}')"><i class="fa fa-edit"></i></button>
+                      <td>{{-- <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.room.details.edit',Crypt::encrypt($subjectWiseRoom->id)) }}')"><i class="fa fa-edit"></i></button> --}}
 
-                        <a href="{{ route('admin.room.details.delete',Crypt::encrypt($subjectWiseRoom->id)) }}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a></td>
+                        <a href="{{ route('admin.subject.wise.room.delete',Crypt::encrypt($subjectWiseRoom->id)) }}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a></td>
                     </tr>
                    
                 @endforeach

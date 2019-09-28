@@ -17,10 +17,8 @@ yarn-error.log
 .env
 *.zip
 .env.example
-<<<<<<< HEAD
-=======
 /storage/app/public/barcode
 /demo
 /loksabha
 /policy
-/public
+public

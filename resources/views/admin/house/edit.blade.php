@@ -24,11 +24,11 @@
                    <div class="row">
                     <div class="col-lg-6">
                       <label>House Code</label>
-                      <input type="text" name="code" class="form-control" placeholder="Enter Code" maxlength="6" value="{{ $houses->code }}"> 
+                      <input type="text" name="code" class="form-control" placeholder="Enter Code" maxlength="5" value="{{ $houses->code }}"> 
                     </div> 
                     <div class="col-lg-6">
                       <label>House Name</label>
-                      <input type="text" name="name" class="form-control" placeholder="Enter Name" maxlength="100" value="{{ $houses->name }}"> 
+                      <input type="text" name="name" class="form-control" placeholder="Enter Name" maxlength="50" value="{{ $houses->name }}"> 
                     </div> 
                    </div>
                    <div class="row">

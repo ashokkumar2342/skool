@@ -2,7 +2,7 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header"> 
-    <h1>Class Wise Room<small>Details</small> </h1> 
+    <h1>Assing Class Rooms<small>Details</small> </h1> 
     </section>  
     <section class="content"> 
       <div class="box"> 
@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-lg-4">
                   <label>Room No</label>
-                  <select name="room_name" class="form-control" id="room_name">
+                  <select name="room_name" class="form-control">
                     <option selected disabled>Select Room Name</option>
                      @foreach ($roomTypes as $roomType)
                       @if (in_array($roomType->id,$classWiseRoomSaveId))
@@ -61,7 +61,7 @@
                              <td>{{ $classWiseRoom->classType->name or '' }}</td>
                              <td>{{ $classWiseRoom->sectionTypes->name or ''}}</td>
                              <td>{{ $classWiseRoom->roomType->name or ''}}</td>
-                             <td> <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.class.wise.room.details.edit',Crypt::encrypt($classWiseRoom->id)) }}')"><i class="fa fa-edit"></i></button>
+                             <td> {{-- <button class="btn btn-info btn-xs" title="Edit" onclick="callPopupLarge(this,'{{ route('admin.class.wise.room.details.edit',Crypt::encrypt($classWiseRoom->id)) }}')"><i class="fa fa-edit"></i></button> --}}
 
                         <a href="{{ route('admin.class.wise.room.details.delete',Crypt::encrypt($classWiseRoom->id)) }}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a></td>
                            </tr> 
@@ -81,17 +81,11 @@
 @endpush
 @push('scripts')
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
- 
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script type="text/javascript">
      $(document).ready(function(){
         $('#class_wise_room_table').DataTable();
-    });
-      $(document).ready(function(){
-          $("#room_name").append($('<option>', {value:'0',text:'0'));
-        });
- 
-
+    }); 
      $('#btn_outhor_table_show').click();
   </script>
   @endpush

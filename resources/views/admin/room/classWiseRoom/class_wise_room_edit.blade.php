@@ -14,7 +14,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Class Wise Room Edit</h4>
+        <h4 class="modal-title">Assing Class Rooms Edit</h4>
       </div>
       <div class="modal-body">
        <div class="row"> 

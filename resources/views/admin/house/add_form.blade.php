@@ -24,11 +24,11 @@
                    <div class="row">
                     <div class="col-lg-6">
                       <label>House Code</label>
-                      <input type="text" name="code" class="form-control" placeholder="Enter Code" maxlength="6"> 
+                      <input type="text" name="code" class="form-control" placeholder="Enter Code" maxlength="5"> 
                     </div> 
                     <div class="col-lg-6">
                       <label>House Name</label>
-                      <input type="text" name="name" class="form-control" placeholder="Enter Name" maxlength="100"> 
+                      <input type="text" name="name" class="form-control" placeholder="Enter Name" maxlength="50"> 
                     </div> 
                    </div>
                    <div class="row">

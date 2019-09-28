@@ -14,11 +14,13 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                       <form action="{{ route('admin.incomeSlab.store') }}" redirect-to="{{ route('admin.incomeSlab.list') }}" method="post" class="add_form form-horizontal" accept-charset="utf-8"> 
                         {{ csrf_field() }} 
-                        <label>Income Slab</label>
-                     <input type="text" name="range" maxlength="50" class="form-control" placeholder="Enter Income Slab" required="">
+                    <label>Income Slab</label>
+                     <input type="text" name="range" maxlength="30" class="form-control" placeholder="Enter Income Slab" required="">
+                     <label>Code</label>
+                     <input type="text" name="code" maxlength="5" class="form-control" placeholder="Enter Income Slab" required="">
                      <div class="text-right" style="padding-top: 5px">
                        <input type="submit" value="save" class="btn btn-success btn-sm">
                      </div>
@@ -27,13 +29,14 @@
                   </form>
                   
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                     <table id="dataTable" class="table table-bordered table-striped">
                       <thead>
                       <tr>
                         <th>Sn</th>
                          
                         <th>Income Slab</th>
+                        <th>Code</th>
                         <th>Action</th>
                          </tr>
                       </thead>
@@ -46,6 +49,7 @@
                         <td>{{ $incomeSlabId++ }}</td>
                         
                         <td>{{ $incomeSlab->range }} </td>
+                        <td>{{ $incomeSlab->code }} </td>
                         <td> 
                            @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
                             <?php $url = route('admin.incomeSlab.edit',Crypt::encrypt($incomeSlab->id)) ?>

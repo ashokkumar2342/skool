@@ -12,6 +12,7 @@ use App\Model\TimeTable\ClassSubjectPeriod;
 use App\Model\TimeTable\OptionSubjectGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class ClassSubjectPeriodController extends Controller
 {
@@ -37,6 +38,7 @@ class ClassSubjectPeriodController extends Controller
     }
     public function store(Request $request){
     	 // return $request;
+        $admin=Auth::guard('admin')->user()->id;
     	$rules=[
     	  
             'class' => 'required', 
@@ -70,6 +72,7 @@ class ClassSubjectPeriodController extends Controller
         	     $classSubjectPeriod->subject_id=$sub_id;
                 $classSubjectPeriod->no_of_period=$request->no_of_period;
                 $classSubjectPeriod->period_duration=$request->period_duration;
+                $classSubjectPeriod->last_updated_by=$admin;
                 $classSubjectPeriod->save();
                
               }
@@ -114,6 +117,7 @@ class ClassSubjectPeriodController extends Controller
 
     public function subjectMoveStore(Request $request){
          // return $request;
+        $admin=Auth::guard('admin')->user()->id;
         $rules=[
           
              'class_id' => 'required', 
@@ -157,6 +161,7 @@ class ClassSubjectPeriodController extends Controller
                      $optionSubjectGroup->class_id=$request->class_id;
                      $optionSubjectGroup->group_no=$request->group_no;
                      $optionSubjectGroup->subject_id=$subject_id;
+                     $optionSubjectGroup->last_updated_by=$admin;
                      $optionSubjectGroup->save();
                  }
 
