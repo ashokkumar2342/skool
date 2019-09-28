@@ -446,23 +446,29 @@ class AccountController extends Controller
                 $sorting = Input::get('sorting');
                 foreach ($MinuTypes as $item) {
                     return MinuType::where('id', '=', $id)->update(array('sorting_id' => $sorting));
-                }
-         //   $count=MinuType::orderBy('id','ASC')->count();
-         //   $MinuTypes=MinuType::all();
-         // foreach ($MinuTypes as   $MinuType) {
-         //    $MinuType=MinuType::find($MinuType->id);
-         //    $MinuType->sorting_id =$MinuType->id;
-         //    $MinuType->save();
-
-         // }
-           
+                } 
         }
-        public function menuFilter(Request $request)
-        {
-           
-          $submenus=SubMenu::where('menu_type_id',$request->id)->get();
-           return view('admin.account.sub_menu_ordering',compact('submenus'));
+   public function subMenuOrderingStore(Request $request)
+   {  
 
-        }
+       $MinuTypes = SubMenu::orderBy('sorting_id', 'ASC')->get();
+       $id = Input::get('id');
+       $sorting = Input::get('sorting');
+       foreach ($MinuTypes as $item) {
+            SubMenu::where('id', '=', $id)->update(array('sorting_id' => $sorting));
+       } 
+      
+       $response=array();
+       $response['msg'] = 'Save Successfully';
+       $response['status'] = 1;
+       return response()->json($response); 
+   }     
+  public function menuFilter(Request $request)
+  {
+     
+    $submenus=SubMenu::where('menu_type_id',$request->id)->orderBy('sorting_id', 'ASC')->get();
+     return view('admin.account.sub_menu_ordering',compact('submenus'));
+
+  }
 
 }

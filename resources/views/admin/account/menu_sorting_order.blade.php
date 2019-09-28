@@ -13,7 +13,7 @@
        
           <div class="box"> 
             <div class="box-body">  
-              <div class="col-lg-3" style="margin-left: -40px">
+              <div class="col-lg-4" style="margin-left: -40px">
                 <ul class="sortable-posts">
                    @foreach($menuTypes as $menuType)
                     <ol class="ui-state-default" style="padding: 4px;font-size:20px" id="{{ $menuType->id }}">{{ $menuType->sorting_id+1 }}<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>{{ $menuType->name }}</ol>
@@ -32,7 +32,7 @@
                 </select>
                 
               </div> 
-              <div class="col-lg-5" id="sub_menu_table">
+              <div class="col-lg-4" id="sub_menu_table">
 
               </div>
             
@@ -52,8 +52,7 @@
         $("#sortable").sortable();
         $("#sortable").disableSelection();
     });
-  $( function() { 
-
+  $( function() {  
     $(".sortable-posts").sortable({
         stop: function() { 
             $.map($(this).find('ol'), function(el) {
@@ -70,7 +69,8 @@
             });
         }
     });
-  } );
+  } );  
+  
   </script>
  
   @endpush
