@@ -11,8 +11,8 @@ use App\Helper\MyFuncs;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test', function () {
-    return test();
+Route::get('/func', function () {
+    return MyFuncs::full_name("John","Doe");
 });
  
 Route::get('/', function () {
