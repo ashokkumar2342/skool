@@ -149,11 +149,7 @@ class AcademicYearController extends Controller
     public function pdfGenerate()
     {
         $academicYears = AcademicYear::orderBy('start_date','DESC')->get();
-        $pdf=PDF::setOptions([
-            'logOutputFile' => storage_path('logs/log.htm'),
-            'tempDir' => storage_path('logs/')
-        ])
-        ->loadView('admin.master.academicyear.pdf_generate',compact('academicYears'));
+        $pdf=PDF::loadView('admin.master.academicyear.pdf_generate',compact('academicYears'));
         return $pdf->download('academicYear.pdf');
     }
 }
