@@ -22,7 +22,7 @@ class SubjectController extends Controller
     public function index()
     {
         $subjectTypes = SubjectType::all();
-        $manageSubjects = Subject::all();
+        $manageSubjects = Subject::orderBy('classType_id','ASC')->get();
         $classes = MyFuncs::getClasses(); 
         return view('admin.subject.manageSubject',compact('subjectTypes','manageSubjects','classes'));
     }

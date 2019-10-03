@@ -33,12 +33,12 @@
         </div>
        </div>
  <div class="row">
- <div class="col-lg-8" style="margin-left: 80px">
+ <div class="col-lg-8" style="margin-left: 90px">
   	
  <table id="class_section" class="table table-bordered table-striped table-hover">
     <thead>
     <tr>
-      <th>Section id</th>                
+         
       <th>Section Name</th>                   
       <th>Section Code</th>  
     </tr>
@@ -49,7 +49,7 @@
       @endphp
     @foreach($sections as $section)
     <tr>
-      <td>{{ $sectionId ++ }}</td>
+       
       <td>{{ $section->name }}</td>                 
       <td>{{ $section->code }}</td>                 
               

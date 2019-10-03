@@ -19,16 +19,20 @@ class PaymentModeController extends Controller
 
     public function store(Request $request)
     {
+        $admin=Auth::guard('admin')->user()->id;
         $validator = Validator::make($request->all(), [
         
-            'name' => 'required',  
+           'name' => 'required|max:30|unique:payment_modes',
+           'sorting_order_id' => 'required|max:2|unique:payment_modes',  
         ]);
         if ($validator->fails()) {                    
              return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']);  
         }
+         
        $paymentmode = new PaymentMode();
        $paymentmode->name = $request->name; 
-       $paymentmode->sorting_order_id = $request->sorting_order_id; 
+       $paymentmode->sorting_order_id = $request->sorting_order_id;
+       $paymentMode->last_updated_by=$admin; 
        $paymentmode->save();
        return response()->json([$paymentmode,'class'=>'success','message'=>'Payment Mode Created Successfully']);
     }

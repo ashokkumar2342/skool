@@ -125,7 +125,7 @@ class MasterController extends Controller
         {  $admin=Auth::guard('admin')->user()->id;
             $rules=[
             'name' => 'required|max:30|unique:professions',
-                'code' => 'required|min:2|max:5|unique:professions',
+            'code' => 'required|min:2|max:5|unique:professions',
         ];
           $validator = Validator::make($request->all(),$rules);
           if ($validator->fails()) {
@@ -159,7 +159,7 @@ class MasterController extends Controller
             $admin=Auth::guard('admin')->user()->id;
             $rules=[
             'name' => 'required|max:30',
-            'code' => 'required|min:2|max:5',
+            'code' => 'required|max:5',
         ];
           $validator = Validator::make($request->all(),$rules);
           if ($validator->fails()) {
@@ -205,7 +205,10 @@ class MasterController extends Controller
         }
         public function guardianStore(Request $request)
         {
-           $rules=[ 
+           $rules=[
+
+            'guardian' => 'required',
+             
         ];
 
         $validator = Validator::make($request->all(),$rules);

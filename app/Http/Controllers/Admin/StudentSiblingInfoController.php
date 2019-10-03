@@ -28,9 +28,9 @@ class StudentSiblingInfoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addForm()
     {
-        //
+         return view('admin.student.studentdetails.include.add_sibling_info');
     }
 
     /**

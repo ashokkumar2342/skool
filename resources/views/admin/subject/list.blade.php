@@ -10,9 +10,10 @@
       	<div class="box">
             <div class="box-header">
               <h3 class="box-title">Subjects List</h3>
-              <span style="float: right"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_class">Add Subject</button></span> 
+              <span style="float: right"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_class">Add Subject</button></span>
+              <a style="float: right;margin-right: 10px" href="{{ route('admin.subjectType.pdf.generate') }}" class="btn btn-primary btn-sm" title="Download PDF" target="blank">PDF</a> 
             </div>
-            <a href="{{ route('admin.subjectType.pdf.generate') }}" class="btn btn-default btn-sm" title="Download PDF" target="blank">PDF</a>
+            
             <div class="box-body">
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
@@ -76,7 +77,7 @@
           <div class="form-group">
           {!! Form::label('SubjectName', 'Subjcet Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
             <div class="col-sm-9">
-            {!! Form::text('subjectName',@$subjectType->name, ['class'=>"form-control",'placeholder'=>"Subject Name",'autocomplete'=>'off','maxlength'=>'50',]) !!}
+            {!! Form::text('name',@$subjectType->name, ['class'=>"form-control",'placeholder'=>"Subject Name",'autocomplete'=>'off','maxlength'=>'50',]) !!}
             <p class="text-danger">{{ $errors->first('subjectName') }}</p>
             </div>
           </div>

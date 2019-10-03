@@ -498,7 +498,7 @@ class MyFuncs {
                           ->where('status',1)
                           ->get(['sub_menu_id']); 
         
-       return $subMenus = SubMenu::whereIn('id',$mainMenus)
+       return $subMenus = SubMenu::whereIn('id',$mainMenus)->orderBy('sorting_id','ASC')
                           ->get(); 
     
   }
@@ -522,7 +522,7 @@ class MyFuncs {
   public static function showMenu(){
     $menu='';
     $subMenus=array();
-    $menuTypes = MinuType::orderBy('id','asc')->get();
+    $menuTypes = MinuType::orderBy('sorting_id','asc')->get();
     foreach ($menuTypes as  $menuType) {
         
          $menus=MyFuncs::mainMenu($menuType->id);

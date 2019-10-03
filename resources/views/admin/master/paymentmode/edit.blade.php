@@ -19,7 +19,7 @@
        <div class="col-lg-12">                           
        <div class="form-group">
         {{ Form::label('sorting_order_id','Sorting Order No',['class'=>' control-label']) }}
-         {{ Form::text('sorting_order_id',$paymentMode->sorting_order_id,['class'=>'form-control','placeholder'=>'Enter Sorting Order No','maxlength'=>'5']) }}
+         {{ Form::text('sorting_order_id',$paymentMode->sorting_order_id,['class'=>'form-control','placeholder'=>'Enter Sorting Order No','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
          <p class="errorAmount1 text-center alert alert-danger hidden"></p>
        </div>    
   </div>

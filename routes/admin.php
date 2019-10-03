@@ -128,6 +128,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::post('{manageSection}/update', 'SectionController@update')->name('admin.manageSection.update');
 	    Route::get('{manageSection}/delete', 'SectionController@destroy')->name('admin.manageSection.delete');
 	    Route::get('selectBoxSection', 'SectionController@sectionSelectBox')->name('admin.section.selectBox');        
+	    Route::get('class-section-pdf', 'SectionController@classSectionPDF')->name('admin.section.class.section.pdf');        
 	});
 		// ---------------User with class----------------------------------------
 	Route::group(['prefix' => 'user-class'], function() {
@@ -245,6 +246,7 @@ Route::group(['middleware' => 'admin'], function() {
 	 Route::group(['prefix' => 'sibling-info'], function() {
 	    Route::get('show/{student}', 'StudentSiblingInfoController@show')->name('admin.sibling.show');
 	    Route::get('table-show/{student_id}', 'StudentSiblingInfoController@tableShow')->name('admin.sibling.table.show');
+	    Route::get('add-form/{student_id}', 'StudentSiblingInfoController@addForm')->name('admin.sibling.add.form');
 	    Route::post('add/{student}', 'StudentSiblingInfoController@store')->name('admin.sibling.add');
 	    Route::get('delete/{id}', 'StudentSiblingInfoController@destroy')->name('admin.sibling.delete');
 	    Route::get('edit/{id}', 'StudentSiblingInfoController@edit')->name('admin.sibling.edit');

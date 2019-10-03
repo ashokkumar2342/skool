@@ -37,10 +37,11 @@
                 <div class="col-md-4" id="section_list">
                    
                 </div>
-              </div>
-              </form>
+              </div> 
+              </form> 
               <hr>
               <table id="dataTable" class="table table-bordered table-striped table-hover">
+                 <a href="{{ route('admin.section.class.section.pdf') }}" class="btn btn-primary btn-sm" title="Download PDF" target="blank" style="float: right;margin-top: -10px;margin-right:10px">PDF</a>
                 <thead>
                 <tr>
                   <th>id</th>                

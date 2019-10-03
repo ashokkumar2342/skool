@@ -14,7 +14,7 @@
                         <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('academic_year','Academic Year',['class'=>' control-label']) }}
-                               {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Enter Academic Year','maxlength'=>'50']) }}
+                               {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Enter Academic Year','maxlength'=>'20']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
@@ -35,7 +35,7 @@
                         <div class="col-lg-4">                           
                              <div class="form-group">
                               {{ Form::label('description','Description',['class'=>' control-label']) }}
-                               {{ Form::text('description',null,['class'=>'form-control','placeholder'=>'Enter Description']) }}
+                               {{ Form::text('description',null,['class'=>'form-control','placeholder'=>'Enter Description','maxlength'=>'200']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>

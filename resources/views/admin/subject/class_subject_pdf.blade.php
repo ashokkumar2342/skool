@@ -33,13 +33,13 @@
         </div>
        </div>
  <div class="row">
- <div class="col-lg-8" style="margin-left: 80px">
+ <div class="col-lg-8" style="margin-left: 100px">
   	
  <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
-                  <th> id</th>                
-                  <th>class Name</th>                   
+                      
+                  <th>Class Name</th>                   
                   <th>Subject Name</th>                   
                   <th>IsOptinal</th>                   
                    
@@ -52,7 +52,7 @@
                   @endphp
                 @foreach($manageSubjects as $manageSubject)
                 <tr>
-                  <td>{{ $subjectId++ }}</td>
+                   
                   <td>{{ $manageSubject->classTypes->name or ''}}</td>                 
                   <td>{{ $manageSubject->subjectTypes->name or ''}}</td>                 
                   <td>{{ $manageSubject->isoptional->name or ''}}</td>                 

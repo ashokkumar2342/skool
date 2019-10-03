@@ -11,13 +11,14 @@
             <div class="box-header">
               <h3 class="box-title">Class List</h3>
               <span style="float: right"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_class">Add Class</button></span>
+              <a href="{{ route('admin.class.pdf.generate') }}" style="float: right;margin-right: 10px" class="btn btn-primary btn-sm" title="Download PDF" target="blank">PDF</a>
 
 
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               
-               <a href="{{ route('admin.class.pdf.generate') }}" class="btn btn-default btn-sm" title="Download PDF" target="blank">PDF</a>
+               
               </body>
               </html>
               <table id="dataTable" class="table table-bordered table-striped table-hover">
@@ -74,14 +75,14 @@
           <div class="form-group">
           {!! Form::label('name', 'Class Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
             <div class="col-sm-9">
-            {!! Form::text('name', @$classType->name, ['class'=>"form-control",'placeholder'=>"Class Name",'autocomplete'=>'off','maxlength'=>'50']) !!}
+            {!! Form::text('name', @$classType->name, ['class'=>"form-control",'placeholder'=>"Class Name",'autocomplete'=>'off','maxlength'=>'20']) !!}
             <p class="text-danger">{{ $errors->first('name') }}</p>
             </div>
           </div>
           <div class="form-group">
           {!! Form::label('code', 'Class Code :', ['class'=>"col-sm-3 control-label"]) !!}
             <div class="col-sm-9">
-            {!! Form::text('code', @$classType->alias, ['class'=>"form-control",'placeholder'=>"Numeric Name",'autocomplete'=>'off','maxlength'=>'50']) !!}
+            {!! Form::text('code', @$classType->alias, ['class'=>"form-control",'placeholder'=>"Numeric Name",'autocomplete'=>'off','maxlength'=>'5','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) !!}
             <p class="text-danger">{{ $errors->first('code') }}</p>
             </div>
           </div> 

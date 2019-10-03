@@ -57,15 +57,16 @@
                  
                 </div> 
             </div>
-            <a href="{{ route('admin.manageSubject.pdf.generate') }}" class="btn btn-default btn-sm" title="Download PDF" target="blank">PDF</a>
-            <div class="col-md-8">
+           
+            <div class="col-md-7 pull-right">
+               <a href="{{ route('admin.manageSubject.pdf.generate') }}" class="btn btn-primary btn-sm" title="Download PDF" target="blank" style="float: right;margin-top: -40px;margin-right:10px">PDF</a>
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
-                  <th> id</th>                
+                  <th>Sr.No.</th>                
                   <th>class Name</th>                   
                   <th>Subject Name</th>                   
-                  <th>IsOptinal</th>                   
+                  <th>Is Optional</th>                   
                   <th width="80px">Action</th>
                 </tr>
                 </thead>

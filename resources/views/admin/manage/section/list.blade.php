@@ -11,8 +11,9 @@
             <div class="box-header">
               <h3 class="box-title">Section List</h3>
               <span style="float: right"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_section">Add Section</button></span>
+              <a href="{{ route('admin.section.pdf.generate') }}" style="float: right;margin-right: 10px" class="btn btn-primary btn-sm" title="Download PDF" target="blank">PDF</a>
             </div>
-         <a href="{{ route('admin.section.pdf.generate') }}" class="btn btn-default btn-sm" title="Download PDF" target="blank">PDF</a>
+         
             <div class="box-body">
               <table id="class_section" class="table table-bordered table-striped table-hover">
                 <thead>

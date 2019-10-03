@@ -136,7 +136,7 @@ b{
                      
                  </div>   
                 <div id="sibling" class="tab-pane fade">
-                 <button type="button" class="btn btn-info btn-sm btn_add_sibling_info"  data-toggle="modal" data-target="#add_sibling"  style="margin: 10px">Add Sibling info</button>
+                 <button type="button" class="btn btn-info btn-sm btn_add_sibling_info"   data-toggle="modal" data-target="#sibling_items" style="margin: 10px">Add Sibling info</button>
                  
                  <div class="table-responsive" id="sibling_info_list">
                     </div> 

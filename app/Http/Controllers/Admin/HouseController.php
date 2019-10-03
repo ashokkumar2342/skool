@@ -25,7 +25,7 @@ class HouseController extends Controller
     	$rules=[
     	  
             'name' => 'required|min:2|max:50', 
-            'code' => 'required|min:2|max:5|unique:houses', 
+            'code' => 'required|max:5|unique:houses', 
             
              
              
@@ -74,7 +74,7 @@ class HouseController extends Controller
     	$rules=[
     	  
             'name' => 'required', 
-            'code' => 'required|min:2|max:50', 
+            'code' => "sometimes|required|max:5|code|unique:houses,code,".$id, 
              
              
        

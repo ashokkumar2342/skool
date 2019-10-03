@@ -11,7 +11,7 @@ use App\Model\SectionType;
 use App\Model\SessionDate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use PDF;
 class SectionController extends Controller
 {
     /**
@@ -152,5 +152,12 @@ class SectionController extends Controller
             return redirect()->back()->with(['class'=>'success','message'=>'section deleted success ...']);
         }
         return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
+    }
+    public function classSectionPDF($value='')
+    {
+        
+        $sections = Section::orderBy('class_id','ASC')->orderBy('section_id','ASC')->get();
+        $pdf=PDF::loadView('admin.manage.section.class_section_pdf',compact('sections'));
+        return $pdf->stream('class_section.pdf');
     }
 }

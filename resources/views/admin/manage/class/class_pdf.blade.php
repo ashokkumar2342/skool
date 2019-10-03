@@ -33,7 +33,7 @@
         </div>
        </div>
  <div class="row">
- <div class="col-lg-8" style="margin-left: 80px">
+ <div class="col-lg-8" style="margin-left: 100px">
   	
  <table class="table-responsive table-condensed table-striped table-hover table">
   	<thead>
