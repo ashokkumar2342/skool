@@ -47,8 +47,24 @@ class PaymentModeController extends Controller
 
     public function update(Request $request,$id)
     {   
-        $admin=Auth::guard('admin')->user()->id;
         $id =Crypt::decrypt($id); 
+        $rules=[
+        'name' => 'required|max:30|unique:payment_modes,name,'.$id,
+        'sorting_order_id' => 'required|max:30|unique:payment_modes,sorting_order_id,'.$id,
+         
+        ]; 
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }    
+       
+         
+        $admin=Auth::guard('admin')->user()->id;
+        
         $paymentMode =PaymentMode::find($id); 
         $paymentMode->name = $request->name; 
         $paymentMode->sorting_order_id = $request->sorting_order_id; 
