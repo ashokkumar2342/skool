@@ -2,8 +2,8 @@
 @section('body')
 <section class="content-header">
     <h1>Academic Year</h1>
-      <ol class="breadcrumb">
-      </ol>
+     
+      <span style="float: right;margin-top: -30px"> <a target="_blank" href="{{ route('admin.academicYear.pdf.generate') }}" class="btn btn-success btn-sm" title="PDF Download" target="blank">PDF</a></span>
 </section>
     <section class="content">
         <div class="box">             
@@ -52,7 +52,7 @@
             <div class="box">             
               <!-- /.box-header -->
                 <div class="box-body">
-                  <a href="{{ route('admin.academicYear.pdf.generate') }}" class="btn btn-default btn-sm" title="PDF" target="blank">PDF Download</a>
+                 
                     <table class="table" id="table_academic_year">
                          
                         <thead>

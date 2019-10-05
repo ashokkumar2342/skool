@@ -78,7 +78,7 @@
           {!! Form::label('SubjectName', 'Subjcet Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
             <div class="col-sm-9">
             {!! Form::text('name',@$subjectType->name, ['class'=>"form-control",'placeholder'=>"Subject Name",'autocomplete'=>'off','maxlength'=>'50',]) !!}
-            <p class="text-danger">{{ $errors->first('subjectName') }}</p>
+            <p class="text-danger">{{ $errors->first('name') }}</p>
             </div>
           </div>
           <div class="form-group">

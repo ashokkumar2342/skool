@@ -11,7 +11,8 @@
             
             <div class="box-header">
               <h3 class="box-title">Class Section</h3>
-              {{-- <span style="float: right"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_section">Manage Section</button></span> --}}
+              
+               <a href="{{ route('admin.section.class.section.pdf') }}" class="btn btn-primary btn-sm" title="Download PDF" target="blank" style="float: right;margin-right:10px">PDF</a> 
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -41,7 +42,7 @@
               </form> 
               <hr>
               <table id="dataTable" class="table table-bordered table-striped table-hover">
-                 <a href="{{ route('admin.section.class.section.pdf') }}" class="btn btn-primary btn-sm" title="Download PDF" target="blank" style="float: right;margin-top: -10px;margin-right:10px">PDF</a>
+                
                 <thead>
                 <tr>
                   <th>id</th>                
