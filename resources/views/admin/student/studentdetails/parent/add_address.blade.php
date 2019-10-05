@@ -6,10 +6,7 @@
     border-bottom: #eee solid 1px;;
   }
 
-     .fa-asterisk {
-    color: red;
-    font-size:10px; 
-}
+   
    
 </style>
  
@@ -24,16 +21,16 @@
           {{ csrf_field() }}
            
           <div class="row">
-            <div class="col-lg-4">
-              <label>Primary Mobile</label><span class="fa fa-asterisk"></span>
+            <div class="form-group col-lg-4">
+              <label>Primary Mobile</label> <span class="fa fa-asterisk"></span>
               <input type="text" name="primary_mobile" class="form-control" placeholder="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
             </div>
-            <div class="col-lg-4">
-              <label>Primary E-mail</label><span class="fa fa-asterisk"></span>
+            <div class="form-group col-lg-4">
+              <label>Primary E-mail</label> <span class="fa fa-asterisk"></span>
               <input type="email" name="primary_email" class="form-control" placeholder="" maxlength="50">
             </div>
-            <div class="col-lg-4">
-              <label>Category</label><span class="fa fa-asterisk"></span>
+            <div class="form-group col-lg-4">
+              <label>Category</label> <span class="fa fa-asterisk"></span>
               <select name="cotegory_id" class="form-control">
                 <option selected disabled>Select Category </option>
                 @foreach ($cotegorys as $cotegory)
@@ -41,8 +38,8 @@
                 @endforeach 
               </select>
             </div>
-            <div class="col-lg-4">
-              <label>Religion</label><span class="fa fa-asterisk"></span>
+            <div class="form-group col-lg-4">
+              <label>Religion</label> <span class="fa fa-asterisk"></span>
               <select name="religion_id" class="form-control">
                 <option selected disabled>Select Religion</option>
                 @foreach ($religions as $religion)
@@ -50,38 +47,38 @@
                 @endforeach 
               </select>
             </div>
-            <div class="col-lg-4">
-              <label>State</label><span class="fa fa-asterisk"></span>
+            <div class="form-group col-lg-4">
+              <label>State</label> <span class="fa fa-asterisk"></span>
               <input type="text" name="state" class="form-control" placeholder="" maxlength="50">
             </div>
-            <div class="col-lg-4">
-              <label>City</label><span class="fa fa-asterisk"></span>
+            <div class="form-group col-lg-4">
+              <label>City</label> <span class="fa fa-asterisk"></span>
               <input type="text" name="city" class="form-control" placeholder="" maxlength="50">
             </div>
-            <div class="col-lg-6">
-              <label>P Address</label><span class="fa fa-asterisk"></span>
-              <textarea class="form-control" name="p_address" maxlength="250"></textarea>
+            <div class="form-group col-lg-6">
+              <label>Permanent  Address</label> <span class="fa fa-asterisk"></span>
+              <textarea class="form-control" name="p_address" maxlength="200"></textarea>
             </div>
-            <div class="col-lg-6">
-              <label>C Address</label><span class="fa fa-asterisk"></span>
-              <textarea class="form-control" name="c_address" maxlength="250"></textarea>
+            <div class="form-group col-lg-6">
+              <label>Correspondence Address</label> 
+              <textarea class="form-control" name="c_address" maxlength="200"></textarea>
             </div>
-            <div class="col-lg-4">
-              <label>P Pincode</label><span class="fa fa-asterisk"></span>
-              <input type="text" name="p_pincode" class="form-control" maxlength="6" placeholder="" maxlength="">
+            <div class="form-group col-lg-4">
+              <label>Permanent  Pincode</label> <span class="fa fa-asterisk"></span>
+              <input type="text" name="p_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200" required="">
             </div>
-            <div class="col-lg-4">
-              <label>C Pincode</label><span class="fa fa-asterisk"></span>
-              <input type="text" name="c_pincode" class="form-control" maxlength="6" placeholder="" maxlength="">
+            <div class="form-group col-lg-4">
+              <label>Correspondence Pincode</label>
+              <input type="text" name="c_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200">
             </div>
-            <div class="col-lg-4">
-              <label>Nationality</label><span class="fa fa-asterisk"></span>
+            <div class="form-group col-lg-4">
+              <label>Nationality</label> <span class="fa fa-asterisk"></span>
               <select name="nationality" class="form-control">
                 <option selected value="1">Indian</option>
                 <option   value="2">Other Country</option> 
               </select>
             </div> 
-          <div class="col-lg-12 text-center" style="margin-top: 10px">
+          <div class="form-group col-lg-12 text-center" style="margin-top: 10px">
             <input type="submit" class="btn btn-success">
             
           </div>

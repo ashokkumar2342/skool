@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/AdminLTE.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/style.css')}}">
   {{-- <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/alt/AdminLTE-select2.min.css')}}"> --}}
    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
@@ -41,6 +42,13 @@
      .text-white{
       
      }    
+
+      .fa-asterisk {
+     color: red;
+     font-size:7px; 
+     vertical-align: super;
+   }
+
   </style>
 
   @stack('links')

@@ -19,7 +19,7 @@ b{
         <div class="box">  
           <button type="button" class="btn btn-xs btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.student.preview',$student->id) }}')" style="margin:5px">Preview</button>
 
-          <a href="{{ route('admin.student.pdf.generate',$student->id) }}" class="btn btn-xs btn-success pull-right" title="Pdf" target="_blank" style="margin:5px">Profile PDF</a>
+          <a href="{{ route('admin.student.pdf.generate',$student->id) }}" class="btn btn-xs btn-success pull-right" title="Download Profile " target="_blank" style="margin:5px">PDF</a>
           
           <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-user"></i> Student Details</a></li>
@@ -136,7 +136,7 @@ b{
                      
                  </div>   
                 <div id="sibling" class="tab-pane fade">
-                 <button type="button" class="btn btn-info btn-sm btn_add_sibling_info"   data-toggle="modal" data-target="#sibling_items" style="margin: 10px">Add Sibling info</button>
+                 <button type="button" class="btn btn-info btn-sm btn_add_sibling_info"  onclick="callPopupLarge(this,'{{ route('admin.sibling.add.form',$student->id) }}')" style="margin: 10px">Add Sibling info</button>
                  
                  <div class="table-responsive" id="sibling_info_list">
                     </div> 
@@ -237,7 +237,7 @@ b{
 {{-- @include('admin.student.studentdetails.include.add_parents_info') --}}
 @include('admin.student.studentdetails.include.add_parents_image')
 {{-- @include('admin.student.studentdetails.include.add_medical_info') --}}
-@include('admin.student.studentdetails.include.add_sibling_info')
+{{-- @include('admin.student.studentdetails.include.add_sibling_info') --}}
 @include('admin.student.studentdetails.include.add_subject')
 @include('admin.student.studentdetails.include.add_sport_hobby')
 @include('admin.student.studentdetails.include.add_document')

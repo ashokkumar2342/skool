@@ -206,8 +206,9 @@ class MasterController extends Controller
         public function guardianStore(Request $request)
         {
            $rules=[
-
-            'guardian' => 'required',
+            'name' => 'required|max:30|unique:guardian_relation_types',
+              
+            
              
         ];
 
@@ -221,7 +222,7 @@ class MasterController extends Controller
         }
         else {
         $guardianRelationType=new GuardianRelationType();
-        $guardianRelationType->name=$request->guardian; 
+        $guardianRelationType->name=$request->name; 
         $guardianRelationType->save();
         $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
@@ -240,20 +241,21 @@ class MasterController extends Controller
         }
         public function guardianUpdate(Request $request ,$id)
         {
-           $rules=[ 
-        ];
+            $rules=[
+             'name' => 'required|max:30|unique:guardian_relation_types,name,'.$id 
+         ];
 
-        $validator = Validator::make($request->all(),$rules);
-        if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            $response=array();
-            $response["status"]=0;
-            $response["msg"]=$errors[0];
-            return response()->json($response);// response as json
-        }
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }
         else {
         $guardianRelationType= GuardianRelationType::find($id);
-        $guardianRelationType->name=$request->guardian; 
+        $guardianRelationType->name=$request->name; 
         $guardianRelationType->save();
         $response=['status'=>1,'msg'=>'Update Successfully'];
             return response()->json($response);

@@ -140,7 +140,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {   
-       dd($request->all());
+       
        $rules=[
             'class' => 'required|numeric|max:20',
             "section" => 'required|numeric|max:20',

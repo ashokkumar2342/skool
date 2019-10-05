@@ -17,15 +17,15 @@
         <h4 class="modal-title">Sibling Info Edit</h4>
       </div>
       <div class="modal-body">
-        <form action="{{ route('admin.sibling.update',$stidents->id) }}" method="post" class="add_form" button-click="btn_close,sibling_info_tab"> 
+        <form action="{{ route('admin.sibling.update',$student->id) }}" method="post" class="add_form" button-click="btn_close,sibling_info_tab"> 
           {{ csrf_field() }}
        <div class="row"> 
         <div class="col-md-6">
         <label>Registration No</label>
-        <input type="text" name="registration_no" class="form-control" value="{{ $stidents->registration_no }}"> 
+        <input type="text" name="registration_no" class="form-control" value="{{ $student->registration_no }}"> 
         </div> <div class="col-md-5">
         <label>Name </label>
-        <input type="text" name="name" class="form-control" value="{{ $stidents->name }}"> 
+        <input type="text" name="name" class="form-control" value="{{ $student->name }}"> 
         </div>
         <div class="col-lg-12 text-center" style="margin-top: 10px">
         <input type="submit" class="btn btn-success" value="Update"> 
