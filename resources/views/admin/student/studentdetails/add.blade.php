@@ -4,10 +4,7 @@
 @endpush
 @section('body')
 <style>
-     .fa-asterisk {
-    color: red;
-    font-size:10px; 
-}
+   
    </style>
 <section class="content-header">
     <h1> Student Add <small>Details</small> </h1>
