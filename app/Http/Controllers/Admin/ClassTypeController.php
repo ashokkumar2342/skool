@@ -46,9 +46,9 @@ class ClassTypeController extends Controller
     {
         
         $this->validate($request,[
-            'name' => 'required|max:50|unique:class_types',
-            'code' => 'required|max:50',
-            'shorting_id' => 'required|max:50'
+            'name' => 'required|max:20|unique:class_types',
+            'code' => 'required|max:5|unique:class_types',
+            'shorting_id' => 'required|max:2|unique:class_types',
             ]);
         $class = new ClassType();
         $class->name = $request->name;
@@ -91,14 +91,17 @@ class ClassTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ClassType $classType)
-    {
+    {  
+        $id=$classType->id;
         $admin=Auth::guard('admin')->user()->id;
          $this->validate($request,[
-            'name' => 'required|max:199',
-            'code' => 'required|max:199'
+            'name' => 'required|max:20|unique:class_types,name,'.$id,
+            'code' => 'required|max:5|unique:class_types,alias,'.$id,
+            'shorting_id' => 'required|max:2|unique:class_types,shorting_id,'.$id,
             ]);
         $classType->name = $request->name;
         $classType->alias = $request->code;
+        $classType->shorting_id = $request->shorting_id;
         $classType->last_updated_by = $admin;
         if ($classType->save()) {
             return redirect()->route('admin.class.list')->with(['class'=>'success','message'=>'Class updated success ...']);

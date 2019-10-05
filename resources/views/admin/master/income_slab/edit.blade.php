@@ -12,7 +12,7 @@
        <div class="col-lg-12">                           
             <div class="form-group">
              <label>Income Slab</label>
-                     <input type="text" name="range" value="{{ $incomeRange->range }}" maxlength="5" class="form-control" placeholder="Enter Income Slab" required="">
+                     <input type="text" name="range" value="{{ $incomeRange->range }}" maxlength="30" class="form-control" placeholder="Enter Income Slab" required="">
             </div>    
        </div>
        <div class="col-lg-12">                           

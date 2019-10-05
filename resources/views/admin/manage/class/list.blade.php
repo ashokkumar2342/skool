@@ -82,7 +82,7 @@
           <div class="form-group">
           {!! Form::label('code', 'Class Code :', ['class'=>"col-sm-3 control-label"]) !!}
             <div class="col-sm-9">
-            {!! Form::text('code', @$classType->alias, ['class'=>"form-control",'placeholder'=>"Numeric Name",'autocomplete'=>'off','maxlength'=>'5','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) !!}
+            {!! Form::text('code', @$classType->alias, ['class'=>"form-control",'placeholder'=>"Numeric Name",'autocomplete'=>'off','maxlength'=>'5']) !!}
             <p class="text-danger">{{ $errors->first('code') }}</p>
             </div>
           </div> 

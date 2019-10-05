@@ -24,7 +24,7 @@
                    <div class="row">
                     <div class="col-lg-12"> 
                      <label>Guardian Type</label>
-                     <input type="text" name="guardian" class="form-control" value="{{ $guardianRelationType->name }}">        
+                     <input type="text" name="guardian" class="form-control" value="{{ $guardianRelationType->name }}" maxlength="50">        
                     </div> 
                    </div>
                    <div class="row">

@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-lg-12">
                   <label>Room Location</label>
-                  <input type="text" name="location" class="form-control" placeholder="Enter Location " maxlength="50" value="{{ $roomTypes->location }}"  > 
+                  <input type="text" name="location" class="form-control" placeholder="Enter Location " maxlength="100" value="{{ $roomTypes->location }}"  > 
                 </div>
                 <div class="col-lg-12 text-center">
                   

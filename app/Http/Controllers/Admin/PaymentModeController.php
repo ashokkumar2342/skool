@@ -50,7 +50,7 @@ class PaymentModeController extends Controller
         $id =Crypt::decrypt($id); 
         $rules=[
         'name' => 'required|max:30|unique:payment_modes,name,'.$id,
-        'sorting_order_id' => 'required|max:30|unique:payment_modes,sorting_order_id,'.$id,
+        'sorting_order_id' => 'required|max:2|unique:payment_modes,sorting_order_id,'.$id,
          
         ]; 
         $validator = Validator::make($request->all(),$rules);

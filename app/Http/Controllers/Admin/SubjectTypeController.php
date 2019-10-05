@@ -39,14 +39,15 @@ class SubjectTypeController extends Controller
      */
     public function store(Request $request)
     {
-         
+          
          $request->validate([
-         'subjectName' => 'required|max:199',
-         'code' => 'required|max:199',
+         'name' => 'required|max:50|unique:subject_types',
+            'code' => 'required|max:10|unique:subject_types',
+            'sorting_order_id' => 'required|max:2|unique:subject_types',
          ]);
          
         $subject = new SubjectType();
-        $subject->name = $request->subjectName;
+        $subject->name = $request->name;
         $subject->code = $request->code;
         $subject->sorting_order_id = $request->sorting_order_id;
         if ($subject->save()) {
@@ -92,8 +93,9 @@ class SubjectTypeController extends Controller
     {
         $admin=Auth::guard('admin')->user()->id;
         $rules=[
-          'subjectName' => 'required|max:199',
-         'code' => 'required|max:199', 
+          'name' => 'required|max:30|unique:subject_types,name,'.$subjectType,
+            'code' => 'required|max:10|unique:subject_types,code,'.$subjectType,
+            'sorting_order_id' => 'required|max:2|unique:subject_types,sorting_order_id,'.$subjectType,
        
         ];
 
@@ -107,7 +109,7 @@ class SubjectTypeController extends Controller
         }
         else {
         $subjectType= SubjectType::find($subjectType);
-        $subjectType->name = $request->subjectName;
+        $subjectType->name = $request->name;
         $subjectType->code = $request->code;
         $subjectType->sorting_order_id = $request->sorting_order_id;
         $subjectType->last_updated_by = $admin;

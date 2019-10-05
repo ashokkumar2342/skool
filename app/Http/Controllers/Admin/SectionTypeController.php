@@ -46,8 +46,9 @@ class SectionTypeController extends Controller
     { 
       
         $this->validate($request,[
-            'name' => 'required|max:199|unique:section_types',             
-            'code' => 'required|max:199|unique:section_types',             
+            'name' => 'required|max:30|unique:section_types',             
+            'code' => 'required|max:5|unique:section_types',             
+            'sorting_order_id' => 'required|max:2|unique:section_types',             
             ]);
         $section = new SectionType();
         $section->name = $request->name;        
@@ -91,9 +92,11 @@ class SectionTypeController extends Controller
      */
     public function update(Request $request, SectionType $sectionType)
     {
+        $id=$sectionType->id;
          $rules=[
-         'name' => 'required|max:50', 
-         'code' => 'required|max:50', 
+          'name' => 'required|max:30|unique:section_types,name,'.$id,
+            'code' => 'required|max:5|unique:section_types,code,'.$id,
+            'sorting_order_id' => 'required|max:2|unique:section_types,sorting_order_id,'.$id,
             
            
          ];

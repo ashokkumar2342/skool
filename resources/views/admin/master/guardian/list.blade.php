@@ -14,7 +14,7 @@
                  <div class="row">
                      <div class="col-xs-4">
                      <label>Guardian Type</label>
-                     <input type="text" name="guardian" class="form-control">        
+                     <input type="text" name="guardian" class="form-control" maxlength="50">        
                     </div>
                     <div class="col-xs-4" style="margin-top: 24px"> 
                      <input type="submit"  class="btn btn-success">        

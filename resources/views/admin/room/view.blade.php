@@ -12,11 +12,11 @@
               <div class="row">
                 <div class="col-lg-4">
                   <label>Room No</label>
-                  <input type="text" name="room_name" class="form-control" placeholder="Enter Room Name" maxlength="20"> 
+                  <input type="text" name="room_name" class="form-control" placeholder="Enter Room Name" maxlength="50"> 
                 </div>
                 <div class="col-lg-4">
                   <label>Room Location</label>
-                  <input type="text" name="location" class="form-control" placeholder="Enter Location " maxlength="50" > 
+                  <input type="text" name="location" class="form-control" placeholder="Enter Location " maxlength="100" > 
                 </div>
                 <input type="submit" class="btn btn-success" value="submit" style="margin: 24px">
               </div>

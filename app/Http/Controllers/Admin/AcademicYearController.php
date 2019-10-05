@@ -40,11 +40,12 @@ class AcademicYearController extends Controller
      */
     public function store(Request $request)
     {
+        $admin=Auth::guard('admin')->user()->id;
         $validator = Validator::make($request->all(), [
         
             'name' => 'required|max:30|unique:academic_years',
-            'start_date' => 'required|max:30|unique:academic_years', 
-            'end_date' => 'required|max:30|unique:academic_years', 
+            'start_date' => 'required', 
+            'end_date' => 'required', 
         ]);
         if ($validator->fails()) {                    
              return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
@@ -55,6 +56,7 @@ class AcademicYearController extends Controller
        $academicYears->start_date = date('Y-m-d',strtotime($request->start_date)) ;
        $academicYears->end_date = date('Y-m-d',strtotime($request->end_date));
        $academicYears->description = $request->description; 
+       $academicYears->last_updated_by = $admin; 
        $academicYears->save();
        return response()->json([$academicYears,'class'=>'success','message'=>'Academic Year Created Successfully']);
     }
@@ -68,17 +70,17 @@ class AcademicYearController extends Controller
     }
 
     public function update(Request $request,$id)
-    {  
+    {   $id =Crypt::decrypt($id);
         $admin=Auth::guard('admin')->user()->id;
          $validator = Validator::make($request->all(), [ 
-             'name' => 'required|max:30',
-             'start_date' => 'required|max:30', 
-             'end_date' => 'required|max:30', 
+             'name' => 'required|unique:academic_years,name,'.$id,
+             'start_date' => 'required', 
+             'end_date' => 'required', 
          ]);
          if ($validator->fails()) {                    
               return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
          }
-        $id =Crypt::decrypt($id);
+        
         $academicYears = AcademicYear::find($id);;
         $academicYears->name = $request->name;
         $academicYears->start_date = date('Y-m-d',strtotime($request->start_date)) ;

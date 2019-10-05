@@ -24,15 +24,15 @@
               <div class="row">
                 <div class="col-lg-12">
                   <label>Subject Name</label>
-                  <input type="text" name="subjectName" class="form-control" value="{{ $subjects->name }}" maxlength="50"> 
+                  <input type="text" name="name" class="form-control" value="{{ $subjects->name }}" maxlength="50"> 
                 </div>
                 <div class="col-lg-12">
                   <label>Subject Code</label>
-                  <input type="text" name="code" class="form-control" placeholder="Enter Location " maxlength="50" value="{{ $subjects->code }}"  > 
+                  <input type="text" name="code" class="form-control" placeholder="Enter Location " maxlength="10" value="{{ $subjects->code }}"  > 
                 </div>
                 <div class="col-lg-12">
                   <label>Sorting Order No </label>
-                  <input type="text" name="sorting_order_id" class="form-control" placeholder="Enter Location " maxlength="50" value="{{ $subjects->sorting_order_id }}"  > 
+                  <input type="text" name="sorting_order_id" class="form-control" placeholder="Enter Location " maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57"value="{{ $subjects->sorting_order_id }}"  > 
                 </div>
                 <div class="col-lg-12 text-center">
                   

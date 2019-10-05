@@ -84,14 +84,14 @@
           <div class="form-group">
           {!! Form::label('Code', 'Code :', ['class'=>"col-sm-3 control-label"]) !!}
             <div class="col-sm-9">
-            {!! Form::text('code', @$subjectType->code, ['class'=>"form-control",'placeholder'=>"Subject Code",'autocomplete'=>'off','maxlength'=>'6',]) !!}
+            {!! Form::text('code', @$subjectType->code, ['class'=>"form-control",'placeholder'=>"Subject Code",'autocomplete'=>'off','maxlength'=>'10',]) !!}
             <p class="text-danger">{{ $errors->first('code') }}</p>
             </div>
           </div>   
           <div class="form-group">
           {!! Form::label('Code', 'Sorting Order No :', ['class'=>"col-sm-3 control-label"]) !!}
             <div class="col-sm-9">
-            {!! Form::text('sorting_order_id', @$subjectType->code, ['class'=>"form-control",'placeholder'=>"Subject Code",'autocomplete'=>'off','maxlength'=>'6',]) !!}
+            {!! Form::text('sorting_order_id', @$subjectType->code, ['class'=>"form-control",'placeholder'=>"Subject Code",'autocomplete'=>'off','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) !!}
             <p class="text-danger">{{ $errors->first('Sorting Order') }}</p>
             </div>
           </div>   
