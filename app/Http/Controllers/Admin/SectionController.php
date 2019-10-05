@@ -157,7 +157,11 @@ class SectionController extends Controller
     {
         
         $sections = Section::orderBy('class_id','ASC')->orderBy('section_id','ASC')->get();
-        $pdf=PDF::loadView('admin.manage.section.class_section_pdf',compact('sections'));
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.manage.section.class_section_pdf',compact('sections'));
         return $pdf->stream('class_section.pdf');
     }
 }
