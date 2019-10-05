@@ -135,7 +135,11 @@ class SectionTypeController extends Controller
     public function pdfGenerate($value='')
     {
         $sections=SectionType::orderBy('code','ASC')->get();
-         $pdf = PDF::loadView('admin.manage.section.section_pdf',compact('sections'));
+         $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.manage.section.section_pdf',compact('sections'));
         return $pdf->stream('section.pdf');
        
     }

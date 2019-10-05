@@ -179,7 +179,11 @@ class ReportController extends Controller
                    $profilePdfUrl = Storage_path() . '/app/student/document/profile/'.$student->class_id.'/'.$student->section_id; 
                      if ($request->report_wise==2) { 
                            @mkdir($profilePdfUrl, 0755, true); 
-                       $pdf = PDF::loadView('admin.report.finalReport.filed_wise_pdf',compact('student','fieldNames'))->save($profilePdfUrl.'/'.$student->registration_no.'_profile.pdf'); 
+                       $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.report.finalReport.filed_wise_pdf',compact('student','fieldNames'))->save($profilePdfUrl.'/'.$student->registration_no.'_profile.pdf'); 
                       }
                      if ($request->report_wise==1) { 
                            @mkdir($profilePdfUrl, 0755, true); 
@@ -389,7 +393,11 @@ class ReportController extends Controller
        }
       if ($request->report_for==1) {
         $customPaper = array(0,0,220.00,350.80);
-           $pdf = PDF::loadView('admin.report.generalReport.stationery',compact('students','fieldNames','StudentSubject'))->setPaper($customPaper, 'landscape'); 
+           $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.report.generalReport.stationery',compact('students','fieldNames','StudentSubject'))->setPaper($customPaper, 'landscape'); 
                         return $pdf->stream('student_all_report.pdf'); 
       }
       if ($request->report_for==2) {

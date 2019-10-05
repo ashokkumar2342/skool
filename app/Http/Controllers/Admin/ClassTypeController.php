@@ -126,7 +126,11 @@ class ClassTypeController extends Controller
     public function pdfGenerate()
     {
         $classes = ClassType::orderBy('shorting_id','ASC')->get();
-        $pdf = PDF::loadView('admin.manage.class.class_pdf',compact('classes')); 
+        $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.manage.class.class_pdf',compact('classes')); 
         return $pdf->stream('class.pdf');
          
     }

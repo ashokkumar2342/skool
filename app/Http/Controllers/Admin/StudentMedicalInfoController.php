@@ -291,10 +291,18 @@ class StudentMedicalInfoController extends Controller
          
            $medicalInfos = StudentMedicalInfo::where('student_id',$student_id)->get(); 
            if (1==1) {
-            $pdf = PDF::loadView('admin.student.studentdetails.include.medical_info_pdf_generate',compact('medicalInfos'));
+            $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.student.studentdetails.include.medical_info_pdf_generate',compact('medicalInfos'));
                 return  $pdf->stream('student_medical.pdf');
             }else{   
-               $pdf = PDF::loadView('admin.student.studentdetails.include.medical_info_pdf_generate_blank',compact('medicalInfos'));
+               $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.student.studentdetails.include.medical_info_pdf_generate_blank',compact('medicalInfos'));
                return  $pdf->stream('student_medical.pdf');
               }    
             

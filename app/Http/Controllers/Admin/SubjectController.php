@@ -138,7 +138,11 @@ class SubjectController extends Controller
     public function classSubjectPDF($value='')
     {
         $manageSubjects=Subject::orderBy('classType_id','ASC')->get();
-         $pdf = PDF::loadView('admin.subject.class_subject_pdf',compact('manageSubjects'));
+         $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.subject.class_subject_pdf',compact('manageSubjects'));
         return $pdf->stream('section.pdf');
     }
 }

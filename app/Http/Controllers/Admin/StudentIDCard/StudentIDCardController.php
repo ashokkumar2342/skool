@@ -71,17 +71,29 @@ class StudentIdCardController extends Controller
          
          if ($request->template_name==1) {
          $customPaper = array(0,0,322.00,202.80);
-        $pdf = PDF::loadView('admin.student.idCard.temp1',compact('students'))->setPaper($customPaper, 'landscape'); 
+        $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.student.idCard.temp1',compact('students'))->setPaper($customPaper, 'landscape'); 
         return $pdf->stream('student_all_report.pdf');
            
          } if ($request->template_name==2) {
          $customPaper = array(0,0,306.00,202.80);
-        $pdf = PDF::loadView('admin.student.idCard.temp2',compact('students'))->setPaper($customPaper, 'landscape'); 
+        $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.student.idCard.temp2',compact('students'))->setPaper($customPaper, 'landscape'); 
         return $pdf->stream('student_all_report.pdf');
            
          } if ($request->template_name==3) {
          $customPaper = array(0,0,215.00,322.80);
-        $pdf = PDF::loadView('admin.student.idCard.temp3',compact('students'))->setPaper($customPaper, 'landscape'); 
+        $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.student.idCard.temp3',compact('students'))->setPaper($customPaper, 'landscape'); 
         return $pdf->stream('student_all_report.pdf');
            
          } 
@@ -89,7 +101,11 @@ class StudentIdCardController extends Controller
       if ($request->student_idcard==2) {
          
         $customPaper = array(0,0,208.00,307.80);
-        $pdf = PDF::loadView('admin.student.idCard.perent_idcard',compact('students'))->setPaper($customPaper, 'landscape'); 
+        $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.student.idCard.perent_idcard',compact('students'))->setPaper($customPaper, 'landscape'); 
         return $pdf->stream('student_all_report.pdf');
       }
      

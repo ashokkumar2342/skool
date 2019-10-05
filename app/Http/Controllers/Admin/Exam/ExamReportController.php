@@ -103,7 +103,11 @@ class ExamReportController extends Controller
       // $classTestDetails=$classTestDetail->groupBy('student_id');
       $classTestDetails=$classTestDetail->groupBy('class_id');
       $customPaper = array(0,0,406.00,602.80); 
-        $pdf = PDF::loadView('admin.exam.report.report_pdf_generate',compact('classTestDetails','students','classTestDetail'))->setPaper($customPaper, 'landscape');;
+        $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.exam.report.report_pdf_generate',compact('classTestDetails','students','classTestDetail'))->setPaper($customPaper, 'landscape');;
       
       return $pdf->stream('student_all_report.pdf');
     }

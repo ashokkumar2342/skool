@@ -122,7 +122,11 @@ class StudentController extends Controller
           $documents = Document::where('student_id',$id)->get();
           $studentSiblingInfos=StudentSiblingInfo::where('student_id',$id)->get();
           $studentSubjects=StudentSubject::where('student_id',$id)->get(); 
-      $pdf = PDF::loadView('admin.student.studentdetails.pdf_generate',compact('student','parents','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects'));
+      $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.student.studentdetails.pdf_generate',compact('student','parents','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects'));
       
       return $pdf->download('student_all_report.pdf');
     }
@@ -724,7 +728,11 @@ class StudentController extends Controller
         $template = BirthdayTemplate::find(1);
         $viewUrl = 'admin.student.birthday.'.$template->name;
         $students = Student::find($id);  
-        $pdf = PDF::loadView($viewUrl,compact('students'));  
+        $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView($viewUrl,compact('students'));  
         return $pdf->download($students->registration_no.'_birthday_card.pdf');
     }
 

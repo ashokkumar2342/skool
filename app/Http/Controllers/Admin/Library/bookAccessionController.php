@@ -147,7 +147,11 @@ class bookAccessionController extends Controller
        }
          $bookaccessions= BookAccession::orderBy('id','ASC')->get();
           $customPaper = array(0,0,62.00,105.80);
-          $pdf = PDF::loadView('admin.library.bookaccession.accession_barcode',compact('bookaccessions'))->setPaper($customPaper, 'landscape'); 
+          $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.library.bookaccession.accession_barcode',compact('bookaccessions'))->setPaper($customPaper, 'landscape'); 
         
        return $pdf->stream('accession_barcode.pdf');
      

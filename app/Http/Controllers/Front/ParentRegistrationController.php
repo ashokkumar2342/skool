@@ -643,7 +643,11 @@ class ParentRegistrationController extends Controller
     public function previewDownload($id){
         $pr = ParentRegistration::find(Crypt::decrypt($id));
             PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
-        $pdf = PDF::loadView('front.registration.include.previewDownload',compact('classes','sessions','default','genders','religions','categories','tongues','bloodGroups','academicYear','pr')); 
+        $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('front.registration.include.previewDownload',compact('classes','sessions','default','genders','religions','categories','tongues','bloodGroups','academicYear','pr')); 
         
         return $pdf->download('download_registration_form.pdf');
     }
