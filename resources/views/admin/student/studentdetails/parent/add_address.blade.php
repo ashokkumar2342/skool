@@ -19,7 +19,7 @@
       <div class="modal-body">
         <form action="{{ route('admin.parents.address.store') }}" method="post" class="add_form" button-click="btn_close,address_info">
           {{ csrf_field() }}
-           
+           <input type="hidden" name="student_id" value="{{ $student_id }}">
           <div class="row">
             <div class="form-group col-lg-4">
               <label>Primary Mobile</label> <span class="fa fa-asterisk"></span>
@@ -55,13 +55,17 @@
               <label>City</label> <span class="fa fa-asterisk"></span>
               <input type="text" name="city" class="form-control" placeholder="" maxlength="50">
             </div>
-            <div class="form-group col-lg-6">
+            <div class="form-group col-lg-5">
               <label>Permanent  Address</label> <span class="fa fa-asterisk"></span>
-              <textarea class="form-control" name="p_address" maxlength="200"></textarea>
+              <textarea class="form-control" name="p_address" id="p_address" maxlength="200"></textarea>
+            </div>
+            <div class="form-group col-lg-1" style="margin-top: 24px">
+              <label>Same As</label>
+              <input type="checkbox" id="addressCheck" name="addressCheck"> 
             </div>
             <div class="form-group col-lg-6">
-              <label>Correspondence Address</label> 
-              <textarea class="form-control" name="c_address" maxlength="200"></textarea>
+              <label>Correspondence Address</label> <span class="fa fa-asterisk"></span>
+              <textarea class="form-control" name="c_address" id="c_address" maxlength="200"></textarea>
             </div>
             <div class="form-group col-lg-4">
               <label>Permanent  Pincode</label> <span class="fa fa-asterisk"></span>
@@ -92,4 +96,17 @@
   </div>
 
                  
-   
+   <script>
+     function setAddress(){
+       if ($("#addressCheck").is(":checked")) {
+         $('#c_address').val($('#p_address').val());
+         $('#c_address').attr('readonly', '');
+       } else {
+         $('#c_address').removeAttr('disabled');
+       }
+     }
+
+     $('#addressCheck').click(function(){
+       setAddress();
+     })
+   </script>

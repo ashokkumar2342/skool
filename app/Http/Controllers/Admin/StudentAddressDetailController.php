@@ -34,6 +34,10 @@ class StudentAddressDetailController extends Controller
         $religions=Religion::orderBy('id','ASC')->get(); 
         return view('admin.student.studentdetails.parent.add_address',compact('cotegorys','religions','student_id'));   
     }
+    public function sameAS(Request $request)
+    {
+      return $request;
+    }
     public function addressStore(Request $request)
     { 
         $rules=[

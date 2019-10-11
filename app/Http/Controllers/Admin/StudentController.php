@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
  use App\Http\Controllers\Controller;
 use App\Events\SmsEvent;
 use App\Helper\MyFuncs;
+use App\Model\Address;
 use App\Model\BloodGroup;
 use App\Model\Category;
 use App\Model\ClassType;
@@ -23,9 +24,11 @@ use App\Model\Religion;
 use App\Model\RequestUpdate;
 use App\Model\SessionDate;
 use App\Model\Sms\SmsTemplate;
+use App\Model\StudentAddressDetail;
 use App\Model\StudentDefaultValue;
 use App\Model\StudentFee;
 use App\Model\StudentMedicalInfo;
+use App\Model\StudentPerentDetail;
 use App\Model\StudentSiblingInfo;
 use App\Model\StudentSubject;
 use App\Model\Subject;
@@ -116,8 +119,14 @@ class StudentController extends Controller
     }
     public function pdfGenerate($id){
         
-        $student = Student::find($id);
-          $parents = ParentsInfo::where('student_id',$id)->get(); 
+          $student = Student::find($id);
+          $parent =new StudentPerentDetail();           
+          $fatherDetail =$parent->getParent($id,1);
+          $motherDetail =$parent->getParent($id,2);
+
+          $StudentAddressDetail =new StudentAddressDetail(); 
+          $Studentaddress =$StudentAddressDetail->getAddress($id); 
+          $address =Address::where('id',$Studentaddress->student_address_details_id)->first(); 
           $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 
           $documents = Document::where('student_id',$id)->get();
           $studentSiblingInfos=StudentSiblingInfo::where('student_id',$id)->get();
@@ -126,9 +135,9 @@ class StudentController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.student.studentdetails.pdf_generate',compact('student','parents','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects'));
+        ->loadView('admin.student.studentdetails.pdf_generate',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address'));
       
-      return $pdf->download('student_all_report.pdf');
+      return $pdf->stream('student_all_report.pdf');
     }
 
     

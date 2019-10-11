@@ -24,28 +24,32 @@
                                
                     <div class="form-group col-md-4">
                          {{ Form::label('ondate','On Date',['class'=>' control-label']) }} 
-                         {{ Form::text('ondate',$medicalInfo->ondate,['class'=>'form-control datepicker']) }}
+                         <span class="fa fa-asterisk"></span> 
+                         {{ Form::date('ondate',$medicalInfo->ondate,['class'=>'form-control datepicker']) }}
                          
                      </div>
 
                      <div class="form-group col-md-4">
                           {{ Form::label('bloodgroup_id','Blood Group',['class'=>' control-label']) }}
+                          <span class="fa fa-asterisk"></span> 
                           {!! Form::select('bloodgroup_id',$bloodgroups,$medicalInfo->bloodgroups->id,['class'=>'form-control','placeholder'=>'Select Blood Group','required']) !!}
                           
                      </div> 
                    <div class="form-group col-md-4">
-                        {{ Form::label('hb','HB ',['class'=>' control-label']) }}                         
+                        {{ Form::label('hb','HB ',['class'=>' control-label']) }}   <span class="fa fa-asterisk"></span>                       
                         {{ Form::text('hb',$medicalInfo->hb,['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                         
                     </div>
                     <div class="form-group col-md-4">
-                        {{ Form::label('weight','Weight (only kg)',['class'=>' control-label','maxlength'=>'3']) }}                         
+                        {{ Form::label('weight','Weight (only kg)',['class'=>' control-label','maxlength'=>'3']) }}      
+                        <span class="fa fa-asterisk"></span>                    
                         {{ Form::text('weight',$medicalInfo->weight,['class'=>'form-control',' required','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                          
                     </div>
                      
                      <div class="form-group col-md-4">
-                        {{ Form::label('height','Height (only cm)',['class'=>' control-label ',' required','maxlength'=>'3']) }}                         
+                        {{ Form::label('height','Height (only cm)',['class'=>' control-label ',' required','maxlength'=>'3']) }} 
+                        <span class="fa fa-asterisk"></span>                         
                         {{ Form::text('height',$medicalInfo->height,['class'=>'form-control',' required','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                         
                     </div>
@@ -58,6 +62,7 @@
                      
                      <div class="form-group col-md-4">
                           {{ Form::label('complextion','Complextion',['class'=>' control-label']) }}
+                          <span class="fa fa-asterisk"></span> 
                           {!! Form::select('complextion',[
                             'Light'=>'Light',
                             'Medium'=>'Medium',
@@ -72,12 +77,12 @@
                       
                     <div class="form-group col-md-4">
                         {{ Form::label('id_marks1','Id Marks1',['class'=>' control-label ']) }}
-                        {{ Form::text('id_marks1',$medicalInfo->id_marks1,['class'=>'form-control']) }}
+                        {{ Form::text('id_marks1',$medicalInfo->id_marks1,['class'=>'form-control','maxlength'=>'50']) }}
                          
                     </div> 
                     <div class="form-group col-md-4">
                         {{ Form::label('id_marks2','Id Marks2',['class'=>' control-label ']) }}
-                        {{ Form::text('id_marks2',$medicalInfo->id_marks2,['class'=>'form-control']) }}
+                        {{ Form::text('id_marks2',$medicalInfo->id_marks2,['class'=>'form-control','maxlength'=>'50']) }}
                          
                     </div>
                      <div class="form-group col-md-4">
@@ -87,16 +92,19 @@
                     </div>
                     <div class="form-group col-md-4">
                         {{ Form::label('bp','BP Lower',['class'=>' control-label ']) }}
-                        {{ Form::text('bp_lower',$medicalInfo->bp_lower,['class'=>'form-control']) }}
+                        <span class="fa fa-asterisk"></span> 
+                        {{ Form::text('bp_lower',$medicalInfo->bp_lower,['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                         
                     </div> 
                     <div class="form-group col-md-4">
                         {{ Form::label('bp','BP Upper',['class'=>' control-label ']) }}
-                        {{ Form::text('bp_uper',$medicalInfo->bp_uper,['class'=>'form-control']) }}
+                        <span class="fa fa-asterisk"></span> 
+                        {{ Form::text('bp_uper',$medicalInfo->bp_uper,['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                        
                     </div>
                     <div class="form-group col-md-4">
                         {{ Form::label('alergey','Alergey',['class'=>' control-label']) }} 
+                        <span class="fa fa-asterisk"></span> 
                          <select name="alergey" id="alergey" class="form-control" onchange="showHideDiv(this.value,'alergey_vacc_div')">
                             <option value="0">No</option>
                             <option value="1">Yes</option> 
@@ -111,6 +119,7 @@
                     </div> 
                     <div class="form-group col-md-4">
                         {{ Form::label('physical_handicapped','Physical Handicapped',['class'=>' control-label ']) }}
+                        <span class="fa fa-asterisk"></span> 
                         <select name="physical_handicapped" onchange="showHideDiv(this.value,'narration_div')" class="form-control">
                           <option value="0">No</option>
                           <option value="1">Yes</option> 

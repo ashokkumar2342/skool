@@ -61,5 +61,5 @@
                     </table>
                   </div>
                     <div class="text-center">
-                     <button type="button" onclick="$('#medical_info').click()" class="btn btn-success btn-sm">Next</button> 
+                     <button type="button" onclick="$('#address_info').click()" class="btn btn-success btn-sm">Next</button> 
                      </div> 

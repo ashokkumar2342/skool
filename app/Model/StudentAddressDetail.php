@@ -8,8 +8,17 @@ class StudentAddressDetail extends Model
 {
     protected $fillable = [
         'student_id',
-           ]; 
+           ];
+            
 
+    public function getAddress($id){
+        try {
+          return $this->where('student_id',$id)->first();
+            
+        } catch (Exception $e) {
+            return $e;
+        }
+    }
     Public function getAddressArrId($student_id,$sibling_student_id){
       try {
             $arr_id= $this->where('student_id',$student_id)->pluck('id')->toArray(); 

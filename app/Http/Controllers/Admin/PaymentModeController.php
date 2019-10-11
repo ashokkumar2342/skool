@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
-
+use PDF;
 class PaymentModeController extends Controller
 {
     public function index(){
@@ -84,5 +84,16 @@ class PaymentModeController extends Controller
         $PaymentMode =PaymentMode::find($id);
         $PaymentMode->delete();
         return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+    public function pdfGenerate()
+    {  
+         $PaymentMode =PaymentMode::orderBy('sorting_order_id','ASC')->get();
+         $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.master.paymentmode.pdf_generate',compact('PaymentMode')); 
+         return $pdf->stream('paymentmode.pdf');
+         
     }
 }

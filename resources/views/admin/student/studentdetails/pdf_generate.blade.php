@@ -6819,9 +6819,7 @@ button.close {
                              <div class="row" style="margin-left: 80px"> 
                                <div class="col-lg-6">
                                     <p><li> Date Of Activation :-<b>{{date('d-m-Y',strtotime($student->date_of_activation ))}}</b></li></p> 
-                               </div>
-                          
-                             
+                               </div> 
                                <div class="col-lg-6">
                                     <p><li>  Date Of Birth :-<b>{{date('d-m-Y',strtotime($student->dob ))}}</b></li></p> 
                                </div>
@@ -6829,31 +6827,8 @@ button.close {
                              <div class="row" style="margin-left: 80px"> 
                                <div class="col-lg-6">
                                     <p><li>  Gender :-<b>{{ $student->genders->genders or '' }}</b></li></p> 
-                               </div>
-                           
-                             
-                               <div class="col-lg-6">
-                                    <p><li>   Parmanent Address :-<b>{{ $student->p_address }}</b></li></p> 
-                               </div>
-                           </div> 
-                            <div class="row" style="margin-left: 80px"> 
-                            <div class="col-lg-6">
-                             <p><li> Father's Name :- <b>{{ $student->father_name }}</b></li></p> 
-                            </div>
-                        
-                         
-                            <div class="col-lg-6">
-                             <p><li> Mother's Name :- <b>{{ $student->mother_name }}</b></li></p> 
-                            </div>
-                         </div>
-                          <div class="row" style="margin-left: 80px">
-                            <div class="col-lg-6">
-                             <p><li> Father's Mobile :- <b>{{ $student->father_mobile }}</b></li></p> 
-                            </div> 
-                            <div class="col-lg-6">
-                             <p><li> Mother's Mobile :- <b>{{ $student->mother_mobile }}</b></li></p> 
-                            </div>
-                        </div>
+                               </div> 
+                             </div>
                         <div class="row" style="margin-left: 80px">
                             <div class="col-lg-6">
                              <p><li> User Name :- <b>{{ $student->username }}</b></li></p> 
@@ -6862,77 +6837,134 @@ button.close {
                             <div class="col-lg-6">
                              <p><li> Password :- <b>{{ $student->tem_pass }}</b></li></p> 
                             </div>
-                         </div>
-                         <div class="row" style="margin-left: 80px">
-                            <div class="col-lg-6">
-                             <p><li> Category :- <b>{{ $student->name }}</b></li></p> 
-                            </div>
-                        
-                            <div class="col-lg-6">
-                             <p><li> Religion :- <b>{{ $student->name }}</b></li></p> 
-                            </div>
-                        </div>
-                         <div class="row" style="margin-left: 80px">
-                            <div class="col-lg-6">
-                             <p><li> City :- <b>{{ $student->city }}</b></li></p> 
-                            </div>
-                       
-                            <div class="col-lg-6">
-                             <p><li> State :- <b>{{ $student->state }}</b></li></p> 
-                            </div>
-                        </div>
-                          <div class="row" style="margin-left: 80px">
-                            <div class="col-lg-6">
-                             <p><li> Pincode :- <b>{{ $student->pincode }}</b></li></p> 
-                            </div>
-                         
-                            <div class="col-lg-6">
-                             <p><li> Corespondance Address :- <b>{{ $student->c_address }}</b></li></p> 
-                            </div>
-                        </div>
-          @foreach($parents as $parent)
-        <h4 align="center"><b>{{ $parent->relationType->name or ''}} Details</b></h4><hr>
+                         </div> 
+                        <h4 align="center"><b> Address Details</b></h4><hr>
                          <div class="row" style="margin-left: 80px"> 
- 	 	                     <div class="col-lg-6"> 
-                                 <p><li>Father Name :- <b>{{ $parent->name  }}</b></li></p>  
+                         <div class="col-lg-6"> 
+                                 <p><li>Primary Mobile :- <b>{{ $address->primary_mobile  }}</b></li></p>  
                                </div> 
                                <div class="col-lg-6">
-                                  <p><li>Education :-<b> {{ $parent->education or ''}} </b> </li></p>   
+                                  <p><li>Primary Eemail :-<b> {{ $address->primary_email or ''}} </b> </li></p>   
+                               </div>
+                           </div> 
+                           <div class="row" style="margin-left: 80px"> 
+                         <div class="col-lg-6"> 
+                               <p><li>Cotegory :-<b> {{ $address->categories->name or ''}} </b> </li></p>
+                               </div> 
+                               <div class="col-lg-6">
+                                  <p><li>Religion :-<b> {{ $address->religions->name or ''}} </b> </li></p>
+                               </div>
+                           </div>
+                           <div class="row" style="margin-left: 80px"> 
+                         <div class="col-lg-6"> 
+                               <p><li>State :-<b> {{ $address->state }} </b> </li></p>
+                               </div> 
+                               <div class="col-lg-6">
+                                 <p><li>City :- <b>{{ $address->city }}</b></li></p> 
+                               </div>
+                           </div>
+                            <div class="row" style="margin-left: 80px"> 
+                         <div class="col-lg-6"> 
+                               <p><li> Parmanent Address :- <b>{{ $address->p_address}}</b></li></p> 
+                               </div> 
+                               <div class="col-lg-6">
+                                <p><li>Corespondance Address :- <b>{{ $address->c_address}}</b></li></p>
+                               </div>
+                           </div>  
+                           <div class="row" style="margin-left: 80px"> 
+                         <div class="col-lg-6"> 
+                               <p><li>p_pincode :- <b>{{ $address->p_pincode }}</b></li></p> 
+                               </div> 
+                               <div class="col-lg-6">
+                               <p><li>c_pincode :- <b>{{ $address->c_pincode }}</b></li></p> 
+                               </div>
+                           </div>
+      
+                        <h4 align="center"><b> Father Details</b></h4><hr>
+                         <div class="row" style="margin-left: 80px"> 
+ 	 	                     <div class="col-lg-6"> 
+                                 <p><li>Father Name :- <b>{{ $fatherDetail->name  }}</b></li></p>  
+                               </div> 
+                               <div class="col-lg-6">
+                                  <p><li>Education :-<b> {{ $fatherDetail->education or ''}} </b> </li></p>   
                                </div>
                            </div> 
                            <div class="row" style="margin-left: 80px"> 
  	 	                     <div class="col-lg-6"> 
-                               <p><li>Profetions :-<b> {{ $parent->profetions->name or ''}} </b> </li></p>
+                               <p><li>Profetions :-<b> {{ $fatherDetail->profetions->name or ''}} </b> </li></p>
                                </div> 
                                <div class="col-lg-6">
-                                  <p><li>Incomes :-<b> {{ $parent->incomes->name or ''}} </b> </li></p>
+                                  <p><li>Incomes :-<b> {{ $fatherDetail->incomes->name or ''}} </b> </li></p>
                                </div>
                            </div>
                            <div class="row" style="margin-left: 80px"> 
  	 	                     <div class="col-lg-6"> 
-                               <p><li>Mobile :-<b> {{ $parent->mobile }} </b> </li></p>
+                               <p><li>Mobile :-<b> {{ $fatherDetail->mobile }} </b> </li></p>
                                </div> 
                                <div class="col-lg-6">
-                                 <p><li> Email :- <b>{{ $parent->email }}</b></li></p> 
+                                 <p><li> Email :- <b>{{ $fatherDetail->email }}</b></li></p> 
                                </div>
                            </div>
                             <div class="row" style="margin-left: 80px"> 
  	 	                     <div class="col-lg-6"> 
-                               <p><li>Date of Birth :- <b>{{ date('d-m-Y', strtotime($parent->dob))}}</b></li></p> 
+                               <p><li>Date of Birth :- <b>{{ date('d-m-Y', strtotime($fatherDetail->dob))}}</b></li></p> 
                                </div> 
                                <div class="col-lg-6">
-                                <p><li>Date Of Anniversary:- <b>{{ date('d-m-Y', strtotime($parent->doa))}}</b></li></p>
+                                <p><li>Date Of Anniversary :- <b>{{ date('d-m-Y', strtotime($fatherDetail->doa))}}</b></li></p>
                                </div>
                            </div>  
                            <div class="row" style="margin-left: 80px"> 
  	 	                     <div class="col-lg-6"> 
-                               <p><li>Office Address :- <b>{{ $parent->office_address }}</b></li></p> 
+                               <p><li>Office Address :- <b>{{ $fatherDetail->office_address }}</b></li></p> 
                                </div> 
                                <div class="col-lg-6">
-                               <p><li>Islive :- <b>{{ $parent->islive == 1? 'Yes' : 'No' }}</b></li></p> 
+                               <p><li>Islive :- <b>{{ $fatherDetail->islive == 1? 'Yes' : 'No' }}</b></li></p> 
                                </div>
-                           </div> 
-          @endforeach
+                           </div>
+
+                  {{-- mother details           --}}
+                                         <h4 align="center"><b> Mother Details</b></h4><hr>
+                                          <div class="row" style="margin-left: 80px"> 
+                                           <div class="col-lg-6"> 
+                                                  <p><li>Father Name :- <b>{{ $motherDetail->name  }}</b></li></p>  
+                                                </div> 
+                                                <div class="col-lg-6">
+                                                   <p><li>Education :-<b> {{ $motherDetail->education or ''}} </b> </li></p>   
+                                                </div>
+                                            </div> 
+                                            <div class="row" style="margin-left: 80px"> 
+                                           <div class="col-lg-6"> 
+                                                <p><li>Profetions :-<b> {{ $motherDetail->profetions->name or ''}} </b> </li></p>
+                                                </div> 
+                                                <div class="col-lg-6">
+                                                   <p><li>Incomes :-<b> {{ $motherDetail->incomes->name or ''}} </b> </li></p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-left: 80px"> 
+                                           <div class="col-lg-6"> 
+                                                <p><li>Mobile :-<b> {{ $motherDetail->mobile }} </b> </li></p>
+                                                </div> 
+                                                <div class="col-lg-6">
+                                                  <p><li> Email :- <b>{{ $motherDetail->email }}</b></li></p> 
+                                                </div>
+                                            </div>
+                                             <div class="row" style="margin-left: 80px"> 
+                                           <div class="col-lg-6"> 
+                                                <p><li>Date of Birth :- <b>{{ date('d-m-Y', strtotime($motherDetail->dob))}}</b></li></p> 
+                                                </div> 
+                                                <div class="col-lg-6">
+                                                 <p><li>Date Of Anniversary:- <b>{{ date('d-m-Y', strtotime($motherDetail->doa))}}</b></li></p>
+                                                </div>
+                                            </div>  
+                                            <div class="row" style="margin-left: 80px"> 
+                                           <div class="col-lg-6"> 
+                                                <p><li>Office Address :- <b>{{ $motherDetail->office_address }}</b></li></p> 
+                                                </div> 
+                                                <div class="col-lg-6">
+                                                <p><li>Islive :- <b>{{ $motherDetail->islive == 1? 'Yes' : 'No' }}</b></li></p> 
+                                                </div>
+                                            </div> 
+         
 
   	        @foreach($studentMedicalInfos as $studentMedicalInfo)
             <h4 align="center"><b>Medical Details</b></h4><hr>

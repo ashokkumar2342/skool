@@ -10,19 +10,8 @@
    }
  </style>
   @include('admin.include.boostrap')
- <body>
-   
-  <div class="row"> 
-        <div class="col-lg-2 pull-left" style="margin-right: 30px">
-          @php
-            $path =storage_path('app/public/logo/Logo_vaish_Model1.jpg');
-          @endphp
-          <img  src="{{ $path }}" alt="" width="170%"> 
-        </div>
-        <div class="col-lg-10" style="margin-left:110px ">
-          <h2 style="color:#7f2809;"><b>VAISH MODEL SR.SEC.SCHOOL</b></h2><h6>(Affiliated to C.B.S.E, New Delhi)</h6><h6>Affiliation No 3456789 | School Code 47789</h6><h5><b>Loharu Road Bhiwani - 123456 (Hr.)</b></h5> 
-        </div>
-       </div>
+ <body> 
+  @include('schoolDetails.logo_header')
  <div align="center" style="padding-top: 40px">
     <h3><b>Fee Certificate</b></h3>
   </div>

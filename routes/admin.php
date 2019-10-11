@@ -81,6 +81,7 @@ Route::group(['middleware' => 'admin'], function() {
 		    Route::get('edit/{id}', 'PaymentModeController@edit')->name('admin.paymentMode.edit');
 		    Route::post('update/{id}', 'PaymentModeController@update')->name('admin.paymentMode.update');
 		    Route::get('delete/{id}', 'PaymentModeController@destroy')->name('admin.paymentMode.delete');
+		    Route::get('pdf-generate', 'PaymentModeController@pdfGenerate')->name('admin.paymentMode.pdf.generate');
 		     
 		});
 	 
@@ -222,6 +223,7 @@ Route::group(['middleware' => 'admin'], function() {
 	 Route::group(['prefix' => 'address'], function() {
 	     Route::get('address/{student_id}', 'StudentAddressDetailController@address')->name('admin.parents.address');
 	    Route::get('add-address/{student_id}', 'StudentAddressDetailController@addAddress')->name('admin.parents.add.address');
+	    Route::get('sameAS', 'StudentAddressDetailController@sameAS')->name('admin.parents.add.address.sameas');
 	    Route::post('address-store', 'StudentAddressDetailController@addressStore')->name('admin.parents.address.store');
 	    Route::get('address-edit/{id}', 'StudentAddressDetailController@addressEdit')->name('admin.parents.address.edit');
 	    Route::get('address-delete/{id}', 'StudentAddressDetailController@addressDelete')->name('admin.parents.address.delete');
@@ -963,6 +965,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('add-form', 'SchoolDetails\SchoolDetailsController@addForm')->name('admin.school.details.addForm');
 			    Route::post('store', 'SchoolDetails\SchoolDetailsController@store')->name('admin.school.details.store');
 			    Route::get('table-show', 'SchoolDetails\SchoolDetailsController@tableShow')->name('admin.school.details.table.show');
+			    Route::get('logo/{image}', 'SchoolDetails\SchoolDetailsController@logoImage')->name('admin.student.logo.image');
 
           });
            Route::group(['prefix' => 'school-dominos'], function() {

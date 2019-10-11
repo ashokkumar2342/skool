@@ -7,6 +7,7 @@ use App\Model\Quote;
 use App\School_details;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Storage;
 use Illuminate\Support\Facades\Validator;
 
 class SchoolDetailsController extends Controller
@@ -17,7 +18,8 @@ class SchoolDetailsController extends Controller
     }
     public function addForm()
     {
-    	 return view('schoolDetails.add_form');
+          $schoolDetail= School_details::first(); 
+    	 return view('schoolDetails.add_form',compact('schoolDetail'));
     }
     public function store(Request $request)
     {
@@ -50,14 +52,15 @@ class SchoolDetailsController extends Controller
             $logoImage=$request->logo;
             $filename='image'.date('d-m-Y').time().'.jpg'; 
             $filelogo='logo'.date('d-m-Y').time().'.jpg'; 
-            $image->storeAs('public/school/',$filename); 
-            $logoImage->storeAs('public/school/',$filelogo); 
-    	$schoolDetails= new School_details(); 
+            $path ='school/logo/';
+            $image->storeAs($path,$filename); 
+            $logoImage->storeAs($path,$filelogo); 
+    	$schoolDetails= School_details::firstOrNew(['id'=>$request->id]); 
     	$schoolDetails->name=$request->name; 
     	$schoolDetails->mobile=$request->mobile; 
     	$schoolDetails->contact=$request->contact; 
-    	$schoolDetails->logo=$filelogo; 
-    	$schoolDetails->image=$filename; 
+    	$schoolDetails->logo=$path.$filelogo; 
+    	$schoolDetails->image=$path.$filename; 
     	$schoolDetails->address=$request->address; 
     	$schoolDetails->save();
     	$response=['status'=>1,'msg'=>'Created Successfully'];
@@ -160,6 +163,12 @@ class SchoolDetailsController extends Controller
          $Quotes=Quote::find($id); 
          $Quotes->delete();
          return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+
+    public function logoImage($image)
+    {
+         $img = Storage::disk('public')->get('school/'.$image);
+        return response($img);
     }
 }
 

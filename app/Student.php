@@ -110,6 +110,19 @@ class Student extends Authenticatable
         }
 
     }
+     //student parentsaddress all details
+    // public function getStudentDetailsById($id)
+    // {
+    //     try {  
+    //        return $this->Join('student_perent_details','students.id', '=', 'student_perent_details.student_id')                     
+    //                     ->Join('parents_infos','student_perent_details.perent_info_id', '=', 'parents_infos.id')
+    //                      ->select('students.name as student', 'parents_infos.*') 
+    //                    ->get();
+    //     } catch (Exception $e) {
+    //         return $e;
+    //     }
+
+    // }
     
     
 }

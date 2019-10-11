@@ -4,8 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\StudentSubject;
+use Illuminate\Http\Request; 
 use Validator;
-use Illuminate\Http\Request;
 
 class StudentSubjectController extends Controller
 {
@@ -37,15 +37,20 @@ class StudentSubjectController extends Controller
      */
     public function store(Request $request)
     {
-         
-        $validator = Validator::make($request->all(), [
-            'subject_type_id' => 'required',
+        
+        $rules=[
+             'subject_type_id' => 'required',
             'student_id' => 'required',
-            'session_id' => 'required',
-            
-        ]);
-
-        if ($validator->passes()) {
+        ];
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         } 
+         
 
             $studentSubject = StudentSubject::firstOrNew(['subject_type_id' => $request->subject_type_id, 'student_id' => $request->student_id]);
              $studentSubject->subject_type_id = $request->subject_type_id;
@@ -55,10 +60,11 @@ class StudentSubjectController extends Controller
             
              $studentSubject->save();
               
-             return response()->json([$studentSubject, 'message'=>'add success','class'=>'success']);
-        }
+             $response=['status'=>1,'msg'=>'Save Successfully'];
+            return response()->json($response);
+       
 
-        return response()->json(['message'=>$validator->errors()->all(),'class'=>'error']);
+         
     }
 
     /**

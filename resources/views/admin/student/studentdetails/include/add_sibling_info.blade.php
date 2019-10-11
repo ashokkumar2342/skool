@@ -22,7 +22,8 @@
        <div class="row"> 
         <div class="col-md-12">
         <div class="form-group">
-             {{ Form::label('student_sibling_id','Student Sibling Registration No',['class'=>'control-label']) }}                         
+             {{ Form::label('student_sibling_id','Student Sibling Registration No',['class'=>'control-label']) }}       
+             <span class="fa fa-asterisk"></span>                  
              {{ Form::text('student_sibling_id','',['class'=>'form-control','required','maxlength'=>'20']) }}
         </div>  
         <div class="col-lg-12 text-center" style="margin-top: 10px">

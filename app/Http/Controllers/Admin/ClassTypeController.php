@@ -44,16 +44,18 @@ class ClassTypeController extends Controller
      */
     public function store(Request $request)
     {
-        
+         
+        $admin=Auth::guard('admin')->user()->id;
         $this->validate($request,[
             'name' => 'required|max:20|unique:class_types',
-            'code' => 'required|max:5|unique:class_types',
+            'code' => 'required|max:5|unique:class_types,alias',
             'shorting_id' => 'required|max:2|unique:class_types',
             ]);
         $class = new ClassType();
         $class->name = $request->name;
         $class->alias = $request->code;
         $class->shorting_id = $request->shorting_id;
+        $class->last_updated_by = $admin;
         if ($class->save()) {
             return redirect()->back()->with(['class'=>'success','message'=>'Class created success ...']);
         }

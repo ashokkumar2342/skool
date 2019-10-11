@@ -9,26 +9,30 @@
                      <h4 class="modal-title"> Add</h4>
                  </div>
                  <div class="modal-body">
-                   <form id="subject-form">                    
+                   <form   action="{{ route('admin.studentSubject.add') }}" class="add_form" method="post">                    
+                  <div class="form-group">
+                       {{ Form::label('subject_type_id','Subject Type',['class'=>' control-label']) }}
+                       <span class="fa fa-asterisk"></span> 
+                       {!! Form::select('subject_type_id',$subjectTypes, null, ['class'=>'form-control','placeholder'=>'Select Subject','required']) !!}
+                       <p class="text-danger">{{ $errors->first('subject_type_id') }}</p>
+                  </div>
                     <div class="form-group">
-                         {{ Form::label('subject_type_id','Subject Type',['class'=>' control-label']) }}
-                         {!! Form::select('subject_type_id',$subjectTypes, null, ['class'=>'form-control','placeholder'=>'Select Subject','required']) !!}
-                         <p class="text-danger">{{ $errors->first('subject_type_id') }}</p>
-                    </div>
-                      <div class="form-group">
-                       
-                         {!! Form::select('isoptional_id',$isoptionals, null, ['class'=>'form-control','placeholder'=>'Select','required']) !!}
-                         <p class="text-danger">{{ $errors->first('isoptional_id') }}</p>
-                    </div> 
+                      {{ Form::label('isoptional_id','Is Optional',['class'=>' control-label']) }}
+                      <span class="fa fa-asterisk"></span> 
+                       {!! Form::select('isoptional_id',$isoptionals, null, ['class'=>'form-control','placeholder'=>'Select','required']) !!}
+                       <p class="text-danger">{{ $errors->first('isoptional_id') }}</p>
+                  </div> 
                     <input type="hidden" name="session_id" id="session_id" value="{{ $student->sessions->id or ''}}">
-                    </form>                     
+                    <input type="hidden" name="student_id" id="session_id" value="{{ $student->id }}">
+                                    
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="add_btn_subject btn btn-success">Save</button>
-                    <button type="button" class="update_btn_subject btn btn-success">Update</button>
+                    <input type="submit" class="btn btn-success" value="Save">
+                     
                 </div>
+                  </form>   
             </div>
        </div>
     </div>

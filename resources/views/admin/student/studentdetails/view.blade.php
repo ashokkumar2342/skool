@@ -76,7 +76,7 @@ b{
                                 </div> 
                                 <div class="text-center" style="margin :20px">
                                 <input type="submit" class="btn btn-success btn-sm"  value="Update"> 
-                                <button type="button" onclick="$('#parent_info').click()" class="btn btn-success btn-sm">Next</button>
+                                <button type="button" onclick="$('#sibling_info_tab').click()" class="btn btn-success btn-sm">Next</button>
                                 </div>
                               </form>
                             </div>

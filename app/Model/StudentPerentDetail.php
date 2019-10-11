@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Model\ParentsInfo;
 use Illuminate\Database\Eloquent\Model;
 
 class StudentPerentDetail extends Model
@@ -9,6 +10,18 @@ class StudentPerentDetail extends Model
     protected $fillable = [
         'relation_id', 'student_id', 
     ];
+
+    public function getParent($student_id,$relation_id){
+        try {  
+            $parent_info_id=$this->where('student_id',$student_id)
+                 ->where('relation_id',$relation_id)
+                 ->first()->perent_info_id;
+             return ParentsInfo::find($parent_info_id);    
+            
+        } catch (Exception $e) {
+            
+        }
+    }
 
     Public function getParentArrId($student_id,$sibling_student_id){
       try {

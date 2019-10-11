@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class RoomController extends Controller
 {
     public function index(){
-    	$roomTypes=RoomType::all();
+    	$roomTypes=RoomType::orderBy('id','ASC')->get();
     	return view('admin.room.view',compact('roomTypes'));
     }
 
@@ -20,7 +20,7 @@ class RoomController extends Controller
       $admin=Auth::guard('admin')->user()->id;
     	$rules=[
     	  
-            'room_name' => 'required', 
+            'room_name' => 'required|max:50|unique:room_types,name',
             'location' => 'required', 
              
        
@@ -56,9 +56,10 @@ class RoomController extends Controller
     }
      public function update(Request $request,$id){
       $admin=Auth::guard('admin')->user()->id;
+      $id =Crypt::decrypt($id); 
     	$rules=[
     	  
-            'room_name' => 'required', 
+             'room_name' => 'required|max:50|unique:room_types,name,'.$id,
             'location' => 'required', 
              
        

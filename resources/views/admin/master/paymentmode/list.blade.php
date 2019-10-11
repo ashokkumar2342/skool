@@ -3,6 +3,7 @@
 <section class="content-header">
     <h1>Payment Mode List</h1>
       <ol class="breadcrumb">
+         <a href="{{ route('admin.paymentMode.pdf.generate') }}" class="btn btn-sm btn-success pull-right" target="blank"  title="Download PDF">PDF</a>
       </ol>
 </section>
     <section class="content">

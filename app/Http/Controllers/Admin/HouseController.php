@@ -24,8 +24,8 @@ class HouseController extends Controller
        
     	$rules=[
     	  
-            'name' => 'required|min:2|max:50', 
             'code' => 'required|max:5|unique:houses', 
+            'name' => 'required|max:50|unique:houses', 
             
              
              
@@ -73,8 +73,8 @@ class HouseController extends Controller
        $admin=Auth::guard('admin')->user()->id;
     	$rules=[
     	  
-            'name' => 'required', 
-            'code' => "sometimes|required|max:5|code|unique:houses,code,".$id, 
+            'code' => 'required|max:5|unique:houses,code,'.$id, 
+            'name' => 'required|max:50|unique:houses,name,'.$id, 
              
              
        
