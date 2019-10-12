@@ -25,7 +25,7 @@
                   <input type="password" name="new_pass" class="form-control" placeholder="Enter New Password" maxlength="15" required=""> 
                 </div>
                 <div class="col-lg-4">
-                  <label>Confrm Password</label>
+                  <label>Confirm Password</label>
                   <input type="password" name="con_pass" class="form-control" placeholder="Enter Confrm Password" maxlength="15" required=""> 
                 </div>
                 <div class="col-lg-12 text-center" style="margin-top: 10px">

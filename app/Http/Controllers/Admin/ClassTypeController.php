@@ -127,6 +127,7 @@ class ClassTypeController extends Controller
     }
     public function pdfGenerate()
     {
+         
         $classes = ClassType::orderBy('shorting_id','ASC')->get();
         $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),

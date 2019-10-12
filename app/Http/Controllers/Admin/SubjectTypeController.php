@@ -39,17 +39,19 @@ class SubjectTypeController extends Controller
      */
     public function store(Request $request)
     {
-          
+         
+          $admin=Auth::guard('admin')->user()->id;
          $request->validate([
-         'name' => 'required|max:50|unique:subject_types',
+         'name' => 'required|min:2|max:50|unique:subject_types',
             'code' => 'required|max:10|unique:subject_types',
-            'sorting_order_id' => 'required|max:2|unique:subject_types',
+            'sorting_order_id' => 'required|max:2|unique:subject_types,sorting_order_id,',
          ]);
          
         $subject = new SubjectType();
         $subject->name = $request->name;
         $subject->code = $request->code;
         $subject->sorting_order_id = $request->sorting_order_id;
+        $subject->last_updated_by = $admin;
         if ($subject->save()) {
             return redirect()->back()->with(['subject'=>'success','message'=>'subject created success ...']);
         }
@@ -93,7 +95,7 @@ class SubjectTypeController extends Controller
     {
         $admin=Auth::guard('admin')->user()->id;
         $rules=[
-          'name' => 'required|max:30|unique:subject_types,name,'.$subjectType,
+          'name' => 'required|min:2|max:30|unique:subject_types,name,'.$subjectType,
             'code' => 'required|max:10|unique:subject_types,code,'.$subjectType,
             'sorting_order_id' => 'required|max:2|unique:subject_types,sorting_order_id,'.$subjectType,
        

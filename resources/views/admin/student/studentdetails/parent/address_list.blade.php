@@ -25,8 +25,8 @@
                                    <tr>
                                        <td>{{ $addres->primary_mobile }}</td>
                                        <td>{{ $addres->primary_email }}</td>
-                                       <td>{{ $addres->cotegory_id }}</td>
-                                       <td>{{ $addres->religion }}</td>
+                                       <td>{{ $addres->categories->name }}</td>
+                                       <td>{{ $addres->religions->name }}</td>
                                        <td>{{ $addres->nationality==1?'Indian' : 'Other Country' }}</td>
                                        <td>{{ $addres->state }}</td>
                                        <td>{{ $addres->city }}</td>

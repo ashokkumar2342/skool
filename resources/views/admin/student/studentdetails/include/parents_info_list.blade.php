@@ -26,8 +26,8 @@
                                 <td>{{ $parent->incomes->name or ''}}</td>
                                 <td>{{ $parent->mobile }}</td>
                                 <td>{{ $parent->email }}</td>
-                                <td>{{ $parent->dob }}</td>
-                                <td>{{ $parent->doa }}</td>
+                                <td>{{ $parent->dob!=null?date('d-m-Y',strtotime( $parent->dob)):'' }}</td>
+                                <td>{{ $parent->doa!=null?date('d-m-Y',strtotime( $parent->doa)): '' }}</td>
                                 <td>{{ $parent->organization_address }}</td>
                                 <td>{{ $parent->islive == 1? 'Yes' : 'No' }}</td>                            
                                                         

@@ -21,8 +21,8 @@
                               <input type="text" name="name" maxlength="50" class="form-control" placeholder="Enter Document Type Name">
                             </div>
                             <div class="col-lg-4">
-                              <label>Code</label>
-                              <input type="text" name="code" class="form-control" maxlength="5"> 
+                              <label>Document Code</label>
+                              <input type="text" name="code" class="form-control" maxlength="5" placeholder="Enter Document Code"> 
                             </div> 
                        </form>
                        <div class="col-lg-4" style="padding-top: 24px">
@@ -34,7 +34,7 @@
                     <table id="dataTable" class="table table-bordered table-striped">
                       <thead>
                       <tr>
-                        <th>Sn</th>
+                        <th>SR.No.</th>
                          
                         <th>Document Type   Name</th>
                         <th>Document code</th>

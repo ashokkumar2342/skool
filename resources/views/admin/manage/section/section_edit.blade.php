@@ -13,15 +13,15 @@
       		<div class="row">
       			<div class="col-lg-8">
               <label>Section Name</label>
-      				<input type="text" name="name" class="form-control" value="{{$sectionType->name}}"> 
+      				<input type="text" name="name" class="form-control" maxlength="30" value="{{$sectionType->name}}"> 
       			</div> 
             <div class="col-lg-8">
               <label>Section Code</label>
-              <input type="text" name="code" class="form-control" value="{{$sectionType->code}}"> 
+              <input type="text" name="code" maxlength="5" class="form-control" value="{{$sectionType->code}}"> 
             </div> 
             <div class="col-lg-8">
               <label>Sorting Order No</label>
-              <input type="text" name="sorting_order_id" class="form-control" value="{{$sectionType->sorting_order_id}}"> 
+              <input type="text" name="sorting_order_id" class="form-control" maxlength="2" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="{{$sectionType->sorting_order_id}}"> 
             </div> 
       			<div class="col-lg-2"> 
       			  <input type="submit" value="Save" class="btn btn-success">
