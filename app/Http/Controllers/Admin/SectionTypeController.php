@@ -8,6 +8,8 @@ use App\Model\SectionType;
 use Illuminate\Http\Request;
 use Validator;
 use PDF;
+use Illuminate\Support\Facades\Auth;
+
 
 class SectionTypeController extends Controller
 {
@@ -44,7 +46,7 @@ class SectionTypeController extends Controller
      */
     public function store(Request $request)
     { 
-      
+         $admin=Auth::guard('admin')->user()->id;
         $this->validate($request,[
             'name' => 'required|max:30|unique:section_types',             
             'code' => 'required|max:5|unique:section_types',             
@@ -54,6 +56,7 @@ class SectionTypeController extends Controller
         $section->name = $request->name;        
         $section->code = $request->code;        
         $section->sorting_order_id = $request->sorting_order_id;        
+        $section->last_updated_by = $admin;        
         if ($section->save()) {
             return redirect()->back()->with(['section'=>'success','message'=>'Section created success ...']);
         }
@@ -93,6 +96,7 @@ class SectionTypeController extends Controller
     public function update(Request $request, SectionType $sectionType)
     {
         $id=$sectionType->id;
+        $admin=Auth::guard('admin')->user()->id;
          $rules=[
           'name' => 'required|max:30|unique:section_types,name,'.$id,
             'code' => 'required|max:5|unique:section_types,code,'.$id,
@@ -113,7 +117,8 @@ class SectionTypeController extends Controller
               
              $sectionType->name = $request->name; 
              $sectionType->code = $request->code; 
-             $sectionType->sorting_order_id = $request->sorting_order_id; 
+             $sectionType->sorting_order_id = $request->sorting_order_id;
+             $sectionType->last_updated_by = $admin;  
              $sectionType->save();
               $response=['status'=>1,'msg'=>'Updated Successfully'];
              return response()->json($response); 

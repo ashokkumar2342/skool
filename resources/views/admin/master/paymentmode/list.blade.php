@@ -19,7 +19,7 @@
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
-                        <div class="col-lg-2">                           
+                        <div class="col-lg-3">                           
                              <div class="form-group">
                               {{ Form::label('sorting_order_id','Sorting Order No',['class'=>' control-label']) }}
                                {{ Form::text('sorting_order_id',null,['class'=>'form-control','placeholder'=>'Enter Sorting Order No','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}

@@ -53,15 +53,15 @@
               <!-- /.box-header -->
                 <div class="box-body">
                  
-                    <table class="table" id="table_academic_year">
+                    <table class="table table-responsive" id="table_academic_year">
                          
                         <thead>
                             <tr>
-                                <th>Academic Year</th>
-                                <th>Start date</th>
-                                <th>End date</th>
-                                <th>Description</th>
-                                <th>Action</th>
+                                <th class="text-nowrap">Academic Year</th>
+                                <th class="text-nowrap">Start date</th>
+                                <th class="text-nowrap">End date</th>
+                                <th class="text-nowrap">Description</th>
+                                <th class="text-nowrap">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,12 +74,12 @@
                                     <td><span class="label label-success">{{ date('d-m-Y',strtotime($academicYear->end_date))  }}</span></td>
                                     <td><span class="label label-success">{{ $academicYear->description }}</span></td>
                                     @else
-                                     <td>{{ $academicYear->name }}</td>
-                                    <td>{{ date('d-m-Y',strtotime($academicYear->start_date)) }}</td>
-                                    <td>{{ date('d-m-Y',strtotime($academicYear->end_date))  }}</td>
+                                     <td class="text-nowrap">{{ $academicYear->name }}</td>
+                                    <td class="text-nowrap">{{ date('d-m-Y',strtotime($academicYear->start_date)) }}</td>
+                                    <td class="text-nowrap">{{ date('d-m-Y',strtotime($academicYear->end_date))  }}</td>
                                     <td>{{ $academicYear->description }}</td>
                                   @endif
-                                    <td>
+                                    <td class="text-nowrap">
                                       @if ($academicYear->status==1)
                                         <a href="{{ route('admin.academicYear.default.value',$academicYear->id) }}" title="" class="btn-xs btn-success btn">Default</a>
                                         @else
