@@ -30,6 +30,7 @@ use App\Model\StudentFee;
 use App\Model\StudentMedicalInfo;
 use App\Model\StudentPerentDetail;
 use App\Model\StudentSiblingInfo;
+use App\Model\SiblingGroup;
 use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
@@ -108,14 +109,31 @@ class StudentController extends Controller
     }
      
     public function previewshow($id){
-
+         
           $student = Student::find($id);
-          $parents = ParentsInfo::where('student_id',$id)->get(); 
-          $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 
-          $documents = Document::where('student_id',$id)->get();
-          $studentSiblingInfos=StudentSiblingInfo::where('student_id',$id)->get();
-          $studentSubjects=StudentSubject::where('student_id',$id)->get(); 
-         return view('admin.student.studentdetails.preview',compact('student','parents','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects'));
+           $parent =new StudentPerentDetail();  
+
+          $fatherDetail =$parent->getParent($id,1);
+          $motherDetail =$parent->getParent($id,2); 
+           
+          $StudentAddressDetail =new StudentAddressDetail(); 
+          $address =$StudentAddressDetail->getAddress($id);
+           //sibling details//
+          $studentSibling=SiblingGroup::where('student_id',$id)->count();
+         if ($studentSibling!=0) {
+           $studentSiblingId=SiblingGroup::where('student_id',$id)->first();
+         $studentSiblingInfos=SiblingGroup::
+                                                   where('group',$studentSiblingId->group)
+                                                 ->where('student_id','!=',$id)->get();
+         }else{
+            $studentSiblingInfos=array();
+         } 
+         //end sibling detaild///
+
+         $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 
+          $documents = Document::where('student_id',$id)->get(); 
+          $studentSubjects=StudentSubject::where('student_id',$id)->get();
+         return view('admin.student.studentdetails.preview',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address'));
     }
     public function pdfGenerate($id){
         
@@ -125,11 +143,20 @@ class StudentController extends Controller
           $motherDetail =$parent->getParent($id,2);
 
           $StudentAddressDetail =new StudentAddressDetail(); 
-          $Studentaddress =$StudentAddressDetail->getAddress($id); 
-          $address =Address::where('id',$Studentaddress->student_address_details_id)->first(); 
+          $address =$StudentAddressDetail->getAddress($id);
+           //sibling details//
+          $studentSibling=SiblingGroup::where('student_id',$id)->count();
+         if ($studentSibling!=0) {
+           $studentSiblingId=SiblingGroup::where('student_id',$id)->first();
+         $studentSiblingInfos=SiblingGroup::
+                                                   where('group',$studentSiblingId->group)
+                                                 ->where('student_id','!=',$id)->get();
+         }else{
+            $studentSiblingInfos=array();
+         } 
+         //end sibling detaild///  
           $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 
-          $documents = Document::where('student_id',$id)->get();
-          $studentSiblingInfos=StudentSiblingInfo::where('student_id',$id)->get();
+          $documents = Document::where('student_id',$id)->get(); 
           $studentSubjects=StudentSubject::where('student_id',$id)->get(); 
       $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
@@ -239,9 +266,11 @@ class StudentController extends Controller
         $isoptionals = array_pluck(Isoptional::get(['id','name'])->toArray(),'name', 'id');
         $bloodgroups = array_pluck(BloodGroup::get(['id','name'])->toArray(),'name', 'id');
         $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id');
-
+        $classes = MyFuncs::getClasses(); 
+        $sections = MyFuncs::getSections($student->class_id);
+        $houses=House::orderBy('id','ASC')->get(); 
          
-        return view('admin.student.studentdetails.view',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions'));
+        return view('admin.student.studentdetails.view',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions','classes','sections','houses'));
     }
     public function excelData(){
 
@@ -469,8 +498,11 @@ class StudentController extends Controller
             "date_of_activation" => 'required|date',
             "student_name" => 'required|max:199',
             "nick_name" => 'max:30|nullable', 
+            "class" => 'required', 
+            "section" => 'required', 
             "date_of_birth" => 'required|max:199', 
             "aadhaar_no" => "required|digits:12",
+            "house" => "required",
              
           ];
 
@@ -487,12 +519,15 @@ class StudentController extends Controller
         $admin_id = Auth::guard('admin')->user()->id; 
         $student->admin_id = $admin_id; 
         $student->roll_no= $request->roll_no;     
+        $student->class_id= $request->class;     
+        $student->section_id= $request->section;     
         $student->date_of_admission= $request->date_of_admission == null ? $request->date_of_admission : date('Y-m-d',strtotime($request->date_of_admission));
         $student->date_of_leaving= $request->date_of_leaving == null ? $request->date_of_leaving : date('Y-m-d',strtotime($request->date_of_leaving)); 
         $student->date_of_activation= $request->date_of_activation == null ? $request->date_of_activation : date('Y-m-d',strtotime($request->date_of_activation));
         $student->name= $request->student_name;
        $student->nick_name= $request->nick_name; 
         $student->adhar_no= $request->aadhaar_no; 
+        $student->house_no= $request->house; 
          $student->dob= $request->date_of_birth == null ? $request->date_of_birth : date('Y-m-d',strtotime($request->date_of_birth)); 
          $student->save();           
            $response= array();

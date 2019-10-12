@@ -59,7 +59,7 @@
                  
                      <div class="text-center">
                      <button type="button" onclick="$('#subject_tab').click()" class="btn btn-success btn-sm">Next</button>
-                      <a href="{{ route('admin.medical.pdf.generate',1) }}"  class="btn btn-success btn-sm" target="_blank" title="">PDF Generate</a> 
+                      <a href="{{ route('admin.medical.pdf.generate',$student) }}"  class="btn btn-success btn-sm" target="_blank" title="">PDF Generate</a> 
  
                      </div> 
                   

@@ -38,7 +38,7 @@
                 @endforeach 
               </select>
             </div>
-            <div class="form-group col-lg-4">
+            <div class="form-group col-lg-3">
               <label>Religion</label> <span class="fa fa-asterisk"></span>
               <select name="religion_id" class="form-control">
                 <option selected disabled>Select Religion</option>
@@ -47,41 +47,42 @@
                 @endforeach 
               </select>
             </div>
-            <div class="form-group col-lg-4">
-              <label>State</label> <span class="fa fa-asterisk"></span>
-              <input type="text" name="state" class="form-control" placeholder="" maxlength="50">
-            </div>
-            <div class="form-group col-lg-4">
-              <label>City</label> <span class="fa fa-asterisk"></span>
-              <input type="text" name="city" class="form-control" placeholder="" maxlength="50">
-            </div>
-            <div class="form-group col-lg-5">
-              <label>Permanent  Address</label> <span class="fa fa-asterisk"></span>
-              <textarea class="form-control" name="p_address" id="p_address" maxlength="200"></textarea>
-            </div>
-            <div class="form-group col-lg-1" style="margin-top: 24px">
-              <label>Same As</label>
-              <input type="checkbox" id="addressCheck" name="addressCheck"> 
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Correspondence Address</label> <span class="fa fa-asterisk"></span>
-              <textarea class="form-control" name="c_address" id="c_address" maxlength="200"></textarea>
-            </div>
-            <div class="form-group col-lg-4">
-              <label>Permanent  Pincode</label> <span class="fa fa-asterisk"></span>
-              <input type="text" name="p_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200" required="">
-            </div>
-            <div class="form-group col-lg-4">
-              <label>Correspondence Pincode</label>
-              <input type="text" name="c_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200">
-            </div>
-            <div class="form-group col-lg-4">
+            <div class="form-group col-lg-3">
               <label>Nationality</label> <span class="fa fa-asterisk"></span>
               <select name="nationality" class="form-control">
                 <option selected value="1">Indian</option>
                 <option   value="2">Other Country</option> 
               </select>
             </div> 
+            <div class="form-group col-lg-3">
+              <label>State</label> <span class="fa fa-asterisk"></span>
+              <input type="text" name="state" class="form-control" placeholder="" maxlength="50">
+            </div>
+            <div class="form-group col-lg-3">
+              <label>City</label> <span class="fa fa-asterisk"></span>
+              <input type="text" name="city" class="form-control" placeholder="" maxlength="50">
+            </div>
+            <div class="form-group col-lg-6">
+              <label>Permanent  Address</label> <span class="fa fa-asterisk"></span>
+              <textarea class="form-control" name="p_address" id="p_address" rows="1" maxlength="200" ></textarea>
+            </div>
+            <div class="form-group col-lg-4">
+              <label>Permanent  Pincode</label> <span class="fa fa-asterisk"></span>
+              <input type="text" name="p_pincode" id="p_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200" required="">
+            </div> 
+               <div class="form-group col-lg-2">
+              <input type="checkbox" id="addressCheck" name="addressCheck" style="margin-top: 30px">
+              <label>Same As</label> 
+            </div>
+            <div class="form-group col-lg-6">
+              <label>Correspondence Address</label> <span class="fa fa-asterisk"></span>
+              <textarea class="form-control" name="c_address" rows="1" id="c_address" maxlength="200" ></textarea>
+            </div> 
+            <div class="form-group col-lg-4">
+              <label>Correspondence Pincode</label>
+              <input type="text" name="c_pincode" id="c_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200">
+            </div>
+            
           <div class="form-group col-lg-12 text-center" style="margin-top: 10px">
             <input type="submit" class="btn btn-success">
             
@@ -100,9 +101,12 @@
      function setAddress(){
        if ($("#addressCheck").is(":checked")) {
          $('#c_address').val($('#p_address').val());
+         $('#c_pincode').val($('#p_pincode').val());
          $('#c_address').attr('readonly', '');
+         $('#c_pincode').attr('readonly', '');
        } else {
          $('#c_address').removeAttr('disabled');
+         $('#c_pincode').removeAttr('disabled');
        }
      }
 

@@ -9,13 +9,13 @@
                                 <th><span class="text-nowrap">Primary E-mail </span></th>
                                 <th><span class="text-nowrap">Category </span></th>
                                 <th><span class="text-nowrap">Religion </span></th>
+                                <th><span class="text-nowrap">Nationality </span></th>
                                 <th><span class="text-nowrap">State </span></th>
                                 <th><span class="text-nowrap">City </span></th>
-                                <th><span class="text-nowrap">P Address </span></th>
-                                <th><span class="text-nowrap">C Address </span></th>
-                                <th><span class="text-nowrap">P Pincode </span></th>
-                                <th><span class="text-nowrap">C Pincode </span></th>
-                                <th><span class="text-nowrap">Nationality </span></th>
+                                <th><span class="text-nowrap">Permanent  Address </span></th>
+                                <th><span class="text-nowrap">Permanent Pincode </span></th>
+                                <th><span class="text-nowrap">Correspondence  Address </span></th>
+                                <th><span class="text-nowrap">Correspondence  Pincode </span></th>
                                 
                                 <th><span class="text-nowrap" style="margin:5px">Action </span></th>
                             </tr>
@@ -27,13 +27,13 @@
                                        <td>{{ $addres->primary_email }}</td>
                                        <td>{{ $addres->cotegory_id }}</td>
                                        <td>{{ $addres->religion }}</td>
+                                       <td>{{ $addres->nationality==1?'Indian' : 'Other Country' }}</td>
                                        <td>{{ $addres->state }}</td>
                                        <td>{{ $addres->city }}</td>
                                        <td>{{ $addres->p_address }}</td>
-                                       <td>{{ $addres->c_address }}</td>
                                        <td>{{ $addres->p_pincode }}</td>
+                                       <td>{{ $addres->c_address }}</td>
                                        <td>{{ $addres->c_pincode }}</td>
-                                       <td>{{ $addres->nationality }}</td>
                                        <td>
                                          <button type="button" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.parents.address.edit',$addres->id) }}')"><i class="fa fa-edit"></i></button>
 

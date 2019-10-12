@@ -12,11 +12,16 @@ class StudentPerentDetail extends Model
     ];
 
     public function getParent($student_id,$relation_id){
-        try {  
-            $parent_info_id=$this->where('student_id',$student_id)
+        try { 
+            $parent=$this->where('student_id',$student_id)
                  ->where('relation_id',$relation_id)
-                 ->first()->perent_info_id;
-             return ParentsInfo::find($parent_info_id);    
+                 ->first();
+                 if (!empty($parent)) {
+                      return ParentsInfo::find($parent->perent_info_id); 
+                 }else{
+                    return null;
+                 }
+               
             
         } catch (Exception $e) {
             

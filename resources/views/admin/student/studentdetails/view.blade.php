@@ -45,10 +45,22 @@ b{
                                      
                                       <li class="list-group-item">Name :-<span class="fs"><input type="text" value="{{ $student->name }}" maxlength="50" name="student_name"> </span></li>
                                      
-                                      <li class="list-group-item">Class :-<span class="fs"><input type="text" maxlength="50" disabled value="{{ $student->classes->name or ''}}" name="nick_name"> </span></li>
+                                      <li class="list-group-item">Class :-<span class="fs"> 
+                                        {{-- <input type="text" maxlength="50"  value="{{ $student->classes->name or ''}}" name="nick_name"> --}}
+                                        <select name="class" style="width: 202px" onchange="callAjax(this,'{{ route('admin.student.final.report.class.wise.section') }}','section_div')">
+                                          @foreach ($classes as $id=>$value)
+                                           <option value="{{ $id }}"{{ $student->class_id==$id? 'selected' : ''}}>{{ $value }}</option> 
+                                          @endforeach
+                                           
+                                        </select>
+                                        
+
+
+                                      </span></li>
                                      
                                       <li class="list-group-item">Registration No :-<span class="fs"><input type="text" disabled="" value="{{ $student->registration_no or ''}}" > </span></li>
                                       
+                                      <li class="list-group-item">Roll No :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->roll_no or ''}}" name="roll_no" disabled> </span></li>
                                       <li class="list-group-item">Date Of Addmission :-<span class="fs"><input type="text" maxlength="50" value="{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}" name="date_of_admission"> </span></li>
                                      
                                       <li class="list-group-item">Date Of Birth :-<span class="fs"><input type="text" maxlength="10" value="{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}" name="date_of_birth"> </span></li>
@@ -66,11 +78,26 @@ b{
                                 <div class="col-md-6 border_bottom">
                                     <ul class="list-group">
                                      <li class="list-group-item">Nick Name :-<span  class="fs"><input type="text" name="nick_name" maxlength="50" value="{{ $student->nick_name }}" name=""> </span></li>
-                                      <li class="list-group-item">Section :-<span class="fs"><input type="text" maxlength="50" disabled value="{{ $student->sectionTypes->name or ''}}" > </span></li>
+                                      <li class="list-group-item">Section :-<span class="fs">{{-- <input type="text" maxlength="50"  value="{{ $student->sectionTypes->name or ''}}" >  --}}
+                                        <select name="section" id="section_div" style="width: 202px">
+                                        @foreach ($sections as $section)
+                                          <option value="{{ $section->id }}"{{ $student->section_id==$section->id? 'selected' : '' }}>{{ $section->name }}</option> 
+                                            
+                                         @endforeach 
+                                        </select>
+                                      </span></li>
                                       <li class="list-group-item">Addmission No :-<span class="fs"><input type="text" disabled="" value="{{ $student->admission_no }}" > </span></li>
+                                      <li class="list-group-item">E-mail ID :-<span class="fs"><input type="text" disabled="" value="{{ $student->email }}" name="email" > </span></li>
                                        <li class="list-group-item">Date of Activation :-<span class="fs"><input type="text" maxlength="50" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation"> </span></li> 
                                         <li class="list-group-item">Gender :-<span class="fs"><input type="text" value="{{ $student->genders->genders or ''}}" disabled=""> </span></li>
-                                        <li class="list-group-item">House No :-<span class="fs"><input type="text" value="{{ $student->houses->name or ''}}" disabled="" name="house"> </span></li> 
+                                        <li class="list-group-item">House No :-<span class="fs">
+                                          <select name="house" style="width: 202px">
+                                            @foreach ($houses as $house)
+                                              <option value="{{ $house->id }}"{{ $student->house_no==$house->id? 'selected' : '' }}>{{ $house->name }}</option> 
+                                              
+                                            @endforeach
+                                          </select>
+                                         {{--  <input type="text" value="{{ $student->houses->name or ''}}"  name="house"> --}} </span></li> 
                                     </ul>
                                     
                                 </div> 

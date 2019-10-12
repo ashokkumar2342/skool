@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Model\Address;
 
 class StudentAddressDetail extends Model
 {
@@ -11,9 +12,14 @@ class StudentAddressDetail extends Model
            ];
             
 
-    public function getAddress($id){
-        try {
-          return $this->where('student_id',$id)->first();
+    public function getAddress($student_id){
+        try {         
+            $address =$this->where('student_id',$student_id)->first();
+            if (!empty($address)) {
+                 return Address::find($address->student_address_details_id);
+            }else{
+                return null;
+            }
             
         } catch (Exception $e) {
             return $e;

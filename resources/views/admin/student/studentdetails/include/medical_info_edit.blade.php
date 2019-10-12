@@ -19,7 +19,7 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12"> 
-             <form id="medical-form" action="{{ route('admin.medical.update',$medicalInfo->id) }}"   method="post" button-click="btn_close,medical_info_tab">
+             <form id="medical-form" action="{{ route('admin.medical.update',$medicalInfo->id) }}"   method="post" button-click="btn_close,medical_info_tab" class="add_form">
              {{ csrf_field() }} 
                                
                     <div class="form-group col-md-4">
