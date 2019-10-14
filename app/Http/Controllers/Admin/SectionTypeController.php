@@ -80,10 +80,16 @@ class SectionTypeController extends Controller
      * @param  \App\Model\SectionType  $sectionType
      * @return \Illuminate\Http\Response
      */
-    public function edit(SectionType $sectionType)
+    public function edit($id=null)
     {
-        
+        if ($id!=null) {
+             $sectionType= SectionType::find($id); 
+        }else{
+            $sectionType=null;
+        }
+         
         return view('admin.manage.section.section_edit',compact('sectionType'));
+         
     }
 
     /**
@@ -93,9 +99,9 @@ class SectionTypeController extends Controller
      * @param  \App\Model\SectionType  $sectionType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SectionType $sectionType)
+    public function update(Request $request, $id=null)
     {
-        $id=$sectionType->id;
+        
         $admin=Auth::guard('admin')->user()->id;
          $rules=[
           'name' => 'required|max:30|unique:section_types,name,'.$id,
@@ -114,13 +120,13 @@ class SectionTypeController extends Controller
              return response()->json($response);// response as json
          }
           else {
-              
+             $sectionType= SectionType::firstOrNew(['id'=>$id]); 
              $sectionType->name = $request->name; 
              $sectionType->code = $request->code; 
              $sectionType->sorting_order_id = $request->sorting_order_id;
              $sectionType->last_updated_by = $admin;  
              $sectionType->save();
-              $response=['status'=>1,'msg'=>'Updated Successfully'];
+              $response=['status'=>1,'msg'=>'Submit Successfully'];
              return response()->json($response); 
          }
     }

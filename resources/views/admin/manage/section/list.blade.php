@@ -10,7 +10,7 @@
         <div class="box">
             <div class="box-header">
               <h3 class="box-title">Section List</h3>
-              <span style="float: right"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_section">Add Section</button></span>
+              <span style="float: right"><button type="button" class="btn btn-info btn-sm"  onclick="callPopupMd(this,'{{ route('admin.section.edit') }}')"  >Add Section</button></span>
               <a href="{{ route('admin.section.pdf.generate') }}" style="float: right;margin-right: 10px" class="btn btn-primary btn-sm" title="Download PDF" target="blank">PDF</a>
             </div>
          
@@ -18,7 +18,7 @@
               <table id="class_section" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
-                  <th>Section id</th>                
+                  <th>Sr.No.</th>                
                   <th>Section Name</th>                   
                   <th>Section Code</th>                   
                   <th>Sorting Order No</th>                   
@@ -58,52 +58,7 @@
           <!-- Trigger the modal with a button -->
 
 <!-- Modal -->
-<div id="add_section" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-    {!! Form::open(['route'=>@($sectionType)?['admin.section.update',$sectionType->id]:'admin.sectionType.add','class'=>"form-horizontal" ]) !!}
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">@if(@$sectionType) Update @else Add @endif Section</h4>
-      </div>
-      <div class="modal-body">
-         <div class="col">             
-          <div class="form-group">
-          {!! Form::label('name', 'Section Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
-            <div class="col-sm-9">
-            {!! Form::text('name', @$sectionType->name, ['class'=>"form-control",'placeholder'=>"Section Name",'autocomplete'=>'off','maxlength'=>'30',]) !!}
-            <p class="text-danger">{{ $errors->first('name') }}</p>
-            </div>
-          </div>
-          <div class="form-group">
-          {!! Form::label('code', 'Section Code : ', ['class'=>"col-sm-3 control-label"]) !!}            
-            <div class="col-sm-9">
-            {!! Form::text('code', @$sectionType->name,  ['class'=>"form-control",'placeholder'=>"Section Code",'autocomplete'=>'off','maxlength'=>'5',]) !!}
-            <p class="text-danger">{{ $errors->first('code') }}</p>
-            </div>
-          </div>
-          <div class="form-group">
-          {!! Form::label('sorting_order_id', 'Sorting Order No : ', ['class'=>"col-sm-3 control-label"]) !!}            
-            <div class="col-sm-9">
-            {!! Form::text('sorting_order_id', @$sectionType->sorting_order_id,  ['class'=>"form-control",'placeholder'=>"Sorting Order No",'autocomplete'=>'off','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) !!}
-            <p class="text-danger">{{ $errors->first('code') }}</p>
-            </div>
-          </div>
-           
-          </div>   
  
-     <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary ">@if(@$sectionType) Update @else Save @endif</button>
-
-         </div>
-         {!! Form::close() !!}
-       
-
-  </div>
-</div>
 
     </section>
     <!-- /.content -->
@@ -123,9 +78,7 @@
         ]
     } );
 } );
-     @if(@$sectionType || $errors->first())
-     $('#add_section').modal('show'); 
-     @endif
+   
  </script>
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>

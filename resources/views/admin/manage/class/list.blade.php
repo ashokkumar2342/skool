@@ -24,7 +24,7 @@
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
-                  <th>Class id</th>                
+                  <th>Sr.No.</th>                
                   <th>Class Name</th>
                   <th>Class Code</th>
                   <th>Sorting Order No</th>
@@ -75,21 +75,21 @@
           <div class="form-group">
           {!! Form::label('name', 'Class Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
             <div class="col-sm-9">
-            {!! Form::text('name', @$classType->name, ['class'=>"form-control",'placeholder'=>"Class Name",'autocomplete'=>'off','maxlength'=>'20']) !!}
+            {!! Form::text('name', @$classType->name, ['class'=>"form-control",'placeholder'=>"Enter Class Name",'autocomplete'=>'off','maxlength'=>'20']) !!}
             <p class="text-danger">{{ $errors->first('name') }}</p>
             </div>
           </div>
           <div class="form-group">
           {!! Form::label('code', 'Class Code :', ['class'=>"col-sm-3 control-label"]) !!}
             <div class="col-sm-9">
-            {!! Form::text('code', @$classType->alias, ['class'=>"form-control",'placeholder'=>"Numeric Name",'autocomplete'=>'off','maxlength'=>'5']) !!}
+            {!! Form::text('code', @$classType->alias, ['class'=>"form-control",'placeholder'=>"Enter Class Code",'autocomplete'=>'off','maxlength'=>'5']) !!}
             <p class="text-danger">{{ $errors->first('code') }}</p>
             </div>
           </div> 
           <div class="form-group">
           {!! Form::label('shorting_id', 'Sorting Order No :', ['class'=>"col-sm-3 control-label"]) !!}
             <div class="col-sm-9">
-            {!! Form::text('shorting_id', @$classType->shorting_id, ['class'=>"form-control",'placeholder'=>"Shorting id",'autocomplete'=>'off','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) !!}
+            {!! Form::text('shorting_id', @$classType->shorting_id, ['class'=>"form-control",'placeholder'=>"Enter Sorting Order No",'autocomplete'=>'off','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) !!}
             <p class="text-danger">{{ $errors->first('shorting_id') }}</p>
             </div>
           </div>    

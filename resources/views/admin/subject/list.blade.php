@@ -18,7 +18,7 @@
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
-                  <th>Subject id</th>                
+                  <th>Sr.No.</th>                
                   <th>Subject Name</th>
                   <th>Subject Code</th>
                   <th>Sorting Order No</th>
@@ -75,21 +75,21 @@
       <div class="modal-body">
          <div class="col">             
           <div class="form-group">
-          {!! Form::label('SubjectName', 'Subjcet Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
+          {!! Form::label('SubjectName', 'Subjcet Name  ', ['class'=>"col-sm-3 control-label"]) !!}            
             <div class="col-sm-9">
             {!! Form::text('name',@$subjectType->name, ['class'=>"form-control",'placeholder'=>"Subject Name",'autocomplete'=>'off','maxlength'=>'50',]) !!}
             <p class="text-danger">{{ $errors->first('name') }}</p>
             </div>
           </div>
           <div class="form-group">
-          {!! Form::label('Subject Code', ' Subject Code :', ['class'=>"col-sm-3 control-label"]) !!}
+          {!! Form::label('Subject Code', ' Subject Code ', ['class'=>"col-sm-3 control-label"]) !!}
             <div class="col-sm-9">
             {!! Form::text('code', @$subjectType->code, ['class'=>"form-control",'placeholder'=>"Subject Code",'autocomplete'=>'off','maxlength'=>'10',]) !!}
             <p class="text-danger">{{ $errors->first('code') }}</p>
             </div>
           </div>   
           <div class="form-group">
-          {!! Form::label('Code', 'Sorting Order No :', ['class'=>"col-sm-3 control-label"]) !!}
+          {!! Form::label('Code', 'Sorting Order No ', ['class'=>"col-sm-3 control-label"]) !!}
             <div class="col-sm-9">
             {!! Form::text('sorting_order_id', @$subjectType->code, ['class'=>"form-control",'placeholder'=>"Sorting Order No",'autocomplete'=>'off','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) !!}
             <p class="text-danger">{{ $errors->first('Sorting Order') }}</p>

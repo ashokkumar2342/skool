@@ -17,8 +17,8 @@
        </div>
        <div class="col-lg-12">                           
             <div class="form-group">
-             <label>Code</label>
-                     <input type="text" name="code" value="{{ $incomeRange->code }}" maxlength="5" class="form-control" placeholder="Enter code" required="">
+             <label>Income Code</label>
+                     <input type="text" name="code" value="{{ $incomeRange->code }}" maxlength="5" class="form-control" placeholder="Enter Income code" required="">
             </div>    
        </div>
        <div class="col-lg-12">

@@ -92,7 +92,7 @@ class SubjectTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request,$subjectType)
-    {
+    { 
         $admin=Auth::guard('admin')->user()->id;
         $rules=[
           'name' => 'required|min:2|max:30|unique:subject_types,name,'.$subjectType,

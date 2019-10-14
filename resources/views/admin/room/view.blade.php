@@ -11,12 +11,12 @@
               {{ csrf_field() }}
               <div class="row">
                 <div class="col-lg-4">
-                  <label>Room No</label>
-                  <input type="text" name="room_name" class="form-control" placeholder="Enter Room Name" maxlength="50"> 
+                  <label>Room Name/No</label>
+                  <input type="text" name="room_name" class="form-control" placeholder="Enter Room Name/No" maxlength="50"> 
                 </div>
                 <div class="col-lg-4">
                   <label>Room Location</label>
-                  <input type="text" name="location" class="form-control" placeholder="Enter Location " maxlength="100" > 
+                  <input type="text" name="location" class="form-control" placeholder="Enter Room Location " maxlength="100" > 
                 </div>
                 <input type="submit" class="btn btn-success" value="submit" style="margin: 24px">
               </div>
@@ -27,8 +27,8 @@
              <table class="table" id="room_table"> 
               <thead>
                 <tr>
-                  <th>Room No</th>
-                  <th>Location</th>
+                  <th>Room Name/No</th>
+                  <th> Room Location</th>
                   <th>Action</th>
                 </tr>
               </thead>

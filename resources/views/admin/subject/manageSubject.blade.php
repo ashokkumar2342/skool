@@ -21,9 +21,14 @@
               <div class="col-md-4"> 
                  {{-- {!! Form::open(['route'=>'admin.subject.add','class'=>"form-horizontal" ]) !!} --}}
                     <div class="form-group col-md-12">
-                      {{ Form::label('class','Class',['class'=>' control-label']) }}                         
-                      {!! Form::select('class',$classes, null, ['class'=>'form-control','placeholder'=>'---choose Class---','required']) !!}
-                      <p class="text-danger">{{ $errors->first('class') }}</p>
+                      {{ Form::label('class','Class',['class'=>' control-label']) }}   
+                      <select name="class" id="class" class="form-control" onchange="callAjax(this,'{{ route('admin.subject.search') }}','searchResult')">
+                        <option  selected disabled>Select Class</option>
+                        @foreach ($classes as $id=>$class)                         
+                        <option value="{{ $id }}">{{ $class }}</option>
+                        @endforeach 
+                      </select>                      
+                       
                     </div> 
                     <div class="col-md-12">
                     <form id="saveSubject" action="javascript:;">
@@ -134,29 +139,7 @@
         });       
 </script>
 <script type="text/javascript">
-  $("#class").change(function(){   
- 
-        
-        $.ajax({
-          method: "get",
-          url: "{{ route('admin.subject.search') }}",
-          data: $(this).serialize(),
-
-        }) 
-        .done(function( response ) {            
-            if(response.length>0){
-                $('#searchResult').html('');
-                for (var i = 0; i < response.length; i++) {
-                  $('#searchResult').append(response[i]);
-                  
-                } 
-            }
-            else{
-                $('#searchResult').html('<tr><td colspan="7"><h4 class="text-danger text-center">Record not found</h4></td></tr>');
-            }            
-        }) 
-      
-  });
+   
   $("#saveSubject").submit(function(e){
         e.preventDefault();
         $('#studentAttendanceBtn').html('<i class="fa fa-refresh fa-spin"></i> Mark Attendance');

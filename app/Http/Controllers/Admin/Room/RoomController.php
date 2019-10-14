@@ -56,11 +56,11 @@ class RoomController extends Controller
     }
      public function update(Request $request,$id){
       $admin=Auth::guard('admin')->user()->id;
-      $id =Crypt::decrypt($id); 
+       
     	$rules=[
     	  
              'room_name' => 'required|max:50|unique:room_types,name,'.$id,
-            'location' => 'required', 
+            'location' => 'required|max:100', 
              
        
     	];

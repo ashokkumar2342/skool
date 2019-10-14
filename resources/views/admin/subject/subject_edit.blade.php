@@ -24,11 +24,11 @@
               <div class="row">
                 <div class="col-lg-12">
                   <label>Subject Name</label>
-                  <input type="text" name="name" class="form-control" value="{{ $subjects->name }}" maxlength="50"> 
+                  <input type="text" name="name" class="form-control" value="{{ $subjects->name }}" maxlength="50" placeholder="Enter Subject Name"> 
                 </div>
                 <div class="col-lg-12">
                   <label>Subject Code</label>
-                  <input type="text" name="Subject Code" class="form-control" placeholder="Enter Location " maxlength="10" value="{{ $subjects->code }}"  > 
+                  <input type="text" name="code" class="form-control" placeholder="Enter Subject Code " maxlength="10" value="{{ $subjects->code }}"  > 
                 </div>
                 <div class="col-lg-12">
                   <label>Sorting Order No </label>

@@ -2,8 +2,8 @@
 	<thead>
 		<tr>
 			<th>Sr.No.</th>
-			<th>House Code</th>
 			<th>House Name</th>
+			<th>House Code</th>
 			<th>Action</th>
 			 
 		</tr>
@@ -15,8 +15,8 @@
 		@foreach ($houses as $house)
 				<tr>
 					<td>{{ $arryId ++ }}</td>
-					<td>{{ $house->code }}</td>
 					<td>{{ $house->name }}</td>
+					<td>{{ $house->code }}</td>
 					<td>
 						 <a href="{{ route('admin.house.delete',$house->id) }}" title="Delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
 

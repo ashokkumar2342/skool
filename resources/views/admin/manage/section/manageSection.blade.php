@@ -45,7 +45,7 @@
                 
                 <thead>
                 <tr>
-                  <th>id</th>                
+                  <th>Sr.No.</th>                
                   <th>class Name</th>                   
                   <th>Section Name</th>                   
                   {{-- <th width="80px">Action</th>--}}

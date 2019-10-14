@@ -65,28 +65,10 @@ class SubjectController extends Controller
     {
 
         $subjectTypes = SubjectType::all(); 
+      $class = $request->id; 
 
-        foreach ($subjectTypes as $subjectType) {
-            $checked = (\App\Model\Subject::where(['subjectType_id'=>$subjectType->id,'classType_id'=>$request->class])->count())?'checked':'';
-            $row = '<tr>
-            <td>'.$subjectType->code.'</td>
-            <td> '.'<input type="checkbox" class="checkbox" '.$checked.' name="subject_id[]" value="'.$subjectType->id.'">'.  '</td>
-            <td>'.$subjectType->name.'</td>
-             ';
-            // <input type="checkbox"  class="checkbox" name="subject_id[]" value="{{$subject->id}}">
-
-                              
-
-            foreach(\App\Model\Isoptional::all() as $optional){
-                $checked = (\App\Model\Subject::where(['subjectType_id'=>$subjectType->id,'isoptional_id'=>$optional->id,'classType_id'=>$request->class])->count())?'checked':'';
-                      $row .='<td >
-                      <label class="radio-inline"><input type="radio" '.$checked.' name="value['.$subjectType->id.']" class="'. str_replace(' ', '_', strtolower($optional->name)).'"   value="'. $optional->id .'"> '. $optional->name .' </label>
-                      </td>';
-            }
-            $row .= '</tr>';
-            $options[] = [$row];
-        }   
-        return response()->json($options);
+     
+         return view('admin.subject.subject_list',compact('subjectTypes','class'));
     }
 
     /**

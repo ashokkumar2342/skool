@@ -1,35 +1,50 @@
- <div class="modal-dialog" style="width:90%">
+ <div class="modal-dialog" style="width:110%">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Section Edit</h4>
+        <h4 class="modal-title">{{ @$sectionType?'Edit':'Add' }} Section</h4>
       </div>
+        <form action="{{route('admin.section.update',@$sectionType->id)}}" no-reset="true" class="add_form" button-click="btn_close" content-refresh="class_section">
+          {{csrf_field()}}
       <div class="modal-body">
-      	<form action="{{route('admin.section.update',$sectionType->id)}}" class="add_form">
-      		{{csrf_field()}}
+     
      
       		<div class="row">
-      			<div class="col-lg-8">
-              <label>Section Name</label>
-      				<input type="text" name="name" class="form-control" maxlength="30" value="{{$sectionType->name}}"> 
-      			</div> 
-            <div class="col-lg-8">
-              <label>Section Code</label>
-              <input type="text" name="code" maxlength="5" class="form-control" value="{{$sectionType->code}}"> 
-            </div> 
-            <div class="col-lg-8">
-              <label>Sorting Order No</label>
-              <input type="text" name="sorting_order_id" class="form-control" maxlength="2" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="{{$sectionType->sorting_order_id}}"> 
-            </div> 
-      			<div class="col-lg-2"> 
-      			  <input type="submit" value="Save" class="btn btn-success">
-      			</div> 
+            <div class="col">             
+          <div class="form-group">
+          {!! Form::label('name', 'Section Name : ', ['class'=>"col-sm-3 control-label"]) !!}            
+            <div class="col-sm-9">
+            {!! Form::text('name', @$sectionType->name, ['class'=>"form-control",'placeholder'=>"Section Name",'autocomplete'=>'off','maxlength'=>'30',]) !!}
+            <p class="text-danger">{{ $errors->first('name') }}</p>
+            </div>
+          </div>
+          <div class="form-group">
+          {!! Form::label('code', 'Section Code : ', ['class'=>"col-sm-3 control-label"]) !!}            
+            <div class="col-sm-9">
+            {!! Form::text('code', @$sectionType->code,  ['class'=>"form-control",'placeholder'=>"Section Code",'autocomplete'=>'off','maxlength'=>'5',]) !!}
+            <p class="text-danger">{{ $errors->first('code') }}</p>
+            </div>
+          </div>
+          <div class="form-group">
+          {!! Form::label('sorting_order_id', 'Sorting Order No : ', ['class'=>"col-sm-3 control-label"]) !!}            
+            <div class="col-sm-9">
+            {!! Form::text('sorting_order_id', @$sectionType->sorting_order_id,  ['class'=>"form-control",'placeholder'=>"Sorting Order No",'autocomplete'=>'off','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) !!}
+            <p class="text-danger">{{ $errors->first('code') }}</p>
+            </div>
+          </div>
+      	  
       		</div>
-      	</form>
+     
        
            
       </div>
+      <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary ">@if(@$sectionType) Update @else Save @endif</button>
+
+         </div>
+            </form>
     </div>
 </div>
