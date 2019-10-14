@@ -7,15 +7,26 @@
    </div>  
    <div class="col-lg-4"> 
 	<label>Mobile No</label>
+  @if (!empty($fatherDetail))
+    <input type="text" class="form-control" name="mobile" value="{{ $fatherDetail->mobile or '' }}">
+    @else 
 	<input type="text" class="form-control" name="mobile" value="{{ $datas->father_mobile or '' }}">
+  @endif
    </div> 
     <div class="col-lg-4"> 
 	<label>Email</label>
-	<input type="text" class="form-control" name="email" value="{{ $datas->email or '' }}">
+   
+  <input type="text" class="form-control" name="email" value="{{ $datas->email or '' }}">
+  
+	
    </div> 
    <div class="col-lg-4">
    	<label>Address</label>
-   <textarea  class="form-control" name="address">{{ $datas->c_address or ''}}</textarea> 
+    @if (!empty($address))
+     <textarea  class="form-control" name="address">{{ $address->p_address or ''}}</textarea> 
+     @else
+     <textarea  class="form-control" name="address">{{ $datas->c_address or ''}}</textarea>  
+    @endif
    </div> 
     
      

@@ -22,10 +22,10 @@
          </textarea>
          @if ($templateId==4)
          @php
-           $templateView=App\Model\Sms\SmsTemplate::where('id',10)->first();
+           $templateView=App\Model\Sms\SmsTemplate::where('id',1)->first();
          @endphp
          @php
-           $templateViews=App\Model\Sms\SmsTemplate::where('id',11)->first();
+           $templateViews=App\Model\Sms\SmsTemplate::where('id',1)->first();
          @endphp
           
          <textarea class="textarea" name="message" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $templateView->message }} 

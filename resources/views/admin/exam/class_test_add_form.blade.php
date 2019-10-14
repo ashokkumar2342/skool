@@ -85,7 +85,7 @@
                    
                        
                        <div class="col-lg-12 text-center">
-                        <a href="#" title="" onclick="callPopupLevel2(this,'{{ route('admin.medical.template.view',3) }}')" >Template View</a>&nbsp;&nbsp;
+                        <a href="#" title="" onclick="callPopupLevel2(this,'{{ route('admin.medical.template.view',1) }}')" >Template View</a>&nbsp;&nbsp;
                        Send Sms
                        <input type="checkbox" name="send_sms" value="1">&nbsp;&nbsp;
                        Send Email

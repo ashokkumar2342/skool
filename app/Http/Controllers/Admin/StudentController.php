@@ -58,10 +58,10 @@ class StudentController extends Controller
     public function index(Request $request,$menuPermissionId)
     {
      
-        $students= Student::where(['class_id'=>$request->class,'section_id'=>$request->section,'student_status_id'=>1])->get();
+        $students= Student::where(['class_id'=>$request->class,'section_id'=>$request->section,'student_status_id'=>1])->get(); 
      $menuPermision= Minu::find($menuPermissionId); 
         $response = array(); 
-        $response['data']= view('admin.student.studentdetails.list',compact('students','menuPermision'))->render();
+        $response['data']= view('admin.student.studentdetails.list',compact('students','menuPermision','fatherDetail'))->render();
             $response['status'] = 1;
             return $response;
     }

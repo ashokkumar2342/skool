@@ -38,7 +38,7 @@
                           
                      </div> 
                    <div class="form-group col-md-4">
-                        {{ Form::label('hb','HB ',['class'=>' control-label']) }}                         
+                        {{ Form::label('hb','HB ',['class'=>' control-label']) }} <span class="fa fa-asterisk"></span>                        
                         {{ Form::text('hb',14,['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                         
                     </div>
@@ -79,6 +79,7 @@
                       
                     <div class="form-group col-md-4">
                         {{ Form::label('id_marks1','Id Marks1',['class'=>' control-label ']) }}
+                        <span class="fa fa-asterisk"></span>
                         {{ Form::text('id_marks1','',['class'=>'form-control','maxlength'=>'50']) }}
                          
                     </div> 
@@ -130,7 +131,7 @@
                     </div> 
                     <div class="form-group col-md-4" style="display: none" id="narration_div">
                         {{ Form::label('narration','Narration',['class'=>' control-label ']) }}
-                        <span class="fa fa-asterisk"></span>                          
+                                                 
                         {{ Form::text('narration','',['class'=>'form-control ']) }}
                        
                     </div>  

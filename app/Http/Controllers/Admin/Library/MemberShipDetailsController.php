@@ -10,6 +10,8 @@ use App\Model\Library\MemberTicketDetails;
 use App\Model\Library\Othertype;
 use App\Model\Library\TeacherFaculty;
 use App\Model\Library\TicketDetails;
+use App\Model\StudentAddressDetail;
+use App\Model\StudentPerentDetail;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -128,7 +130,13 @@ class MemberShipDetailsController extends Controller
           
        $memberShipDetail=MemberShipDetails::where('member_ship_no',$request->id)->where('member_ship_type_id',$request->library_member_ship)->first();
           if ( $request->library_member_ship==1) {
-              $datas = Student::find($request->id); 
+              $datas = Student::find($request->id);
+               $parent =new StudentPerentDetail();           
+          $fatherDetail =$parent->getParent($request->id,1);
+          $motherDetail =$parent->getParent($request->id,2);
+
+          $StudentAddressDetail =new StudentAddressDetail(); 
+          $address =$StudentAddressDetail->getAddress($request->id); 
           }
           if ( $request->library_member_ship==2) {
                $datas = TeacherFaculty::find($request->id);
@@ -142,7 +150,7 @@ class MemberShipDetailsController extends Controller
           }      
          
          
-         return view('admin.library.memberShipDetails.registration_no_by_details',compact('datas','memberShipDetail','memberShipFacilitys','memberTicketDetails')); 
+         return view('admin.library.memberShipDetails.registration_no_by_details',compact('datas','memberShipDetail','memberShipFacilitys','memberTicketDetails','fatherDetail','motherDetail','address')); 
        
     } 
 }

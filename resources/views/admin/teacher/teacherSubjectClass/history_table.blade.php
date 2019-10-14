@@ -1,5 +1,5 @@
  
-	<div class="col-lg-6">
+	<div class="col-lg-5">
 		
 	
 <div class="panel panel-default">
@@ -9,11 +9,10 @@
 	<thead>
 		<tr>
 			 
-			<th>Class</th>
-			<th>Section</th>
+			<th class="text-nowrap">Class/Section</th> 
 			<th>Subject</th>
-			<th>No of Period</th>
-			<th>Period Duration</th>
+			<th class="text-nowrap">No of Period</th>
+			<th class="text-nowrap">Period Duration</th>
 			<th>Total</th>
 			 
 			 
@@ -27,8 +26,8 @@
 		@foreach ($teacherSubjectClasss as $teacherSubjectClass) 
 				<tr>
 					{{-- <td>{{ $teacherSubjectClass->teacherFaculty->name or '' }}</td> --}}
-					<td>{{ $teacherSubjectClass->classTypes->name or '' }}</td>
-					<td>{{ $teacherSubjectClass->sectionTypes->name or '' }}</td>
+					<td>{{ $teacherSubjectClass->classTypes->name or '' }}/{{ $teacherSubjectClass->sectionTypes->name or '' }}</td>
+					 
 					<td>{{ $teacherSubjectClass->subjectType->name or '' }}</td>
 					<td>{{ $teacherSubjectClass->no_of_period or ''}}</td>
 					<td>
@@ -54,7 +53,7 @@
 			  <td> </td>
 			  <td> </td>
 			  <td> </td>
-			  <td> </td>
+			 
 			  
    
 		 {{-- <td><h4><b>Total : {{ $teacherSubjectClasss->sum('no_of_period') }}</b></h4></td> --}}

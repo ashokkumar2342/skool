@@ -101,7 +101,7 @@
    </div>
 
    <div class="col-lg-6">
-     <p><li> Religion :- <b>{{ $student->religions->name }}</b></li></p> 
+     <p><li> Religion :- <b>{{ $student->religions->name or ''}}</b></li></p> 
    </div>
   </div>
   <div class="row" style="margin-left: 80px">
@@ -363,8 +363,8 @@
      @foreach(App\Model\StudentSubject::where('student_id',$student->id)->get() as $studentSubject) 
 
      <tr>
-       <td> {{ $studentSubject->SubjectTypes->name }}</td>
-       <td>{{ $studentSubject->ISOptionals->name }}</td>
+       <td> {{ $studentSubject->SubjectTypes->name or ''}}</td>
+       <td>{{ $studentSubject->ISOptionals->name or ''}}</td>
      </tr>
      @endforeach 
 

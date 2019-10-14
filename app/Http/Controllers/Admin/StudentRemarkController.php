@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\StudentAddressDetail;
+use App\Model\StudentPerentDetail;
 use App\Model\StudentRemark;
 use App\Student;
 use Illuminate\Http\Request;
@@ -20,8 +22,17 @@ class StudentRemarkController extends Controller
 
     public function search(Request $request){
          // return $request;
-    	 $students=Student::orWhere('name','LIKE','%'.$request->id.'%')->orWhere('roll_no','LIKE','%'.$request->id.'%')->orWhere('registration_no','LIKE','%'.$request->id.'%')->orWhere('admission_no','LIKE','%'.$request->id.'%')->orWhere('father_name','LIKE','%'.$request->id.'%')->orWhere('father_mobile','LIKE','%'.$request->id.'%')->orWhere('email','LIKE','%'.$request->id.'%')->take(10)->get();
-    	 return view('admin.remark.student_details_table',compact('students'));
+    	 $students=Student::orWhere('name','LIKE','%'.$request->id.'%')->orWhere('roll_no','LIKE','%'.$request->id.'%')->orWhere('registration_no','LIKE','%'.$request->id.'%')->orWhere('admission_no','LIKE','%'.$request->id.'%')->orWhere('email','LIKE','%'.$request->id.'%')->take(10)->get();
+         foreach ($students as  $student) {
+             
+          $parent =new StudentPerentDetail();           
+          $fatherDetail =$parent->getParent($student->id,1);
+          $motherDetail =$parent->getParent($student->id,2);
+
+          $StudentAddressDetail =new StudentAddressDetail(); 
+          $address =$StudentAddressDetail->getAddress($student->id);
+         }
+    	 return view('admin.remark.student_details_table',compact('students','fatherDetail'));
 
     }
     public function addRemark(Request $request,$id){

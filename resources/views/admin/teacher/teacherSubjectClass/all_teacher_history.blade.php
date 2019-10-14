@@ -1,4 +1,4 @@
-<div class="col-lg-6">
+<div class="col-lg-7">
 		
 	
 <div class="panel panel-default">
@@ -9,12 +9,11 @@
 		<tr>
 			 
 			<th class="text-nowrap">Teacher Name</th>
-			<th>Class</th>
-			<th>Section</th>
+			<th>Class/Section</th> 
 			<th>Subject</th>
 			<th class="text-nowrap">No of Period</th>
 			<th class="text-nowrap">Period Duration</th>
-			<th>Action</th>
+			<th class="text-nowrap">Action</th>
 			 
 			 
 			 
@@ -27,8 +26,8 @@
 				<tr>
 					 
 					<td>{{ $teacherWiseSubjectClassSaveperio->teacherFaculty->name or '' }}</td>
-					<td>{{ $teacherWiseSubjectClassSaveperio->classTypes->name or '' }}</td>
-					<td>{{ $teacherWiseSubjectClassSaveperio->sectionTypes->name or '' }}</td>
+					<td>{{ $teacherWiseSubjectClassSaveperio->classTypes->name or '' }}/{{ $teacherWiseSubjectClassSaveperio->sectionTypes->name or '' }}</td>
+					 
 					<td>{{ $teacherWiseSubjectClassSaveperio->subjectType->name or '' }}</td>
 					<td>{{ $teacherWiseSubjectClassSaveperio->no_of_period or ''}}</td>
 					<td> 

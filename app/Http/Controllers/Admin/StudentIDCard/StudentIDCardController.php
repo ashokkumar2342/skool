@@ -58,7 +58,7 @@ class StudentIdCardController extends Controller
        $code = $barcode->generate();
        $data = base64_decode($code);
        $image_name= $value.'.png';     
-       $path = Storage_path() . "/app/student/profile/" . $image_name;       
+       $path = Storage_path() . "/app/student/profile/" . $image_name; 
        file_put_contents($path, $data);  
        $imgs[$value]=$code;
        $student= Student::find($values->id);

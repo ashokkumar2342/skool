@@ -10,10 +10,12 @@ use App\Model\Cashbook;
 use App\Model\FineScheme;
 use App\Model\Month;
 use App\Model\PaymentMode;
+use App\Model\StudentAddressDetail;
 use App\Model\StudentDefaultValue;
 use App\Model\StudentFeeDetail;
 use App\Model\StudentFeePaidUpTo;
 use App\Model\StudentLedger;
+use App\Model\StudentPerentDetail;
 use App\Model\StudentSiblingInfo;
 use App\Student;
 use Auth;
@@ -34,13 +36,19 @@ class FeeCollectionController extends Controller
 
     // show main form show search stuent form
     public function show(Request $request,Student $student){ 
+         $parent =new StudentPerentDetail();           
+          $fatherDetail =$parent->getParent($request->student_id,1);
+          $motherDetail =$parent->getParent($request->student_id,2);
+
+          $StudentAddressDetail =new StudentAddressDetail(); 
+          $address =$StudentAddressDetail->getAddress($request->student_id);
 
     	$student = Student::find($request->student_id); 
        $defultDate = StudentDefaultValue::find(1);
 
       $months=Month::orderBy('id','ASC')->get();
      $StudentFeeDetailMonthYears = StudentFeeDetail::where('student_id',$request->student_id)->where('paid',0)->orderBy('id','ASC')->distinct('last_date')->pluck('last_date')->toArray();
-    	$data = view('admin.finance.feecollection.fee_collection_detail',compact('student','defultDate','months','StudentFeeDetailMonthYears'))->render();
+    	$data = view('admin.finance.feecollection.fee_collection_detail',compact('student','defultDate','months','StudentFeeDetailMonthYears','fatherDetail','motherDetail','address'))->render();
     	return response()->json($data);
     }
 

@@ -314,8 +314,9 @@
                               <div class="col-lg-6"> 
                                 <p><li>Section :-<b>{{ $studentSiblingInfo->studentSiblings->sectionTypes->name or ''   }}</b> </li></p>  
                               </div>
-                           </div>
+                           </div><hr>{{-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --}}
                       @endforeach
+
                  @endif
             <h4 align="center"><b> Subject Details</b></h4><hr>
                      

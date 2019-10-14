@@ -66,13 +66,17 @@ class StudentMedicalInfoController extends Controller
     {   
         $rules=[
           
-            // 'ondate' => 'required', 
-            // 'hb' => 'numeric|max:20', 
-            // 'height' => 'required', 
-            // 'weight' => 'required', 
-            // 'vision' => 'required', 
-            // 'bloodgroup_id' => 'required', 
-            // 'id_marks1' => 'required', 
+            'ondate' => 'required', 
+            'hb' => 'numeric|max:20', 
+            'height' => 'required', 
+            'weight' => 'required', 
+            'bp_uper' => 'required', 
+            'bp_lower' => 'required', 
+            'complextion' => 'required', 
+            'bloodgroup_id' => 'required', 
+            'id_marks1' => 'required', 
+            'physical_handicapped' => 'required', 
+            'alergey' => 'required', 
        
         ];
 
@@ -201,9 +205,13 @@ class StudentMedicalInfoController extends Controller
             'hb' => 'numeric|max:20', 
             'height' => 'required', 
             'weight' => 'required', 
-            'vision' => 'required', 
+            'bp_uper' => 'required', 
+            'bp_lower' => 'required', 
+            'complextion' => 'required', 
             'bloodgroup_id' => 'required', 
             'id_marks1' => 'required', 
+            'physical_handicapped' => 'required', 
+            'alergey' => 'required',
        
         ];
 

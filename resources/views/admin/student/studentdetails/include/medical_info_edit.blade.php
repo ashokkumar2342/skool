@@ -77,6 +77,7 @@
                       
                     <div class="form-group col-md-4">
                         {{ Form::label('id_marks1','Id Marks1',['class'=>' control-label ']) }}
+                        <span class="fa fa-asterisk"></span> 
                         {{ Form::text('id_marks1',$medicalInfo->id_marks1,['class'=>'form-control','maxlength'=>'50']) }}
                          
                     </div> 

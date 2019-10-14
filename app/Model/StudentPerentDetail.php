@@ -26,7 +26,7 @@ class StudentPerentDetail extends Model
         } catch (Exception $e) {
             
         }
-    }
+    } 
 
     Public function getParentArrId($student_id,$sibling_student_id){
       try {

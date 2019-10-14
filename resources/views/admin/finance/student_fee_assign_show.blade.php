@@ -7,19 +7,19 @@
 <h4>Name : <b>{{ $student->name }}</b></h4>
 </div>
 <div class="col-lg-4">
-<h4>Father's Name : <b>{{ $student->father_name }}</b></h4>
+<h4>Father's Name : <b>{{ $fatherDetail->name }}</b></h4>
 </div>
 <div class="col-lg-4">
-<h4>Mother's Name : <b>{{ $student->mother_name }}</b></h4>
+<h4>Mother's Name : <b>{{ $motherDetail->name }}</b></h4>
 </div>
 <div class="col-lg-4">
-<h4>Mobile: <b>{{ $student->father_mobile }}</b></h4>
+<h4>Mobile: <b>{{ $fatherDetail->mobile }}</b></h4>
 </div>
 <div class="col-lg-4">
 <h4>gender: <b>{{ $student->genders->genders }}</b></h4>
 </div>
 <div class="col-lg-4">
-<h4>Address: <b>{{ $student->p_address }} </b></h4>
+<h4>Address: <b>{{ $address->p_address }} </b></h4>
 </div>
 
 <hr style="border:1px solid #eee">  

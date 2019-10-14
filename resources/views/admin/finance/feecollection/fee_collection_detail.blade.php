@@ -15,9 +15,9 @@
 		<tr>
 			<td>{{ $student->name }}</td>
 			<td>{{ $student->registration_no }}</td>
-			<td>{{ $student->father_name }}</td>
-			<td>{{ $student->mother_name }}</td>
-			<td>{{ $student->p_address }}</td>
+			<td>{{ $fatherDetail->name }}</td>
+			<td>{{ $motherDetail->name }}</td>
+			<td>{{ $address->p_address }}</td>
 		</tr>
 	</tbody>
 </table>

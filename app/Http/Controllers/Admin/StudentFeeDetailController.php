@@ -12,7 +12,9 @@ use App\Model\Concession;
 use App\Model\FeeStructure;
 use App\Model\FeeStructureLastDate;
 use App\Model\Minu;
+use App\Model\StudentAddressDetail;
 use App\Model\StudentFeeDetail;
+use App\Model\StudentPerentDetail;
 use App\Student;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Middleware\Auth;
@@ -142,6 +144,12 @@ class StudentFeeDetailController extends Controller
     public function feeassignshow(Request $request,$menu_id)
     {   
         $student = Student::find($request->student_id);
+        $parent =new StudentPerentDetail();           
+          $fatherDetail =$parent->getParent($request->student_id,1);
+          $motherDetail =$parent->getParent($request->student_id,2);
+
+          $StudentAddressDetail =new StudentAddressDetail(); 
+          $address =$StudentAddressDetail->getAddress($request->student_id);
         $studentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)->get();  
         
         $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
@@ -149,7 +157,7 @@ class StudentFeeDetailController extends Controller
         $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
       $menuPermission = Minu::find($menu_id);
         $response = array();
-        $response['data'] = view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','feeStructurLastDate','concession','student','menuPermission'))->render();
+        $response['data'] = view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','feeStructurLastDate','concession','student','menuPermission','fatherDetail','motherDetail','address'))->render();
         $response['status']=1;
         return $response;   
     }

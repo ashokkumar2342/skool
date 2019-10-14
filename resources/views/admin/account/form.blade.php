@@ -1,11 +1,6 @@
 @extends('admin.layout.base')
 @section('body')
-   <style>
-     .fa-asterisk {
-    color: red;
-    font-size:10px; 
-}
-   </style>
+    
     <section class="content">
 
       <div class="row">
@@ -35,7 +30,7 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Last Name</label>
-                                  <span class="fa fa-asterisk"></span>
+                                  
                                   <input Name="last_name" class="form-control"  placeholder="Enter Last Name" maxlength="50">
                                 </div>                                
                             </div>
@@ -78,7 +73,7 @@
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Date Of Birth</label>
                                   <span class="fa fa-asterisk"></span>
-                                  {{ Form::date('dob','',['class'=>'form-control', 'placeholder'=>'']) }} 
+                                  {{ Form::date('dob','',['class'=>'form-control', 'placeholder'=>'','required']) }} 
                                 </div>                                
                             </div>
                         </div>                     

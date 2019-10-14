@@ -12,6 +12,8 @@ use App\Model\Library\MemberShipDetails;
 use App\Model\Library\MemberShipFacility;
 use App\Model\Library\MemberTicketDetails;
 use App\Model\Library\TicketDetails;
+use App\Model\StudentAddressDetail;
+use App\Model\StudentPerentDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
@@ -112,8 +114,15 @@ class BookIssueDetailsController extends Controller
    
     public function registrationOnchange(Request $request)
     {
-        $memberShipRegistrationDetails=MemberShipDetails::find($request->id);     
-       return view('admin.library.bookIssueDetails.book_issue_registration_by_show',compact('memberShipRegistrationDetails'));
+
+        $memberShipRegistrationDetails=MemberShipDetails::find($request->id);
+         $parent =new StudentPerentDetail();           
+          $fatherDetail =$parent->getParent($memberShipRegistrationDetails->member_ship_no,1);
+          $motherDetail =$parent->getParent($memberShipRegistrationDetails->member_ship_no,2);
+
+          $StudentAddressDetail =new StudentAddressDetail(); 
+          $address =$StudentAddressDetail->getAddress($memberShipRegistrationDetails->member_ship_no);     
+       return view('admin.library.bookIssueDetails.book_issue_registration_by_show',compact('memberShipRegistrationDetails','fatherDetail','motherDetail','address'));
     }
     public function accessionOnchange(Request $request)
     {
