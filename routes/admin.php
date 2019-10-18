@@ -53,7 +53,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('menu-ordering', 'AccountController@menuOrdering')->name('admin.account.menu.ordering'); 
 		Route::get('menu-ordering-store', 'AccountController@menuOrderingStore')->name('admin.account.menu.ordering.store'); 
 		Route::get('submenu-ordering-store', 'AccountController@subMenuOrderingStore')->name('admin.account.submenu.ordering.store'); 
-		Route::get('menu-filter', 'AccountController@menuFilter')->name('admin.account.menu.filte'); 
+		Route::get('menu-filter/{id}', 'AccountController@menuFilter')->name('admin.account.menu.filte'); 
 		
 						
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 
@@ -255,8 +255,10 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::post('update/{id}', 'StudentSiblingInfoController@update')->name('admin.sibling.update');
 	 });
 	  Route::group(['prefix' => 'student-subject'], function() {
-	    Route::post('add', 'StudentSubjectController@store')->name('admin.studentSubject.add');
-	    Route::delete('delete', 'StudentSubjectController@destroy')->name('admin.studentSubject.delete');
+	    Route::get('list/{student_id}', 'StudentSubjectController@index')->name('admin.studentSubject.list');
+	    Route::get('add/{student_id}', 'StudentSubjectController@addForm')->name('admin.studentSubject.add');
+	    Route::post('store', 'StudentSubjectController@store')->name('admin.studentSubject.store');
+	    Route::get('delete/{id}', 'StudentSubjectController@destroy')->name('admin.studentSubject.delete');
 	    Route::get('edit', 'StudentSubjectController@edit')->name('admin.studentSubject.edit');
 	    Route::get('update', 'StudentSubjectController@edit')->name('admin.studentSubject.update');
 	 });
@@ -761,7 +763,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('guardian-store', 'MasterController@guardianStore')->name('admin.guardian.store');	 	
 			    Route::get('guardian-edit/{id}', 'MasterController@guardianEdit')->name('admin.guardian.edit');	 	
 			    Route::get('guardian-delete/{id}', 'MasterController@guardianDelete')->name('admin.guardian.delete');	 	
-			    Route::get('guardian-update/{id}', 'MasterController@guardianUpdate')->name('admin.guardian.update');	 	
+			    Route::post('guardian-update/{id}', 'MasterController@guardianUpdate')->name('admin.guardian.update');	 	
 			    	 	
 			    
 

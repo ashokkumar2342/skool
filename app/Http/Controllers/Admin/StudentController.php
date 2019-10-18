@@ -22,7 +22,7 @@ use App\Model\PaymentType;
 use App\Model\Profession;
 use App\Model\Religion;
 use App\Model\RequestUpdate;
-use App\Model\SessionDate;
+use App\Model\AcademicYear;
 use App\Model\Sms\SmsTemplate;
 use App\Model\StudentAddressDetail;
 use App\Model\StudentDefaultValue;
@@ -57,8 +57,10 @@ class StudentController extends Controller
      */
     public function index(Request $request,$menuPermissionId)
     {
-     
-        $students= Student::where(['class_id'=>$request->class,'section_id'=>$request->section,'student_status_id'=>1])->get(); 
+       $parent =new Student();           
+       $students =$parent->getStudentByClassOrSection($request->class,$request->section);
+
+        // $students= Student::where(['class_id'=>$request->class,'section_id'=>$request->section,'student_status_id'=>1])->get(); 
      $menuPermision= Minu::find($menuPermissionId); 
         $response = array(); 
         $response['data']= view('admin.student.studentdetails.list',compact('students','menuPermision','fatherDetail'))->render();
@@ -76,7 +78,7 @@ class StudentController extends Controller
     public function create()
     {   
         $classes = MyFuncs::getClasses();   
-        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
+        $sessions = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
@@ -87,7 +89,7 @@ class StudentController extends Controller
     public function showForm()
     {        
         $classes = MyFuncs::getClasses();    
-        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
+        $sessions = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
@@ -178,18 +180,16 @@ class StudentController extends Controller
     {   
        
        $rules=[
-            'class' => 'required|numeric|max:20',
-            "section" => 'required|numeric|max:20',
+            'class' => 'required',
+            "section" => 'required',
             "registration_no" => 'required|max:20|unique:students',
-            "admission_no" => 'max:20|unique:students',
-            "roll_no" => 'max:20',
+            "admission_no" => 'required|max:20|unique:students',
+            "roll_no" => 'required|max:20|unique:students',
             "date_of_admission" => 'required|date', 
             "date_of_activation" => 'required|date',
-            "student_name" => 'required|max:199',
-            "nick_name" => 'max:30|nullable', 
-            "date_of_birth" => 'required|max:199', 
-            
-            "aadhaar_no" => "required|digits:12",
+            "student_name" => 'required|max:199', 
+            "date_of_birth" => 'required|date',
+            "aadhaar_no" => "required|digits:12|unique:students",
             "house_name" => "required", 
         ];
         $validator = Validator::make($request->all(),$rules);
@@ -258,11 +258,16 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
+        // $st =new Student();           
+        // $student =$st->getStudentDetilas($student_id);
+        // $parent =new Student();           
+        // $students =$parent->getStudentDetilas($student_id); 
+       
         $parentsType = array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name','id');
         $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
         $documentTypes = array_pluck(DocumentType::get(['id','name'])->toArray(),'name', 'id');
         $subjectTypes = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
-        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
+        $sessions = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
         $isoptionals = array_pluck(Isoptional::get(['id','name'])->toArray(),'name', 'id');
         $bloodgroups = array_pluck(BloodGroup::get(['id','name'])->toArray(),'name', 'id');
         $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id');
@@ -358,7 +363,7 @@ class StudentController extends Controller
     public function edit(Student $student)
     {   $houses=House::orderBy('id','ASC')->get();      
        $classes = MyFuncs::getClasses();    
-       $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
+       $sessions = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
        $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
        $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
        $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
@@ -438,10 +443,7 @@ class StudentController extends Controller
     { 
         $rules=[
             'class' => 'required|numeric|max:20',
-            "section" => 'required|numeric|max:20',
-            "registration_no" => 'required|max:20|unique:students',
-            "admission_no" => 'max:20|unique:students',
-            "roll_no" => 'max:20',
+            "section" => 'required|numeric|max:20', 
             "date_of_admission" => 'required|date', 
             "date_of_activation" => 'required|date',
             "student_name" => 'required|max:199',
@@ -591,7 +593,7 @@ class StudentController extends Controller
     public function importview() {
          
         $classes = MyFuncs::getClasses();    
-        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
+        $sessions = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');

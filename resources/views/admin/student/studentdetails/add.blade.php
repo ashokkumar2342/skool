@@ -111,7 +111,7 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('nick_name','Nick Name',['class'=>' control-label']) }}
-                                                    <span class="fa fa-asterisk"></span>                         
+                                                   {{--  <span class="fa fa-asterisk"></span> --}}                         
                                                     {{ Form::text('nick_name','',['class'=>'form-control','maxlength'=>'50']) }}
                                                     <p class="text-danger">{{ $errors->first('nick_name') }}</p>
                                                 </div>
@@ -141,7 +141,7 @@
                                                 <div class="form-group">
                                                     <label>Aadhaar No</label>
                                                     <span class="fa fa-asterisk"></span>
-                                                    <input type="text" name="aadhaar_no" class="form-control">
+                                                    <input type="text" name="aadhaar_no" class="form-control" required="" maxlength="12" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">                         

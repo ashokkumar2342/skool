@@ -17,35 +17,35 @@
             <div class="box-body">             
                 <div class="col-md-12"> 
 	                <form class="form" id="form_fee_account">                                                     
-	                   <div class="col-lg-2">                                             
+	                   <div class="col-lg-4">                                             
 	                       <div class="form-group">
                           <label>Fee Account Code</label>
 	                         {{ Form::text('code','',['class'=>'form-control','id'=>'code', 'placeholder'=>'Enter Fee Account Code','maxlength'=>'3']) }}
 	                         <p class="errorCode text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>
-	                     <div class="col-lg-2">                                             
+	                     <div class="col-lg-4">                                             
 	                       <div class="form-group">
-                          <label>Account Name</label>
+                          <label>Fee Account Name</label>
 	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter Fee Account Name','maxlength'=>'50']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>                     
-	                    <div class="col-lg-2">                         
+	                    <div class="col-lg-4">                         
 	                        <div class="form-group">
                             <label>Sorting Order No </label>
-	                          {{ Form::text('orderby_no','',['class'=>'form-control','id'=>'description','rows'=>1, 'placeholder'=>'Enter Order No','maxlength'=>'20']) }}
+	                          {{ Form::text('sorting_order_no','',['class'=>'form-control','id'=>'sorting_order_no','rows'=>1, 'placeholder'=>'Enter Sorting Order No','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
 	                          <p class="errorDescription text-center alert alert-danger hidden"></p>
 	                        </div>
 	                    </div>
-                      <div class="col-lg-4">                         
+                      <div class="col-lg-12">                         
                           <div class="form-group">
                             <label>Description</label>
                             {{ Form::textarea('description','',['class'=>'form-control','id'=>'description','rows'=>1, 'placeholder'=>'Enter Description','maxlength'=>'250']) }}
                             <p class="errorDescription text-center alert alert-danger hidden"></p>
                           </div>
                       </div>
-	                     <div class="col-lg-2"> 
+	                     <div class="col-lg-12 text-center"> 
                         </br>                                          
 	                     <button class="btn btn-success" type="button" id="btn_fee_account_create">Create</button> 
 	                    </div>                     
@@ -63,8 +63,9 @@
                         <thead>
                             <tr>
                                 <th>Sr.No.</th>
-                                <th>Code</th>
-                                <th>Name</th>
+                                <th>Fee Account Code</th>
+                                <th>Fee Account Name</th>
+                                <th>Sorting Order No</th>
                                 <th>Description</th>
                                 <th>Action</th>                                                            
                             </tr>
@@ -75,6 +76,7 @@
                         		<td>{{ ++$loop->index }}</td>
                         		<td>{{ $feeAccount->code }}</td>
                         		<td>{{ $feeAccount->name }}</td>
+                            <td>{{ $feeAccount->orderby_no }}</td>
                         		<td>{{ $feeAccount->description }}</td>
                         		<td> 
                                @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
@@ -110,19 +112,23 @@
                             <form id="form_model_fee_account"> 
                             		<input type="hidden" name="id" id="edit_id">
                                    <div class="form-group">
+                                       <label>Fee Account Code</label>
                                      {{ Form::text('code','',['class'=>'form-control','id'=>'edit_code', 'placeholder'=>'Enter fee account code','maxlength'=>'3']) }}
                                      <p class="errorCode text-center alert alert-danger hidden"></p>
                                    </div>       
                                    <div class="form-group">
-                                     {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee account name','maxlength'=>'50']) }}
+                                    <label>Fee Account Name</label>
+                                     {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee account name','maxlength'=>'30']) }}
                                      <p class="errorName text-center alert alert-danger hidden"></p>
                                    </div>      
                                     <div class="form-group">
-                                      {{ Form::textarea('orderby_no','',['class'=>'form-control','id'=>'edit_orderby_no','rows'=>1, 'placeholder'=>'Enter Orderby No','maxlength'=>'250']) }}
+                                      <label>Sorting Order No </label>
+                                      {{ Form::text('sorting_order_no','',['class'=>'form-control','id'=>'sorting_order_no','rows'=>1, 'placeholder'=>'Enter Orderby No','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                                       <p class="errorDescription text-center alert alert-danger hidden"></p> 
                                 </div>
                                 <div class="form-group">
-                                      {{ Form::textarea('description','',['class'=>'form-control','id'=>'edit_description','rows'=>1, 'placeholder'=>'Enter Description','maxlength'=>'250']) }}
+                                  <label>Description</label>
+                                      {{ Form::textarea('description','',['class'=>'form-control','id'=>'edit_description','rows'=>1, 'placeholder'=>'Enter Description','maxlength'=>'200']) }}
                                       <p class="errorDescription text-center alert alert-danger hidden"></p> 
                                 </div>
                                                       
@@ -212,6 +218,7 @@
          $('#edit_id').val($(this).data('id'));        
          $('#edit_code').val($(this).data('code'));        
          $('#edit_name').val($(this).data('name'));        
+         $('#edit_orderby_no').val($(this).data('sorting_order_no'));        
          $('#edit_description').val($(this).data('description'));        
                
          $('#fee_account_model').modal('show');

@@ -1,5 +1,6 @@
  <h4> Search Student :  <b>{{ $results->count() }}</b> </h4>
               <table id="report_dataTable" class="table table-bordered table-striped table-hover table-responsive">
+                  
                 <thead>
                 <tr>  
                               
@@ -29,12 +30,13 @@
                 </thead>
                 <tbody>
                 @foreach($results as $result)
+                @if ($result->relation_id==1 or $result->relation_id==null)
                 <tr>
                   <td>{{ $result->registration_no }}</td> 
                   <td>{{ $result->name }}</td> 
-                  <td>{{ $result->father_name }}</td>
+                  <td>{{ $result->f_name }}</td>
                    @if ($student_phone==1) 
-                  <td>{{ $result->father_mobile }}</td>
+                  <td>{{ $result->f_mobile }}</td>
                    @endif  
                   @if ($student_email==2)
                       <td>{{ $result->email }}</td>                                 
@@ -49,9 +51,10 @@
                       <td>{{ $result->religions->name or ''}}</td>                                 
                   @endif 
                   @if ($student_add==6)
-                      <td>{{ $result->c_address }}</td>                                 
+                      <td>{{ $result->p_address }}</td>                                 
                   @endif 
                 </tr>
+                @endif
                 @endforeach
                 </tbody>
                  

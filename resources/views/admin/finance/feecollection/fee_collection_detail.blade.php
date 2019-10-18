@@ -6,18 +6,20 @@
 			<th>name</th>
 			<th>Registration No</th>
 			<th>Father's Name</th>
-			<th>Mother's Name</th>
+			<th>Mobile No</th>
+			<th>E-mail ID</th>
 			<th>Address</th>
 			 
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
-			<td>{{ $student->name }}</td>
-			<td>{{ $student->registration_no }}</td>
-			<td>{{ $fatherDetail->name }}</td>
-			<td>{{ $motherDetail->name }}</td>
-			<td>{{ $address->p_address }}</td>
+			<td>{{ $students->name }}</td>
+			<td>{{ $students->registration_no }}</td>
+			<td>{{ $students->f_name }}</td>
+			<td>{{ $students->primary_mobile }}</td>
+			<td>{{ $students->email }}</td>
+			<td>{{ $students->p_address }}</td>
 		</tr>
 	</tbody>
 </table>

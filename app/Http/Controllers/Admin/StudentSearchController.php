@@ -14,14 +14,9 @@ class StudentSearchController extends Controller
 
     public function search(Request $request){
      	$search = $request->input('search');
-  
- 	    $students = Student::where('name', 'like','%'.$search.'%')
- 	       ->orWhere('registration_no', 'like', '%'.$search.'%')
- 	       ->orWhere('father_name', 'like', '%'.$search.'%')
- 	       ->orWhere('mother_name', 'like', '%'.$search.'%')
- 	       ->orWhere('father_mobile', 'like', '%'.$search.'%')
- 	       ->orWhere('dob', 'like', '%'.$search.'%')
- 	       ->take(8)->get();
+        $st=new Student();
+        $students=$st->getStudentsSearchDetilas($search);  
+ 	     
  	       $data = view('admin.finance.feecollection.stuentSearchTable',compact('students'))->render();
            return response()->json($data);
   		// return response()->json(['students'=>$students]);

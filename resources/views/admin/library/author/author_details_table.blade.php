@@ -1,7 +1,7 @@
  <table id="author_table" class="table table-bordered table-striped table-hover table-responsive"> 
                <thead>
                  <tr>
-                   <th>Name</th>
+                   <th>Author Name</th>
                    <th>Mobile No</th>
                    <th>Email</th>
                    <th>Address</th>

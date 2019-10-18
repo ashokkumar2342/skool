@@ -19,7 +19,7 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12">
-        <form class="add_form" content-refresh="vehicle_table" button-click="btn_close,btn_certificateIssu_apply_table_show" action="{{ route('admin.student.attachment.approval.status',$certificate->id) }}" no-reset="true" method="post" enctype="multipart/form-data">              
+        <form class="add_form" content-refresh="dataTable" button-click="btn_close,btn_certificateIssu_apply_table_show" action="{{ route('admin.student.attachment.approval.status',$certificate->id) }}" no-reset="true" method="post" enctype="multipart/form-data">              
                   {{ csrf_field() }}  
                                          
                              <div class="row">{{--row start --}}
@@ -31,7 +31,7 @@
                                                <select name="registration_no" class="form-control select2">
                                                  <option selected disabled>Select Registration</option>
                                                  @foreach ($students as $student)
-                                                   <option value="{{ $student->id }}"{{ $certificate->id==$student->id? 'selected' : ''}}>{{ $student->registration_no }}</option>
+                                                   <option value="{{ $student->id }}"{{ $certificate->student_id==$student->id? 'selected' : ''}}>{{ $student->registration_no }}</option>
                                                  @endforeach
                                                </select>
                                             </div>  

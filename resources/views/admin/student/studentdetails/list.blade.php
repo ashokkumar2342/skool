@@ -7,19 +7,20 @@
     <th>Name</th>
     <th>Father Name</th> 
     <th>Father Mobile</th> 
-    <th>Mother Mobile</th> 
+    <th>Primary Mobile</th> 
     <th width="100px">Action</th>                  
   </tr>
   </thead>
   <tbody>
   @foreach($students as $student)
+  @if ($student->relation_id==1 or $student->relation_id==null)  
   <tr>
     <td>{{ $student->registration_no }}</td>
  
     <td>{{ $student->name }}</td>
-    <td>{{ $student->father_name }}</td>
-    <td>{{ $student->father_mobile }}</td>
-    <td>{{ $student->mother_mobile }}</td>
+    <td>{{ $student->f_name }}</td>
+    <td>{{ $student->f_mobile }}</td>
+    <td>{{ $student->primary_mobile }}</td>
      
     <td align="center">
       @if ($menuPermision->r_status==1)
@@ -40,6 +41,7 @@
     </td>
    
   </tr>
+  @endif
   @endforeach
   </tbody>
    

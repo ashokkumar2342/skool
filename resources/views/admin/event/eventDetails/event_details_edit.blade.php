@@ -22,11 +22,11 @@
              <form action="{{ route('admin.event.details.update',$eventDetail->id) }}" method="post" class="add_form" button-click="btn_event_details_table_show,btn_close">
                    {{ csrf_field() }}
                    <div class="row">
-                    <div class="col-lg-4">
+                    <div class="form-group   col-lg-4">
                       <label>Event Name</label>
                       <input type="text" value="{{ $eventDetail->event_name }}" name="name" class="form-control" placeholder="" maxlength="100"> 
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group   col-lg-4">
                       <label>Event Type</label>
                        <select name="event_type_id" class="form-control">
                         <option selected disabled >Select Event Type</option> 
@@ -35,22 +35,22 @@
                         @endforeach 
                        </select>
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group   col-lg-4">
                       <label>Discription</label>
                       <textarea class="form-control"   name="discription">{{ $eventDetail->description }}</textarea> 
                     </div> 
-                     <div class="col-lg-4">
+                     <div class="form-group  col-lg-4">
                       <label>Start Date</label>
                       <input type="date" name="start_date" value="{{ $eventDetail->start_date }}" class="form-control" placeholder=""></div>
-                    <div class="col-lg-4">
+                    <div class="form-group   col-lg-4">
                       <label>End Date</label>
                       <input type="date" name="end_date" value="{{ $eventDetail->end_date }}" class="form-control" placeholder=""> 
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group   col-lg-4">
                       <label>Organizer/Incharge Name</label>
                       <input type="text" name="incharge_name" value="{{ $eventDetail->incharge_name }}" class="form-control" placeholder="" maxlength="100"> 
                     </div>
-                    <div class="col-lg-4">
+                    <div class="form-group   col-lg-4">
                       <label>Event For</label>
                        <select name="event_for_id"  multiselect-form="true" class="form-control" onchange="callAjax(this,'{{ route('admin.event.details.onchange') }}','select_class')">
                        <option selected disabled>Select Option</option>  
@@ -62,7 +62,7 @@
                     <div id="select_class">
                       
                     </div>
-                    <div class="col-lg-4">
+                    <div class="form-group   col-lg-4">
                       <label>Color</label>
                       <input type="text" name="color" value="{{ $eventDetail->color }}" class="form-control" maxlength="100">
                        

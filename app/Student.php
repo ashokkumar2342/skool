@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
 
 class Student extends Authenticatable
@@ -49,12 +50,12 @@ class Student extends Authenticatable
     public function genders(){
         return $this->hasOne('App\Model\Gender','id','gender_id');
     }
-    public function religions(){
-        return $this->hasOne('App\Model\Religion','id','religion_id');
-    }
-    public function categories(){
-        return $this->hasOne('App\Model\Category','id','category_id');
-    }
+    // public function religions(){
+    //     return $this->hasOne('App\Model\Religion','id','religion_id');
+    // }
+    // public function categories(){
+    //     return $this->hasOne('App\Model\Category','id','category_id');
+    // }
      public function studentStatus(){
         return $this->hasOne('App\Model\StudentStatus','id','student_status_id');
     }
@@ -110,19 +111,158 @@ class Student extends Authenticatable
         }
 
     }
-     //student parentsaddress all details
-    // public function getStudentDetailsById($id)
-    // {
-    //     try {  
-    //        return $this->Join('student_perent_details','students.id', '=', 'student_perent_details.student_id')                     
-    //                     ->Join('parents_infos','student_perent_details.perent_info_id', '=', 'parents_infos.id')
-    //                      ->select('students.name as student', 'parents_infos.*') 
-    //                    ->get();
-    //     } catch (Exception $e) {
-    //         return $e;
-    //     }
+     public function getStudentsAllDetilas()
+     {
+      try {
+          $datas=  DB::table('students')
+            ->leftJoin('student_perent_details', 'students.id', '=', 'student_perent_details.student_id') 
+                    
+            ->leftJoin('parents_infos','parents_infos.id','=','student_perent_details.perent_info_id')
+            ->leftJoin('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
+            ->leftJoin('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
+            ->leftJoin('addresses','addresses.id','=','student_address_details.student_address_details_id')
+            ->select(
+              'students.*',
+              'addresses.primary_mobile',
+              'addresses.p_address',
+              'parents_infos.name as f_name' ,
+              'parents_infos.mobile as f_mobile' ,
+              'student_perent_details.relation_id'
+            )    
+            ->get(); 
+            return $datas;
+                 
+                 
+              
 
-    // }
+         } catch (Exception $e) {
+            
+        }
+     }
+     public function getStudentByClassOrSection($class_id,$section_id)
+     {
+      try {   
+          $datas=  DB::table('students')
+            ->leftJoin('student_perent_details', 'students.id', '=', 'student_perent_details.student_id') 
+                  ->where('class_id',$class_id)
+                  ->where('section_id',$section_id)  
+            ->leftJoin('parents_infos','parents_infos.id','=','student_perent_details.perent_info_id')
+            ->leftJoin('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
+            ->leftJoin('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
+            ->leftJoin('addresses','addresses.id','=','student_address_details.student_address_details_id')
+            ->select(
+              'students.*',
+              'addresses.primary_mobile',
+              'addresses.p_address',
+              'parents_infos.name as f_name' ,
+              'parents_infos.mobile as f_mobile' ,
+              'student_perent_details.relation_id'
+            )    
+            ->get(); 
+            return $datas; 
+         } catch (Exception $e) {
+            
+        }
+     }
+     public function getStudentDetilas($student_id)
+     {
+      try {
+           return $this  
+                ->join('student_perent_details','student_perent_details.student_id','=','students.id')
+                ->join('parents_infos','parents_infos.id','=','student_perent_details.perent_info_id')
+                ->join('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
+                ->join('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
+                ->join('addresses','addresses.id','=','student_address_details.student_address_details_id')
+                ->join('religions','religions.id','=','addresses.religion')
+                ->select(
+                  'students.*',
+                  'parents_infos.name as f_name',
+                  'parents_infos.mobile as f_mobile',
+                  'student_perent_details.relation_id', 
+                  'addresses.p_address',
+                  'addresses.c_address',
+                  'addresses.state',
+                  'addresses.city',
+                  'addresses.p_pincode',
+                  'addresses.c_pincode',
+                  'religions.name as religion',
+                  'addresses.cotegory_id',
+                  'addresses.primary_mobile',
+                  'addresses.primary_email'
+                )->where('students.id',$student_id)          
+                 ->where('student_perent_details.relation_id',1)          
+                ->first();
+                 
+                 
+              
+
+         } catch (Exception $e) {
+            
+        }
+     }
+
+     public function getStudentMotherDetail($student_id)
+     {
+      try {
+           return $this  
+                ->join('student_perent_details','student_perent_details.student_id','=','students.id')
+                ->join('parents_infos','parents_infos.id','=','student_perent_details.perent_info_id')
+                ->join('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
+                ->join('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
+                ->join('addresses','addresses.id','=','student_address_details.student_address_details_id')
+                ->select(
+                  'students.*',
+                  'parents_infos.name as m_name',
+                  'parents_infos.mobile as m_mobile',
+                  'student_perent_details.relation_id', 
+                  'addresses.p_address',
+                  'addresses.c_address',
+                  'addresses.primary_mobile',
+                  'addresses.primary_email'
+                )->where('students.id',$student_id)          
+                 ->where('student_perent_details.relation_id',2)          
+                ->first();
+                 
+                 
+              
+
+         } catch (Exception $e) {
+            
+        }
+     }
     
-    
+    public function getStudentsSearchDetilas($search)
+    {
+       try {
+
+       $datas=  DB::table('students')
+            ->leftJoin('student_perent_details', 'students.id', '=', 'student_perent_details.student_id') 
+                    
+            ->leftJoin('parents_infos','parents_infos.id','=','student_perent_details.perent_info_id')
+            ->leftJoin('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
+            ->leftJoin('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
+            ->leftJoin('addresses','addresses.id','=','student_address_details.student_address_details_id')
+            ->select(
+              'students.*',
+              'addresses.primary_mobile',
+              'addresses.p_address',
+              'parents_infos.name as f_name' ,
+              'parents_infos.mobile as f_mobile' ,
+              'student_perent_details.relation_id'
+            )    
+            ->where('students.name', 'like','%'.$search.'%')
+               ->orWhere('parents_infos.name', 'like', '%'.$search.'%') 
+               ->orWhere('students.email', 'like', '%'.$search.'%') 
+               ->orWhere('students.registration_no', 'like', '%'.$search.'%') 
+               ->orWhere('students.dob', 'like', '%'.$search.'%')
+               ->orWhere('students.admission_no', 'like', '%'.$search.'%')
+               ->orWhere('parents_infos.mobile', 'like', '%'.$search.'%')
+               ->orWhere('addresses.primary_mobile', 'like', '%'.$search.'%')
+               ->take(10)->distinct('students.id')->get();
+            return $datas;
+           
+       } catch (Exception $e) {
+           
+       }
+    }
 }

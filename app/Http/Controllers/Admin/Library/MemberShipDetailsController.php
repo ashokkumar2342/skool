@@ -131,12 +131,14 @@ class MemberShipDetailsController extends Controller
        $memberShipDetail=MemberShipDetails::where('member_ship_no',$request->id)->where('member_ship_type_id',$request->library_member_ship)->first();
           if ( $request->library_member_ship==1) {
               $datas = Student::find($request->id);
-               $parent =new StudentPerentDetail();           
-          $fatherDetail =$parent->getParent($request->id,1);
-          $motherDetail =$parent->getParent($request->id,2);
+          //      $parent =new StudentPerentDetail();           
+          // $fatherDetail =$parent->getParent($request->id,1);
+          // $motherDetail =$parent->getParent($request->id,2);
 
-          $StudentAddressDetail =new StudentAddressDetail(); 
-          $address =$StudentAddressDetail->getAddress($request->id); 
+          // $StudentAddressDetail =new StudentAddressDetail(); 
+          // $address =$StudentAddressDetail->getAddress($request->id);
+              $st=new Student();
+          $datas=$st->getStudentDetilas($request->id); 
           }
           if ( $request->library_member_ship==2) {
                $datas = TeacherFaculty::find($request->id);

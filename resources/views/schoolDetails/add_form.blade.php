@@ -23,27 +23,27 @@
                    {{ csrf_field() }}
                    <input type="hidden" name="id" value="{{ @$schoolDetail->id }}">
                    <div class="row">
-                    <div class="col-lg-4">
+                    <div class="form-group  col-lg-4">
                       <label>Name</label>
                       <input type="text" name="name" value="{{ @$schoolDetail->name }}" class="form-control" placeholder="" maxlength="100"> 
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group  col-lg-4">
                       <label>Mobile</label>
                       <input type="text" name="mobile" class="form-control" placeholder="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group  col-lg-4">
                       <label>Contact</label>
                       <input type="text" name="contact" class="form-control" placeholder="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group  col-lg-4">
                       <label>Logo</label>
                       <input type="file" name="logo"> 
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group  col-lg-4">
                       <label>Image</label>
                       <input type="file" name="image"> 
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group  col-lg-4">
                       <label>Address</label>
                       <textarea  name="address" class="form-control"></textarea> 
                     </div>  

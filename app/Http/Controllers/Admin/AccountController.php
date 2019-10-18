@@ -37,7 +37,7 @@ class AccountController extends Controller
 
     Public function store(Request $request){
         $rules=[
-        'first_name' => 'required|string|min:3|max:20',
+        'first_name' => 'required|string|min:3|max:50',
              
             'email' => 'required|email|unique:admins',
             "mobile" => 'required|numeric|digits:10',
@@ -107,12 +107,13 @@ class AccountController extends Controller
     Public function update(Request $request, Admin $account){
 
        $this->validate($request,[
-           'first_name' => 'required|string|min:3|max:20',
-               'last_name' => 'nullable|string|min:3|max:20',
+           'first_name' => 'required|string|min:3|max:50',
+               
                
                "mobile" => 'required|numeric|digits:10',
                "role_id" => 'required',
-               "password" => 'nullable|min:5|max:15',             
+               "password" => 'nullable|min:6|max:15',             
+               "dob" => 'required',             
            ]);          
         
         
@@ -464,10 +465,10 @@ class AccountController extends Controller
        $response['status'] = 1;
        return response()->json($response); 
    }     
-  public function menuFilter(Request $request)
+  public function menuFilter(Request $request,$id)
   {
      
-    $submenus=SubMenu::where('menu_type_id',$request->id)->orderBy('sorting_id', 'ASC')->get();
+    $submenus=SubMenu::where('menu_type_id',$id)->orderBy('sorting_id', 'ASC')->get();
      return view('admin.account.sub_menu_ordering',compact('submenus'));
 
   }

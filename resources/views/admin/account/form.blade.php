@@ -52,14 +52,14 @@
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Email Id</label>
                                   <span class="fa fa-asterisk"></span>
-                                  <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Email">
+                                  <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Email" maxlength="50">
                                 </div>                                
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="Password">Password (Min 6 Max 15 Characters )</label>
                                   <span class="fa fa-asterisk"></span>
-                                  <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                  <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" maxlength="15" min="6">
                                 </div>                               
                             </div>
                             <div class="col-lg-6">

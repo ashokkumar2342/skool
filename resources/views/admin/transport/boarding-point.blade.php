@@ -21,7 +21,7 @@
                       <div class="col-lg-6">                                             
                          <div class="form-group">
                           <label> Boarding Point Address</label>
-                           {{ Form::text('address','',['class'=>'form-control','id'=>'address', 'placeholder'=>'  Boarding Point Address','maxlength'=>'200']) }} 
+                           {{ Form::text('address','',['class'=>'form-control','id'=>'address', 'placeholder'=>'  Boarding Point Address','maxlength'=>'100']) }} 
                          </div>                                         
                       </div>
                       <div class="col-lg-6">                                             
@@ -54,7 +54,7 @@
                     <table id="boardingPoint_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>
+                                <th>Sr.no.</th>
                                
                                 <th>Name</th> 
                                 <th>Address</th> 

@@ -19,7 +19,7 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12"> 
-             <form action="{{ route('admin.guardian.update',$guardianRelationType->id) }}" method="post" class="add_form" content-refresh="guardianRelationTypes">
+             <form action="{{ route('admin.guardian.update',$guardianRelationType->id) }}" method="post" class="add_form" content-refresh="guardianRelationTypes" button-click="btn_close">
                    {{ csrf_field() }}
                    <div class="row">
                     <div class="col-lg-12"> 

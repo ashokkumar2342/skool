@@ -1,32 +1,32 @@
 <div id="library_member_ship_student_table">
    <div class="col-lg-4"> 
 	<label>Name</label>
-	<input type="text" class="form-control" name="name" value="{{ $datas->name or ''}}">
+	<input type="text" class="form-control" disabled="" name="name" value="{{ $datas->name or ''}}">
    </div> 
-  <input type="text" class="form-control hidden" hidden="" name="registration_no" value="{{ $datas->registration_no or '' }}"> 
+  <input type="text" class="form-control hidden" hidden=""  name="registration_no" value="{{ $datas->registration_no or '' }}"> 
    </div>  
    <div class="col-lg-4"> 
 	<label>Mobile No</label>
-  @if (!empty($fatherDetail))
-    <input type="text" class="form-control" name="mobile" value="{{ $fatherDetail->mobile or '' }}">
-    @else 
-	<input type="text" class="form-control" name="mobile" value="{{ $datas->father_mobile or '' }}">
-  @endif
+   
+     
+     
+	<input type="text" class="form-control" disabled="" name="mobile" value="{{ $datas->primary_mobile or '' }}">
+  
    </div> 
     <div class="col-lg-4"> 
 	<label>Email</label>
    
-  <input type="text" class="form-control" name="email" value="{{ $datas->email or '' }}">
+  <input type="text" class="form-control" disabled="" name="email" value="{{ $datas->email or '' }}">
   
 	
    </div> 
    <div class="col-lg-4">
    	<label>Address</label>
-    @if (!empty($address))
-     <textarea  class="form-control" name="address">{{ $address->p_address or ''}}</textarea> 
-     @else
-     <textarea  class="form-control" name="address">{{ $datas->c_address or ''}}</textarea>  
-    @endif
+    
+     <textarea  class="form-control" disabled="" name="address">{{ $datas->p_address or ''}}</textarea> 
+    
+     
+    
    </div> 
     
      

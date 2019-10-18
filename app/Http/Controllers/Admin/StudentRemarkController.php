@@ -21,18 +21,13 @@ class StudentRemarkController extends Controller
     }
 
     public function search(Request $request){
-         // return $request;
-    	 $students=Student::orWhere('name','LIKE','%'.$request->id.'%')->orWhere('roll_no','LIKE','%'.$request->id.'%')->orWhere('registration_no','LIKE','%'.$request->id.'%')->orWhere('admission_no','LIKE','%'.$request->id.'%')->orWhere('email','LIKE','%'.$request->id.'%')->take(10)->get();
-         foreach ($students as  $student) {
+          
+       $search=$request->id;
+    	 $st=new Student();
+       $students=$st->getStudentsSearchDetilas($search);
              
-          $parent =new StudentPerentDetail();           
-          $fatherDetail =$parent->getParent($student->id,1);
-          $motherDetail =$parent->getParent($student->id,2);
-
-          $StudentAddressDetail =new StudentAddressDetail(); 
-          $address =$StudentAddressDetail->getAddress($student->id);
-         }
-    	 return view('admin.remark.student_details_table',compact('students','fatherDetail'));
+           
+    	 return view('admin.remark.student_details_table',compact('students'));
 
     }
     public function addRemark(Request $request,$id){

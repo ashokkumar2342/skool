@@ -43,6 +43,7 @@ class FeeAccountController extends Controller
         
             'code' => 'required|max:3|unique:fee_accounts', 
             'name' => 'required|max:30|unique:fee_accounts', 
+            'sorting_order_no' => 'required|max:2|unique:fee_accounts,orderby_no', 
               
               
         ]);
@@ -54,7 +55,7 @@ class FeeAccountController extends Controller
             $feeAccount->code = $request->code;
             $feeAccount->name = $request->name;
             $feeAccount->description = $request->description;
-            $feeAccount->orderby_no = $request->orderby_no;
+            $feeAccount->orderby_no = $request->sorting_order_no;
             $feeAccount->save();
             return response()->json([$feeAccount,'class'=>'success','message'=>'Fee Account Created Successfully']);
         }
@@ -92,11 +93,12 @@ class FeeAccountController extends Controller
     public function update(Request $request, FeeAccount $feeAccount)
     {
         // return $request;
+        $id=$request->id;
         $validator = Validator::make($request->all(), [
         
-            'code' => 'required|max:3', 
-            // 'name' => 'required|max:30|unique:fee_accounts', 
-            // 'description' => 'max:100', 
+            'code' => 'required|max:3|unique:fee_accounts,code,'.$id, 
+            'name' => 'required|max:30|unique:fee_accounts,name,'.$id, 
+            'sorting_order_no' => 'required|max:2|unique:fee_accounts,orderby_no,'.$id,
               
         ]);
         if ($validator->fails()) {                    
@@ -108,7 +110,7 @@ class FeeAccountController extends Controller
             $feeAccount->code = $request->code;
             $feeAccount->name = $request->name;
             $feeAccount->description = $request->description;
-            $feeAccount->orderby_no = $request->orderby_no;
+            $feeAccount->orderby_no = $request->sorting_order_no;
             $feeAccount->save();
             return response()->json([$feeAccount,'class'=>'success','message'=>'Fee Account Created Successfully']);
         }

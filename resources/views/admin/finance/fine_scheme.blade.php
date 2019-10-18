@@ -84,7 +84,7 @@
                     <table id="fine_scheme_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>
+                                <th>Sr.No.</th>
                                 <th>Code</th>
                                 <th>Name</th>
                                 <th>Amount 1</th>

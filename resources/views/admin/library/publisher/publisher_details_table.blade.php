@@ -1,8 +1,8 @@
 <table class="table table-bordered table-striped table-hover" id="publisher_table"> 
                <thead>
                  <tr>
-                   <th>Code</th>
-                   <th>Name</th>
+                   <th>Publisher Code</th>
+                   <th>Publisher Name</th>
                    <th>Mobile No</th>
                    <th>Email</th>
                    

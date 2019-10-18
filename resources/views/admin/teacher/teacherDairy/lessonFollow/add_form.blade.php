@@ -9,7 +9,7 @@
         <form action="{{ route('admin.teacher.lesson.plan.follow.store') }}" method="post" class="add_form" button-click="btn_close,btn_appoinment">
       {{ csrf_field() }}
       <div class="row">
-        <div class="col-lg-4"> 
+        <div class="form-group   col-lg-4"> 
           <label>Class</label>
             <select name="class_id" class="form-control" onchange="callAjax(this,'{{ route('admin.student.final.report.class.wise.section') }}','section_div')">
                <option disabled selected>Select Class</option>
@@ -18,12 +18,12 @@
                @endforeach
              </select> 
           </div> 
-          <div class="col-lg-4">
+          <div class="form-group   col-lg-4">
             <label>Section</label>
              <select name="section_id" class="form-control" id="section_div"> 
              </select> 
           </div>
-        <div class="col-lg-4">
+        <div class="form-group   col-lg-4">
           <label>Subject</label>
           <select name="subject_id" class="form-control">
             <option selected disabled>Select Subject</option>
@@ -32,7 +32,7 @@
             @endforeach
           </select> 
         </div> 
-        <div class="col-lg-4">
+        <div class="form-group   col-lg-4">
           <label>Teacher</label>
           <select name="teacher_id" class="form-control">
             <option selected disabled>Select Teacher Name</option>
@@ -41,7 +41,7 @@
             @endforeach
           </select> 
         </div>
-        <div class="col-lg-4">
+        <div class="form-group   col-lg-4">
           <label>Lesson Plan</label>
           <select name="lesson_plan_id" class="form-control">
             <option selected disabled>Select Lesson Plan</option>
@@ -50,7 +50,7 @@
             @endforeach
           </select> 
         </div> 
-        <div class="col-lg-4">
+        <div class="form-group   col-lg-4">
           <label>Ondate</label>
           <input type="date" name="ondate" class="form-control"> 
         </div> 

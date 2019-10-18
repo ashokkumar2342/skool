@@ -8,7 +8,7 @@
 <section class="content"> 
   <div class="box"> 
     <div class="box-body">
-      <button type="button" class="btn btn-info hidden" id="btn_appoinment" select2="true"  onclick="callAjax(this,'{{ route('admin.teacher.appointment.table.show')}}','table_appoinment')"  >Show</button>
+      {{-- <button type="button" class="btn btn-info hidden" id="btn_appoinment" select2="true"  onclick="callAjax(this,'{{ route('admin.teacher.appointment.table.show')}}','table_appoinment')"  >Show</button> --}}
       <div id="table_appoinment">
         
       </div>

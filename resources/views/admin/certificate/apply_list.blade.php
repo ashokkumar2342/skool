@@ -17,7 +17,7 @@
                 <table id="dataTable" class="table table-striped table-bordered table-responsive">
                   <thead>
                   <tr>               
-                    <th>Sn. No</th>
+                    <th>Sr.No</th>
                     <th class="text-nowrap"> Academic Year</th>
                     <th class="text-nowrap">Registration No</th>
                     <th class="text-nowrap">Certificate type</th> 

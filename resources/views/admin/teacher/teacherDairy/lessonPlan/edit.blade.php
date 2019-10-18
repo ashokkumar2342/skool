@@ -9,7 +9,7 @@
         <form action="{{ route('admin.teacher.lesson.plan.update',$lessonPlans->id) }}" method="post" class="add_form" button-click="btn_close,btn_appoinment">
       {{ csrf_field() }}
       <div class="row">
-        <div class="col-lg-4">
+        <div class="form-group   col-lg-4">
           <label>Class</label>
           <select name="class_id" class="form-control">
             <option selected disabled>Select Class</option>
@@ -18,7 +18,7 @@
             @endforeach
           </select>
         </div> 
-        <div class="col-lg-4">
+        <div class="form-group   col-lg-4">
           <label>Subject</label>
           <select name="subject_id" class="form-control">
             <option selected disabled>Select Subject</option>
@@ -28,11 +28,11 @@
             @endforeach
           </select> 
         </div> 
-        <div class="col-lg-4">
+        <div class="form-group   col-lg-4">
           <label>Lecture No</label>
           <input type="test" name="lecture_no" class="form-control" value="{{ $lessonPlans->lecture_no }}"> 
         </div> 
-        <div class="col-lg-12">
+        <div class="form-group   col-lg-12">
           <label>Topic Covered</label>
           <textarea class="form-control" name="topic_covered">{{ $lessonPlans->topic_covered }}</textarea>
         </div>

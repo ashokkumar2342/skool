@@ -29,7 +29,7 @@ b{
               <li><a data-toggle="tab" href="#address" data-table="address_info_table" id="address_info" onclick="callAjax(this,'{{ route('admin.parents.address',$student->id) }}','address_list')"><i class="fa fa-home"></i> Address</a></li>
 
               <li><a data-toggle="tab" data-table="medical_info_table" href="#medical" id="medical_info_tab" onclick="callAjax(this,'{{ route('admin.medical.info.list',$student->id) }}','medical_info_page')"><i class="fa fa-user-md" id="medical_info"></i> Medical info</a></li>
-              <li><a data-toggle="tab" href="#subjects"><i class="fa fa-book" id="subject_tab"></i>  Subjects</a></li>
+              <li><a data-toggle="tab" href="#subjects" id="subject_tab" onclick="callAjax(this,'{{ route('admin.studentSubject.list',$student->id) }}','subject_list')"><i class="fa fa-book" {{-- id="subject_tab" --}}></i>  Subjects</a></li>
               <li><a data-toggle="tab" href="#sport"><i class="fa fa-life-ring" id="sport_tab"></i> Sport hobby</a></li>
               <li><a data-toggle="tab" href="#document"><i class="fa fa-file" id="document_tab"></i> Document</a></li>
             </ul>
@@ -170,27 +170,9 @@ b{
                 </div>
 
                 <div id="subjects" class="tab-pane fade">
-                  <button type="button" class="btn btn-info btn-sm add_subject" style="margin: 10px" data-toggle="modal" data-target="#add_subject">Add Subject</button>
-                  <table class="table" id="subject_items">                         
-                       <thead>
-                           <tr>
-                               <th>Subject Name</th>
-                               <th>ISOptional</th>
-                               <th>Action</th>
-                           </tr>
-                       </thead>
-                       <tbody>
-                           @foreach (App\Model\StudentSubject::where('student_id',$student->id)->get() as $studentSubject) 
-                          <tr>
-                              <td>{{ $studentSubject->SubjectTypes->name or ''}}</td>
-                              <td>{{ $studentSubject->ISOptionals->name or ''}}</td>                             
-                              <td>
-                                {{-- <button class="btn_student_subject_edit btn btn-warning btn-xs"  data-id="{{ $studentSubject->id }}"  ><i class="fa fa-edit"></i></button>   --}}
-                                 <button class="btn_student_subject_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $studentSubject->id }}"  ><i class="fa fa-trash"></i></button>
-                          </tr>
-                         @endforeach
-                       </tbody>
-                   </table>
+                  <button type="button" class="btn btn-info btn-sm add_subject" style="margin: 10px" onclick="callPopupLarge(this,'{{ route('admin.studentSubject.add',$student->id) }}')" >Add Subject</button>
+                  <div class="table-responsive" id="subject_list">
+                    </div> 
                    <div class="text-center">
                       <button type="button" onclick="$('#sport_tab').click()" class="btn btn-success btn-sm">Next</button> 
                    </div>
@@ -265,8 +247,8 @@ b{
 @include('admin.student.studentdetails.include.add_parents_image')
 {{-- @include('admin.student.studentdetails.include.add_medical_info') --}}
 {{-- @include('admin.student.studentdetails.include.add_sibling_info') --}}
-@include('admin.student.studentdetails.include.add_subject')
-@include('admin.student.studentdetails.include.add_sport_hobby')
+{{-- @include('admin.student.studentdetails.include.add_subject')
+ --}}@include('admin.student.studentdetails.include.add_sport_hobby')
 @include('admin.student.studentdetails.include.add_document')
 @endsection
 @push('links')

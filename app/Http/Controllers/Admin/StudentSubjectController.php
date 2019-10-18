@@ -4,6 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\StudentSubject;
+use App\Model\SubjectType;
+use App\Model\Isoptional;
 use Illuminate\Http\Request; 
 use Validator;
 
@@ -14,9 +16,10 @@ class StudentSubjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(Request $request,$student_id)
+    {  
+       $studentSubjects=StudentSubject::where('student_id',$student_id)->get();
+       return view('admin.student.studentdetails.include.subject_list',compact('studentSubjects'));
     }
 
     /**
@@ -24,9 +27,12 @@ class StudentSubjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addForm(Request $request,$student_id)
     {
-        //
+        $student=$student_id;
+         $subjectTypes=SubjectType::all();
+         $isoptionals=Isoptional::all();
+         return view('admin.student.studentdetails.include.add_subject',compact('subjectTypes','student','isoptionals'));
     }
 
     /**
@@ -37,10 +43,10 @@ class StudentSubjectController extends Controller
      */
     public function store(Request $request)
     {
-        
+        // return $request;
         $rules=[
-             'subject_type_id' => 'required',
-            'student_id' => 'required',
+             'subject' => 'required',
+            'isoptional' => 'required',
         ];
          $validator = Validator::make($request->all(),$rules);
          if ($validator->fails()) {
@@ -52,10 +58,10 @@ class StudentSubjectController extends Controller
          } 
          
 
-            $studentSubject = StudentSubject::firstOrNew(['subject_type_id' => $request->subject_type_id, 'student_id' => $request->student_id]);
-             $studentSubject->subject_type_id = $request->subject_type_id;
+            $studentSubject = StudentSubject::firstOrNew(['subject_type_id' => $request->subject, 'student_id' => $request->student_id]);
+             $studentSubject->subject_type_id = $request->subject;
              $studentSubject->student_id = $request->student_id;
-             $studentSubject->isoptional_id = $request->isoptional_id;
+             $studentSubject->isoptional_id = $request->isoptional;
              $studentSubject->session_id = $request->session_id;
             
              $studentSubject->save();
@@ -108,12 +114,14 @@ class StudentSubjectController extends Controller
      * @param  \App\Model\StudentSubject  $studentSubject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, StudentSubject $studentSubject)
+    public function destroy(Request $request,$id)
     {
         
-        $studentSubject = StudentSubject::find($request->id);
+        $studentSubject = StudentSubject::find($id);
         $studentSubject->delete();
+        $response=['status'=>1,'msg'=>'Delete Succeefully'];
+            return response()->json($response);
 
-    return response()->json([$studentSubject, 'message'=>'Delete Succeefully','class'=>'success']);
+     
     }
 }

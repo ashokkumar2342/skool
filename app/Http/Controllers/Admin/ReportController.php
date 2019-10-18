@@ -122,11 +122,14 @@ class ReportController extends Controller
                    return  $this->responseResult($results,$request->student_phone,$request->student_email,$request->student_dob,$request->student_gen,$request->student_rel,$request->student_add);
              
         } elseif ($request->report_for == 7 &&  $request->school_class == 1){ 
-            $results = Student::get();
+            $st =new Student();
+            $results =$st->getStudentsAllDetilas(); 
            return  $this->responseResult($results,$request->student_phone,$request->student_email,$request->student_dob,$request->student_gen,$request->student_rel,$request->student_add);
              
-        } elseif ($request->report_for == 7 &&  $request->school_class == 2){ 
-            $results = Student::where(['class_id'=>$request->class,'section_id'=>$request->section])->get();
+        } elseif ($request->report_for == 7 &&  $request->school_class == 2){
+        $st =new Student();
+            $results =$st->getStudentByClassOrSection($request->class,$request->section);
+            // $results = Student::where(['class_id'=>$request->class,'section_id'=>$request->section])->get();
                     return  $this->responseResult($results,$request->student_phone,$request->student_email,$request->student_dob,$request->student_gen,$request->student_rel,$request->student_add);
              
         }
@@ -383,7 +386,9 @@ class ReportController extends Controller
    {   
 
        if ($request->report_wise==1) {
-         $students=Student::where('student_status_id',1)->orderBy('class_id','ASC')->get();
+        $st=new Student();
+        $students=$st->getStudentsAllDetilas();
+         // $students=Student::where('student_status_id',1)->orderBy('class_id','ASC')->get();
 
        }if ($request->report_wise==2) {
          $students=Student::where('id',$request->registration_no)->where('student_status_id',1)->orderBy('class_id','ASC')->get();

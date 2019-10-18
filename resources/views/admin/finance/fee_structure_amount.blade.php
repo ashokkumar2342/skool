@@ -10,21 +10,21 @@
             <div class="box-body">             
                 <div class="col-md-12"> 
 	                <form class="form-vertical" id="form_fee_structure_amount">
-                         <div class="col-lg-2">                           
+                         <div class="col-lg-3">                           
                              <div class="form-group">
                               {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
                                {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
-                         <div class="col-lg-2">                           
+                         <div class="col-lg-3">                           
                              <div class="form-group">
                               {{ Form::label('fee_structure_id','Fee Structure',['class'=>' control-label']) }}
                                {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div> 
-	                     <div class="col-lg-2">                                             
+	                     <div class="col-lg-3">                                             
 	                       <div class="form-group">
                            {{ Form::label('amount','Amount',['class'=>'form-label']) }}                          
 	                         {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>4, 'placeholder'=>'Enter Amount','maxlength'=>'6','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
@@ -32,7 +32,7 @@
 	                       </div>                                         
 	                    </div>
                                               
-	                     <div class="col-lg-2" style="padding-top: 20px;">                                             
+	                     <div class="col-lg-3" style="padding-top: 20px;">                                             
 	                     <button class="btn btn-success" type="button" id="btn_fee_structure_amount_create">Create</button> 
 	                    </div>                     
 	                </form> 
@@ -48,7 +48,7 @@
                     <table id="fee_structure_amount_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>
+                                <th>SR.No.</th>
                                 <th>Academic Year</th>
                                 <th>Fee Structure</th>
                                 <th>Amount</th>

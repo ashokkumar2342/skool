@@ -18,15 +18,15 @@
             @endforeach
           </select> 
         </div> --}}
-        <div class="col-lg-4">
+        <div class="form-group   col-lg-4">
           <label>From Date Time</label>
           <input type="date" name="from_date" class="form-control" value="{{ $appointments->from_date }}"> 
         </div>
-        <div class="col-lg-4">
+        <div class="form-group   col-lg-4">
           <label>To Date Time</label>
           <input type="date" name="to_date" class="form-control" value="{{ $appointments->to_date }}"> 
         </div>
-        <div class="col-lg-4">
+        <div class="form-group   col-lg-4">
           <label>Subject</label>
           <select name="subject_id" class="form-control">
             <option selected disabled>Select Subject</option>
@@ -36,7 +36,7 @@
             @endforeach
           </select> 
         </div>
-        <div class="col-lg-12">
+        <div class="form-group   col-lg-12">
           <label>Venue</label>
           <textarea class="form-control" name="venue">{{$appointments->venue }}  </textarea>
         </div>

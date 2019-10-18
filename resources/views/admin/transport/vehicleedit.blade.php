@@ -23,54 +23,62 @@
                      <div class="col-lg-3">                                             
                          <div class="form-group">
                           <label>Registration Number</label>
-                           {{ Form::text('registration_no',$vehicle->registration_no,['class'=>'form-control','id'=>'registration_no', 'placeholder'=>'  Registration No']) }}
+                          <span class="fa fa-asterisk"></span>
+                           {{ Form::text('registration_no',$vehicle->registration_no,['class'=>'form-control','id'=>'registration_no','maxlength'=>'50', 'placeholder'=>'  Registration No']) }}
                           
                          </div>                                         
                       </div>
                        <div class="col-lg-3">                                             
                          <div class="form-group">
                            <label>Chassis Number </label>
-                           {{ Form::text('chassis_no',$vehicle->chassis_no,['class'=>'form-control','id'=>'chassis_no','rows'=>4, 'placeholder'=>'  Chassis No']) }}
+                           <span class="fa fa-asterisk"></span>
+                           {{ Form::text('chassis_no',$vehicle->chassis_no,['class'=>'form-control','id'=>'chassis_no','rows'=>4,'maxlength'=>'50', 'placeholder'=>'  Chassis No']) }}
               
                          </div>                                         
                       </div> 
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                            <label>Model  Number</label>
-                           {{ Form::text('model_no',$vehicle->model_no,['class'=>'form-control','id'=>'model_no','rows'=>4, 'placeholder'=>' Model No']) }}
+                           <span class="fa fa-asterisk"></span>
+                           {{ Form::text('model_no',$vehicle->model_no,['class'=>'form-control','id'=>'model_no','rows'=>4,'maxlength'=>'50', 'placeholder'=>' Model No']) }}
                   
                          </div>                                         
                       </div> 
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                            <label>Engine Number</label>
-                           {{ Form::text('engine_no',$vehicle->engine_no,['class'=>'form-control','id'=>'engine_no','rows'=>4, 'placeholder'=>' Engine No']) }}
+                           <span class="fa fa-asterisk"></span>
+                           {{ Form::text('engine_no',$vehicle->engine_no,['class'=>'form-control','id'=>'engine_no','rows'=>4,'maxlength'=>'50', 'placeholder'=>' Engine No']) }}
                          
                          </div>                                         
                       </div> 
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                            <label>Siting Capacity</label>
-                           {{ Form::text('siting_capacity',$vehicle->siting_capacity,['class'=>'form-control','id'=>'siting_capacity','rows'=>4, 'placeholder'=>'Siting Capacity']) }}
+                           <span class="fa fa-asterisk"></span>
+                           {{ Form::text('siting_capacity',$vehicle->siting_capacity,['class'=>'form-control','id'=>'siting_capacity','rows'=>4,'maxlength'=>'50', 'placeholder'=>'Siting Capacity']) }}
                           
                          </div>                                         
                       </div>
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                            <label>Average</label>
-                           {{ Form::text('average',$vehicle->average,['class'=>'form-control','id'=>'average','rows'=>4, 'placeholder'=>' Average']) }}
+                           <span class="fa fa-asterisk"></span>
+                           {{ Form::text('average',$vehicle->average,['class'=>'form-control','id'=>'average','rows'=>4, 'placeholder'=>' Average','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','required']) }}
                             
                          </div>                                         
                       </div>
                         <div class="col-lg-3">                                             
                          <div class="form-group">
                            <label>Select Transport</label>
+                           <span class="fa fa-asterisk"></span>
                           {!! Form::select('transport_id',$transports, $vehicle->transport_id, ['class'=>'form-control','placeholder'=>'Select Transport','required']) !!}
                          </div>                                         
                       </div>
                        <div class="col-lg-3">                                             
                          <div class="form-group">
                            <label>Select Vehicle Type</label>
+                           <span class="fa fa-asterisk"></span>
                             {!! Form::select('vehicle_type_id',$vehicleTypes, $vehicle->vehicle_type_id, ['class'=>'form-control','placeholder'=>'Select Vehicle Type','required']) !!}
                          </div>                                         
                       </div>

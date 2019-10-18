@@ -31,7 +31,7 @@
                                                <select name="registration_no" class="form-control select2">
                                                  <option selected disabled>Select Registration</option>
                                                  @foreach ($students as $student)
-                                                   <option value="{{ $student->id }}"{{ $certificate->id==$student->id? 'selected' : ''}}>{{ $student->registration_no }}</option>
+                                                   <option value="{{ $student->id }}"{{ $certificate->student_id==$student->id? 'selected' : ''}}>{{ $student->registration_no }}</option>
                                                  @endforeach
                                                </select>
                                             </div>  

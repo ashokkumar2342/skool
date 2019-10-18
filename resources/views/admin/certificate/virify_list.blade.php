@@ -5,7 +5,7 @@
                 <table id="dataTable" class="table table-striped table-bordered table-responsive">
                   <thead>
                   <tr>               
-                    <th>Sn. No</th>
+                    <th>Sr.No</th>
                     <th class="text-nowrap"> Academic Year</th>
                     <th class="text-nowrap">Registration No</th>
                     <th class="text-nowrap">Certificate type</th> 
@@ -42,8 +42,26 @@
                          <td>Date of Birth Certificate</td>             
                     @endif         
                     <td>{{ $certificate->students->name or ''}}</td>               
-                    <td>{{ $certificate->students->father_name or ''}}</td>               
-                    <td>{{ $certificate->students->father_mobile or ''}}</td>               
+                    <td>
+                      @foreach ($students as $student)
+                       @if ($student->relation_id==1 or $student->relation_id==null)
+                    @if ($student->id==$certificate->student_id)
+                    {{ $student->f_name or ''}}               
+                    @endif                
+                    @endif   
+                         
+                      @endforeach
+                    </td>  
+                     <td>
+                      @foreach ($students as $student)
+                       @if ($student->relation_id==1 or $student->relation_id==null)
+                    @if ($student->id==$certificate->student_id)
+                    {{ $student->f_mobile or ''}}               
+                    @endif                
+                    @endif   
+                         
+                      @endforeach
+                    </td>                   
                     <td>{{ $certificate->reason }}</td>
                     <td>{{ $certificate->slc_no }}</td>
                     <td>{{ $certificate->udise_code }}</td>
@@ -63,14 +81,14 @@
                    {{--  <td><button class="btn_add_remarks btn btn-success btn-xs" data-id="{{ $certificate->id }}">Remarks</button></td> --}}
 
                    
-                @php
+               {{--  @php
                   $signatureStamp=App\Model\SignatureStamp::where('user_id',$admin)->where('certificate_type_id',$certificate->certificate_type)->get();
-                @endphp
-                @foreach ($signatureStamp as $signatureStam) 
-                   @if ($certificate->certificate_type==$signatureStam->certificate_type_id) 
+                @endphp --}}
+                {{-- @foreach ($signatureStamp as $signatureStam) 
+                   @if ($certificate->certificate_type==$signatureStam->certificate_type_id)  --}}
                     <td> <button class="btn btn-primary btn-xs" select2="true" title="virify" onclick="callPopupLarge(this,'{{ route('admin.student.certificateIssu.edit',$certificate->id) }}')">Virify</button></td>
-                   @endif
-                @endforeach
+                  {{--  @endif
+                @endforeach --}}
                      
 
                    

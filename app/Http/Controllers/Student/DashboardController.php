@@ -118,8 +118,11 @@ class DashboardController extends Controller
 
     public function profile(){
 
-        $student = Auth::guard('student')->user();
-        return view('student.profile.view',compact('student'));
+        $students = Auth::guard('student')->user();
+        $st=new Student();
+        $student=$st->getStudentDetilas($students->id);
+        $studentM=$st->getStudentMotherDetail($students->id);
+        return view('student.profile.view',compact('student','studentM'));
     }
     public function homeworkList(){
         $student = Auth::guard('student')->user();

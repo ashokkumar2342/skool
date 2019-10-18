@@ -14,6 +14,7 @@ use App\Model\Library\MemberTicketDetails;
 use App\Model\Library\TicketDetails;
 use App\Model\StudentAddressDetail;
 use App\Model\StudentPerentDetail;
+use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
@@ -116,13 +117,9 @@ class BookIssueDetailsController extends Controller
     {
 
         $memberShipRegistrationDetails=MemberShipDetails::find($request->id);
-         $parent =new StudentPerentDetail();           
-          $fatherDetail =$parent->getParent($memberShipRegistrationDetails->member_ship_no,1);
-          $motherDetail =$parent->getParent($memberShipRegistrationDetails->member_ship_no,2);
-
-          $StudentAddressDetail =new StudentAddressDetail(); 
-          $address =$StudentAddressDetail->getAddress($memberShipRegistrationDetails->member_ship_no);     
-       return view('admin.library.bookIssueDetails.book_issue_registration_by_show',compact('memberShipRegistrationDetails','fatherDetail','motherDetail','address'));
+          $st=new Student();
+          $student=$st->getStudentDetilas($memberShipRegistrationDetails->member_ship_no);     
+       return view('admin.library.bookIssueDetails.book_issue_registration_by_show',compact('memberShipRegistrationDetails','student'));
     }
     public function accessionOnchange(Request $request)
     {
@@ -141,7 +138,13 @@ class BookIssueDetailsController extends Controller
     }
     public function bookSearch(Request $request)
     {
-       $bookAccession=BookAccession::where('accession_no',$request->accession_no)->first(); 
+       $bookAccession=BookAccession::where('accession_no',$request->accession_no)->first();
+       if (empty($bookAccession)) {
+           $response = array();
+      $response['status'] =0; 
+      $response['msg'] ='Invalied Accession No'; 
+            return $response; 
+        } 
      $bookIssueDetail=BookIssueDetails::where('accession_no',$bookAccession->id)->where('status',2)->first();
       if (!empty($bookIssueDetail)) {
         $response = array();
@@ -150,7 +153,7 @@ class BookIssueDetailsController extends Controller
               return response()->json($response); 
       }
       $response = array();
-      $response['status'] = 1; 
+      $response['status'] =0; 
       $response['msg'] ='Book Not Issue'; 
             return $response; 
       

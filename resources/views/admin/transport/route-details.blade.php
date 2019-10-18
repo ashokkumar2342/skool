@@ -27,7 +27,7 @@
                          <table class="table table-bordered">
                             <thead>                  
                             <tr>
-                                <th style="width: 10px">id</th>
+                                <th style="width: 10px">Sr.no.</th>
                                 <th> <input  class="checked_all" type="checkbox"></th>
                                <td><b>Boarding Point Name</b></td>                         
                                <td><b>Morning</b></td>                         

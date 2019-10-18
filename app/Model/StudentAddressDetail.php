@@ -11,7 +11,9 @@ class StudentAddressDetail extends Model
         'student_id',
            ];
             
-
+ public function religions(){
+        return $this->hasOne('App\Model\Religion','id','religion');
+    }
     public function getAddress($student_id){
         try {         
             $address =$this->where('student_id',$student_id)->first();

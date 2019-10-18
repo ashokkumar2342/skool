@@ -37,7 +37,7 @@ class MasterController extends Controller
         $admin=Auth::guard('admin')->user()->id;
         $rules=[
         'range' => 'required|max:30|unique:income_ranges',
-            'code' => 'required|string|min:2|max:5|unique:income_ranges',
+            'code' => 'required|string|max:5|unique:income_ranges',
         ];
       $validator = Validator::make($request->all(),$rules);
       if ($validator->fails()) {
@@ -68,10 +68,13 @@ class MasterController extends Controller
     }
 
     public function incomeSlabUpdate(Request $request,$id)
-    {   $admin=Auth::guard('admin')->user()->id;
+    {    
+      $id =Crypt::decrypt($id);
+      $admin=Auth::guard('admin')->user()->id;
+
         $rules=[
-        'range' => 'required|max:30',
-            'code' => 'required|string|min:2|max:5',
+        'range' => 'required|max:30|unique:income_ranges,range,'.$id,
+            'code' => 'required|string|max:5|unique:income_ranges,code,'.$id,
         ];
       $validator = Validator::make($request->all(),$rules);
       if ($validator->fails()) {
@@ -81,7 +84,7 @@ class MasterController extends Controller
           $response["msg"]=$errors[0];
           return response()->json($response);// response as json
       } 
-        $id =Crypt::decrypt($id);
+        
         $incomeRange = IncomeRange::find($id);;
         $incomeRange->range = $request->range;
         $incomeRange->code = $request->code;
@@ -125,7 +128,7 @@ class MasterController extends Controller
         {  $admin=Auth::guard('admin')->user()->id;
             $rules=[
             'name' => 'required|max:30|unique:professions',
-            'code' => 'required|min:2|max:5|unique:professions',
+            'code' => 'required|max:5|unique:professions',
         ];
           $validator = Validator::make($request->all(),$rules);
           if ($validator->fails()) {
@@ -155,11 +158,11 @@ class MasterController extends Controller
         }
 
         public function professionUpdate(Request $request,$id)
-        {  
+        {  $id =Crypt::decrypt($id);
             $admin=Auth::guard('admin')->user()->id;
             $rules=[
-            'name' => 'required|max:30',
-            'code' => 'required|max:5',
+            'name' => 'required|max:30|unique:professions,name,'.$id,
+            'code' => 'required|min:2|max:5|unique:professions,code,'.$id,
         ];
           $validator = Validator::make($request->all(),$rules);
           if ($validator->fails()) {
@@ -169,7 +172,7 @@ class MasterController extends Controller
               $response["msg"]=$errors[0];
               return response()->json($response);// response as json
           }  
-            $id =Crypt::decrypt($id);
+            
             $profession = Profession::find($id);;
             $profession->name = $request->name;
             $profession->code = $request->code;

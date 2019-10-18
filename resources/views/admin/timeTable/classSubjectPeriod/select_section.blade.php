@@ -1,4 +1,4 @@
-<div class="col-lg-4" > 
+<div class="form-group col-lg-4" > 
 	<label> Section</label></br>
 	<select name="section[]" class="form-control multiselect" multiple="multiple">
 	{{-- <option selected disabled>Select Section</option>  --}}
@@ -9,7 +9,7 @@
 	</select>
 </div>
 
- <div class="col-lg-4">
+ <div class="form-group col-lg-4">
     <label>Subject</label></br>
     <select name="subject[]" class="form-control multiselect" multiple="multiple">
    {{--  <option selected disabled>Select Subject</option> --}}

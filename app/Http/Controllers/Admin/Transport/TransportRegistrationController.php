@@ -51,7 +51,7 @@ class TransportRegistrationController extends Controller
     	'student_id' => 'required|max:30', 
             'morning_route_id' => 'required', 
             'evening_route_id' => 'required', 
-            'morning_boarding_point_id' => 'required|string', 
+            'morning_boarding_point_id' => 'required', 
             'evening_boarding_point_id' => 'required', 
     	];
 

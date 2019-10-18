@@ -9,7 +9,7 @@ class Address extends Model
    protected $fillable = [
           'student_id',
     ];
-     public function religions(){
+     public function religion(){
         return $this->hasOne('App\Model\Religion','id','religion');
     }
     public function categories(){

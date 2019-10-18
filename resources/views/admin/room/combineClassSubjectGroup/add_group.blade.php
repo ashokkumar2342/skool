@@ -14,7 +14,7 @@
   @endforeach 
 </select>
 
- <div class="col-lg-3">
+ <div class="form-group col-lg-3">
  	<label>Room No</label>
  	<select name="room_no" class="form-control">
  		<option  selected disabled>Select Room No</option>

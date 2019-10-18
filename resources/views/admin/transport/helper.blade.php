@@ -11,56 +11,69 @@
                 <div class="col-md-12"> 
 	                <form class="add_form" content-refresh="helpers_table" action="{{ route('admin.helper.post') }}" method="post">              
                   {{ csrf_field() }}                                       
-	                   <div class="col-lg-3">                                             
+	                   <div class="col-lg-4">                                             
 	                       <div class="form-group">
                           <label>Name</label>
-	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name', 'placeholder'=>'Name']) }} 
+                          <span class="fa fa-asterisk"></span>
+	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name', 'placeholder'=>'Enter Name','maxlength'=>'50']) }} 
 	                       </div>                                         
 	                    </div>
 	                     
-                      <div class="col-lg-3">                                             
+                      <div class="col-lg-4">                                             
                          <div class="form-group">
                           <label>Mobile Number</label>
-                           {{ Form::text('mobile','',['class'=>'form-control','id'=>'mobile','rows'=>4, 'placeholder'=>' Mobile','maxlength'=>'10','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }} 
+                          <span class="fa fa-asterisk"></span>
+                           {{ Form::text('mobile','',['class'=>'form-control','id'=>'mobile','rows'=>4, 'placeholder'=>'Enter  Mobile Number','maxlength'=>'10','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }} 
                          </div>                                         
                       </div>
-                      <div class="col-lg-3">                                             
+                      <div class="col-lg-4">                                             
                          <div class="form-group">
                           <label>Contact Number</label>
-                           {{ Form::text('contact_no','',['class'=>'form-control','id'=>'contact_no','rows'=>4, 'placeholder'=>' Contact No','maxlength'=>'10','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }} 
+                          <span class="fa fa-asterisk"></span>
+                           {{ Form::text('contact_no','',['class'=>'form-control','id'=>'contact_no','rows'=>4, 'placeholder'=>'Enter  Contact Number','maxlength'=>'10','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }} 
                          </div>                                         
                       </div>
                        
-                      <div class="col-lg-3">                                             
+                      <div class="col-lg-4">                                             
                          <div class="form-group">
                           <label>License Number</label>
-                           {{ Form::text('license_number','',['class'=>'form-control','id'=>'licensenumber','rows'=>4, 'placeholder'=>' License Number','maxlength'=>'20']) }} 
+                          <span class="fa fa-asterisk"></span>
+                           {{ Form::text('license_number','',['class'=>'form-control','id'=>'licensenumber','rows'=>4, 'placeholder'=>'Enter  License Number','maxlength'=>'20']) }} 
                          </div>                                         
                       </div> 
-                      <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          <label>Permanent Address</label>
-                           {{ Form::text('address','',['class'=>'form-control','id'=>'address','rows'=>4, 'placeholder'=>'Permanent Address','maxlength'=>'200']) }} 
-                         </div>                                         
-                      </div>
-                      <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          <label>Correspondence Address</label>
-                           {{ Form::text('p_address','',['class'=>'form-control','id'=>'p_address','rows'=>4, 'placeholder'=>' Correspondence Address','maxlength'=>'200']) }} 
-                         </div>                                         
-                      </div><div class="col-lg-3">                                             
+                      <div class="col-lg-4">                                             
                          <div class="form-group">
                           <label>Date of Birth</label>
-                           {{ Form::date('dob','',['class'=>'form-control','id'=>'dob','rows'=>4, 'placeholder'=>' Date of Birth','required']) }} 
+                          <span class="fa fa-asterisk"></span>
+                           {{ Form::date('dob','',['class'=>'form-control','id'=>'dob','rows'=>4, 'placeholder'=>'Enter  Date of Birth','required']) }} 
                          </div>                                         
                       </div>
-                       <div class="col-lg-3">                                             
+                       <div class="col-lg-4">                                             
                          <div class="form-group">
                           <label>Select Vehicle</label>
-                              {!! Form::select('vehicle_id',$vehicles, null, ['class'=>'form-control','placeholder'=>'Select Vehicle','required']) !!}
+                          <span class="fa fa-asterisk"></span>
+                              {!! Form::select('vehicle_id',$vehicles, null, ['class'=>'form-control','placeholder'=>'  Select Vehicle','required']) !!}
                          </div>                                         
                       </div>
-                       
+                      <div class="col-lg-5">                                             
+                         <div class="form-group">
+                          <label>Permanent Address</label>
+                          <span class="fa fa-asterisk"></span>
+                           {{ Form::text('address','',['class'=>'form-control','id'=>'address','rows'=>4, 'placeholder'=>'Enter Permanent Address','maxlength'=>'200']) }} 
+                         </div>                                         
+                      </div>
+                      <div class="form-group col-lg-1">
+                         <input type="checkbox" id="addressCheck" name="addressCheck" style="margin-top: 30px">
+                         <label>Same As</label> 
+                       </div>
+                      <div class="col-lg-6">                                             
+                         <div class="form-group">
+                          <label>Correspondence Address</label>
+                          <span class="fa fa-asterisk"></span>
+                           {{ Form::text('p_address','',['class'=>'form-control','id'=>'p_address','rows'=>4, 'placeholder'=>'Enter  Correspondence Address','maxlength'=>'200']) }} 
+                         </div>                                         
+                      </div>
+
 	                     <div class="col-lg-12 text-center">                                             
 	                     <button class="btn btn-success" type="submit" id="btn_fee_account_create">Create</button> 
 	                    </div>                     
@@ -74,18 +87,21 @@
             <div class="box">             
               <!-- /.box-header -->
                 <div class="box-body">
+                  <div class="row">
+                   
+                    <div class="col-lg-12 table-responsive">
                     <table id="helpers_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>                               
+                                <th>Sr.no.</th>                               
                                 <th>Name</th> 
                                 <th>mobile</th> 
-                                <th>contact_no</th> 
-                                <th>license_number</th> 
-                                <th>address</th> 
-                                <th>Corresponding Address</th> 
-                                <th>Date OF Birth</th> 
-                                <th>Vehicle</th> 
+                                <th class="text-nowrap">contact no</th> 
+                                <th class="text-nowrap">license number</th> 
+                                <th class="text-nowrap">Date OF Birth</th> 
+                                <th class="text-nowrap">Vehicle</th> 
+                                <th class="text-nowrap">Permanent Address</th> 
+                                <th class="text-nowrap">Correspondence Address</th> 
                                 <th>Action</th>                                                            
                             </tr>
                         </thead>
@@ -97,8 +113,6 @@
                             <td>{{ $helper->mobile }}</td>
                             <td>{{ $helper->contact_no }}</td>
                             <td>{{ $helper->license_number }}</td>
-                            <td>{{ $helper->address }}</td>
-                            <td>{{ $helper->p_address }}</td>
                             <td>
                               @if ($helper->dob!=null)
                                  {{ date('d-m-Y',strtotime($helper->dob))  }} 
@@ -106,6 +120,8 @@
                              
                             </td>
                             <td>{{ $helper->vehicles->registration_no or '' }}</td>
+                            <td>{{ $helper->address }}</td>
+                            <td>{{ $helper->p_address }}</td>
                         		 
                         		<td>
                              @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
@@ -124,6 +140,8 @@
 
                     </table>
                 </div>
+            </div>
+            </div>
             </div>    
 
            
@@ -141,6 +159,23 @@
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script>
        $('#helpers_table').DataTable();
+     
+
+       function setAddress(){
+       if ($("#addressCheck").is(":checked")) {
+         $('#p_address').val($('#address').val());
+         $('#c_pincode').val($('#p_pincode').val());
+         $('#p_address').attr('readonly', '');
+         $('#c_pincode').attr('readonly', '');
+       } else {
+         $('#p_address').removeAttr('disabled');
+         $('#c_pincode').removeAttr('disabled');
+       }
+     }
+
+     $('#addressCheck').click(function(){
+       setAddress();
+     })
     </script>
     
 @endpush

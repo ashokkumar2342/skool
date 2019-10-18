@@ -56,7 +56,7 @@
 			   <span style="color:#fff;font-size: 12px;"><b>CBSC Affilation Code 2001</b></span> 
 		</div> 
 		<div style="height:30px;margin-left:30px;margin-right: 30px">
-				<div  style="font-size: 22px;text-align:center">{{ $student->academicYear->name }}</div> 
+				<div  style="font-size: 22px;text-align:center">{{ $student->academicYear->name or ''}}</div> 
 			  <div align="center">
 			  	@php
 			  		$path =storage_path('app/student/profile/'.$student->picture);

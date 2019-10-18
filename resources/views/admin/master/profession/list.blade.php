@@ -19,7 +19,7 @@
                         {{ csrf_field() }} 
                         <label>Profession</label>
                      <input type="text" name="name" maxlength="50" class="form-control" placeholder="Enter Profession" required="">
-                     <label>Code</label>
+                     <label style="margin-top: 10px">Code</label>
                      <input type="text" name="code" maxlength="5" class="form-control" placeholder="Enter Code" required="">
                      <div class="text-right" style="padding-top: 5px">
                        <input type="submit" value="save" class="btn btn-success btn-sm">

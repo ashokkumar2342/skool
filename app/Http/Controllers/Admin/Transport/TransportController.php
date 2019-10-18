@@ -40,11 +40,18 @@ class TransportController extends Controller
     public function store(Request $request)
     {
     	$rules=[
-    	'name' => 'required|max:30', 
+    	    'name' => 'required|max:30', 
             'mobile' => 'required|digits:10', 
-            'contact_no' => 'required|digits:10', 
+            'contact_no' => 'required|digits:10',
+            'email' => 'required|max:50|unique:transports',
+            'gst_no' => 'required|max:50',
+            'ifsc_code' => 'required|max:50',
+            'account_no' => 'required|max:50|unique:transports',
+            'branch_code' => 'required|max:50',
+            'branch_name' => 'required|max:50',
+            'account_holder_name' => 'required|max:50',
+            'pincode' => 'required|digits:6',  
             'address' => 'required|string', 
-            'pincode' => 'required|digits:6', 
     	];
 
     	$validator = Validator::make($request->all(),$rules);
@@ -113,9 +120,16 @@ class TransportController extends Controller
         $rules=[
         'name' => 'required|max:30', 
             'mobile' => 'required|digits:10', 
-            'contact_no' => 'required|digits:10', 
+            'contact_no' => 'required|digits:10',
+            'email' => 'required|max:50|unique:transports,email,'.$id,
+            'gst_no' => 'required|max:50',
+            'ifsc_code' => 'required|max:50',
+            'account_no' => 'required|max:50|unique:transports,account_no,'.$id,
+            'branch_code' => 'required|max:50',
+            'branch_name' => 'required|max:50',
+            'account_holder_name' => 'required|max:50',
+            'pincode' => 'required|digits:6',  
             'address' => 'required|string', 
-            'pincode' => 'required|digits:6', 
         ];
 
         $validator = Validator::make($request->all(),$rules);

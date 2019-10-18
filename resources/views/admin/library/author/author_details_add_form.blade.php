@@ -22,26 +22,30 @@
              <form action="{{ route('admin.library.author.details.store') }}" method="post" class="add_form" button-click="btn_outhor_table_show,btn_close">
                    {{ csrf_field() }}
                    <div class="row">
-                    <div class="col-lg-3">
+                    <div class="form-group col-lg-4">
                       <label>Author Name</label>
-                      <input type="text" name="name" class="form-control" placeholder="" maxlength="100"> 
+                      <span class="fa fa-asterisk"></span>
+                      <input type="text" name="name" class="form-control" placeholder="Enter Author Name" maxlength="100"> 
                     </div>
-                    <div class="col-lg-3">
+                    <div class="form-group col-lg-4">
                       <label>Mobile No</label>
-                      <input type="text" name="mobile_no" class="form-control" placeholder=""  maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
+                      <span class="fa fa-asterisk"></span>
+                      <input type="text" name="mobile_no" class="form-control" placeholder="Enter Mobile No"  maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
                     </div>
-                    <div class="col-lg-3">
+                    <div class="form-group col-lg-4">
                       <label>Email</label>
-                      <input type="email" name="email" class="form-control" placeholder=""> 
+                      <span class="fa fa-asterisk"></span>
+                      <input type="email" name="email" class="form-control" placeholder="Enter E-mail"> 
                     </div> 
-                    <div class="col-lg-3">
+                    <div class="form-group col-lg-12">
                       <label>Address</label>
-                      <textarea class="form-control" name="address" placeholder="" maxlength="250"></textarea>
+
+                      <textarea class="form-control" name="address" placeholder="Enter Address" maxlength="250"></textarea>
                         
                     </div> 
                    </div>
                    <div class="row">
-                    <div class="col-lg-12 text-center" style="padding-top: 10px">
+                    <div class="form-group col-lg-12 text-center" style="padding-top: 10px">
                       <input type="submit" class="btn btn-success">
                     </div>
                      

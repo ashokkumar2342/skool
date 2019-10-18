@@ -26,7 +26,90 @@ class StudentPerentDetail extends Model
         } catch (Exception $e) {
             
         }
-    } 
+    }
+    public function getStudentsAllDetilas()
+     {
+      try {
+           return $this 
+                
+                ->join('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
+                ->join('addresses','addresses.id','=','student_address_details.student_address_details_id')
+                ->join('students','students.id','=','student_perent_details.student_id')
+                
+                ->join('parents_infos','parents_infos.id','=','student_perent_details.perent_info_id')
+                ->join('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
+                ->select(
+                  'students.*',
+                  'parents_infos.name as f_name',
+                  'parents_infos.mobile as f_mobile',
+                  'student_perent_details.*',
+                  'addresses.*'
+                )
+                ->where('relation_id',1) 
+                ->get();
+                 
+              
+
+         } catch (Exception $e) {
+            
+        }
+     }
+     public function getStudentDetilas($student_id)
+     {
+      try {
+           return $this 
+                
+                ->join('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
+                ->join('addresses','addresses.id','=','student_address_details.student_address_details_id')
+                ->join('students','students.id','=','student_perent_details.student_id')
+                
+                ->join('parents_infos','parents_infos.id','=','student_perent_details.perent_info_id')
+                ->join('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
+                ->select(
+                  'students.*',
+                  'parents_infos.name as f_name',
+                  'parents_infos.mobile as f_mobile',
+                  'student_perent_details.*',
+                  'addresses.*'
+                )
+                ->where('relation_id',1) 
+                ->where('student_perent_details.student_id',$student_id) 
+                ->first();
+                 
+              
+
+         } catch (Exception $e) {
+            
+        }
+     } 
+     public function getClassByStudent($class_id,$section_id)
+     {
+      try {
+           return $this 
+                
+                ->join('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
+                ->join('addresses','addresses.id','=','student_address_details.student_address_details_id')
+                ->join('students','students.id','=','student_perent_details.student_id')
+                
+                ->join('parents_infos','parents_infos.id','=','student_perent_details.perent_info_id')
+                ->join('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
+                ->select(
+                  'students.*',
+                  'parents_infos.name as f_name',
+                  'parents_infos.mobile as f_mobile',
+                  'student_perent_details.*',
+                  'addresses.*'
+                )
+                ->where('relation_id',1) 
+                ->where('student_perent_details.student_id',$student_id) 
+                ->first();
+                 
+              
+
+         } catch (Exception $e) {
+            
+        }
+     } 
 
     Public function getParentArrId($student_id,$sibling_student_id){
       try {

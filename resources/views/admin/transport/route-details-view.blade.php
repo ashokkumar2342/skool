@@ -1,7 +1,7 @@
   <table id="route_table" class="display table">                     
     <thead>
         <tr>
-            <th>Sn</th >
+            <th>Sr.no</th >
      
             <th>Boarding Points</th>  
             <th>Morning Time</th> 
@@ -22,7 +22,7 @@
            <tr> 
         <td>
                          
-                  {{ $boardingPoint->id  }}
+                  <td>{{ ++$loop->index }}</td>
            
         </td>   
         <td>

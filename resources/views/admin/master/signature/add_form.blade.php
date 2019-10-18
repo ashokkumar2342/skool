@@ -20,7 +20,7 @@
              <form action="{{ route('admin.signature.stamp.store') }}" method="post" class="add_form" button-click="btn_event_type_table_show,btn_close">
                    {{ csrf_field() }}
                     <div class="row"> 
-                      <div class="col-lg-6">
+                      <div class="form-group col-lg-6">
                         <label>Certificate Type</label>
                         <select name="certificate_type_id" class="form-control">
                           <option  selected disabled>Select Certificate</option> 
@@ -29,7 +29,7 @@
                           <option value="4">Date of Birth Certificate</option> 
                         </select> 
                       </div>
-                      <div class="col-lg-6">
+                      <div class="form-group col-lg-6">
                         <label>User Name</label>
                         <select name="user_id" class="form-control">
                           <option selected disabled>Select User</option>
@@ -38,15 +38,15 @@
                            @endforeach 
                         </select> 
                       </div>
-                      <div class="col-lg-6">
+                      <div class="form-group col-lg-6">
                         <label>Signature</label>
                         <input type="file" name="signature" class="form-control"> 
                       </div>
-                      <div class="col-lg-6">
+                      <div class="form-group col-lg-6">
                         <label>Stamp</label>
                         <input type="file" name="stamp" class="form-control"> 
                       </div> 
-                     <div class="col-lg-4">
+                     <div class="form-group col-lg-4">
                         <label>Stamp Type</label>
                         <select name="stamp_type" class="form-control">
                           <option selected disabled>Select Option</option> 
@@ -54,11 +54,11 @@
                             <option value="2">Virify</option> 
                         </select> 
                       </div>
-                       <div class="col-lg-4">
+                       <div class="form-group col-lg-4">
                         <label>From Date</label>
                         <input type="date" name="from_date" class="form-control"> 
                       </div> 
-                      <div class="col-lg-4">
+                      <div class="form-group col-lg-4">
                         <label>To Date</label>
                         <input type="date" name="to_date" class="form-control"> 
                       </div> 

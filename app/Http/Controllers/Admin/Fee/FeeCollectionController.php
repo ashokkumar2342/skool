@@ -36,19 +36,20 @@ class FeeCollectionController extends Controller
 
     // show main form show search stuent form
     public function show(Request $request,Student $student){ 
-         $parent =new StudentPerentDetail();           
-          $fatherDetail =$parent->getParent($request->student_id,1);
-          $motherDetail =$parent->getParent($request->student_id,2);
+         // $parent =new StudentPerentDetail();           
+         //  $fatherDetail =$parent->getParent($request->student_id,1);
+         //  $motherDetail =$parent->getParent($request->student_id,2);
 
-          $StudentAddressDetail =new StudentAddressDetail(); 
-          $address =$StudentAddressDetail->getAddress($request->student_id);
-
+         //  $StudentAddressDetail =new StudentAddressDetail(); 
+         //  $address =$StudentAddressDetail->getAddress($request->student_id);
+       $st=new Student();
+        $students=$st->getStudentDetilas($request->student_id);
     	$student = Student::find($request->student_id); 
        $defultDate = StudentDefaultValue::find(1);
 
       $months=Month::orderBy('id','ASC')->get();
      $StudentFeeDetailMonthYears = StudentFeeDetail::where('student_id',$request->student_id)->where('paid',0)->orderBy('id','ASC')->distinct('last_date')->pluck('last_date')->toArray();
-    	$data = view('admin.finance.feecollection.fee_collection_detail',compact('student','defultDate','months','StudentFeeDetailMonthYears','fatherDetail','motherDetail','address'))->render();
+    	$data = view('admin.finance.feecollection.fee_collection_detail',compact('student','defultDate','months','StudentFeeDetailMonthYears','students'))->render();
     	return response()->json($data);
     }
 

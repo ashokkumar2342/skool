@@ -15,18 +15,21 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">First Name</label>
-                                  <input Name="first_name" class="form-control" value="{{ $account->first_name }}"  placeholder="Enter first name">
+                                  <span class="fa fa-asterisk"></span>
+                                  <input Name="first_name" class="form-control" value="{{ $account->first_name }}"  maxlength="50" placeholder="Enter first name">
                                 </div>                                
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Last Name</label>
-                                  <input Name="last_name" class="form-control"  value="{{ $account->last_name }}"  placeholder="Enter last name">
+
+                                  <input Name="last_name" class="form-control"  value="{{ $account->last_name }}"  maxlength="50" placeholder="Enter last name">
                                 </div>                                
                             </div>
                             <div class="col-lg-6">
                                <div class="form-group">
                                  <label>Role</label>
+                                 <span class="fa fa-asterisk"></span>
                                  <select class="form-control" name="role_id">
                                  @foreach($roles as $role)
                                    <option value="{{ $role->id }}" {{ $account->roles->id == $role->id ? 'selected="selected"' : '' }}>{{ $role->name }}</option>  
@@ -36,25 +39,29 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                  <label for="exampleInputEmail1">Email Id</label>
-                                  <input type="text" disabled="" name="email" class="form-control" value="{{ $account->email }}" id="exampleInputEmail1" placeholder="Enter email">
+                                  <label for="exampleInputEmail1">E-mail ID</label>
+                                  <span class="fa fa-asterisk"></span>
+                                  <input type="text" disabled="" name="email" class="form-control" value="{{ $account->email }}" id="exampleInputEmail1" maxlength="50" placeholder="Enter email">
                                 </div>                                
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="Password">Password</label>
-                                  <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                  <span class="fa fa-asterisk"></span>
+                                  <input type="password" name="password" class="form-control" id="exampleInputPassword1" maxlength="15" placeholder="Password">
                                 </div>                               
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Mobile</label>
+                                  <span class="fa fa-asterisk"></span>
                                   <input type="text" Name="mobile" class="form-control" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'  value="{{ $account->mobile }}  ">
                                 </div>                                
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Date Of Birth</label>
+                                  <span class="fa fa-asterisk"></span>
                                   <input type="text" Name="dob" class="form-control datepicker" value="{{ date('d-m-Y', strtotime($account->dob)) }}">
                                 </div>                                
                             </div>

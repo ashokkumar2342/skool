@@ -10,7 +10,7 @@
              <form action="{{ route('admin.class.wise.room.store') }}" method="post" class="add_form"  content-refresh="class_wise_room_table">
               {{ csrf_field() }}
               <div class="row">
-                <div class="col-lg-4">
+                <div class="form-group col-lg-4">
                   <label>Class</label>
                   <select name="class_id" class="form-control" onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section.addForm') }}','section_id_div')">
                     <option selected disabled>Select Class</option>
@@ -19,13 +19,13 @@
                     @endforeach
                   </select>
                 </div>
-                <div class="col-lg-4" id="section_id_div">
+                <div class="form-group col-lg-4" id="section_id_div">
                   <label>Section</label>
                   <select  class="form-control">
                     <option selected disabled>Select Section</option> 
                   </select>
                 </div>
-                <div class="col-lg-4">
+                <div class="form-group col-lg-4">
                   <label>Room No</label>
                   <select name="room_name" class="form-control">
                     <option selected disabled>Select Room Name</option>

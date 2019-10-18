@@ -2,8 +2,8 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.library.author.details.addform')}}')" style="margin:10px">Add Form</button>
-    <h1>Author Add<small>Details</small> </h1>
+    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.library.author.details.addform')}}')" style="margin:10px">Add Author </button>
+    <h1>Author Details<small>List</small> </h1>
        
     </section>  
     <section class="content">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Events\SmsEvent;
 use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
@@ -11,8 +12,9 @@ use App\Model\ClassType;
 use App\Model\HistoryCertificateIssue;
 use App\Model\ReportRequest;
 use App\Model\Section;
-use App\Student;
+use App\Model\Sms\SmsTemplate;
 use App\Model\StudentDefaultValue;
+use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -29,9 +31,11 @@ class CertificateIssueDetailController extends Controller
      */
     public function index()
     {
+        $st=new Student();
+        $students=$st->getStudentsAllDetilas(); 
         $certificates =CertificateIssueDetail::where('status',3)->orderBy('created_at','desc')->get();
 
-        return view('admin.certificate.certificate_table_show',compact('certificates'));
+        return view('admin.certificate.certificate_table_show',compact('certificates','students'));
     }
 
     /**
@@ -286,7 +290,7 @@ class CertificateIssueDetailController extends Controller
     { 
          $admins= Auth::guard('admin')->user()->id;
           $CertificateIssueDetail=CertificateIssueDetail::find($id);
-        return  $certificate->reject_by=$admins;
+          $certificate->reject_by=$admins;
          $CertificateIssueDetail->status=4;
          $CertificateIssueDetail->save();
           return redirect()->back()->with(['message'=>'Reject Successfully','class'=>'success']);
@@ -296,21 +300,27 @@ class CertificateIssueDetailController extends Controller
     public function download(CertificateIssueDetail $certificate)
     { 
           
-
-        $student=Student::where('id',$certificate->student_id)->where('student_status_id',1)->first();
-        $CertificateIssueDetail=CertificateIssueDetail::where('student_id',$student->id)->first();
+        $st=new Student();
+        $student=$st->getStudentDetilas($certificate->student_id);
+        
+        $studentM=$st->getStudentMotherDetail($certificate->student_id);
+        if (empty($studentM)) {
+             return 'Student Details Not Complete';
+        }
+         // $student=Student::where('id',$certificate->student_id)->where('student_status_id',1)->first();
+        $CertificateIssueDetail=CertificateIssueDetail::where('student_id',$certificate->student_id)->first();
          
 
            $documentUrl = Storage_path() . '/app/student/document/certificate';
            @mkdir($documentUrl, 0755, true); 
                 if ($certificate->certificate_type==4) {
-                $pdf = PDF::loadView('admin.certificate.tuitionfee.date_of_birth_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_date_of_birth_certificate.pdf'); 
+                $pdf = PDF::loadView('admin.certificate.tuitionfee.date_of_birth_certificate',compact('student','studentM'))->save($documentUrl.'/'.$certificate->students->registration_no.'_date_of_birth_certificate.pdf'); 
                 return $pdf->stream('date_of_birth_certificate.pdf'); 
                  } if ($certificate->certificate_type==2) {
-                $pdf = PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student','CertificateIssueDetail'))->save($documentUrl.'/'.$certificate->students->registration_no.'_leaving_certificate.pdf'); 
+                $pdf = PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student','studentM','CertificateIssueDetail'))->save($documentUrl.'/'.$certificate->students->registration_no.'_leaving_certificate.pdf'); 
                 return $pdf->stream('leaving_certificate.pdf'); 
                  } if ($certificate->certificate_type==3) {
-                $pdf = PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_character_certificate.pdf'); 
+                $pdf = PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('student','studentM'))->save($documentUrl.'/'.$certificate->students->registration_no.'_character_certificate.pdf'); 
                 return $pdf->stream('character_certificate.pdf'); 
                 
              }
@@ -328,13 +338,17 @@ class CertificateIssueDetailController extends Controller
     {
         $certificates =CertificateIssueDetail::where('status',1)->orderBy('created_at','desc')->get();
         $admin=Auth::guard('admin')->user()->id;
-        return view('admin.certificate.virify_list',compact('certificates','admin'));
+         $st=new Student();
+        $students=$st->getStudentsAllDetilas();
+        return view('admin.certificate.virify_list',compact('certificates','admin','students'));
     }
 
     //aproval
     public function approval(Request $request, CertificateIssueDetail $certificate)
-    { 
+    {  
           $certificates =CertificateIssueDetail::where('status',2)->orderBy('created_at','desc')->get();
+           $st=new Student();
+        $students=$st->getStudentsAllDetilas();
          return view('admin.certificate.approval',compact('certificates','students'));
         
     }

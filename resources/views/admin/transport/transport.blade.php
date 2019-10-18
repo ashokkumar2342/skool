@@ -16,6 +16,7 @@
 	                   <div class="col-lg-2">                                             
 	                       <div class="form-group">
                           <label>Name</label>
+                          <span class="fa fa-asterisk"></span>
 	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name', 'placeholder'=>' Enter Name','maxlength'=>'50']) }}
 	                         <p class="errorCode text-center alert alert-danger hidden"></p>
 	                       </div>                                         
@@ -23,13 +24,15 @@
 	                     <div class="col-lg-2">                                             
                          <div class="form-group">
                           <label>Mobile Number</label>
+                          <span class="fa fa-asterisk"></span>
                            {{ Form::text('mobile','',['class'=>'form-control','id'=>'mobile','rows'=>4, 'placeholder'=>' Enter mobile No','maxlength'=>'10','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                            <p class="errorName text-center alert alert-danger hidden"></p>
                          </div>                                         
                       </div> 
                       <div class="col-lg-2">                 
                          <div class="form-group">
-                          <label>Contact Number</label> 
+                          <label>Contact Number</label>
+                          <span class="fa fa-asterisk"></span> 
                            {{ Form::text('contact_no','',['class'=>'form-control','id'=>'contact_no','rows'=>4, 'placeholder'=>'Enter Contact No','maxlength'=>'10','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                            <p class="errorName text-center alert alert-danger hidden"></p>
                          </div>                                         
@@ -37,6 +40,7 @@
                       <div class="col-lg-2">                                             
                          <div class="form-group">
                           <label>Email</label>
+                          <span class="fa fa-asterisk"></span>
                            {{ Form::email('email','',['class'=>'form-control','id'=>'email','rows'=>4, 'placeholder'=>'Enter Email','maxlength'=>'50']) }}
                            <p class="errorName text-center alert alert-danger hidden"></p>
                          </div>                                         
@@ -44,12 +48,14 @@
                       <div class="col-lg-2">                                             
                          <div class="form-group">
                           <label>GST Number</label>
+                          <span class="fa fa-asterisk"></span>
                            {{ Form::text('gst_no','',['class'=>'form-control','id'=>'gst_no','rows'=>4, 'placeholder'=>'Enter GST No','maxlength'=>'50']) }}
                            <p class="errorName text-center alert alert-danger hidden"></p>
                          </div>                                         
                       </div>
                       <div class="col-lg-2">
-                      <label>IFSC Code</label>                                             
+                      <label>IFSC Code</label>
+                      <span class="fa fa-asterisk"></span>                                             
                          <div class="form-group">
                            {{ Form::text('ifsc_code','',['class'=>'form-control','id'=>'ifsc_code','rows'=>4, 'placeholder'=>'Enter IFSC Code','maxlength'=>'50']) }}
                            <p class="errorName text-center alert alert-danger hidden"></p>
@@ -58,6 +64,7 @@
                       <div class="col-lg-2">                                             
                          <div class="form-group">
                           <label>Account number</label>
+                          <span class="fa fa-asterisk"></span>
                            {{ Form::text('account_no','',['class'=>'form-control','id'=>'account_no','rows'=>4, 'placeholder'=>'Enter Account No','maxlength'=>'50']) }}
                            <p class="errorName text-center alert alert-danger hidden"></p>
                          </div>                                         
@@ -65,6 +72,7 @@
                       <div class="col-lg-2">                                             
                          <div class="form-group">
                           <label>Branch Code</label>
+                          <span class="fa fa-asterisk"></span>
                            {{ Form::text('branch_code','',['class'=>'form-control','id'=>'branch_code','rows'=>4, 'placeholder'=>'Enter Branch Code','maxlength'=>'50']) }}
                            <p class="errorName text-center alert alert-danger hidden"></p>
                          </div>                                         
@@ -72,6 +80,7 @@
                       <div class="col-lg-2">                                             
                          <div class="form-group">
                           <label>Branch Name</label>
+                          <span class="fa fa-asterisk"></span>
                            {{ Form::text('branch_name','',['class'=>'form-control','id'=>'branch_name','rows'=>4, 'placeholder'=>'Enter Branch Name','maxlength'=>'50']) }}
                            <p class="errorName text-center alert alert-danger hidden"></p>
                          </div>                                         
@@ -79,6 +88,7 @@
                       <div class="col-lg-4">                                             
                          <div class="form-group">
                           <label>Account Holder Name</label>
+                          <span class="fa fa-asterisk"></span>
                            {{ Form::text('account_holder_name','',['class'=>'form-control','id'=>'account_holder_name','rows'=>4, 'placeholder'=>'Enter Account Holder Name','maxlength'=>'50']) }}
                            <p class="errorName text-center alert alert-danger hidden"></p>
                          </div>                                         
@@ -86,21 +96,28 @@
                       <div class="col-lg-2">                                             
 	                       <div class="form-group">
                           <label>Pincode</label>
+                          <span class="fa fa-asterisk"></span>
 	                         {{ Form::text('pincode','',['class'=>'form-control','id'=>'pincode','rows'=>4, 'placeholder'=>'Enter Pincode','maxlength'=>'6','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>                     
-	                    <div class="col-lg-6">                         
+	                    <div class="col-lg-5">                         
                           <div class="form-group">
                             <label>Permanent Address</label>
-                            {{ Form::textarea('address','',['class'=>'form-control','id'=>'address','rows'=>1, 'placeholder'=>'Enter Permanent Address','maxlength'=>'250']) }}
+                            <span class="fa fa-asterisk"></span>
+                            {{ Form::textarea('address','',['class'=>'form-control','id'=>'p_address','rows'=>1, 'placeholder'=>'Enter Permanent Address','maxlength'=>'250']) }}
                             <p class="errorDescription text-center alert alert-danger hidden"></p>
                           </div>
                       </div>
-                      <div class="col-lg-6">                         
+                       <div class="form-group col-lg-1">
+                         <input type="checkbox" id="addressCheck" name="addressCheck" style="margin-top: 30px">
+                         <label>Same As</label> 
+                       </div>
+                    <div class="col-lg-6">                         
 	                        <div class="form-group">
                             <label>Correspondence Address</label>
-	                          {{ Form::textarea('address','',['class'=>'form-control','id'=>'address','rows'=>1, 'placeholder'=>'Enter Correspondence Address','maxlength'=>'250']) }}
+
+	                          {{ Form::textarea('address','',['class'=>'form-control','id'=>'c_address','rows'=>1, 'placeholder'=>'Enter Correspondence Address','maxlength'=>'250']) }}
 	                          <p class="errorDescription text-center alert alert-danger hidden"></p>
 	                        </div>
 	                    </div>
@@ -123,17 +140,17 @@
                       <table id="transport_table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>
+                                <th>Sr.No.</th>
                                
-                                <th>Name</th>
-                                <th>Mobile</th>
-                                <th>contact no</th>
-                                <th>email</th>
-                                <th>gst no</th>
-                                <th>ifsc code</th>
-                                <th>account no</th>
-                                <th>branch code</th>
-                                <th>branch name</th>
+                                <th class="text-nowrap">Name</th>
+                                <th class="text-nowrap">Mobile</th>
+                                <th class="text-nowrap">contact no</th>
+                                <th class="text-nowrap">email</th>
+                                <th class="text-nowrap">gst no</th>
+                                <th class="text-nowrap">ifsc code</th>
+                                <th class="text-nowrap">account no</th>
+                                <th class="text-nowrap">branch code</th>
+                                <th class="text-nowrap">branch name</th>
                                 <th class="text-nowrap">account holder name</th>
                                 <th>address</th> 
                                 <th>pincode</th> 
@@ -198,4 +215,21 @@
     <script>
        $('#transport_table').DataTable();
     </script>
+    <script>
+     function setAddress(){
+       if ($("#addressCheck").is(":checked")) {
+         $('#c_address').val($('#p_address').val());
+         $('#c_pincode').val($('#p_pincode').val());
+         $('#c_address').attr('readonly', '');
+         $('#c_pincode').attr('readonly', '');
+       } else {
+         $('#c_address').removeAttr('disabled');
+         $('#c_pincode').removeAttr('disabled');
+       }
+     }
+
+     $('#addressCheck').click(function(){
+       setAddress();
+     })
+   </script>
 @endpush

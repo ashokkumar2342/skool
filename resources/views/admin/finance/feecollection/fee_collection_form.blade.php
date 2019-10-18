@@ -81,11 +81,11 @@
                     <table id="student_search_table"  class="display table"> 
                         <thead>
                             <tr>
-                                <th>Sn</th>
+                                 
                                 <th>Name</th>
                                 <th>Registration No</th> 
                                 <th>Father's Name</th>                               
-                                <th>Mother's Name</th>      
+                                <th>Mobile No</th>      
                                 <th>Action</th>                                                            
                             </tr>
                         </thead>

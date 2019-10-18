@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="{{ asset('admin_asset/plugins/multiple-select/css/multi-select.css')}}">
 
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-  <link href={!! asset('admin_asset/dist/css/bootstrap-multiselect.css') !!} rel="stylesheet" type="text/css">
+  <link href="{!! asset('admin_asset/dist/css/bootstrap-multiselect.css') !!}"  rel="stylesheet" type="text/css">
   
    
   

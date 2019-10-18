@@ -14,55 +14,63 @@
 	                   <div class="col-lg-3">                                             
 	                       <div class="form-group">
                           <label>Registration Number</label>
-	                         {{ Form::text('registration_no','',['class'=>'form-control','id'=>'registration_no', 'placeholder'=>'  Registration No','maxlength'=>'20','required']) }}
+                          <span class="fa fa-asterisk"></span>
+	                         {{ Form::text('registration_no','',['class'=>'form-control','id'=>'registration_no', 'placeholder'=>'Enter Registration No','maxlength'=>'20','required']) }}
 	                        
 	                       </div>                                         
 	                    </div>
 	                     <div class="col-lg-3">                                             
                          <div class="form-group">
                           <label>Chassis Number</label>
-                           {{ Form::text('chassis_no','',['class'=>'form-control','id'=>'chassis_no','rows'=>4, 'placeholder'=>'Chassis No','maxlength'=>'50','required']) }}
+                          <span class="fa fa-asterisk"></span>
+                           {{ Form::text('chassis_no','',['class'=>'form-control','id'=>'chassis_no','rows'=>4, 'placeholder'=>'Enter Chassis No','maxlength'=>'50','required']) }}
               
                          </div>                                         
                       </div> 
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                           <label>Model Number</label>
-                           {{ Form::text('model_no','',['class'=>'form-control','id'=>'model_no','rows'=>4, 'placeholder'=>' Model No','maxlength'=>'50','required']) }}
+                          <span class="fa fa-asterisk"></span>
+                           {{ Form::text('model_no','',['class'=>'form-control','id'=>'model_no','rows'=>4, 'placeholder'=>'Enter Model No','maxlength'=>'50','required']) }}
                   
                          </div>                                         
                       </div> 
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                           <label>Engine Number</label>
-                           {{ Form::text('engine_no','',['class'=>'form-control','id'=>'engine_no','rows'=>4, 'placeholder'=>' Engine No','maxlength'=>'50','required']) }}
+                          <span class="fa fa-asterisk"></span>
+                           {{ Form::text('engine_no','',['class'=>'form-control','id'=>'engine_no','rows'=>4, 'placeholder'=>'Enter Engine No','maxlength'=>'50','required']) }}
                          
                          </div>                                         
                       </div> 
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                           <label>Siting Capacity</label>
-                           {{ Form::text('siting_capacity','',['class'=>'form-control','id'=>'siting_capacity','maxlength'=>'20','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','placeholder'=>'Siting Capacity','required']) }}
+                          <span class="fa fa-asterisk"></span>
+                           {{ Form::text('siting_capacity','',['class'=>'form-control','id'=>'siting_capacity','maxlength'=>'20','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','placeholder'=>'Enter Siting Capacity','required']) }}
                           
                          </div>                                         
                       </div>
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                           <label>Average</label>
-                           {{ Form::text('average','',['class'=>'form-control','id'=>'average', 'placeholder'=>' Average','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','required']) }}
+                          <span class="fa fa-asterisk"></span>
+                           {{ Form::text('average','',['class'=>'form-control','id'=>'average', 'placeholder'=>'Enter  Average','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','required']) }}
                             
                          </div>                                         
                       </div>
                         <div class="col-lg-3">                                             
                          <div class="form-group">
-                          <label>Select Transport</label>
-                              {!! Form::select('transport_id',$transports, null, ['class'=>'form-control','placeholder'=>'Select Transport','required']) !!}
+                          <label>Transport</label>
+                          <span class="fa fa-asterisk"></span>
+                              {!! Form::select('transport_id',$transports, null, ['class'=>'form-control','placeholder'=>'Enter Select Transport','required']) !!}
                          </div>                                         
                       </div>
                        <div class="col-lg-3">                                             
                          <div class="form-group">
                           <label>Select Vehicle Type</label>
-                              {!! Form::select('vehicle_type_id',$vehicleTypes, null, ['class'=>'form-control','placeholder'=>'Select Vehicle Type','required']) !!}
+                          <span class="fa fa-asterisk"></span>
+                              {!! Form::select('vehicle_type_id',$vehicleTypes, null, ['class'=>'form-control','placeholder'=>'Enter Select Vehicle Type','required']) !!}
                          </div>                                         
                       </div>
                      
@@ -83,9 +91,9 @@
                     <table id="vehicle_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>
+                                <th>Sr.no.</th>
                                
-                                <th>registration_no </th>
+                                <th>registration no </th>
                                 <th>chassis no </th>
                                 <th>model no </th>
                                 <th>engine no </th>

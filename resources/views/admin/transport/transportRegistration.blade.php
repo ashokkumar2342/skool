@@ -15,6 +15,7 @@
 	                   <div class="col-lg-4">                                             
                          <div class="form-group">
                           {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
+                          <span class="fa fa-asterisk"></span>
                            {{ Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required']) }}
                            <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                          </div>                                         
@@ -22,6 +23,7 @@
                       <div class="col-lg-4">                                             
                          <div class="form-group">
                           {{ Form::label('morning_route_id','Morning Rroute',['class'=>' control-label']) }}
+                          <span class="fa fa-asterisk"></span>
                            {{ Form::select('morning_route_id',$routes,null,['class'=>'form-control','placeholder'=>"Select Morning Route",'required']) }}
                            <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                          </div>                                         
@@ -29,6 +31,7 @@
                        <div class="col-lg-4">                                             
                          <div class="form-group">
                           {{ Form::label('evening_route_id','Evening Rroute',['class'=>' control-label']) }}
+                          <span class="fa fa-asterisk"></span>
                            {{ Form::select('evening_route_id',$routes,null,['class'=>'form-control','placeholder'=>"Select Evening Route",'required']) }}
                            <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                          </div>                                         
@@ -36,6 +39,7 @@
                        <div class="col-lg-4">                                             
                          <div class="form-group">
                           {{ Form::label('morning_boarding_point_id','Morning Boarding Point',['class'=>' control-label']) }}
+                          <span class="fa fa-asterisk"></span>
                            {{ Form::select('morning_boarding_point_id',$boardingPoints,null,['class'=>'form-control','placeholder'=>"Select Morning Boarding Point",'required']) }}
                            <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                          </div>                                         
@@ -43,6 +47,7 @@
                        <div class="col-lg-4">                                             
 	                       <div class="form-group">
                           {{ Form::label('evening_boarding_point_id','Evening Boarding Point',['class'=>' control-label']) }}
+                          <span class="fa fa-asterisk"></span>
                            {{ Form::select('evening_boarding_point_id',$boardingPoints,null,['class'=>'form-control','placeholder'=>"Select Evening Boarding Point",'required']) }}
                            <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                          </div>                                         
@@ -65,7 +70,7 @@
                     <table id="route_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>
+                                <th>Sr.no.</th>
                                
                                 <th>Name</th> 
                                 <th>Morning Rroute</th> 

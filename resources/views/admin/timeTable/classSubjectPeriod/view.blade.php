@@ -15,7 +15,7 @@
               <form action="{{ route('admin.class.subject.period.store') }}" method="post" class="add_form" content-refresh="class_subject_period_table">
                 {{ csrf_field() }}
                 <div class="row">
-                  <div class="col-lg-4">
+                  <div class="form-group col-lg-4">
                     <label>Class</label></br>
                     <select name="class" class="form-control"    multiselect-form="true" onchange="callAjax(this,'{{ route('admin.class.subject.period.class.wise.section') }}','select_section')">
                      <option selected disabled>Select Class</option>
@@ -29,13 +29,13 @@
                     
                   </div>
                  
-                  <div class="col-lg-4">
+                  <div class="form-group col-lg-4">
                     <label>No of Period</label>
-                    <input type="text" name="no_of_period" class="form-control"> 
+                    <input type="text" name="no_of_period" class="form-control" placeholder="Enter No of Period" maxlength="2" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
                   </div>
-                   <div class="col-lg-4">
+                   <div class="form-group col-lg-4">
                     <label>Period Duration</label>
-                    <input type="text" name="period_duration" class="form-control"> 
+                    <input type="text" name="period_duration" class="form-control" placeholder="Enter Period Duration" maxlength="2" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
                   </div>
                   
                 </div>

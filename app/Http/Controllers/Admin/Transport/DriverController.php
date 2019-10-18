@@ -40,8 +40,11 @@ class DriverController extends Controller
     	'name' => 'required|max:30', 
             'mobile' => 'required|digits:10', 
             'contact_no' => 'required|digits:10', 
-            'address' => 'required|string', 
-            'p_address' => 'required|string', 
+            'license_number' => 'required', 
+            'dob' => 'required', 
+            'vehicle_id' => 'required', 
+            'address' => 'required|string|max:200', 
+            
        
     	];
 
@@ -106,7 +109,10 @@ class DriverController extends Controller
         'name' => 'required|max:30', 
             'mobile' => 'required|digits:10', 
             'contact_no' => 'required|digits:10', 
-            'address' => 'required|string', 
+            'license_number' => 'required', 
+            'dob' => 'required', 
+            'vehicle_id' => 'required', 
+            'address' => 'required|string|max:200',
           
        
         ];

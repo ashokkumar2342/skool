@@ -13,21 +13,21 @@
 	                <form class="form-vertical" id="form_fee_structure">                                                     
 	                   <div class="col-lg-2">                                             
 	                       <div class="form-group"> 
-                           {{ Form::label('code','Code',['class'=>'form-label']) }}
+                           {{ Form::label('code','Fee Structure Code',['class'=>'form-label']) }}
 	                         {{ Form::text('code','',['class'=>'form-control','id'=>'code', 'placeholder'=>'Enter Fee Structure Code','maxlength'=>'3']) }}
 	                         <p class="errorCode text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>
 	                     <div class="col-lg-2">                                             
 	                       <div class="form-group">
-                           {{ Form::label('name','Name',['class'=>'form-label']) }} 
+                           {{ Form::label('name','Fee Structure Name',['class'=>'form-label']) }} 
 	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter Fee Structure Name','maxlength'=>'50']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>                     
 	                    <div class="col-lg-2">                           
                              <div class="form-group">
-                              {{ Form::label('fee_account_id','Fee Account',['class'=>' control-label']) }}
+                              {{ Form::label('fee_account_id','Fee Account Name',['class'=>' control-label']) }}
                                {{ Form::select('fee_account_id',$feeAccount,null,['class'=>'form-control','placeholder'=>'Select Fee Account']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
@@ -62,10 +62,10 @@
                     <table id="fee_structure_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>
-                                <th>Code</th>
-                                <th>Name</th>
-                                <th>Fee Account</th>
+                                <th>SR.No.</th>
+                                <th>Fee Structure Code</th>
+                                <th>Fee Structure Name</th>
+                                <th>Fee Account Name</th>
                                 <th>Fine Scheme</th>
                                 <th>Refundable</th>                                                            
                                 <th>Action</th>                                                            

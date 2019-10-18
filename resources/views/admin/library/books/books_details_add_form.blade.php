@@ -12,7 +12,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Book Details Add</h4>
+        <h4 class="modal-title">Add Book</h4>
       </div>
       <div class="modal-body">
        <div class="row"> 
@@ -20,39 +20,39 @@
               <form action="{{ route('admin.library.book.details.store') }}" method="post" class="add_form" button-click="btn_books_table_show,btn_close" enctype="multipart/form-data">
                    {{ csrf_field() }}
                    <div class="row">
-                    <div class="col-lg-4">
+                    <div class="form-group col-lg-4">
                       <label>Book Code</label>
-                      <input type="text" name="code" class="form-control" placeholder="" maxlength="12"> 
+                      <input type="text" name="code" class="form-control" placeholder="Enter Book Code" maxlength="12"> 
                     </div>
-                    <div class="col-lg-4">
+                    <div class="form-group col-lg-4">
                       <label>Book Name</label>
-                      <input type="text" name="name" class="form-control" placeholder="" maxlength="50"> 
+                      <input type="text" name="name" class="form-control" placeholder="Enter Book Name" maxlength="50"> 
                     </div>
-                    <div class="col-lg-4">
+                    <div class="form-group col-lg-4">
                       <label>Edition</label>
-                      <input type="text" name="edition" class="form-control" placeholder="" maxlength="200"> 
+                      <input type="text" name="edition" class="form-control" placeholder="Enter Edition" maxlength="200"> 
                     </div>
-                    <div class="col-lg-4">
+                    <div class="form-group col-lg-4">
                       <label>Price</label>
-                      <input type="text" name="price" class="form-control" placeholder="" maxlength="7"> 
+                      <input type="text" name="price" class="form-control" placeholder="Enter" maxlength="7"> 
                     </div>
-                    <div class="col-lg-4">
+                    <div class="form-group col-lg-4">
                       <label>No Of Pages</label>
-                      <input type="text" name="no_of_pages" class="form-control" placeholder="" maxlength="7"> 
+                      <input type="text" name="no_of_pages" class="form-control" placeholder="Enter No Of Pages Price" maxlength="7"> 
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group col-lg-4">
                       <label>Hall No</label>
-                      <input type="text" name="hall_no" class="form-control" placeholder="" maxlength="4"> 
+                      <input type="text" name="hall_no" class="form-control" placeholder="Enter Hall No" maxlength="4"> 
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group col-lg-4">
                       <label>Shelf No</label>
-                      <input type="text" name="shelf_no" class="form-control" placeholder="" maxlength="4"> 
+                      <input type="text" name="shelf_no" class="form-control" placeholder="Enter Shelf No" maxlength="4"> 
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group col-lg-4">
                       <label>Box No</label>
-                      <input type="text" name="box_no" class="form-control" placeholder="" maxlength="7"> 
+                      <input type="text" name="box_no" class="form-control" placeholder="Enter Box No" maxlength="7"> 
                     </div>
-                    <div class="col-lg-4">
+                    <div class="form-group col-lg-4">
                       <label>Subject</label>
                       <select name="subject" class="form-control " required="" >
                         <option selected disabled>Select Subject</option> 
@@ -61,7 +61,7 @@
                         @endforeach 
                       </select> 
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group col-lg-4">
                       <label>Publisher</label>
                       <select name="publisher" class="form-control select2" required="">
                         <option selected disabled>Select Publisher</option> 
@@ -70,7 +70,7 @@
                         @endforeach 
                       </select> 
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group col-lg-4">
                       <label>Author</label>
                       <select name="author" class="form-control select2">
                         <option selected disabled>Select Author</option> 
@@ -79,11 +79,11 @@
                         @endforeach 
                       </select> 
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group col-lg-4">
                       <label>Book Feature</label>
-                      <input type="text" name="feature" class="form-control" placeholder="" maxlength="200"> 
+                      <input type="text" name="feature" class="form-control" placeholder="Enter Book Feature" maxlength="200"> 
                     </div> 
-                    <div class="col-lg-4">
+                    <div class="form-group col-lg-4">
                       <label>Book Image</label>
                       <input type="file" name="image" multiple="true"> 
                     </div> 

@@ -1,7 +1,7 @@
 <table id="homework_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>
+                                <th>Sr.no.</th>
                                 <th>Date</th>
                                 <th>Class</th>
                                 <th>Section</th>

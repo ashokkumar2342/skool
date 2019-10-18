@@ -1,21 +1,21 @@
 <div class="col-lg-12 table-responsive">
- <table class="table table-hover table-striped table-bordered"  id="books_table"> 
+ <table class="table table-hover   table-bordered"  id="books_table"> 
               <thead>
                 <tr>
-                  <th>Code</th>
-                  <th>Name</th>
-                  <th>Edition</th>
-                  <th>Price</th>
-                  <th>NO of pages</th>
-                  <th>Hall No</th>
-                  <th>Shelf No</th>
-                  <th>Box No</th>
-                  <th>Subject</th>
-                  <th>Publisher</th>
-                  <th>Author</th>
-                  <th>Book Feature</th>
-                  <th>Book Image</th>
-                  <th>Action</th>
+                  <th class="text-nowrap">Code</th>
+                  <th class="text-nowrap">Name</th>
+                  <th class="text-nowrap">Edition</th>
+                  <th class="text-nowrap">Price</th>
+                  <th class="text-nowrap">NO of pages</th>
+                  <th class="text-nowrap">Hall No</th>
+                  <th class="text-nowrap">Shelf No</th>
+                  <th class="text-nowrap">Box No</th>
+                  <th class="text-nowrap">Subject</th>
+                  <th class="text-nowrap">Publisher</th>
+                  <th class="text-nowrap">Author</th>
+                  <th class="text-nowrap">Book Feature</th>
+                  <th class="text-nowrap">Book Image</th>
+                  <th class="text-nowrap">Action</th>
                 </tr>
               </thead>
               <tbody>

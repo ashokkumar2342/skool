@@ -22,19 +22,22 @@
               <form action="{{ route('admin.library.author.details.update',$authors->id) }}" button-click="btn_outhor_table_show,btn_close" method="post" class="add_form">
                    {{ csrf_field() }}
                    <div class="row">
-                    <div class="col-lg-3">
+                    <div class="form-group col-lg-4">
                       <label>Author Name</label>
+                      <span class="fa fa-asterisk"></span>
                       <input type="text" name="name" class="form-control" placeholder="" value="{{ $authors->name }}" maxlength="100"> 
                     </div>
-                    <div class="col-lg-3">
+                    <div class="form-group col-lg-4">
                       <label>Mobile No</label>
+                      <span class="fa fa-asterisk"></span>
                       <input type="text" name="mobile_no" class="form-control" placeholder=""  maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="{{ $authors->mobile_no }}"> 
                     </div>
-                    <div class="col-lg-3">
+                    <div class="form-group col-lg-4">
                       <label>Email</label>
+                      <span class="fa fa-asterisk"></span>
                       <input type="email" name="email" class="form-control" placeholder="" value="{{ $authors->email }}"> 
                     </div> 
-                    <div class="col-lg-3">
+                    <div class="form-group col-lg-12">
                       <label>Address</label>
                       <textarea class="form-control" name="address" maxlength="250" value="">{{ $authors->address }}</textarea>
                         

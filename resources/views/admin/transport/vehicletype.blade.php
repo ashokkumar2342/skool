@@ -44,7 +44,7 @@
                     <table id="vehicleType_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>
+                                <th>Sr.no.</th>
                                
                                 <th>Vehicle Type</th> 
                                 <th>Description</th> 

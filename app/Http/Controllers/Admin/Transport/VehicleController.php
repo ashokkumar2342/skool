@@ -43,11 +43,14 @@ class VehicleController extends Controller
     public function store(Request $request)
     {
     	$rules=[
-    	// 'name' => 'required|max:30', 
-     //        'mobile' => 'required|digits:10', 
-     //        'contact_no' => 'required|digits:10', 
-     //        'address' => 'required|string', 
-     //        'pincode' => 'required|digits:6', 
+    	'registration_no' => 'required|max:30', 
+            'chassis_no' => 'required|max:30', 
+            'model_no' => 'required|max:30', 
+            'engine_no' => 'required|max:30',
+            'siting_capacity' => 'required|max:30', 
+            'average' => 'required|max:30', 
+            'transport_id' => 'required|max:30', 
+            'vehicle_type_id' => 'required|max:30', 
     	];
 
     	$validator = Validator::make($request->all(),$rules);
@@ -116,7 +119,14 @@ class VehicleController extends Controller
     {
        $rules=[
 
-         'registration_no' => 'required|max:100', 
+         'registration_no' => 'required|max:30', 
+            'chassis_no' => 'required|max:30', 
+            'model_no' => 'required|max:30', 
+            'engine_no' => 'required|max:30',
+            'siting_capacity' => 'required|max:30', 
+            'average' => 'required|max:30', 
+            'transport_id' => 'required|max:30', 
+            'vehicle_type_id' => 'required|max:30',
          ];
 
         $validator = Validator::make($request->all(),$rules);

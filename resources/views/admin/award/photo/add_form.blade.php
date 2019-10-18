@@ -20,7 +20,7 @@
              <form action="{{ route('admin.award.photo.store') }}" method="post" class="add_form" button-click="btn_event_type_table_show,btn_close">
                    {{ csrf_field() }}
                    <div class="row"> 
-                    <div class="col-lg-12">
+                    <div class="form-group   col-lg-12">
                       <label>Award Name</label>
                       <select name="award_name" class="form-control select2">
                         <option selected disabled>Select Award Name</option>
@@ -30,7 +30,7 @@
                       </select>
                     </div> 
                      
-                    <div class="col-lg-12" style="margin-top: 20px">
+                    <div class="form-group   col-lg-12" style="margin-top: 20px">
                       <label>Photo</label>
                       <input type="file" name="image" class="form-control"> 
                     </div>  

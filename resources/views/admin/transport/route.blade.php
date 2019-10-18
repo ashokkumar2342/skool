@@ -22,7 +22,7 @@
                       <div class="col-lg-8">                                             
                          <div class="form-group">
                           <label>Description</label>
-                           {{ Form::text('description','',['class'=>'form-control','id'=>'description','rows'=>4, 'placeholder'=>' Description','maxlength'=>'250',]) }}
+                           {{ Form::text('description','',['class'=>'form-control','id'=>'description','rows'=>4, 'placeholder'=>' Description','maxlength'=>'200',]) }}
                           
                          </div>                                         
                       </div>
@@ -43,7 +43,7 @@
                     <table id="route_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>
+                                <th>Sr.no.</th>
                                
                                 <th>Route Name</th> 
                                 <th>Description</th> 

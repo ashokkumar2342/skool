@@ -15,7 +15,7 @@
                         <div class="col-lg-4">                           
                              <div class="form-group">
                               {{ Form::label('name','Payment Mode',['class'=>' control-label']) }}
-                               {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Enter Payment Mode Name','maxlength'=>'50']) }}
+                               {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Enter Payment Mode ','maxlength'=>'50']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
@@ -44,18 +44,23 @@
                          
                         <thead>
                             <tr>
+                                <th>Sr.No.</th>
                                 <th>Payment Mode</th>
                                 <th>Sorting Order No</th>
-                                <th>Action</th>
+                                <th class="text-nowrap">Action</th>
                                 
                             </tr>
                         </thead>
                         <tbody>
+                          @php
+                            $arrayId=1;
+                          @endphp
                             @foreach ($paymentmodes as $paymentmode) 
                                 <tr>
+                                    <td>{{ $arrayId++ }}</td>
                                     <td>{{ $paymentmode->name }}</td>
                                     <td>{{ $paymentmode->sorting_order_id}}</td>
-                                    <td> @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
+                                    <td class="text-nowrap"> @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
                                         <?php $url = route('admin.paymentMode.edit',Crypt::encrypt($paymentmode->id)) ?>
                                       <a class="btn btn-success btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a> 
                                         @endif

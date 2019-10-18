@@ -2,11 +2,11 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.library.book.accession.addform')}}')" style="margin:10px">Add Form</button>
-   <a href="{{ route('admin.library.book.accession.barcode') }}" class="btn btn-info pull-right" title="" target="blank" style="margin:10px">Barcode Generate</a>
+    <button type="button" class="btn btn-info pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.library.book.accession.addform')}}')" style="margin:10px">Add Book Accession</button>
+   <a href="{{ route('admin.library.book.accession.barcode') }}" class="btn btn-success pull-right" title="" target="blank" style="margin:10px">Barcode Generate</a>
 
     {{-- <button type="button" class="btn btn-info pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.library.book.accession.barcode')}}')" style="margin:10px">Barcode Generate</button> --}}
-    <h1>Book Accession <small>Details</small> </h1>
+    <h1>Books Accession Details<small>List</small> </h1>
        
     </section>  
     <section class="content">

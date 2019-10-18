@@ -52,8 +52,27 @@
                          <td>Date of Birth Certificate</td>             
                     @endif         
                     <td>{{ $certificate->students->name or ''}}</td>               
-                    <td>{{ $certificate->students->father_name or ''}}</td>               
-                    <td>{{ $certificate->students->father_mobile or ''}}</td>               
+                    <td>
+                      @foreach ($students as $student)
+                       @if ($student->relation_id==1 or $student->relation_id==null)
+                    @if ($student->id==$certificate->student_id)
+                    {{ $student->f_name or ''}}               
+                    @endif                
+                    @endif   
+                         
+                      @endforeach
+                    </td>  
+                     <td>
+                      @foreach ($students as $student)
+                       @if ($student->relation_id==1 or $student->relation_id==null)
+                    @if ($student->id==$certificate->student_id)
+                    {{ $student->f_mobile or ''}}               
+                    @endif                
+                    @endif   
+                         
+                      @endforeach
+                    </td>               
+                                   
                     <td>{{ $certificate->reason }}</td>
                     <td>{{ $certificate->slc_no }}</td>
                     <td>{{ $certificate->udise_code }}</td>

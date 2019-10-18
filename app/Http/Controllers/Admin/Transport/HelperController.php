@@ -40,8 +40,11 @@ class HelperController extends Controller
     	'name' => 'required|max:30', 
             'mobile' => 'required|digits:10', 
             'contact_no' => 'required|digits:10', 
+            'license_number' => 'required|string', 
+            'dob' => 'required|date', 
+            'vehicle_id' => 'required', 
             'address' => 'required|string', 
-            'p_address' => 'required|string', 
+            
        
     	];
 
@@ -108,6 +111,9 @@ class HelperController extends Controller
         'name' => 'required|max:30', 
             'mobile' => 'required|digits:10', 
             'contact_no' => 'required|digits:10', 
+            'license_number' => 'required|string', 
+            'dob' => 'required|date', 
+            'vehicle_id' => 'required', 
             'address' => 'required|string',  
        
         ];

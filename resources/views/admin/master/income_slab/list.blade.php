@@ -19,7 +19,7 @@
                         {{ csrf_field() }} 
                     <label>Income Slab</label>
                      <input type="text" name="range" maxlength="30" class="form-control" placeholder="Enter Income Slab" required="">
-                     <label>Income Code</label>
+                     <label style="margin-top: 10px">Income Code</label>
                      <input type="text" name="code" maxlength="5" class="form-control" placeholder="Enter Income Code" required="">
                      <div class="text-right" style="padding-top: 5px">
                        <input type="submit" value="save" class="btn btn-success btn-sm">
