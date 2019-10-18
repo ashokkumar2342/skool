@@ -11,8 +11,11 @@ class StudentAddressDetail extends Model
         'student_id',
            ];
             
- public function religions(){
+    public function religions(){
         return $this->hasOne('App\Model\Religion','id','religion');
+    }
+    Public function address(){
+        return $this->hasOne(Address::class,'id','student_address_details_id'); 
     }
     public function getAddress($student_id){
         try {         

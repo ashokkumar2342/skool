@@ -55,9 +55,9 @@ class StudentController extends Controller
     }  
     public function index($id)
     {
-        try {             
-
-             $student =Student::with(['classes','sessions','categories','sectionTypes','genders','religions','categories','studentStatus','incomes','professions'])->find($id);  
+        try {     
+            $st =new Student();
+            $student=$st->getStudentDetailsById($id);            
              return response()->json($student);    
         } catch (Exception $e) {
            return $e; 

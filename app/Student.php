@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Model\StudentAddressDetail;
+use App\Model\StudentPerentDetail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
@@ -34,7 +36,7 @@ class Student extends Authenticatable
     public function classFee(){
         return $this->hasOne('App\Model\ClassFee','class_id','class_id')->where('session_id',$this->session_id);
     }  
-       
+
     public function academicYear(){
         return $this->hasOne('App\Model\AcademicYear','id','academic_year_id');
     }
@@ -77,12 +79,28 @@ class Student extends Authenticatable
     }
     Public function houses(){
         return $this->hasOne('App\Model\House','id','house_no'); 
+    }  
+    Public function addressDetails(){
+        return $this->belongsTo(StudentAddressDetail::class,'id','student_id'); 
+    } 
+    Public function parents(){
+        return $this->hasMany(StudentPerentDetail::class,'student_id','id'); 
     }
     //single student get data
     public function getStudentById($id)
     {
         try {
            return $this->find($id);
+        } catch (Exception $e) {
+            return $e;
+        }
+
+    }
+      //single student get data
+    public function getStudentDetailsById($id)
+    {
+        try {
+          return $student =Student::with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation'])->find($id);  
         } catch (Exception $e) {
             return $e;
         }

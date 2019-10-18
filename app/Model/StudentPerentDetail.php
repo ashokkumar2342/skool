@@ -10,7 +10,9 @@ class StudentPerentDetail extends Model
     protected $fillable = [
         'relation_id', 'student_id', 
     ];
-
+    Public function relation(){
+        return $this->hasOne(GuardianRelationType::class,'id','relation_id'); 
+    }
     public function getParent($student_id,$relation_id){
         try { 
             $parent=$this->where('student_id',$student_id)
