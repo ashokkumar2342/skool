@@ -33,13 +33,10 @@ class Student extends Authenticatable
     }
     public function classFee(){
         return $this->hasOne('App\Model\ClassFee','class_id','class_id')->where('session_id',$this->session_id);
-    }    
-     
-    public function sessions(){
-        return $this->hasOne('App\Model\AcademicYear','id','session_id');
-    }
+    }  
+       
     public function academicYear(){
-        return $this->hasOne('App\Model\AcademicYear','id','session_id');
+        return $this->hasOne('App\Model\AcademicYear','id','academic_year_id');
     }
     public function sectionTypes(){
         return $this->hasOne('App\Model\SectionType','id','section_id');
