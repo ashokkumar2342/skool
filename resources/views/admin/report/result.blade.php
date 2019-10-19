@@ -8,10 +8,10 @@
                   <th>Name</th> 
                   <th>Father Name</th>
                   @if ($student_phone==1) 
-                  <th>Father Mobile</th> 
+                  <th>Mobile</th> 
                   @endif  
                   @if ($student_email==2)
-                       <th>Email</th>                                  
+                       <th>E-mail</th>                                  
                   @endif
                    @if ($student_dob==3)
                        <th>Date of Birth</th>                                  
@@ -36,10 +36,10 @@
                   <td>{{ $result->name }}</td> 
                   <td>{{ $result->f_name }}</td>
                    @if ($student_phone==1) 
-                  <td>{{ $result->f_mobile }}</td>
+                  <td>{{ $result->primary_mobile }}</td>
                    @endif  
                   @if ($student_email==2)
-                      <td>{{ $result->email }}</td>                                 
+                      <td>{{ $result->primary_email }}</td>                                 
                   @endif 
                    @if ($student_dob==3)
                       <td>{{ $result->dob }}</td>                                 

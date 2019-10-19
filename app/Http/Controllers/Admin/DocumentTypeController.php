@@ -38,10 +38,11 @@ class DocumentTypeController extends Controller
 
   public function update(Request $request,$id)
   {  
+    $id =Crypt::decrypt($id);
        $admin=Auth::guard('admin')->user()->id;  
      $rules=[
-        'documentType' => 'required|string|min:2|max:50', 
-        'code' => 'required|min:2|max:5',
+        'documentType' => 'required|string|min:2|max:50|unique:document_types,name,'.$id, 
+        'code' => 'required|min:2|max:5|unique:document_types,code,'.$id,
         ];
       $validator = Validator::make($request->all(),$rules);
       if ($validator->fails()) {
@@ -52,7 +53,7 @@ class DocumentTypeController extends Controller
           return response()->json($response);// response as json
       }
       
-    $id =Crypt::decrypt($id);   
+       
       $document = DocumentType::find($id);
       $document->name = $request->documentType; 
       $document->code = $request->code; 

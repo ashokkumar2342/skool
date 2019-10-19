@@ -171,12 +171,12 @@
                             <div class="row">
 
                                 <div class="form-group col-sm-2" id="phone">
-                                    <label for="reg_input">Phone Number</label>
+                                    <label for="reg_input">Mobile No.</label>
                                    <input name="student_phone"value="1" type="checkbox">
                                </div>
                                 
                                 <div class="form-group col-sm-2" id="email">
-                                    <label for="reg_input">Email</label>
+                                    <label for="reg_input">E-mail</label>
                                     <input name="student_email" value="2" type="checkbox">
                                 </div> 
                                 <div class="form-group col-sm-2" id="email">

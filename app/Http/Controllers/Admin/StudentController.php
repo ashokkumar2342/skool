@@ -189,7 +189,7 @@ class StudentController extends Controller
             "date_of_activation" => 'required|date',
             "student_name" => 'required|max:199', 
             "date_of_birth" => 'required|date',
-            "aadhaar_no" => "required|digits:12|unique:students",
+            "aadhaar_no" => "required|digits:12",
             "house_name" => "required", 
         ];
         $validator = Validator::make($request->all(),$rules);
@@ -363,7 +363,7 @@ class StudentController extends Controller
     public function edit(Student $student)
     {   $houses=House::orderBy('id','ASC')->get();      
        $classes = MyFuncs::getClasses();    
-       $sessions = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
+       $sessions = array_pluck(AcademicYear::get(['id','name'])->toArray(),'nameP', 'id');
        $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
        $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
        $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');

@@ -26,7 +26,7 @@
               <select name="cotegory_id" class="form-control">
                 <option selected disabled>Select Category </option>
                 @foreach ($cotegorys as $cotegory)
-                  <option value="{{ $cotegory->id }}"{{ $cotegory->id==$address->cotegory_id?'selected' : '' }}>{{ $cotegory->name }}</option> 
+                  <option value="{{ $cotegory->id }}"{{ $cotegory->id==$address->category_id?'selected' : '' }}>{{ $cotegory->name }}</option> 
                 @endforeach 
               </select>
             </div>
@@ -35,7 +35,7 @@
               <select name="religion_id" class="form-control">
                 <option selected disabled>Select Religion</option>
                 @foreach ($religions as $religion)
-                  <option value="{{ $religion->id }}"{{ $religion->id==$address->religion?'selected' : ''  }}>{{ $religion->name }}</option> 
+                  <option value="{{ $religion->id }}"{{ $religion->id==$address->religion_id?'selected' : ''  }}>{{ $religion->name }}</option> 
                 @endforeach 
               </select>
             </div>

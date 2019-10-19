@@ -87,7 +87,7 @@ b{
                                         </select>
                                       </span></li>
                                       <li class="list-group-item">Addmission No :-<span class="fs"><input type="text" disabled="" value="{{ $student->admission_no }}" > </span></li>
-                                      <li class="list-group-item">E-mail ID :-<span class="fs"><input type="text" disabled="" value="{{ $student->email }}" name="email" > </span></li>
+                                      <li class="list-group-item">Username :-<span class="fs"><input type="text" disabled="" value="{{ $student->username }}" name="email" > </span></li>
                                        <li class="list-group-item">Date of Activation :-<span class="fs"><input type="text" maxlength="50" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation"> </span></li> 
                                         <li class="list-group-item">Gender :-<span class="fs"><input type="text" value="{{ $student->genders->genders or ''}}" disabled=""> </span></li>
                                         <li class="list-group-item">House No :-<span class="fs">

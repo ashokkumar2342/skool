@@ -42,9 +42,9 @@ class SubjectTypeController extends Controller
          
           $admin=Auth::guard('admin')->user()->id;
          $request->validate([
+            'sorting_order_id' => 'required|max:2|unique:subject_types',
          'name' => 'required|min:2|max:50|unique:subject_types',
             'code' => 'required|max:10|unique:subject_types',
-            'sorting_order_id' => 'required|max:2|unique:subject_types,sorting_order_id,',
          ]);
          
         $subject = new SubjectType();

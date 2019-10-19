@@ -100,7 +100,41 @@ class Student extends Authenticatable
     public function getStudentDetailsById($id)
     {
         try {
-          return $student =Student::with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation'])->find($id);  
+          return $student =Student::where('student_status_id',1)->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])->find($id);  
+        } catch (Exception $e) {
+            return $e;
+        }
+
+    }
+      //single student get data
+    public function getStudentDetailsByArrId($arr_id)
+    {
+        try {
+          return $student =Student::whereIn('id',$arr_id)->where('student_status_id',1)->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])->get();  
+        } catch (Exception $e) {
+            return $e;
+        }
+
+    }
+      //single student get data
+    public function getStudentByClassMultiselectId($class_id)
+    {
+        try {
+          return $student =Student::whereIn('class_id',$class_id) 
+                                  ->where('student_status_id',1)
+                                  ->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])->get();  
+        } catch (Exception $e) {
+            return $e;
+        }
+
+    }
+    public function getStudentByClassSection($class_id,$section_id)
+    {
+        try {
+          return $student =Student::where('class_id',$class_id)
+                                  ->where('section_id',$section_id)
+                                  ->where('student_status_id',1)
+                                  ->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])->get();  
         } catch (Exception $e) {
             return $e;
         }
@@ -139,6 +173,7 @@ class Student extends Authenticatable
             ->select(
               'students.*',
               'addresses.primary_mobile',
+              'addresses.primary_email',
               'addresses.p_address',
               'parents_infos.name as f_name' ,
               'parents_infos.mobile as f_mobile' ,

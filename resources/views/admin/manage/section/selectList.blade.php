@@ -12,4 +12,4 @@
   @endforeach   --}}
      
 </select>
-<input type="submit" value="Save" class="btn btn-success">
+<input type="submit" value="Save" class="btn btn-success" style="margin-left: 10px">

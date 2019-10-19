@@ -57,8 +57,8 @@ class StudentAddressDetailController extends Controller
         
         $address->primary_mobile=$request->primary_mobile;
         $address->primary_email=$request->primary_email;
-        $address->cotegory_id=$request->cotegory_id;
-        $address->religion=$request->religion_id;
+        $address->category_id=$request->cotegory_id;
+        $address->religion_id=$request->religion_id;
         $address->state=$request->state;
         $address->city=$request->city;
         $address->p_address=$request->p_address;
@@ -119,8 +119,8 @@ class StudentAddressDetailController extends Controller
         
         $address->primary_mobile=$request->primary_mobile;
         $address->primary_email=$request->primary_email;
-        $address->cotegory_id=$request->cotegory_id;
-        $address->religion=$request->religion_id;
+        $address->category_id=$request->cotegory_id;
+        $address->religion_id=$request->religion_id;
         $address->state=$request->state;
         $address->city=$request->city;
         $address->p_address=$request->p_address;
