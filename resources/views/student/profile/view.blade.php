@@ -121,8 +121,8 @@
                                   <li class="list-group-item">Father's Mobile :-<span  class="fs"><input type="text" maxlength="10" value="{{ $student->f_mobile }}" name="father_mobile"></span></li>
                                   <li class="list-group-item">Primary Mobile :-<span class="fs"><input type="text" maxlength="10" value="{{ $student->primary_mobile}}" name="mother_mobile"> </span></li>                                     
                                   
-                                  <li class="list-group-item">Category :-<span class="fs"><input type="text" value="{{ $student->cotegory_id}}" disabled=""> </span></li>
-                                  <li class="list-group-item">Religion :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->religion or ''}}" disabled=""> </span></li> 
+                                  <li class="list-group-item">Category :-<span class="fs"><input type="text" value="{{ $student->category_id}}" disabled=""> </span></li>
+                                  <li class="list-group-item">Religion :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->religion_id or ''}}" disabled=""> </span></li> 
                                   <li class="list-group-item">City :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->city }}" name="city"> </span></li>
                                   <li class="list-group-item">State :-<span class="fs"><input type="text" value="{{ $student->state }}" name="state"> </span></li>
                                   <li class="list-group-item">Pincode :-<span class="fs"><input type="text" maxlength="6" value="{{ $student->p_pincode }}" name="pincode"> </span></li><li class="list-group-item">Pincode :-<span class="fs"><input type="text" maxlength="6" value="{{ $student->c_pincode }}" name="pincode"> </span></li> 

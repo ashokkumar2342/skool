@@ -126,6 +126,14 @@ class Student extends Authenticatable
         }
 
     }
+    public function getdetailbyemail($email){
+    try {
+    return $this->where("email",$email)
+    ->first();
+    } catch (QueryException $e) {
+    return $e; 
+    }
+    }
      public function getStudentsAllDetilas()
      {
       try {
@@ -188,7 +196,8 @@ class Student extends Authenticatable
                 ->join('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
                 ->join('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
                 ->join('addresses','addresses.id','=','student_address_details.student_address_details_id')
-                ->join('religions','religions.id','=','addresses.religion')
+                ->join('religions','religions.id','=','addresses.religion_id')
+                ->join('categories','categories.id','=','addresses.category_id')
                 ->select(
                   'students.*',
                   'parents_infos.name as f_name',
@@ -200,8 +209,9 @@ class Student extends Authenticatable
                   'addresses.city',
                   'addresses.p_pincode',
                   'addresses.c_pincode',
-                  'religions.name as religion',
-                  'addresses.cotegory_id',
+                  'religions.name as religion_id',
+                  'categories.name as category_id',
+                   
                   'addresses.primary_mobile',
                   'addresses.primary_email'
                 )->where('students.id',$student_id)          
