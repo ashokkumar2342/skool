@@ -169,7 +169,7 @@ class StudentController extends Controller
                      
         try {  
 
-            $student = Student::orWhere('email',$request->email)->orWhere('username',$request->email)->orWhere('father_mobile',$request->email)->where('status',1)->first();
+            $student = Student::orWhere('email',$request->email)->orWhere('username',$request->email)->where('status',1)->first();
             $admin = Admin::orWhere('email',$request->email)->orWhere('mobile',$request->email)->where('status',1)->first();
 
              if (!empty($student)) {  
