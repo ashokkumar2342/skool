@@ -42,7 +42,7 @@ class DashboardController extends Controller
         $year = date('Y');
         $firstDay = date('d')-1;
    
-        $sessionDate =  AcademicYear::find($student->session_id)->start_date;
+        $sessionDate =  AcademicYear::find($student->academic_year_id)->start_date;
         $monthOfFirstDate = date('Y-m-d',strtotime($date ."-".$firstDay." days"));
         
         
