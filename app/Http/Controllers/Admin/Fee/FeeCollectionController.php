@@ -36,15 +36,10 @@ class FeeCollectionController extends Controller
 
     // show main form show search stuent form
     public function show(Request $request,Student $student){ 
-         // $parent =new StudentPerentDetail();           
-         //  $fatherDetail =$parent->getParent($request->student_id,1);
-         //  $motherDetail =$parent->getParent($request->student_id,2);
-
-         //  $StudentAddressDetail =new StudentAddressDetail(); 
-         //  $address =$StudentAddressDetail->getAddress($request->student_id);
+         
        $st=new Student();
-        $students=$st->getStudentDetilas($request->student_id);
-    	$student = Student::find($request->student_id); 
+        $students=$st->getStudentDetailsById($request->student_id);
+    	 
        $defultDate = StudentDefaultValue::find(1);
 
       $months=Month::orderBy('id','ASC')->get();

@@ -86,10 +86,10 @@
                         </p> 
                         <hr> 
                         <strong><i class="fa fa-map-marker mr-1"></i> Permanent Address</strong> 
-                        <p class="text-muted">{{ $student->p_address }}</p>
+                        <p class="text-muted">{{ $student->addressDetails->address->p_address or ''}}</p>
                         <hr> 
                         <strong><i class="fa fa-map-marker mr-1"></i> Corespondance Address</strong> 
-                        <p class="text-muted">{{ $student->c_address }}</p>
+                        <p class="text-muted">{{ $student->addressDetails->address->c_address or ''}}</p>
 
                       </div>
                       <!-- /.card-body -->
@@ -113,19 +113,19 @@
                                 <ul class="list-group">
                                  
                                   <li class="list-group-item">User Name :-<span class="fs"><input type="text" value="{{ $student->username }}" disabled=""> </span></li> 
-                                  <li class="list-group-item">Email :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->email }}" disabled> </span></li>
+                                  <li class="list-group-item">Email :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->addressDetails->address->primary_email or '' }}" disabled> </span></li>
                                   <li class="list-group-item">Class :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->classes->name or ''}}" name="nick_name"> </span></li>
                                   <li class="list-group-item">Section :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->sectionTypes->name or '' }}" > </span></li>
-                                  <li class="list-group-item">Father's Name :-<span class="fs"><input type="text" maxlength="10" value="{{ $student->f_name }}" name="father_name"> </span></li>
-                                  <li class="list-group-item">Mother's Name :-<span class="fs"><input type="text" maxlength="50" value="{{ $studentM->m_name }}" name="mother_name"> </span></li>
-                                  <li class="list-group-item">Father's Mobile :-<span  class="fs"><input type="text" maxlength="10" value="{{ $student->f_mobile }}" name="father_mobile"></span></li>
-                                  <li class="list-group-item">Primary Mobile :-<span class="fs"><input type="text" maxlength="10" value="{{ $student->primary_mobile}}" name="mother_mobile"> </span></li>                                     
+                                  <li class="list-group-item">Father's Name :-<span class="fs"><input type="text" maxlength="10" value="{{ $student->parents[0]->parentInfo->name or ''}}" name="father_name"> </span></li>
+                                  <li class="list-group-item">Mother's Name :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->parents[1]->parentInfo->name or ''}}" name="mother_name"> </span></li>
+                                  <li class="list-group-item">Father's Mobile No. :-<span  class="fs"><input type="text" maxlength="10" value="{{ $student->parents[0]->parentInfo->mobile or '' }}" name="father_mobile"></span></li>
+                                  <li class="list-group-item">Mobile No. :-<span class="fs"><input type="text" maxlength="10" value="{{ $student->addressDetails->address->primary_mobile or ''}}" name="mother_mobile"> </span></li>                                     
                                   
-                                  <li class="list-group-item">Category :-<span class="fs"><input type="text" value="{{ $student->category_id}}" disabled=""> </span></li>
-                                  <li class="list-group-item">Religion :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->religion_id or ''}}" disabled=""> </span></li> 
-                                  <li class="list-group-item">City :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->city }}" name="city"> </span></li>
-                                  <li class="list-group-item">State :-<span class="fs"><input type="text" value="{{ $student->state }}" name="state"> </span></li>
-                                  <li class="list-group-item">Pincode :-<span class="fs"><input type="text" maxlength="6" value="{{ $student->p_pincode }}" name="pincode"> </span></li><li class="list-group-item">Pincode :-<span class="fs"><input type="text" maxlength="6" value="{{ $student->c_pincode }}" name="pincode"> </span></li> 
+                                  <li class="list-group-item">Category :-<span class="fs"><input type="text" value="{{ $student->addressDetails->address->categories->name or ''}}" disabled=""> </span></li>
+                                  <li class="list-group-item">Religion :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->addressDetails->address->religions->name or ''}}" disabled=""> </span></li> 
+                                  <li class="list-group-item">City :-<span class="fs"><input type="text" maxlength="50" value="{{ $student->addressDetails->address->city or ''}}" name="city"> </span></li>
+                                  <li class="list-group-item">State :-<span class="fs"><input type="text" value="{{ $student->addressDetails->address->state or ''}}" name="state"> </span></li>
+                                  <li class="list-group-item">Pincode :-<span class="fs"><input type="text" maxlength="6" value="{{ $student->addressDetails->address->p_pincode or ''}}" name="pincode"> </span></li> 
                                   <li class="list-group-item">Date of Activation :-<span class="fs"><input type="text" maxlength="50" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation"> </span></li>
                                     
                                   

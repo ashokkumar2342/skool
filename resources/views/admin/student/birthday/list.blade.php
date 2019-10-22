@@ -54,8 +54,9 @@
                    		    <th>DOB</th>                  
                    		    <th>Name</th>
                    		    <th>Father Name</th> 
-                   		    <th>Father Mobile</th> 
-                   		    <th>Mother Mobile</th>                                    
+                   		    <th>Father Mobile No</th> 
+                   		    <th>Mobile No</th>                                    
+                          <th>E-mail</th>                                    
                    		    <th>Action</th>                                    
                    		  </tr>
                    		  </thead>
@@ -66,9 +67,10 @@
                           <td>{{ $student->registration_no }}</td>               
                    		    <td>{{ date('d-m-Y',strtotime($student->dob)) }}</td>               
                    		    <td>{{ $student->name }}</td>
-                   		    <td>{{ $student->father_name }}</td>
-                   		    <td>{{ $student->father_mobile }}</td>
-                   		    <td>{{ $student->mother_mobile }}</td> 
+                   		    <td>{{ $student->parents[0]->parentInfo->name or '' }}</td>
+                          <td>{{ $student->parents[0]->parentInfo->mobile or '' }}</td>
+                          <td>{{ $student->addressDetails->address->primary_mobile or '' }}</td>
+                          <td>{{ $student->addressDetails->address->primary_email or '' }}</td>
                    		    <td>
                    		    	<a  href="{{ route('admin.birthday.card.pdf',$student->id) }}" target="blank"  class="btn btn-info btn-xs"><i class="fa fa-print"></i> </a>
 

@@ -22,7 +22,7 @@ class MemberShipDetailsController extends Controller
 	public function index()
 	{
 	    $memberShipFacilitys=MemberShipFacility::all();
-	   $librarymembertypes=LibraryMemberType::orderBy('member_ship_type','asc')->get();
+	   $librarymembertypes=LibraryMemberType::orderBy('id','ASC')->get();
 	  $students = Student::all();
 		return view('admin.library.memberShipDetails.member_ship_details',compact('librarymembertypes','students','memberShipFacilitys')); 
 	}
@@ -113,7 +113,8 @@ class MemberShipDetailsController extends Controller
     {
       // return $request;
       if ($request->id==1) {
-    	 $datas = Student::all();
+    	 $data =new Student();
+       $datas =$data->getAllStudents();
        $memberShipFacilitys=MemberShipFacility::where('member_ship_type_id',$request->id)->get(); 
       }if ($request->id==2) {
        $datas = TeacherFaculty::all();
@@ -130,15 +131,9 @@ class MemberShipDetailsController extends Controller
           
        $memberShipDetail=MemberShipDetails::where('member_ship_no',$request->id)->where('member_ship_type_id',$request->library_member_ship)->first();
           if ( $request->library_member_ship==1) {
-              $datas = Student::find($request->id);
-          //      $parent =new StudentPerentDetail();           
-          // $fatherDetail =$parent->getParent($request->id,1);
-          // $motherDetail =$parent->getParent($request->id,2);
-
-          // $StudentAddressDetail =new StudentAddressDetail(); 
-          // $address =$StudentAddressDetail->getAddress($request->id);
+             $student=1;  
               $st=new Student();
-          $datas=$st->getStudentDetilas($request->id); 
+          $datas=$st->getStudentDetailsById($request->id); 
           }
           if ( $request->library_member_ship==2) {
                $datas = TeacherFaculty::find($request->id);
@@ -152,7 +147,7 @@ class MemberShipDetailsController extends Controller
           }      
          
          
-         return view('admin.library.memberShipDetails.registration_no_by_details',compact('datas','memberShipDetail','memberShipFacilitys','memberTicketDetails','fatherDetail','motherDetail','address')); 
+         return view('admin.library.memberShipDetails.registration_no_by_details',compact('datas','memberShipDetail','memberShipFacilitys','memberTicketDetails','student')); 
        
     } 
 }

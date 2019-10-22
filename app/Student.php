@@ -96,7 +96,7 @@ class Student extends Authenticatable
         }
 
     }
-      //single student get data
+      //single student get all details
     public function getStudentDetailsById($id)
     {
         try {
@@ -106,7 +106,17 @@ class Student extends Authenticatable
         }
 
     }
-      //single student get data
+    //All student get data
+    public function getStudentAllDetails()
+    {
+        try {
+          return $student =Student::where('student_status_id',1)->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])->get();  
+        } catch (Exception $e) {
+            return $e;
+        }
+
+    }
+      //multi student get data
     public function getStudentDetailsByArrId($arr_id)
     {
         try {
@@ -116,7 +126,7 @@ class Student extends Authenticatable
         }
 
     }
-      //single student get data
+      // Arrya class  student get data
     public function getStudentByClassMultiselectId($class_id)
     {
         try {
@@ -150,7 +160,7 @@ class Student extends Authenticatable
         }
 
     }
-    //single student get data
+    //all student get data
     public function getStudentsByArrId($arrId)
     {
         try {
@@ -168,35 +178,7 @@ class Student extends Authenticatable
     return $e; 
     }
     }
-     public function getStudentsAllDetilas()
-     {
-      try {
-          $datas=  DB::table('students')
-            ->leftJoin('student_perent_details', 'students.id', '=', 'student_perent_details.student_id') 
-                    
-            ->leftJoin('parents_infos','parents_infos.id','=','student_perent_details.perent_info_id')
-            ->leftJoin('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
-            ->leftJoin('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
-            ->leftJoin('addresses','addresses.id','=','student_address_details.student_address_details_id')
-            ->select(
-              'students.*',
-              'addresses.primary_mobile',
-              'addresses.primary_email',
-              'addresses.p_address',
-              'parents_infos.name as f_name' ,
-              'parents_infos.mobile as f_mobile' ,
-              'student_perent_details.relation_id'
-            )    
-            ->get(); 
-            return $datas;
-                 
-                 
-              
-
-         } catch (Exception $e) {
-            
-        }
-     }
+      
      public function getStudentByClassOrSection($class_id,$section_id)
      {
       try {   
@@ -222,74 +204,9 @@ class Student extends Authenticatable
             
         }
      }
-     public function getStudentDetilas($student_id)
-     {
-      try {
-           return $this  
-                ->join('student_perent_details','student_perent_details.student_id','=','students.id')
-                ->join('parents_infos','parents_infos.id','=','student_perent_details.perent_info_id')
-                ->join('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
-                ->join('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
-                ->join('addresses','addresses.id','=','student_address_details.student_address_details_id')
-                ->join('religions','religions.id','=','addresses.religion_id')
-                ->join('categories','categories.id','=','addresses.category_id')
-                ->select(
-                  'students.*',
-                  'parents_infos.name as f_name',
-                  'parents_infos.mobile as f_mobile',
-                  'student_perent_details.relation_id', 
-                  'addresses.p_address',
-                  'addresses.c_address',
-                  'addresses.state',
-                  'addresses.city',
-                  'addresses.p_pincode',
-                  'addresses.c_pincode',
-                  'religions.name as religion_id',
-                  'categories.name as category_id',
-                   
-                  'addresses.primary_mobile',
-                  'addresses.primary_email'
-                )->where('students.id',$student_id)          
-                 ->where('student_perent_details.relation_id',1)          
-                ->first();
-                 
-                 
-              
+      
 
-         } catch (Exception $e) {
-            
-        }
-     }
-
-     public function getStudentMotherDetail($student_id)
-     {
-      try {
-           return $this  
-                ->join('student_perent_details','student_perent_details.student_id','=','students.id')
-                ->join('parents_infos','parents_infos.id','=','student_perent_details.perent_info_id')
-                ->join('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
-                ->join('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
-                ->join('addresses','addresses.id','=','student_address_details.student_address_details_id')
-                ->select(
-                  'students.*',
-                  'parents_infos.name as m_name',
-                  'parents_infos.mobile as m_mobile',
-                  'student_perent_details.relation_id', 
-                  'addresses.p_address',
-                  'addresses.c_address',
-                  'addresses.primary_mobile',
-                  'addresses.primary_email'
-                )->where('students.id',$student_id)          
-                 ->where('student_perent_details.relation_id',2)          
-                ->first();
-                 
-                 
-              
-
-         } catch (Exception $e) {
-            
-        }
-     }
+     
     
     public function getStudentsSearchDetilas($search)
     {
@@ -324,5 +241,30 @@ class Student extends Authenticatable
        } catch (Exception $e) {
            
        }
+    }
+    public function getStudentAllDetailsBirthday($from_month,$to_month,$from_day,$to_day)
+    {
+        try {
+          return $student =Student::whereMonth('dob','>=',$from_month)
+                           ->whereMonth('dob','<=',$to_month)
+                           ->whereDay('dob','>=',$from_day)
+                           ->whereDay('dob','<=',$to_day)
+                           ->where('student_status_id',1)->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])->get();  
+        } catch (Exception $e) {
+            return $e;
+        }
+
+    }
+    public function getStudentAllDetailsTodayBirthday()
+    {
+        try {
+          return $student =Student::
+                             whereMonth('dob',date('m'))
+                            ->whereDay('dob',date('d')) 
+                            ->where('student_status_id',1)->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])->get();  
+        } catch (Exception $e) {
+            return $e;
+        }
+
     }
 }

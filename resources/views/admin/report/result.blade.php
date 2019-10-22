@@ -6,7 +6,8 @@
                               
                   <th>Registration No</th> 
                   <th>Name</th> 
-                  <th>Father Name</th>
+                  <th>Father's Name</th>
+                  <th>Mother's Name</th>
                   @if ($student_phone==1) 
                   <th>Mobile</th> 
                   @endif  
@@ -34,12 +35,13 @@
                 <tr>
                   <td>{{ $result->registration_no }}</td> 
                   <td>{{ $result->name }}</td> 
-                  <td>{{ $result->f_name }}</td>
+                  <td>{{ $result->parents[0]->parentInfo->name or '' }}</td>
+                  <td>{{ $result->parents[1]->parentInfo->name or '' }}</td>
                    @if ($student_phone==1) 
-                  <td>{{ $result->primary_mobile }}</td>
+                  <td>{{ $result->addressDetails->address->primary_mobile or ''}}</td>
                    @endif  
                   @if ($student_email==2)
-                      <td>{{ $result->primary_email }}</td>                                 
+                      <td>{{ $result->addressDetails->address->primary_email or '' }}</td>                                 
                   @endif 
                    @if ($student_dob==3)
                       <td>{{ $result->dob }}</td>                                 
@@ -48,10 +50,10 @@
                       <td>{{ $result->genders->genders or ''}}</td>                                 
                   @endif
                   @if ($student_rel==5)
-                      <td>{{ $result->religions->name or ''}}</td>                                 
+                      <td>{{ $result->addressDetails->address->religions->name or ''}}</td>                                 
                   @endif 
                   @if ($student_add==6)
-                      <td>{{ $result->p_address }}</td>                                 
+                      <td>{{ $result->addressDetails->address->p_address or ''}}</td>                                 
                   @endif 
                 </tr>
                 @endif

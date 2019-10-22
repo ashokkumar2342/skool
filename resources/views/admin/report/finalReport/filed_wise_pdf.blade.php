@@ -14,22 +14,22 @@
 <div class="row" style="margin-left: 80px" style="margin-left: 80px">
     @if (in_array('name',$fieldNames)) 
         <div class="col-lg-6"> 
-          <p><li>First Name :-<b> {{ $student->name }}  </b> </li></p>  
+          <p><li> Name :-<b> {{ $student->name }}  </b> </li></p>  
         </div> 
      @endif 
      @if (in_array('father_name',$fieldNames))
         <div class="col-lg-6">
-           <p><li> Father's Name :- <b>{{ $student->father_name }}</b></li></p> 
+           <p><li> Father's Name :- <b>{{ $student->parents[0]->parentInfo->name or ''}}</b></li></p> 
         </div> 
      @endif
 </div>
 <div class="row" style="margin-left: 80px">
     @if (in_array('father_mobile',$fieldNames))
         <div class="col-lg-6">
-           <p><li> Father's Mobile :- <b>{{ $student->father_mobile }}</b></li></p> 
+           <p><li> Mother's Name :- <b>{{ $student->parents[1]->parentInfo->name or '' }}</b></li></p> 
         </div> 
         <div class="col-lg-6">
-           <p><li> Mother's Mobile :- <b>{{ $student->mother_mobile }}</b></li></p> 
+           <p><li> Mobile :- <b>{{ $student->addressDetail->address->primary_mobile or ''  }}</b></li></p> 
         </div> 
     @endif
 </div> 
@@ -60,7 +60,7 @@
 <div class="row" style="margin-left: 80px"> 
      @if (in_array('email',$fieldNames))
         <div class="col-lg-6">
-          <p><li>Email :-<b>{{ $student->email }}</b></li></p> 
+          <p><li>Email :-<b>{{ $student->addressDetails->address->primary_email or '' }}</b></li></p> 
         </div> 
      @endif
      @if (in_array('username',$fieldNames))
@@ -80,53 +80,141 @@
       @endif     
 </div>
  
-
-@foreach(App\Model\ParentsInfo::where('student_id',$student->id)->get() as $parent) 
-      @if (in_array($parent->relation_type_id,$fieldNames)) 
-      <h4 align="center"><b>{{ $parent->relationType->name or ''}} Details</b></h4><hr>
+@if (in_array(1,$fieldNames))
+ @if (!empty($student->parents[0]->parentInfo->name)) 
+      <h4 align="center"><b>Father Details</b></h4><hr>
 <div class="row" style="margin-left: 80px">
       <div class="col-lg-6"> 
-    <p><li> Name :- <b>{{ $parent->name  }}</b></li></p>  
+    <p><li> Name :- <b>{{ $student->parents[0]->parentInfo->name or '' }}</b></li></p>  
      </div> 
      <div class="col-lg-6">
-   <p><li>Education :-<b> {{ $parent->education or ''}} </b> </li></p>   
+   <p><li>Education :-<b> {{ $student->parents[0]->parentInfo->education or ''}} </b> </li></p>   
     </div>
 </div> 
 <div class="row" style="margin-left: 80px"> 
    <div class="col-lg-6"> 
-      <p><li>Profetions :-<b> {{ $parent->profetions->name or ''}} </b> </li></p>
+      <p><li>Profetions :-<b> {{ $student->parents[0]->parentInfo->profetions->name or ''}} </b> </li></p>
   </div> 
   <div class="col-lg-6">
-   <p><li>Incomes :-<b> {{ $parent->incomes->name or ''}} </b> </li></p>
+   <p><li>Incomes :-<b> {{ $student->parents[0]->parentInfo->incomes->range or ''}} </b> </li></p>
 </div>
 </div>
 <div class="row" style="margin-left: 80px"> 
    <div class="col-lg-6"> 
-      <p><li>Mobile :-<b> {{ $parent->mobile }} </b> </li></p>
+      <p><li>Mobile :-<b> {{ $student->parents[0]->parentInfo->mobile }} </b> </li></p>
   </div> 
   <div class="col-lg-6">
-    <p><li> Email :- <b>{{ $parent->email }}</b></li></p> 
+    <p><li> Email :- <b>{{ $student->parents[0]->parentInfo->email }}</b></li></p> 
 </div>
 </div>
 <div class="row" style="margin-left: 80px"> 
    <div class="col-lg-6"> 
-      <p><li>Date of Birth :- <b>{{ date('d-m-Y', strtotime($parent->dob))}}</b></li></p> 
+      <p><li>Date of Birth :- <b>{{ date('d-m-Y', strtotime($student->parents[0]->parentInfo->dob))}}</b></li></p> 
   </div> 
   <div class="col-lg-6">
-     <p><li>Date Of Anniversary:- <b>{{ date('d-m-Y', strtotime($parent->doa))}}</b></li></p>
+     <p><li>Date Of Anniversary:- <b>{{ date('d-m-Y', strtotime($student->parents[0]->parentInfo->doa))}}</b></li></p>
  </div>
 </div>  
 <div class="row" style="margin-left: 80px"> 
    <div class="col-lg-6"> 
-      <p><li>Office Address :- <b>{{ $parent->office_address }}</b></li></p> 
+      <p><li>Office Address :- <b>{{ $student->parents[0]->parentInfo->office_address }}</b></li></p> 
   </div> 
   <div class="col-lg-6">
-      <p><li>Islive :- <b>{{ $parent->islive == 1? 'Yes' : 'No' }}</b></li></p> 
+      <p><li>Islive :- <b>{{ $student->parents[0]->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li></p> 
+  </div>
+</div>
+ @endif 
+ @endif
+ @if (in_array(2,$fieldNames))
+ @if (!empty($student->parents[1]->parentInfo->name)) 
+      <h4 align="center"><b>Mother Details</b></h4><hr>
+<div class="row" style="margin-left: 80px">
+      <div class="col-lg-6"> 
+    <p><li> Name :- <b>{{ $student->parents[1]->parentInfo->name or '' }}</b></li></p>  
+     </div> 
+     <div class="col-lg-6">
+   <p><li>Education :-<b> {{ $student->parents[1]->parentInfo->education or ''}} </b> </li></p>   
+    </div>
+</div> 
+<div class="row" style="margin-left: 81px"> 
+   <div class="col-lg-6"> 
+      <p><li>Profetions :-<b> {{ $student->parents[1]->parentInfo->profetions->name or ''}} </b> </li></p>
+  </div> 
+  <div class="col-lg-6">
+   <p><li>Incomes :-<b> {{ $student->parents[1]->parentInfo->incomes->range or ''}} </b> </li></p>
+</div>
+</div>
+<div class="row" style="margin-left: 81px"> 
+   <div class="col-lg-6"> 
+      <p><li>Mobile :-<b> {{ $student->parents[1]->parentInfo->mobile }} </b> </li></p>
+  </div> 
+  <div class="col-lg-6">
+    <p><li> Email :- <b>{{ $student->parents[1]->parentInfo->email }}</b></li></p> 
+</div>
+</div>
+<div class="row" style="margin-left: 81px"> 
+   <div class="col-lg-6"> 
+      <p><li>Date of Birth :- <b>{{ date('d-m-Y', strtotime($student->parents[1]->parentInfo->dob))}}</b></li></p> 
+  </div> 
+  <div class="col-lg-6">
+     <p><li>Date Of Anniversary:- <b>{{ date('d-m-Y', strtotime($student->parents[1]->parentInfo->doa))}}</b></li></p>
+ </div>
+</div>  
+<div class="row" style="margin-left: 80px"> 
+   <div class="col-lg-6"> 
+      <p><li>Office Address :- <b>{{ $student->parents[1]->parentInfo->office_address }}</b></li></p> 
+  </div> 
+  <div class="col-lg-6">
+      <p><li>Islive :- <b>{{ $student->parents[1]->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li></p> 
   </div>
 </div>
  @endif
-@endforeach
-
+@endif @if (in_array(3,$fieldNames))
+ @if (!empty($student->parents[2]->parentInfo->name)) 
+      <h4 align="center"><b>Grand Father Details</b></h4><hr>
+<div class="row" style="margin-left: 80px">
+      <div class="col-lg-6"> 
+    <p><li> Name :- <b>{{ $student->parents[2]->parentInfo->name or '' }}</b></li></p>  
+     </div> 
+     <div class="col-lg-6">
+   <p><li>Education :-<b> {{ $student->parents[2]->parentInfo->education or ''}} </b> </li></p>   
+    </div>
+</div> 
+<div class="row" style="margin-left: 80px"> 
+   <div class="col-lg-6"> 
+      <p><li>Profetions :-<b> {{ $student->parents[2]->parentInfo->profetions->name or ''}} </b> </li></p>
+  </div> 
+  <div class="col-lg-6">
+   <p><li>Incomes :-<b> {{ $student->parents[2]->parentInfo->incomes->range or ''}} </b> </li></p>
+</div>
+</div>
+<div class="row" style="margin-left: 80px"> 
+   <div class="col-lg-6"> 
+      <p><li>Mobile :-<b> {{ $student->parents[2]->parentInfo->mobile }} </b> </li></p>
+  </div> 
+  <div class="col-lg-6">
+    <p><li> Email :- <b>{{ $student->parents[2]->parentInfo->email }}</b></li></p> 
+</div>
+</div>
+<div class="row" style="margin-left: 80px"> 
+   <div class="col-lg-6"> 
+      <p><li>Date of Birth :- <b>{{ date('d-m-Y', strtotime($student->parents[2]->parentInfo->dob))}}</b></li></p> 
+  </div> 
+  <div class="col-lg-6">
+     <p><li>Date Of Anniversary:- <b>{{ date('d-m-Y', strtotime($student->parents[2]->parentInfo->doa))}}</b></li></p>
+ </div>
+</div>  
+<div class="row" style="margin-left: 80px"> 
+   <div class="col-lg-6"> 
+      <p><li>Office Address :- <b>{{ $student->parents[2]->parentInfo->office_address }}</b></li></p> 
+  </div> 
+  <div class="col-lg-6">
+      <p><li>Islive :- <b>{{ $student->parents[2]->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li></p> 
+  </div>
+</div>
+ @endif
+@endif
+@if (in_array('ondate',$fieldNames) || in_array('bloodgroups',$fieldNames) || in_array('hb',$fieldNames) || in_array('bp',$fieldNames) || in_array('height',$fieldNames) || in_array('weight',$fieldNames)|| in_array('dental',$fieldNames)||in_array('vision',$fieldNames))  
 @foreach(App\Model\StudentMedicalInfo::where('student_id',$student->id)->get() as $studentMedicalInfo) 
 <h4 align="center"><b>Medical Details</b></h4><hr> 
 <div class="row" style="margin-left: 80px"> 
@@ -179,6 +267,7 @@
         @endif 
 </div> 
 @endforeach
+@endif
 
 @foreach(App\Model\StudentSiblingInfo::where('student_id',$student->id)->get() as $studentSiblingInfo) 
 

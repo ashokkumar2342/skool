@@ -123,12 +123,12 @@ class ReportController extends Controller
              
         } elseif ($request->report_for == 7 &&  $request->school_class == 1){ 
             $st =new Student();
-            $results =$st->getStudentsAllDetilas(); 
+            $results =$st->getStudentAllDetails(); 
            return  $this->responseResult($results,$request->student_phone,$request->student_email,$request->student_dob,$request->student_gen,$request->student_rel,$request->student_add);
              
         } elseif ($request->report_for == 7 &&  $request->school_class == 2){
         $st =new Student();
-            $results =$st->getStudentByClassOrSection($request->class,$request->section);
+            $results =$st->getStudentByClassSection($request->class,$request->section);
             // $results = Student::where(['class_id'=>$request->class,'section_id'=>$request->section])->get();
                     return  $this->responseResult($results,$request->student_phone,$request->student_email,$request->student_dob,$request->student_gen,$request->student_rel,$request->student_add);
              
@@ -150,7 +150,7 @@ class ReportController extends Controller
     //----------------------final-report-------------------------------------------------------------//
     public function finalReportIndex(){
         $classTypes=MyFuncs::getClassByHasUser();
-        $students=Student::orderBy('name','ASC')->get();
+        $students=Student::where('student_status_id',1)->orderBy('name','ASC')->get();
         $reportFors=ReportFor::orderBy('id','ASC')->get();
     return view('admin.report.finalReport.index',compact('classTypes','students','reportFors'));
     }
@@ -159,7 +159,7 @@ class ReportController extends Controller
          if ($request->id==1) {
              
          }if ($request->id==2) {
-            $registrations=Student::orderBy('registration_no','ASC')->get();
+            $registrations=Student::where('student_status_id',1)->orderBy('registration_no','ASC')->get();
              return view('admin.report.finalReport.registration',compact('registrations'));   
          }if ($request->id==3) {
              $classTypes=MyFuncs::getClassByHasUser();
@@ -174,11 +174,14 @@ class ReportController extends Controller
         $classWiseSections=Section::where('class_id',$request->id)->get();
         return view('admin.report.finalReport.section',compact('classWiseSections'));
     }
-    public function finalReportShow(Request $request){ 
+    public function finalReportShow(Request $request){
+     
            if ($request->report_for==2) { 
                $fieldNames=$request->fild_name;
                 $sectionWiseDetails=$request->section_wise;  
-                 $student = Student::where('id',$request->registration_no)->first(); 
+                 $st = new Student();
+                 $student=$st->getStudentDetailsById($request->registration_no); 
+                  
                    $profilePdfUrl = Storage_path() . '/app/student/document/profile/'.$student->class_id.'/'.$student->section_id; 
                      if ($request->report_wise==2) { 
                            @mkdir($profilePdfUrl, 0755, true); 
@@ -384,17 +387,14 @@ class ReportController extends Controller
   }  
   public function reportGenerateBarcode(Request $request)
    {   
-
-       if ($request->report_wise==1) {
-        $st=new Student();
-        $students=$st->getStudentsAllDetilas();
-         // $students=Student::where('student_status_id',1)->orderBy('class_id','ASC')->get();
-
+        $st=new Student(); 
+       if ($request->report_wise==1) { 
+        $students=$st->getStudentAllDetails(); 
        }if ($request->report_wise==2) {
-         $students=Student::where('id',$request->registration_no)->where('student_status_id',1)->orderBy('class_id','ASC')->get();
+         $students=$st->getStudentDetailsByArrId([$request->registration_no]);
          $StudentSubject=StudentSubject::where('student_id',$request->registration_no)->where('isoptional_id',1)->first();
        }if ($request->report_wise==3) {
-        $students=Student::where('class_id',$request->class_id)->where('section_id',$request->section_id)->where('student_status_id',1)->orderBy('class_id','ASC')->get();
+        $students=$st->getStudentByClassSection($request->class_id,$request->section_id); 
        }
       if ($request->report_for==1) {
         $customPaper = array(0,0,220.00,350.80);
@@ -406,7 +406,7 @@ class ReportController extends Controller
                         return $pdf->stream('student_all_report.pdf'); 
       }
       if ($request->report_for==2) {
-           $customPaper = array(0,0,220.00,350.80);
+           $customPaper = array(0,0,200.00,290.80);
            $pdf = PDF::loadView('admin.report.generalReport.address',compact('students','fieldNames'))->setPaper($customPaper, 'landscape'); 
                         return $pdf->stream('student_all_report.pdf'); 
       }

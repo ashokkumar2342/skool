@@ -6,6 +6,7 @@
 			<th>name</th>
 			<th>Registration No</th>
 			<th>Father's Name</th>
+			<th>Mother's Name</th>
 			<th>Mobile No</th>
 			<th>E-mail ID</th>
 			<th>Address</th>
@@ -16,10 +17,11 @@
 		<tr>
 			<td>{{ $students->name }}</td>
 			<td>{{ $students->registration_no }}</td>
-			<td>{{ $students->f_name }}</td>
-			<td>{{ $students->primary_mobile }}</td>
-			<td>{{ $students->email }}</td>
-			<td>{{ $students->p_address }}</td>
+			<td>{{ $students->parents[0]->parentInfo->name or '' }}</td>
+			<td>{{ $students->parents[1]->parentInfo->name or '' }}</td>
+			<td>{{ $students->addressDetails->address->primary_mobile or '' }}</td>
+			<td>{{ $students->addressDetails->address->primary_email or '' }}</td>
+			<td>{{ $students->addressDetails->address->p_address or ''}}</td>
 		</tr>
 	</tbody>
 </table>

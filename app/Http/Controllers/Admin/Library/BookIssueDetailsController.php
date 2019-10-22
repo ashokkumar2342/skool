@@ -116,9 +116,7 @@ class BookIssueDetailsController extends Controller
     public function registrationOnchange(Request $request)
     {
 
-        $memberShipRegistrationDetails=MemberShipDetails::find($request->id);
-          $st=new Student();
-          $student=$st->getStudentDetilas($memberShipRegistrationDetails->member_ship_no);     
+       $memberShipRegistrationDetails=MemberShipDetails::find($request->id); 
        return view('admin.library.bookIssueDetails.book_issue_registration_by_show',compact('memberShipRegistrationDetails','student'));
     }
     public function accessionOnchange(Request $request)

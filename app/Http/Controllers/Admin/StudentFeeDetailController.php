@@ -143,13 +143,8 @@ class StudentFeeDetailController extends Controller
      */
     public function feeassignshow(Request $request,$menu_id)
     {   
-        $student = Student::find($request->student_id);
-        $parent =new StudentPerentDetail();           
-          $fatherDetail =$parent->getParent($request->student_id,1);
-          $motherDetail =$parent->getParent($request->student_id,2);
-
-          $StudentAddressDetail =new StudentAddressDetail(); 
-          $address =$StudentAddressDetail->getAddress($request->student_id);
+        $st=new Student();
+        $student=$st->getStudentDetailsById($request->student_id);
         $studentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)->get();  
         
         $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');

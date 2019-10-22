@@ -57,10 +57,8 @@ class StudentController extends Controller
      */
     public function index(Request $request,$menuPermissionId)
     {
-       $parent =new Student();           
-       $students =$parent->getStudentByClassOrSection($request->class,$request->section);
-
-        // $students= Student::where(['class_id'=>$request->class,'section_id'=>$request->section,'student_status_id'=>1])->get(); 
+       $st =new Student();           
+       $students =$st->getStudentByClassSection($request->class,$request->section); 
      $menuPermision= Minu::find($menuPermissionId); 
         $response = array(); 
         $response['data']= view('admin.student.studentdetails.list',compact('students','menuPermision','fatherDetail'))->render();
@@ -742,9 +740,8 @@ class StudentController extends Controller
     //birthday
     Public function birthday(){
          
-       $students = Student::whereMonth('dob',date('m'))
-                            ->whereDay('dob',date('d'))
-                            ->get();
+     $st =new Student();
+     $students=$st->getStudentAllDetailsTodayBirthday();
        return view('admin.student.birthday.list',compact('students'));                     
     }
 
@@ -756,11 +753,8 @@ class StudentController extends Controller
      $from_day =date('d',strtotime($request->from_date));
      $to_day =date('d',strtotime($request->to_date));
 
-     $students = Student::whereMonth('dob','>=',$from_month)
-                           ->whereMonth('dob','<=',$to_month)
-                           ->whereDay('dob','>=',$from_day)
-                           ->whereDay('dob','<=',$to_day)
-                           ->get(); 
+     $st =new Student();
+     $students=$st->getStudentAllDetailsBirthday($from_month,$to_month,$from_day,$to_day); 
       
     $response= array();                       
     $response['status']= 1;                       
@@ -797,9 +791,9 @@ class StudentController extends Controller
     }
     public function birthdayDashboard($value='')
     {
-        $studentDOBs = Student::whereMonth('dob',date('m'))
-                            ->whereDay('dob',date('d'))
-                            ->get(); 
+      $st =new Student();
+     $studentDOBs=$st->getStudentAllDetailsTodayBirthday();
+        
          return view('admin.student.birthday.birthday',compact('studentDOBs'));
     } 
     public function birthdayDashboardUpcoming($value='')

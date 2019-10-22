@@ -50,7 +50,7 @@ class LibraryMemberTypeController extends Controller
 
     public function tableShow()
     {
-    	 $librarymembertypes= LibraryMemberType::all();
+    	 $librarymembertypes= LibraryMemberType::orderBy('id','ASC')->get();
     	  return view('admin.library.librarymembertype.library_member_type_table',compact('librarymembertypes'));
     }
     public function edit($id)

@@ -1,35 +1,34 @@
-<div id="library_member_ship_student_table">
+<div id="library_member_ship_datas_table">
    <div class="col-lg-4"> 
 	<label>Name</label>
-	<input type="text" class="form-control" disabled="" name="name" value="{{ $datas->name or ''}}">
+	<input type="text" class="form-control"  name="name" value="{{ $datas->name or ''}}">
    </div> 
   <input type="text" class="form-control hidden" hidden=""  name="registration_no" value="{{ $datas->registration_no or '' }}"> 
    </div>  
    <div class="col-lg-4"> 
 	<label>Mobile No</label>
-   
-     
-     
-	<input type="text" class="form-control" disabled="" name="mobile" value="{{ $datas->primary_mobile or '' }}">
-  
+  @if (!empty( $student)) 
+	<input type="text" class="form-control"  name="mobile" value="{{ $datas->addressDetails->address->primary_mobile or '' }} ">
+  @else
+  <input type="text" class="form-control"  name="mobile" value="{{ $datas->primary_mobile}} ">
+  @endif 
    </div> 
     <div class="col-lg-4"> 
 	<label>Email</label>
-   
-  <input type="text" class="form-control" disabled="" name="email" value="{{ $datas->email or '' }}">
-  
-	
+   @if (!empty( $student)) 
+  <input type="text" class="form-control"  name="email" value="{{ $datas->addressDetails->address->primary_email or '' }}">
+   @else
+  <input type="text" class="form-control"  name="email" value="{{ $datas->primary_email}}">
+  @endif 
    </div> 
    <div class="col-lg-4">
    	<label>Address</label>
-    
-     <textarea  class="form-control" disabled="" name="address">{{ $datas->p_address or ''}}</textarea> 
-    
-     
-    
+     @if (!empty( $student))  
+     <textarea  class="form-control"  name="address">{{ $datas->addressDetails->address->p_address or ''}}</textarea>
+      @else
+  <textarea  class="form-control"  name="address">{{ $datas->p_address or ''}}</textarea>
+  @endif  
    </div> 
-    
-     
     @if (empty($memberShipDetail))
        <div class="col-lg-12 text-center" style="padding-top: 10px">
          <input type="submit" class="btn btn-success" id="btn_click_ticket_details_show">

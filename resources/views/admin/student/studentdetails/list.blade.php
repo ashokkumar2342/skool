@@ -2,12 +2,12 @@
 <table id="student_list_table" class="table table-bordered table-striped table-hover">
   <thead>
   <tr>               
-    <th>Registration No</th>
-    
+    <th>Registration No</th> 
     <th>Name</th>
-    <th>Father Name</th> 
-    <th>Father Mobile</th> 
-    <th>Primary Mobile</th> 
+    <th>Father's Name</th> 
+    <th>Mother's Name</th> 
+    <th>Mobile</th> 
+    <th>Email</th> 
     <th width="100px">Action</th>                  
   </tr>
   </thead>
@@ -18,9 +18,10 @@
     <td>{{ $student->registration_no }}</td>
  
     <td>{{ $student->name }}</td>
-    <td>{{ $student->f_name }}</td>
-    <td>{{ $student->f_mobile }}</td>
-    <td>{{ $student->primary_mobile }}</td>
+    <td>{{ $student->parents[0]->parentInfo->name or '' }}</td>
+    <td>{{ $student->parents[1]->parentInfo->name or '' }}</td>
+    <td>{{ $student->addressDetails->address->primary_mobile or ''}}</td>
+    <td>{{ $student->addressDetails->address->primary_email or '' }}</td>
      
     <td align="center">
       @if ($menuPermision->r_status==1)
