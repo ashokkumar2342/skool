@@ -35,7 +35,7 @@
 	 
 </div>
 	</br>
-	<p>  {{$msg}},</p>
+	 
  
  
 	 @includeIf('emails.footer')

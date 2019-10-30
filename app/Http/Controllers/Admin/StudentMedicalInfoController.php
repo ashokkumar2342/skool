@@ -22,6 +22,7 @@ use App\Model\PaymentType;
 use App\Model\Profession;
 use App\Model\Religion;
 use App\Model\SessionDate;
+use App\Model\Sms\EmailTemplate;
 use App\Model\Sms\SmsTemplate;
 use App\Model\StudentDefaultValue;
 use App\Model\StudentFee;
@@ -30,6 +31,7 @@ use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
 use App\Student;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PDF;
@@ -107,12 +109,12 @@ class StudentMedicalInfoController extends Controller
         $medical->student_id = $request->student_id;
         $medical->vision = $request->vision;
         $medical->weight = $request->weight; 
-        $medical->save();
+        // $medical->save();
         if ($request->send_sms==1) {
-         $this->medicalSendSms($request->student_id); 
+        $this->medicalSendSms($request->student_id); 
         }
         if ($request->send_email==2) {
-         $this->medicalSendEmail($request->student_id);
+        return  $this->medicalSendEmail($request->student_id);
         }
        
         $response=['status'=>1,'msg'=>'Created Successfully'];
@@ -121,40 +123,77 @@ class StudentMedicalInfoController extends Controller
 
     }
     public function medicalSendSms($student_id)
-    {
-        
-         $medicals =StudentMedicalInfo::where('student_id',$student_id)->orderBy('id','DESC')->first();
-         $medicals =StudentMedicalInfo::find($student_id);
-         $student=Student::where('id',$medicals->student_id)->first(); 
-         $smsTemplate = SmsTemplate::where('id',3)->first()->message;
-         $message = $smsTemplate;
-         event(new SmsEvent($student->father_mobile,$message)); 
+    { 
+        $user_id=Auth::guard('admin')->user()->id;
+         $st=new Student();
+         $student=$st->getStudentDetailsById($student_id);
+         $messageId=StudentDefaultValue::where('user_id',$user_id)->first()->medical_message_id; 
+         $smsTemplate = SmsTemplate::where('id',$messageId)->first()->message;
+
+        $findword = ["#SN#", "#FN#", "#MN#"];
+        $replaceword   = [$student->name, $student->parents[0]->parentInfo->name, $student->parents[1]->parentInfo->name];
+
+         $message = str_replace($findword, $replaceword, $smsTemplate); 
+         event(new SmsEvent($student->addressDetails->address->primary_mobile,$message)); 
         return  redirect()->back()->with(['message'=>'Send  Successfully','class'=>'success']);   
          
         
     }
     public function medicalSendEmail($student_id)
     {
-        $medicals =StudentMedicalInfo::where('student_id',$student_id)->orderBy('id','DESC')->first();
-        $medicals =StudentMedicalInfo::find($student_id);
-        $student=Student::where('id',$medicals->student_id)->first();
-        $message = $medicals;         
-        $emailto = $student->email;         
-        $subject = 'Medical Details'; 
-        $up_u=array(); 
-        $up_u['medicalInfo']=$message;
-        $up_u['subject']=$subject;
-                 
-        $mailHelper =new MailHelper();
-       
-        $mailHelper->mailsend('admin.student.studentdetails.include.medical_send_email',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5);
-       return  redirect()->back()->with(['message'=>'Send  Successfully','class'=>'success']);  
+        $medicalInfo =StudentMedicalInfo::where('student_id',$student_id)->orderBy('id','DESC')->first();
+        $st=new Student();
+         $student=$st->getStudentDetailsById($student_id);
+         $documentUrl = Storage_path() . '/app/student/medical/';
+         @mkdir($documentUrl, 0755, true);
+         $pdf = PDF::loadView('admin.student.studentdetails.include.medical_send_email',compact('medicalInfo'))->save($documentUrl.'/'.$student->registration_no.'_medical.pdf'); 
+         $url =$documentUrl.$student->registration_no.'_medical.pdf';
+            $message =$medicalInfo;         
+            $emailto = $student->addressDetails->address->primary_email;         
+            $subject = 'Medical Details'; 
+            $up_u=array(); 
+            $up_u['medicalInfo']=$message;
+            $up_u['subject']=$subject;
+         
+        $mailHelper =new MailHelper(); 
+        $mailHelper->mailsendwithattachment('emails.message',$up_u,'No-Reply',$subject,$emailto,'noreply@esgekool.com',5,$url);
+       $response=['status'=>1,'msg'=>'Send  Successfully'];
+            return response()->json($response);
     }
     public function templateView($id)
-    {
-         $templateId=$id;
-         $templateView=SmsTemplate::where('template_type_id',$id)->first();
-         return view('admin.sms.smsTemplate.template_view',compact('templateView','templateId'));
+    { 
+         $user_id=Auth::guard('admin')->user()->id;
+         if ($id==1) {
+           $messageId=StudentDefaultValue::where('user_id',$user_id)->first()->birthday_message_id; 
+           $emailId=StudentDefaultValue::where('user_id',$user_id)->first()->birthday_email_id; 
+         }
+         elseif ($id==2) {
+           $messageId=StudentDefaultValue::where('user_id',$user_id)->first()->homework_message_id; 
+           $emailId=StudentDefaultValue::where('user_id',$user_id)->first()->homework_email_id; 
+         }
+         elseif ($id==3) {
+           $messageId=StudentDefaultValue::where('user_id',$user_id)->first()->classTest_message_id; 
+           $emailId=StudentDefaultValue::where('user_id',$user_id)->first()->classTest_email_id; 
+         }
+         elseif ($id==4) {
+           $messageId=StudentDefaultValue::where('user_id',$user_id)->first()->class_test_details_message_id; 
+           $emailId=StudentDefaultValue::where('user_id',$user_id)->first()->class_test_details_email_id; 
+         }
+         elseif ($id==5) {
+           $messageId=StudentDefaultValue::where('user_id',$user_id)->first()->timetable_message_id; 
+           $emailId=StudentDefaultValue::where('user_id',$user_id)->first()->timetable_email_id; 
+         }
+         elseif ($id==6) {
+           $messageId=StudentDefaultValue::where('user_id',$user_id)->first()->medical_message_id; 
+           $emailId=StudentDefaultValue::where('user_id',$user_id)->first()->medical_email_id; 
+         }
+         elseif ($id==7) {
+           $messageId=StudentDefaultValue::where('user_id',$user_id)->first()->absent_student_message_id; 
+           $emailId=StudentDefaultValue::where('user_id',$user_id)->first()->absent_student_email_id; 
+         } 
+         $SMStemplateView=SmsTemplate::where('id',$messageId)->first();
+         $EmailtemplateView=EmailTemplate::where('id',$emailId)->first();
+         return view('admin.sms.smsTemplate.template_view',compact('SMStemplateView','EmailtemplateView'));
     }
 
     /**

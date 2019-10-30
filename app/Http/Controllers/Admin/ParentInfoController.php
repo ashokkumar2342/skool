@@ -54,32 +54,49 @@ class ParentInfoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function image(Request $request)
+    public function image(Request $request,$id)
     {
-          $validator = Validator::make($request->all(), [
+          $parent_id=$id;
+          return view('admin.student.studentdetails.include.add_parents_image',compact('parent_id'));
+        
+    }
+    public function imageStore(Request $request)
+    {
+       
+         $rules=[
             'image' => 'required', 
               
-        ]);
+        ];
 
-        if ($validator->passes())
-         {
-            $file = $request->file('image');
-            $file->store('student/document');
+       $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();                       
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        } 
+          if ($request->hasFile('image')) { 
+                $profilePhoto=$request->image;
+                $filename='parent'.date('d-m-Y').time().'.jpg'; 
+                $profilePhoto->storeAs('student/profile/parent/',$filename); 
 
-            $parentsinfo = ParentsInfo::find($request->parent_id);
-            // $parentsinfo->student_id = $request->student_id;
-            $parentsinfo->photo = $file->hashName();
-            $parentsinfo->save();
-            return response()->json([$parentsinfo,'message'=>'success','class'=>'success']) ;
-                
+                $parentsinfo = ParentsInfo::find($request->parent_id);
+             
+                $parentsinfo->photo = $filename;
+                $parentsinfo->save();
+                $response=['status'=>1,'msg'=>'Parent image Save Successfully'];
+                return response()->json($response); 
           }
 
-        return response()->json(['message'=>$validator->errors()->all(),'class'=>'error']); 
+        
     }
     public function imageShow($image)
     {
-        $img = Storage::disk('student')->get('document/'.$image);
-        return response($img)->header('Content-Type', 'image/jpeg');
+        $image = Storage::disk('student')->get('profile/parent/'.$image);           
+         return  response($image)->header('Content-Type', 'image/jpeg');
+
+        
                 
           
 

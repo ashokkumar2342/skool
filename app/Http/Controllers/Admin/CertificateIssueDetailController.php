@@ -32,7 +32,7 @@ class CertificateIssueDetailController extends Controller
     public function index()
     {
         $st=new Student();
-        $students=$st->getStudentsAllDetilas(); 
+        $students=$st->getStudentAllDetails(); 
         $certificates =CertificateIssueDetail::where('status',3)->orderBy('created_at','desc')->get();
 
         return view('admin.certificate.certificate_table_show',compact('certificates','students'));
@@ -301,26 +301,20 @@ class CertificateIssueDetailController extends Controller
     { 
           
         $st=new Student();
-        $student=$st->getStudentDetilas($certificate->student_id);
-        
-        $studentM=$st->getStudentMotherDetail($certificate->student_id);
-        if (empty($studentM)) {
-             return 'Student Details Not Complete';
-        }
-         // $student=Student::where('id',$certificate->student_id)->where('student_status_id',1)->first();
+        $student=$st->getStudentDetailsById($certificate->student_id); 
         $CertificateIssueDetail=CertificateIssueDetail::where('student_id',$certificate->student_id)->first();
          
 
            $documentUrl = Storage_path() . '/app/student/document/certificate';
            @mkdir($documentUrl, 0755, true); 
                 if ($certificate->certificate_type==4) {
-                $pdf = PDF::loadView('admin.certificate.tuitionfee.date_of_birth_certificate',compact('student','studentM'))->save($documentUrl.'/'.$certificate->students->registration_no.'_date_of_birth_certificate.pdf'); 
+                $pdf = PDF::loadView('admin.certificate.tuitionfee.date_of_birth_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_date_of_birth_certificate.pdf'); 
                 return $pdf->stream('date_of_birth_certificate.pdf'); 
                  } if ($certificate->certificate_type==2) {
-                $pdf = PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student','studentM','CertificateIssueDetail'))->save($documentUrl.'/'.$certificate->students->registration_no.'_leaving_certificate.pdf'); 
+                $pdf = PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student','CertificateIssueDetail'))->save($documentUrl.'/'.$certificate->students->registration_no.'_leaving_certificate.pdf'); 
                 return $pdf->stream('leaving_certificate.pdf'); 
                  } if ($certificate->certificate_type==3) {
-                $pdf = PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('student','studentM'))->save($documentUrl.'/'.$certificate->students->registration_no.'_character_certificate.pdf'); 
+                $pdf = PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_character_certificate.pdf'); 
                 return $pdf->stream('character_certificate.pdf'); 
                 
              }
@@ -339,7 +333,7 @@ class CertificateIssueDetailController extends Controller
         $certificates =CertificateIssueDetail::where('status',1)->orderBy('created_at','desc')->get();
         $admin=Auth::guard('admin')->user()->id;
          $st=new Student();
-        $students=$st->getStudentsAllDetilas();
+        $students=$st->getStudentAllDetails();
         return view('admin.certificate.virify_list',compact('certificates','admin','students'));
     }
 
@@ -348,7 +342,7 @@ class CertificateIssueDetailController extends Controller
     {  
           $certificates =CertificateIssueDetail::where('status',2)->orderBy('created_at','desc')->get();
            $st=new Student();
-        $students=$st->getStudentsAllDetilas();
+        $students=$st->getStudentAllDetails();
          return view('admin.certificate.approval',compact('certificates','students'));
         
     }
@@ -404,6 +398,7 @@ class CertificateIssueDetailController extends Controller
              $certificate->status =3;
              $certificate->virify_by =$admin;
              $certificate->save();
+               $this->CertificateCardMail($request->certificate_type,$id);
                $response=['status'=>1,'msg'=>'Approval Successfully'];
             return response()->json($response);
         }   
@@ -446,8 +441,8 @@ class CertificateIssueDetailController extends Controller
              $certificate->certificate_type = $request->certificate_type;
              $certificate->status =3;
              $certificate->virify_by =$admin;
-                 $certificate->save();
-                return  $this->CertificateCardMail($request->certificate_type,$id); 
+                 // $certificate->save();
+              $this->CertificateCardMail($request->certificate_type,$id); 
                $response=['status'=>1,'msg'=>'Approval Successfully'];
                return response()->json($response);
            }
@@ -475,28 +470,49 @@ class CertificateIssueDetailController extends Controller
         
     public function CertificateCardMail($certificate_type,$id)
     {
-          
+        
      $CertificateIssueDetail =  CertificateIssueDetail::find($id);
-     $student=Student::where('id',$CertificateIssueDetail->student_id)->first();
+        $st=new Student();
+        $student=$st->getStudentDetailsById($CertificateIssueDetail->student_id);
+        $documentUrl = Storage_path() . '/app/student/certificateissu/';
+         @mkdir($documentUrl, 0755, true);
+         if ($certificate_type==2) {
+         $pdf = PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student','CertificateIssueDetail'))->save($documentUrl.'/'.$student->registration_no.'_leaving_certificate.pdf');
+         } 
+         if ($certificate_type==3) {
+         $pdf = PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('student'))->save($documentUrl.'/'.$student->registration_no.'_character_certificate.pdf');
+         } 
+         if ($certificate_type==4) {
+         $pdf = PDF::loadView('admin.certificate.tuitionfee.date_of_birth_certificate',compact('student'))->save($documentUrl.'/'.$student->registration_no.'_date_of_birth_certificate.pdf');
+         }
+         if ($certificate_type==2) { 
+         $url =$documentUrl.$student->registration_no.'_leaving_certificate.pdf';
+         }if ($certificate_type==3) { 
+         $url =$documentUrl.$student->registration_no.'_character_certificate.pdf';
+         }if ($certificate_type==4) { 
+         $url =$documentUrl.$student->registration_no.'_date_of_birth_certificate.pdf';
+         }
         $student = $student;         
         $CertificateIssueDetail = $CertificateIssueDetail;         
-        $emailto = $student->email;         
+        $emailto = $student->addressDetails->address->primary_email;         
         $subject = 'certifiate'; 
         $up_u=array();
          
         $up_u['student']=$student;
-        $up_u['CertificateIssueDetail']=$CertificateIssueDetail;
+         if ($certificate_type==2) {
+          $up_u['CertificateIssueDetail']=$CertificateIssueDetail;
+         }
         $up_u['subject']=$subject; 
         $mailHelper =new MailHelper();
          if ($certificate_type==2) {
-          $mailHelper->mailsend('admin.certificate.tuitionfee.leaving_certificate',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5); 
+          $mailHelper->mailsendwithattachment('admin.certificate.tuitionfee.leaving_certificate',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5,$url); 
          }if ($certificate_type==3) {
-          $mailHelper->mailsend('admin.certificate.tuitionfee.character_certificate',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5); 
+          $mailHelper->mailsendwithattachment('admin.certificate.tuitionfee.character_certificate',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5,$url); 
          }if ($certificate_type==4) {
-          $mailHelper->mailsend('admin.certificate.tuitionfee.date_of_birth_certificate',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5); 
+          $mailHelper->mailsendwithattachment('admin.certificate.tuitionfee.date_of_birth_certificate',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5,$url); 
          }
-         $smsTemplate = SmsTemplate::where('id',4)->first();
-         event(new SmsEvent($student->father_mobile,$smsTemplate->message));
+         $smsTemplate = SmsTemplate::where('id',1)->first();
+         event(new SmsEvent($student->addressDetails->address->primary_mobile,$smsTemplate->message));
         $response = array();
         $response['status'] = 1;
         $response['msg'] = 'Approval Successfully';

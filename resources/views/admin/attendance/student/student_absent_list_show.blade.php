@@ -1,9 +1,9 @@
 
- <form action="{{ route('admin.attendance.student.absent.send.sms') }}" method="post" class="add_form"> 
+ <form action="{{ route('admin.attendance.student.absent.send.sms',1) }}" method="post" class="add_form"> 
   {{ csrf_field() }}
   <button type="submit" class="btn btn-danger btn-sm " style="margin: 5px;float: right;">Send Email &nbsp;<i class="fa fa-envelope"></i></button> 
   <button type="submit" class="btn btn-primary btn-sm "  style="margin: 5px;float: right;">Send SMS &nbsp;<i class="fa fa-send"></i></button>
-  <a href="#" title="" onclick="callPopupLevel2(this,'{{ route('admin.medical.template.view',2) }}')" style="float: right; margin-top:10px">Template View</a>
+  <a href="#" title="" onclick="callPopupLevel2(this,'{{ route('admin.medical.template.view',7) }}')" style="float: right; margin-top:10px">Template View</a>
  <table id="event_type_data_table" class="table table-bordered table-striped table-hover table-responsive"> 
                <thead>
                  <tr>

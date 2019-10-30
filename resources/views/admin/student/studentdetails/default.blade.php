@@ -74,14 +74,201 @@
                                                     {{ Form::text('pincode',@$default->pincode,array('class' => 'form-control' )) }}
                                                     <p class="text-danger">{{ $errors->first('pincode') }}</p>
                                                 </div>
-                                            </div>  
+                                            </div>
+                                            @php
+                                                $SMSarrayId=1;    
+                                              @endphp  
                                             <div class="col-lg-2">                         
                                                 <div class="form-group">
-                                                    <label>Sms Template</label>
-                                                     <select name="template_id" class="form-control">
-                                                         <option value=""></option>
-                                                         
-                                                     </select>
+                                                    <label>SMS Template Birthday</label>
+                                                     <select name="birthday_message_id" class="form-control">
+                                                          <option selected disabled>Select Option</option>
+                                                          @foreach ($smsbirthdayTemplates as $smsTemplate)
+                                                             <option value="{{ $smsTemplate->id }}"{{$default->birthday_message_id==$smsTemplate->id? 'selected' : ''  }}>{{ $SMSarrayId++ }} Template</option> 
+                                                          @endforeach 
+                                                      </select> 
+                                                </div>
+                                            </div>
+                                             @php
+                                                $EmailarrayId=1;    
+                                              @endphp
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    <label>Email Template Birthday</label>
+                                                     <select name="birthday_email_id" class="form-control">
+                                                          <option selected disabled>Select Option</option>
+                                                          @foreach ($emailbirthdayTemplates as $smsTemplate)
+                                                             <option value="{{ $smsTemplate->id }}"{{$default->birthday_email_id==$smsTemplate->id? 'selected' : ''  }}>{{ $EmailarrayId++ }} Template</option> 
+                                                          @endforeach 
+                                                      </select> 
+                                                </div>
+                                            </div>
+                                            @php
+                                                $homeworkId=1;    
+                                              @endphp    
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    <label>SMS Template Homework</label>
+                                                     <select name="homework_message_id" class="form-control">
+                                                          <option selected disabled>Select Option</option>
+                                                          @foreach ($smshomeworkTemplates as $smsTemplate)
+                                                             <option value="{{ $smsTemplate->id }}"{{$default->homework_message_id==$smsTemplate->id? 'selected' : ''  }}>{{ $homeworkId++ }} Template</option> 
+                                                          @endforeach 
+                                                      </select> 
+                                                </div>
+                                            </div>   
+                                            @php
+                                                $emailhomeworkId=1;    
+                                              @endphp    
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    <label>Email Template Homework</label>
+                                                     <select name="homework_email_id" class="form-control">
+                                                          <option selected disabled>Select Option</option>
+                                                          @foreach ($emailhomeworkTemplates as $smsTemplate)
+                                                             <option value="{{ $smsTemplate->id }}"{{$default->homework_email_id==$smsTemplate->id? 'selected' : ''  }}>{{ $emailhomeworkId++ }} Template</option> 
+                                                          @endforeach 
+                                                      </select> 
+                                                </div>
+                                            </div>  
+                                            @php
+                                                $smsclassId=1;    
+                                              @endphp    
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    <label>SMS Template Class Test</label>
+                                                     <select name="classTest_message_id" class="form-control">
+                                                          <option selected disabled>Select Option</option>
+                                                          @foreach ($smsclasstestTemplates as $smsTemplate)
+                                                             <option value="{{ $smsTemplate->id }}"{{$default->classTest_message_id==$smsTemplate->id? 'selected' : ''  }}>{{ $smsclassId++ }} Template</option> 
+                                                          @endforeach 
+                                                      </select> 
+                                                </div>
+                                            </div>  
+                                            @php
+                                                $emailclassId=1;    
+                                              @endphp    
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    <label>Email Template Class Test</label>
+                                                     <select name="classTest_email_id" class="form-control">
+                                                          <option selected disabled>Select Option</option>
+                                                          @foreach ($emailclasstestTemplates as $smsTemplate)
+                                                             <option value="{{ $smsTemplate->id }}"{{$default->classTest_email_id==$smsTemplate->id? 'selected' : ''  }}>{{ $emailclassId++ }} Template</option> 
+                                                          @endforeach 
+                                                      </select> 
+                                                </div>
+                                            </div>  
+                                            @php
+                                                $smsclassDetilsId=1;    
+                                              @endphp    
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    <label>SMS  Class Test Details</label>
+                                                     <select name="class_test_details_message_id" class="form-control">
+                                                          <option selected disabled>Select Option</option>
+                                                          @foreach ($smsclasstestDetailsTemplates as $smsTemplate)
+                                                             <option value="{{ $smsTemplate->id }}"{{$default->class_test_details_message_id==$smsTemplate->id? 'selected' : ''  }}>{{ $smsclassDetilsId++ }} Template</option> 
+                                                          @endforeach 
+                                                      </select> 
+                                                </div>
+                                            </div>  
+                                            @php
+                                                $emailclassDetilsId=1;    
+                                              @endphp    
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    <label>Email  Class Test Details</label>
+                                                     <select name="class_test_details_email_id" class="form-control">
+                                                          <option selected disabled>Select Option</option>
+                                                          @foreach ($emailclasstestDetailsTemplates as $smsTemplate)
+                                                             <option value="{{ $smsTemplate->id }}"{{$default->class_test_details_email_id==$smsTemplate->id? 'selected' : ''  }}>{{ $emailclassDetilsId++ }} Template</option> 
+                                                          @endforeach 
+                                                      </select> 
+                                                </div>
+                                            </div>  
+                                            @php
+                                                $smsTimeId=1;    
+                                              @endphp    
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    <label>SMS Template Time Table</label>
+                                                     <select name="timetable_message_id" class="form-control">
+                                                          <option selected disabled>Select Option</option>
+                                                          @foreach ($smsTimetableTemplates as $smsTemplate)
+                                                             <option value="{{ $smsTemplate->id }}"{{$default->timetable_message_id==$smsTemplate->id? 'selected' : ''  }}>{{ $smsTimeId++ }} Template</option> 
+                                                          @endforeach 
+                                                      </select> 
+                                                </div>
+                                            </div>  
+                                            @php
+                                                $emailTimeId=1;    
+                                              @endphp    
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    <label>Email Template Time Table</label>
+                                                     <select name="timetable_email_id" class="form-control">
+                                                          <option selected disabled>Select Option</option>
+                                                          @foreach ($smsTimetableTemplates as $smsTemplate)
+                                                             <option value="{{ $smsTemplate->id }}"{{$default->timetable_email_id==$smsTemplate->id? 'selected' : ''  }}>{{ $emailTimeId++ }} Template</option> 
+                                                          @endforeach 
+                                                      </select> 
+                                                </div>
+                                            </div>  
+                                            @php
+                                                $medicalSMS=1;    
+                                              @endphp    
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    <label>SMS Template Medical</label>
+                                                     <select name="medical_message_id" class="form-control">
+                                                          <option selected disabled>Select Option</option>
+                                                          @foreach ($smsMedicalTemplates as $smsTemplate)
+                                                             <option value="{{ $smsTemplate->id }}"{{$default->medical_message_id==$smsTemplate->id? 'selected' : ''  }}>{{ $medicalSMS++ }} Template</option> 
+                                                          @endforeach 
+                                                      </select> 
+                                                </div>
+                                            </div>  
+                                            @php
+                                                $medicalEmail=1;    
+                                              @endphp    
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    <label>Email Template Medical</label>
+                                                     <select name="medical_email_id" class="form-control">
+                                                          <option selected disabled>Select Option</option>
+                                                          @foreach ($emailMedicalTemplates as $smsTemplate)
+                                                             <option value="{{ $smsTemplate->id }}"{{$default->medical_email_id==$smsTemplate->id? 'selected' : ''  }}>{{ $medicalEmail++ }} Template</option> 
+                                                          @endforeach 
+                                                      </select> 
+                                                </div>
+                                            </div>
+                                            @php
+                                                $absentSMS=1;    
+                                              @endphp    
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    <label>SMS Absent Student</label>
+                                                     <select name="absent_student_message_id" class="form-control">
+                                                          <option selected disabled>Select Option</option>
+                                                          @foreach ($smsabsentTemplates as $smsTemplate)
+                                                             <option value="{{ $smsTemplate->id }}"{{$default->absent_student_message_id==$smsTemplate->id? 'selected' : ''  }}>{{ $absentSMS++ }} Template</option> 
+                                                          @endforeach 
+                                                      </select> 
+                                                </div>
+                                            </div>  
+                                            @php
+                                                $absentEmail=1;    
+                                              @endphp    
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    <label>Email Absent Student</label>
+                                                     <select name="absent_student_email_id" class="form-control">
+                                                          <option selected disabled>Select Option</option>
+                                                          @foreach ($emailabsentTemplates as $smsTemplate)
+                                                             <option value="{{ $smsTemplate->id }}"{{$default->absent_student_email_id==$smsTemplate->id? 'selected' : ''  }}>{{ $absentEmail++ }} Template</option> 
+                                                          @endforeach 
+                                                      </select> 
                                                 </div>
                                             </div>  
                                         </div>

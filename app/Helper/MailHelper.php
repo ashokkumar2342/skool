@@ -2,6 +2,7 @@
 namespace App\Helpers;
 use App\Admin;
 use App\Jobs\SendEmail;
+use App\Jobs\SendEmailAttach;
 use App\User; 
 
 class MailHelper 
@@ -158,7 +159,21 @@ class MailHelper
 		$this->mailsend('emails.securedevice',$up_u,'No-Reply','New Device',$user,env('MAIL_USERNAME'),5);
 	}
 
-    
+    public function mailsendwithattachment($template,$data_mail,$sender_name,$subject,$to,$from,$delaytime,$url){
+
+		$array=array();
+		$array['template']=$template;
+		$array['data_mail']=$data_mail;
+		$array['sender_name']=$sender_name;
+		$array['subject']=$subject;
+		$array['to']=$to;
+		$array['from']=$from;
+		$array['attach']=$url;
+
+		$job=(new SendEmailAttach($array))->delay(now()->addSeconds($delaytime));
+		dispatch($job);
+
+		}
     
 
 }

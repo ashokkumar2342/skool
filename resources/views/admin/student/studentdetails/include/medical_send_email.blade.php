@@ -24,7 +24,7 @@
     <p><li>HB :-<b> {{ $medicalInfo->hb }} </b> </li></p>  
   </div> 
   <div class="col-lg-6">
-    <p><li>BP :-<b> {{ $medicalInfo->bp }}</b> </li></p>
+    <p><li>BP Upper/Lower:-<b> {{ $medicalInfo->bp_uper }}/{{ $medicalInfo->bp_lower }}</b> </li></p>
   </div>
   </div>
   <div class="row" style="margin-left: 80px"> 

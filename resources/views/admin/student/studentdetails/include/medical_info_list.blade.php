@@ -15,7 +15,8 @@
                                  <th> <span class="text-nowrap">Physical Handicapped </span></th>
                                  <th> <span class="text-nowrap">Narration </span></th>
                                  <th> <span class="text-nowrap">Dental </span></th>
-                                 <th> <span class="text-nowrap">BP </span></th>
+                                 <th> <span class="text-nowrap">BP Upper</span></th>
+                                 <th> <span class="text-nowrap">BP Lower</span></th>
                                  <th> <span class="text-nowrap">Id Marks1 </span></th>
                                  <th> <span class="text-nowrap">Id Marks2 </span></th>
                                  <th> <span class="text-nowrap"  style="margin :35px">Action </span></th>
@@ -37,7 +38,8 @@
                                  <td>{{ $medicalInfo->physical_handicapped }}</td>
                                  <td>{{ $medicalInfo->narration }}</td>
                                  <td>{{ $medicalInfo->dental }}</td>                                  
-                                 <td>{{ $medicalInfo->bp }}</td> 
+                                 <td>{{ $medicalInfo->bp_uper }}</td> 
+                                 <td>{{ $medicalInfo->bp_lower }}</td> 
                                  <td>{{ $medicalInfo->id_marks1 }}</td>
                                  <td>{{ $medicalInfo->id_marks2 }}</td>
                                  <td style="width: 100px"> 

@@ -132,8 +132,8 @@ class SmsController extends Controller
     public function smsTemplate(){
         return view('admin.sms.smsTemplate.list');
     }
-    public function smsTemplateAdd(){
-        $templteNames=TemplateType::orderBy('id','ASC')->get();
+    public function smsTemplateAdd($id){
+        $templteNames=TemplateType::where('id',$id)->get();
         return view('admin.sms.smsTemplate.add_form',compact('templteNames'));
     }
       public function smsTemplateStore(Request $request){ 
@@ -155,6 +155,11 @@ class SmsController extends Controller
             return response()->json($response);// response as json
         }
         else {
+         //    $smsTemplate=SmsTemplate::where('template_type_id',$request->name)->count();
+         // if ($smsTemplate==2) {
+         //   $response=['status'=>0,'msg'=>'2 Template Already Create'];
+         //    return response()->json($response);
+         // }
         $smsTemplate=new SmsTemplate();
         $smsTemplate->template_type_id=$request->name;
         $smsTemplate->message=$request->message;
@@ -164,18 +169,18 @@ class SmsController extends Controller
             return response()->json($response);
         } 
     } 
-    public function smsTemplateTable(Request $request){
-         $smsTemplates=SmsTemplate::all();
+    public function smsTemplateTable($id){
+         $smsTemplates=SmsTemplate::where('template_type_id',$id)->get();
          return view('admin.sms.smsTemplate.table',compact('smsTemplates'));
     }
 
     public function smsTemplateEdit($id)
-    {   
+    {   $templteNames=TemplateType::orderBy('id','ASC')->get();
         $smsTemplates=SmsTemplate::findOrFail(Crypt::decrypt($id));
-        return view('admin.sms.smsTemplate.edit',compact('smsTemplates'));
+        return view('admin.sms.smsTemplate.edit',compact('smsTemplates','templteNames'));
     } public function smsTemplateView($id)
     {  
-        $smsTemplates=SmsTemplate::where('template_type_id',$id)->first();
+        $smsTemplates=SmsTemplate::find($id);
         return view('admin.sms.smsTemplate.view',compact('smsTemplates'));
     }
       public function smsTemplateDestroy($id)
@@ -217,8 +222,8 @@ class SmsController extends Controller
     {
          return view('admin.sms.emailTemplate.list');
     }
-    public function emailTemplateAddForm(){
-        $templteNames=TemplateType::orderBy('id','ASC')->get();
+    public function emailTemplateAddForm($id){
+        $templteNames=TemplateType::where('id',$id)->get();
         return view('admin.sms.emailTemplate.add_form',compact('templteNames'));
     }
     public function emailTemplateStore(Request $request)
@@ -239,8 +244,54 @@ class SmsController extends Controller
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
         }
+
         else {
+         // $smsTemplate=EmailTemplate::where('template_type_id',$request->name)->count();
+         // if ($smsTemplate==2) {
+         //   $response=['status'=>0,'msg'=>'2 Template Already Create'];
+         //    return response()->json($response);
+         // }
+
         $smsTemplate=new EmailTemplate();
+        $smsTemplate->template_type_id=$request->name;
+        $smsTemplate->message=$request->message;
+         
+        $smsTemplate->save();
+        $response=['status'=>1,'msg'=>'Create Successfully'];
+            return response()->json($response);
+        } 
+    }
+    public function emailTemplateTable(Request $request,$id){
+        $templteNames=TemplateType::orderBy('id','ASC')->get();
+         $EmailTemplates=EmailTemplate::where('template_type_id',$id)->get();
+         return view('admin.sms.emailTemplate.table',compact('EmailTemplates'));
+    }
+    public function emailTemplateEdit($id)
+    {
+        $templteNames=TemplateType::orderBy('id','ASC')->get();
+         $EmailTemplates=EmailTemplate::findOrFail(crypt::decrypt($id));
+         return view('admin.sms.emailTemplate.edit',compact('EmailTemplates','templteNames'));
+    }
+    public function emailTemplateUpdate(Request $request,$id)
+    {
+        $rules=[
+          
+            'name' => 'required', 
+            'message' => 'required', 
+            
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+        $smsTemplate=  EmailTemplate::find($id);
         $smsTemplate->template_type_id=$request->name;
         $smsTemplate->message=$request->message;
          
@@ -249,8 +300,15 @@ class SmsController extends Controller
             return response()->json($response);
         } 
     }
-    public function emailTemplateTable(Request $request){
-         $EmailTemplates=EmailTemplate::all();
-         return view('admin.sms.emailTemplate.table',compact('EmailTemplates'));
+    public function emailTemplateView($id)
+    {  
+        $smsTemplates=EmailTemplate::find($id);
+        return view('admin.sms.emailTemplate.view',compact('smsTemplates'));
+    }
+    public function emailTemplateDestroy($id)
+    {
+         $smsTemplates=EmailTemplate::findOrFail(Crypt::decrypt($id));
+         $smsTemplates->delete();
+         return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
 }

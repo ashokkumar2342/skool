@@ -244,7 +244,7 @@ b{
  
 
 {{-- @include('admin.student.studentdetails.include.add_parents_info') --}}
-@include('admin.student.studentdetails.include.add_parents_image')
+{{-- @include('admin.student.studentdetails.include.add_parents_image') --}}
 {{-- @include('admin.student.studentdetails.include.add_medical_info') --}}
 {{-- @include('admin.student.studentdetails.include.add_sibling_info') --}}
 {{-- @include('admin.student.studentdetails.include.add_subject')

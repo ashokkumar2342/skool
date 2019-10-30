@@ -11,10 +11,12 @@ use App\Model\ClassType;
 use App\Model\Exam\ExamSchedule;
 use App\Model\Exam\ExamTerm;
 use App\Model\Sms\SmsTemplate;
+use App\Model\StudentDefaultValue;
 use App\Model\SubjectType;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 class ExamScheduleController extends Controller
 {
@@ -90,33 +92,40 @@ class ExamScheduleController extends Controller
 
     public function sendSms($id)
     {
+        $user_id=Auth::guard('admin')->user()->id;
         $examSchedule =ExamSchedule::find($id);
-        $students=Student::where('class_id',$examSchedule->class_id)->get();
+         $st=new Student();
+         $students=$st->getStudentByClassMultiselectId([$examSchedule->class_id]);
+         
         foreach ($students as  $value) {
-         $smsTemplate = SmsTemplate::where('id',3)->first()->message;
-         $message = $smsTemplate.' '.$examSchedule->examTerms->from_date.' '.$examSchedule->subjects->name;
-         event(new SmsEvent($value->father_mobile,$message));     
+         $StudentDefaultValue=StudentDefaultValue::where('user_id',$user_id)->first()->class_test_details_message_id;
+        $smsTemplate = SmsTemplate::where('id',$StudentDefaultValue)->first()->message;
+        $findword = ["#SN#", "#FN#", "#MN#"];
+        $replaceword   = [$value->name, $value->parents[0]->parentInfo->name, $value->parents[1]->parentInfo->name]; 
+        $message = str_replace($findword, $replaceword, $smsTemplate);
+         $messages = $message.' '.$examSchedule->examTerms->from_date.' '.$examSchedule->subjects->name;
+         event(new SmsEvent($value->addressDetails->address->primary_mobile,$messages));     
          } 
-         return  redirect()->back()->with(['message'=>'Send  Successfully','class'=>'success']);
+         return  redirect()->back()->with(['message'=>'SMS Send  Successfully','class'=>'success']);
     }
     public function sendEmail($id)
     {
+        $user_id=Auth::guard('admin')->user()->id;
         $examSchedule =ExamSchedule::find($id);
-        $students=Student::where('class_id',$examSchedule->class_id)->get();
+         $st=new Student();
+         $students=$st->getStudentByClassMultiselectId([$examSchedule->class_id]);
+            $StudentDefaultValue=StudentDefaultValue::where('user_id',$user_id)->first()->class_test_details_message_id;
         foreach ($students as  $value) {
-            $message = 'ExamSchedule';         
-            $emailto = $value->email;         
+            $message = $StudentDefaultValue;       
+            $emailto = $value->addressDetails->address->primary_email;         
             $subject = 'ExamSchedule'; 
-            $up_u=array();
-             
+            $up_u=array(); 
             $up_u['msg']=$message;
-            $up_u['subject']=$subject;
-                     
-            $mailHelper =new MailHelper();
-           
+            $up_u['subject']=$subject; 
+            $mailHelper =new MailHelper(); 
             $mailHelper->mailsend('emails.message',$up_u,'No-Reply',$subject,$emailto,'noreply@domain.com',5);  
          } 
-         return  redirect()->back()->with(['message'=>'Send  Successfully','class'=>'success']);
+         return  redirect()->back()->with(['message'=>'Email Send  Successfully','class'=>'success']);
         
     }
 

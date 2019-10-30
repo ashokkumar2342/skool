@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
  use App\Http\Controllers\Controller;
 use App\Events\SmsEvent;
 use App\Helper\MyFuncs;
+use App\Helpers\MailHelper;
+use App\Model\AcademicYear;
 use App\Model\Address;
 use App\Model\BloodGroup;
 use App\Model\Category;
@@ -22,7 +24,8 @@ use App\Model\PaymentType;
 use App\Model\Profession;
 use App\Model\Religion;
 use App\Model\RequestUpdate;
-use App\Model\AcademicYear;
+use App\Model\SiblingGroup;
+use App\Model\Sms\EmailTemplate;
 use App\Model\Sms\SmsTemplate;
 use App\Model\StudentAddressDetail;
 use App\Model\StudentDefaultValue;
@@ -30,7 +33,6 @@ use App\Model\StudentFee;
 use App\Model\StudentMedicalInfo;
 use App\Model\StudentPerentDetail;
 use App\Model\StudentSiblingInfo;
-use App\Model\SiblingGroup;
 use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
@@ -110,14 +112,8 @@ class StudentController extends Controller
      
     public function previewshow($id){
          
-          $student = Student::find($id);
-           $parent =new StudentPerentDetail();  
-
-          $fatherDetail =$parent->getParent($id,1);
-          $motherDetail =$parent->getParent($id,2); 
-           
-          $StudentAddressDetail =new StudentAddressDetail(); 
-          $address =$StudentAddressDetail->getAddress($id);
+           $st =new Student();
+           $student=$st->getStudentDetailsById($id);
            //sibling details//
           $studentSibling=SiblingGroup::where('student_id',$id)->count();
          if ($studentSibling!=0) {
@@ -136,14 +132,15 @@ class StudentController extends Controller
          return view('admin.student.studentdetails.preview',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address'));
     }
     public function pdfGenerate($id){
-        
-          $student = Student::find($id);
-          $parent =new StudentPerentDetail();           
-          $fatherDetail =$parent->getParent($id,1);
-          $motherDetail =$parent->getParent($id,2);
+        $st =new Student();
+           $student=$st->getStudentDetailsById($id);
+          // $student = Student::find($id);
+          // $parent =new StudentPerentDetail();           
+          // $fatherDetail =$parent->getParent($id,1);
+          // $motherDetail =$parent->getParent($id,2);
 
-          $StudentAddressDetail =new StudentAddressDetail(); 
-          $address =$StudentAddressDetail->getAddress($id);
+          // $StudentAddressDetail =new StudentAddressDetail(); 
+          // $address =$StudentAddressDetail->getAddress($id);
            //sibling details//
           $studentSibling=SiblingGroup::where('student_id',$id)->count();
          if ($studentSibling!=0) {
@@ -765,6 +762,7 @@ class StudentController extends Controller
 
     //birthday print one
     public function birthdayPrint($id){
+        $message='';
         $template = BirthdayTemplate::find(1);
         $viewUrl = 'admin.student.birthday.'.$template->name;
         $students = Student::find($id);  
@@ -772,7 +770,7 @@ class StudentController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView($viewUrl,compact('students'));  
+        ->loadView($viewUrl,compact('students','message'));  
         return $pdf->download($students->registration_no.'_birthday_card.pdf');
     }
 
@@ -781,10 +779,11 @@ class StudentController extends Controller
      
         $this->validate($request,[ 
             'student' => 'required', 
-        ]);   
+        ]);
+        $message='';   
         $students = Student::where('id',$request->student)->first(); 
          $customPaper = array(0,0,355.00,530.80);
-        $pdf = PDF::loadView('admin.student.birthday.birthday_card', compact('students'))->setPaper($customPaper, 'landscape');; 
+        $pdf = PDF::loadView('admin.student.birthday.birthday_card', compact('students','message'))->setPaper($customPaper, 'landscape'); 
        
         return $pdf->stream('_birthday_card.pdf');
         
@@ -816,12 +815,43 @@ class StudentController extends Controller
          
          return view('admin.student.birthday.birthday',compact('studentDOBs'));
     }
-    public function birthdaySmsSend($id){
-         $students = Student::find($id);
-         $smsTemplate = SmsTemplate::where('id',1)->first();
-        event(new SmsEvent($students->father_mobile,$smsTemplate->message)); 
-        $response=['status'=>1,'msg'=>'Message Sent successfully'];
-            return response()->json($response);
+    public function birthdaySmsSend($student_id,$id){
+         $user_id=Auth::guard('admin')->user()->id;
+        if ($id==1) {
+         $st = new Student();
+         $student = $st->getStudentDetailsById($student_id);
+         $StudentDefaultValue=StudentDefaultValue::where('user_id',$user_id)->first()->birthday_message_id;
+         $smsTemplate = SmsTemplate::where('id',$StudentDefaultValue)->first()->message;
+         $findword = ["#SN#", "#FN#", "#MN#"];
+         $replaceword   = [$student->name, $student->parents[0]->parentInfo->name, $student->parents[1]->parentInfo->name]; 
+         $message = str_replace($findword, $replaceword, $smsTemplate);
+        event(new SmsEvent($student->addressDetails->address->primary_mobile,$message)); 
+       
+            
+        }
+        elseif ($id==2) {
+          $st=new Student();
+         $students=$st->getStudentDetailsById($student_id);
+         $StudentDefaultValue=StudentDefaultValue::where('user_id',$user_id)->first()->birthday_email_id;
+         $smsTemplate = EmailTemplate::where('id',$StudentDefaultValue)->first()->message;
+         $findword = ["#SN#", "#FN#", "#MN#"];
+         $replaceword   = [$students->name, $students->parents[0]->parentInfo->name, $students->parents[1]->parentInfo->name]; 
+         $message = str_replace($findword, $replaceword, $smsTemplate);
+         $documentUrl = Storage_path() . '/app/student/birthday/';
+         @mkdir($documentUrl, 0755, true);
+         $pdf = PDF::loadView('admin.student.birthday.birthday_card',compact('students','message','id'))->save($documentUrl.'/'.$students->registration_no.'_birthday_card.pdf'); 
+         $url =$documentUrl.$students->registration_no.'_birthday_card.pdf';
+            $message ='test';         
+            $emailto = $students->addressDetails->address->primary_email;         
+            $subject = 'Happy Birthday'; 
+            $up_u=array(); 
+            $up_u['medicalInfo']=$message;
+            $up_u['subject']=$subject;
+         
+        $mailHelper =new MailHelper(); 
+        $mailHelper->mailsendwithattachment('emails.message',$up_u,'No-Reply',$subject,$emailto,'noreply@esgekool.com',5,$url);
+      return  redirect()->back()->with(['message'=>'Send  Successfully','class'=>'success']);  
+        }
     }
 
      public function resetAdmission(Request $request)

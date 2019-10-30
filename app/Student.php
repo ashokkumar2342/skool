@@ -150,6 +150,18 @@ class Student extends Authenticatable
         }
 
     }
+    public function getStudentByClassSectionArray($class_id,$section_id)
+    {
+        try {
+          return $student =Student::whereIn('class_id',$class_id)
+                                  ->whereIn('section_id',$section_id)
+                                  ->where('student_status_id',1)
+                                  ->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])->get();  
+        } catch (Exception $e) {
+            return $e;
+        }
+
+    }
     //single student get data
     public function getAllStudents()
     {

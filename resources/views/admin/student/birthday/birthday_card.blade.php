@@ -30,6 +30,14 @@ $path =storage_path('app/student/birthday/birthday.jpg');
 			  	 	<h3 style="padding-top:-30px;padding-left: 15px;" >{{ $students->name }}</h3>
 			  	 </div>
 			  	 
+			  	 <div style="margin-left: 50px;">
+			  	 	 
+			  	 	<h4 style="padding-left: 15px;" >{{ $message }}</h4>
+			  	 </div>
+			  	 	 
+			  	 
+			  	 
+			  	 
 			 
 			  	 
 				   	  

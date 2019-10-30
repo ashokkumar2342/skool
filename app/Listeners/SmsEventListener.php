@@ -36,7 +36,7 @@ class SmsEventListener
     // $curl_scraped_page = curl_exec($ch);
     // curl_close($ch);
     
-    //  Log::info($event->mobile.' : '.$event->message);
+     Log::info($event->mobile.' : '.$event->message);
       
   }
 }

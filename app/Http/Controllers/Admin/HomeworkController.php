@@ -143,8 +143,9 @@ class HomeworkController extends Controller
     }
     public function sendHomework(Request $request)
     {
-         
-          $studentHomeworkSendSms=Student::whereIn('class_id',$request->class_id)->whereIn('section_id',$request->section_id)->get();
+          
+          $st= new Student(); 
+       return   $studentHomeworkSendSms=$st->getStudentByClassSectionArray([1,1]); 
          foreach ($studentHomeworkSendSms as  $value) {
            $homework = Homework::where('date',date('Y-m-d'))->first();  
          $smsTemplate = SmsTemplate::where('id',4)->where('template_type_id',2)->first()->message;
@@ -156,12 +157,14 @@ class HomeworkController extends Controller
     }
     public function HomeworkSend(Request $request,$id)
     {
+       
          $homework = Homework::find($id);
-         $studentHomeworkSendSms=Student::where('class_id',$homework->class_id)->where('section_id',$homework->section_id)->get(); 
-        foreach ($studentHomeworkSendSms as  $value) {
-         $smsTemplate = SmsTemplate::where('id',3)->first()->message;
+         $st= new Student(); 
+         $studentHomeworkSendSms=$st->getStudentByClassSection($homework->class_id,$homework->section_id); 
+        foreach ($studentHomeworkSendSms as  $value) { 
+         $smsTemplate = SmsTemplate::where('template_type_id',1)->first()->message;
          $message = $smsTemplate.' '.$homework->homework;
-        event(new SmsEvent($value->father_mobile,$message)); 
+        event(new SmsEvent($value->addressDetails->address->primary_mobile,$message)); 
          }
          return  redirect()->back()->with(['message'=>'Send  Successfully','class'=>'success']);  
     }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class StudentDefaultValue extends Model
 {
     protected $fillable = [
-        'id', 'class_id', 'section_id',
+        'user_id', 'class_id', 'section_id',
     ];
       public function academicYears(){
         return $this->hasOne('App\Model\Gender','id','year');

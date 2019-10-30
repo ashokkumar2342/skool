@@ -5,15 +5,17 @@ namespace App\Http\Controllers\Admin\Exam;
 use App\Events\SmsEvent;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
+use App\Model\AcademicYear;
 use App\Model\Exam\ClassTest;
 use App\Model\Exam\ClassTestDetail;
-use App\Model\Sms\SmsTemplate;
-use App\Model\AcademicYear;
-use App\Student;
 use App\Model\Exam\Grade;
+use App\Model\Sms\SmsTemplate;
+use App\Model\StudentDefaultValue;
+use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 class ClassTestDetailController extends Controller
 {
@@ -51,7 +53,7 @@ class ClassTestDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {    
+    {   $user_id=Auth::guard('admin')->user()->id; 
         $rules=[
         'class_test_id' => 'required|max:30', 
         'student_id' => 'required|max:30', 
@@ -80,22 +82,28 @@ class ClassTestDetailController extends Controller
           $classTestDetail->grade = $grade->id; 
           $classTestDetail->percentile = $percentile; 
           $classTestDetail->save();
-         
-          $studentclassTestSendSms=Student::whereIn('id',$request->student_id)->get();
+         }
+         $st=new Student();
+         $studentclassTestSendSms=$st->getStudentDetailsByArrId($request->student_id);
         if ($request->send_sms==1) { 
             foreach ($studentclassTestSendSms as  $value) {
-                $smsTemplate = SmsTemplate::where('template_type_id',4)->first()->message; 
-                $message=$smsTemplate.''.$request->test_date.' '.$request->subject.' '.$request->max_marks.' '.$request->discription;
+                $StudentDefaultValue=StudentDefaultValue::where('user_id',$user_id)->first()->class_test_details_message_id;
+                $smsTemplate = SmsTemplate::where('id',$StudentDefaultValue)->first()->message;
+                $findword = ["#SN#", "#FN#", "#MN#"];
+                $replaceword   = [$value->name, $value->parents[0]->parentInfo->name, $value->parents[1]->parentInfo->name]; 
+                $message = str_replace($findword, $replaceword, $smsTemplate); 
+                $messages=$message.''.$request->test_date.' '.$request->subject.' '.$request->max_marks.' '.$request->discription;
 
-            event(new SmsEvent($value->father_mobile,$message)); 
+            event(new SmsEvent($value->addressDetails->address->primary_mobile,$messages)); 
              } 
         }
         if ($request->send_email==2) {
             
              foreach ($studentclassTestSendSms as  $value) {
-                $message = 'ClassText';         
-                $emailto = $value->email;         
-                $subject = 'ClassText'; 
+               $StudentDefaultValue=StudentDefaultValue::where('user_id',$user_id)->first()->class_test_details_email_id;
+                $message = $StudentDefaultValue;        
+                $emailto = $value->addressDetails->address->primary_email;         
+                $subject = 'ClassTextDetails'; 
                 $up_u=array();
                  
                 $up_u['msg']=$message;
@@ -107,7 +115,7 @@ class ClassTestDetailController extends Controller
              }
         }
       
-        }  
+        
          $this->rankSave($request->student_id,$request->class_test_id);
         $response = array();
         $response['msg'] = 'Submit Successfully';

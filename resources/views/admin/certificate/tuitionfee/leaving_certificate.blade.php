@@ -28,8 +28,8 @@
     <p>Pupils Name Mr. <b>{{ $student->name }}</b><br>
     Date of Birth <b>{{ date('d-M-Y',strtotime($student->dob)) }}</b><br>
     Student Registration No.(SRN) <b>{{ $student->registration_no }}</b><span style="padding-left: 50px">No.InAdmission Registre <b>{{ $student->admission_no }}</b></span><br><br>
-     Name Of Father/Guardian <b>{{ $student->f_name }}</b><br>
-    Mother Mrs.<b>{{ $studentM->m_name }}</b></p>
+     Name Of Father/Guardian <b>{{ $student->parents[0]->parentInfo->name or ''}}</b><br>
+    Mother Mrs.<b>{{ $student->parents[1]->parentInfo->name or ''}}</b></p>
     <p style="padding-top: 5px">Cretified that Mr.<b>{{ $student->name }}</b> attended this school up-to <b>{{ date('d-m-Y') }}</b> He/she has paid all sum due to the school and was allowed on the above date to withdraw his/her name He/she was reading in class <b>{{ $student->classes->name or '' }}</b> in this school</p>
     <p style="padding-top: 5px">1.he/she was examined in <b>{{ $student->classes->name or '' }}</b> and</p>
     <p style="padding-left: 20px">a.was allowed/promised promotion to .............<br>

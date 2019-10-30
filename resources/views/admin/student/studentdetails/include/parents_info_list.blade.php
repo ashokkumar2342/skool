@@ -23,7 +23,7 @@
                                 <td>{{ $parent->relationType->name or ''}}</td>
                                 <td>{{ $parent->education }}</td>
                                 <td>{{ $parent->profetions->name or '' }}</td>
-                                <td>{{ $parent->incomes->name or ''}}</td>
+                                <td>{{ $parent->incomes->range or ''}}</td>
                                 <td>{{ $parent->mobile }}</td>
                                 <td>{{ $parent->email }}</td>
                                 <td>{{ $parent->dob!=null?date('d-m-Y',strtotime( $parent->dob)):'' }}</td>
@@ -35,9 +35,11 @@
                                 <td>
                                   @php
                              $image = route('admin.parents.image.show',$parent->photo);
-                              
+                             
                              @endphp 
-                               <img  sc="{{ ($parent->photo)? $image : asset('profile-img/user.png') }}" style="width: 50px; height: 50px;  border: 2px solid #d1f7ec">
+                            <img  class="profile-user-img img-responsive img-circle" src="{{ ($parent->photo)? $image : asset('profile-img/user.png') }}" alt="{{ $parent->name }}">
+
+                               
 
                                 </td>
         
@@ -47,7 +49,7 @@
                                     
                                    {{--  <a href="{{ route('admin.parents.image',$parents->id) }}" title="" class="btn btn-success btn-xs"><i class="fa fa-image"></i></a> --}}
 
-                                    <button type="button" title="Upload Image" class="btn_parents_image btn btn-info btn-xs" data-toggle="modal" data-id="{{ $parent->id }}" data-target="#image_parent"><i class="fa fa-image"></i> </button>
+                                    <button type="button" title="Upload Image" class="btn_parents_image btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.parents.image',$parent->id) }}')"><i class="fa fa-image"></i> </button>
 
                                     <button class="btn_medical_view btn btn-warning btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.parents.edit',$parent->id) }}')" data-id=""  ><i class="fa fa-edit"></i></button>
 

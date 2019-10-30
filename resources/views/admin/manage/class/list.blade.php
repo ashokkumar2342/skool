@@ -32,9 +32,12 @@
                 </tr>
                 </thead>
                 <tbody>
+                  @php 
+                   $sectionId=1;
+                  @endphp
                 @foreach($classes as $class)
                 <tr>
-                  <td>{{ $class->id }}</td>
+                  <td>{{ $sectionId++ }}</td>
                   <td>{{ $class->name }}</td>
                   <td>{{ $class->alias }}</td>
                   <td>{{ $class->shorting_id }}</td>

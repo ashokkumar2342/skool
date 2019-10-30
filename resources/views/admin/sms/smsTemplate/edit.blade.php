@@ -17,10 +17,17 @@
         <h4 class="modal-title">Template Edit</h4>
       </div>
        <div class="modal-body"> 
-             <form action="{{ route('admin.sms.template.update',$smsTemplates->id) }}" method="post" class="add_form" button-click="btn_outhor_table_show,btn_close">
+             <form action="{{ route('admin.sms.template.update',$smsTemplates->id) }}" method="post" class="add_form" button-click="btn_outhor_table_show,btn_Homework_table_show,btn_class_test_table_show,btn_class_test_details,btn_time_table_table,btn_time_medical,btn_time_absent_student,btn_close">
                    {{ csrf_field() }}
                     <div class="form-group">
-                   <input type="text" class="form-control" name="name" placeholder="Template Name." value="{{ $smsTemplates->name }}">
+                    <select name="name" class="form-control">
+                      <option selected disabled>Select Name</option>
+                      @foreach ($templteNames as $templteName)
+                      <option value="{{ $templteName->id }}"{{ $smsTemplates->template_type_id==$templteName->id? 'selected' : ''}}>{{ $templteName->name }}</option> 
+                      @endforeach
+                      
+                    </select>
+                   
                   </div> 
                   <textarea class="textarea" name="message" placeholder="Message"
                             style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $smsTemplates->message }}</textarea>

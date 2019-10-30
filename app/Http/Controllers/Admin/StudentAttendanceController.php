@@ -10,7 +10,9 @@ use App\Model\ClassType;
 use App\Model\SessionDate;
 use App\Model\Sms\SmsTemplate;
 use App\Model\StudentAttendance;
+use App\Model\StudentDefaultValue;
 use App\Student;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -38,9 +40,10 @@ class StudentAttendanceController extends Controller
     {
 
         $students = Student::where(['class_id'=>$request->class,'section_id'=>$request->section])->get(['id','name','class_id','section_id']);  
-
+          $studentId=1;   
         foreach ($students as $student) {
-            $row = '<tr><td>'.$student->id.'</td><td>'.$student->name.'</td>';
+            
+            $row = '<tr><td>'.$studentId++.'</td><td>'.$student->name.'</td>';
             foreach(\App\Model\AttendanceType::all() as $attendance){
                 $checked = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>$attendance->id,'date'=>date('Y-m-d',strtotime($request->date))])->count())?'checked':'';
                       $row .='<td ><label class="radio-inline"><input type="radio" '.$checked.' name="value['.$student->id.']" class="'. str_replace(' ', '_', strtolower($attendance->name)).'" value="'. $attendance->id .'"> '. $attendance->name .' </label></td>';
@@ -137,14 +140,26 @@ class StudentAttendanceController extends Controller
         $StudentAttendances=StudentAttendance::where('date',date('Y-m-d'))->where('attendance_type_id',2)->get();
         return  view('admin.attendance.student.student_absent_list_show',compact('StudentAttendances'));
     }
-    public function studentAbsentSendSms(Request $request)
+    public function studentAbsentSendSms(Request $request,$id)
     {
-        return $request;
-         $studentAbsentSendSms=Student::whereIn('id',$request->student_id)->get();
-         foreach ($studentAbsentSendSms as  $value) {
-             
-         $smsTemplate = SmsTemplate::where('id',4)->first();
-        event(new SmsEvent($value->father_mobile,$smsTemplate->message)); 
+        $user_id=Auth::guard('admin')->user()->id;
+        if ($request->student_id==null) {
+            $response=array();
+            $response=['status'=>0,'msg'=>'Student Not Found'];
+            return response()->json($response);
+         }
+          
+         $st=new Student();
+         $studentAbsentSendSms=$st->getStudentDetailsByArrId($request->student_id); 
+         foreach ($studentAbsentSendSms as  $value) { 
+         $messageId=StudentDefaultValue::where('user_id',$user_id)->first()->absent_student_message_id; 
+         $smsTemplate = SmsTemplate::where('id',$messageId)->first()->message;
+
+        $findword = ["#SN#", "#FN#", "#MN#"];
+        $replaceword   = [$value->name, $value->parents[0]->parentInfo->name, $value->parents[1]->parentInfo->name];
+
+         $message = str_replace($findword, $replaceword, $smsTemplate);
+          event(new SmsEvent($value->addressDetails->address->primary_mobile,$message)); 
          }
         $response=['status'=>1,'msg'=>'Message Sent successfully'];
             return response()->json($response);
