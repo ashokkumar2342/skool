@@ -35,16 +35,16 @@ class FeeCollectionController extends Controller
     }
 
     // show main form show search stuent form
-    public function show(Request $request,Student $student){ 
+    public function show(Request $request){ 
          
        $st=new Student();
-        $students=$st->getStudentDetailsById($request->student_id);
+        $student=$st->getStudentDetailsById($request->student_id);
     	 
        $defultDate = StudentDefaultValue::find(1);
 
       $months=Month::orderBy('id','ASC')->get();
      $StudentFeeDetailMonthYears = StudentFeeDetail::where('student_id',$request->student_id)->where('paid',0)->orderBy('id','ASC')->distinct('last_date')->pluck('last_date')->toArray();
-    	$data = view('admin.finance.feecollection.fee_collection_detail',compact('student','defultDate','months','StudentFeeDetailMonthYears','students'))->render();
+    	$data = view('admin.finance.feecollection.fee_collection_detail',compact('student','defultDate','months','StudentFeeDetailMonthYears','student'))->render();
     	return response()->json($data);
     }
 
@@ -105,8 +105,9 @@ class FeeCollectionController extends Controller
     public function store(Request $request){         
         $students = $request->student_id; 
         $toDate =$request->toDate;
-        foreach ($students as $key => $student) {
-            $student = Student::find($student);          
+        foreach ($students as $key => $id) {
+            $st = Student::find($id);          
+            $student = $st->getStudentDetailsById($id);          
             $StudentFeeDetail = new StudentFeeDetail(); 
             $StudentFeeDetails = $StudentFeeDetail->getFeeDetailsByToDateStudentId($toDate,$student->id);
             $StudentFeeDetailsArrId =$StudentFeeDetail->getFeeDetailsArrIdByToDateStudentId($toDate,$student->id); 
@@ -138,8 +139,8 @@ class FeeCollectionController extends Controller
             $cashbook->section_id = $student->section_id;
             $cashbook->roll_no = $student->roll_no;
             $cashbook->registration_no = $student->registration_no;
-            $cashbook->father_name = $student->father_name;
-            $cashbook->mother_name = $student->mother_name;
+            $cashbook->father_name = $student->parents[0]->parentInfo->name;
+            $cashbook->mother_name = $student->parents[1]->parentInfo->name;
             $cashbook->month = date('m',strtotime($toDate));
             $cashbook->year = date('Y',strtotime($toDate));
             $cashbook->upto_date = $toDate;

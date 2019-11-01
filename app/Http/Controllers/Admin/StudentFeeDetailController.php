@@ -94,7 +94,17 @@ class StudentFeeDetailController extends Controller
                                 $studentFeeDetail->last_date = $FeeStructureLastDate->last_date ;
                                 $studentFeeDetail->from_date = date('Y-m-d',strtotime($request->from_date));
                                 $studentFeeDetail->to_date = date('Y-m-d',strtotime($request->to_date));
-                                $studentFeeDetail->paid = 0;
+                                if (empty($studentFeeDetail)) {
+                                   $studentFeeDetail->paid = 0; 
+                                }else{
+                                    if ($studentFeeDetail->paid==1) {
+                                       $studentFeeDetail->paid = 1;
+                                    }else{
+                                        $studentFeeDetail->paid = 0;
+                                    }
+                                    
+                                }
+                                
                                 $studentFeeDetail->refundable = 0;
                                 $studentFeeDetail->save();  
                                 $studentFeeDetail_id[].=$studentFeeDetail->id;

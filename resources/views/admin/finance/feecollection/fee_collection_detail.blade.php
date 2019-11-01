@@ -15,13 +15,13 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td>{{ $students->name }}</td>
-			<td>{{ $students->registration_no }}</td>
-			<td>{{ $students->parents[0]->parentInfo->name or '' }}</td>
-			<td>{{ $students->parents[1]->parentInfo->name or '' }}</td>
-			<td>{{ $students->addressDetails->address->primary_mobile or '' }}</td>
-			<td>{{ $students->addressDetails->address->primary_email or '' }}</td>
-			<td>{{ $students->addressDetails->address->p_address or ''}}</td>
+			<td>{{ $student->name }}</td>
+			<td>{{ $student->registration_no }}</td>
+			<td>{{ $student->parents[0]->parentInfo->name or '' }}</td>
+			<td>{{ $student->parents[1]->parentInfo->name or '' }}</td>
+			<td>{{ $student->addressDetails->address->primary_mobile or '' }}</td>
+			<td>{{ $student->addressDetails->address->primary_email or '' }}</td>
+			<td>{{ $student->addressDetails->address->p_address or ''}}</td>
 		</tr>
 	</tbody>
 </table>
