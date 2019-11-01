@@ -167,7 +167,7 @@
                         @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                                 <div class="row">
                         <div class="col-md-12 text-center">
-                            <button class="btn btn-success">Submit</button>
+                            <button class="btn btn-success" type="submit">Submit</button>
                         </div>
                     </div>  
                         @endif

@@ -48,7 +48,7 @@ function callJqueryDefault(divId){
 	
 	if(response.status==0){
 		$('button[type=submit], input[type=submit]').prop('disabled',false); 
-		 
+		 $('.fa-refresh').removeClass('fa-refresh');
 		if(formObj.getAttribute('import')=="true"){
 			errorMsg(response.msg)
 			//$('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button> <strong>'+response.msg+'</strong>'+response.data+'</div>').insertAfter(formObj);
@@ -177,7 +177,7 @@ function callJqueryDefault(divId){
 		if(formObj.getAttribute('button-click') && response.status==1)
 		{	
 			$('button[type=submit], input[type=submit]').prop('disabled',false);
-			
+			$('.fa-refresh').removeClass('fa-refresh');
 			var myStr = formObj.getAttribute('button-click');
         	var strArray = myStr.split(",");
         
@@ -207,7 +207,7 @@ function callJqueryDefault(divId){
 			
 	} 
 	$('button[type=submit], input[type=submit]').prop('disabled',false); 
-	 
+	$('.fa-refresh').removeClass('fa-refresh');
     });
 });
 }
