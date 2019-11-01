@@ -20,6 +20,7 @@
 	                   <div class="col-lg-4">                                             
 	                       <div class="form-group">
                           <label>Fee Account Code</label>
+                          <span class="fa fa-asterisk"></span>
 	                         {{ Form::text('code','',['class'=>'form-control','id'=>'code', 'placeholder'=>'Enter Fee Account Code','maxlength'=>'3']) }}
 	                         <p class="errorCode text-center alert alert-danger hidden"></p>
 	                       </div>                                         
@@ -27,6 +28,7 @@
 	                     <div class="col-lg-4">                                             
 	                       <div class="form-group">
                           <label>Fee Account Name</label>
+                          <span class="fa fa-asterisk"></span>
 	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter Fee Account Name','maxlength'=>'50']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
@@ -34,13 +36,15 @@
 	                    <div class="col-lg-4">                         
 	                        <div class="form-group">
                             <label>Sorting Order No </label>
-	                          {{ Form::text('sorting_order_no','',['class'=>'form-control','id'=>'sorting_order_no','rows'=>1, 'placeholder'=>'Enter Sorting Order No','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
+                            <span class="fa fa-asterisk"></span>
+	                          {{ Form::text('sorting_order_no','',['class'=>'form-control','id'=>'sorting_order_no','rows'=>1, 'placeholder'=>'Enter Sorting Order No','maxlength'=>'2','onkeypress'=>'return event.charSorting >= 48 && event.charSorting <= 57']) }}
 	                          <p class="errorDescription text-center alert alert-danger hidden"></p>
 	                        </div>
 	                    </div>
                       <div class="col-lg-12">                         
                           <div class="form-group">
                             <label>Description</label>
+
                             {{ Form::textarea('description','',['class'=>'form-control','id'=>'description','rows'=>1, 'placeholder'=>'Enter Description','maxlength'=>'250']) }}
                             <p class="errorDescription text-center alert alert-danger hidden"></p>
                           </div>
@@ -113,17 +117,20 @@
                             		<input type="hidden" name="id" id="edit_id">
                                    <div class="form-group">
                                        <label>Fee Account Code</label>
+                                       <span class="fa fa-asterisk"></span>
                                      {{ Form::text('code','',['class'=>'form-control','id'=>'edit_code', 'placeholder'=>'Enter fee account code','maxlength'=>'3']) }}
                                      <p class="errorCode text-center alert alert-danger hidden"></p>
                                    </div>       
                                    <div class="form-group">
                                     <label>Fee Account Name</label>
+                                    <span class="fa fa-asterisk"></span>
                                      {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee account name','maxlength'=>'30']) }}
                                      <p class="errorName text-center alert alert-danger hidden"></p>
                                    </div>      
                                     <div class="form-group">
                                       <label>Sorting Order No </label>
-                                      {{ Form::text('sorting_order_no','',['class'=>'form-control','id'=>'sorting_order_no','rows'=>1, 'placeholder'=>'Enter Orderby No','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
+                                      <span class="fa fa-asterisk"></span>
+                                      {{ Form::text('sorting_order_no','',['class'=>'form-control','id'=>'edit_orderby_no','rows'=>1, 'placeholder'=>'Enter Orderby No','maxlength'=>'2','onkeypress'=>'return event.charSorting >= 48 && event.charSorting <= 57']) }}
                                       <p class="errorDescription text-center alert alert-danger hidden"></p> 
                                 </div>
                                 <div class="form-group">
@@ -218,7 +225,7 @@
          $('#edit_id').val($(this).data('id'));        
          $('#edit_code').val($(this).data('code'));        
          $('#edit_name').val($(this).data('name'));        
-         $('#edit_orderby_no').val($(this).data('sorting_order_no'));        
+         $('#edit_orderby_no').val($(this).data('orderby_no'));        
          $('#edit_description').val($(this).data('description'));        
                
          $('#fee_account_model').modal('show');

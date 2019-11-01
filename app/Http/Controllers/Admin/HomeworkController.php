@@ -8,7 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Homework;
 use App\Model\Sms\SmsTemplate;
+use App\Model\StudentDefaultValue;
 use App\Student;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
@@ -143,27 +145,35 @@ class HomeworkController extends Controller
     }
     public function sendHomework(Request $request)
     {
-          
+          $user_id=Auth::guard('admin')->user()->id;
           $st= new Student(); 
-       return   $studentHomeworkSendSms=$st->getStudentByClassSectionArray([1,1]); 
+          $studentHomeworkSendSms=$st->getStudentByClassSectionArray($request->class_id,$request->section_id);
+          $studentdefaultValue=StudentDefaultValue::where('user_id',$user_id)->first()->homework_message_id; 
+         $smsTemplate = SmsTemplate::where('id',$studentdefaultValue)->first()->message;
          foreach ($studentHomeworkSendSms as  $value) {
-           $homework = Homework::where('date',date('Y-m-d'))->first();  
-         $smsTemplate = SmsTemplate::where('id',4)->where('template_type_id',2)->first()->message;
-         $message = $smsTemplate.' '.$homework->homework;
-        event(new SmsEvent($value->father_mobile,$message)); 
+           
+         $findword = ["#SN#", "#FN#", "#MN#"];
+         $replaceword   = [$value->name];
+
+         $message = str_replace($findword, $replaceword, $smsTemplate);
+         
+        event(new SmsEvent($value->addressDetails->address->primary_mobile,$message)); 
          }
         $response=['status'=>1,'msg'=>'Message Sent successfully'];
             return response()->json($response); 
     }
     public function HomeworkSend(Request $request,$id)
     {
-       
+       $user_id=Auth::guard('admin')->user()->id;
          $homework = Homework::find($id);
          $st= new Student(); 
          $studentHomeworkSendSms=$st->getStudentByClassSection($homework->class_id,$homework->section_id); 
+          $studentdefaultValue=StudentDefaultValue::where('user_id',$user_id)->first()->homework_message_id;
+           $smsTemplate = SmsTemplate::where('id',$studentdefaultValue)->first()->message; 
         foreach ($studentHomeworkSendSms as  $value) { 
-         $smsTemplate = SmsTemplate::where('template_type_id',1)->first()->message;
-         $message = $smsTemplate.' '.$homework->homework;
+         $findword = ["#SN#", "#FN#", "#MN#"];
+         $replaceword   = [$value->name]; 
+         $message = str_replace($findword, $replaceword, $smsTemplate);
         event(new SmsEvent($value->addressDetails->address->primary_mobile,$message)); 
          }
          return  redirect()->back()->with(['message'=>'Send  Successfully','class'=>'success']);  

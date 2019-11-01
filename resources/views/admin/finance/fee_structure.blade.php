@@ -14,13 +14,15 @@
 	                   <div class="col-lg-2">                                             
 	                       <div class="form-group"> 
                            {{ Form::label('code','Fee Structure Code',['class'=>'form-label']) }}
+                           <span class="fa fa-asterisk"></span>
 	                         {{ Form::text('code','',['class'=>'form-control','id'=>'code', 'placeholder'=>'Enter Fee Structure Code','maxlength'=>'3']) }}
 	                         <p class="errorCode text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>
 	                     <div class="col-lg-2">                                             
 	                       <div class="form-group">
-                           {{ Form::label('name','Fee Structure Name',['class'=>'form-label']) }} 
+                           {{ Form::label('name','Fee Structure Name',['class'=>'form-label']) }}
+                           <span class="fa fa-asterisk"></span> 
 	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter Fee Structure Name','maxlength'=>'50']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
@@ -28,6 +30,7 @@
 	                    <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('fee_account_id','Fee Account Name',['class'=>' control-label']) }}
+                              <span class="fa fa-asterisk"></span>
                                {{ Form::select('fee_account_id',$feeAccount,null,['class'=>'form-control','placeholder'=>'Select Fee Account']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
@@ -35,6 +38,7 @@
                         <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('fine_scheme_id','Fine Scheme',['class'=>' control-label']) }}
+                              <span class="fa fa-asterisk"></span>
                                {{ Form::select('fine_scheme_id',$fineScheme,null,['class'=>'form-control','placeholder'=>'Select Fine Scheme']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
@@ -42,6 +46,7 @@
                         <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('is_refundable','Is Refundable',['class'=>' control-label']) }}
+                              <span class="fa fa-asterisk"></span>
                                {{ Form::select('is_refundable',['0'=>'No','1'=>'yes'],null,['class'=>'form-control']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
@@ -113,25 +118,30 @@
                             <form id="form_model_fee_structure"> 
                         		<input type="hidden" name="id" id="edit_id">
                                <div class="form-group">
-                                {{ Form::label('code','Code',['class'=>' control-label']) }}
-                                 {{ Form::text('code','',['class'=>'form-control','id'=>'edit_code', 'placeholder'=>'Enter fee structure code']) }}
+                                {{ Form::label('code','Fee Structure Code',['class'=>' control-label']) }}
+                                <span class="fa fa-asterisk"></span>
+                                 {{ Form::text('code','',['class'=>'form-control','id'=>'edit_code', 'placeholder'=>'Enter fee structure code','maxlength'=>'3']) }}
                                  <p class="errorCode text-center alert alert-danger hidden"></p>
                                </div>       
                                <div class="form-group">
-                                {{ Form::label('name','Name',['class'=>' control-label']) }}                                
-                                 {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee structure name']) }}
+                                {{ Form::label('name','Fee Structure Name',['class'=>' control-label']) }}
+                                <span class="fa fa-asterisk"></span>                                
+                                 {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee structure name','maxlength'=>'50']) }}
                                  <p class="errorName text-center alert alert-danger hidden"></p>
                                </div>      
                                <div class="form-group">
-                                {{ Form::label('fee_account','Fee Account',['class'=>' control-label']) }}
+                                {{ Form::label('fee_account','Fee Account Name',['class'=>' control-label']) }}
+                                <span class="fa fa-asterisk"></span>
                                 {{ Form::select('fee_account',$feeAccount,null,['class'=>'form-control','id'=>'edit_fee_account']) }}
                                </div>  
                                 <div class="form-group">
                                 {{ Form::label('fine_scheme','Fine Scheme',['class'=>' control-label']) }}
+                                <span class="fa fa-asterisk"></span>
                                 {{ Form::select('fine_scheme',$fineScheme,null,['class'=>'form-control','id'=>'edit_fine_scheme']) }}
                                </div> 
                                <div class="form-group">
                                 {{ Form::label('is_refundable','Is Refundable',['class'=>' control-label']) }}
+                                <span class="fa fa-asterisk"></span>
                                  {{ Form::select('is_refundable',['0'=>'No','1'=>'yes'],null,['class'=>'form-control','id'=>'edit_Is_refundable']) }}
                                  <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                                </div>   

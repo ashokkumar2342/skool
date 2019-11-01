@@ -41,7 +41,9 @@ class ConcessionController extends Controller
         $validator = Validator::make($request->all(), [       
             
             'name' => 'required|max:30|unique:fee_groups', 
-            'description' => 'max:100', 
+            'amount' => 'required|max:6', 
+            'percentage' => 'required|max:6', 
+             
               
         ]);
         if ($validator->fails()) {                    
@@ -94,7 +96,9 @@ class ConcessionController extends Controller
         $validator = Validator::make($request->all(), [
         
             
-            'name' => 'required|max:30',
+             'name' => 'required|max:30|unique:fee_groups,name,'.$request->id, 
+            'amount' => 'required|max:6', 
+            'percentage' => 'required|max:6', 
             
               
         ]);

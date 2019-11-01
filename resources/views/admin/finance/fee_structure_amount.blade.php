@@ -13,6 +13,7 @@
                          <div class="col-lg-3">                           
                              <div class="form-group">
                               {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
+                              <span class="fa fa-asterisk"></span>
                                {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
@@ -20,13 +21,15 @@
                          <div class="col-lg-3">                           
                              <div class="form-group">
                               {{ Form::label('fee_structure_id','Fee Structure',['class'=>' control-label']) }}
-                               {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control']) }}
+                              <span class="fa fa-asterisk"></span>
+                               {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control', 'placeholder'=>'Select fee Structure']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div> 
 	                     <div class="col-lg-3">                                             
 	                       <div class="form-group">
-                           {{ Form::label('amount','Amount',['class'=>'form-label']) }}                          
+                           {{ Form::label('amount','Amount',['class'=>'form-label']) }}
+                           <span class="fa fa-asterisk"></span>                          
 	                         {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>4, 'placeholder'=>'Enter Amount','maxlength'=>'6','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
@@ -101,17 +104,20 @@
                           <div class="modal-body">
                             <form id="form_model_fee_structure"> 
                         		<input type="hidden" name="id" id="edit_id">
-                               <div class="form-group">
-                                {{ Form::label('fee_structure_id','Fee Structure',['class'=>' control-label']) }}
-                                {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control','id'=>'edit_fee_structure_id']) }}
-                               </div>  
                                 <div class="form-group">
                                 {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
+                                <span class="fa fa-asterisk"></span>
                                 {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control','id'=>'edit_academic_year_id']) }}
                                </div>    
                                <div class="form-group">
-                                {{ Form::label('amount','Amount',['class'=>' control-label']) }}                                
-                                 {{ Form::text('amount','',['class'=>'form-control','id'=>'edit_amount','rows'=>4, 'placeholder'=>'Enter fee structure amount']) }}
+                                {{ Form::label('fee_structure_id','Fee Structure',['class'=>' control-label']) }}
+                                <span class="fa fa-asterisk"></span>
+                                {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control','id'=>'edit_fee_structure_id']) }}
+                               </div>  
+                               <div class="form-group">
+                                {{ Form::label('amount','Amount',['class'=>' control-label']) }}
+                                <span class="fa fa-asterisk"></span>                                
+                                 {{ Form::text('amount','',['class'=>'form-control','id'=>'edit_amount','rows'=>4, 'placeholder'=>'Enter fee structure amount','maxlength'=>'6','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                                  <p class="errorName text-center alert alert-danger hidden"></p>
                                </div>      
                               

@@ -120,8 +120,12 @@ class ExamReportController extends Controller
     }
     public function examReportFilter(Request $request)
     { 
-       
-      $markDetails=MarkDetail::join('exam_schedules','exam_schedules.id','=','mark_details.exam_schedule_id')->join('exam_terms','exam_terms.id','=','exam_schedules.exam_term_id')->get();
+      $markDetails=MarkDetail::join('exam_schedules','exam_schedules.id','=','mark_details.exam_schedule_id')
+                                     ->join('exam_terms','exam_terms.id','=','exam_schedules.exam_term_id')
+                                     // ->orWhere('exam_schedules.academic_year_id',$request->academic_year_id)
+                                     // ->orWhere('exam_schedules.exam_term_id',$request->exam_term_id)
+                                     ->orWhere('mark_details.exam_schedule_id',$request->exam_schedule)
+                                     ->get();
 
         $response = array();
         $response['status'] = 1;

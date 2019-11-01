@@ -11,14 +11,14 @@
                 <div class="col-md-12"> 
                   <form success-content-id="student_fee_details_table" class="form-vertical add_form" action="{{ route('admin.studentFeeDetail.post') }}" method="post">
                     {{ csrf_field() }}
-                         <div class="col-lg-2">                           
+                         <div class="col-lg-3">                           
                              <div class="form-group">
                               {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
                                {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control','placeholder'=>"Select Academic Year"]) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
-                         <div class="col-lg-2">                           
+                         <div class="col-lg-3">                           
                              <div class="form-group">
                               {{ Form::label('class_id','Class',['class'=>' control-label']) }}
                                {{ Form::select('class_id',$classess,null,['class'=>'form-control','placeholder'=>"Select Class"]) }}

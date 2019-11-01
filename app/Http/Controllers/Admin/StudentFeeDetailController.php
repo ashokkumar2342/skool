@@ -59,10 +59,10 @@ class StudentFeeDetailController extends Controller
     {
          
         $rules=[
-            'to_date' => 'required', 
-            'from_date' => 'required', 
             'academic_year_id' => 'required', 
             'class_id' => 'required', 
+            'from_date' => 'required', 
+            'to_date' => 'required', 
            
           ];
 

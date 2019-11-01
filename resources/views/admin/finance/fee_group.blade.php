@@ -15,14 +15,15 @@
 	                     <div class="col-lg-3">                                             
 	                       <div class="form-group">
                           <label>Enter Fee Group Name</label>
-	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter Fee Group Name','maxlength'=>'50']) }}
+                          <span class="fa fa-asterisk"></span>
+	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter Fee Group Name','maxlength'=>'30']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>                     
 	                    <div class="col-lg-6">                         
 	                        <div class="form-group">
                             <label>Enter Description</label>
-	                          {{ Form::textarea('description','',['class'=>'form-control','id'=>'description','rows'=>1, 'placeholder'=>'Enter Description','maxlength'=>'250']) }}
+	                          {{ Form::textarea('description','',['class'=>'form-control','id'=>'description','rows'=>1, 'placeholder'=>'Enter Description','maxlength'=>'200']) }}
 	                          <p class="errorDescription text-center alert alert-danger hidden"></p>
 	                        </div>
 	                    </div>
@@ -90,7 +91,8 @@
                             		<input type="hidden" name="id" id="edit_id">
                                          
                                    <div class="form-group">
-                                     {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee account name']) }}
+                                     {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee account name','maxlength'=>'30']) }}
+                                     <span class="fa fa-asterisk"></span>
                                      <p class="errorName text-center alert alert-danger hidden"></p>
                                    </div>      
                                     <div class="form-group">

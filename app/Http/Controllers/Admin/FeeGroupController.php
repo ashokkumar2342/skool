@@ -42,7 +42,7 @@ class FeeGroupController extends Controller
         
             
             'name' => 'required|max:30|unique:fee_groups', 
-            'description' => 'max:100', 
+            
               
         ]);
         if ($validator->fails()) {                    
@@ -92,8 +92,8 @@ class FeeGroupController extends Controller
         $validator = Validator::make($request->all(), [
         
             
-            'name' => 'required|max:30|unique:fee_groups', 
-            'description' => 'max:100', 
+            'name' => 'required|max:30|unique:fee_groups,name,'.$request->id, 
+            
               
         ]);
         if ($validator->fails()) {                    

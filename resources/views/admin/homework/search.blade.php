@@ -13,7 +13,7 @@
                             @foreach ($homeworks as $homework)
                                 <tr>
                                     <td>{{ ++$loop->index}}</td>
-                                    <td>{{ $homework->created_at }}</td>
+                                    <td>{{ date('d-m-Y',strtotime($homework->created_at)) }}</td>
                                     <td>{{ $homework->classes->name or ''}}</td>
                                     <input type="text" hidden="" name="class_id[]" value="{{ $homework->class_id }}">
                                     <td>{{ $homework->sectionTypes->name or ''}}</td>

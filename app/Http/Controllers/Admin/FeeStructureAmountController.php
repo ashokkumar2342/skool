@@ -44,7 +44,9 @@ class FeeStructureAmountController extends Controller
     public function store(Request $request)
     {       
         $validator = Validator::make($request->all(), [                     
-            'amount' => 'required|integer',    
+            'academic_year_id' => 'required',    
+            'fee_structure_id' => 'required',    
+            'amount' => 'required|max:6',    
               
         ]);
         if ($validator->fails()) {                    
@@ -99,7 +101,9 @@ class FeeStructureAmountController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-        
+        'academic_year_id' => 'required',    
+            'fee_structure_id' => 'required',    
+            'amount' => 'required|max:6',
            
         ]);
         if ($validator->fails()) {                    

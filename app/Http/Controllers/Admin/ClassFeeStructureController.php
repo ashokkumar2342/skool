@@ -32,7 +32,7 @@ class ClassFeeStructureController extends Controller
         DB::table('students')->get(); 
         $classFeeStructures = ClassFeeStructure::orderBy('isapplicable_id','desc')->get();
         $feeStructur = array_pluck(FeeStructure::get(['id','name'])->toArray(),'name', 'id'); 
-        $classess = array_pluck(ClassType::get(['id','alias'])->toArray(),'alias', 'id'); 
+        $classess = MyFuncs::getClasses(); 
         return view('admin.finance.class_fee_structure_form',compact('feeStructur','classess','classFeeStructures'));
     }
 

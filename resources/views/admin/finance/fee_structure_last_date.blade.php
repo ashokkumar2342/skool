@@ -14,6 +14,7 @@
                          <div class="col-lg-3">                           
                              <div class="form-group">
                               {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
+                              <span class="fa fa-asterisk"></span>
                                {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
@@ -21,20 +22,23 @@
                          <div class="col-lg-3">                           
                              <div class="form-group">
                               {{ Form::label('fee_structure_id','Fee Structure',['class'=>' control-label']) }}
+                              <span class="fa fa-asterisk"></span>
                                {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control','placeholder'=>'Select Fee Structure']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div> 
 	                     <div class="col-lg-3">                                             
 	                       <div class="form-group">
-                           {{ Form::label('amount','Amount',['class'=>'form-label']) }}                          
+                           {{ Form::label('amount','Amount',['class'=>'form-label']) }}
+                           <span class="fa fa-asterisk"></span>                          
 	                         {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>4, 'placeholder'=>'Enter Amount','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'6']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>
                      {{--    <div class="col-lg-2">                                             
                            <div class="form-group">
-                           {{ Form::label('last_date','Last Date',['class'=>'form-label']) }}                          
+                           {{ Form::label('last_date','Last Date',['class'=>'form-label']) }}
+                           <span class="fa fa-asterisk"></span>                          
                              {{ Form::text('last_date','',['class'=>'form-control datepicker']) }}
                              <p class="errorName text-center alert alert-danger hidden"></p>
                            </div>                                         
@@ -43,6 +47,7 @@
 	                    <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('for_session_month_id','For Session/Month',['class'=>' control-label']) }}
+                              <span class="fa fa-asterisk"></span>
                                {{ Form::select('for_session_month_id',$forSessionMonth,null,['class'=>'form-control']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
@@ -117,24 +122,29 @@
                         		<input type="hidden" name="id" id="edit_id">
                                <div class="form-group">
                                 {{ Form::label('code','Code',['class'=>' control-label']) }}
+                                <span class="fa fa-asterisk"></span>
                                  {{ Form::text('code','',['class'=>'form-control','id'=>'edit_code', 'placeholder'=>'Enter fee structure code']) }}
                                  <p class="errorCode text-center alert alert-danger hidden"></p>
                                </div>       
                                <div class="form-group">
-                                {{ Form::label('name','Name',['class'=>' control-label']) }}                                
+                                {{ Form::label('name','Name',['class'=>' control-label']) }}
+                                <span class="fa fa-asterisk"></span>                                
                                  {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee structure name']) }}
                                  <p class="errorName text-center alert alert-danger hidden"></p>
                                </div>      
                                <div class="form-group">
                                 {{ Form::label('fee_account','Fee Account',['class'=>' control-label']) }}
+                                <span class="fa fa-asterisk"></span>
                                 {{ Form::select('fee_account',$feeStructur,null,['class'=>'form-control','id'=>'edit_fee_account']) }}
                                </div>  
                                 <div class="form-group">
                                 {{ Form::label('fine_scheme','Fine Scheme',['class'=>' control-label']) }}
+                                <span class="fa fa-asterisk"></span>
                                 {{ Form::select('fine_scheme',$acardemicYear,null,['class'=>'form-control','id'=>'edit_fine_scheme']) }}
                                </div> 
                                <div class="form-group">
                                 {{ Form::label('is_refundable','Is Refundable',['class'=>' control-label']) }}
+                                <span class="fa fa-asterisk"></span>
                                  {{ Form::select('is_refundable',['0'=>'No','1'=>'yes'],null,['class'=>'form-control','id'=>'edit_Is_refundable']) }}
                                  <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                                </div>   

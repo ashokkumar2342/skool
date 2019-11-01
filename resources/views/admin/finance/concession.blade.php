@@ -14,13 +14,15 @@
 	                     <div class="col-lg-3">                                             
 	                       <div class="form-group">
                           <label>Concession Name</label>
-	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter  Name','maxlength'=>'50']) }}
+                          <span class="fa fa-asterisk"></span>
+	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name','rows'=>4, 'placeholder'=>'Enter  Name','maxlength'=>'30']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>                     
 	                    <div class="col-lg-3">                         
 	                        <div class="form-group">
                             <label>Concession Amount</label>
+                            <span class="fa fa-asterisk"></span>
 	                          {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>1, 'placeholder'=>'Enter Amount','maxlength'=>'5','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
 	                          <p class="errorDescription text-center alert alert-danger hidden"></p>
 	                        </div>
@@ -28,6 +30,7 @@
                       <div class="col-lg-3">                         
                           <div class="form-group">
                             <label>Percentage</label>
+                            <span class="fa fa-asterisk"></span>
                             {{ Form::text('percentage','',['class'=>'form-control','id'=>'percentage','rows'=>1, 'placeholder'=>'Enter Percentage','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                             <p class="errorDescription text-center alert alert-danger hidden"></p>
                           </div>
@@ -97,15 +100,21 @@
                             		<input type="hidden" name="id" id="edit_id">
                                          
                                    <div class="form-group">
-                                     {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee account name']) }}
+                                    <label>Concession Name</label>
+                                    <span class="fa fa-asterisk"></span>
+                                     {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee account name','maxlength'=>'30']) }}
                                      <p class="errorName text-center alert alert-danger hidden"></p>
                                    </div>      
                                   <div class="form-group">
-                                      {{ Form::text('amount','',['class'=>'form-control','id'=>'edit_amount','rows'=>1, 'placeholder'=>'Enter Amount']) }}
+                                    <label>Concession Amount</label>
+                                    <span class="fa fa-asterisk"></span>
+                                      {{ Form::text('amount','',['class'=>'form-control','id'=>'edit_amount','rows'=>1, 'placeholder'=>'Enter Amount','maxlength'=>'5','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                                       <p class="errorDescription text-center alert alert-danger hidden"></p> 
                                   </div>
                                   <div class="form-group">
-                                      {{ Form::text('percentage','',['class'=>'form-control','id'=>'edit_percentage','rows'=>1, 'placeholder'=>'Enter percentage']) }}
+                                    <label> Percentage</label>
+                                    <span class="fa fa-asterisk"></span>
+                                      {{ Form::text('percentage','',['class'=>'form-control','id'=>'edit_percentage','rows'=>1, 'placeholder'=>'Enter percentage','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                                       <p class="errorDescription text-center alert alert-danger hidden"></p> 
                                   </div>
                                                       

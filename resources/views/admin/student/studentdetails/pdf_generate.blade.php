@@ -19,7 +19,7 @@
     <div class="panel-heading">
       <h4 class="panel-title text-center">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-        student Details</a>
+      Student Details</a>
       </h4>
     </div>
     <div id="collapse1" class="panel-collapse collapse in">
@@ -172,11 +172,11 @@
     <div class="panel panel-info">
       <div class="panel-heading">
         <h4 class="panel-title text-center">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+          <a data-toggle="collapse" data-parent="#accordion" href="#parent{{ $parent->relation->id or ''}}">
            {{ $parent->relation->name or ''}} Details</a>
         </h4>
       </div>
-      <div id="collapse4" class="panel-collapse collapse in">
+      <div id="parent{{ $parent->relation->id or ''}}" class="panel-collapse collapse in">
         <div class="panel-body">
             
       <div class="row" style="margin-left: 80px"> 
