@@ -29,6 +29,7 @@
                 <thead>
                 <tr>
                       
+                  <th>Sr.No.</th>                   
                   <th>Class Name</th>                   
                   <th>Subject Name</th>                   
                   <th>IsOptinal</th>                   
@@ -43,6 +44,7 @@
                 @foreach($manageSubjects as $manageSubject)
                 <tr>
                    
+                  <td>{{ $subjectId++}}</td>                 
                   <td>{{ $manageSubject->classTypes->name or ''}}</td>                 
                   <td>{{ $manageSubject->subjectTypes->name or ''}}</td>                 
                   <td>{{ $manageSubject->isoptional->name or ''}}</td>                 
