@@ -274,9 +274,9 @@ class StudentController extends Controller
     }
     public function excelData(){
 
-        $students = Student::orderBy('center_id','session_id','class_id','section_id')->where('student_status_id',1)->get();
+        $students = Student::orderBy('class_id','section_id')->where('student_status_id',1)->get();
         foreach($students as $student){
-            $data[] =['id'=>$student->username,'name'=>$student->name,'center'=>$student->centers->name,'class'=>$student->classes->name,'section'=>$student->sections->name,'date of admission'=>Carbon\Carbon::parse( $student->date_of_admission)->format('d-m-Y'),'father name'=>$student->father_name,'mother name'=>$student->mother_name,'date of birthday'=>Carbon\Carbon::parse( $student->dob)->format('d-m-Y'),'religion'=>$student->religion,'category'=>$student->category,'address'=>$student->address,'state'=>$student->state,'city'=>$student->city,'pincode'=>$student->pincode,'mobile one'=>$student->mobile_one,'mobile two'=>$student->mobile_two,'mobile sms'=>$student->mobile_sms];
+            $data[] =['id'=>$student->username,'name'=>$student->name,'class'=>$student->classes->name,'section'=>$student->sections->name,'date of admission'=>Carbon\Carbon::parse( $student->date_of_admission)->format('d-m-Y'),'father name'=>$student->father_name,'mother name'=>$student->mother_name,'date of birthday'=>Carbon\Carbon::parse( $student->dob)->format('d-m-Y')];
         }
         Excel::create('studentlist', function($excel) use ($data) {
             $excel->sheet('sheet', function($sheet) use ($data) {
@@ -402,8 +402,7 @@ class StudentController extends Controller
         
         
 
-        $student->center_id= $request->center;
-        $student->session_id= $request->session;
+        $student->center_id= $request->center; 
         $student->class_id= $request->class;
         $student->section_id= $request->section;
         $student->totalFee= $request->total_fee-$transport_fee2;
@@ -459,8 +458,7 @@ class StudentController extends Controller
          
          
         $admin_id = Auth::guard('admin')->user()->id; 
-        $student->admin_id = $admin_id;                               
-        $student->session_id= 1;
+        $student->admin_id = $admin_id; 
         $student->class_id= $request->class;
         $student->section_id= $request->section;  
         $student->roll_no= $request->roll_no;     
@@ -561,8 +559,7 @@ class StudentController extends Controller
       
         ]);
        
-        $student->center_id= $request->center;
-        $student->session_id= $request->session;
+        $student->center_id= $request->center; 
         $student->class_id= $request->class;
         $student->section_id= $request->section;
         $student->date_of_admission= date('Y-m-d',strtotime($request->date_of_admission));
@@ -634,8 +631,7 @@ class StudentController extends Controller
                 $student->username= $username;    
                 $student->password = bcrypt($char);
                 $student->tem_pass = $char; 
-                $student->admin_id = $admin_id;                               
-                $student->session_id= 1;
+                $student->admin_id = $admin_id; 
                 $student->class_id= $request->class;
                 $student->section_id= $request->section;     
                 $student->registration_no = $value->registration_no;     
@@ -646,20 +642,10 @@ class StudentController extends Controller
                 $student->date_of_activation= $value->date_of_activation == null ? $value->date_of_activation : date('Y-m-d',strtotime($value->date_of_activation));
                 $student->name= $value->name;
                 $student->nick_name= $value->nick_name;
-                $student->father_name= $value->father_name;
-                $student->mother_name= $value->mother_name; 
-                $student->father_mobile= $value->father_mobile;
-                $student->mother_mobile= $value->mother_mobile;
-                $student->email= $value->email;
+                 
                 $student->dob= $value->dob == null ? $value->dob : date('Y-m-d',strtotime($value->dob));
                 $student->gender_id= $value->gender_id;
-                $student->religion_id= $value->religion_id;
-                $student->category_id= $value->category_id;
-                $student->c_address= $value->c_address;
-                $student->p_address= $value->p_address;
-                $student->state= $value->state;
-                $student->city= $value->city;
-                $student->pincode= $value->pincode;        
+                         
                 $student->save() ;          
                 $student->username= 'ISKOOL10'.$student->id;
                 $student->save();
@@ -670,29 +656,28 @@ class StudentController extends Controller
                      $studentSubject = StudentSubject::firstOrNew(['subject_type_id' => $subject->subject_type_id, 'student_id' => $student->id]);
                      $studentSubject->subject_type_id = $subject->subjectType_id;
                      $studentSubject->student_id = $student->id;
-                     $studentSubject->isoptional_id = $subject->isoptional_id;
-                     $studentSubject->session_id = $student->session_id; 
+                     $studentSubject->isoptional_id = $subject->isoptional_id; 
                      $studentSubject->save();                     
                     }
                 
                 } 
-                if ($student->father_name != NULL) {                                 
-                     $parentsinfo = new ParentsInfo();                
-                     $parentsinfo->student_id = $student->id; 
-                     $parentsinfo->relation_type_id = 1; 
-                     $parentsinfo->name = $student->father_name; 
-                     $parentsinfo->mobile = $student->father_mobile; 
-                     $parentsinfo->save();  
-                }
-                if ($student->mother_name != NULL) {
+                // if ($student->father_name != NULL) {                                 
+                //      $parentsinfo = new ParentsInfo();                
+                //      $parentsinfo->student_id = $student->id; 
+                //      $parentsinfo->relation_type_id = 1; 
+                //      $parentsinfo->name = $student->father_name; 
+                //      $parentsinfo->mobile = $student->father_mobile; 
+                //      $parentsinfo->save();  
+                // }
+                // if ($student->mother_name != NULL) {
                                      
-                     $parentsinfo = new ParentsInfo();
-                     $parentsinfo->student_id = $student->id;                
-                    $parentsinfo->relation_type_id = 2;                
-                     $parentsinfo->name = $student->mother_name; 
-                     $parentsinfo->mobile = $student->mother_mobile; 
-                     $parentsinfo->save();  
-                }  
+                //      $parentsinfo = new ParentsInfo();
+                //      $parentsinfo->student_id = $student->id;                
+                //     $parentsinfo->relation_type_id = 2;                
+                //      $parentsinfo->name = $student->mother_name; 
+                //      $parentsinfo->mobile = $student->mother_mobile; 
+                //      $parentsinfo->save();  
+                // }  
              }else {    
                     // $students= Student::where('class_id',$request->class)->where('section_id',$request->section)->where('student_status_id',1)->get();
                     // return view('admin.student.studentdetails.show',compact('students'));
