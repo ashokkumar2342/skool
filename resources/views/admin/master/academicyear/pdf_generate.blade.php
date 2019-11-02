@@ -23,7 +23,7 @@
 <body style="background-color:#fff">
 @include('schoolDetails.logo_header')
  <div class="row">
- <div class="col-lg-8" style="margin-left: 80px">
+ <div class="col-lg-8" style="margin-left: 120px">
   	
  <table class="table table-striped table-responsive table-condensed table-bordered">
                          

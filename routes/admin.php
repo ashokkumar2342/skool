@@ -102,8 +102,8 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('/', 'ClassTypeController@index')->name('admin.class.list');
 	    Route::get('search', 'ClassTypeController@search')->name('admin.class.search');
 	    Route::post('add', 'ClassTypeController@store')->name('admin.class.add');
-	    Route::get('{classType}/edit', 'ClassTypeController@edit')->name('admin.class.edit');
-	    Route::post('{classType}/update', 'ClassTypeController@update')->name('admin.class.update');
+	    Route::get('edit/{id?}', 'ClassTypeController@edit')->name('admin.class.edit');
+	    Route::post('update/{id?}', 'ClassTypeController@update')->name('admin.class.update');
 	    Route::get('{classType}/delete', 'ClassTypeController@destroy')->name('admin.class.delete');
 	    Route::get('pdf-generate', 'ClassTypeController@pdfGenerate')->name('admin.class.pdf.generate');
 	});

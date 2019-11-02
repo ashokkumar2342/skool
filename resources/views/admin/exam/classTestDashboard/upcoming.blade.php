@@ -5,7 +5,7 @@
                         <th>Subject</th>
                         <th>Maximum Marks</th>
                         <th>Test Date</th>
-                        <th>Discriptoin</th>
+                        <th>Descriptoin</th>
                       </tr>
                     </thead>
                     <tbody>

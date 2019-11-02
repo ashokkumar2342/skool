@@ -43,15 +43,15 @@
                     <div class="active tab-pane" id="activity">
                      <ul class="list-group list-group-unbordered mb-3">
                       <li class="list-group-item"> 
-                        <b>Name</b> <a class="float-right"> <input type="text" name="first_name" class="form-control" id="first_name" value="{{ $admins->first_name or '' }}"> </a>
+                        <b>Name</b> <a class="float-right"> <input type="text" name="first_name" class="form-control" id="first_name" maxlength="50" value="{{ $admins->first_name or '' }}"> </a>
                       </li> 
                       <li class="list-group-item"> 
-                        <b>Mobile No.</b> <a class="float-right"> <input type="text" name="mobile" class="form-control" value="{{ $admins->mobile or '' }}"> </a>
+                        <b>Mobile.No.</b> <a class="float-right"> <input type="text" name="mobile" class="form-control" value="{{ $admins->mobile or '' }}"  maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' > </a>
                       </li>
                        <li class="list-group-item"> 
-                        <b>Date of Birth</b> <a class="float-right"> <input type="text" name="dob" class="form-control" value="{{ date('d-m-Y',strtotime(  $admins->dob))}}"> </a>
+                        <b>Date of Birth</b> <a class="float-right"> <input type="date" name="dob" class="form-control" value="{{ date('d-m-Y',strtotime(  $admins->dob))}}"> </a>
                       </li> <li class="list-group-item"> 
-                        <b>Email ID</b> <a class="float-right"> <input type="text" name="email" class="form-control" value="{{ $admins->email or '' }}"> </a>
+                        <b>E-mail ID</b> <a class="float-right"> <input type="email" name="email" class="form-control" value="{{ $admins->email or '' }}" maxlength="50"> </a>
                       </li> 
                     </ul>
                      <input type="submit" value="Update" class="btn btn-success" style="margin-left: 350px">
@@ -64,21 +64,21 @@
                                 <label  class="col-sm-4 control-label">Old Password</label>
 
                                 <div class="col-sm-8">
-                                  <input type="password" class="form-control" name="old_password" >
+                                  <input type="password" class="form-control" name="old_password" maxlength="15" min="6">
                                 </div>
                               </div>
                               <div class="form-group">
                                 <label for="inputEmail" class="col-sm-4 control-label">New Password</label>
 
                                 <div class="col-sm-8">
-                                  <input type="password" class="form-control" name="password" id="password">
+                                  <input type="password" class="form-control" name="password" id="password" maxlength="15" min="6">
                                 </div>
                               </div>
                               <div class="form-group">
                                 <label for="password" class="col-sm-4 control-label">Confirm Password</label>
 
                                 <div class="col-sm-8">
-                                  <input type="password" class="form-control" name="confirm_password" id="confirm_password">
+                                  <input type="password" class="form-control" name="confirm_password" id="confirm_password" maxlength="15" min="6">
                                 </div>
                               </div> 
                               <div class="form-group">
