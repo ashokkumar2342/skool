@@ -37,46 +37,36 @@
     </div> 
     <div class="row" style="margin-left: 80px"> 
         <div class="col-lg-6">
-         <li>Email :-<b>{{ $student->email }}</b></li> 
-        </div>
-
-        <div class="col-lg-6">
            <li>Class :-<b>{{ $student->classes->name or '' }}</b></li> 
         </div>
-    </div> 
-    <div class="row" style="margin-left: 80px"> 
         <div class="col-lg-6">
             <li>Section :-<b>{{ $student->sectionTypes->name or '' }}</b></li> 
         </div>
-
-
-        <div class="col-lg-6">
-            <li>Registration No :-<b>{{ $student->registration_no }}</b></li> 
-        </div>
     </div> 
     <div class="row" style="margin-left: 80px"> 
         <div class="col-lg-6">
-            <li>Addmission No :-<b>{{ $student->admission_no }}</b></li> 
+            <li>Registration No :-<b>{{ $student->registration_no }}</b></li> 
         </div>
-
-
+        <div class="col-lg-6">
+            <li>Addmission No :-<b>{{ $student->admission_no }}</b></li> 
+        </div> 
+    </div> 
+    <div class="row" style="margin-left: 80px"> 
         <div class="col-lg-6">
             <li> Date Of Addmission :-<b>{{ date('d-m-Y',strtotime($student->date_of_admission))}}</b></li> 
         </div>
-    </div>  
-    <div class="row" style="margin-left: 80px"> 
         <div class="col-lg-6">
             <li> Date Of Activation :-<b>{{date('d-m-Y',strtotime($student->date_of_activation ))}}</b></li> 
-        </div> 
-        <div class="col-lg-6">
-            <li>  Date Of Birth :-<b>{{date('d-m-Y',strtotime($student->dob ))}}</b></li> 
         </div>
     </div>  
     <div class="row" style="margin-left: 80px"> 
         <div class="col-lg-6">
+            <li>  Date Of Birth :-<b>{{date('d-m-Y',strtotime($student->dob ))}}</b></li> 
+        </div>
+        <div class="col-lg-6">
             <li>  Gender :-<b>{{ $student->genders->genders or '' }}</b></li> 
         </div> 
-    </div>
+    </div> 
     <div class="row" style="margin-left: 80px">
         <div class="col-lg-6">
             <li> User Name :- <b>{{ $student->username }}</b></li> 
@@ -224,9 +214,13 @@
     </div> 
    
 @endforeach
- @if (!empty($studentMedicalInfos))
+  
       
-    
+    @php
+      $studentMedicalDetails=App\Model\StudentMedicalInfo::where('student_id',$student->id)->first();
+    @endphp
+    @if (!empty($studentMedicalDetails))
+      
     <div class="panel panel-info">
     <div class="panel-heading">
       <h4 class="panel-title text-center">
@@ -350,7 +344,10 @@
     </div>
   </div> 
     @endif
-    @if (!empty($studentSubjects))
+   @php
+      $studentSubjectDetails=App\Model\StudentSubject::where('student_id',$student->id)->first();
+    @endphp
+    @if (!empty($studentSubjectDetails))
         
    
     <div class="panel panel-info">
@@ -402,13 +399,22 @@
 <li>ISOptional:-<b>{{ $studentSubject->ISOptionals->name }}</b> </li>  
 </div>
 </div>  --}}
-@if (!empty($documents))
-   
-
-<h4 align="center"><b> Document Details</b></h4><hr>
-<div class="row" style="margin-left: 80px"> 
-    <div class="col-lg-12"> 
-        <table class="table">
+@php
+      $studentDocument=App\Model\Document::where('student_id',$student->id)->first();
+    @endphp
+    @if (!empty($studentDocument))
+ <div class="panel panel-info">
+    <div class="panel-heading">
+      <h4 class="panel-title text-center">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">
+        Dodument Details</a>
+      </h4>
+    </div>
+    <div id="collapse8" class="panel-collapse collapse in">
+      <div class="panel-body">
+    <div class="row" style="margin-left: 80px"> 
+        <div class="col-lg-12">  
+            <table class="table">
             <thead>
                 <tr>
                     <th>Document Name</th>
@@ -421,7 +427,7 @@
                 </tr>
                  @endforeach
             </tbody>
-        </table> 
+        </table>  
     </div>
 </div>
 @endif

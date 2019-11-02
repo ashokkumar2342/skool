@@ -12,7 +12,7 @@
                                 <th>Highest Marks</th>                      
                                 <th>Avg Marks</th>                                            
                                 <th>Discription</th>                                                             
-                                <th><span class="text-nowrap"  style="margin :20px">Action </span></th>                                                            
+                                <th><span class="text-nowrap"  style="margin :70px">Action </span></th>                                                            
                             </tr>
                         </thead>
                         <tbody>

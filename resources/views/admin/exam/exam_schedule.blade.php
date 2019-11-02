@@ -92,7 +92,7 @@
                     <table id="route_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>                               
+                                <th>Sr.No.</th>                               
                                 <th>Academic Year</th> 
                                 <th>Exam Term</th> 
                                 <th>Class</th>  
@@ -101,7 +101,7 @@
                                 <th>Max marks</th>                                                             
                                 <th>Pass marks</th>                                                             
                                 <th>Fail marks</th>                                          
-                                <th width="">Action</th>                                                            
+                                <th><span class="text-nowrap"  style="margin :83px">Action </span></th>                                                            
                             </tr>
                         </thead>
                         <tbody>
@@ -117,7 +117,7 @@
                             <td>{{ $examSchedule->pass_marks }}</td> 
                             <td>{{ $examSchedule->fail_marks }}</td> 
                             
-                        		<td> 
+                        		<td style="width:50px"> 
                              @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
                         			<a href="{{ route('admin.exam.schedule.delete',Crypt::encrypt($examSchedule->id)) }}"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn_delete btn btn-danger btn-xs"    ><i class="fa fa-trash"></i></a>
                               @endif

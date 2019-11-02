@@ -9,7 +9,7 @@ function callJqueryDefault(divId){
     var post_url = this.action; //get form action url
     var request_method = 'POST'; //get form GET/POST method
     var form_data = new FormData(this); //Encode form elements for submission
-    $('button[type=submit], input[type=submit]').append('&nbsp; <i class="fa fa-refresh fa-spin" aria-hidden="true"></i>');
+    $('button[type=submit], input[type=submit]').append('<i class="fa fa-refresh fa-spin"></i>');
     $('button[type=submit], input[type=submit]').prop('disabled',true);
     
     $.ajax({

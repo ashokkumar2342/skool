@@ -440,8 +440,7 @@ class StudentController extends Controller
             "section" => 'required|numeric|max:20', 
             "date_of_admission" => 'required|date', 
             "date_of_activation" => 'required|date',
-            "student_name" => 'required|max:199',
-            "nick_name" => 'max:30|nullable', 
+            "student_name" => 'required|max:199', 
             "date_of_birth" => 'required|max:199', 
             "aadhaar_no" => "required|digits:12",
             "house_name" => "required", 
@@ -460,8 +459,7 @@ class StudentController extends Controller
         $admin_id = Auth::guard('admin')->user()->id; 
         $student->admin_id = $admin_id; 
         $student->class_id= $request->class;
-        $student->section_id= $request->section;  
-        $student->roll_no= $request->roll_no;     
+        $student->section_id= $request->section; 
         $student->adhar_no= $request->aadhaar_no;     
         $student->house_no= $request->house_name;     
         $student->date_of_admission= $request->date_of_admission == null ? $request->date_of_admission : date('Y-m-d',strtotime($request->date_of_admission));
@@ -469,7 +467,6 @@ class StudentController extends Controller
         $student->date_of_activation= $request->date_of_activation == null ? $request->date_of_activation : date('Y-m-d',strtotime($request->date_of_activation));
         $student->name= $request->student_name;
         $student->nick_name= $request->nick_name; 
-        $student->email= $request->email;
         $student->dob= $request->date_of_birth == null ? $request->date_of_birth : date('Y-m-d',strtotime($request->date_of_birth));
         $student->gender_id= $request->gender; 
          $student->save();           
