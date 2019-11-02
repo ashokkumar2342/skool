@@ -214,7 +214,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('edit/{id}', 'ParentInfoController@edit')->name('admin.parents.edit');
 	    Route::get('image/{id}', 'ParentInfoController@image')->name('admin.parents.image');
 	    Route::post('image-store', 'ParentInfoController@imageStore')->name('admin.parents.image.store');
-	    Route::get('image/{image}', 'ParentInfoController@imageShow')->name('admin.parents.image.show');
+	    Route::get('image-show/{image}', 'ParentInfoController@imageShow')->name('admin.parents.image.show');
 	    Route::post('update/{id}', 'ParentInfoController@update')->name('admin.parents.update');
 	    Route::get('parent-add-new', 'ParentInfoController@parentAddNew')->name('admin.parents.add.new'); 
 	    Route::get('parent-search', 'ParentInfoController@parentSearch')->name('admin.parents.search');

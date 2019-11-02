@@ -34,10 +34,10 @@
                                  
                                 <td>
                                   @php
-                             $image = route('admin.parents.image.show',$parent->photo);
+                             $image = route('admin.parents.image.show',$parent->id);
                              
                              @endphp 
-                            <img  class="profile-user-img img-responsive img-circle" src="{{ ($parent->photo)? $image : asset('profile-img/user.png') }}" alt="{{ $parent->name }}">
+                            <img  class="profile-user-img img-responsive img-circle" src="{{ ($image)? $image : asset('profile-img/user.png') }}" alt="{{ $parent->name }}">
 
                                
 

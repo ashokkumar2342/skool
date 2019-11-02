@@ -15,6 +15,7 @@ use App\Model\SiblingGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Response;
 
 class ParentInfoController extends Controller
 {
@@ -64,7 +65,7 @@ class ParentInfoController extends Controller
     {
        
          $rules=[
-            'image' => 'required', 
+            'image' => 'required|mimes:jpeg,jpg,png|max:500',   
               
         ];
 
@@ -77,13 +78,16 @@ class ParentInfoController extends Controller
             return response()->json($response);// response as json
         } 
           if ($request->hasFile('image')) { 
-                $profilePhoto=$request->image;
-                $filename='parent'.date('d-m-Y').time().'.jpg'; 
-                $profilePhoto->storeAs('student/profile/parent/',$filename); 
+                     $file = $request->file('image');
+                      $path ='app/student/profile/parent/';
+                     
+                     $filename = $file->hashName(); 
+                     $file->storeAs($path,$filename);
+ 
 
                 $parentsinfo = ParentsInfo::find($request->parent_id);
              
-                $parentsinfo->photo = $filename;
+                $parentsinfo->photo = $path.$filename;
                 $parentsinfo->save();
                 $response=['status'=>1,'msg'=>'Parent image Save Successfully'];
                 return response()->json($response); 
@@ -91,10 +95,32 @@ class ParentInfoController extends Controller
 
         
     }
-    public function imageShow($image)
-    {
-        $image = Storage::disk('student')->get('profile/parent/'.$image);           
-         return  response($image)->header('Content-Type', 'image/jpeg');
+    public function imageShow($id)
+    { 
+                $parent=ParentsInfo::find($id);
+
+                $storagePath = storage_path($parent->photo);              
+                $mimeType = mime_content_type($storagePath); 
+                if( ! \File::exists($storagePath)){
+
+                    return view('error.home');
+                }
+                $headers = array(
+                    'Content-Type' => $mimeType,
+                    'Content-Disposition' => 'inline; '
+                );
+                  
+                if($parent->photo==null)
+                {
+                     ob_end_clean(); // discards the contents of the topmost output buffer
+                    return Response::make(file_get_contents('profile-img/user.png'), 200, $headers);
+                }
+                else
+                {   ob_end_clean(); // discards the contents of the topmost output buffer
+                    return Response::make(file_get_contents($storagePath), 200, $headers);
+
+                }
+       
 
         
                 
