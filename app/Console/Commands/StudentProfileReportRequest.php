@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Model\StudentProfileReport;
 use App\Student;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\log;
+use Illuminate\Support\Facades\Log; 
 use PDF;
 use setasign\Fpdi\Fpdi;
 class StudentProfileReportRequest extends Command
@@ -40,7 +40,7 @@ class StudentProfileReportRequest extends Command
      * @return mixed
      */
     public function handle()
-    {
+    {  Log::info('student generate');
           $studentProfileReports=StudentProfileReport::where('status',0)->get();
 
           

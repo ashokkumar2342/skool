@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Model\ReportRequest;
 use App\Student;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\log;
+use Illuminate\Support\Facades\Log; 
 use PDF;
 
 class ReportGenrate extends Command
