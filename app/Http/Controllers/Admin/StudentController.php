@@ -115,15 +115,10 @@ class StudentController extends Controller
            $st =new Student();
            $student=$st->getStudentDetailsById($id);
            //sibling details//
-          $studentSibling=SiblingGroup::where('student_id',$id)->count();
-         if ($studentSibling!=0) {
-           $studentSiblingId=SiblingGroup::where('student_id',$id)->first();
-         $studentSiblingInfos=SiblingGroup::
-                                                   where('group',$studentSiblingId->group)
-                                                 ->where('student_id','!=',$id)->get();
-         }else{
-            $studentSiblingInfos=array();
-         } 
+
+          $studentSibling=new SiblingGroup();
+          $studentSiblingInfos=$studentSibling->getSiblingByStudentId($id);
+          
          //end sibling detaild///
 
          $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 

@@ -133,12 +133,15 @@
 		 	 			<input type="hidden" name="month" value="{{ $request->month }}">
 		 	 			<input type="hidden" name="year" value="{{ $request->year }}">
 		 	 			@foreach ($siblings as $sibling) 
-		 	 			<?php $studentSiblingFee =App\model\StudentFeeDetail::where('student_id',$sibling->siblings->id)->whereMonth('from_date' , $request->month)->whereYear('from_date' , $request->year)->get(); ?>
+		 	 			@php
+	 	 				$StudentFeeDetail = new App\model\StudentFeeDetail(); 
+	 	 				$studentSiblingFee = $StudentFeeDetail->getFeeDetailsByUpTodate($toDate,$sibling->studentSiblings->id); 
+		 	 			@endphp 
 		 	 			<tr> 
-		 	 				<td><input type="checkbox"  class="checkbox" name="student_id[]" value="{{ $sibling->siblings->id }}"  > </td>
+		 	 				<td><input type="checkbox"  class="checkbox" name="student_id[]" value="{{ $sibling->studentSiblings->id }}"  > </td>
 		 	 				<td> {{ $sr++ }} </td>
-		 	 				<td>{{ $sibling->siblings->registration_no  }}</td>
-		 	 				<td>{{ $sibling->siblings->name  or ''}}</td>
+		 	 				<td>{{ $sibling->studentSiblings->registration_no or '' }}</td>
+		 	 				<td>{{ $sibling->studentSiblings->name  or ''}}</td>
 		 	 				<td><input type="hidden" name="" value="{{ $sib +=$studentSiblingFee->sum('fee_amount')-$studentSiblingFee->sum('concession_amount') }}">
 		 	 					{{ $studentSiblingFee->sum('fee_amount')-$studentSiblingFee->sum('concession_amount') }}
 		 	 				</td> 
@@ -155,7 +158,7 @@
   	 	 <button type="button" id="feeCollectionSubmit_btn" class="btn btn-success" onclick="feeCollectionSubmit()">Submit</button> 
    	{{-- <button type="button" class="btn btn-success" onclick="feeCollectionPrint()">Print</button>  --}}
    	  {{-- <label style="margin-left: 10px;" class="btn btn-default"> --}}
-   	    <input type="checkbox" name="print" checked autocomplete="off"> Print
+   	    <input type="checkbox" name="print" checked autocomplete="off" style="margin-left: 20px"> Print
 
    	  </label>
    	  @else

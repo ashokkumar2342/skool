@@ -10,6 +10,7 @@ use App\Model\Cashbook;
 use App\Model\FineScheme;
 use App\Model\Month;
 use App\Model\PaymentMode;
+use App\Model\SiblingGroup;
 use App\Model\StudentAddressDetail;
 use App\Model\StudentDefaultValue;
 use App\Model\StudentFeeDetail;
@@ -55,7 +56,9 @@ class FeeCollectionController extends Controller
      $BalanceAmount=0;
       $fromDate=$StudentFeeDetails = StudentFeeDetail::whereDate('last_date',$toDate)->first()->from_date;
       $student = Student::find($request->student_id);
-      $siblings = StudentSiblingInfo::where('student_id',$request->student_id)->get();
+       $studentSibling=new SiblingGroup();
+       $siblings=$studentSibling->getSiblingByStudentId($request->student_id);
+      
 
       $StudentFeeDetail = new StudentFeeDetail(); 
       $StudentFeeDetails = $StudentFeeDetail->getFeeDetailsByUpTodate($toDate,$request->student_id); 

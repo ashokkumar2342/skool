@@ -21,14 +21,17 @@
                          <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('start_date','Start Date',['class'=>' control-label']) }}
-                               {{ Form::text('start_date','',['class'=>'form-control datepicker','id'=>'start_date','placeholder'=>"dd-mm-yyyy"]) }}
+                              <input type="date" name="start_date" onchange="callEndDate(this.value)" class="form-control" id="start_date">
+                               
                                <p class="start_date text-center alert alert-danger hidden"></p>
                              </div>    
                         </div> 
                          <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('end_date','End Date',['class'=>' control-label ']) }}
-                               {{ Form::text('end_date','',['class'=>'form-control datepicker','placeholder'=>"dd-mm-yyyy"]) }}
+                              <input type="date" name="end_date" class="form-control" id="end_date">
+                              
+                               
                                <p class="end_date text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
@@ -66,19 +69,15 @@
                         </thead>
                         <tbody>
                             @foreach ($academicYears as $academicYear) 
-                                <tr>
-                                  @if ($academicYear->status==1)
+
+                                <tr style="{{ $academicYear->status==1?'background-color: #95e49b':'' }}">
+                                  
                                      
-                                    <td><span class="label label-success">{{ $academicYear->name }}</span></td>
-                                    <td><span class="label label-success">{{ date('d-m-Y',strtotime($academicYear->start_date)) }}</span></td>
-                                    <td><span class="label label-success">{{ date('d-m-Y',strtotime($academicYear->end_date))  }}</span></td>
-                                    <td><span class="label label-success">{{ $academicYear->description }}</span></td>
-                                    @else
-                                     <td class="text-nowrap">{{ $academicYear->name }}</td>
-                                    <td class="text-nowrap">{{ date('d-m-Y',strtotime($academicYear->start_date)) }}</td>
-                                    <td class="text-nowrap">{{ date('d-m-Y',strtotime($academicYear->end_date))  }}</td>
+                                    <td>{{ $academicYear->name }}</td>
+                                    <td>{{ date('d-m-Y',strtotime($academicYear->start_date)) }}</td>
+                                    <td>{{ date('d-m-Y',strtotime($academicYear->end_date))  }}</td>
                                     <td>{{ $academicYear->description }}</td>
-                                  @endif
+                                     
                                     <td class="text-nowrap">
                                       @if ($academicYear->status==1)
                                         <a href="{{ route('admin.academicYear.default.value',$academicYear->id) }}" title="" class="btn-xs btn-success btn">Default</a>
@@ -118,7 +117,21 @@
 
  <script>
  
-    $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
+    function callEndDate(date){
+     
+      var date = new Date(date);
+          var newdate = new Date(date);
+
+          newdate.setDate(newdate.getDate());
+          
+          var dd = newdate.getDate();
+          var mm = newdate.getMonth() ;
+          var y = newdate.getFullYear() + 1;
+
+          var someFormattedDate = dd + '/' + mm + '/' + y;
+          alert(someFormattedDate);
+          // document.getElementById('end_date').value = someFormattedDate;
+     }
    
      
     $('#btn_academic_year_create').click(function(event) {        

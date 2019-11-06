@@ -37,4 +37,22 @@ class SiblingGroup extends Model
       }
 
     }
+
+    public function getSiblingByStudentId($id)
+    {
+        try {
+          $studentSibling=SiblingGroup::where('student_id',$id)->count();
+                   if ($studentSibling!=0) {
+                     $studentSiblingId=SiblingGroup::where('student_id',$id)->first();
+                  return $studentSiblingInfos=SiblingGroup::
+                                                             where('group',$studentSiblingId->group)
+                                                           ->where('student_id','!=',$id)->get();
+                   }else{
+                    return  array();
+                   }  
+        } catch (Exception $e) {
+            return $e;
+        }
+
+    }
 }
