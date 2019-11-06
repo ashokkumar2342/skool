@@ -215,8 +215,8 @@
  @endif
 @endif
 @if (in_array('ondate',$fieldNames) || in_array('bloodgroups',$fieldNames) || in_array('hb',$fieldNames) || in_array('bp',$fieldNames) || in_array('height',$fieldNames) || in_array('weight',$fieldNames)|| in_array('dental',$fieldNames)||in_array('vision',$fieldNames))  
-@foreach(App\Model\StudentMedicalInfo::where('student_id',$student->id)->get() as $studentMedicalInfo) 
 <h4 align="center"><b>Medical Details</b></h4><hr> 
+@foreach(App\Model\StudentMedicalInfo::where('student_id',$student->id)->get() as $studentMedicalInfo) 
 <div class="row" style="margin-left: 80px"> 
      @if (in_array('ondate',$fieldNames))
         <div class="col-lg-6"> 
@@ -265,24 +265,22 @@
            </div>
              
         @endif 
-</div> 
+</div><hr> 
 @endforeach
-@endif
-
-@foreach(App\Model\StudentSiblingInfo::where('student_id',$student->id)->get() as $studentSiblingInfo) 
-
+@endif 
+@if (in_array('sib_registration_no',$fieldNames) || in_array('sib_name',$fieldNames)) 
 <h4 align="center"><b> Sibling Details</b></h4><hr>
 
-
+ @foreach($studentSiblingInfos as $studentSiblingInfo) 
 <div class="row" style="margin-left: 80px"> 
      @if (in_array('sib_registration_no',$fieldNames))
          <div class="col-lg-6"> 
-          <p><li>Registration No :-<b> {{ $studentSiblingInfo->siblings->registration_no or '' }}</b> </li></p>   
+          <p><li>Registration No :-<b> {{ $studentSiblingInfo->studentSiblings->registration_no or '' }}</b> </li></p>   
          </div> 
      @endif
      @if (in_array('sib_name',$fieldNames))
         <div class="col-lg-6"> 
-            <p><li>Name :-<b>{{ $studentSiblingInfo->siblings->name  or ''}}</b> </li></p>  
+            <p><li>Name :-<b>{{ $studentSiblingInfo->studentSiblings->name  or ''}}</b> </li></p>  
         </div> 
      @endif
 </div>
@@ -293,9 +291,9 @@
 <div class="col-lg-6"> 
     <p><li>Section :-<b>{{ $studentSiblingInfo->siblings->sectionTypes->name or ''  }}</b> </li></p>  
 </div> --}}
-</div>
+</div><hr>
 @endforeach
-
+@endif 
 
 
 {{-- <h4 align="center"><b> Subject Details</b></h4><hr>

@@ -20,7 +20,7 @@
              <form action="{{ route('admin.sms.template.update',$smsTemplates->id) }}" method="post" class="add_form" button-click="btn_outhor_table_show,btn_Homework_table_show,btn_class_test_table_show,btn_class_test_details,btn_time_table_table,btn_time_medical,btn_time_absent_student,btn_close">
                    {{ csrf_field() }}
                     <div class="form-group">
-                    <select name="name" class="form-control">
+                    <select name="name" class="form-control hidden">
                       <option selected disabled>Select Name</option>
                       @foreach ($templteNames as $templteName)
                       <option value="{{ $templteName->id }}"{{ $smsTemplates->template_type_id==$templteName->id? 'selected' : ''}}>{{ $templteName->name }}</option> 

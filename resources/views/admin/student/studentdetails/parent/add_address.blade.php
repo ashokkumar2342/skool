@@ -22,11 +22,11 @@
            <input type="hidden" name="student_id" value="{{ $student_id }}">
           <div class="row">
             <div class="form-group col-lg-4">
-              <label>Primary Mobile</label> <span class="fa fa-asterisk"></span>
+              <label>Primary Mobile No</label> <span class="fa fa-asterisk"></span>
               <input type="text" name="primary_mobile" class="form-control" placeholder="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
             </div>
             <div class="form-group col-lg-4">
-              <label>Primary E-mail</label> <span class="fa fa-asterisk"></span>
+              <label>Primary E-mail ID</label> <span class="fa fa-asterisk"></span>
               <input type="email" name="primary_email" class="form-control" placeholder="" maxlength="50">
             </div>
             <div class="form-group col-lg-4">

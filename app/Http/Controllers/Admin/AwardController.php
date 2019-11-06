@@ -135,22 +135,29 @@ class AwardController extends Controller
             return response()->json($response);// response as json
         }
        
-         else { 
+         else {  
+                foreach ($request->student_name as $student_id) {
                 $awardFor=new AwardFor();
                 $awardFor->award_id=$request->award_name;
-                $awardFor->student_id=$request->student_name;
+                $awardFor->student_id=$student_id;
                 $awardFor->rank_position=$request->rank_position; 
                 $awardFor->description=$request->description;
                 $awardFor->last_updated_by=$admin; 
-                $awardFor->save();
+                $awardFor->save(); 
+                }
                 $response=['status'=>1,'msg'=>'Created Successfully'];
                     return response()->json($response);
           
             }
     }
-    public function awardForTableShow($value='')
+    public function awardForTableShow($student_id=null)
     {
-        $awardfors= AwardFor::orderBy('id','ASC')->get();
+         
+        if ($student_id==null) {
+         $awardfors= AwardFor::orderBy('id','ASC')->get(); 
+        }else{
+         $awardfors= AwardFor::where('student_id',$student_id)->orderBy('id','ASC')->get(); 
+        }
          return view('admin.award.awardFor.table_show',compact('awardfors'));
     }
     public function awardForEdit($id)

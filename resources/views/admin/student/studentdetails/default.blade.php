@@ -75,12 +75,30 @@
                                                     <p class="text-danger">{{ $errors->first('pincode') }}</p>
                                                 </div>
                                             </div>
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    {{ Form::label('nationality','Nationality',['class'=>' control-label']) }}
+                                                     <select name="nationality" class="form-control" >
+                                                       <option value="1" {{ @$default->nationality==1? 'selected' :'' }}>Indian</option> 
+                                                       <option value="2" {{ @$default->nationality==2? 'selected' :'' }}>Other Country</option> 
+                                                     </select>                       
+                                                     
+                                                    <p class="text-danger">{{ $errors->first('nationality') }}</p>
+                                                </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div> 
+                                        <div class="panel panel-default">
+                                         <div class="text-center"><b>Birthday Template</b></div> 
+                                          <div class="panel-body"> 
                                             @php
                                                 $SMSarrayId=1;    
                                               @endphp  
-                                            <div class="col-lg-2">                         
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    <label>SMS Template Birthday</label>
+                                                    <label> SMS Template</label>
                                                      <select name="birthday_message_id" class="form-control">
                                                           <option selected disabled>Select Option</option>
                                                           @foreach ($smsbirthdayTemplates as $smsTemplate)
@@ -89,12 +107,17 @@
                                                       </select> 
                                                 </div>
                                             </div>
-                                             @php
+                                            <div class="col-lg-4 text-center" style="margin-top: 25px">                         
+                                                <div class="form-group">
+                                                <a href="#" title="" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.medical.template.view',1) }}')"><i class="fa fa-eye"></i></a>
+                                              </div>
+                                            </div>
+                                            @php
                                                 $EmailarrayId=1;    
                                               @endphp
-                                            <div class="col-lg-2">                         
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    <label>Email Template Birthday</label>
+                                                    <label>Email Template</label>
                                                      <select name="birthday_email_id" class="form-control">
                                                           <option selected disabled>Select Option</option>
                                                           @foreach ($emailbirthdayTemplates as $smsTemplate)
@@ -102,13 +125,19 @@
                                                           @endforeach 
                                                       </select> 
                                                 </div>
+                                            </div> 
                                             </div>
-                                            @php
+                                            </div> 
+                                        <div class="panel panel-default">
+                                         <div class="text-center"><b>Homework Template</b></div> 
+                                          <div class="panel-body"> 
+                                          
+                                           @php
                                                 $homeworkId=1;    
                                               @endphp    
-                                            <div class="col-lg-2">                         
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    <label>SMS Template Homework</label>
+                                                    <label> SMS Template</label>
                                                      <select name="homework_message_id" class="form-control">
                                                           <option selected disabled>Select Option</option>
                                                           @foreach ($smshomeworkTemplates as $smsTemplate)
@@ -116,13 +145,18 @@
                                                           @endforeach 
                                                       </select> 
                                                 </div>
-                                            </div>   
+                                            </div>
+                                            <div class="col-lg-4 text-center" style="margin-top: 25px">                         
+                                                <div class="form-group">
+                                                <a href="#" title="" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.medical.template.view',2) }}')"><i class="fa fa-eye"></i></a>
+                                              </div>
+                                            </div>
                                             @php
                                                 $emailhomeworkId=1;    
-                                              @endphp    
-                                            <div class="col-lg-2">                         
+                                              @endphp 
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    <label>Email Template Homework</label>
+                                                    <label>Email Template</label>
                                                      <select name="homework_email_id" class="form-control">
                                                           <option selected disabled>Select Option</option>
                                                           @foreach ($emailhomeworkTemplates as $smsTemplate)
@@ -131,12 +165,17 @@
                                                       </select> 
                                                 </div>
                                             </div>  
-                                            @php
+                                            </div>
+                                            </div> 
+                                        <div class="panel panel-default">
+                                         <div class="text-center"><b>Class Test Template</b></div> 
+                                          <div class="panel-body">  
+                                           @php
                                                 $smsclassId=1;    
                                               @endphp    
-                                            <div class="col-lg-2">                         
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    <label>SMS Template Class Test</label>
+                                                    <label>SMS Template</label>
                                                      <select name="classTest_message_id" class="form-control">
                                                           <option selected disabled>Select Option</option>
                                                           @foreach ($smsclasstestTemplates as $smsTemplate)
@@ -144,13 +183,18 @@
                                                           @endforeach 
                                                       </select> 
                                                 </div>
-                                            </div>  
-                                            @php
+                                            </div> 
+                                            <div class="col-lg-4 text-center" style="margin-top: 25px">                         
+                                                <div class="form-group">
+                                                <a href="#" title="" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.medical.template.view',3) }}')"><i class="fa fa-eye"></i></a>
+                                              </div>
+                                            </div>
+                                             @php
                                                 $emailclassId=1;    
                                               @endphp    
-                                            <div class="col-lg-2">                         
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    <label>Email Template Class Test</label>
+                                                    <label>Email Template</label>
                                                      <select name="classTest_email_id" class="form-control">
                                                           <option selected disabled>Select Option</option>
                                                           @foreach ($emailclasstestTemplates as $smsTemplate)
@@ -158,13 +202,18 @@
                                                           @endforeach 
                                                       </select> 
                                                 </div>
-                                            </div>  
-                                            @php
+                                            </div> 
+                                            </div>
+                                            </div>
+                                         <div class="panel panel-default">
+                                         <div class="text-center"><b>Class Test Detaild Template</b></div> 
+                                          <div class="panel-body">  
+                                           @php
                                                 $smsclassDetilsId=1;    
                                               @endphp    
-                                            <div class="col-lg-2">                         
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    <label>SMS  Class Test Details</label>
+                                                    <label>SMS Template</label>
                                                      <select name="class_test_details_message_id" class="form-control">
                                                           <option selected disabled>Select Option</option>
                                                           @foreach ($smsclasstestDetailsTemplates as $smsTemplate)
@@ -172,13 +221,18 @@
                                                           @endforeach 
                                                       </select> 
                                                 </div>
-                                            </div>  
-                                            @php
+                                            </div> 
+                                            <div class="col-lg-4 text-center" style="margin-top: 25px">                         
+                                                <div class="form-group">
+                                                <a href="#" title="" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.medical.template.view',4) }}')"><i class="fa fa-eye"></i></a>
+                                              </div>
+                                            </div>
+                                             @php
                                                 $emailclassDetilsId=1;    
                                               @endphp    
-                                            <div class="col-lg-2">                         
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    <label>Email  Class Test Details</label>
+                                                    <label>Email  Template</label>
                                                      <select name="class_test_details_email_id" class="form-control">
                                                           <option selected disabled>Select Option</option>
                                                           @foreach ($emailclasstestDetailsTemplates as $smsTemplate)
@@ -187,12 +241,17 @@
                                                       </select> 
                                                 </div>
                                             </div>  
+                                            </div>
+                                            </div> 
+                                        <div class="panel panel-default">
+                                         <div class="text-center"><b>Time Table Template</b></div> 
+                                          <div class="panel-body">  
                                             @php
                                                 $smsTimeId=1;    
                                               @endphp    
-                                            <div class="col-lg-2">                         
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    <label>SMS Template Time Table</label>
+                                                    <label> SMS Template</label>
                                                      <select name="timetable_message_id" class="form-control">
                                                           <option selected disabled>Select Option</option>
                                                           @foreach ($smsTimetableTemplates as $smsTemplate)
@@ -200,13 +259,18 @@
                                                           @endforeach 
                                                       </select> 
                                                 </div>
-                                            </div>  
-                                            @php
+                                            </div> 
+                                            <div class="col-lg-4 text-center" style="margin-top: 25px">                         
+                                                <div class="form-group">
+                                                <a href="#" title="" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.medical.template.view',5) }}')"><i class="fa fa-eye"></i></a>
+                                              </div>
+                                            </div>
+                                             @php
                                                 $emailTimeId=1;    
                                               @endphp    
-                                            <div class="col-lg-2">                         
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    <label>Email Template Time Table</label>
+                                                    <label>Email Template  </label>
                                                      <select name="timetable_email_id" class="form-control">
                                                           <option selected disabled>Select Option</option>
                                                           @foreach ($smsTimetableTemplates as $smsTemplate)
@@ -215,12 +279,17 @@
                                                       </select> 
                                                 </div>
                                             </div>  
+                                            </div>
+                                            </div> 
+                                        <div class="panel panel-default">
+                                         <div class=" text-center"><b>Medical Template </b></div> 
+                                          <div class="panel-body"> 
                                             @php
                                                 $medicalSMS=1;    
                                               @endphp    
-                                            <div class="col-lg-2">                         
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    <label>SMS Template Medical</label>
+                                                    <label> SMS Template</label>
                                                      <select name="medical_message_id" class="form-control">
                                                           <option selected disabled>Select Option</option>
                                                           @foreach ($smsMedicalTemplates as $smsTemplate)
@@ -228,13 +297,19 @@
                                                           @endforeach 
                                                       </select> 
                                                 </div>
-                                            </div>  
+                                            </div> 
+                                            <div class="col-lg-4 text-center" style="margin-top: 25px">                         
+                                                <div class="form-group">
+                                                <a href="#" title="" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.medical.template.view',6) }}')"><i class="fa fa-eye"></i></a>
+                                              </div>
+                                            </div>
+                                             
                                             @php
                                                 $medicalEmail=1;    
                                               @endphp    
-                                            <div class="col-lg-2">                         
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    <label>Email Template Medical</label>
+                                                    <label>Email Template </label>
                                                      <select name="medical_email_id" class="form-control">
                                                           <option selected disabled>Select Option</option>
                                                           @foreach ($emailMedicalTemplates as $smsTemplate)
@@ -243,12 +318,17 @@
                                                       </select> 
                                                 </div>
                                             </div>
+                                          </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                         <div class=" text-center"><b>Student Absent Template</b></div> 
+                                          <div class="panel-body">
                                             @php
                                                 $absentSMS=1;    
                                               @endphp    
-                                            <div class="col-lg-2">                         
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    <label>SMS Absent Student</label>
+                                                    <label>SMS Template</label>
                                                      <select name="absent_student_message_id" class="form-control">
                                                           <option selected disabled>Select Option</option>
                                                           @foreach ($smsabsentTemplates as $smsTemplate)
@@ -256,13 +336,18 @@
                                                           @endforeach 
                                                       </select> 
                                                 </div>
-                                            </div>  
+                                            </div> 
+                                            <div class="col-lg-4 text-center" style="margin-top: 25px">                         
+                                                <div class="form-group">
+                                                <a href="#" title="" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.medical.template.view',7) }}')"><i class="fa fa-eye"></i></a>
+                                              </div>
+                                            </div>
                                             @php
                                                 $absentEmail=1;    
                                               @endphp    
-                                            <div class="col-lg-2">                         
+                                            <div class="col-lg-4">                         
                                                 <div class="form-group">
-                                                    <label>Email Absent Student</label>
+                                                    <label>Email Template</label>
                                                      <select name="absent_student_email_id" class="form-control">
                                                           <option selected disabled>Select Option</option>
                                                           @foreach ($emailabsentTemplates as $smsTemplate)
@@ -271,10 +356,11 @@
                                                       </select> 
                                                 </div>
                                             </div>  
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>{{--row end --}}   
+                                                  </div>
+                                                </div>
+                                              </div>
+ 
+                           
                                  
                              
                         

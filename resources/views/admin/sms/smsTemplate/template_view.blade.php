@@ -8,7 +8,7 @@
   
 </style>
  
-  <div class="modal-dialog" style="width:50%">
+  <div class="modal-dialog" style="width:70%">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -18,10 +18,10 @@
       </div>
       <div class="modal-body">
         <label>SMS Template</label>
-         <textarea class="textarea" name="message" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $SMStemplateView->message }} 
+         <textarea class="textarea" name="message" placeholder="Message" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $SMStemplateView->message }} 
          </textarea>
          <label>Email Template</label> 
-         <textarea class="textarea" name="message" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $EmailtemplateView->message }} 
+         <textarea class="textarea" name="message" placeholder="Message" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $EmailtemplateView->message }} 
          </textarea> 
          
       </div>  

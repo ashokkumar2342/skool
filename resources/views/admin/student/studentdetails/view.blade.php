@@ -20,6 +20,10 @@ b{
           <button type="button" class="btn btn-xs btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.student.preview',$student->id) }}')" style="margin:5px">Preview</button>
 
           <a href="{{ route('admin.student.pdf.generate',$student->id) }}" class="btn btn-xs btn-success pull-right" title="Download Profile " target="_blank" style="margin:5px">PDF</a>
+
+           
+
+           
           
           <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-user"></i> Student Details</a></li>
@@ -32,6 +36,7 @@ b{
               <li><a data-toggle="tab" href="#subjects" id="subject_tab" onclick="callAjax(this,'{{ route('admin.studentSubject.list',$student->id) }}','subject_list')"><i class="fa fa-book" {{-- id="subject_tab" --}}></i>  Subjects</a></li>
               <li><a data-toggle="tab" href="#sport"><i class="fa fa-life-ring" id="sport_tab"></i> Sport hobby</a></li>
               <li><a data-toggle="tab" href="#document"><i class="fa fa-file" id="document_tab"></i> Document</a></li>
+              <li><a data-toggle="tab" href="#award_list"><i class="fa fa-angellist" id="award_list_tab"></i> Award</a></li>
             </ul>
             <div class="tab-content"  style="padding-left: 10px">
                 <div id="home" class="tab-pane fade in active">
@@ -90,7 +95,7 @@ b{
                                       <li class="list-group-item">Username :-<span class="fs"><input type="text" disabled="" value="{{ $student->username }}" name="email" > </span></li>
                                        <li class="list-group-item">Date of Activation :-<span class="fs"><input type="text" maxlength="50" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation"> </span></li> 
                                         <li class="list-group-item">Gender :-<span class="fs"><input type="text" value="{{ $student->genders->genders or ''}}" disabled=""> </span></li>
-                                        <li class="list-group-item">House No :-<span class="fs">
+                                        <li class="list-group-item">House Name :-<span class="fs">
                                           <select name="house" style="width: 202px">
                                             @foreach ($houses as $house)
                                               <option value="{{ $house->id }}"{{ $student->house_no==$house->id? 'selected' : '' }}>{{ $house->name }}</option> 
@@ -174,6 +179,7 @@ b{
                   <div class="table-responsive" id="subject_list">
                     </div> 
                    <div class="text-center">
+                      <button type="button" onclick="$('#medical_info_tab').click()" class="btn btn-success btn-sm">Previous</button> 
                       <button type="button" onclick="$('#sport_tab').click()" class="btn btn-success btn-sm">Next</button> 
                    </div>
                 </div>
@@ -184,14 +190,16 @@ b{
                            <tr>
                                <th>Academic Year Prize</th>
                                <th>Sports Activity Name</th>
+                               <th>Level</th>
                                <th>Action</th>
                            </tr>
                        </thead>
                        <tbody>
                         @foreach (App\Model\StudentSportHobby::where('student_id',$student->id)->get() as $sportHobby) 
                            <tr>
-                               <td>{{$sportHobby->sessions->date or ''  }}</td>
+                               <td>{{$sportHobby->sessions->name or ''  }}</td>
                                <td>{{ $sportHobby->sports_activity_name }}</td>
+                               <td>{{ $sportHobby->awardLevel->name or '' }}</td>
                                <td>
                                 <button class="btn_sport_hobby_edit btn btn-warning btn-xs"  data-id="{{ $sportHobby->id }}"  ><i class="fa fa-edit"></i></button>  
                                  <button class="btn_sport_hobby_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $sportHobby->id }}"  ><i class="fa fa-trash"></i></button>
@@ -201,6 +209,7 @@ b{
                        </tbody>
                    </table>
                    <div class="text-center">
+                     <button type="button" onclick="$('#subject_tab').click()" class="btn btn-success btn-sm">Previous</button> 
                      <button type="button" onclick="$('#document_tab').click()" class="btn btn-success btn-sm">Next</button> 
                   </div>
                 </div>
@@ -221,14 +230,28 @@ b{
                               <td>{{ $document->documentTypes->name or ''}}</td>
                               <td>{{ $document->name }}</td>                             
                               <td> 
-                                {{-- <a href="{{ route('admin.document.download',$document->document_url) }}" target="blank" class="btn btn-success btn-xs"><i class="fa fa-download"></i></a>  --}}
-                                <a href="{{ url('storage/'.$document->document_url) }}" target="blank" class="btn btn-success btn-xs"><i class="fa fa-download"></i></a>
+                                  
+                                 <a href="{{ url('$document->document_url') }}" class="btn btn-xs btn-success" title=""><i class="fa fa-download"></i></a>
                                 <a class="btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" href="{{ route('admin.document.delete',$document->id) }}"  ><i class="fa fa-trash"></i></a></td>
                           </tr>
                          @endforeach
                       </tbody>
                   </table>
                    <div class="text-center">
+                     <button type="button" onclick="$('#sport_tab').click()" class="btn btn-success btn-sm">Previous</button> 
+                     <button type="button" onclick="$('#award_list_tab').click()" class="btn btn-success btn-sm">Next</button> 
+                  </div>
+                </div>
+                <div id="award_list" class="tab-pane fade"> 
+                    <button type="button" class="btn btn-info pull-left" multi-select="true" onclick="callPopupLarge(this,'{{ route('admin.award.for.addform')}}')" style="margin:10px">Add</button> 
+                            <button id="btn_event_type_table_show" hidden data-table="event_type_data_table" onclick="callAjax(this,'{{ route('admin.award.for.table.show',$student->id) }}','event_type_table_show_div')">show </button> 
+                              <div class="" id="event_type_table_show_div"> 
+                              </div>
+                      
+                    
+                   <div class="text-center">
+
+                     <button type="button" onclick="$('#document_tab').click()" class="btn btn-success btn-sm">Previous</button> 
                      <button type="button" onclick="$('#student_tab').click()" class="btn btn-success btn-sm">Student Details</button> 
                   </div>
                 </div>
@@ -279,6 +302,7 @@ b{
         $('#parents_items').DataTable();
         $('#sibling_items').DataTable();
         $('#address_items').DataTable();
+        $('#btn_event_type_table_show').click();
 
     });
      var errors = '{{ $errors->first() }}';

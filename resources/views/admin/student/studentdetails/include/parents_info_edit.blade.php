@@ -61,8 +61,8 @@
                     <div class="form-group col-md-4">
                         {{ Form::label('islive','IsLive',['class'=>' control-label']) }}                         
                         {!! Form::select('islive',[
-                          '0'=>'No',
-                          '1'=>'Yes'                                                    
+                          '1'=>'Yes',                                                    
+                          '0'=>'No'
                           ], null, ['class'=>'form-control']) !!}
                         <p class="text-danger">{{ $errors->first('islive') }}</p>
                     </div> 

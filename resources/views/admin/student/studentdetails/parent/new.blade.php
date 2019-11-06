@@ -32,13 +32,13 @@
     
 </div>
 <div class="form-group col-md-4">
-    {{ Form::label('mobile','Mobile',['class'=>' control-label']) }}
+    {{ Form::label('mobile','Mobile No',['class'=>' control-label']) }}
     <span class="fa fa-asterisk"></span>                         
     {{ Form::text('mobile','',['class'=>'form-control','maxlength'=>'10','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57',' required']) }}
      
 </div>
 <div class="form-group col-md-4">
-    {{ Form::label('email','email',['class'=>' control-label']) }} 
+    {{ Form::label('email','E-mail ID',['class'=>' control-label']) }} 
     <span class="fa fa-asterisk"></span>                        
     {{ Form::email('email','',['class'=>'form-control','maxlength'=>'50',' required']) }}
      
@@ -59,8 +59,8 @@
     {{ Form::label('islive','IsLive',['class'=>' control-label']) }}
     <span class="fa fa-asterisk"></span>                         
     {!! Form::select('islive',[
-      '0'=>'No',
-      '1'=>'Yes'                                                    
+      '1'=>'Yes',                                                    
+      '0'=>'No'
       ], null, ['class'=>'form-control']) !!}
       <p class="text-danger">{{ $errors->first('islive') }}</p>
   </div>

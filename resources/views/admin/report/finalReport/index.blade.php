@@ -28,6 +28,7 @@
                 <option selected disabled>Select Option</option>
                 <option value="1">Section Wise</option>
                 <option id="filed" value="2">Field Wise</option> 
+                
               </select> 
               </div>
             <div id="student_details_select">

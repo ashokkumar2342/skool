@@ -232,6 +232,7 @@ class SmsController extends Controller
           
             'name' => 'required', 
             'message' => 'required', 
+            'subject' => 'required', 
             
        
         ];
@@ -255,6 +256,7 @@ class SmsController extends Controller
         $smsTemplate=new EmailTemplate();
         $smsTemplate->template_type_id=$request->name;
         $smsTemplate->message=$request->message;
+        $smsTemplate->subject=$request->subject;
          
         $smsTemplate->save();
         $response=['status'=>1,'msg'=>'Create Successfully'];
@@ -278,6 +280,7 @@ class SmsController extends Controller
           
             'name' => 'required', 
             'message' => 'required', 
+            'subject' => 'required', 
             
        
         ];
@@ -294,6 +297,7 @@ class SmsController extends Controller
         $smsTemplate=  EmailTemplate::find($id);
         $smsTemplate->template_type_id=$request->name;
         $smsTemplate->message=$request->message;
+        $smsTemplate->subject=$request->subject;
          
         $smsTemplate->save();
         $response=['status'=>1,'msg'=>'Update Successfully'];

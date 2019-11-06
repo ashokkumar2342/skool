@@ -20,6 +20,7 @@ use App\Model\Religion;
 use App\Model\ReportFor;
 use App\Model\Section;
 use App\Model\SessionDate;
+use App\Model\SiblingGroup;
 use App\Model\StudentDefaultValue;
 use App\Model\StudentFee;
 use App\Model\StudentMedicalInfo;
@@ -175,13 +176,25 @@ class ReportController extends Controller
         return view('admin.report.finalReport.section',compact('classWiseSections'));
     }
     public function finalReportShow(Request $request){
-     
-           if ($request->report_for==2) { 
+     // return$request;
+           if ($request->report_for==2) {
+                
                $fieldNames=$request->fild_name;
                 $sectionWiseDetails=$request->section_wise;  
                  $st = new Student();
-                 $student=$st->getStudentDetailsById($request->registration_no); 
-                  
+                 $student=$st->getStudentDetailsById($request->registration_no);
+                 //sibling details
+                 $studentSibling=SiblingGroup::where('student_id',$request->registration_no)->count();
+                 if ($studentSibling!=0) {
+                   $studentSiblingId=SiblingGroup::where('student_id',$request->registration_no)->first();
+                 $studentSiblingInfos=SiblingGroup::
+                                                   where('group',$studentSiblingId->group)
+                                                   ->where('student_id','!=',$request->registration_no)->get();
+                 }else{
+                    $studentSiblingInfos=array();
+                 } 
+                 //end siblind details  
+                   
                    $profilePdfUrl = Storage_path() . '/app/student/document/profile/'.$student->class_id.'/'.$student->section_id; 
                      if ($request->report_wise==2) { 
                            @mkdir($profilePdfUrl, 0755, true); 
@@ -189,11 +202,11 @@ class ReportController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.report.finalReport.filed_wise_pdf',compact('student','fieldNames'))->save($profilePdfUrl.'/'.$student->registration_no.'_profile.pdf'); 
+        ->loadView('admin.report.finalReport.filed_wise_pdf',compact('student','fieldNames','studentSiblingInfos'))->save($profilePdfUrl.'/'.$student->registration_no.'_profile.pdf'); 
                       }
                      if ($request->report_wise==1) { 
                            @mkdir($profilePdfUrl, 0755, true); 
-                       $pdf = PDF::loadView('admin.report.finalReport.pdf_generate',compact('student','sectionWiseDetails'))->save($profilePdfUrl.'/'.$student->registration_no.'_profile.pdf');
+                       $pdf = PDF::loadView('admin.report.finalReport.pdf_generate',compact('student','sectionWiseDetails','studentSiblingInfos'))->save($profilePdfUrl.'/'.$student->registration_no.'_profile.pdf');
                      }
                  $docs=$student->documents; 
                    $pdfMerge = new Fpdi();

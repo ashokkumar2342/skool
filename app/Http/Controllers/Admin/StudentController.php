@@ -7,6 +7,7 @@ use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Model\AcademicYear;
 use App\Model\Address;
+use App\Model\AwardLevel;
 use App\Model\BloodGroup;
 use App\Model\Category;
 use App\Model\ClassType;
@@ -49,6 +50,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 use Storage;
+use setasign\Fpdi\Fpdi;
 
 class StudentController extends Controller
 {
@@ -59,9 +61,26 @@ class StudentController extends Controller
      */
     public function index(Request $request,$menuPermissionId)
     {
-       $st =new Student();           
-       $students =$st->getStudentByClassSection($request->class,$request->section); 
-     $menuPermision= Minu::find($menuPermissionId); 
+        
+        if ($request->class!=null) {
+          $st =new Student();           
+          $students =$st->getStudentByClassSection($request->class,$request->section); 
+        }elseif($request->student_id!=null){
+          $student=Student::where('registration_no',$request->student_id)->first();
+          if (empty($student)) {
+           $response=array();
+            $response["status"]=0;
+            $response["msg"]='Registration No Not Exist';
+            return response()->json($response);
+          }
+          $st =new Student();           
+          $students =$st->getStudentDetailsByArrId([$student->id]);
+        }elseif($request->search_id!=null){
+          $st =new Student();           
+          $students =$st->getStudentsSearchDetilas($request->search_id);
+
+        }
+        $menuPermision= Minu::find($menuPermissionId); 
         $response = array(); 
         $response['data']= view('admin.student.studentdetails.list',compact('students','menuPermision','fatherDetail'))->render();
             $response['status'] = 1;
@@ -88,14 +107,16 @@ class StudentController extends Controller
     }
     public function showForm()
     {        
-        $classes = MyFuncs::getClasses();    
+        $classes = MyFuncs::getClasses();
+        $st= new Student();
+        $students=$st->getAllStudents();    
         $sessions = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
         $default = StudentDefaultValue::find(1); 
         $menuPermission= MyFuncs::menuPermission(); 
-        return view('admin.student.studentdetails.showForm',compact('classes','sessions','default','genders','religions','categories','menuPermission'));
+        return view('admin.student.studentdetails.showForm',compact('classes','sessions','default','genders','religions','categories','menuPermission','students'));
     }
 
     public function  passwordReset(Student $student){
@@ -132,34 +153,59 @@ class StudentController extends Controller
          return view('admin.student.studentdetails.preview',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address'));
     }
     public function pdfGenerate($id){
+      // return 'dddddd';
         $st =new Student();
-           $student=$st->getStudentDetailsById($id);
-          // $student = Student::find($id);
-          // $parent =new StudentPerentDetail();           
-          // $fatherDetail =$parent->getParent($id,1);
-          // $motherDetail =$parent->getParent($id,2);
-
-          // $StudentAddressDetail =new StudentAddressDetail(); 
-          // $address =$StudentAddressDetail->getAddress($id);
+           $student=$st->getStudentDetailsById($id); 
            //sibling details//
-          $studentSibling=SiblingGroup::where('student_id',$id)->count();
+          $studentSibling=SiblingGroup::
+                                        where('student_id',$id)
+                                        ->count();
          if ($studentSibling!=0) {
-           $studentSiblingId=SiblingGroup::where('student_id',$id)->first();
+           $studentSiblingId=SiblingGroup::
+                                           where('student_id',$id)
+                                           ->first();
          $studentSiblingInfos=SiblingGroup::
-                                                   where('group',$studentSiblingId->group)
-                                                 ->where('student_id','!=',$id)->get();
+                                            where('group',$studentSiblingId->group)
+                                           ->where('student_id','!=',$id)
+                                            ->get();
          }else{
             $studentSiblingInfos=array();
          } 
          //end sibling detaild///  
           $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 
           $documents = Document::where('student_id',$id)->get(); 
-          $studentSubjects=StudentSubject::where('student_id',$id)->get(); 
-      $pdf = PDF::setOptions([
+          $studentSubjects=StudentSubject::where('student_id',$id)->get();
+          $profilePdfUrl = Storage_path() . '/app/student/profile/profileDetails/'.$student->registration_no.'_student_all_details.pdf';
+          // @mkdir($profilePdfUrl, 0755, true); 
+          $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.student.studentdetails.pdf_generate',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address'));
+        ->loadView('admin.student.studentdetails.pdf_generate',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address'))->save($profilePdfUrl);;
+        $docs=$documents; 
+                   $pdfMerge = new Fpdi();
+                   $dt =array();
+                  $dt['student']=$profilePdfUrl;
+                   foreach ($docs as $key=>$document) {
+                    
+                     $dt[$key]=Storage_path('app/'.$document->document_url);  
+                  
+                  }
+                
+                   $files =$dt;
+                   foreach ($files as $file) {
+                      $pageCount =$pdfMerge->setSourceFile($file);
+                      for ($pageNo=1; $pageNo <=$pageCount ; $pageNo++) { 
+                          $pdfMerge->AddPage();
+                          $pageId = $pdfMerge->importPage($pageNo, '/MediaBox');
+                          //$pageId = $pdfMerge->importPage($pageNo, Fpdi\PdfReader\PageBoundaries::ART_BOX);
+                          $s = $pdfMerge->useTemplate($pageId, 10, 10, 200);
+                      }
+                   }
+                   $file = uniqid().'.pdf';
+                   // $pdfMerge->Output('I', 'simple.pdf');
+                      $pdf->stream('student_all_report.pdf'); 
+                   dd($pdfMerge->Output('I', 'simple.pdf'));
       
       return $pdf->stream('student_all_report.pdf');
     }
@@ -263,6 +309,7 @@ class StudentController extends Controller
         $documentTypes = array_pluck(DocumentType::get(['id','name'])->toArray(),'name', 'id');
         $subjectTypes = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
         $sessions = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
+        $awardLevels = array_pluck(AwardLevel::get(['id','name'])->toArray(),'name', 'id');
         $isoptionals = array_pluck(Isoptional::get(['id','name'])->toArray(),'name', 'id');
         $bloodgroups = array_pluck(BloodGroup::get(['id','name'])->toArray(),'name', 'id');
         $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id');
@@ -270,7 +317,7 @@ class StudentController extends Controller
         $sections = MyFuncs::getSections($student->class_id);
         $houses=House::orderBy('id','ASC')->get(); 
          
-        return view('admin.student.studentdetails.view',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions','classes','sections','houses'));
+        return view('admin.student.studentdetails.view',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','awardLevels','subjectTypes','bloodgroups','professions','classes','sections','houses'));
     }
     public function excelData(){
 

@@ -1,5 +1,5 @@
  
-<table id="student_list_table" class="table table-bordered table-striped table-hover">
+<table  class="table table-bordered table-striped table-hover">
   <thead>
   <tr>               
     <th>Registration No</th> 
@@ -13,7 +13,7 @@
   </thead>
   <tbody>
   @foreach($students as $student)
-  @if ($student->relation_id==1 or $student->relation_id==null)  
+ {{--  @if ($student->relation_id==1 or $student->relation_id==null) --}}  
   <tr>
     <td>{{ $student->registration_no }}</td>
  
@@ -29,7 +29,7 @@
        @endif 
        @if ($menuPermision->w_status==1) 
       <a class="btn btn-warning btn-xs"  title="Edit Student" href="{{ route('admin.student.edit',$student->id) }}"><i class="fa fa-edit"></i> 
-     @endif
+    {{--  @endif --}}
      
       {{-- <a onclick="return confirm('Are you sure to reset this student password.')" class="btn btn-danger btn-xs" title="Password Reset" href="{{ route('admin.student.passwordreset',$student->id) }}"><i class="fa fa-key"></i></a> --}}
       @if ($menuPermision->d_status==1)

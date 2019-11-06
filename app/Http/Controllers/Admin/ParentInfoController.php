@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\Address;
+use App\Model\Category;
 use App\Model\GuardianRelationType;
 use App\Model\IncomeRange;
 use App\Model\ParentsInfo;
 use App\Model\Profession;
-use App\Model\Category;
 use App\Model\Religion;
-use App\Model\Address;
-use App\Model\StudentPerentDetail;
 use App\Model\SiblingGroup;
+use App\Model\StudentPerentDetail;
+use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -31,14 +32,16 @@ class ParentInfoController extends Controller
     public function perentTable(Request $request)
     {
        
-      $studentPerentDetail=StudentPerentDetail::where('student_id',$request->id)->first(); 
-      if ($studentPerentDetail==null) {
-          $parents=ParentsInfo::where('id',$studentPerentDetail)->get(); 
-       }else{
-         $studentPerentDetails=StudentPerentDetail::where('student_id',$studentPerentDetail->student_id)->pluck('perent_info_id')->toArray(); 
-           $parents=ParentsInfo::whereIn('id',$studentPerentDetails)->get();
+      // $studentPerentDetail=StudentPerentDetail::where('student_id',$request->id)->first(); 
+      // if ($studentPerentDetail==null) {
+      //     $parents=ParentsInfo::where('id',$studentPerentDetail)->get(); 
+      //  }else{
+      //    $studentPerentDetails=StudentPerentDetail::where('student_id',$studentPerentDetail->student_id)->pluck('perent_info_id')->toArray(); 
+      //      $parents=ParentsInfo::whereIn('id',$studentPerentDetails)->get();
         
-       } 
+      //  } 
+        $st =new Student();
+           $student=$st->getStudentDetailsById($request->id);
       return view('admin.student.studentdetails.include.parents_info_list',compact('student','parents'));
     }
     public function perentInfoAddForm(Request $request)

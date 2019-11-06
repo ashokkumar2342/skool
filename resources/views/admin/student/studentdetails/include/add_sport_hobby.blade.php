@@ -20,6 +20,11 @@
                         {{ Form::label('sports_activity_name','Sports Activity Name',['class'=>' control-label']) }}                         
                         {{ Form::text('sports_activity_name','',['class'=>'form-control']) }}
                         <p class="text-danger">{{ $errors->first('sports_activity_name') }}</p>
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('level','Level',['class'=>' control-label']) }}
+                        {!! Form::select('level',$awardLevels, null, ['class'=>'form-control']) !!} 
+                        <p class="text-danger">{{ $errors->first('award_level') }}</p>
                     </div>                                       
                      
                 </form>                     

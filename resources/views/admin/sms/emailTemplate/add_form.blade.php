@@ -20,13 +20,17 @@
              <form action="{{ route('admin.email.template.store') }}" method="post" class="add_form" button-click="btn_outhor_table_show,btn_homework_table_show,btn_classtest_table_show,btn_class_test_detail_table_show,btn_time_table_show,btn_medical_show,btn_absent_student_show,btn_close">
                    {{ csrf_field() }}
                    <div class="form-group">
-                    <select name="name" class="form-control"> 
+                    <select name="name" class="form-control hidden" hidden> 
                       @foreach ($templteNames as $templteName)
                       <option value="{{ $templteName->id }}">{{ $templteName->name }}</option>
                         
                       @endforeach
                       
                     </select>
+                    <div class="form-group">
+                    <input type="text" name="subject" class="form-control" maxlength="100" placeholder="Subject">
+                     
+                   </div> 
                    
                   </div> 
                   <textarea class="textarea" name="message" placeholder="Message"

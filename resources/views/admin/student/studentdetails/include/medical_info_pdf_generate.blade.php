@@ -4,12 +4,26 @@
  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
  	<title></title>
  </head>
+ <style type="text/css">
+    .page-breck{
+      page-break-before:always; 
+    }
+  
+ </style>
   @include('admin.include.boostrap')
- <body>               @foreach ($medicalInfos as $medicalInfo)
- 	 
-
- 	<h4 align="center"><b>medicalInfo Details</b></h4><hr> 
- 	 
+ <body>
+  @foreach ($medicalInfos as $medicalInfo) 
+         @php
+            $student=App\Student::find($student_id);
+            $path =storage_path('app/student/profile/'.$student->barcode);
+          @endphp
+           <div class="row pull-right">
+          <div class="col-lg-12">
+          <img  src="{{ $path }}" alt="" width="20%" height="10%" >
+            
+          </div>
+        </div>
+ 	<h4 align="center" style="margin-left: 20px"><b>MedicalInfo Details</b></h4>
  	                      
   <div class="row" style="margin-left: 80px"> 
    <div class="col-lg-6"> 
@@ -81,11 +95,13 @@
    <div class="col-lg-6">
      <p><li>Complextion :-<b> {{ $medicalInfo->complextion }}</b> </li></p>
    </div>
-  </div>
+  </div><div class="page-breck"></div>
 @endforeach     
-  <h4 align="center"><b>medicalInfo Details</b></h4><hr> 
    
-                        
+   
+   <div class="page-breck"></div>
+                          
+    <h4 align="center" style="margin-left: 20px"><b>MedicalInfo Details</b></h4>                                        
   <div class="row" style="margin-left: 80px"> 
    <div class="col-lg-6"> 
      <p><li>On Date : ................ <b></b></li></p>
@@ -155,5 +171,6 @@
      <p><li>Complextion : ................</li></p>
    </div>
   </div>
+  
  </body>
  </html>

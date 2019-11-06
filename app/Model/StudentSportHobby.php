@@ -15,6 +15,9 @@ class StudentSportHobby extends Model
     ];
 
    public function sessions(){
-       return $this->hasOne('App\Model\SessionDate','id','session_id');
+       return $this->hasOne('App\Model\AcademicYear','id','session_id');
+   }
+   public function awardLevel(){
+       return $this->hasOne('App\Model\AwardLevel','id','award_level');
    } 
 }
