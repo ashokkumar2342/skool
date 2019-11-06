@@ -10,7 +10,7 @@
       	<div class="box">
             <div class="box-header">
               <h3 class="box-title">Class List</h3>
-              <span style="float: right"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_class">Add Class</button></span>
+              <span style="float: right"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_class" onclick="callPopupLarge(this,'{{ route('admin.class.edit') }}')">Add Class</button></span>
               <a href="{{ route('admin.class.pdf.generate') }}" style="float: right;margin-right: 10px" class="btn btn-primary btn-sm" title="Download PDF" target="blank">PDF</a>
 
 
@@ -43,7 +43,7 @@
                   <td>{{ $class->shorting_id }}</td>
                   <td align="center">
                     @if(Auth::guard('admin')->user()->minus()->where('minu_id',2)->first()->w_status == 1)
-                    <a class="btn btn-info btn-xs" href="{{ route('admin.class.edit',$class->id) }}"><i class="fa fa-pencil"></i></a>
+                    <a class="btn btn-info btn-xs" href="#" onclick="callPopupLarge(this,'{{ route('admin.class.edit',$class->id) }}')"><i class="fa fa-pencil"></i></a>
                     @endif
                     @if(Auth::guard('admin')->user()->minus()->where('minu_id',2)->first()->d_status == 1)
                     <a class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data ?')" href="{{ route('admin.class.delete',$class->id) }}"><i class="fa fa-trash"></i></a>
@@ -63,7 +63,7 @@
           <!-- Trigger the modal with a button -->
 
 <!-- Modal -->
-<div id="add_class" class="modal fade" role="dialog">
+{{-- <div id="add_class" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -111,7 +111,7 @@
        
 
   </div>
-</div>
+</div> --}}
 
     </section>
     <!-- /.content -->

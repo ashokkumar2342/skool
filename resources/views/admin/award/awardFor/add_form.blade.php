@@ -30,9 +30,9 @@
                       </select>
                     </div> 
                     <div class="form-group   col-lg-4">
-                      <label>Student Name</label>
-                      <select name="student_name" class="form-control select2">
-                        <option selected disabled>Select Name</option>
+                      <label>Student Name</label></br>
+                      <select name="student_name[]" class="form-control multiselect" multiple="multiple">
+                        {{-- <option selected disabled>Select Name</option> --}}
                         @foreach ($students as $student)
                         <option value="{{ $student->id }}">{{ $student->name }}</option> 
                         @endforeach 

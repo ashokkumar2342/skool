@@ -75,6 +75,30 @@
         <div class="col-lg-6">
             <li> Password :- <b>{{ $student->tem_pass }}</b></li> 
         </div>
+    </div>
+    <div class="row" style="margin-left: 80px"> 
+        <div class="col-lg-6"> 
+            <li>Mobile No:- <b>{{ $student->addressDetails->address->primary_mobile  or ''}}</b></li>  
+        </div> 
+        <div class="col-lg-6">
+            <li>E-mail ID:-<b> {{ $student->addressDetails->address->primary_email or ''}} </b> </li>   
+        </div>
+    </div> 
+    <div class="row" style="margin-left: 80px"> 
+        <div class="col-lg-6"> 
+            <li>Cotegory :-<b> {{ $student->addressDetails->address->categories->name or ''}} </b> </li>
+        </div> 
+        <div class="col-lg-6">
+            <li>Religion :-<b> {{ $student->addressDetails->address->religions->name or ''}} </b> </li>
+        </div>
+    </div>
+    <div class="row" style="margin-left: 80px"> 
+        <div class="col-lg-6"> 
+            <li>State :-<b> {{ $student->addressDetails->address->state or ''}} </b> </li>
+        </div> 
+        <div class="col-lg-6">
+            <li>City :- <b>{{ $student->addressDetails->address->city or ''}}</b></li> 
+        </div>
     </div> 
       </div>
     </div>
@@ -95,30 +119,7 @@
     <div id="collapse2" class="panel-collapse collapse in">
       <div class="panel-body">
           
-    <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6"> 
-            <li>Mobile :- <b>{{ $student->addressDetails->address->primary_mobile  or ''}}</b></li>  
-        </div> 
-        <div class="col-lg-6">
-            <li>Eemail :-<b> {{ $student->addressDetails->address->primary_email or ''}} </b> </li>   
-        </div>
-    </div> 
-    <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6"> 
-            <li>Cotegory :-<b> {{ $student->addressDetails->address->categories->name or ''}} </b> </li>
-        </div> 
-        <div class="col-lg-6">
-            <li>Religion :-<b> {{ $student->addressDetails->address->religions->name or ''}} </b> </li>
-        </div>
-    </div>
-    <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6"> 
-            <li>State :-<b> {{ $student->addressDetails->address->state or ''}} </b> </li>
-        </div> 
-        <div class="col-lg-6">
-            <li>City :- <b>{{ $student->addressDetails->address->city or ''}}</b></li> 
-        </div>
-    </div>
+    
     <div class="row" style="margin-left: 80px"> 
         <div class="col-lg-6"> 
             <li> Parmanent Address  </li> 
@@ -129,10 +130,10 @@
        
     </div> 
     <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6"> 
-             <b>{{ $student->addressDetails->address->p_address or ''}}</b> 
+        <div class="col-lg-6" style="margin-left: 20px"> 
+             <b >{{ $student->addressDetails->address->p_address or ''}}</b> 
         </div>
-        <div class="col-lg-6"> 
+        <div class="col-lg-4"> 
             <li>Parmanent pincode :- <b>{{ $student->addressDetails->address->p_pincode or ''}}</b></li>  
         </div>  
        
@@ -142,15 +143,15 @@
             <li>Corespondance Address </li>
         </div> 
         <div class="col-lg-6">
-            <li>Corespondance pincode :- <b>{{ $student->addressDetails->address->c_pincode or ''}}</b></li> 
+           
         </div>
     </div>
     <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6">
+        <div class="col-lg-6" style="margin-left: 20px">
              <b>{{ $student->addressDetails->address->c_address or ''}}</b>
         </div> 
-        <div class="col-lg-6">
-              
+        <div class="col-lg-5">
+           <li>Corespondance pincode :- <b>{{ $student->addressDetails->address->c_pincode or ''}}</b></li>     
         </div>
     </div>
    
@@ -187,10 +188,10 @@
       </div>
       <div class="row" style="margin-left: 80px"> 
           <div class="col-lg-6"> 
-              <li>Mobile :-<b> {{ $parent->parentInfo->mobile or ''}} </b> </li>
+              <li>Mobile No:-<b> {{ $parent->parentInfo->mobile or ''}} </b> </li>
           </div> 
           <div class="col-lg-6">
-              <li> Email :- <b>{{ $parent->parentInfo->email or ''}}</b></li> 
+              <li> E-mail ID:- <b>{{ $parent->parentInfo->email or ''}}</b></li> 
           </div>
       </div>
       <div class="row" style="margin-left: 80px"> 

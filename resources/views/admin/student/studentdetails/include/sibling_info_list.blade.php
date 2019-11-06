@@ -31,5 +31,6 @@
                   </table>
                  
                   <div class="text-center">
+                     <button type="button" onclick="$('#student_tab').click()" class="btn btn-success btn-sm">Previous</button> 
                      <button type="button" onclick="$('#parent_info_tab').click()" class="btn btn-success btn-sm">Next</button> 
                   </div>

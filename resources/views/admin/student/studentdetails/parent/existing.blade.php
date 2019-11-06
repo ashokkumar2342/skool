@@ -8,7 +8,7 @@
 		<tr>
 			<th>Name</th>
 			<th>Mobile No</th>
-			<th>Email</th>
+			<th>E-mail ID</th>
 			<th>Address</th> 
 			 
 		</tr>

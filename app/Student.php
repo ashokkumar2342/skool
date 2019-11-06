@@ -224,32 +224,34 @@ class Student extends Authenticatable
     {
        try {
 
-       $datas=  DB::table('students')
-            ->leftJoin('student_perent_details', 'students.id', '=', 'student_perent_details.student_id') 
+       return $student =Student::where('student_status_id',1)
+            // ->leftJoin('student_perent_details', 'students.id', '=', 'student_perent_details.student_id') 
                     
-            ->leftJoin('parents_infos','parents_infos.id','=','student_perent_details.perent_info_id')
-            ->leftJoin('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
-            ->leftJoin('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
-            ->leftJoin('addresses','addresses.id','=','student_address_details.student_address_details_id')
-            ->select(
-              'students.*',
-              'addresses.primary_mobile',
-              'addresses.p_address',
-              'parents_infos.name as f_name' ,
-              'parents_infos.mobile as f_mobile' ,
-              'student_perent_details.relation_id'
-            )    
-            ->where('students.name', 'like','%'.$search.'%')
-               ->orWhere('parents_infos.name', 'like', '%'.$search.'%') 
+            // ->leftJoin('parents_infos','parents_infos.id','=','student_perent_details.perent_info_id')
+            // ->leftJoin('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
+            // ->leftJoin('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
+            // ->leftJoin('addresses','addresses.id','=','student_address_details.student_address_details_id')
+            // ->select(
+            //   'students.*',
+            //   'addresses.primary_mobile',
+            //   'addresses.p_address',
+            //   'parents_infos.name as f_name' ,
+            //   'parents_infos.mobile as f_mobile' ,
+            //   'student_perent_details.relation_id'
+            // )    
+                
+               ->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])
+               ->where('students.name', 'like','%'.$search.'%')
+               // ->orWhere('parents_infos.name', 'like', '%'.$search.'%') 
                ->orWhere('students.email', 'like', '%'.$search.'%') 
                ->orWhere('students.registration_no', 'like', '%'.$search.'%') 
                ->orWhere('students.dob', 'like', '%'.$search.'%')
                ->orWhere('students.admission_no', 'like', '%'.$search.'%')
-               ->orWhere('parents_infos.mobile', 'like', '%'.$search.'%')
-               ->orWhere('addresses.primary_mobile', 'like', '%'.$search.'%')
-               ->take(10)->distinct('students.id')->get();
-            return $datas;
-           
+               // ->orWhere('parents_infos.mobile', 'like', '%'.$search.'%')
+               // ->orWhere('addresses.primary_mobile', 'like', '%'.$search.'%')
+               ->get();
+               // ->take(10)->distinct('students.id')->get();
+            
        } catch (Exception $e) {
            
        }

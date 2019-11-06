@@ -102,8 +102,8 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('/', 'ClassTypeController@index')->name('admin.class.list');
 	    Route::get('search', 'ClassTypeController@search')->name('admin.class.search');
 	    Route::post('add', 'ClassTypeController@store')->name('admin.class.add');
-	    Route::get('{classType}/edit', 'ClassTypeController@edit')->name('admin.class.edit');
-	    Route::post('{classType}/update', 'ClassTypeController@update')->name('admin.class.update');
+	    Route::get('edit/{id?}', 'ClassTypeController@edit')->name('admin.class.edit');
+	    Route::post('update/{id?}', 'ClassTypeController@update')->name('admin.class.update');
 	    Route::get('{classType}/delete', 'ClassTypeController@destroy')->name('admin.class.delete');
 	    Route::get('pdf-generate', 'ClassTypeController@pdfGenerate')->name('admin.class.pdf.generate');
 	});
@@ -245,6 +245,8 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('send-sms/{id}', 'StudentMedicalInfoController@medicalSendSms')->name('admin.medical.send.sms');
 	    Route::get('send-email/{id}', 'StudentMedicalInfoController@medicalSendEmail')->name('admin.medical.send.email');
 	    Route::get('template-view/{id}', 'StudentMedicalInfoController@templateView')->name('admin.medical.template.view');
+	    Route::get('medical-add', 'StudentMedicalInfoController@studentMedicalAdd')->name('admin.medical.student.medical.add');
+	    Route::post('student-show', 'StudentMedicalInfoController@studentShow')->name('admin.medical.student.show');
 	 }); 
 	   	// ---------------Sibling Info----------------------------------------
 	 Route::group(['prefix' => 'sibling-info'], function() {
@@ -272,6 +274,15 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('edit', 'StudentSportHobbyController@edit')->name('admin.hobby.edit');
 	    Route::post('update', 'StudentSportHobbyController@update')->name('admin.hobby.update');
 	 });
+	 // ---------------award-level----------------------------------------
+	 Route::group(['prefix' => 'award-level'], function() {
+	    Route::get('/', 'AwardLevelController@index')->name('admin.award.level');
+	    Route::get('add/{id?}', 'AwardLevelController@addForm')->name('admin.award.level.add');
+	    Route::post('store/{id?}', 'AwardLevelController@store')->name('admin.award.level.store');
+	    Route::get('list', 'AwardLevelController@list')->name('admin.award.level.list');
+	    Route::get('delete/{id}', 'AwardLevelController@destroy')->name('admin.award.level.destroy');
+	    
+	 });
 	      	// ---------------student Document----------------------------------------
 	 Route::group(['prefix' => 'student-document'], function() {
 	    Route::post('add', 'StudentDocumentController@store')->name('admin.document.add');
@@ -279,6 +290,12 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('edit', 'StudentDocumentController@edit')->name('admin.document.edit');
 	    Route::get('update', 'StudentDocumentController@edit')->name('admin.document.update');
 	    Route::get('download/{document}', 'StudentDocumentController@download')->name('admin.document.download');
+	 });
+	 // ---------------Document-report---------------------------------------
+	 Route::group(['prefix' => 'document-report'], function() {
+	    Route::get('/', 'DocumentReportController@index')->name('admin.document.perort');
+	    Route::post('filter', 'DocumentReportController@filter')->name('admin.document.filter');
+	     
 	 });
 
 	 		// ---------------Suject Type----------------------------------------
@@ -1167,7 +1184,7 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('award-for', 'AwardController@awardFor')->name('admin.award.for.list');
                	 Route::get('award-for-addform', 'AwardController@awardForAddForm')->name('admin.award.for.addform');
                	 Route::post('store', 'AwardController@awardForStore')->name('admin.award.for.store');
-               	 Route::get('table-shoe', 'AwardController@awardForTableShow')->name('admin.award.for.table.show');
+               	 Route::get('table-show/{id?}', 'AwardController@awardForTableShow')->name('admin.award.for.table.show');
                	Route::get('edit/{id}', 'AwardController@awardForEdit')->name('admin.award.for.edit');
                	 Route::get('delete/{id}', 'AwardController@awardForDelete')->name('admin.award.for.delete');
                	 Route::post('update/{id}', 'AwardController@awardForUpdate')->name('admin.award.for.update');

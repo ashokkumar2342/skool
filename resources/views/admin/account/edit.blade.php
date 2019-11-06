@@ -48,12 +48,12 @@
                                 <div class="form-group">
                                   <label for="Password">Password</label>
                                   <span class="fa fa-asterisk"></span>
-                                  <input type="password" name="password" class="form-control" id="exampleInputPassword1" maxlength="15" placeholder="Password">
+                                  <input type="password" name="password" class="form-control" id="exampleInputPassword1" maxlength="15" placeholder="Password" min="6">
                                 </div>                               
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                  <label for="exampleInputEmail1">Mobile</label>
+                                  <label for="exampleInputEmail1">Mobile.No.</label>
                                   <span class="fa fa-asterisk"></span>
                                   <input type="text" Name="mobile" class="form-control" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'  value="{{ $account->mobile }}  ">
                                 </div>                                

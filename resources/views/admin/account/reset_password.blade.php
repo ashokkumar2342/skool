@@ -11,9 +11,9 @@
     <form action="{{ route('admin.account.reset.password.change') }}" method="post" class="add_form" no-reset="">
       {{ csrf_field() }} 
       <div class="form-group has-feedback">
-        <label>E-mail</label>
+        <label>E-mail ID</label>
         <select name="email" class="form-control form-group select2">
-          <option >Select E-mail</option>
+          <option >Select E-mail ID</option>
           @foreach ($admins as $admin)
           <option value="{{ $admin->id }}">{{ $admin->email }}</option> 
           @endforeach 

@@ -52,28 +52,12 @@
 <div class="row" style="margin-left: 80px"> 
   <div class="col-lg-6">
     <p><li>  Date Of Birth :-<b>{{date('d-m-Y',strtotime($student->dob ))}}</b></li></p> 
-  </div>
- 
-  
+  </div> 
    <div class="col-lg-6">
     <p><li>  Gender :-<b>{{ $student->genders->genders or '' }}</b></li></p> 
   </div>
- </div>  
-
-   
-   
-  <div class="row" style="margin-left: 80px">
-    <div class="col-lg-6">
-     <p><li> User Name :- <b>{{ $student->username }}</b></li></p> 
-   </div>
-
-   <div class="col-lg-6">
-     <p><li> Password :- <b>{{ $student->tem_pass }}</b></li></p> 
-   </div>
-  </div> 
-  @endif
-  <h4 align="center"><b>Address Details</b></h4><hr>
-     <div class="row" style="margin-left: 80px" style="margin-left: 80px"> 
+ </div> 
+ <div class="row" style="margin-left: 80px"> 
       <div class="col-lg-6"> 
         <p><li>Primary Mobile :-<b> {{ $student->addressDetails->address->primary_mobile or '' }}  </b> </li></p>  
       </div> 
@@ -99,7 +83,21 @@
       <div class="col-lg-6">
         <p><li>City :-<b>{{ $student->addressDetails->address->city or '' }}</b></li></p> 
       </div>
-    </div> 
+    </div>  
+
+   
+   
+  <div class="row" style="margin-left: 80px">
+    <div class="col-lg-6">
+     <p><li> User Name :- <b>{{ $student->username }}</b></li></p> 
+   </div>
+
+   <div class="col-lg-6">
+     <p><li> Password :- <b>{{ $student->tem_pass }}</b></li></p> 
+   </div>
+  </div> 
+  <h4 align="center"><b>Address Details</b></h4><hr>
+     
     <div class="row" style="margin-left: 80px"> 
       <div class="col-lg-6"> 
         <p><li>Permanent Address   :-<b> {{ $student->addressDetails->address->p_address or '' }}  </b> </li></p>  
@@ -118,6 +116,7 @@
         <p><li>Correspondence Pincode   :-<b>{{ $student->addressDetails->address->c_pincode or '' }}</b></li></p> 
       </div>
     </div> 
+  @endif
    @if (!empty($student->parents[0]->parentInfo->id))    
   @foreach(App\Model\ParentsInfo::where('id',$student->parents[0]->parentInfo->id)->get() as $parent)
   @if (in_array(2,$sectionWiseDetails))
@@ -264,11 +263,19 @@
   @endif             
   @endforeach
  @endif
-  @foreach(App\Model\StudentMedicalInfo::where('student_id',$student->id)->get() as $studentMedicalInfo) 
   @if (in_array(3,$sectionWiseDetails))
-
-
+         @php
+            $student=App\Student::find($student->id);
+            $path =storage_path('app/student/profile/'.$student->barcode);
+          @endphp
+           <div class="row pull-right">
+          <div class="col-lg-12">
+          <img  src="{{ $path }}" alt="" width="20%" height="10%" >
+            
+          </div>
+        </div>
   <h4 align="center"><b>Medical Details</b></h4><hr>
+  @foreach(App\Model\StudentMedicalInfo::where('student_id',$student->id)->get() as $studentMedicalInfo) 
   <div class="row" style="margin-left: 80px"> 
    <div class="col-lg-6"> 
      <p><li>On Date:- <b>{{ Carbon\Carbon::parse($studentMedicalInfo->ondate)->format('d-m-Y') }}</b></li></p>
@@ -340,8 +347,9 @@
      <p><li>Complextion :-<b> {{ $studentMedicalInfo->complextion }}</b> </li></p>
    </div>
   </div>
-  @endif 
+  <hr>
   @endforeach
+  @endif 
   @if (in_array(3,$sectionWiseDetails))
   <h4 align="center"><b>Medical Details</b></h4><hr> 
    
@@ -416,30 +424,27 @@
    </div>
   </div>
   @endif
-  @foreach(App\Model\StudentSiblingInfo::where('student_id',$student->id)->get() as $studentSiblingInfo) 
-  @if (in_array(4,$sectionWiseDetails))
-
+  @if (in_array(4,$sectionWiseDetails)) 
   <h4 align="center"><b> Sibling Details</b></h4><hr>
-
-
+  @foreach($studentSiblingInfos as $studentSiblingInfo) 
   <div class="row" style="margin-left: 80px"> 
-   <div class="col-lg-6"> 
-    <p><li>Registration No :-<b> {{ $studentSiblingInfo->siblings->registration_no or '' }}</b> </li></p>   
-  </div>
-  <div class="col-lg-6"> 
-    <p><li>Name :-<b>{{ $studentSiblingInfo->siblings->name  or ''}}</b> </li></p>  
-  </div>
-  </div>
-  <div class="row" style="margin-left: 80px"> 
-   <div class="col-lg-6"> 
-    <p><li>Class:-<b> {{ $studentSiblingInfo->siblings->classes->name  or '' }}</b> </li></p>  
-  </div>
-  <div class="col-lg-6"> 
-    <p><li>Section :-<b>{{ $studentSiblingInfo->siblings->sectionTypes->name or ''  }}</b> </li></p>  
-  </div>
-  </div>
-  @endif
+        <div class="col-lg-6"> 
+            <li>Registration No :-<b> {{ $studentSiblingInfo->studentSiblings->registration_no or ''  }}</b> </li>   
+        </div>
+        <div class="col-lg-6"> 
+            <li>Name :-<b>{{ $studentSiblingInfo->studentSiblings->name  or ''}}</b> </li>  
+        </div>
+    </div>
+    <div class="row" style="margin-left: 80px"> 
+        <div class="col-lg-6"> 
+            <li>Class:-<b> {{ $studentSiblingInfo->studentSiblings->classes->name  or '' }}</b> </li>  
+        </div>
+        <div class="col-lg-6"> 
+            <li>Section :-<b>{{ $studentSiblingInfo->studentSiblings->sectionTypes->name or ''   }}</b> </li>  
+        </div>
+    </div><hr>
   @endforeach 
+  @endif
   @if (in_array(5,$sectionWiseDetails))
 
   <h4 align="center"><b> Subject Details</b></h4><hr>
@@ -472,12 +477,22 @@
 
   <h4 align="center"><b> Document Details</b></h4><hr>
   <div class="row" style="margin-left: 80px"> 
-   <div class="col-lg-12"> 
-    <p><li>DOCUMENT NAME : 
-      @foreach(App\Model\Document::where('student_id',$student->id)->get() as $document) 
-      <b>{{ $document->documentTypes->name or ''  }}  /</b>&nbsp;&nbsp;
-      @endforeach
-    </li></p>
+   <div class="col-lg-12">
+   <table class="table">
+      <thead>
+        <tr>
+          <th>DOCUMENT NAME</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach(App\Model\Document::where('student_id',$student->id)->get() as $document) 
+        <tr>
+          <td>{{ $document->documentTypes->name or ''  }} </td>
+        </tr>
+         @endforeach
+      </tbody>
+    </table> 
+    
   </div>
   </div>
   @endif    

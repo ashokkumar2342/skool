@@ -37,10 +37,12 @@ class StudentSportHobbyController extends Controller
      */
     public function store(Request $request)
     {
+        
         $sportHobby = new StudentSportHobby();
         $sportHobby->student_id = $request->student_id;
         $sportHobby->sports_activity_name = $request->sports_activity_name;        
         $sportHobby->session_id = $request->session_id;
+        $sportHobby->award_level = $request->level;
         $sportHobby->save();  
 
         return response()->json([$sportHobby, 'message'=>'Success']) ;
@@ -88,6 +90,7 @@ class StudentSportHobbyController extends Controller
         $sportHobby->student_id = $request->student_id;
         $sportHobby->sports_activity_name = $request->sports_activity_name;        
         $sportHobby->session_id = $request->session_id;
+        $sportHobby->award_level = $request->level;
         $sportHobby->save();  
 
         return response()->json([$sportHobby, 'message'=>'Success']) ;

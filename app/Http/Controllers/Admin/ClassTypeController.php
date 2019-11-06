@@ -7,6 +7,7 @@ use App\Model\ClassFee;
 use App\Model\ClassType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use PDF;
 class ClassTypeController extends Controller
 {
@@ -79,10 +80,15 @@ class ClassTypeController extends Controller
      * @param  \App\ClassType  $classType
      * @return \Illuminate\Http\Response
      */
-    public function edit(ClassType $classType)
+    public function edit($id=null)
     {
-        $classes = ClassType::all();
-        return view('admin.manage.class.list',compact('classes','classType'));
+        if ($id!=null) {
+             $classes= ClassType::find($id); 
+        }else{
+            $classes=null;
+        }
+        
+        return view('admin.manage.class.edit',compact('classes','classType'));
     }
 
     /**
@@ -92,23 +98,35 @@ class ClassTypeController extends Controller
      * @param  \App\ClassType  $classType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ClassType $classType)
-    {  
-        $id=$classType->id;
-        $admin=Auth::guard('admin')->user()->id;
-         $this->validate($request,[
-            'name' => 'required|max:20|unique:class_types,name,'.$id,
+    public function update(Request $request,$id=null)
+    {  $admin=Auth::guard('admin')->user()->id;
+         $rules=[
+          'name' => 'required|max:20|unique:class_types,name,'.$id,
             'code' => 'required|max:5|unique:class_types,alias,'.$id,
             'shorting_id' => 'required|max:2|unique:class_types,shorting_id,'.$id,
-            ]);
-        $classType->name = $request->name;
-        $classType->alias = $request->code;
-        $classType->shorting_id = $request->shorting_id;
-        $classType->last_updated_by = $admin;
-        if ($classType->save()) {
-            return redirect()->route('admin.class.list')->with(['class'=>'success','message'=>'Class updated success ...']);
-        }
-        return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
+            
+           
+         ];
+
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }
+          else {
+             $classType= ClassType::firstOrNew(['id'=>$id]); 
+             $classType->name = $request->name;
+            $classType->alias = $request->code;
+            $classType->shorting_id = $request->shorting_id;
+            $classType->last_updated_by = $admin;
+             $classType->save();
+              $response=['status'=>1,'msg'=>'Submit Successfully'];
+             return response()->json($response); 
+         }
+         
     }
 
     /**

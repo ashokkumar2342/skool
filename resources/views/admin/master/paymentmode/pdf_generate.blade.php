@@ -30,8 +30,8 @@
       <thead>
           <tr>
               <th>Sr.No.</th>
-              <th>Pament Mode</th>
-              <th>Sorting Order Nn</th> 
+              <th>Payment Mode</th>
+              <th>Sorting Order No</th> 
           </tr>
       </thead>
       <tbody>

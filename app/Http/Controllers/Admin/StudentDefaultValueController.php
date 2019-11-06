@@ -100,6 +100,7 @@ class StudentDefaultValueController extends Controller
         $default->state = $request->state;
         $default->city = $request->city;
         $default->pincode = $request->pincode;
+        $default->nationality = $request->nationality;
         
         $default->birthday_message_id = $request->birthday_message_id;
         $default->birthday_email_id = $request->birthday_email_id; 

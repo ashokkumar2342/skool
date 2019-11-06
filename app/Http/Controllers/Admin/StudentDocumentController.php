@@ -116,9 +116,9 @@ class StudentDocumentController extends Controller
         }
         return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
     }
-    public function download(Document $document)
+    public function download($document_id)
     {   
-       
+       return $document_id;
     $path = storage_path('app/student/document/'.$document->document_url);
 
     return response()->stream($path);

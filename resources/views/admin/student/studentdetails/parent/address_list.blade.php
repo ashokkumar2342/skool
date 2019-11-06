@@ -5,8 +5,8 @@
 <table class="table-responsive" id="address_info_table"> 
                         <thead>
                             <tr>
-                                <th><span class="text-nowrap">Primary Mobile </span></th>
-                                <th><span class="text-nowrap">Primary E-mail </span></th>
+                                <th><span class="text-nowrap">Primary Mobile No</span></th>
+                                <th><span class="text-nowrap">Primary E-mail ID</span></th>
                                 <th><span class="text-nowrap">Category </span></th>
                                 <th><span class="text-nowrap">Religion </span></th>
                                 <th><span class="text-nowrap">Nationality </span></th>
@@ -47,5 +47,6 @@
                     </table>
                  
                     <div class="text-center">
+                     <button type="button" onclick="$('#parent_info_tab').click()" class="btn btn-success btn-sm">Previous</button> 
                      <button type="button" onclick="$('#medical_info').click()" class="btn btn-success btn-sm">Next</button> 
                      </div> 

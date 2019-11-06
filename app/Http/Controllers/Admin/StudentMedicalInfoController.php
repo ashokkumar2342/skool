@@ -65,7 +65,7 @@ class StudentMedicalInfoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {   return $request;
         $rules=[
           
             'ondate' => 'required', 
@@ -109,7 +109,7 @@ class StudentMedicalInfoController extends Controller
         $medical->student_id = $request->student_id;
         $medical->vision = $request->vision;
         $medical->weight = $request->weight; 
-        // $medical->save();
+        $medical->save();
         if ($request->send_sms==1) {
         $this->medicalSendSms($request->student_id); 
         }
@@ -342,7 +342,7 @@ class StudentMedicalInfoController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.student.studentdetails.include.medical_info_pdf_generate',compact('medicalInfos'));
+        ->loadView('admin.student.studentdetails.include.medical_info_pdf_generate',compact('medicalInfos','student_id'));
                 return  $pdf->stream('student_medical.pdf');
             }else{   
                $pdf = PDF::setOptions([
@@ -359,5 +359,21 @@ class StudentMedicalInfoController extends Controller
             
            
           
+    }
+    public function studentMedicalAdd($value='')
+    {
+        $st= new Student();
+        $students=$st->getAllStudents();
+       return view('admin.student.studentdetails.studentMedical.view',compact('students'));  
+    }
+    public function studentShow(Request $request)
+    { 
+        $st= new Student();
+        $student=$st->getStudentDetailsById($request->student_id);
+        
+        $response = array();
+        $response['status'] = 1;
+        $response['data']=view('admin.student.studentdetails.studentMedical.student_list',compact('student'))->render(); 
+       return $response; 
     }
 }
