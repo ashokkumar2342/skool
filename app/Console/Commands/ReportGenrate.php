@@ -40,7 +40,7 @@ class ReportGenrate extends Command
      * @return mixed
      */
     public function handle()
-    { 
+    {  Log::info('report generate');
         $requestReports=ReportRequest::where('status',0)->get();
         foreach ($requestReports as $requestReport) { 
             if ($requestReport->report_wise==1) {
