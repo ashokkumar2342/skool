@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Document;
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Storage;
 
@@ -118,10 +119,15 @@ class StudentDocumentController extends Controller
     }
     public function download($document_id)
     {   
-       return $document_id;
-    $path = storage_path('app/student/document/'.$document->document_url);
+        $document=Document::find($document_id);
+        $file= storage_path('app/'.$document->document_url);
 
-    return response()->stream($path);
+        // $headers = array(
+        //       'Content-Type: application/pdf',
+        //     );
+
+        return Response::download($file, $document->documentTypes->name.'.pdf');
+       
          
     }
 }

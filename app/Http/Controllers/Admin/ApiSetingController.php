@@ -144,9 +144,15 @@ class ApiSetingController extends Controller
    	    $response=['status'=>1,'msg'=>'Successfully'];
 	            return response()->json($response); 
    	}else{
-   	  $emailApi=EmailApi::find($id);  
-   	  $emailApi->status=1;
+        $emailApis=EmailApi::all();
+         foreach ($emailApis as $emailApi) {
+   	  $emailApi=EmailApi::find($emailApi->id);  
+   	  $emailApi->status=0;
    	  $emailApi->save();
+        }
+        $emailApi=EmailApi::find($id);  
+        $emailApi->status=1;
+        $emailApi->save();
    	  $response=['status'=>1,'msg'=>'Successfully'];
 	            return response()->json($response);	
    	}

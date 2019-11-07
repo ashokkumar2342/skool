@@ -42,7 +42,7 @@ class DocumentReportController extends Controller
     	foreach ($students as $student) { 
 
 			      	$documents=Document::where('document_type_id',$request->document_type_id)->where('student_id',$student->id)->get();
-			      	$studentdocuments=$documents;
+			      	 
 			      
     	 }
           

@@ -10,7 +10,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach ($studentdocuments as $document)
+		@foreach ($documents as $document)
 				<tr>
 					<td>{{ $document->Students->name or ''}}</td>
 					<td>{{ $document->student_id or ''}}</td>

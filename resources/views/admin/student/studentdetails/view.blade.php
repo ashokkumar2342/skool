@@ -231,7 +231,7 @@ b{
                               <td>{{ $document->name }}</td>                             
                               <td> 
                                   
-                                 <a href="{{ url('$document->document_url') }}" class="btn btn-xs btn-success" title=""><i class="fa fa-download"></i></a>
+                                 <a href="{{ route('admin.document.download',$document->id) }}" class="btn btn-xs btn-success" title="" target="blank"><i class="fa fa-download"></i></a>
                                 <a class="btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" href="{{ route('admin.document.delete',$document->id) }}"  ><i class="fa fa-trash"></i></a></td>
                           </tr>
                          @endforeach
