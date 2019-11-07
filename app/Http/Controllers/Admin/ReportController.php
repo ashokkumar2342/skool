@@ -208,7 +208,7 @@ class ReportController extends Controller
                            @mkdir($profilePdfUrl, 0755, true); 
                        $pdf = PDF::loadView('admin.report.finalReport.pdf_generate',compact('student','sectionWiseDetails','studentSiblingInfos'))->save($profilePdfUrl.'/'.$student->registration_no.'_profile.pdf');
                      }
-                 $docs=$student->documents; 
+                 $docs=Document::where('student_id',$student->id)->get();
                    $pdfMerge = new Fpdi();
                    $dt =array();
                   $dt['student']=$profilePdfUrl.'/'.$student->registration_no.'_profile.pdf';

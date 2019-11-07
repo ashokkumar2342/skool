@@ -1256,6 +1256,21 @@ Route::group(['middleware' => 'admin'], function() {
                	  
                	 
        });
+            Route::group(['prefix' => 'api-seting'], function() {
+               	 Route::get('/', 'ApiSetingController@index')->name('admin.api.seting'); 
+               	 Route::get('sms-api-add/{id?}', 'ApiSetingController@smsApiAdd')->name('admin.api.smsApiAdd'); 
+               	 Route::post('sms-api-store/{id?}', 'ApiSetingController@smsApiStore')->name('admin.api.smsApiStore'); 
+               	 Route::get('sms-api-list', 'ApiSetingController@smsApiList')->name('admin.api.smsApilist'); 
+               	 Route::get('sms-api-delete/{id}', 'ApiSetingController@smsApiDestroy')->name('admin.api.smsApidelete'); 
+               	 Route::get('email-api-add/{id?}', 'ApiSetingController@emailApiAdd')->name('admin.api.emailApiAdd'); 
+               	 Route::post('email-api-store/{id?}', 'ApiSetingController@emailApiStore')->name('admin.api.emailApiStore'); 
+               	 Route::get('email-api-list', 'ApiSetingController@emailApiList')->name('admin.api.emailApilist'); 
+               	 Route::get('email-api-delete/{id}', 'ApiSetingController@emailApiDestroy')->name('admin.api.emailApidelete'); 
+               	 Route::get('status/{id}{condition_id}', 'ApiSetingController@status')->name('admin.api.status'); 
+               	 
+               	  
+               	 
+       });
             
            
 

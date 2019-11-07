@@ -24,12 +24,14 @@
      @endif
 </div>
 <div class="row" style="margin-left: 80px">
-    @if (in_array('father_mobile',$fieldNames))
+    @if (in_array('mother_name',$fieldNames))
         <div class="col-lg-6">
            <p><li> Mother's Name :- <b>{{ $student->parents[1]->parentInfo->name or '' }}</b></li></p> 
-        </div> 
+        </div>
+     @endif   
+        @if (in_array('father_mobile',$fieldNames)) 
         <div class="col-lg-6">
-           <p><li> Mobile :- <b>{{ $student->addressDetail->address->primary_mobile or ''  }}</b></li></p> 
+           <p><li> Mobile No:- <b>{{ $student->addressDetails->address->primary_mobile or ''  }}</b></li></p> 
         </div> 
     @endif
 </div> 

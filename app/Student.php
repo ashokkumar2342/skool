@@ -110,7 +110,7 @@ class Student extends Authenticatable
     public function getStudentAllDetails()
     {
         try {
-          return $student =Student::where('student_status_id',1)->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])->get();  
+          return $student =Student::where('student_status_id',1)->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])->orderBy('class_id','ASC')->get();  
         } catch (Exception $e) {
             return $e;
         }
@@ -132,7 +132,7 @@ class Student extends Authenticatable
         try {
           return $student =Student::whereIn('class_id',$class_id) 
                                   ->where('student_status_id',1)
-                                  ->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])->get();  
+                                  ->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])->orderBy('class_id','ASC')->get();  
         } catch (Exception $e) {
             return $e;
         }

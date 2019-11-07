@@ -264,7 +264,7 @@
   @endforeach
  @endif
   @if (in_array(3,$sectionWiseDetails))
-         @php
+        {{--  @php
             $student=App\Student::find($student->id);
             $path =storage_path('app/student/profile/'.$student->barcode);
           @endphp
@@ -273,7 +273,7 @@
           <img  src="{{ $path }}" alt="" width="20%" height="10%" >
             
           </div>
-        </div>
+        </div> --}}
   <h4 align="center"><b>Medical Details</b></h4><hr>
   @foreach(App\Model\StudentMedicalInfo::where('student_id',$student->id)->get() as $studentMedicalInfo) 
   <div class="row" style="margin-left: 80px"> 
