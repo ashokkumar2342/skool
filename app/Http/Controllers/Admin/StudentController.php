@@ -60,7 +60,7 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request,$menuPermissionId)
-    {return $request;
+    { 
         
         if ($request->class!=null) {
           $st =new Student();           
