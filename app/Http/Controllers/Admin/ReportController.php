@@ -205,8 +205,12 @@ class ReportController extends Controller
         ->loadView('admin.report.finalReport.filed_wise_pdf',compact('student','fieldNames','studentSiblingInfos'))->save($profilePdfUrl.'/'.$student->registration_no.'_profile.pdf'); 
                       }
                      if ($request->report_wise==1) { 
-                           @mkdir($profilePdfUrl, 0755, true); 
-                       $pdf = PDF::loadView('admin.report.finalReport.pdf_generate',compact('student','sectionWiseDetails','studentSiblingInfos'))->save($profilePdfUrl.'/'.$student->registration_no.'_profile.pdf');
+                           @mkdir($profilePdfUrl, 0755, true);
+                           $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+                ]) 
+                        ->loadView('admin.report.finalReport.pdf_generate',compact('student','sectionWiseDetails','studentSiblingInfos'))->save($profilePdfUrl.'/'.$student->registration_no.'_profile.pdf');
                      }
                  $docs=Document::where('student_id',$student->id)->get();
                    $pdfMerge = new Fpdi();
