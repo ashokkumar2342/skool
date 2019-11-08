@@ -47,6 +47,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 use Storage;
@@ -338,9 +339,31 @@ class StudentController extends Controller
         })->export('xls');
 
     }
-    public function image($image){
-        $img = Storage::disk('student')->get('profile/'.$image);
-        return response($img);
+    public function image($id){
+      $student =Student::find($id); 
+
+      $storagePath = storage_path('app/student/profile/'.$student->picture);              
+      $mimeType = mime_content_type($storagePath); 
+      if( ! \File::exists($storagePath)){
+
+          return view('error.home');
+      }
+      $headers = array(
+          'Content-Type' => $mimeType,
+          'Content-Disposition' => 'inline; '
+      );
+        
+      if($student->picture==null)
+      {
+           ob_end_clean(); // discards the contents of the topmost output buffer
+          return Response::make(file_get_contents('profile-img/user.png'), 200, $headers);
+      }
+      else
+      {   ob_end_clean(); // discards the contents of the topmost output buffer
+          return Response::make(file_get_contents($storagePath), 200, $headers);
+
+      } 
+
     }
      public function imageWebUpdate(Request $request,$id){
       

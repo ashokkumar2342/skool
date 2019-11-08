@@ -115,7 +115,7 @@ b{
                         </div>
                         <div class="col-md-3">
                              @php
-                             $profile = route('admin.student.image',$student->picture);
+                             $profile = route('admin.student.image',$student->id);
                              @endphp
                              <div class="col-md-12 center-block">
                                 <div id="showImg">
