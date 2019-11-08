@@ -180,13 +180,14 @@ class StudentController extends Controller
           $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 
           $documents = Document::where('student_id',$id)->get(); 
           $studentSubjects=StudentSubject::where('student_id',$id)->get();
+          $path =Storage_path() . '/app/student/profile/profileDetails/';
           $profilePdfUrl = Storage_path() . '/app/student/profile/profileDetails/'.$student->registration_no.'_student_all_details.pdf';
-          // @mkdir($profilePdfUrl, 0755, true); 
+          @mkdir($path, 0755, true); 
           $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.student.studentdetails.pdf_generate',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address'))->save($profilePdfUrl);;
+        ->loadView('admin.student.studentdetails.pdf_generate',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address'))->save($profilePdfUrl);
         $docs=$documents; 
                    $pdfMerge = new Fpdi();
                    $dt =array();
