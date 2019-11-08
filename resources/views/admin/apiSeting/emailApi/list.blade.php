@@ -12,7 +12,7 @@
 	</thead>
 	<tbody>
 		@foreach ($smsApis as $smsApi)
-				<tr>
+				<tr style="{{ $smsApi->status==1?'background-color: #95e49b':'' }}">
 					<td>{{ $smsApi->host }}</td>
 					<td>{{ $smsApi->port }}</td>
 					<td>{{ $smsApi->username }}</td>
@@ -23,7 +23,7 @@
 						@if ($smsApi->status==1 )
 						<button class="btn btn-success btn-xs" success-popup="true" button-click="btn_homework_table_show" onclick="callAjax(this,'{{ route('admin.api.status',[$smsApi->id,2]) }}')">Active</i></button>
 						@else	 
-						<button class="btn btn-default btn-xs" success-popup="true" button-click="btn_homework_table_show" onclick="callAjax(this,'{{ route('admin.api.status',[$smsApi->id,2]) }}')">In Active</i></button>
+						<button class="btn btn-default btn-xs" success-popup="true" button-click="btn_homework_table_show" onclick="callAjax(this,'{{ route('admin.api.status',[$smsApi->id,2]) }}')">Inactive</i></button>
 						@endif
 
 

@@ -2,7 +2,7 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header"> 
-    <h1>Api Seting<small>List</small> </h1>
+    <h1>Api Settings<small>List</small> </h1>
        
     </section>  
     <section class="content">

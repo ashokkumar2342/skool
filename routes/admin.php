@@ -1257,7 +1257,7 @@ Route::group(['middleware' => 'admin'], function() {
                	  
                	 
        });
-            Route::group(['prefix' => 'api-seting'], function() {
+            Route::group(['prefix' => 'api-settings'], function() {
                	 Route::get('/', 'ApiSetingController@index')->name('admin.api.seting'); 
                	 Route::get('sms-api-add/{id?}', 'ApiSetingController@smsApiAdd')->name('admin.api.smsApiAdd'); 
                	 Route::post('sms-api-store/{id?}', 'ApiSetingController@smsApiStore')->name('admin.api.smsApiStore'); 

@@ -65,7 +65,7 @@ class StudentMedicalInfoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   return $request;
+    {   
         $rules=[
           
             'ondate' => 'required', 
