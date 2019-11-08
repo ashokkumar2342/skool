@@ -60,7 +60,7 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request,$menuPermissionId)
-    {
+    {return $request;
         
         if ($request->class!=null) {
           $st =new Student();           
@@ -85,6 +85,16 @@ class StudentController extends Controller
         $response['data']= view('admin.student.studentdetails.list',compact('students','menuPermision','fatherDetail'))->render();
             $response['status'] = 1;
             return $response;
+    }
+    public function studentSearch(Request $request,$menuPermissionId)
+    {
+       
+        $search = $request->input('id');
+        $st=new Student();
+        $students=$st->getStudentsSearchDetilas($search); 
+        $menuPermision= Minu::find($menuPermissionId); 
+       return  view('admin.student.studentdetails.list',compact('students','menuPermision','fatherDetail')); 
+            
     }
    
      

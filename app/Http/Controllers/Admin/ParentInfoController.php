@@ -146,7 +146,13 @@ class ParentInfoController extends Controller
         'name' => 'required',               
         'mobile' => 'required|digits:10',              
         'education' => 'required',              
-        'relation_type_id' => 'required',              
+        'profession' => 'required',              
+        'income' => 'required',              
+        'email' => 'required',              
+        'dob' => 'required',              
+        'doa' => 'required',              
+        'islive' => 'required',              
+                   
         
         ];
 
@@ -161,7 +167,7 @@ class ParentInfoController extends Controller
         $parentsinfo = new ParentsInfo(); 
         $parentsinfo->name = $request->name; 
         $parentsinfo->education = $request->education;
-        $parentsinfo->occupation = $request->occupation;
+        $parentsinfo->occupation = $request->profession;
         $parentsinfo->income_id = $request->income;
         $parentsinfo->mobile = $request->mobile;
         $parentsinfo->email = $request->email;
@@ -240,9 +246,15 @@ class ParentInfoController extends Controller
     public function update(Request $request,$id)
     {   
         $rules=[
-        'name' => 'required',               
+       'name' => 'required',               
         'mobile' => 'required|digits:10',              
         'education' => 'required',              
+        'profession' => 'required',              
+        'income' => 'required',              
+        'email' => 'required',              
+        'dob' => 'required',              
+        'doa' => 'required',              
+        'islive' => 'required',              
         
         ];
 
@@ -260,7 +272,7 @@ class ParentInfoController extends Controller
         $parentsinfo = ParentsInfo::find($id);
         $parentsinfo->name = $request->name; 
         $parentsinfo->education = $request->education;
-        $parentsinfo->occupation = $request->occupation;
+        $parentsinfo->occupation = $request->profession;
         $parentsinfo->income_id = $request->income;
         $parentsinfo->mobile = $request->mobile;
         $parentsinfo->email = $request->email;

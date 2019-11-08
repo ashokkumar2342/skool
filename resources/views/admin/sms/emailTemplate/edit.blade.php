@@ -31,7 +31,7 @@
                    
                   </div>
                    <div class="form-group">
-                    <input type="text" name="subject" class="form-control" maxlength="100" placeholder="Subject">
+                    <input type="text" name="subject" class="form-control" maxlength="100" placeholder="Subject" value="{{ $EmailTemplates->subject }}">
                      
                    </div> 
                   <textarea class="textarea" name="message" placeholder="Message"

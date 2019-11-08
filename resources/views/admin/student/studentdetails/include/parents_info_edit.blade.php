@@ -21,45 +21,50 @@
         <div class="col-md-12">
          <form id="parents-form" action="{{ route('admin.parents.update',$parentsInfo->id) }}" class="add_form" method="post" button-click="btn_close,parent_info_tab"> 
                     <div class="form-group col-md-4">
-                        {{ Form::label('name','Parents Name',['class'=>' control-label','maxlength'=>'50']) }}                         
+                        {{ Form::label('name','Parents Name',['class'=>' control-label','maxlength'=>'50']) }}
+                        <span class="fa fa-asterisk"></span>                         
                         {{ Form::text('name',$parentsInfo->name ,['class'=>'form-control',' required','maxlength'=>'50']) }}
                          
                     </div>
                     <div class="form-group col-md-4">
-                        {{ Form::label('education','Education',['class'=>' control-label','maxlength'=>'50']) }}                         
+                        {{ Form::label('education','Education',['class'=>' control-label','maxlength'=>'50']) }}
+                        <span class="fa fa-asterisk"></span>                         
                         {{ Form::text('education',$parentsInfo->education ,['class'=>'form-control','maxlength'=>'50']) }}
                          
                     </div>
                     <div class="form-group col-md-4">
-                      {{ Form::label('occupation','Profession',['class'=>' control-label']) }}{!! Form::select('occupation',$professions, $parentsInfo->occupation, ['class'=>'form-control','placeholder'=>'Select Profession','required']) !!} 
+                      {{ Form::label('occupation','Profession',['class'=>' control-label']) }}
+                      <span class="fa fa-asterisk"></span>
+                      {!! Form::select('profession',$professions, $parentsInfo->occupation, ['class'=>'form-control','placeholder'=>'Select Profession','required']) !!} 
                     </div>                                        
                    <div class="form-group col-md-4">
                         {{ Form::label('income','Income Range',['class'=>' control-label']) }}
+                        <span class="fa fa-asterisk"></span>
                         {!! Form::select('income',$incomes, $parentsInfo->income_id, ['class'=>'form-control','placeholder'=>'Select income','required']) !!}
                         <p class="text-danger">{{ $errors->first('income') }}</p>
                    </div>
                    <div class="form-group col-md-4">
-                        {{ Form::label('mobile','Mobile',['class'=>' control-label']) }}                         
+                        {{ Form::label('mobile','Mobile',['class'=>' control-label']) }} <span class="fa fa-asterisk"></span>                        
                         {{ Form::text('mobile',$parentsInfo->mobile ,['class'=>'form-control','maxlength'=>'10','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                         <p class="text-danger">{{ $errors->first('mobile') }}</p>
                     </div>
                     <div class="form-group col-md-4">
-                        {{ Form::label('email','email',['class'=>' control-label']) }}                         
+                        {{ Form::label('email','email',['class'=>' control-label']) }}  <span class="fa fa-asterisk"></span>                       
                         {{ Form::email('email',$parentsInfo->email ,['class'=>'form-control']) }}
                         <p class="text-danger">{{ $errors->first('email') }}</p>
                     </div>
                      <div class="form-group col-md-4">
-                        {{ Form::label('dob','Date of Birth',['class'=>' control-label']) }}                         
+                        {{ Form::label('dob','Date of Birth',['class'=>' control-label']) }}  <span class="fa fa-asterisk"></span>                       
                         {{ Form::date('dob',$parentsInfo->dob ,['class'=>'form-control datepicker']) }}
                         <p class="text-danger">{{ $errors->first('dob') }}</p>
                     </div>
                      <div class="form-group col-md-4">
-                        {{ Form::label('doa','Date of Anniversary',['class'=>' control-label ']) }}                         
+                        {{ Form::label('doa','Date of Anniversary',['class'=>' control-label ']) }}   <span class="fa fa-asterisk"></span>                      
                         {{ Form::date('doa',$parentsInfo->doa ,['class'=>'form-control datepicker']) }}
                         <p class="text-danger">{{ $errors->first('doa') }}</p>
                     </div>                  
                     <div class="form-group col-md-4">
-                        {{ Form::label('islive','IsLive',['class'=>' control-label']) }}                         
+                        {{ Form::label('islive','IsLive',['class'=>' control-label']) }}   <span class="fa fa-asterisk"></span>                      
                         {!! Form::select('islive',[
                           '1'=>'Yes',                                                    
                           '0'=>'No'

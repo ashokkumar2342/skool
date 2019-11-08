@@ -20,9 +20,9 @@
      
 </div>
 <div class="form-group col-md-4">
-  {{ Form::label('occupation','Profession',['class'=>' control-label']) }}
+  {{ Form::label('profession','Profession',['class'=>' control-label']) }}
   <span class="fa fa-asterisk"></span>
-  {!! Form::select('occupation',$professions, null, ['class'=>'form-control','placeholder'=>'Select Profession','required']) !!} 
+  {!! Form::select('profession',$professions, null, ['class'=>'form-control','placeholder'=>'Select Profession','required']) !!} 
 </div> 
 
 <div class="form-group col-md-4">

@@ -56,13 +56,15 @@
              <form action="{{ route('admin.parents.existing.store') }}" method="post" class="add_form" button-click="btn_close,parent_info_tab">
             {{ csrf_field() }}
             <input type="hidden" name="student_id" value="{{ $student }}">
+            
+            
                <div id="parent_search_div" style="padding-top: 20px">
                  
                </div>
-             </form>
-            </div>
+                </form>
        </div>
     </div>   
-  </div>   
+  </div>
+
                  
    
