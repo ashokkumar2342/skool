@@ -24,7 +24,7 @@
                     <h3 class="profile-username text-center">{{ $admins->first_name or '' }}</h3>
 
                      
-                    <button type="button" id="btn_upload_photo" style="margin-left: 70px" class="btn btn-primary btn-xs" onclick="callPopupLarge(this,'{{ route('admin.profile.photo') }}')">Upload Photo</button>
+                    <button type="button" id="btn_upload_photo" style="margin-left: 90px" class="btn btn-primary btn-xs" onclick="callPopupLarge(this,'{{ route('admin.profile.photo') }}')">Upload Photo</button>
 
                      
                   </div> 
