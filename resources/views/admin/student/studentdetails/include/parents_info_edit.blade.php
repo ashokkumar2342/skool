@@ -73,7 +73,7 @@
                     </div> 
                     <div class="form-group col-md-12">
                         {{ Form::label('organization_address','Organization Address',['class'=>' control-label']) }}                         
-                        {{ Form::textarea('organization_address',$parentsInfo->office_address,['class'=>'form-control','rows'=>2 ]) }}
+                        {{ Form::textarea('organization_address',$parentsInfo->organization_address,['class'=>'form-control','rows'=>2 ]) }}
                         <p class="text-danger">{{ $errors->first('organization_address') }}</p>
                     </div>
                 <div class="col-lg-12 text-center">
