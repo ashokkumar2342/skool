@@ -12,7 +12,6 @@
  </style>
   @include('admin.include.boostrap')
  <body>
-  @foreach ($medicalInfos as $medicalInfo) 
          @php
             $student=App\Student::find($student_id);
             $path =storage_path('app/student/profile/'.$student->barcode);
@@ -24,7 +23,11 @@
           </div>
         </div>
  	<h4 align="center" style="margin-left: 20px"><b>MedicalInfo Details</b></h4>
- 	                      
+  @php
+    $key=0;
+  @endphp
+  @foreach ($medicalInfos as $medicalInfo) 
+ 	            
   <div class="row" style="margin-left: 80px"> 
    <div class="col-lg-6"> 
      <p><li>On Date :- <b>{{ Carbon\Carbon::parse($medicalInfo->ondate)->format('d-m-Y') }}</b></li></p>
@@ -95,7 +98,17 @@
    <div class="col-lg-6">
      <p><li>Complextion :-<b> {{ $medicalInfo->complextion }}</b> </li></p>
    </div>
-  </div><div class="page-breck"></div>
+  </div><hr> 
+  @php
+    $key++; 
+  @endphp
+  @if ($key==4)
+   <div class="page-breck"></div> 
+   @php
+    $key=0;
+  @endphp
+  @endif
+  
 @endforeach     
    
    

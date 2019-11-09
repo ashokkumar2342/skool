@@ -27,7 +27,7 @@ b{
           
           <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-user"></i> Student Details</a></li>
-              <li><a data-toggle="tab" data-table="sibling_items" href="#sibling" id="sibling_info_tab"  onclick="callAjax(this,'{{ route('admin.sibling.table.show',$student->id) }}','sibling_info_list')"><i class="fa fa-users" id="sibling_info"></i> Siblling info</a></li>
+              <li><a data-toggle="tab" data-table="sibling_items" href="#sibling" id="sibling_info_tab"  onclick="callAjax(this,'{{ route('admin.sibling.table.show',$student->id) }}','sibling_info_list')"><i class="fa fa-users" id="sibling_info"></i> Sibling info</a></li>
               <li><a data-toggle="tab" data-table="parents_items" href="#parent" id="parent_info_tab"  onclick="callAjax(this,'{{ route('admin.parents.list',$student->id) }}','parent_info_list')"><i class="fa fa-user-circle"></i> Parent Info</a></li>
 
               <li><a data-toggle="tab" href="#address" data-table="address_info_table" id="address_info" onclick="callAjax(this,'{{ route('admin.parents.address',$student->id) }}','address_list')"><i class="fa fa-home"></i> Address</a></li>

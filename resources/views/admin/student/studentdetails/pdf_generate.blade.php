@@ -11,6 +11,12 @@
     li{
         padding-bottom: 1px;
     }
+
+    .page-breck{
+      page-break-before:always; 
+    }
+  
+ 
     @include('admin.include.boostrap')
 
 </style>
@@ -27,7 +33,7 @@
 
     <div class="row" style="margin-left: 80px" style="margin-left: 80px"> 
         <div class="col-lg-6"> 
-           <li>First Name :-<b> {{ $student->name }}  </b> </li> 
+           <li>Name :-<b> {{ $student->name }}  </b> </li> 
         </div>
 
 
@@ -48,12 +54,12 @@
             <li>Registration No :-<b>{{ $student->registration_no }}</b></li> 
         </div>
         <div class="col-lg-6">
-            <li>Addmission No :-<b>{{ $student->admission_no }}</b></li> 
+            <li>Admission No :-<b>{{ $student->admission_no }}</b></li> 
         </div> 
     </div> 
     <div class="row" style="margin-left: 80px"> 
         <div class="col-lg-6">
-            <li> Date Of Addmission :-<b>{{ date('d-m-Y',strtotime($student->date_of_admission))}}</b></li> 
+            <li> Date Of Admission :-<b>{{ date('d-m-Y',strtotime($student->date_of_admission))}}</b></li> 
         </div>
         <div class="col-lg-6">
             <li> Date Of Activation :-<b>{{date('d-m-Y',strtotime($student->date_of_activation ))}}</b></li> 
@@ -62,6 +68,14 @@
     <div class="row" style="margin-left: 80px"> 
         <div class="col-lg-6">
             <li>  Date Of Birth :-<b>{{date('d-m-Y',strtotime($student->dob ))}}</b></li> 
+        </div>
+        <div class="col-lg-6">
+            <li>  Aadhaar No :-<b>{{ $student->adhar_no }}</b></li> 
+        </div> 
+    </div>
+    <div class="row" style="margin-left: 80px"> 
+        <div class="col-lg-6">
+            <li> House Name :-<b>{{$student->houses->name or ''}}</b></li> 
         </div>
         <div class="col-lg-6">
             <li>  Gender :-<b>{{ $student->genders->genders or '' }}</b></li> 
@@ -86,7 +100,7 @@
     </div> 
     <div class="row" style="margin-left: 80px"> 
         <div class="col-lg-6"> 
-            <li>Cotegory :-<b> {{ $student->addressDetails->address->categories->name or ''}} </b> </li>
+            <li>Category :-<b> {{ $student->addressDetails->address->categories->name or ''}} </b> </li>
         </div> 
         <div class="col-lg-6">
             <li>Religion :-<b> {{ $student->addressDetails->address->religions->name or ''}} </b> </li>
@@ -122,7 +136,7 @@
     
     <div class="row" style="margin-left: 80px"> 
         <div class="col-lg-6"> 
-            <li> Parmanent Address  </li> 
+            <li> Permanent Address  </li> 
         </div>
         <div class="col-lg-6"> 
             
@@ -130,41 +144,42 @@
        
     </div> 
     <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6" style="margin-left: 20px"> 
+        <div class="col-lg-6" style="margin-left: 10px"> 
              <b >{{ $student->addressDetails->address->p_address or ''}}</b> 
         </div>
         <div class="col-lg-4"> 
-            <li>Parmanent pincode :- <b>{{ $student->addressDetails->address->p_pincode or ''}}</b></li>  
+            <li>Pincode :- <b>{{ $student->addressDetails->address->p_pincode or ''}}</b></li>  
         </div>  
        
     </div>  
     <div class="row" style="margin-left: 80px"> 
         <div class="col-lg-6">
-            <li>Corespondance Address </li>
+            <li>Correspondence Address </li>
         </div> 
         <div class="col-lg-6">
            
         </div>
     </div>
     <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6" style="margin-left: 20px">
+        <div class="col-lg-6" style="margin-left: 10px">
              <b>{{ $student->addressDetails->address->c_address or ''}}</b>
         </div> 
         <div class="col-lg-5">
-           <li>Corespondance pincode :- <b>{{ $student->addressDetails->address->c_pincode or ''}}</b></li>     
+           <li>Pincode :- <b>{{ $student->addressDetails->address->c_pincode or ''}}</b></li>     
         </div>
     </div>
    
       </div>
     </div>
   </div> 
- @endif   
+ @endif
+ <div class="page-breck"></div>    
 @foreach ($student->parents as $parent)
     <div class="panel panel-info">
       <div class="panel-heading">
         <h4 class="panel-title text-center">
           <a data-toggle="collapse" data-parent="#accordion" href="#parent{{ $parent->relation->id or ''}}">
-           {{ $parent->relation->name or ''}} Details</a>
+           {{ $parent->relation->name or ''}}'s Details</a>
         </h4>
       </div>
       <div id="parent{{ $parent->relation->id or ''}}" class="panel-collapse collapse in">
@@ -172,7 +187,7 @@
             
       <div class="row" style="margin-left: 80px"> 
           <div class="col-lg-6"> 
-              <li>Father Name :- <b>{{ $parent->parentInfo->name  or ''}}</b></li>  
+              <li>Name :- <b>{{ $parent->parentInfo->name  or ''}}</b></li>  
           </div> 
           <div class="col-lg-6">
               <li>Education :-<b> {{ $parent->parentInfo->education or ''}} </b> </li>   
@@ -180,10 +195,10 @@
       </div> 
       <div class="row" style="margin-left: 80px"> 
           <div class="col-lg-6"> 
-              <li>Profetions :-<b> {{ $parent->parentInfo->profetions->name or ''}} </b> </li>
+              <li>Profession :-<b> {{ $parent->parentInfo->profetions->name or ''}} </b> </li>
           </div> 
           <div class="col-lg-6">
-              <li>Incomes :-<b> {{ $parent->parentInfo->incomes->range or ''}} </b> </li>
+              <li>Income Slab(Annual):-<b> {{ $parent->parentInfo->incomes->range or ''}} </b> </li>
           </div>
       </div>
       <div class="row" style="margin-left: 80px"> 
@@ -207,13 +222,13 @@
               <li>Office Address :- <b>{{ $parent->parentInfo->office_address or ''}}</b></li> 
           </div> 
           <div class="col-lg-6">
-              <li>Islive :- <b>{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li> 
+              <li>Is live :- <b>{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li> 
           </div>
       </div> 
         </div>
       </div>
     </div> 
-   
+   <div class="page-breck"></div> 
 @endforeach
   
       
@@ -231,6 +246,9 @@
     </div>
     <div id="collapse5" class="panel-collapse collapse in">
       <div class="panel-body">
+  @php
+    $key=0;
+  @endphp
     @foreach($studentMedicalInfos as $studentMedicalInfo)
           
     <div class="row" style="margin-left: 80px"> 
@@ -274,13 +292,13 @@
         <div class="col-lg-6"> 
             @if ($studentMedicalInfo->alergey==0)
 
-            <li>Alergey :-<b>No</b> </li>  
+            <li>Allergy :-<b>No</b> </li>  
             @else
-            <li>Alergey :-<b>Yes</b> </li>  
+            <li>Allergy :-<b>Yes</b> </li>  
             @endif 
         </div> 
         <div class="col-lg-6">
-            <li>Alergey Vacc :-<b> {{ $studentMedicalInfo->alergey_vacc }}</b> </li>
+            <li>Allergy Vacc :-<b> {{ $studentMedicalInfo->alergey_vacc }}</b> </li>
         </div>
     </div> 
     <div class="row" style="margin-left: 80px"> 
@@ -301,11 +319,19 @@
     </div> 
     <div class="row" style="margin-left: 80px"> 
         <div class="col-lg-6">
-            <li>Complextion :-<b> {{ $studentMedicalInfo->complextion }}</b> </li>
+            <li>Complexion :-<b> {{ $studentMedicalInfo->complextion }}</b> </li>
         </div>
     </div>
      <hr>
-   
+    @php
+    $key++; 
+  @endphp
+  @if ($key==4)
+   <div class="page-breck"></div> 
+   @php
+    $key=0;
+  @endphp
+  @endif
     @endforeach
       </div>
     </div>
@@ -355,7 +381,7 @@
     <div class="panel-heading">
       <h4 class="panel-title text-center">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
-        Subject Details</a>
+        Subjects Details</a>
       </h4>
     </div>
     <div id="collapse7" class="panel-collapse collapse in">
@@ -408,7 +434,7 @@
     <div class="panel-heading">
       <h4 class="panel-title text-center">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">
-        Dodument Details</a>
+        Document Details</a>
       </h4>
     </div>
     <div id="collapse8" class="panel-collapse collapse in">

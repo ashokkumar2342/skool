@@ -18,7 +18,7 @@
                   </ul> 
                   <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
-                       <form action="{{ route('admin.document.filter') }}" method="post" class="add_form" success-content-id="result_table" data-table="true" no-reset="true">
+                       <form action="{{ route('admin.document.filter') }}" method="post" class="add_form" success-content-id="result_table" data-table-without-pagination="result_datatable" no-reset="true">
                           {{ csrf_field() }}
                           <div class="row" style="margin-top: 20px"> 
                           <div class="col-lg-2">
@@ -88,39 +88,31 @@
                        </div> 
                     
                     <div id="menu2" class="tab-pane fade">
-                      <form action="{{ route('admin.document.filter') }}" method="post" class="add_form" success-content-id="result_table_page" data-table="true" no-reset="true">
+                      <form action="{{ route('admin.document.filter') }}" method="post" class="add_form" success-content-id="image_result_table_page" data-table="true" no-reset="true">
                           {{ csrf_field() }}
                           <div class="row" style="margin-top: 20px"> 
-                           <div class="col-lg-2">
-                            <label>Document Type</label>
-                             <select name="document_type_id" class="form-control">
-                                <option selected disabled>Select Document</option>
-                               @foreach ($documentTypes as $documentType)
-                                      <option value="{{ $documentType->id }}">{{ $documentType->name }}</option> 
-                                @endforeach 
-                             </select> 
-                          </div>
-                          <input type="hidden" name="without_document_wise" value="1">
+                            
+                          <input type="hidden" name="without_image_wise" value="1">
                           <div class="col-lg-2">
                             <label>Report For</label>
-                             <select name="report_for" class="form-control" select2="true" onchange="callAjax(this,'{{ route('admin.student.final.report.for.change') }}','report_for')">
+                             <select name="report_for" class="form-control" select2="true" onchange="callAjax(this,'{{ route('admin.student.final.report.for.change') }}','without_report_for')">
                                <option selected disabled>Select Document</option>
                                @foreach ($reportFors as $reportFor)
                                       <option value="{{ $reportFor->id }}">{{ $reportFor->name }}</option> 
                                 @endforeach 
                              </select> 
                           </div>
-                          <div id="report_for">
+                          <div id="without_report_for">
                             
                           </div>
                           <div class="col-lg-2">
                             <input type="submit" class="btn btn-success" value="Show" style="margin-top:  24px"> 
                           </div>
-                          <div id="result_table_page">
-                            
-                          </div>
                         </div>
                         </form>
+                          <div id="image_result_table_page">
+                            
+                          </div>
                     </div>
                   </div> 
 
