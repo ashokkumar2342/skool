@@ -42,7 +42,7 @@ class DashboardController extends Controller
                     ->count();
         
         $date = date('Y-m-d');
-        $students = Student::where('status',1)->count();
+        $students = Student::where('student_status_id',1)->count();
         $studentDOBs = Student::whereMonth('dob',date('m'))
                             ->whereDay('dob',date('d'))
                             ->get(); 
