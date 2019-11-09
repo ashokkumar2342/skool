@@ -49,7 +49,7 @@
                         <b>Mobile.No.</b> <a class="float-right"> <input type="text" name="mobile" class="form-control" value="{{ $admins->mobile or '' }}"  maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' > </a>
                       </li>
                        <li class="list-group-item"> 
-                        <b>Date of Birth</b> <a class="float-right"> <input type="date" name="dob" class="form-control" value="{{ date('d-m-Y',strtotime(  $admins->dob))}}"> </a>
+                        <b>Date of Birth</b> <a class="float-right"> <input type="date" name="dob" class="form-control" value="{{ $admins->dob }}"> </a>
                       </li> <li class="list-group-item"> 
                         <b>E-mail ID</b> <a class="float-right"> <input type="email" name="email" class="form-control" value="{{ $admins->email or '' }}" maxlength="50"> </a>
                       </li> 
