@@ -55,7 +55,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('submenu-ordering-store', 'AccountController@subMenuOrderingStore')->name('admin.account.submenu.ordering.store'); 
 		Route::get('menu-filter/{id}', 'AccountController@menuFilter')->name('admin.account.menu.filte'); 
 		Route::get('default-user-role-report', 'AccountController@defaultUserRolrReport')->name('admin.account.default.user.role.report'); 
-		Route::get('default-user-role-report-generate', 'AccountController@defaultUserRolrReportGenerate')->name('admin.account.default.user.role.report.generate'); 
+		Route::get('default-user-role-report-generate/{id}', 'AccountController@defaultUserRolrReportGenerate')->name('admin.account.default.user.role.report.generate'); 
 		
 						
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 

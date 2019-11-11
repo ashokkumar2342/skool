@@ -38,7 +38,8 @@ function callAjax(obj,url,divId,callback){
 
 				  });
 				
-				}
+			}
+			
 				
 
 			
@@ -96,6 +97,37 @@ function callAjax(obj,url,divId,callback){
 				     autoUpdateInput: true,
 				       
 				  });
+			}
+			else if(obj.getAttribute('data-table-without-pagination'))
+			{
+			$("#"+obj.getAttribute('data-table-without-pagination')).DataTable({
+				'paging':   false,
+				dom: 'Bfrtip',
+					buttons: [
+						'copy', 'csv', 'excel', 'pdf', 'print'
+					]
+			});
+			}
+			else if(obj.getAttribute('data-table-with-pagination'))
+			{
+			$("#"+obj.getAttribute('data-table-with-pagination')).DataTable({
+				'paging':   true,
+				dom: 'Bfrtip',
+					buttons: [
+						'copy', 'csv', 'excel', 'pdf', 'print'
+					]
+			});
+			}
+			else if(obj.getAttribute('data-table-without-pagination-disable-sorting'))
+			{
+			$("#"+obj.getAttribute('data-table-without-pagination-disable-sorting')).DataTable({
+				'paging':   false,
+				"aaSorting": [],
+				dom: 'Bfrtip',
+					buttons: [
+						'copy', 'csv', 'excel', 'pdf', 'print'
+					]
+			});
 			}
 			 
 				 

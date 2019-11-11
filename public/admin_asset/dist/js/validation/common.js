@@ -208,7 +208,10 @@ function callJqueryDefault(divId){
 	} 
 	$('button[type=submit], input[type=submit]').prop('disabled',false); 
 	$('.fa-refresh').removeClass('fa-refresh');
-    });
+    }).fail(function (jqXHR, textStatus) {
+	 $('button[type=button],button[type=submit], input[type=submit]').prop('disabled',false);
+	 $('.fa-refresh').removeClass('fa-refresh');
+	});
 });
 }
 callJqueryDefault('body_id');

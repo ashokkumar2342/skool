@@ -20,11 +20,16 @@
 </select>
 </div>
  <div class="col-md-1" style="margin-top: 24px"> 
-  <button type="submit" class="btn btn-success"> Save</button> 
+  <button  class="btn btn-success">Save</button> 
+  
+   
+ </div>  <div class="col-md-1" style="margin-top: 24px"> 
+  
+  <a href="{{ route('admin.account.default.user.role.report.generate',$id) }}" class="btn btn-success" target="blank" title="">PDF</a>
+  
+   
  </div> 
- <div class="col-md-1" style="margin-top: 24px"> 
-  <button class="btn btn-primary" onclick="callAjax(this,'{{ route('admin.account.default.user.role.report.generate') }}'+'?role_id='+$('#role_id').val()">PDF</button> 
- </div> 
+ 
  
  @include('admin.account.report.result')
 

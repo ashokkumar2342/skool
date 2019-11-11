@@ -16,6 +16,7 @@ use App\Model\SubMenu;
 use App\Model\UserClass;
 use App\Model\UserClassType;
 use Auth;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -25,13 +26,13 @@ class AccountController extends Controller
 {
     Public function index(){
     	
-    	$accounts = Admin::all();
+    	$accounts = Admin::orderBy('name','ASC')->get();
     	return view('admin.account.list',compact('accounts'));
     }
 
     Public function form(Request $request){
            
-    	$roles = Role::all();
+    	$roles = Role::orderBy('name','ASC')->get();
     	return view('admin.account.form',compact('roles'));
     } 
 
@@ -376,7 +377,7 @@ class AccountController extends Controller
     }
 
     public function role(){
-        $roles = Role::all();
+        $roles = Role::orderBy('name','ASC')->get();
         return view('admin.account.roleList',compact('roles'));
     }
 
@@ -409,8 +410,9 @@ class AccountController extends Controller
         $response['msg'] = 'Save Successfully';
         $response['status'] = 1;
         return response()->json($response);  
+      }
          
-    }
+    
 
 
  
@@ -471,6 +473,20 @@ class AccountController extends Controller
     $submenus=SubMenu::where('menu_type_id',$id)->orderBy('sorting_id', 'ASC')->get();
      return view('admin.account.sub_menu_ordering',compact('submenus'));
 
+  } 
+  public function defaultUserRolrReportGenerate($id)
+  {   
+
+     $menus = MinuType::all();
+     $subMenus = SubMenu::all();
+    $roles = Role::find($id);
+       $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.account.report.result',compact('menus','subMenus','roles','id'));
+        return $pdf->stream('menu_report.pdf');
+    
   }
 
 }

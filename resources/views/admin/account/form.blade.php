@@ -8,7 +8,7 @@
             <!-- /.box-header -->            
           <div class="box">
             <div class="box-header"> 
-              <h3 class="box-title">Add New User</h3>
+              <h3 class="box-title">New User</h3>
               <div class="col-lg-6 pull-right">
                @includeIf('admin.include.hot_menu', ['menu_type_id' =>1])
              </div>
