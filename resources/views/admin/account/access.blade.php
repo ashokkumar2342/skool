@@ -3,7 +3,7 @@
   <!-- Main content -->
     <section class="content">
       <div class="box-header">
-              <h3 class="box-title">Menu assign</h3>      
+              <h3 class="box-title">Menu Assign</h3>      
        </div>         
           <div class="box"> 
             <div class="box-body"> 
