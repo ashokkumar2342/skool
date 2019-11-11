@@ -810,17 +810,75 @@ class StudentController extends Controller
     }
 
     //birthday print all
-    public function birthdayPrintAll(Request $request){ 
-     
-        $this->validate($request,[ 
+    public function birthdayPrintAll(Request $request){
+          $user_id=Auth::guard('admin')->user()->id;
+     switch ($request->input('action')) {
+
+        case 'generate':
+           $this->validate($request,[ 
             'student' => 'required', 
         ]);
         $message='';   
-        $students = Student::where('id',$request->student)->first(); 
+        $students = Student::whereIn('id',$request->student)->get(); 
          $customPaper = array(0,0,355.00,530.80);
         $pdf = PDF::loadView('admin.student.birthday.birthday_card', compact('students','message'))->setPaper($customPaper, 'landscape'); 
        
         return $pdf->stream('_birthday_card.pdf');
+            break;
+
+
+        case 'send_sms':
+           
+        if ($request->student==null) {
+            $response=array();
+            $response=['status'=>0,'msg'=>'Student Not Selected'];
+            return response()->json($response);
+         }
+          
+         $st=new Student();
+         $studentBirthdaySendSms=$st->getStudentDetailsByArrId($request->student); 
+         foreach ($studentBirthdaySendSms as  $value) { 
+         $messageId=StudentDefaultValue::where('user_id',$user_id)->first()->birthday_message_id; 
+         $smsTemplate = SmsTemplate::where('id',$messageId)->first()->message;
+
+        $findword = ["#SN#", "#FN#", "#MN#"];
+        $replaceword   = [$value->name, $value->parents[0]->parentInfo->name, $value->parents[1]->parentInfo->name];
+
+         $message = str_replace($findword, $replaceword, $smsTemplate);
+          event(new SmsEvent($value->addressDetails->address->primary_mobile,$message)); 
+         }
+         $response=['status'=>1,'msg'=>'Message Sent successfully'];
+            return response()->json($response);
+            break;
+
+        case 'send_email':
+           $st=new Student();
+         $students=$st->getStudentDetailsByArrId($request->student);
+         foreach ($students as $student) {
+           
+         $StudentDefaultValue=StudentDefaultValue::where('user_id',$user_id)->first()->birthday_email_id;
+         $smsTemplate = EmailTemplate::where('id',$StudentDefaultValue)->first()->message;
+         $findword = ["#SN#", "#FN#", "#MN#"];
+         $replaceword   = [$student->name]; 
+         $message = str_replace($findword, $replaceword, $smsTemplate);
+         // $documentUrl = Storage_path() . '/app/student/birthday/';
+         // @mkdir($documentUrl, 0755, true);
+         // $pdf = PDF::loadView('admin.student.birthday.birthday_card',compact('student','message','id'))->save($documentUrl.'/'.$student->registration_no.'_birthday_card.pdf'); 
+         // $url =$documentUrl.$student->registration_no.'_birthday_card.pdf';
+            $message ='test';         
+            $emailto = $student->addressDetails->address->primary_email;         
+            $subject = 'Happy Birthday'; 
+            $up_u=array(); 
+            $up_u['medicalInfo']=$message;
+            $up_u['subject']=$subject;
+         
+        $mailHelper =new MailHelper(); 
+        $mailHelper->mailsend('emails.message',$up_u,'No-Reply',$subject,$emailto,'noreply@esgekool.com',5);
+         }
+      return  redirect()->back()->with(['message'=>'Send  Successfully','class'=>'success']);
+            break;
+    }
+         
         
     }
     public function birthdayDashboard($value='')

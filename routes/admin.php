@@ -54,6 +54,8 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('menu-ordering-store', 'AccountController@menuOrderingStore')->name('admin.account.menu.ordering.store'); 
 		Route::get('submenu-ordering-store', 'AccountController@subMenuOrderingStore')->name('admin.account.submenu.ordering.store'); 
 		Route::get('menu-filter/{id}', 'AccountController@menuFilter')->name('admin.account.menu.filte'); 
+		Route::get('default-user-role-report', 'AccountController@defaultUserRolrReport')->name('admin.account.default.user.role.report'); 
+		Route::get('default-user-role-report-generate', 'AccountController@defaultUserRolrReportGenerate')->name('admin.account.default.user.role.report.generate'); 
 		
 						
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 
@@ -287,6 +289,7 @@ Route::group(['middleware' => 'admin'], function() {
 	      	// ---------------student Document----------------------------------------
 	 Route::group(['prefix' => 'student-document'], function() {
 	    Route::post('add', 'StudentDocumentController@store')->name('admin.document.add');
+	    Route::get('list/{id}', 'StudentDocumentController@documentList')->name('admin.document.list');
 	    Route::get('delete/{document}', 'StudentDocumentController@destroy')->name('admin.document.delete');
 	    Route::get('edit', 'StudentDocumentController@edit')->name('admin.document.edit');
 	    Route::get('update', 'StudentDocumentController@edit')->name('admin.document.update');

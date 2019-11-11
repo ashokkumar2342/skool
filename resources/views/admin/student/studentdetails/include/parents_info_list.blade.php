@@ -34,10 +34,9 @@
                                  
                                 <td>
                                   @php
-                             $image = route('admin.parents.image.show',$parent->parentInfo->id);
-                             
-                             @endphp 
-                            <img  class="profile-user-img img-responsive img-circle" src="{{ ($image)? $image : asset('profile-img/user.png') }}" alt="{{ $parent->name }}">
+                                  $image = route('admin.parents.image.show',$parent->parentInfo->id); 
+                                  @endphp 
+                                  <img  class="profile-user-img img-responsive img-circle" src="{{ ($image)? $image : asset('profile-img/user.png') }}" alt="{{ $parent->name }}">
 
                                
 

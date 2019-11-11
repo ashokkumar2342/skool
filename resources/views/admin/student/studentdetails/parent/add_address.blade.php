@@ -27,7 +27,7 @@
             </div>
             <div class="form-group col-lg-4">
               <label>Primary E-mail ID</label> <span class="fa fa-asterisk"></span>
-              <input type="email" name="primary_email" class="form-control" placeholder="" maxlength="50">
+              <input type="email" name="primary_email" class="form-control" placeholder="" maxlength="100">
             </div>
             <div class="form-group col-lg-4">
               <label>Category</label> <span class="fa fa-asterisk"></span>

@@ -19,7 +19,7 @@
             </div>
             <div class="form-group col-lg-4">
               <label>Primary E-mail</label> <span class="fa fa-asterisk"></span>
-              <input type="email" name="primary_email" class="form-control" placeholder="" maxlength="50" value="{{ $address->primary_email }}">
+              <input type="email" name="primary_email" class="form-control" placeholder="" maxlength="100" value="{{ $address->primary_email }}">
             </div>
             <div class="form-group col-lg-4">
               <label>Category</label> <span class="fa fa-asterisk"></span>

@@ -60,7 +60,7 @@ class DocumentReportController extends Controller
              $students= Student::whereIn('id',$studentArrId)->where('picture',null)->get();
              $response=array();
              $response['status']=1;
-             $response['data']=view('admin.documentReport.without_document_list',compact('students'))->render();;
+             $response['data']=view('admin.documentReport.without_image_list',compact('students'))->render();;
              return $response;
               
           }

@@ -216,27 +216,10 @@ b{
 
                 <div id="document" class="tab-pane fade">
                   <button type="button" class="btn btn-info btn-sm" data-toggle="modal" style="margin: 10px" data-target="#add_document">Add Document</button>
-                 <table class="table" id="document_items">                         
-                      <thead>
-                          <tr>
-                              <th>Document Type Name</th>
-                              <th>Doc Name</th>
-                              <th>Action</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                        @foreach (App\Model\Document::where('student_id',$student->id)->get() as $document) 
-                          <tr>
-                              <td>{{ $document->documentTypes->name or ''}}</td>
-                              <td>{{ $document->name }}</td>                             
-                              <td> 
-                                  
-                                 <a href="{{ route('admin.document.download',$document->id) }}" class="btn btn-xs btn-success" title="" target="blank"><i class="fa fa-download"></i></a>
-                                <a class="btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" href="{{ route('admin.document.delete',$document->id) }}"  ><i class="fa fa-trash"></i></a></td>
-                          </tr>
-                         @endforeach
-                      </tbody>
-                  </table>
+                      <button id="btn_student_document_list" hidden onclick="callAjax(this,'{{ route('admin.document.list',$student->id) }}','student_document_list')"></button>
+                      <div id="student_document_list">
+                        
+                      </div>
                    <div class="text-center">
                      <button type="button" onclick="$('#sport_tab').click()" class="btn btn-success btn-sm">Previous</button> 
                      <button type="button" onclick="$('#award_list_tab').click()" class="btn btn-success btn-sm">Next</button> 
@@ -303,6 +286,7 @@ b{
         $('#sibling_items').DataTable();
         $('#address_items').DataTable();
         $('#btn_event_type_table_show').click();
+        $('#btn_student_document_list').click();
 
     });
      var errors = '{{ $errors->first() }}';

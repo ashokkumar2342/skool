@@ -56,7 +56,7 @@ class StudentDocumentController extends Controller
          $file = $request->file('file');
          $path ='student/document/'.$student->class_id.'/'.$student->section_id.'/'.$student->registration_no.'/';
          $file->store($path);
-         $document = new Document();
+         $document =Document::firstOrNew(['document_type_id'=>$request->document_type_id,'student_id'=>$request->student_id]);
          $document->name = $file->getClientOriginalName();     
          $document->document_url = $path.$file->hashName();        
          $document->student_id = $request->student_id;        
@@ -76,9 +76,10 @@ class StudentDocumentController extends Controller
      * @param  \App\Model\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function show(Document $document)
+    public function documentList($student_id)
     {
-        //
+       $documents=Document::where('student_id',$student_id)->get();
+       return view('admin.student.studentdetails.include.document_list',compact('documents'));
     }
 
     /**
@@ -110,12 +111,12 @@ class StudentDocumentController extends Controller
      * @param  \App\Model\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Document $document)
+    public function destroy($id)
     {
-        if($document->delete()){   
-            return redirect()->back()->with(['class'=>'success','message'=>' Delete document success ...']);
-        }
-        return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
+        $document=Document::find($id);
+        $document->delete();
+        $response=['status'=>1,'msg'=>'Delete Successfully'];
+        return response()->json($response);
     }
     public function download($document_id)
     {   

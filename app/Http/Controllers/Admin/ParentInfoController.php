@@ -80,21 +80,18 @@ class ParentInfoController extends Controller
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
         } 
-          if ($request->hasFile('image')) { 
-                     $file = $request->file('image');
-                      $path ='app/student/profile/parent/';
-                     
-                     $filename = $file->hashName(); 
-                     $file->storeAs($path,$filename);
- 
-
-                $parentsinfo = ParentsInfo::find($request->parent_id);
-             
-                $parentsinfo->photo = $path.$filename;
-                $parentsinfo->save();
-                $response=['status'=>1,'msg'=>'Parent image Save Successfully'];
-                return response()->json($response); 
-          }
+        if ($request->hasFile('image')) { 
+            $profilePhoto=$request->image;
+            $filename='parent'.date('d-m-Y').time().'.jpg'; 
+            $path ='student/profile/parent/';
+            $profilePhoto->storeAs($path,$filename); 
+            $parentsinfo=ParentsInfo::find($request->parent_id); 
+            $parentsinfo->photo=$path.$filename; 
+            $parentsinfo->save(); 
+            $response=['status'=>1,'msg'=>'Upload Successfully'];
+            return response()->json($response); 
+        }
+           
 
         
     }
@@ -102,7 +99,7 @@ class ParentInfoController extends Controller
     { 
                 $parent=ParentsInfo::find($id);
 
-                $storagePath = storage_path($parent->photo);              
+                $storagePath = storage_path('app/'.$parent->photo);              
                 $mimeType = mime_content_type($storagePath); 
                 if( ! \File::exists($storagePath)){
 

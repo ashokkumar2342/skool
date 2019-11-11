@@ -76,15 +76,23 @@
 
                             <a  href="{{ route('admin.birthday.card.sms.send',[$student->id,1]) }}" class="btn btn-primary btn-xs"><i class="fa fa-send"></i>Send Sms</a>
 
-                            <a  href="{{ route('admin.birthday.card.sms.send',[$student->id,2]) }}" class="btn btn-danger btn-xs"><i class="fa fa-envelope"></i>Email</a>
+                            <a  href="{{ route('admin.birthday.card.sms.send',[$student->id,2]) }}" class="btn btn-danger btn-xs"><i class="fa fa-envelope"></i>E-mail</a>
                    		    </td> 
                    		  </tr>
                    		  @endforeach
                    		  </tbody>
                    		   
                    		</table>
-                      <div class="text-left">
-                          <input class="checkbox btn btn-success" type="submit" value="Select Generate Pdf">  
+                      <div class="row">
+                      <div class="col-lg-1">
+                          <button class="checkbox btn btn-success" type="submit" name="action" value="generate">Generate PDF</button>
+                      </div> 
+                      <div class="col-lg-1 text-right">
+                          <button class="checkbox btn btn-primary" type="submit" name="action" value="send_sms">SMS</button>
+                      </div> 
+                      <div class="col-lg-1">
+                          <button class="checkbox btn btn-danger" type="submit" name="action" value="send_email"> E-mail</button>
+                      </div> 
                       </div>
                       </form>
                    </div>

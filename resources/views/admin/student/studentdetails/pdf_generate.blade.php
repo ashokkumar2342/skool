@@ -5,11 +5,13 @@
     <title></title>
 </head>
 <style type="text/css" media="screen">
-    .aa{
-        margin-top: 500px
+    @page{
+        margin:0px
     }
     li{
         padding-bottom: 1px;
+        padding-left: 10px;
+
     }
 
     .page-breck{
@@ -30,93 +32,48 @@
     </div>
     <div id="collapse1" class="panel-collapse collapse in">
       <div class="panel-body">
-
-    <div class="row" style="margin-left: 80px" style="margin-left: 80px"> 
-        <div class="col-lg-6"> 
+         <div class="row"> 
+           <div class="col-lg-6"> 
            <li>Name :-<b> {{ $student->name }}  </b> </li> 
+           <li>Nick Name :-<b>{{ $student->nick_name }}</b></li>
+           <li>Class :-<b>{{ $student->classes->name or '' }}</b></li>
+           <li>Section :-<b>{{ $student->sectionTypes->name or '' }}</b></li>
+           <li>Registration No :-<b>{{ $student->registration_no }}</b></li>
+           <li>Admission No :-<b>{{ $student->admission_no }}</b></li>
+           <li>Date Of Admission :-<b>{{ date('d-m-Y',strtotime($student->date_of_admission))}}</b></li>
+           <li>Date Of Activation :-<b>{{date('d-m-Y',strtotime($student->date_of_activation ))}}</b></li>
+           <li>Category :-<b> {{ $student->addressDetails->address->categories->name or ''}} </b> </li>
+           <li>State :-<b> {{ $student->addressDetails->address->state or ''}} </b> </li> 
+           
+                
+           </div>
+           <div class="col-lg-6"> 
+           @php
+            $routeName= Route::currentRouteName();
+            $path =storage_path('app/student/profile/'.$student->picture); 
+            $profile = route('admin.student.image',$student->picture);
+            @endphp 
+             @if ( $routeName=='admin.student.pdf.generate')
+             <img  src="{{ $path }}" alt="" width="103px" height="103px" style=" float: right;margin-top: 10px; border:solid 2px Black"> 
+             @else 
+              
+            <img  src="{{ ($student->picture)? $profile : asset('profile-img/user.png') }}" width="103px" height="103px" style="float: right; border:solid 2px Black">
+             @endif
+            <li>Date Of Birth :-<b>{{date('d-m-Y',strtotime($student->dob ))}}</b></li> 
+            <li>Mobile No:- <b>{{ $student->addressDetails->address->primary_mobile  or ''}}</b></li>
+            <li>Aadhaar No :-<b>{{ $student->adhar_no }}</b></li>
+            <li>User Name :- <b>{{ $student->username }}</b></li>   
+            <li>Password :- <b>{{ $student->tem_pass }}</b></li>
+            <li>E-mail ID:-<b> {{ $student->addressDetails->address->primary_email or ''}} </b></li>
+            <li>Gender :-<b>{{ $student->genders->genders or '' }}</b></li>
+            <li>Religion :-<b> {{ $student->addressDetails->address->religions->name or ''}} </b></li>
+            <li>City :- <b>{{ $student->addressDetails->address->city or ''}}</b></li>
+            <li> House Name :-<b>{{$student->houses->name or ''}}</b></li>
         </div>
-
-
-        <div class="col-lg-6">
-            <li>Nick Name :-<b>{{ $student->nick_name }}</b></li> 
-        </div>
-    </div> 
-    <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6">
-           <li>Class :-<b>{{ $student->classes->name or '' }}</b></li> 
-        </div>
-        <div class="col-lg-6">
-            <li>Section :-<b>{{ $student->sectionTypes->name or '' }}</b></li> 
-        </div>
-    </div> 
-    <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6">
-            <li>Registration No :-<b>{{ $student->registration_no }}</b></li> 
-        </div>
-        <div class="col-lg-6">
-            <li>Admission No :-<b>{{ $student->admission_no }}</b></li> 
-        </div> 
-    </div> 
-    <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6">
-            <li> Date Of Admission :-<b>{{ date('d-m-Y',strtotime($student->date_of_admission))}}</b></li> 
-        </div>
-        <div class="col-lg-6">
-            <li> Date Of Activation :-<b>{{date('d-m-Y',strtotime($student->date_of_activation ))}}</b></li> 
-        </div>
-    </div>  
-    <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6">
-            <li>  Date Of Birth :-<b>{{date('d-m-Y',strtotime($student->dob ))}}</b></li> 
-        </div>
-        <div class="col-lg-6">
-            <li>  Aadhaar No :-<b>{{ $student->adhar_no }}</b></li> 
-        </div> 
-    </div>
-    <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6">
-            <li> House Name :-<b>{{$student->houses->name or ''}}</b></li> 
-        </div>
-        <div class="col-lg-6">
-            <li>  Gender :-<b>{{ $student->genders->genders or '' }}</b></li> 
-        </div> 
-    </div> 
-    <div class="row" style="margin-left: 80px">
-        <div class="col-lg-6">
-            <li> User Name :- <b>{{ $student->username }}</b></li> 
-        </div>
-
-        <div class="col-lg-6">
-            <li> Password :- <b>{{ $student->tem_pass }}</b></li> 
-        </div>
-    </div>
-    <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6"> 
-            <li>Mobile No:- <b>{{ $student->addressDetails->address->primary_mobile  or ''}}</b></li>  
-        </div> 
-        <div class="col-lg-6">
-            <li>E-mail ID:-<b> {{ $student->addressDetails->address->primary_email or ''}} </b> </li>   
-        </div>
-    </div> 
-    <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6"> 
-            <li>Category :-<b> {{ $student->addressDetails->address->categories->name or ''}} </b> </li>
-        </div> 
-        <div class="col-lg-6">
-            <li>Religion :-<b> {{ $student->addressDetails->address->religions->name or ''}} </b> </li>
-        </div>
-    </div>
-    <div class="row" style="margin-left: 80px"> 
-        <div class="col-lg-6"> 
-            <li>State :-<b> {{ $student->addressDetails->address->state or ''}} </b> </li>
-        </div> 
-        <div class="col-lg-6">
-            <li>City :- <b>{{ $student->addressDetails->address->city or ''}}</b></li> 
-        </div>
-    </div> 
+           </div>  
+         </div> 
       </div>
     </div>
-  </div>
 
     
     
@@ -134,7 +91,7 @@
       <div class="panel-body">
           
     
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-6"> 
             <li> Permanent Address  </li> 
         </div>
@@ -143,7 +100,7 @@
         </div>  
        
     </div> 
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-6" style="margin-left: 10px"> 
              <b >{{ $student->addressDetails->address->p_address or ''}}</b> 
         </div>
@@ -152,7 +109,7 @@
         </div>  
        
     </div>  
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-6">
             <li>Correspondence Address </li>
         </div> 
@@ -160,7 +117,7 @@
            
         </div>
     </div>
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-6" style="margin-left: 10px">
              <b>{{ $student->addressDetails->address->c_address or ''}}</b>
         </div> 
@@ -173,7 +130,7 @@
     </div>
   </div> 
  @endif
- <div class="page-breck"></div>    
+  
 @foreach ($student->parents as $parent)
     <div class="panel panel-info">
       <div class="panel-heading">
@@ -184,51 +141,40 @@
       </div>
       <div id="parent{{ $parent->relation->id or ''}}" class="panel-collapse collapse in">
         <div class="panel-body">
-            
-      <div class="row" style="margin-left: 80px"> 
-          <div class="col-lg-6"> 
-              <li>Name :- <b>{{ $parent->parentInfo->name  or ''}}</b></li>  
-          </div> 
-          <div class="col-lg-6">
-              <li>Education :-<b> {{ $parent->parentInfo->education or ''}} </b> </li>   
-          </div>
-      </div> 
-      <div class="row" style="margin-left: 80px"> 
-          <div class="col-lg-6"> 
-              <li>Profession :-<b> {{ $parent->parentInfo->profetions->name or ''}} </b> </li>
-          </div> 
-          <div class="col-lg-6">
-              <li>Income Slab(Annual):-<b> {{ $parent->parentInfo->incomes->range or ''}} </b> </li>
-          </div>
-      </div>
-      <div class="row" style="margin-left: 80px"> 
-          <div class="col-lg-6"> 
-              <li>Mobile No:-<b> {{ $parent->parentInfo->mobile or ''}} </b> </li>
-          </div> 
-          <div class="col-lg-6">
-              <li> E-mail ID:- <b>{{ $parent->parentInfo->email or ''}}</b></li> 
-          </div>
-      </div>
-      <div class="row" style="margin-left: 80px"> 
-          <div class="col-lg-6"> 
-              <li>Date of Birth :- <b>{{ date('d-m-Y', strtotime($parent->parentInfo->dob or ''))}}</b></li> 
-          </div> 
-          <div class="col-lg-6">
-              <li>Date Of Anniversary:- <b>{{ date('d-m-Y', strtotime($parent->parentInfo->doa or ''))}}</b></li>
-          </div>
-      </div>  
-      <div class="row" style="margin-left: 80px"> 
-          <div class="col-lg-6"> 
-              <li>Office Address :- <b>{{ $parent->parentInfo->office_address or ''}}</b></li> 
-          </div> 
-          <div class="col-lg-6">
-              <li>Is live :- <b>{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li> 
-          </div>
-      </div> 
+            <div class="row">
+              <div class="col-lg-6">
+                <li>Name :- <b>{{ $parent->parentInfo->name  or ''}}</b></li>
+                <li>Education :-<b> {{ $parent->parentInfo->education or ''}} </b> </li>
+                <li>Income Slab(Annual):-<b> {{ $parent->parentInfo->incomes->range or ''}} </b> </li>
+                <li>Is live :- <b>{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li>
+                 <li>Office Address :- <b>{{ $parent->parentInfo->office_address or ''}}</b></li>  
+              </div>
+              <div class="col-lg-6">
+                @php
+                $routeNames= Route::currentRouteName();
+                $paths =storage_path('app/'.$parent->parentInfo->photo); 
+                $image = route('admin.parents.image.show',$parent->parentInfo->id); 
+                @endphp
+                
+                @if ($routeNames=='admin.student.preview')
+                <img  src="{{ ($parent->parentInfo->id)? $image : asset('profile-img/user.png') }}" width="103px" height="103px" style="float: right; border:solid 2px Black"> 
+                 @else  
+                <img  src="{{ $paths }}" alt="" width="103px" height="103px" style="float: right;margin-top: 10px; border:solid 2px Black">  
+                @endif
+                <li>Date of Birth :- <b>{{ date('d-m-Y', strtotime($parent->parentInfo->dob or ''))}}</b></li>
+                <li>Date Of Anniversary:- <b>{{ date('d-m-Y', strtotime($parent->parentInfo->doa or ''))}}</b></li>
+                <li>Mobile No:-<b> {{ $parent->parentInfo->mobile or ''}} </b> </li>
+                <li>Profession :-<b> {{ $parent->parentInfo->profetions->name or ''}} </b> </li>
+                
+                
+                
+              </div> 
+            </div>
+      
         </div>
       </div>
     </div> 
-   <div class="page-breck"></div> 
+   
 @endforeach
   
       
@@ -246,12 +192,10 @@
     </div>
     <div id="collapse5" class="panel-collapse collapse in">
       <div class="panel-body">
-  @php
-    $key=0;
-  @endphp
+  
     @foreach($studentMedicalInfos as $studentMedicalInfo)
           
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-6"> 
             <li>On Date:- <b>{{ Carbon\Carbon::parse($studentMedicalInfo->ondate)->format('d-m-Y') }}</b></li>
         </div> 
@@ -259,7 +203,7 @@
             <li>Blood Group :-<b> {{ $studentMedicalInfo->bloodgroups->name or ''}} </b> </li>
         </div>
     </div>
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-6"> 
             <li>HB :-<b> {{ $studentMedicalInfo->hb }} </b> </li>  
         </div> 
@@ -267,7 +211,7 @@
             <li>BP :-<b> {{ $studentMedicalInfo->bp }}</b> </li>
         </div>
     </div>
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-6"> 
             <li>Height :-<b> {{ $studentMedicalInfo->height }}</b> </li>  
         </div> 
@@ -275,7 +219,7 @@
             <li>Weight :-<b> {{ $studentMedicalInfo->weight }} </b> </li>
         </div>
     </div> 
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-6"> 
             @if ($studentMedicalInfo->physical_handicapped==0)
 
@@ -288,7 +232,7 @@
             <li>Narration :-<b> {{ $studentMedicalInfo->narration }}</b> </li>
         </div>
     </div> 
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-6"> 
             @if ($studentMedicalInfo->alergey==0)
 
@@ -301,7 +245,7 @@
             <li>Allergy Vacc :-<b> {{ $studentMedicalInfo->alergey_vacc }}</b> </li>
         </div>
     </div> 
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-6"> 
             <li>ID Mark 1 :-<b> {{ $studentMedicalInfo->id_marks1 }}</b> </li>  
         </div> 
@@ -309,7 +253,7 @@
             <li>ID Marks 2 :-<b> {{ $studentMedicalInfo->id_marks2 }}</b> </li>
         </div>
     </div>
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-6"> 
             <li>Dental :-<b> {{ $studentMedicalInfo->dental }}</b> </li>  
         </div> 
@@ -317,21 +261,14 @@
             <li>Vision :-<b> {{ $studentMedicalInfo->vision }}</b> </li>
         </div>
     </div> 
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-6">
             <li>Complexion :-<b> {{ $studentMedicalInfo->complextion }}</b> </li>
         </div>
     </div>
      <hr>
-    @php
-    $key++; 
-  @endphp
-  @if ($key==4)
-   <div class="page-breck"></div> 
-   @php
-    $key=0;
-  @endphp
-  @endif
+     
+  
     @endforeach
       </div>
     </div>
@@ -350,7 +287,7 @@
           
     @foreach ($studentSiblingInfos as $studentSiblingInfo)
 
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-6"> 
             <li>Registration No :-<b> {{ $studentSiblingInfo->studentSiblings->registration_no or ''  }}</b> </li>   
         </div>
@@ -358,7 +295,7 @@
             <li>Name :-<b>{{ $studentSiblingInfo->studentSiblings->name  or ''}}</b> </li>  
         </div>
     </div>
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-6"> 
             <li>Class:-<b> {{ $studentSiblingInfo->studentSiblings->classes->name  or '' }}</b> </li>  
         </div>
@@ -386,7 +323,7 @@
     </div>
     <div id="collapse7" class="panel-collapse collapse in">
       <div class="panel-body">
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-12">  
             <table class="table"> 
                 <thead>
@@ -439,7 +376,7 @@
     </div>
     <div id="collapse8" class="panel-collapse collapse in">
       <div class="panel-body">
-    <div class="row" style="margin-left: 80px"> 
+    <div class="row" > 
         <div class="col-lg-12">  
             <table class="table">
             <thead>

@@ -1,4 +1,4 @@
-<table class="table table-condensed table-responsive" id="without_document">
+<table class="table table-condensed table-responsive" id="without_image_list">
 	<thead>
 		<tr>
 			<th>Name</th>
