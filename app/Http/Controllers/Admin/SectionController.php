@@ -12,6 +12,7 @@ use App\Model\SessionDate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PDF;
+use Auth;
 class SectionController extends Controller
 {
     /**
@@ -22,7 +23,7 @@ class SectionController extends Controller
     public function index()
     {
         $sections = SectionType::all();
-        $manageSections = Section::all();
+        $manageSections =Section:: orderBy('class_id','ASC')->orderBy('section_id','ASC')->get(); 
         $classes = ClassType::orderBy('shorting_id','ASC')->get();     
         return view('admin.manage.section.manageSection',compact('sections','classes','manageSections'));
     }
@@ -62,7 +63,7 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {        
-        
+        $user_id=Auth::guard('admin')->user()->id;
         $rules=[
         'section_id' => 'required|max:199',
             'class' => 'required|numeric'   
@@ -84,6 +85,7 @@ class SectionController extends Controller
             $manageSection = Section::firstOrNew(['class_id'=>$data['class'],'section_id'=>$data['section_id'][$i]]);
             $manageSection->section_id = $data['section_id'][$i];
             $manageSection->class_id = $data['class'];
+            $manageSection->last_updated_by = $user_id;
             $manageSection->save();
         }         
        $response['msg'] = 'Save Successfully';
