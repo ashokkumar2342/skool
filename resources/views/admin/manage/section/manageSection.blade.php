@@ -27,8 +27,8 @@
                       
                       <select class="form-control"  multiselect-form="true"  name="class"  onchange="callAjax(this,'{{route('admin.section.selectList')}}'+'?id='+this.value,'section_list')" > 
                         <option value="" selected="" disabled>Class Select</option>
-                        @foreach ($classes as $key=>$value)
-                           <option value="{{ $key }}">{{ $value }}</option>
+                        @foreach ($classes as $classe)
+                           <option value="{{ $classe->id }}">{{ $classe->name }}</option>
                         @endforeach  
                       </select>                        
                        

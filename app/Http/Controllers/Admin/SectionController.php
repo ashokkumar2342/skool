@@ -23,7 +23,7 @@ class SectionController extends Controller
     {
         $sections = SectionType::all();
         $manageSections = Section::all();
-        $classes = MyFuncs::getClasses();     
+        $classes = ClassType::orderBy('shorting_id','ASC')->get();     
         return view('admin.manage.section.manageSection',compact('sections','classes','manageSections'));
     }
 
