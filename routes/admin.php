@@ -24,11 +24,13 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::post('password-change', 'DashboardController@passwordChange')->name('admin.password.change');
 	Route::get('profile-photo', 'DashboardController@profilePhoto')->name('admin.profile.photo');
 	Route::post('upload-photo', 'DashboardController@profilePhotoUpload')->name('admin.profile.photo.upload');
+	Route::get('photo-refrash', 'DashboardController@profilePhotoRefrash')->name('admin.profile.photo.refrash');
 	//---------------account-----------------------------------------	
 	Route::prefix('account')->group(function () {
 	    Route::get('form', 'AccountController@form')->name('admin.account.form');
 	    Route::post('store', 'AccountController@store')->name('admin.account.post');
 		Route::get('list', 'AccountController@index')->name('admin.account.list');
+		Route::post('list-user-generate', 'AccountController@listUserGenerate')->name('admin.account.list.user.generate');
 		Route::get('access', 'AccountController@access')->name('admin.account.access');
 		Route::get('hot-menu', 'AccountController@accessHotMenu')->name('admin.account.access.hotmenu');
 		Route::get('menuTable', 'AccountController@menuTable')->name('admin.account.menuTable');

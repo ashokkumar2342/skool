@@ -26,7 +26,7 @@ class AccountController extends Controller
 {
     Public function index(){
     	
-    	$accounts = Admin::orderBy('name','ASC')->get();
+    	$accounts = Admin::orderBy('first_name','ASC')->get();
     	return view('admin.account.list',compact('accounts'));
     }
 
@@ -34,7 +34,17 @@ class AccountController extends Controller
            
     	$roles = Role::orderBy('name','ASC')->get();
     	return view('admin.account.form',compact('roles'));
-    } 
+    }
+    public function listUserGenerate(Request $request)
+     {
+       $accounts = Admin::whereIn('id',$request->user_id)->get(); 
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.account.user_list_pdf_generate',compact('accounts'));
+        return $pdf->stream('user_list.pdf');
+     } 
 
     Public function store(Request $request){
         $rules=[

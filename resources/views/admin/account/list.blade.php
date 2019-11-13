@@ -11,11 +11,11 @@
                <div class="col-lg-6 pull-right">
                @includeIf('admin.include.hot_menu', ['menu_type_id' =>1])
              </div>
-            </div>
-              
-
-            <!-- /.box-header -->
+            </div> 
             <div class="box-body">
+            <form action="{{ route('admin.account.list.user.generate') }}" method="post" target="blank">
+            {{ csrf_field() }} 
+            <button type="submit" class="btn btn-primary btn-sm pull-right" title="" style="margin:5px">PDF Generate</button>
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
@@ -36,11 +36,12 @@
                      
                   @endphp
                 @foreach($accounts as $account)
-                {{-- @if ($account->id==1)
+                @if ($account->id==1)
                   @continue
-                @endif --}}
+                @endif
                 <tr>
-                  <td>{{ $arrayId ++ }}</td> 
+                  <td>{{ $arrayId ++ }}</td>
+                  <input type="hidden" name="user_id[]" value="{{ $account->id }}"> 
                   <td>{{ $account->first_name }} {{ $account->first_last}}</td>
                   <td>{{ $account->mobile }}</td> 
                   <td>{{ $account->email }}</td>
@@ -57,7 +58,7 @@
                   </td>  
                   <td>
                     
-                     <button class="btn btn-info btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.account.minu',[$account->id]) }}')"><i class="fa fa-bars"></i></button>
+                     <a class="btn btn-info btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.account.minu',[$account->id]) }}')"><i class="fa fa-bars"></i></a>
                    
                   </td>                
                   <td> 
@@ -76,7 +77,7 @@
                 @endforeach
               </table>
             </div>
-            <!-- /.box-body -->
+            </form>
           </div>
           <!-- /.box -->
         </div>
