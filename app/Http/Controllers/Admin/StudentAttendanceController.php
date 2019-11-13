@@ -63,7 +63,7 @@ class StudentAttendanceController extends Controller
      */
     public function store(Request $request)
     {
-         
+         $user_id=Auth::guard('admin')->user()->id;
         $this->validate($request,['date'=>'required|date','value'=>'required']);
         foreach ($request->value as $key => $value) {
 
@@ -71,6 +71,7 @@ class StudentAttendanceController extends Controller
            $student->student_id = $key;
            $student->attendance_type_id = $value;
            $student->date = date('Y-m-d',strtotime($request->date));
+           $student->last_updated_by = $user_id;
            $student->save();
         }
         return response()->json(['class'=>'success','message'=>'Attendance Mark Successfully']);

@@ -37,7 +37,7 @@
 
                     <li><a href="#settings" data-toggle="tab">Change Password</a></li>
                   </ul>
-              <form action="{{ route('admin.profile.update') }}" method="post" class="add_form" button-click="btn_profile_show">
+              <form action="{{ route('admin.profile.update') }}" method="post" class="add_form" button-click="btn_profile_show,admin_photo_refrash">
               {{ csrf_field() }} 
                   <div class="tab-content">
                     <div class="active tab-pane" id="activity">

@@ -130,6 +130,7 @@
               
        
            });
+       $('#admin_photo_refrash').click();
     
     </script> 
 </body>

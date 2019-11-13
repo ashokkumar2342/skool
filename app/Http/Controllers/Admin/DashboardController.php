@@ -168,7 +168,11 @@ class DashboardController extends Controller
      {
          $profile_pic = Storage::disk('student')->get('profile/admin/'.$profile_pic);           
          return  response($profile_pic)->header('Content-Type', 'image/jpeg');
-     } 
+     }
+     public function profilePhotoRefrash()
+      {
+          return view('admin.dashboard.profile.photo_refrash');
+      } 
      public function passwordChange(Request $request)
     {
         $rules=[

@@ -56,16 +56,13 @@
               <li class="footer"><a href="#">See All Messages</a></li>
             </ul>
           </li>
-            <!-- User Account: style can be found in dropdown.less -->
+            <button type="hidden" class="hidden" id="admin_photo_refrash" onclick="callAjax(this,'{{ route('admin.profile.photo.refrash') }}','photo_refrash')">img Shoe</button>
             <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-             @php
-                $admins=Auth::guard('admin')->user();
-                $profile = route('admin.profile.photo.show',$admins->profile_pic);
-             @endphp
-             <img src="{{ $profile }}" class="user-image">
-              <span class="hidden-xs">{{ Auth::guard('admin')->user()->first_name }}</span>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+              <div id="photo_refrash">
+                
+              </div>
+             
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
