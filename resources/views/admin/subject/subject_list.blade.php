@@ -8,7 +8,14 @@
     <tr>
     <td>{{ $subjectType->code }}</td>
     <td>  
-    	<input type="checkbox" class="checkbox" {{ $checked }} onclick="$('#option{{ $subjectType->id }}').prop('checked', true)" id="subject{{ $subjectType->id }}" name="subject_id[]" value="{{ $subjectType->id }}">
+    	<input type="checkbox" class="checkbox" {{ $checked }} onchange="if (this.checked) {
+        $('#Optional{{ $subjectType->id }}').prop('checked', true)
+        $('#Compulsory{{ $subjectType->id }}').prop('checked', true)
+      }else{
+        $('#Compulsory{{ $subjectType->id }}').prop('checked', false)
+        $('#Optional{{ $subjectType->id }}').prop('checked', false)
+
+      }" id="subject{{ $subjectType->id }}" name="subject_id[]" value="{{ $subjectType->id }}">
     </td>
     <td>{{ $subjectType->name }}</td>
      '; 
@@ -20,7 +27,7 @@
         
               <td >
               <label class="radio-inline">
-              	<input type="radio" {{ $checked }} id="option{{ $subjectType->id }}" onclick="$('#subject{{ $subjectType->id }}').prop('checked', true)" name="value[{{ $subjectType->id }}]" class="{{ str_replace(' ', '_', strtolower($optional->name)) }}"   value="{{ $optional->id }}"> {{ $optional->name }} </label>
+              	<input type="radio" {{ $checked }} id="{{ $optional->name }}{{ $subjectType->id }}" onclick="$('#subject{{ $subjectType->id }}').prop('checked', true)" name="value[{{ $subjectType->id }}]" class="{{ str_replace(' ', '_', strtolower($optional->name)) }}"   value="{{ $optional->id }}"> {{ $optional->name }} </label>
               </td>';
     @endforeach
      </tr> 
