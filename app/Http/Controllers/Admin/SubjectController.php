@@ -111,9 +111,9 @@ class SubjectController extends Controller
      * @param  \App\Model\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subject $subject)
-    {
-         $subject=Subject::find($subject);
+    public function destroy($id)
+    { 
+         $subject=Subject::find($id);
          $subject->delete();
           return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }

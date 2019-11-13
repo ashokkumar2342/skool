@@ -48,59 +48,50 @@
                              </div>    
                         </div>             
                   </form> 
-                </div> 
-            </div>
-            <!-- /.box-body -->
+              <table class="table table-responsive" id="table_academic_year"> 
+                  <thead>
+                      <tr>
+                          <th class="text-nowrap">Academic Year</th>
+                          <th class="text-nowrap">Start date</th>
+                          <th class="text-nowrap">End date</th>
+                          <th class="text-nowrap">Description</th>
+                          <th class="text-nowrap">Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      @foreach ($academicYears as $academicYear) 
 
-            <div class="box">             
-              <!-- /.box-header -->
-                <div class="box-body">
-                 
-                    <table class="table table-responsive" id="table_academic_year">
-                         
-                        <thead>
-                            <tr>
-                                <th class="text-nowrap">Academic Year</th>
-                                <th class="text-nowrap">Start date</th>
-                                <th class="text-nowrap">End date</th>
-                                <th class="text-nowrap">Description</th>
-                                <th class="text-nowrap">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($academicYears as $academicYear) 
-
-                                <tr style="{{ $academicYear->status==1?'background-color: #95e49b':'' }}">
-                                  
-                                     
-                                    <td>{{ $academicYear->name }}</td>
-                                    <td>{{ date('d-m-Y',strtotime($academicYear->start_date)) }}</td>
-                                    <td>{{ date('d-m-Y',strtotime($academicYear->end_date))  }}</td>
-                                    <td>{{ $academicYear->description }}</td>
-                                     
-                                    <td class="text-nowrap">
-                                      @if ($academicYear->status==1)
-                                        <a href="{{ route('admin.academicYear.default.value',$academicYear->id) }}" title="" class="btn-xs btn-success btn">Default</a>
-                                        @else
-                                        <a href="{{ route('admin.academicYear.default.value',$academicYear->id) }}" title="" class="btn-xs btn-default btn">Default</a>
-                                      @endif
-                                       
-                                      @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
-                                      <?php $url = route('admin.academicYear.edit',Crypt::encrypt($academicYear->id)) ?>
-                                      <a class="btn btn-info btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a>
-                                      @endif 
-                                      @if(App\Helper\MyFuncs::menuPermission()->d_status==1)
-                                      <a href="{{ route('admin.academicYear.delete',Crypt::encrypt($academicYear->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
-                                      @endif
-                                    </td>
-                                </tr>
-                             @endforeach
-                        </tbody>
-                    </table>
-
-                </div>
-            </div> 
-          </div>
+                          <tr style="{{ $academicYear->status==1?'background-color: #95e49b':'' }}">
+                            
+                               
+                              <td>{{ $academicYear->name }}</td>
+                              <td>{{ date('d-m-Y',strtotime($academicYear->start_date)) }}</td>
+                              <td>{{ date('d-m-Y',strtotime($academicYear->end_date))  }}</td>
+                              <td>{{ $academicYear->description }}</td>
+                               
+                              <td class="text-nowrap">
+                                @if ($academicYear->status==1)
+                                  <a href="{{ route('admin.academicYear.default.value',$academicYear->id) }}" title="" class="btn-xs btn-success btn">Default</a>
+                                  @else
+                                  <a href="{{ route('admin.academicYear.default.value',$academicYear->id) }}" title="" class="btn-xs btn-default btn">Default</a>
+                                @endif
+                                 
+                                @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
+                                <?php $url = route('admin.academicYear.edit',Crypt::encrypt($academicYear->id)) ?>
+                                <a class="btn btn-info btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a>
+                                @endif 
+                                @if(App\Helper\MyFuncs::menuPermission()->d_status==1)
+                                <a href="{{ route('admin.academicYear.delete',Crypt::encrypt($academicYear->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                @endif
+                              </td>
+                          </tr>
+                       @endforeach
+                  </tbody>
+              </table> 
+         </div>
+       </div>
+     </div>
+     
          
  
     </section>
@@ -116,7 +107,11 @@
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
  <script>
- 
+  $(document).ready(function() {
+    $('#table_academic_year').DataTable( {
+       
+    } );
+} );
     function callEndDate(date){
      
       var date = new Date(date);

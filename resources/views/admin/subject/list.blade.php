@@ -41,9 +41,7 @@
                     <button class="btn btn-info btn-xs col-md-3" onclick="callPopupLarge(this,'{{ route('admin.subjectType.edit',$subject->id) }}')"><i class="fa fa-pencil"></i></button>
                     @endif
                      @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
-                    {!! Form::open(['method' => 'delete', 'route' => ['admin.subjectType.delete', $subject->id]]) !!}
-                    {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs col-md-3', 'onclick'=>"return confirm('Are you sure to delete this data ?')"]) !!}
-                    {!! Form::close() !!}
+                     <a href="{{ route('admin.subjectType.delete',$subject->id) }}" title=""></a>
                     @endif
                     
             

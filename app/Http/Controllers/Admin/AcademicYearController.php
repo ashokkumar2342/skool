@@ -156,6 +156,6 @@ class AcademicYearController extends Controller
             'tempDir' => storage_path('logs/')
         ])
         ->loadView('admin.master.academicyear.pdf_generate',compact('academicYears'));
-        return $pdf->download('academicYear.pdf');
+        return $pdf->stream('academicYear.pdf');
     }
 }

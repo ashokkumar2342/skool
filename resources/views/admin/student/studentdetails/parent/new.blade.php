@@ -26,7 +26,7 @@
 </div> 
 
 <div class="form-group col-md-4">
-    {{ Form::label('income','Income Slab(Yearly)',['class'=>' control-label']) }}
+    {{ Form::label('income','Income Slab(Annual)',['class'=>' control-label']) }}
     <span class="fa fa-asterisk"></span>
     {!! Form::select('income',$incomes, null, ['class'=>'form-control','placeholder'=>'Select income','required']) !!}
     

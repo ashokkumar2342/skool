@@ -5,7 +5,7 @@
                                 <th><span class="text-nowrap">Relation </span></th>
                                 <th><span class="text-nowrap">Education </span></th>
                                 <th><span class="text-nowrap">Occupation </span></th>
-                                <th><span class="text-nowrap">Income </span></th>
+                                <th><span class="text-nowrap">Income Slab(Annual)</span></th>
                                 <th><span class="text-nowrap">Mobile No</span></th>
                                 <th><span class="text-nowrap">E-mail ID</span></th>
                                 <th><span class="text-nowrap">Date Of Birth </span></th>
