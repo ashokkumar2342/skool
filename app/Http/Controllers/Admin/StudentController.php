@@ -800,13 +800,15 @@ class StudentController extends Controller
         $message='';
         $template = BirthdayTemplate::find(1);
         $viewUrl = 'admin.student.birthday.'.$template->name;
-        $students = Student::find($id);  
+        $student = Student::find($id);
+         $students = Student::where('id',$id)->get();
+         $customPaper = array(0,0,355.00,530.80);   
         $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView($viewUrl,compact('students','message'));  
-        return $pdf->download($students->registration_no.'_birthday_card.pdf');
+        ->loadView($viewUrl,compact('students','message'))->setPaper($customPaper, 'landscape');;  
+        return $pdf->download($student->registration_no.'_birthday_card.pdf');
     }
 
     //birthday print all
@@ -821,7 +823,10 @@ class StudentController extends Controller
         $message='';   
         $students = Student::whereIn('id',$request->student)->get(); 
          $customPaper = array(0,0,355.00,530.80);
-        $pdf = PDF::loadView('admin.student.birthday.birthday_card', compact('students','message'))->setPaper($customPaper, 'landscape'); 
+        $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])->loadView('admin.student.birthday.birthday_card', compact('students','message'))->setPaper($customPaper, 'landscape'); 
        
         return $pdf->stream('_birthday_card.pdf');
             break;
