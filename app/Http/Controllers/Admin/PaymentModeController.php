@@ -39,15 +39,20 @@ class PaymentModeController extends Controller
        return response()->json([$paymentmode,'class'=>'success','message'=>'Payment Mode Created Successfully']);
     }
 
-    public function edit($id)
-    {   
-        $id =Crypt::decrypt($id); 
-        $paymentMode =PaymentMode::find($id); 
+    public function edit($id='')
+    {   if ($id!='') {
+          $id =Crypt::decrypt($id); 
+          $paymentMode =PaymentMode::find($id); 
+         }
+         if ($id=='') {
+           
+          $paymentMode ='';
+         }
         return view('admin.master.paymentmode.edit',compact('paymentMode')); 
         
     }
 
-    public function update(Request $request,$id)
+    public function update(Request $request,$id='')
     {   
         $id =Crypt::decrypt($id); 
         $rules=[
@@ -67,7 +72,7 @@ class PaymentModeController extends Controller
          
         $admin=Auth::guard('admin')->user()->id;
         
-        $paymentMode =PaymentMode::find($id); 
+        $paymentMode =PaymentMode::firstOrNew(['id'=>$id]); 
         $paymentMode->name = $request->name; 
         $paymentMode->sorting_order_id = $request->sorting_order_id; 
         $paymentMode->last_updated_by=$admin; 

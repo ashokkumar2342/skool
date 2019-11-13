@@ -1,53 +1,16 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
+      <?php $url = route('admin.academicYear.edit') ?>
+      <a class="btn btn-info btn-sm pull-right"  onclick="callPopupMd(this,'{{$url}}')">Add Academic Year</a>
+      <span> <a target="_blank" href="{{ route('admin.academicYear.pdf.generate') }}" class="btn btn-success btn-sm pull-right" title="PDF Download" target="blank" style="margin-right: 10px">PDF</a></span>
     <h1>Academic Year</h1>
-     
-      <span style="float: right;margin-top: -30px"> <a target="_blank" href="{{ route('admin.academicYear.pdf.generate') }}" class="btn btn-success btn-sm" title="PDF Download" target="blank">PDF</a></span>
 </section>
     <section class="content">
-        <div class="box">             
-            <!-- /.box-header -->
+        <div class="box"> 
             <div class="box-body">             
                 <div class="col-md-12"> 
-                  <form class="form-vertical" id="form_academic_year">                     
-                        <div class="col-lg-2">                           
-                             <div class="form-group">
-                              {{ Form::label('academic_year','Academic Year',['class'=>' control-label']) }}
-                               {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Enter Academic Year','maxlength'=>'20']) }}
-                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
-                             </div>    
-                        </div>
-                         <div class="col-lg-2">                           
-                             <div class="form-group">
-                              {{ Form::label('start_date','Start Date',['class'=>' control-label']) }}
-                              <input type="date" name="start_date" onchange="callEndDate(this.value)" class="form-control" id="start_date">
-                               
-                               <p class="start_date text-center alert alert-danger hidden"></p>
-                             </div>    
-                        </div> 
-                         <div class="col-lg-2">                           
-                             <div class="form-group">
-                              {{ Form::label('end_date','End Date',['class'=>' control-label ']) }}
-                              <input type="date" name="end_date" class="form-control" id="end_date">
-                              
-                               
-                               <p class="end_date text-center alert alert-danger hidden"></p>
-                             </div>    
-                        </div>
-                        <div class="col-lg-4">                           
-                             <div class="form-group">
-                              {{ Form::label('description','Description',['class'=>' control-label']) }}
-                               {{ Form::text('description',null,['class'=>'form-control','placeholder'=>'Enter Description','maxlength'=>'200']) }}
-                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
-                             </div>    
-                        </div>
-                        <div class="col-lg-2">                           
-                             <div class="form-group" style="padding-top: 20px;">
-                              <button class="btn btn-success" type="button" id="btn_academic_year_create">Create</button> 
-                             </div>    
-                        </div>             
-                  </form> 
+                  
               <table class="table table-responsive" id="table_academic_year"> 
                   <thead>
                       <tr>
@@ -98,13 +61,15 @@
     <!-- /.content -->
 @endsection
 @push('links')
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"> 
-   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
-@endpush 
+@endpush
  @push('scripts')
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+ <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
  <script>
   $(document).ready(function() {

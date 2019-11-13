@@ -61,37 +61,49 @@ class AcademicYearController extends Controller
        return response()->json([$academicYears,'class'=>'success','message'=>'Academic Year Created Successfully']);
     }
 
-    public function edit($id)
-    {   
+    public function edit($id='')
+    {   if ($id!='') {
         $id =Crypt::decrypt($id); 
         $academicYear =AcademicYear::find($id); 
+         }
+         if ($id=='') { 
+        $academicYear =''; 
+         }
         return view('admin.master.academicyear.edit',compact('academicYear')); 
         
     }
 
-    public function update(Request $request,$id)
-    {   $id =Crypt::decrypt($id);
-        $admin=Auth::guard('admin')->user()->id;
-         $validator = Validator::make($request->all(), [ 
-             'name' => 'required|unique:academic_years,name,'.$id,
+    public function update(Request $request,$id='')
+    { $admin=Auth::guard('admin')->user()->id; 
+     $id =Crypt::decrypt($id);
+        $rules=[
+          
+            'name' => 'required|unique:academic_years,name,'.$id,
              'start_date' => 'required', 
              'end_date' => 'required', 
-         ]);
-         if ($validator->fails()) {                    
-              return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
-         }
-        
-        $academicYears = AcademicYear::find($id);;
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+        $academicYears = AcademicYear::firstOrNew(['id'=>$id]);;
         $academicYears->name = $request->name;
         $academicYears->start_date = date('Y-m-d',strtotime($request->start_date)) ;
         $academicYears->end_date = date('Y-m-d',strtotime($request->end_date));
         $academicYears->description = $request->description; 
         $academicYears->last_updated_by = $admin; 
-        $academicYears->save(); 
-        $response = array();
-        $response['status'] = 1; 
-        $response['msg'] = 'Update Successfully'; 
-        return $response; 
+        $academicYears->save();
+        $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
+        } 
+       
     }
 
 

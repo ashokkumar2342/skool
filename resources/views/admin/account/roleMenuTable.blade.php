@@ -25,7 +25,7 @@
    
  </div>  <div class="col-md-1" style="margin-top: 24px"> 
   
-  <a href="{{ route('admin.account.default.user.role.report.generate',$id) }}" class="btn btn-success" target="blank" title="">PDF</a>
+  <a href="{{ route('admin.account.default.user.role.report.generate',$id) }}" class="btn btn-primary" target="blank" title="">PDF</a>
   
    
  </div> 

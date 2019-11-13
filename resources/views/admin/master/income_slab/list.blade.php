@@ -1,35 +1,16 @@
 @extends('admin.layout.base')
 @section('body')
   <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">          
-            <!-- /.box-header -->            
+    <section class="content"> 
           <div class="box">
             <div class="box-header">
+              <?php $url = route('admin.incomeSlab.edit') ?>
+              <a class="btn btn-info btn-sm pull-right"  onclick="callPopupMd(this,'{{$url}}')"></i>Add Income Slab</a>
               <h3 class="box-title">Income Slab</h3>
-            </div>
-              
-
-            <!-- /.box-header -->
+            </div> 
             <div class="box-body">
               <div class="row">
-                <div class="col-lg-4">
-                      <form action="{{ route('admin.incomeSlab.store') }}" redirect-to="{{ route('admin.incomeSlab.list') }}" method="post" class="add_form form-horizontal" accept-charset="utf-8"> 
-                        {{ csrf_field() }} 
-                    <label>Income Slab</label>
-                     <input type="text" name="range" maxlength="30" class="form-control" placeholder="Enter Income Slab" required="">
-                     <label style="margin-top: 10px">Income Code</label>
-                     <input type="text" name="code" maxlength="5" class="form-control" placeholder="Enter Income Code" required="">
-                     <div class="text-right" style="padding-top: 5px">
-                       <input type="submit" value="save" class="btn btn-success btn-sm">
-                     </div>
-                     
-
-                  </form>
-                  
-                </div>
-                <div class="col-lg-8">
+                <div class="col-lg-12"> 
                     <table id="dataTable" class="table table-bordered table-striped">
                       <thead>
                       <tr>
@@ -53,7 +34,7 @@
                         <td> 
                            @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
                             <?php $url = route('admin.incomeSlab.edit',Crypt::encrypt($incomeSlab->id)) ?>
-                          <a class="btn btn-success btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a>
+                          <a class="btn btn-info btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a>
                           @endif 
                           @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                           <a href="{{ route('admin.incomeSlab.delete',Crypt::encrypt($incomeSlab->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
@@ -62,6 +43,7 @@
                        
                       </tr> 
                       @endforeach
+                    </tbody>
                     </table>  
                 </div>
               </div>
@@ -72,11 +54,7 @@
             <!-- /.box-body -->
             
           </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
+         
     </section>
     <!-- /.content -->
 

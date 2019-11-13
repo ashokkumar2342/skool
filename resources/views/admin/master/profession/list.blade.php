@@ -1,35 +1,16 @@
 @extends('admin.layout.base')
 @section('body')
   <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">          
-            <!-- /.box-header -->            
+    <section class="content"> 
           <div class="box">
             <div class="box-header">
+              <?php $url = route('admin.profession.edit') ?>
+              <a class="btn btn-success btn-sm pull-right"  onclick="callPopupMd(this,'{{$url}}')">Add Profession</a>
               <h3 class="box-title">Profession</h3>
-            </div>
-              
-
-            <!-- /.box-header -->
+            </div> 
             <div class="box-body">
-              <div class="row">
-                <div class="col-lg-4">
-                      <form action="{{ route('admin.profession.store') }}" redirect-to="{{ route('admin.profession.list') }}" method="post" class="add_form form-horizontal" accept-charset="utf-8"> 
-                        {{ csrf_field() }} 
-                        <label>Profession</label>
-                     <input type="text" name="name" maxlength="50" class="form-control" placeholder="Enter Profession" required="">
-                     <label style="margin-top: 10px">Code</label>
-                     <input type="text" name="code" maxlength="5" class="form-control" placeholder="Enter Code" required="">
-                     <div class="text-right" style="padding-top: 5px">
-                       <input type="submit" value="save" class="btn btn-success btn-sm">
-                     </div>
-                     
-
-                  </form>
-                  
-                </div>
-                <div class="col-lg-8">
+              <div class="row"> 
+                <div class="col-lg-12">
                     <table id="dataTable" class="table table-bordered table-striped">
                       <thead>
                       <tr>
@@ -62,6 +43,7 @@
                        
                       </tr> 
                       @endforeach
+                    </tbody>
                     </table>  
                 </div>
               </div>
@@ -72,11 +54,7 @@
             <!-- /.box-body -->
             
           </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
+        
     </section>
     <!-- /.content -->
 

@@ -44,9 +44,14 @@ class RoomController extends Controller
             return response()->json($response);
         } 
     }
-    public function edit($id){
-      $roomTypes=RoomType::findOrFail(Crypt::decrypt($id));
-    return view('admin.room.edit',compact('roomTypes'));
+    public function edit($id=null){
+        if ($id!=null) {
+         $roomTypes=RoomType::findOrFail(Crypt::decrypt($id)); 
+        }
+        if ($id==null) {
+         $roomTypes=''; 
+        }
+       return view('admin.room.edit',compact('roomTypes'));
     }
      public function destroy($id)
     {
@@ -54,9 +59,8 @@ class RoomController extends Controller
     	 $roomType->delete();
     	 return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
-     public function update(Request $request,$id){
-      $admin=Auth::guard('admin')->user()->id;
-       
+     public function update(Request $request,$id=null){
+      $admin=Auth::guard('admin')->user()->id; 
     	$rules=[
     	  
              'room_name' => 'required|max:50|unique:room_types,name,'.$id,
@@ -74,12 +78,12 @@ class RoomController extends Controller
     	    return response()->json($response);// response as json
     	}
         else {
-         $roomType= RoomType::find($id);
+         $roomType= RoomType::firstOrNew(['id'=>$id]); 
          $roomType->name=$request->room_name;
          $roomType->location=$request->location;
          $roomType->last_updated_by=$admin;
          $roomType->save();
-         $response=['status'=>1,'msg'=>'Update Successfully'];
+         $response=['status'=>1,'msg'=>'Submit Successfully'];
             return response()->json($response);
         } 
     }

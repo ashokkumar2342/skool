@@ -59,15 +59,20 @@ class MasterController extends Controller
         return $response; 
     }
 
-    public function incomeSlabEdit($id)
-    {   
+    public function incomeSlabEdit($id='')
+    {   if ($id!=null) {
         $id =Crypt::decrypt($id); 
         $incomeRange =IncomeRange::find($id); 
+       }
+       if ($id==null) {
+        
+        $incomeRange =''; 
+       }
         return view('admin.master.income_slab.edit',compact('incomeRange')); 
         
     }
 
-    public function incomeSlabUpdate(Request $request,$id)
+    public function incomeSlabUpdate(Request $request,$id='')
     {    
       $id =Crypt::decrypt($id);
       $admin=Auth::guard('admin')->user()->id;
@@ -85,7 +90,7 @@ class MasterController extends Controller
           return response()->json($response);// response as json
       } 
         
-        $incomeRange = IncomeRange::find($id);;
+        $incomeRange = IncomeRange::firstOrNew(['id'=>$id]);;
         $incomeRange->range = $request->range;
         $incomeRange->code = $request->code;
         $incomeRange->last_updated_by =$admin;
@@ -149,15 +154,20 @@ class MasterController extends Controller
             return $response; 
         }
 
-        public function professionEdit($id)
-        {   
+        public function professionEdit($id='')
+        {   if ($id!='') {
             $id =Crypt::decrypt($id); 
             $profession =Profession::find($id); 
+            }
+            if ($id=='') {
+             
+            $profession =''; 
+            }
             return view('admin.master.profession.edit',compact('profession')); 
             
         }
 
-        public function professionUpdate(Request $request,$id)
+        public function professionUpdate(Request $request,$id='')
         {  $id =Crypt::decrypt($id);
             $admin=Auth::guard('admin')->user()->id;
             $rules=[
@@ -173,7 +183,7 @@ class MasterController extends Controller
               return response()->json($response);// response as json
           }  
             
-            $profession = Profession::find($id);;
+            $profession = Profession::firstOrNew(['id'=>$id]);;
             $profession->name = $request->name;
             $profession->code = $request->code;
             $profession->last_updated_by = $admin;

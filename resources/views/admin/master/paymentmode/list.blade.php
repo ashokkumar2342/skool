@@ -3,44 +3,17 @@
 <section class="content-header">
     <h1>Payment Mode List</h1>
       <ol class="breadcrumb">
-         <a href="{{ route('admin.paymentMode.pdf.generate') }}" class="btn btn-sm btn-success pull-right" target="blank"  title="Download PDF">PDF</a>
+         <?php $url = route('admin.paymentMode.edit') ?>
+         <a class="btn btn-info btn-sm pull-right"  onclick="callPopupMd(this,'{{$url}}')">Add Payment Mode</a>
+         <a href="{{ route('admin.paymentMode.pdf.generate') }}" class="btn btn-sm btn-success pull-right" target="blank"  title="Download PDF" style="margin-right: 10px">PDF</a>
       </ol>
 </section>
-    <section class="content">
-        <div class="box">             
-            <!-- /.box-header -->
-            <div class="box-body">             
-                <div class="col-md-12"> 
-                  <form class="form-vertical" id="form_academic_year">                     
-                        <div class="col-lg-4">                           
-                             <div class="form-group">
-                              {{ Form::label('name','Payment Mode',['class'=>' control-label']) }}
-                               {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Enter Payment Mode ','maxlength'=>'50']) }}
-                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
-                             </div>    
-                        </div>
-                        <div class="col-lg-3">                           
-                             <div class="form-group">
-                              {{ Form::label('sorting_order_id','Sorting Order No',['class'=>' control-label']) }}
-                               {{ Form::text('sorting_order_id',null,['class'=>'form-control','placeholder'=>'Enter Sorting Order No','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
-                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
-                             </div>    
-                        </div>
-                         
-                        <div class="col-lg-2">                           
-                             <div class="form-group" style="padding-top: 20px;">
-                              <button class="btn btn-success" type="button" id="btn_academic_year_create">Create</button> 
-                             </div>    
-                        </div>             
-                  </form> 
-                </div> 
-            </div>
-            <!-- /.box-body -->
-
-            <div class="box">             
-              <!-- /.box-header -->
+    <section class="content"> 
+            <div class="box"> 
                 <div class="box-body">
-                    <table class="table" id="table_academic_year">
+                  <div class="row">
+                  <div class="col-lg-12"> 
+                    <table class="table" id="table_payment_mode">
                          
                         <thead>
                             <tr>
@@ -62,7 +35,7 @@
                                     <td>{{ $paymentmode->sorting_order_id}}</td>
                                     <td class="text-nowrap"> @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
                                         <?php $url = route('admin.paymentMode.edit',Crypt::encrypt($paymentmode->id)) ?>
-                                      <a class="btn btn-success btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a> 
+                                      <a class="btn btn-info btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a> 
                                         @endif
                                         @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                                       <a href="{{ route('admin.paymentMode.delete',Crypt::encrypt($paymentmode->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
@@ -72,26 +45,34 @@
                                 </tr>
                              @endforeach
                         </tbody>
-                    </table>
-
+                    </table> 
                 </div>
             </div> 
           </div>
+        </div>
+        
          
  
     </section>
     <!-- /.content -->
 @endsection
 @push('links')
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"> 
-   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
-@endpush 
+@endpush
  @push('scripts')
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+ <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
  <script>
+   $(document).ready(function() {
+       $('#table_payment_mode').DataTable( {
+            
+       } );
+   } );  
  
     $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
    

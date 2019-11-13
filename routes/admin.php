@@ -67,10 +67,10 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::prefix('academic-year')->group(function () {
 		    Route::get('list', 'AcademicYearController@index')->name('admin.academicYear.list');
 		    Route::post('store', 'AcademicYearController@store')->name('admin.academicYear.store');
-		    Route::get('edit/{id}', 'AcademicYearController@edit')->name('admin.academicYear.edit');
+		    Route::get('edit/{id?}', 'AcademicYearController@edit')->name('admin.academicYear.edit');
 		    Route::get('default-value/{id}', 'AcademicYearController@defaultValue')->name('admin.academicYear.default.value');
 		    Route::get('pdf-generate', 'AcademicYearController@pdfGenerate')->name('admin.academicYear.pdf.generate');
-		    Route::post('update/{id}', 'AcademicYearController@update')->name('admin.academicYear.update');
+		    Route::post('update/{id?}', 'AcademicYearController@update')->name('admin.academicYear.update');
 		    Route::get('delete/{id}', 'AcademicYearController@destroy')->name('admin.academicYear.delete');
 		    Route::get('document-type', 'DocumentTypeController@index')->name('admin.document.type');
 		    Route::post('document-store', 'DocumentTypeController@store')->name('admin.document.store');
@@ -82,8 +82,8 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::prefix('payment-mode')->group(function () {
 		    Route::get('list', 'PaymentModeController@index')->name('admin.paymentMode.list');
 		    Route::post('store', 'PaymentModeController@store')->name('admin.paymentMode.store');
-		    Route::get('edit/{id}', 'PaymentModeController@edit')->name('admin.paymentMode.edit');
-		    Route::post('update/{id}', 'PaymentModeController@update')->name('admin.paymentMode.update');
+		    Route::get('edit/{id?}', 'PaymentModeController@edit')->name('admin.paymentMode.edit');
+		    Route::post('update/{id?}', 'PaymentModeController@update')->name('admin.paymentMode.update');
 		    Route::get('delete/{id}', 'PaymentModeController@destroy')->name('admin.paymentMode.delete');
 		    Route::get('pdf-generate', 'PaymentModeController@pdfGenerate')->name('admin.paymentMode.pdf.generate');
 		     
@@ -778,8 +778,8 @@ Route::group(['middleware' => 'admin'], function() {
 			Route::group(['prefix' => 'incomeSlab'], function() {
 			    Route::get('/', 'MasterController@incomeSlab')->name('admin.incomeSlab.list');	 	
 			    Route::post('store', 'MasterController@incomeSlabStore')->name('admin.incomeSlab.store'); });
-			    Route::get('edit/{id}', 'MasterController@incomeSlabEdit')->name('admin.incomeSlab.edit');
-			    Route::post('update/{id}', 'MasterController@incomeSlabUpdate')->name('admin.incomeSlab.update');
+			    Route::get('edit/{id?}', 'MasterController@incomeSlabEdit')->name('admin.incomeSlab.edit');
+			    Route::post('update/{id?}', 'MasterController@incomeSlabUpdate')->name('admin.incomeSlab.update');
 			    Route::get('delete/{id}', 'MasterController@incomeSlabDestroy')->name('admin.incomeSlab.delete');
 
 			}); 
@@ -796,8 +796,8 @@ Route::group(['middleware' => 'admin'], function() {
 			Route::group(['prefix' => 'profession'], function() {
 			    Route::get('/', 'MasterController@profession')->name('admin.profession.list');	 	
 			    Route::post('store', 'MasterController@professionStore')->name('admin.profession.store');
-			    Route::get('edit/{id}', 'MasterController@professionEdit')->name('admin.profession.edit');
-			    Route::post('update/{id}', 'MasterController@professionUpdate')->name('admin.profession.update');
+			    Route::get('edit/{id?}', 'MasterController@professionEdit')->name('admin.profession.edit');
+			    Route::post('update/{id?}', 'MasterController@professionUpdate')->name('admin.profession.update');
 			    Route::get('delete/{id}', 'MasterController@professionDestroy')->name('admin.profession.delete');
 
 			});	
@@ -1127,9 +1127,9 @@ Route::group(['middleware' => 'admin'], function() {
                Route::group(['prefix' => 'room-details'], function() {
                	 Route::get('/', 'Room\RoomController@index')->name('admin.room.details');
                	 Route::post('store', 'Room\RoomController@store')->name('admin.room.details.store');
-               	 Route::get('edit/{id}', 'Room\RoomController@edit')->name('admin.room.details.edit');
+               	 Route::get('edit/{id?}', 'Room\RoomController@edit')->name('admin.room.details.edit');
                	 Route::get('delete/{id}', 'Room\RoomController@destroy')->name('admin.room.details.delete');
-               	 Route::post('update/{id}', 'Room\RoomController@update')->name('admin.room.details.update');
+               	 Route::post('update/{id?}', 'Room\RoomController@update')->name('admin.room.details.update');
           });
            Route::group(['prefix' => 'class-wise-room'], function() {
                	 Route::get('/', 'Room\ClassRoomController@index')->name('admin.class.wise.room.details');

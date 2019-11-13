@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class IncomeRange extends Model
 {
 	
-    //
+    protected $fillable = [
+        'id',  
+    ];
 }
