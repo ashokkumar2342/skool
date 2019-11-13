@@ -65,7 +65,10 @@
              
             </a>
             <ul class="dropdown-menu">
-              <!-- User image -->
+              @php
+                $admins=Auth::guard('admin')->user();
+                $profile = route('admin.profile.photo.show',$admins->profile_pic);
+                @endphp
               <li class="user-header">
                  <img src="{{ $profile }}" class="img-circle" >
                 <p>
