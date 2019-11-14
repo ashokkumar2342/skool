@@ -62,6 +62,13 @@ Route::group(['middleware' => 'admin'], function() {
 						
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 
 	});
+	Route::prefix('user-report')->group(function () {
+		    Route::get('/', 'UserReportController@index')->name('admin.user.report');
+		    Route::get('report-type-filter', 'UserReportController@reportTypeFilter')->name('admin.user.report.type.filter');
+		    Route::post('filter', 'UserReportController@filter')->name('admin.user.report.filter');
+		    
+		     
+		});
 	//---------------master-----------------------------------------	
 	Route::prefix('master-minu')->group(function () {
 		Route::prefix('academic-year')->group(function () {
@@ -74,8 +81,8 @@ Route::group(['middleware' => 'admin'], function() {
 		    Route::get('delete/{id}', 'AcademicYearController@destroy')->name('admin.academicYear.delete');
 		    Route::get('document-type', 'DocumentTypeController@index')->name('admin.document.type');
 		    Route::post('document-store', 'DocumentTypeController@store')->name('admin.document.store');
-		    Route::get('document-edit/{id}', 'DocumentTypeController@edit')->name('admin.document.type.edit');
-		    Route::post('document-update/{id}', 'DocumentTypeController@update')->name('admin.document.type.update');
+		    Route::get('document-edit/{id?}', 'DocumentTypeController@edit')->name('admin.document.type.edit');
+		    Route::post('document-update/{id?}', 'DocumentTypeController@update')->name('admin.document.type.update');
 		    Route::get('document-delete/{id}', 'DocumentTypeController@destroy')->name('admin.document.type.delete');
 		     
 		});
@@ -1133,6 +1140,7 @@ Route::group(['middleware' => 'admin'], function() {
           });
            Route::group(['prefix' => 'class-wise-room'], function() {
                	 Route::get('/', 'Room\ClassRoomController@index')->name('admin.class.wise.room.details');
+               	 Route::get('refrash', 'Room\ClassRoomController@reFrash')->name('admin.class.wise.room.refrash');
                	 Route::post('store', 'Room\ClassRoomController@store')->name('admin.class.wise.room.store');
                	 Route::get('edit/{id}', 'Room\ClassRoomController@edit')->name('admin.class.wise.room.details.edit');
                	 Route::get('delete/{id}', 'Room\ClassRoomController@destroy')->name('admin.class.wise.room.details.delete');
