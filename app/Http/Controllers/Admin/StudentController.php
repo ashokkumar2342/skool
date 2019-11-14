@@ -267,7 +267,7 @@ class StudentController extends Controller
         $student->date_of_activation= $request->date_of_activation == null ? $request->date_of_activation : date('Y-m-d',strtotime($request->date_of_activation));
         $student->name= $request->student_name;
         $student->nick_name= $request->nick_name; 
-        $student->email= $request->email;
+        
         $student->dob= $request->date_of_birth == null ? $request->date_of_birth : date('Y-m-d',strtotime($request->date_of_birth));
         $student->gender_id= $request->gender; 
         if($student->save()){            

@@ -41,7 +41,7 @@
       </div>
      <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary ">@if(@$classes) Update @else Save @endif</button>
+            <button type="submit" class="btn btn-success">Submit</button>
 
          </div>
          {!! Form::close() !!}

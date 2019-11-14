@@ -38,7 +38,7 @@
                </div>
                <div class="col-lg-12 text-center">                           
                     <div class="form-group" style="padding-top: 20px;">
-                     <input class="btn btn-success" type="submit" value="Update"> 
+                     <input class="btn btn-success" type="submit"> 
                     </div>    
                </div>      
                

@@ -7,29 +7,14 @@
             <!-- /.box-header -->            
           <div class="box">
             <div class="box-header">
+              <?php $url = route('admin.document.type.edit') ?>
+              <a class="btn btn-info btn-sm pull-right"  onclick="callPopupMd(this,'{{$url}}')">Add Document</a>
               <h3 class="box-title">Document Type List</h3>
             </div>
               
 
             <!-- /.box-header -->
             <div class="box-body"> 
-                      <form action="{{ route('admin.document.store') }}" redirect-to="{{ route('admin.document.type') }}" method="post" class="add_form form-horizontal" accept-charset="utf-8"> 
-                        {{ csrf_field() }}
-                        <div class="row">
-                          <div class="col-lg-4"> 
-                            <label>Document Type</label>
-                              <input type="text" name="name" maxlength="50" class="form-control" placeholder="Enter Document Type Name">
-                            </div>
-                            <div class="col-lg-4">
-                              <label>Document Code</label>
-                              <input type="text" name="code" class="form-control" maxlength="5" placeholder="Enter Document Code"> 
-                            </div> 
-                       </form>
-                       <div class="col-lg-4" style="padding-top: 24px">
-                       <input type="submit" value="save" class="btn btn-success btn-sm">
-                     </div> 
-                  
- 
                 <div class="col-lg-12" style="margin-top: 20px">
                     <table id="dataTable" class="table table-bordered table-striped">
                       <thead>
@@ -55,7 +40,7 @@
                         <td>
                          @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
                             <?php $url = route('admin.document.type.edit',Crypt::encrypt($document->id)) ?>
-                          <a class="btn btn-success btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a> 
+                          <a class="btn btn-info btn-xs"  onclick="callPopupMd(this,'{{$url}}')"><i class="fa fa-edit"></i></a> 
                           @endif
                           @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                           <a href="{{ route('admin.document.type.delete',Crypt::encrypt($document->id)) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>

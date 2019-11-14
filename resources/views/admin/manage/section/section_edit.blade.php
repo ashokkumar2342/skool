@@ -42,7 +42,7 @@
       </div>
       <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary ">@if(@$sectionType) Update @else Save @endif</button>
+            <button type="submit" class="btn btn-success ">Submit</button>
 
          </div>
             </form>

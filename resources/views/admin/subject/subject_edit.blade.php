@@ -48,7 +48,7 @@
       </div>
           <div class="modal-footer"> 
             <a class="btn btn-default" onclick="$('#btn_close').click()" >Close</a>
-            <button type="submit" class="btn btn-primary ">Update</button> 
+            <button type="submit" class="btn btn-success ">Submit</button> 
          </div>
       </form>
     </div>

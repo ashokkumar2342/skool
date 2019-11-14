@@ -2,7 +2,7 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header"> 
-    <h1>Assing Class Rooms<small>Details</small> </h1> 
+    <h1>Assign Class Rooms<small>Details</small> </h1> 
     </section>  
     <section class="content"> 
       <div class="box"> 

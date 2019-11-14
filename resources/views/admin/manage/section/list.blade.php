@@ -38,7 +38,7 @@
                   <td align="center">
                    @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
 
-                   <button class="btn btn-info btn-xs" onclick="callPopupMd(this,'{{ route('admin.section.edit',$section->id) }}')" ><i class="fa fa-pencil"></i></button>                    
+                   <button class="btn btn-info btn-xs" onclick="callPopupMd(this,'{{ route('admin.section.edit',$section->id) }}')" ><i class="fa fa-edit"></i></button>                    
                     
                     @endif
                      @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)

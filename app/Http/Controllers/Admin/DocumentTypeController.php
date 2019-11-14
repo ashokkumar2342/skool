@@ -19,7 +19,7 @@ class DocumentTypeController extends Controller
     public function index()
     {
        
-        $documentTypes = DocumentType::all();
+        $documentTypes = DocumentType::orderBy('name','ASC')->get();
         return view('admin.master.document.list',compact('documentTypes'));
     }
 
@@ -28,15 +28,21 @@ class DocumentTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-  public function edit($id)
+  public function edit($id='')
   {   
+    if ($id!='') {
       $id =Crypt::decrypt($id); 
       $document =DocumentType::find($id); 
+    }
+    if ($id=='') {
+      
+      $document =''; 
+    }
       return view('admin.master.document.edit',compact('document')); 
       
   }
 
-  public function update(Request $request,$id)
+  public function update(Request $request,$id='')
   {  
     $id =Crypt::decrypt($id);
        $admin=Auth::guard('admin')->user()->id;  
@@ -54,7 +60,7 @@ class DocumentTypeController extends Controller
       }
       
        
-      $document = DocumentType::find($id);
+      $document = DocumentType::firstOrNew(['id'=>$id]);
       $document->name = $request->documentType; 
       $document->code = $request->code; 
       $document->last_updated_by = $admin; 

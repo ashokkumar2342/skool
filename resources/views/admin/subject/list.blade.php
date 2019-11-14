@@ -38,7 +38,7 @@
                   <td>{{ $subject->sorting_order_id }}</td>
                   <td > 
                    @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)                   
-                    <button class="btn btn-info btn-xs col-md-3" onclick="callPopupLarge(this,'{{ route('admin.subjectType.edit',$subject->id) }}')"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-info btn-xs col-md-3" onclick="callPopupLarge(this,'{{ route('admin.subjectType.edit',$subject->id) }}')"><i class="fa fa-edit"></i></button>
                     @endif
                      @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                      <a href="{{ route('admin.subjectType.delete',$subject->id) }}" title=""></a>
@@ -98,7 +98,7 @@
      <div class="modal-footer">
             {{-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> --}}
             <a class="btn btn-default" href="{{ route('admin.subjectType.list') }}"  >Close</a>
-            <button type="submit" class="btn btn-primary ">{{ @($subjectType)? 'Update' : 'Save'}}</button>
+            <button type="submit" class="btn btn-success ">Submit</button>
 
          </div>
          {!! Form::close() !!}

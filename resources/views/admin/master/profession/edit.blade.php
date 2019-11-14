@@ -22,8 +22,8 @@
             </div>    
        </div>
        <div class="col-lg-12">
-         <div class="text-right"><br>
-             <input type="submit" class="btn btn-success btn-sm" name="update" id="btn-update" value="Update"   />
+         <div class="text-center"><br>
+             <input type="submit" class="btn btn-success btn-sm" name="update" id="btn-update">
               
            </div>
        </div>

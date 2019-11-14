@@ -43,7 +43,7 @@
                   <td>{{ $class->shorting_id }}</td>
                   <td align="center">
                     @if(Auth::guard('admin')->user()->minus()->where('minu_id',2)->first()->w_status == 1)
-                    <a class="btn btn-info btn-xs" href="#" onclick="callPopupLarge(this,'{{ route('admin.class.edit',$class->id) }}')"><i class="fa fa-pencil"></i></a>
+                    <a class="btn btn-info btn-xs" href="#" onclick="callPopupLarge(this,'{{ route('admin.class.edit',$class->id) }}')"><i class="fa fa-edit"></i></a>
                     @endif
                     @if(Auth::guard('admin')->user()->minus()->where('minu_id',2)->first()->d_status == 1)
                     <a class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data ?')" href="{{ route('admin.class.delete',$class->id) }}"><i class="fa fa-trash"></i></a>
