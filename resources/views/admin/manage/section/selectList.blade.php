@@ -1,3 +1,4 @@
+ <div class="col-lg-4 form-group">
  {{ Form::label('section','Section',['class'=>' control-label']) }} <br>
 <select class="multiselect" multiple="multiple"  name="section_id[]" > 
   {{-- @foreach ($classes as $class) 
@@ -11,5 +12,9 @@
    {{--  </optgroup>
   @endforeach   --}}
      
-</select>
-<input type="submit" value="Submit" class="btn btn-success" style="margin-left: 10px">
+</select> 
+ </div>
+ <div class="col-lg-1" >
+<input type="submit" value="Submit" class="btn btn-success" style="margin-top: 25px">
+ 	
+ </div>

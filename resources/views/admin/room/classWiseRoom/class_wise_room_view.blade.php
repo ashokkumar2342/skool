@@ -31,7 +31,7 @@
                 </div> 
               </div>
                <div class="col-lg-12 text-center">
-                <input type="submit" class="btn btn-success" value="submit" style="margin: 24px"> 
+                <input type="submit" class="btn btn-success" style="margin: 24px"> 
             </div>
                 
              </form>

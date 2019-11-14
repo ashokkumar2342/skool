@@ -793,9 +793,9 @@ Route::group(['middleware' => 'admin'], function() {
 		    Route::group(['prefix' => 'guardian'], function() {
 			    Route::get('guardian', 'MasterController@guardian')->name('admin.guardian.list');	 	
 			    Route::post('guardian-store', 'MasterController@guardianStore')->name('admin.guardian.store');	 	
-			    Route::get('guardian-edit/{id}', 'MasterController@guardianEdit')->name('admin.guardian.edit');	 	
+			    Route::get('guardian-edit/{id?}', 'MasterController@guardianEdit')->name('admin.guardian.edit');	 	
 			    Route::get('guardian-delete/{id}', 'MasterController@guardianDelete')->name('admin.guardian.delete');	 	
-			    Route::post('guardian-update/{id}', 'MasterController@guardianUpdate')->name('admin.guardian.update');	 	
+			    Route::post('guardian-update/{id?}', 'MasterController@guardianUpdate')->name('admin.guardian.update');	 	
 			    	 	
 			    
 
@@ -1266,7 +1266,10 @@ Route::group(['middleware' => 'admin'], function() {
 
 
            Route::group(['prefix' => 'genders'], function() {
-               	 Route::get('gender', 'GenderController@gender')->name('admin.gender.gender'); 
+               	 Route::get('/', 'GenderController@index')->name('admin.gender.gender'); 
+               	 Route::get('add/{id?}', 'GenderController@addForm')->name('admin.gender.addform'); 
+               	 Route::post('store/{id?}', 'GenderController@Store')->name('admin.gender.store'); 
+               	 Route::get('delete/{id}', 'GenderController@destroy')->name('admin.gender.delete'); 
                	  
                	 
        });
@@ -1281,6 +1284,7 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('email-api-list', 'ApiSetingController@emailApiList')->name('admin.api.emailApilist'); 
                	 Route::get('email-api-delete/{id}', 'ApiSetingController@emailApiDestroy')->name('admin.api.emailApidelete'); 
                	 Route::get('status/{id}{condition_id}', 'ApiSetingController@status')->name('admin.api.status'); 
+               	 Route::get('test-mwssage/{id}', 'ApiSetingController@testMessage')->name('admin.api.test.message'); 
                	 
                	  
                	 

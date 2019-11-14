@@ -2,7 +2,8 @@
                <thead>
                  <tr> 
                    <th class="text-nowrap">Sr.No.</th> 
-                   <th class="text-nowrap">Award Level</th> 
+                   <th class="text-nowrap">Award Level Name</th> 
+                   <th class="text-nowrap">Award Level Code</th> 
                    <th>Action</th>
                  </tr>
                </thead>
@@ -14,6 +15,7 @@
                  <tr>
                    <td >{{ $ArrayId++ }}</td> 
                    <td >{{ $awardLevel->name }}</td> 
+                   <td >{{ $awardLevel->code }}</td> 
                    
                     
                    <td>

@@ -32,12 +32,22 @@
                       <label>Sender Name</label>
                       <input type="text" name="sender_name" class="form-control" placeholder="Enter Sender Name" required="" value="{{ @$smsApi->sender_id }}"> 
                     </div>  
-                    <div class="form-group   col-lg-12">
+                    <div class="form-group col-lg-12">
                       <label>URL</label>
-                      <textarea  name="url" class="form-control" placeholder="Enter URL" required="">{{ @$smsApi->url }}</textarea>
-                     
+                      <textarea  name="url" class="form-control" placeholder="Enter URL" required="">{{ @$smsApi->url }}</textarea> 
                     </div>
+                    <div class="form-group   col-lg-4">
+                      <label>Mobile No</label>
+                      <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Enter Mobile No"> 
+                    </div>
+                    <div class="form-group   col-lg-4">
+                       <a href="#" class="btn btn-warning" style="margin-top: 25px" onclick="callAjax(this,'{{ route('admin.api.test.message',1) }}'+'?mobile='+$('#mobile').val(),'')">Test Message</a>
+                    </div> 
                    <div class="row">
+                    <div class="col-lg-6" style="margin-left: 20px">
+                      <label>Enable Auto Send</label>
+                        <input type="checkbox" name="">
+                    </div>
                     <div class="col-lg-12 text-center" style="padding-top: 10px">
                       <input type="submit" class="btn btn-success">
                     </div> 

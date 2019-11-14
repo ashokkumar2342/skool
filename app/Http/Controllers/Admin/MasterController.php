@@ -213,7 +213,7 @@ class MasterController extends Controller
 //-----------------guardian------------------------------------------------------------------        
         public function guardian()
         {
-           $guardianRelationTypes= GuardianRelationType::orderBy('id','ASC')->get();
+           $guardianRelationTypes= GuardianRelationType::orderBy('name','ASC')->get();
             return view('admin.master.guardian.list',compact('guardianRelationTypes')); 
         }
         public function guardianStore(Request $request)
@@ -241,9 +241,14 @@ class MasterController extends Controller
             return response()->json($response);
           }  
         }
-        public function guardianEdit($id)
+        public function guardianEdit($id='')
         {
-            $guardianRelationType=GuardianRelationType::find($id);
+          if ($id!='') {
+            $guardianRelationType=GuardianRelationType::find($id); 
+          }
+          if ($id=='') {
+            $guardianRelationType=''; 
+          }
             return view('admin.master.guardian.edit',compact('guardianRelationType')); 
         }
         public function guardianDelete($id)
@@ -252,10 +257,11 @@ class MasterController extends Controller
             $guardianRelationType->delete();
              return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         }
-        public function guardianUpdate(Request $request ,$id)
+        public function guardianUpdate(Request $request ,$id='')
         {
             $rules=[
-             'name' => 'required|max:30|unique:guardian_relation_types,name,'.$id 
+             'name' => 'required|max:30|unique:guardian_relation_types,name,'.$id, 
+             'code' => 'required|max:5|unique:guardian_relation_types,code,'.$id 
          ];
 
          $validator = Validator::make($request->all(),$rules);
@@ -267,8 +273,9 @@ class MasterController extends Controller
              return response()->json($response);// response as json
          }
         else {
-        $guardianRelationType= GuardianRelationType::find($id);
+        $guardianRelationType= GuardianRelationType::firstOrNew(['id'=>$id]);
         $guardianRelationType->name=$request->name; 
+        $guardianRelationType->code=$request->code; 
         $guardianRelationType->save();
         $response=['status'=>1,'msg'=>'Update Successfully'];
             return response()->json($response);

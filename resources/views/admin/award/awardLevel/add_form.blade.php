@@ -8,7 +8,7 @@
   
 </style>
  
-  <div class="modal-dialog" style="width:40%">
+  <div class="modal-dialog" style="width:50%">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -20,9 +20,13 @@
              <form action="{{ route('admin.award.level.store',@$awardLevel->id) }}" method="post" class="add_form" button-click="btn_event_type_table_show,btn_close">
                    {{ csrf_field() }}
                    <div class="row"> 
-                    <div class="form-group   col-lg-12">
+                    <div class="form-group   col-lg-6">
                       <label>Award Level Name</label>
-                      <input type="text" name="award_level" class="form-control" placeholder="" maxlength="150" required="" value="{{ @$awardLevel->name }}"> 
+                      <input type="text" name="award_level" class="form-control" placeholder="" maxlength="50" required="" value="{{ @$awardLevel->name }}"> 
+                    </div>
+                    <div class="form-group   col-lg-6">
+                      <label>Award Level Code</label>
+                      <input type="text" name="code" class="form-control" placeholder="" maxlength="5" required="" value="{{ @$awardLevel->code }}"> 
                     </div> 
                     
                    <div class="row">

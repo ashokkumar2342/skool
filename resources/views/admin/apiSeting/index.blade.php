@@ -2,7 +2,7 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header"> 
-    <h1>Api Settings<small>List</small> </h1>
+    <h1>SMS/Email API<small>List</small> </h1>
        
     </section>  
     <section class="content">
@@ -12,7 +12,7 @@
             <div class="box-body">
               <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">SMS API</a></li>
-                <li><a data-toggle="tab" href="#menu1">E-mail API</a></li> 
+                <li><a data-toggle="tab" href="#menu1">Email API</a></li> 
               </ul>
 
               <div class="tab-content">

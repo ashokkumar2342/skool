@@ -31,7 +31,8 @@ class AwardLevelController extends Controller
    	 
    	 $rules=[
     	  
-            'award_level' => 'required', 
+            'award_level' => 'required|max:50|unique:award_levels,name,'.$id, 
+            'code' => 'required|max:5|unique:award_levels,code,'.$id, 
     	];
 
     	$validator = Validator::make($request->all(),$rules);
@@ -45,6 +46,7 @@ class AwardLevelController extends Controller
         else {
     	$awardLevel= AwardLevel::firstOrNew(['id'=>$id]); 
     	$awardLevel->name=$request->award_level; 
+      $awardLevel->code=$request->code; 
     	$awardLevel->save();
     	$response=['status'=>1,'msg'=>'Submit Successfully'];
             return response()->json($response);

@@ -35,7 +35,7 @@
                        
                   </div> 
                 </div>
-                <div class="col-md-4" id="section_list">
+                <div id="section_list">
                    
                 </div>
               </div> 

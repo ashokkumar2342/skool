@@ -24,8 +24,8 @@ class HouseController extends Controller
        
     	$rules=[
     	  
-            'code' => 'required|max:5|unique:houses', 
             'name' => 'required|max:50|unique:houses', 
+            'code' => 'required|max:5|unique:houses', 
             
              
              
@@ -53,7 +53,7 @@ class HouseController extends Controller
     }
     public function tableShow($value='')
     {
-    	$houses= House::orderBy('id','DESC')->get();
+    	$houses= House::orderBy('name','ASC')->get();
     	return view('admin.house.table',compact('houses')); 
     }
     public function edit($id)
@@ -73,8 +73,8 @@ class HouseController extends Controller
        $admin=Auth::guard('admin')->user()->id;
     	$rules=[
     	  
-            'code' => 'required|max:5|unique:houses,code,'.$id, 
             'name' => 'required|max:50|unique:houses,name,'.$id, 
+            'code' => 'required|max:5|unique:houses,code,'.$id, 
              
              
        

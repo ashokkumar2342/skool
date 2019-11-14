@@ -24,7 +24,7 @@ class PaymentModeController extends Controller
         $validator = Validator::make($request->all(), [
         
            'name' => 'required|min:2|max:30|unique:payment_modes',
-           'sorting_order_id' => 'required|max:2|unique:payment_modes',  
+           'sorting_order_id' => 'required|max:2',  
         ]);
         if ($validator->fails()) {                    
              return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']);  
@@ -58,7 +58,7 @@ class PaymentModeController extends Controller
         $rules=[
         'name' => 'required|max:30|unique:payment_modes,name,'.$id,
         'code' => 'required|max:2|unique:payment_modes,code,'.$id,
-        'sorting_order_id' => 'required|max:2|unique:payment_modes,sorting_order_id,'.$id,
+        'sorting_order_id' => 'required|max:2',
          
         ]; 
         $validator = Validator::make($request->all(),$rules);

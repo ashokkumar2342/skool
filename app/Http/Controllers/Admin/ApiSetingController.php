@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Admin\Model\EmailApi;
 use App\Admin\Model\SmsApi;
+use App\Events\SmsEvent;
 use App\Http\Controllers\Controller;
+use App\Model\Sms\SmsTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -157,5 +159,13 @@ class ApiSetingController extends Controller
 	            return response()->json($response);	
    	}
 
+   }
+   public function testMessage(Request $request,$id)
+   {
+        $smsTemplate = SmsTemplate::where('id',1)->first()->message; 
+         event(new SmsEvent($request->mobile,$smsTemplate));
+         $response=['status'=>1,'msg'=>'Send Successfully'];
+              return response()->json($response); 
+         
    }
 }

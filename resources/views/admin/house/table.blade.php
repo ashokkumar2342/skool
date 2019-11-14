@@ -18,9 +18,9 @@
 					<td>{{ $house->name }}</td>
 					<td>{{ $house->code }}</td>
 					<td>
-						 <a href="{{ route('admin.house.delete',$house->id) }}" title="Delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
 
 						<button class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.house.edit',$house->id) }}')" title="Edit"><i class="fa fa-edit"></i></button>
+						 <a href="{{ route('admin.house.delete',$house->id) }}" title="Delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
 					</td>
 				</tr> 
 		@endforeach
