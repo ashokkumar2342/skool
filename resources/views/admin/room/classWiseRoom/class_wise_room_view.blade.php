@@ -7,7 +7,7 @@
     <section class="content"> 
       <div class="box"> 
         <div class="box-body">             
-             <form action="{{ route('admin.class.wise.room.store') }}" method="post" class="add_form"  content-refresh="class_wise_room_table">
+             <form action="{{ route('admin.class.wise.room.store') }}" method="post" class="add_form"  content-refresh="class_wise_room_table" button-click="btn_room_select_box">
               {{ csrf_field() }}
               <div class="row">
                 <div class="form-group col-lg-4">
@@ -25,19 +25,8 @@
                     <option selected disabled>Select Section</option> 
                   </select>
                 </div>
-                <div class="form-group col-lg-4">
-                  <label>Room No</label>
-                  <select name="room_name" class="form-control">
-                    <option selected disabled>Select Room Name</option>
-                     @foreach ($roomTypes as $roomType)
-                      @if (in_array($roomType->id,$classWiseRoomSaveId))
-                     
-                        @else
-                           <option value="{{ $roomType->id }}">{{ $roomType->name }}</option>  
-                      @endif 
-                     
-                     @endforeach
-                  </select>
+                  <button type="button" id="btn_room_select_box" class="btn-default hidden" onclick="callAjax(this,'{{ route('admin.class.wise.room.refrash') }}','room_select_box')">btn</button>
+                <div class="form-group col-lg-4" id="room_select_box">
                   
                 </div> 
               </div>
@@ -87,5 +76,6 @@
         $('#class_wise_room_table').DataTable();
     }); 
      $('#btn_outhor_table_show').click();
+     $('#btn_room_select_box').click();
   </script>
   @endpush

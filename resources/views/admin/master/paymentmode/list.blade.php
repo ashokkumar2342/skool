@@ -19,6 +19,7 @@
                             <tr>
                                 <th>Sr.No.</th>
                                 <th>Payment Mode</th>
+                                <th>Code</th>
                                 <th>Sorting Order No</th>
                                 <th class="text-nowrap">Action</th>
                                 
@@ -32,6 +33,7 @@
                                 <tr>
                                     <td>{{ $arrayId++ }}</td>
                                     <td>{{ $paymentmode->name }}</td>
+                                    <td>{{ $paymentmode->code }}</td>
                                     <td>{{ $paymentmode->sorting_order_id}}</td>
                                     <td class="text-nowrap"> @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
                                         <?php $url = route('admin.paymentMode.edit',Crypt::encrypt($paymentmode->id)) ?>

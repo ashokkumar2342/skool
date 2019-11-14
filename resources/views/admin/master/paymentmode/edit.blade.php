@@ -17,6 +17,13 @@
             </div>    
        </div>
        <div class="col-lg-12">                           
+            <div class="form-group">
+             {{ Form::label('code','Code',['class'=>' control-label']) }}
+              {{ Form::text('code',@$paymentMode->code ,['class'=>'form-control','placeholder'=>'Enter Payment Mode Name','maxlength'=>'2']) }}
+              <p class="errorAmount1 text-center alert alert-danger hidden"></p>
+            </div>    
+       </div>
+       <div class="col-lg-12">                           
        <div class="form-group">
         {{ Form::label('sorting_order_id','Sorting Order No',['class'=>' control-label']) }}
          {{ Form::text('sorting_order_id',@$paymentMode->sorting_order_id,['class'=>'form-control','placeholder'=>'Enter Sorting Order No','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}

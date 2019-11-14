@@ -57,6 +57,7 @@ class PaymentModeController extends Controller
         $id =Crypt::decrypt($id); 
         $rules=[
         'name' => 'required|max:30|unique:payment_modes,name,'.$id,
+        'code' => 'required|max:2|unique:payment_modes,code,'.$id,
         'sorting_order_id' => 'required|max:2|unique:payment_modes,sorting_order_id,'.$id,
          
         ]; 
@@ -74,6 +75,7 @@ class PaymentModeController extends Controller
         
         $paymentMode =PaymentMode::firstOrNew(['id'=>$id]); 
         $paymentMode->name = $request->name; 
+        $paymentMode->code = $request->code; 
         $paymentMode->sorting_order_id = $request->sorting_order_id; 
         $paymentMode->last_updated_by=$admin; 
         $paymentMode->save(); 

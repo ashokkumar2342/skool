@@ -23,6 +23,12 @@ class ClassRoomController extends Controller
     	$classTypes=MyFuncs::getClassByHasUser();
     	return view('admin.room.classWiseRoom.class_wise_room_view',compact('roomTypes','classTypes','classWiseRooms','classWiseRoomSaveId'));
     }
+    public function reFrash($value='')
+    {
+        $classWiseRoomSaveId=ClassWiseRoom::pluck('room_id')->toArray();
+        $roomTypes=RoomType::all();
+        return view('admin.room.classWiseRoom.room_select_box',compact('roomTypes','classWiseRoomSaveId'));
+    }
 
     public function store(Request $request){
     	 $admin=Auth::guard('admin')->user()->id;

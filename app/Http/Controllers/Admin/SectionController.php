@@ -23,7 +23,7 @@ class SectionController extends Controller
     public function index()
     {
         $sections = SectionType::all();
-        $manageSections =Section:: orderBy('class_id','ASC')->orderBy('section_id','ASC')->get(); 
+        $manageSections =Section::where('status',1)->orderBy('class_id','ASC')->orderBy('section_id','ASC')->get(); 
         $classes = ClassType::orderBy('shorting_id','ASC')->get();     
         return view('admin.manage.section.manageSection',compact('sections','classes','manageSections'));
     }
@@ -63,7 +63,7 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {        
-        $user_id=Auth::guard('admin')->user()->id;
+        
         $rules=[
         'section_id' => 'required|max:199',
             'class' => 'required|numeric'   
@@ -75,19 +75,26 @@ class SectionController extends Controller
             $response["status"]=0;
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
-        }  
-         
-        $data = $request->except('_token');
+        }
+        $data = $request->except('_token');        
         $section_count = count($data['section_id']);
-         
-        for($i=0; $i < $section_count; $i++){
-        
-            $manageSection = Section::firstOrNew(['class_id'=>$data['class'],'section_id'=>$data['section_id'][$i]]);
+        $sectionOldDatas =  Section::where('class_id',$request->class)->get();  
+        if ($sectionOldDatas->count()!=0) {
+          foreach ($sectionOldDatas as $key => $sectionOldData) {
+            $manageSection =  Section::find($sectionOldData->id); 
+            $manageSection->status =0;
+            $manageSection->save();
+          } 
+        }
+        for ($i=0; $i < $section_count; $i++) { 
+            $user_id=Auth::guard('admin')->user()->id;
+            $manageSection =Section::updateOrCreate(['class_id'=>$request->class,'section_id'=>$data['section_id'][$i]]);
             $manageSection->section_id = $data['section_id'][$i];
             $manageSection->class_id = $data['class'];
-            $manageSection->last_updated_by = $user_id;
-            $manageSection->save();
-        }         
+            $manageSection->last_updated_by= $user_id;
+            $manageSection->status = 1;
+            $manageSection->save(); 
+        }  
        $response['msg'] = 'Save Successfully';
         $response['status'] = 1;
         return response()->json($response); 

@@ -21,7 +21,7 @@ class MasterController extends Controller
      */
     public function incomeSlab()
     {
-        $incomeSlabs = IncomeRange::all();
+        $incomeSlabs = IncomeRange::orderBy('code','ASC')->get();
         return view('admin.master.income_slab.list',compact('incomeSlabs'));
     }
 
@@ -118,7 +118,7 @@ class MasterController extends Controller
 
     public function profession()
         {
-            $professions = Profession::all();
+            $professions = Profession::orderBy('name','ASC')->get();
             return view('admin.master.profession.list',compact('professions'));
         }
 

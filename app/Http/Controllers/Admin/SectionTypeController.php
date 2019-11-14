@@ -32,7 +32,7 @@ class SectionTypeController extends Controller
     public function selectList(Request $request)
     {
         $sections = Section::find($request->id); 
-        $classSections = array_pluck(Section::where('class_id',$request->id)->get(['section_id'])->toArray(), 'section_id'); 
+        $classSections = array_pluck(Section::where('class_id',$request->id)->where('status',1)->get(['section_id'])->toArray(), 'section_id'); 
         $sectionTypes = SectionType::all(); 
         $data= view('admin.manage.section.selectList',compact('sectionTypes','classSections'))->render(); 
         return response($data);
