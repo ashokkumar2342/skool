@@ -75,7 +75,7 @@ class LoginController extends Controller
                    
             } 
 
-            $student = Student::orWhere('email',$request->email)->orWhere('username',$request->email)->first();
+            $student = Student::orWhere('username',$request->email)->first();
              if (!empty($student)) {
                  if (Hash::check($request->password, $student->password)) {
                      auth()->guard('student')->loginUsingId($student->id);
