@@ -1,5 +1,8 @@
 @extends('admin.layout.base')
 @section('body')
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
   <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -20,7 +23,7 @@
                
                  
                   {{ Form::label('User','Users',['class'=>' control-label']) }}
-                  <select class="form-control"  multiselect-form="true"  name="user" id="user_id"  onchange="callAjax(this,'{{route('admin.account.classAllSelect')}}'+'?id='+this.value,'class_all')" > 
+                  <select class="form-control"  multiselect-form="true" data-table-with-pagination="class_section_list" name="user" id="user_id"  onchange="callAjax(this,'{{route('admin.account.classAllSelect')}}'+'?id='+this.value,'class_all')" > 
                    <option value="" disabled selected>Select User</option>
                   @foreach ($users as $user)
                        <option value="{{ $user->id }}">{{ $user->email }} &nbsp;&nbsp;&nbsp;&nbsp;( {{ $user->first_name }} )</option> 
@@ -28,13 +31,10 @@
                   </select> 
                   <p class="text-danger">{{ $errors->first('user') }}</p>
                 </div> 
-                <div class="col-md-4" id="class_all">
+                <div id="class_all">
                   
                 </div>
-                 <div class="col-md-4" id="class_list">
-                  
-                  
-                </div>
+                
 
              </form>        
             </div>
@@ -51,15 +51,25 @@
 @endsection
 @push('links')
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
+
 @endpush
  @push('scripts')
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+ <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
  
 <script type="text/javascript">
-
-     $(document).ready(function(){
-        $('#dataTable').DataTable();
-    });
+   $(document).ready(function() {
+    $('#class_section_list').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel'
+        ]
+    } );
+} );
+     
       
  </script>
 <script type="text/javascript">

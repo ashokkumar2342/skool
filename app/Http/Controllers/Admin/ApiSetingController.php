@@ -26,13 +26,13 @@ class ApiSetingController extends Controller
      return view('admin.apiSeting.smsApi.add_form',compact('smsApi')); 
    }
    public function smsApiStore(Request $request,$id=null)
-   {
+   {  
 	   	$rules=[
 	    	  
-	            'user_name' => 'required', 
-	            'password' => 'required|max:15', 
+	            'user_name' => 'required|max:50', 
+	            'password' => 'required|max:50', 
+	            'sender_name' => "required|max:6", 
 	            'url' => "required", 
-	            'sender_name' => "required", 
 	       
 	    	];
 
@@ -50,6 +50,7 @@ class ApiSetingController extends Controller
 		       $smsApi->password=$request->password;  
 		       $smsApi->url=$request->url;  
 		       $smsApi->sender_id=$request->sender_name;  
+           $smsApi->enableAutoSend=$request->enable_auto_send;  
 		       $smsApi->last_updated_by=1;  
 		       $smsApi->status=0;
 	    	   $smsApi->save();
@@ -84,12 +85,13 @@ class ApiSetingController extends Controller
    {
 	   	$rules=[
 	    	  
-	            'host' => 'required', 
-	            'port' => 'required', 
+	            'host' => 'required|max:200',
+	            'port' => 'required|max:4',
 	            'username' => 'required|max:50', 
-	            'password' => 'required|max:15', 
-	            'encryption' => "required", 
-	            'from' => "required", 
+	            'password' => 'required|max:50', 
+	            'encryption' => 'required|max:200',
+	            'from' => 'required|max:50', 
+              'enable_auto_send' => 'required', 
 	       
 	    	];
 
@@ -108,7 +110,8 @@ class ApiSetingController extends Controller
 		       $smsApi->username=$request->username;  
 		       $smsApi->password=$request->password;  
 		       $smsApi->encryption=$request->encryption;  
-		       $smsApi->mail_from=$request->from;  
+		       $smsApi->mail_from=$request->from;
+           $smsApi->enableAutoSend=$request->enable_auto_send;  
 		       $smsApi->last_updated_by=1;  
 		       $smsApi->status=0;
 	    	   $smsApi->save();
@@ -162,10 +165,15 @@ class ApiSetingController extends Controller
    }
    public function testMessage(Request $request,$id)
    {
-        $smsTemplate = SmsTemplate::where('id',1)->first()->message; 
-         event(new SmsEvent($request->mobile,$smsTemplate));
-         $response=['status'=>1,'msg'=>'Send Successfully'];
-              return response()->json($response); 
+         return view('admin.apiseting.test_form',compact('id'));
          
    }
+   public function MessageSend(Request $request)
+   { 
+         
+        event(new SmsEvent($request->mobile,'Test')); 
+       $response=['status'=>1,'msg'=>'send Successfully'];
+              return response()->json($response);
+   }
+
 }

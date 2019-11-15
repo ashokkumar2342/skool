@@ -24,6 +24,9 @@ class Minu extends Model
     Public function admins(){
     	return $this->belongsTo('App\Admin','admin_id','id');
     }
+    Public function admin(){
+    	return $this->hasOne('App\Admin','id','admin_id');
+    }
     public function minutypes(){
         return $this->hasOne(MinuType::class,'id','minu_id');
     }

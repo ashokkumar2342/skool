@@ -807,6 +807,20 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('update/{id?}', 'MasterController@professionUpdate')->name('admin.profession.update');
 			    Route::get('delete/{id}', 'MasterController@professionDestroy')->name('admin.profession.delete');
 
+			});Route::group(['prefix' => 'religion'], function() {
+			    Route::get('religion', 'MasterController@religion')->name('admin.religion.list');	 	
+			    Route::get('add/{id?}', 'MasterController@addForm')->name('admin.religion.add');	 	
+			    Route::post('store/{id?}', 'MasterController@religionStore')->name('admin.religion.store'); 
+			   Route::get('delete/{id?}', 'MasterController@religionDestroy')->name('admin.religion.delete');	 	
+			    
+
+			});Route::group(['prefix' => 'category'], function() {
+			    Route::get('category', 'MasterController@category')->name('admin.category.list');	 	
+			    Route::get('add/{id?}', 'MasterController@addCategory')->name('admin.category.add');	 	
+			    Route::post('store/{id?}', 'MasterController@categoryStore')->name('admin.category.store'); 
+			    Route::get('delete/{id}', 'MasterController@categoryDestroy')->name('admin.category.delete');	 	
+			    
+
 			});	
 			//------------------------- SMS ---------------------------------
 			Route::group(['prefix' => 'sms'], function() {
@@ -1285,6 +1299,7 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('email-api-delete/{id}', 'ApiSetingController@emailApiDestroy')->name('admin.api.emailApidelete'); 
                	 Route::get('status/{id}{condition_id}', 'ApiSetingController@status')->name('admin.api.status'); 
                	 Route::get('test-mwssage/{id}', 'ApiSetingController@testMessage')->name('admin.api.test.message'); 
+               	 Route::post('message-send', 'ApiSetingController@MessageSend')->name('admin.api.test.message.send'); 
                	 
                	  
                	 

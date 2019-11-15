@@ -28,7 +28,7 @@
                                                     {{ Form::label('class','Class',['class'=>' control-label']) }}
                                                     <span class="fa fa-asterisk"></span>
                                                     
-                                                    {!! Form::select('class',$classes, @$default->class_id, ['class'=>'form-control','placeholder'=>'Select Class','required']) !!}
+                                                    {!! Form::select('class',$classes, @$default->class_id, ['class'=>'form-control','placeholder'=>'Select Class']) !!}
                                                     <p class="text-danger">{{ $errors->first('session') }}</p>
                                                 </div>
                                             </div>
@@ -36,7 +36,7 @@
                                                 <div class="form-group">
                                                     {{ Form::label('section','Section',['class'=>' control-label']) }}
                                                     <span class="fa fa-asterisk"></span>
-                                                    {!! Form::select('section',[], null, ['class'=>'form-control','placeholder'=>'Select Section','required']) !!}
+                                                    {!! Form::select('section',[], null, ['class'=>'form-control','placeholder'=>'Select Section']) !!}
                                                     <p class="text-danger">{{ $errors->first('session') }}</p>
                                                 </div>
                                             </div>
@@ -44,7 +44,7 @@
                                                 <div class="form-group">
                                                     {{ Form::label('registration_no','Registration no',['class'=>' control-label ']) }}
                                                     <span class="fa fa-asterisk"></span>                         
-                                                    {{ Form::text('registration_no','',['class'=>'form-control',' required','maxlength'=>'20']) }}
+                                                    {{ Form::text('registration_no','',['class'=>'form-control','maxlength'=>'20']) }}
                                                     <p class="text-danger">{{ $errors->first('registration_no') }}</p>
                                                 </div>
                                             </div>
@@ -52,7 +52,7 @@
                                                 <div class="form-group">
                                                     {{ Form::label('admission_no','Admission No',['class'=>' control-label']) }}
                                                     <span class="fa fa-asterisk"></span>
-                                                    {{ Form::text('admission_no','',['class'=>'form-control',' required','maxlength'=>'20']) }}
+                                                    {{ Form::text('admission_no','',['class'=>'form-control','maxlength'=>'20']) }}
                                                     <p class="text-danger">{{ $errors->first('admission_no') }}</p>
                                                 </div>
                                             </div>
@@ -60,7 +60,7 @@
                                                 <div class="form-group">
                                                     {{ Form::label('roll_no','Roll No',['class'=>' control-label']) }}
                                                     <span class="fa fa-asterisk"></span>
-                                                    {{ Form::text('roll_no','',['class'=>'form-control',' required','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'4']) }}
+                                                    {{ Form::text('roll_no','',['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'4']) }}
                                                     <p class="text-danger">{{ $errors->first('roll_no') }}</p>
                                                 </div>
                                             </div> 
@@ -72,7 +72,7 @@
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>                          
-                                                    {{ Form::text('date_of_admission','',array('class' => 'form-control datepicker',' required' )) }}
+                                                    {{ Form::text('date_of_admission','',array('class' => 'form-control datepicker' )) }}
                                                     </div>
                                                     <p class="text-danger">{{ $errors->first('date_of_admission') }}</p>
                                                 </div>
@@ -86,7 +86,7 @@
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>                          
-                                                    {{ Form::text('date_of_activation','',array('class' => 'form-control datepicker',' required' )) }}
+                                                    {{ Form::text('date_of_activation','',array('class' => 'form-control datepicker' )) }}
                                                     </div>
                                                     <p class="text-danger">{{ $errors->first('date_of_activation') }}</p>
                                                 </div>
@@ -104,7 +104,7 @@
                                                 <div class="form-group">
                                                     {{ Form::label('student_name','Student Name',['class'=>' control-label']) }}
                                                     <span class="fa fa-asterisk"></span>                         
-                                                    {{ Form::text('student_name','',['class'=>'form-control',' required','maxlength'=>'50']) }}
+                                                    {{ Form::text('student_name','',['class'=>'form-control','maxlength'=>'50']) }}
                                                     <p class="text-danger">{{ $errors->first('student_name') }}</p>
                                                 </div>
                                             </div>  
@@ -124,7 +124,7 @@
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>                          
-                                                    {{ Form::text('date_of_birth','',array('class' => 'form-control datepicker',' required' )) }}
+                                                    {{ Form::text('date_of_birth','',array('class' => 'form-control datepicker' )) }}
                                                     </div>
                                                     <p class="text-danger">{{ $errors->first('date_of_birth') }}</p>
                                                 </div>
@@ -133,7 +133,7 @@
                                                 <div class="form-group">
                                                     {{ Form::label('gender','Gender',['class'=>' control-label']) }}
                                                     <span class="fa fa-asterisk"></span>
-                                                    {!! Form::select('gender',$genders, @$default->genders->id, ['class'=>'form-control','placeholder'=>'Select Gender','required']) !!}
+                                                    {!! Form::select('gender',$genders, @$default->genders->id, ['class'=>'form-control','placeholder'=>'Select Gender']) !!}
                                                     <p class="text-danger">{{ $errors->first('gender') }}</p>
                                                 </div>
                                             </div>
@@ -141,7 +141,7 @@
                                                 <div class="form-group">
                                                     <label>Aadhaar No</label>
                                                     <span class="fa fa-asterisk"></span>
-                                                    <input type="text" name="aadhaar_no" class="form-control" required="" maxlength="12" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                    <input type="text" name="aadhaar_no" class="form-control"  maxlength="12" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">                         

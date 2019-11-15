@@ -253,7 +253,8 @@ class AccountController extends Controller
          $user_id = $request->id;   
          $classes = ClassType::all(); 
          $usersClasses = Admin::find($user_id);
-         $data= view('admin.account.classAllSelect',compact('classes','user_id','usersClasses'))->render(); 
+         $userClassTypes = UserClassType::where('admin_id',$user_id)->orderBy('class_id','ASC')->orderBy('section_id','ASC')->get();
+         $data= view('admin.account.classAllSelect',compact('classes','user_id','usersClasses','userClassTypes'))->render(); 
         return response($data);
 
     }

@@ -28,15 +28,14 @@ class SmsEventListener
      */
   public function handle(SmsEvent $event)
   {
-        // $smsApi=SmsApi::where('status',1)->first(); 
-        // $msg=urlencode($event->message);
+        $smsApi=SmsApi::where('status',1)->first(); 
+        $msg=urlencode($event->message);
         
-        // $url = "http://bulksms.innovusine.com/sendurlcomma.aspx?user=$smsApi->user_id&pwd=$smsApi->password&senderid=$smsApi->sender_id&mobileno=$event->mobile&msgtext=$msg";
-        // $ch = curl_init($url);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // $curl_scraped_page = curl_exec($ch);
-        // curl_close($ch);
-        
+        $url = "http://bulksms.innovusine.com/sendurlcomma.aspx?user=$smsApi->user_id&pwd=$smsApi->password&senderid=$smsApi->sender_id&mobileno=$event->mobile&msgtext=$msg";
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $curl_scraped_page = curl_exec($ch);
+        curl_close($ch); 
          Log::info($event->mobile.' : '.$event->message);
         
     

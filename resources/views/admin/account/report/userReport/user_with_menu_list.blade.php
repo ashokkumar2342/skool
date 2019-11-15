@@ -38,10 +38,10 @@
                 <tr>
                   <td>{{ $arrayId ++ }}</td>
                   <input type="hidden" name="user_id[]" value="{{ $admin->id }}"> 
-                  <td>{{ $admin->first_name }} {{ $admin->first_last}}</td>
-                  <td>{{ $admin->mobile }}</td> 
-                  <td>{{ $admin->email }}</td>
-                  <td>{{ $admin->roles->name }}</td> 
+                  <td>{{ $admin->admins->first_name }} {{ $admin->admins->first_last}}</td>
+                  <td>{{ $admin->admins->mobile }}</td> 
+                  <td>{{ $admin->admins->email }}</td>
+                  <td>{{ $admin->admins->roles->name }}</td> 
                    @if ($admin->status==1)
                     <td style="{{ $admin->status==1?'background-color: #95e49b':'' }}">Active</td>
                     @else

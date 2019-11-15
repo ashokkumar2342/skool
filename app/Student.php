@@ -243,7 +243,7 @@ class Student extends Authenticatable
                ->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])
                ->where('students.name', 'like','%'.$search.'%')
                // ->orWhere('parents_infos.name', 'like', '%'.$search.'%') 
-               ->orWhere('students.email', 'like', '%'.$search.'%') 
+               
                ->orWhere('students.registration_no', 'like', '%'.$search.'%') 
                ->orWhere('students.dob', 'like', '%'.$search.'%')
                ->orWhere('students.admission_no', 'like', '%'.$search.'%')

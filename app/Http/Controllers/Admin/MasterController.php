@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
+use App\Model\Category;
 use App\Model\GuardianRelationType;
 use App\Model\IncomeRange;
 use App\Model\Profession;
+use App\Model\Religion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -241,12 +243,12 @@ class MasterController extends Controller
             return response()->json($response);
           }  
         }
-        public function guardianEdit($id='')
+        public function guardianEdit($id=null)
         {
-          if ($id!='') {
+          if ($id!=null) {
             $guardianRelationType=GuardianRelationType::find($id); 
           }
-          if ($id=='') {
+          if ($id==null) {
             $guardianRelationType=''; 
           }
             return view('admin.master.guardian.edit',compact('guardianRelationType')); 
@@ -257,7 +259,7 @@ class MasterController extends Controller
             $guardianRelationType->delete();
              return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         }
-        public function guardianUpdate(Request $request ,$id='')
+        public function guardianUpdate(Request $request ,$id=null)
         {
             $rules=[
              'name' => 'required|max:30|unique:guardian_relation_types,name,'.$id, 
@@ -280,5 +282,101 @@ class MasterController extends Controller
         $response=['status'=>1,'msg'=>'Update Successfully'];
             return response()->json($response);
           }  
+        }
+
+        //------------------------religion-----------------------------------------//
+       public function religion($id='')
+       {
+          $religions=Religion::all(); 
+          return view('admin.master.religion.list',compact('religions')); 
+       }
+       public function addForm($id='')
+       { 
+          if ($id!='') {
+            $religion=Religion::find($id);
+          }
+          if ($id=='') {
+            $religion='';
+          }
+          return view('admin.master.religion.add_form',compact('religion')); 
+       }
+       public function religionStore(Request $request,$id=null)
+       {
+         $rules=[
+             'name' => 'required|max:30|unique:religions,name,'.$id, 
+             'code' => 'required|max:5|unique:religions,code,'.$id 
+         ];
+
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }
+        else {
+        $religions= Religion::firstOrNew(['id'=>$id]);  
+        $religions->name=$request->name; 
+        $religions->code=$request->code; 
+        $religions->save();
+        $response=['status'=>1,'msg'=>'Update Successfully'];
+            return response()->json($response);
+          }  
+       }
+       public function religionDestroy($id)
+        {
+             $id =Crypt::decrypt($id); 
+            $Category =Religion::find($id);
+            $Category->delete();
+             return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+        }
+
+       //-------------category-----------------------//
+       public function category($id='')
+       {
+          $categorys=Category::all(); 
+          return view('admin.master.category.list',compact('categorys')); 
+       }
+       public function addCategory($id='')
+       {
+        if ($id!='') {
+           $category=Category::find($id); 
+        }
+        if ($id=='') {
+           $category=''; 
+        }
+          return view('admin.master.category.add_form',compact('category')); 
+       }
+       public function categoryStore(Request $request,$id=null)
+      {
+          $rules=[
+              
+                  
+             
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              else {
+               $Category=Category::firstOrNew(['id'=>$id]);  
+               $Category->name=$request->name;  
+               $Category->code=$request->code; 
+               $Category->save();
+                $response=['status'=>1,'msg'=>'Created Successfully'];
+              }     return response()->json($response);
+        } 
+        public function categoryDestroy($id)
+        {
+             $id =Crypt::decrypt($id); 
+            $Category =Category::find($id);
+            $Category->delete();
+             return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         }
 }

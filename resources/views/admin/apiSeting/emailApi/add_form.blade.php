@@ -22,27 +22,32 @@
                    <div class="row"> 
                     <div class="form-group   col-lg-4">
                       <label>Host</label>
-                      <input type="text" name="host" class="form-control" placeholder="Enter Host" maxlength="50" required="" value="{{ @$emailApi->host }}"> 
+                      <input type="text" name="host" class="form-control" placeholder="Enter Host" maxlength="200"  value="{{ @$emailApi->host }}"> 
                     </div> 
                     <div class="form-group   col-lg-4">
                       <label>Port</label>
-                      <input type="text" name="port" class="form-control" maxlength="50" placeholder="Enter Port" required="" value="{{ @$emailApi->port }}"> 
+                      <input type="text" name="port" class="form-control" maxlength="4" placeholder="Enter Port"  value="{{ @$emailApi->port }}"> 
                     </div>
                     <div class="form-group   col-lg-4">
                       <label>Username</label>
-                      <input type="text" name="username" class="form-control" required="" placeholder="Username" value="{{ @$emailApi->username }}"> 
+                      <input type="text" name="username" class="form-control"  placeholder="Username" value="{{ @$emailApi->username }}" maxlength="50"> 
                     </div>
                     <div class="form-group   col-lg-4">
                       <label>Password</label>
-                      <input type="password" name="password" class="form-control" required="" placeholder="Enter Password" value="{{ @$emailApi->password }}"> 
+                      <input type="text" name="password" class="form-control"  placeholder="Enter Password" value="{{ @$emailApi->password }}" maxlength="50"> 
                     </div>
                     <div class="form-group   col-lg-4">
                       <label>Encryption</label>
-                      <input type="text" name="encryption" class="form-control" required="" placeholder="Enter Encryption" value="{{ @$emailApi->encryption }}"> 
+                      <input type="text" name="encryption" class="form-control"  placeholder="Enter Encryption" value="{{ @$emailApi->encryption }}" maxlength="200"> 
                     </div>
                     <div class="form-group   col-lg-4">
                       <label>From</label>
-                      <input type="text" name="from" class="form-control" required="" placeholder="Enter From" value="{{ @$emailApi->mail_from }}"> 
+                      <input type="text" name="from" class="form-control"  placeholder="Enter From" value="{{ @$emailApi->mail_from }}" maxlength="50"> 
+                    </div>
+                    <div class="form-group   col-lg-4">
+                      <label>Enable Auto Send</label>
+                      <input type="checkbox" name="enable_auto_send" value="1">
+                       
                     </div> 
                    <div class="row">
                     <div class="col-lg-12 text-center" style="padding-top: 10px">
