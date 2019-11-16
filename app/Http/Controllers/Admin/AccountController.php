@@ -213,10 +213,12 @@ class AccountController extends Controller
     } 
     Public function accessHotMenuShow(Request $request){
 
+
       $id = $request->id;
-      
-      $usersmenus = Minu::where('admin_id',$id)->get(['sub_menu_id']);
-      $menusType = Minu::where('admin_id',$id)->get(['minu_id']);
+       
+
+      $usersmenus = Minu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id']);
+      $menusType = Minu::where('admin_id',$id)->where('status',1)->get(['minu_id']);
       $menus = MinuType::whereIn('id',$menusType)->get();  
       $subMenus = SubMenu::whereIn('id',$usersmenus)->get();
       $usersHotMenus = array_pluck(HotMenu::where('admin_id',$id)->get(['sub_menu_id'])->toArray(), 'sub_menu_id'); 
