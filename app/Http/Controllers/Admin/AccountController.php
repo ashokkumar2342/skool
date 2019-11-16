@@ -214,9 +214,7 @@ class AccountController extends Controller
         return view('admin.account.accessHotMenu',compact('menus','users')); 
     } 
     Public function accessHotMenuShow(Request $request){  
-      $id = $request->id;
-       
-
+      $id = $request->id;    
       $usersmenus = Minu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id']);
       $menusType = Minu::where('admin_id',$id)->where('status',1)->get(['minu_id']);
       $menus = MinuType::whereIn('id',$menusType)->get();  
@@ -374,28 +372,31 @@ class AccountController extends Controller
                $response["status"]=0;
                $response["msg"]=$errors[0];
                return response()->json($response);// response as json
-           }  
-
-           $data = $request->except('_token');        
-           $user_count = count($data['sub_menu']);
-          $menuOldDatas =  DefaultRoleMenu::where('role_id',$data['role'])->get();  
-           if ($menuOldDatas->count()!=0) { 
-             foreach ($menuOldDatas as $key => $menuOldData) { 
-               $menu =  DefaultRoleMenu::find($menuOldData->id); 
-               $menu->status = 0;
-               $menu->save();
-             } 
            } 
-           for ($i=0; $i < $user_count; $i++) {  
-               $menu =  DefaultRoleMenu::firstOrNew(['role_id'=>$request->role,'sub_menu_id'=>$data['sub_menu'][$i]]);
-               
-               $menu->sub_menu_id = $data['sub_menu'] [$i];
-                 
-               $menu->role_id = $data['role'];
-               $menu->status = 1;
 
-               $menu->save();             
-           }  
+           $sub_menu= implode(',',$request->sub_menu); 
+           DB::select(DB::raw("call up_set_default_role_permission ($request->role, '$sub_menu')")); 
+
+          //  $data = $request->except('_token');        
+          //  $user_count = count($data['sub_menu']);
+          // $menuOldDatas =  DefaultRoleMenu::where('role_id',$data['role'])->get();  
+          //  if ($menuOldDatas->count()!=0) { 
+          //    foreach ($menuOldDatas as $key => $menuOldData) { 
+          //      $menu =  DefaultRoleMenu::find($menuOldData->id); 
+          //      $menu->status = 0;
+          //      $menu->save();
+          //    } 
+          //  } 
+          //  for ($i=0; $i < $user_count; $i++) {  
+          //      $menu =  DefaultRoleMenu::firstOrNew(['role_id'=>$request->role,'sub_menu_id'=>$data['sub_menu'][$i]]);
+               
+          //      $menu->sub_menu_id = $data['sub_menu'] [$i];
+                 
+          //      $menu->role_id = $data['role'];
+          //      $menu->status = 1;
+
+          //      $menu->save();             
+          //  }  
           
         $response['msg'] = 'Save Successfully';
         $response['status'] = 1;
@@ -511,27 +512,9 @@ class AccountController extends Controller
              return response()->json($response);// response as json
          }  
 
-         $data = $request->except('_token');        
-         $user_count = count($data['sub_menu']);
-        $menuOldDatas =  DefaultRoleQuickMenu::where('role_id',$data['role'])->get();  
-         if ($menuOldDatas->count()!=0) { 
-           foreach ($menuOldDatas as $key => $menuOldData) { 
-             $menu =  DefaultRoleQuickMenu::find($menuOldData->id); 
-             $menu->status = 0;
-             $menu->save();
-           } 
-         } 
-         for ($i=0; $i < $user_count; $i++) {  
-             $menu =  DefaultRoleQuickMenu::firstOrNew(['role_id'=>$request->role,'sub_menu_id'=>$data['sub_menu'][$i]]);
-             
-             $menu->sub_menu_id = $data['sub_menu'] [$i];
-               
-             $menu->role_id = $data['role'];
-             $menu->status = 1;
-
-             $menu->save();             
-         }  
-        
+         $sub_menu= implode(',',$request->sub_menu); 
+         DB::select(DB::raw("call up_set_default_role_quick_permission ($request->role, '$sub_menu')")); 
+          
       $response['msg'] = 'Save Successfully';
       $response['status'] = 1;
       return response()->json($response);  
