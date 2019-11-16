@@ -49,15 +49,12 @@ class AccountController extends Controller
 
     Public function store(Request $request){
         $rules=[
-        'first_name' => 'required|string|min:3|max:50',
-             
-            'email' => 'required|email|unique:admins',
-            "mobile" => 'required|numeric|digits:10',
-            "role_id" => 'required',
-            "password" => 'required|min:6|max:15', 
-            "dob" => 'required', 
-              
-          
+        'first_name' => 'required|string|min:3|max:50',             
+        'email' => 'required|email|unique:admins',
+        "mobile" => 'required|unique:admins|numeric|digits:10',
+        "role_id" => 'required',
+        "password" => 'required|min:6|max:15', 
+        "dob" => 'required',  
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -67,9 +64,7 @@ class AccountController extends Controller
             $response["status"]=0;
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
-        }
-       
-    	   	 
+        } 
     	$accounts = new Admin();
     	$accounts->first_name = $request->first_name;
     	$accounts->last_name = $request->last_name;
@@ -78,35 +73,34 @@ class AccountController extends Controller
     	$accounts->password = bcrypt($request['password']);
     	$accounts->mobile = $request->mobile;
     	$accounts->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
-    	 $accounts->save(); 
-        $this->defaultMenuAccess($accounts->role_id,$accounts->id);
-         $MailHelper = new MailHelper();
-         $array = array();
-         $array['email'] = $request->email;
-         $array['password'] = $request->password;
-        $MailHelper->welcomemail($accounts->id,$array);
-        event(new SmsEvent($request->mobile,'User Id Your Email and Password:'.$request->password));
-        $response['msg'] = 'Account created Successfully';
-        $response['status'] = 1;
-        return response()->json($response);    
+    	 $accounts->save();          
+       $MailHelper = new MailHelper();
+       $array = array();
+       $array['email'] = $request->email;
+       $array['password'] = $request->password;
+      $MailHelper->welcomemail($accounts->id,$array);
+      event(new SmsEvent($request->mobile,'User Id Your Email and Password:'.$request->password));
+      $response['msg'] = 'Account created Successfully';
+      $response['status'] = 1;
+      return response()->json($response);    
     }
 
-    public function defaultMenuAccess($roleId,$userId){
-        $role =Role::find($roleId); 
-        $subMenus = explode(',',$role->sub_menu_id);
+    // public function defaultMenuAccess($roleId,$userId){
+    //     $role =Role::find($roleId); 
+    //     $subMenus = explode(',',$role->sub_menu_id);
 
-        foreach ($subMenus as $key => $value) {
-          $menu =  new Minu();
-          $menu->admin_id = $userId;   
-          $menuData= SubMenu::find($value); 
-          $menu->minu_id = $menuData->menu_type_id; 
-          $menu->sub_menu_id = $value;
-          $menu->save();
-        }
+    //     foreach ($subMenus as $key => $value) {
+    //       $menu =  new Minu();
+    //       $menu->admin_id = $userId;   
+    //       $menuData= SubMenu::find($value); 
+    //       $menu->minu_id = $menuData->menu_type_id; 
+    //       $menu->sub_menu_id = $value;
+    //       $menu->save();
+    //     }
 
         
 
-    } 
+    // } 
 
     Public function edit(Request $request, Admin $account){
         $roles = Role::all();
