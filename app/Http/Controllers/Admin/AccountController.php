@@ -8,6 +8,7 @@ use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\DefaultRoleMenu;
+use App\Model\DefaultRoleQuickMenu;
 use App\Model\HotMenu;
 use App\Model\Minu;
 use App\Model\MinuType;
@@ -515,10 +516,63 @@ class AccountController extends Controller
         return $pdf->stream('menu_report.pdf');
     
   }
-  public function quickView($value='')
+  public function quickView()
   {
     $roles = Role::orderBy('name','ASC')->get();
      return view('admin.account.quick_view',compact('roles'));
+  } 
+
+  Public function defultRoleMenuShow(Request $request){
+
+    $role_id = $request->id;
+    $id = $request->id;  
+   $subMenuArrId  = DefaultRoleMenu::where('role_id',$role_id)->where('status',1)->pluck('sub_menu_id')->toArray();
+    $menuTypeArrId = Minu::whereIn('sub_menu_id',$subMenuArrId)->pluck('minu_id')->toArray();
+    $subMenus = SubMenu::whereIn('id',$subMenuArrId)->get();
+
+    $menus = MinuType::whereIn('id',$menuTypeArrId)->get();
+       $datas  = DefaultRoleQuickMenu::where('role_id',$role_id)->where('status',1)->pluck('sub_menu_id')->toArray(); 
+     $data= view('admin.account.roleMenuTable',compact('menus','subMenus','datas','id'))->render(); 
+     return response($data);
   }
+  public function defaultRoleQuickStore(Request $request){  
+         $rules=[
+         'sub_menu' => 'required|max:199',             
+         'role' => 'required|max:199',  
+         ]; 
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }  
+
+         $data = $request->except('_token');        
+         $user_count = count($data['sub_menu']);
+        $menuOldDatas =  DefaultRoleQuickMenu::where('role_id',$data['role'])->get();  
+         if ($menuOldDatas->count()!=0) { 
+           foreach ($menuOldDatas as $key => $menuOldData) { 
+             $menu =  DefaultRoleQuickMenu::find($menuOldData->id); 
+             $menu->status = 0;
+             $menu->save();
+           } 
+         } 
+         for ($i=0; $i < $user_count; $i++) {  
+             $menu =  DefaultRoleQuickMenu::firstOrNew(['role_id'=>$request->role,'sub_menu_id'=>$data['sub_menu'][$i]]);
+             
+             $menu->sub_menu_id = $data['sub_menu'] [$i];
+               
+             $menu->role_id = $data['role'];
+             $menu->status = 1;
+
+             $menu->save();             
+         }  
+        
+      $response['msg'] = 'Save Successfully';
+      $response['status'] = 1;
+      return response()->json($response);  
+    }
 
 }

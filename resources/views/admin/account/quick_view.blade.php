@@ -17,13 +17,13 @@
                  
                 <div class="col-lg-12">
                   
-               <form action="{{ route('admin.roleAccess.subMenu') }}" method="post" class="add_form form-horizontal" no-reset="true" > 
+               <form action="{{ route('admin.roleAccess.quick.role.menu.store') }}" call-back="triggerSelectBox" method="post" class="add_form form-horizontal" no-reset="true" > 
                  {{ csrf_field() }}
               <div class="col-md-4">
                 <div class="form-group col-md-12">
                   {{ Form::label('role','Role',['class'=>' control-label']) }}                         
                   <div class="form-group">  
-                         <select class="form-control" data-table-without-pagination-disable-sorting="menu_role_table" multiselect-form="true"  name="role"  onchange="callAjax(this,'{{route('admin.account.roleMenuTable')}}'+'?id='+this.value,'menu_list')" > 
+                         <select class="form-control" id="role_select_box"  data-table-without-pagination-disable-sorting="menu_role_table" multiselect-form="true"  name="role"  onchange="callAjax(this,'{{route('admin.account.role.default.menu')}}'+'?id='+this.value,'menu_list')" > 
                           <option value="" disabled selected>Select User</option>
                          @foreach ($roles as $role)
                               <option value="{{ $role->id }}">{{ $role->name }}</option> 
@@ -68,6 +68,10 @@
     });
       
         $('#menu_role_table').DataTable();
+        function triggerSelectBox(){  
+          $("#role_select_box" ).trigger("change");
+
+        }
  </script>
  
 <script type="text/javascript">

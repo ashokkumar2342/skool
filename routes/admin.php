@@ -49,6 +49,8 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('role-menu', 'AccountController@roleMenuTable')->name('admin.account.roleMenuTable'); 
 		Route::post('role-menu-store', 'AccountController@roleMenuStore')->name('admin.roleAccess.subMenu');
 		Route::get('quick-view', 'AccountController@quickView')->name('admin.roleAccess.quick.view');
+		Route::get('defult-role-menu-show', 'AccountController@defultRoleMenuShow')->name('admin.account.role.default.menu');
+		Route::post('default-role-quick-menu-store', 'AccountController@defaultRoleQuickStore')->name('admin.roleAccess.quick.role.menu.store');
 		Route::get('class-access', 'AccountController@classAccess')->name('admin.account.classAccess'); 
 		Route::get('class-all', 'AccountController@classAllSelect')->name('admin.account.classAllSelect'); 
 		Route::get('reset-password', 'AccountController@resetPassWord')->name('admin.account.reset.password'); 

@@ -15,6 +15,7 @@ class Minu extends Model
 	 protected $fillable = [
 	   'admin_id', 
 	   'minu_id', 
+       'sub_menu_id', 
 	   'r_status', 
 	   'w_status', 
 	   'd_status', 
