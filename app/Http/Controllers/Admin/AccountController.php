@@ -19,6 +19,7 @@ use App\Model\UserClass;
 use App\Model\UserClassType;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Mail;
@@ -212,17 +213,15 @@ class AccountController extends Controller
             $users = Admin::all();   
         return view('admin.account.accessHotMenu',compact('menus','users')); 
     } 
-    Public function accessHotMenuShow(Request $request){
-
-
+    Public function accessHotMenuShow(Request $request){  
       $id = $request->id;
        
 
       $usersmenus = Minu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id']);
       $menusType = Minu::where('admin_id',$id)->where('status',1)->get(['minu_id']);
       $menus = MinuType::whereIn('id',$menusType)->get();  
-      $subMenus = SubMenu::whereIn('id',$usersmenus)->get();
-      $usersHotMenus = array_pluck(HotMenu::where('admin_id',$id)->get(['sub_menu_id'])->toArray(), 'sub_menu_id'); 
+      $subMenus = SubMenu::whereIn('id',$usersmenus)->where('status',1)->get();
+      $usersHotMenus = array_pluck(HotMenu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id'])->toArray(), 'sub_menu_id'); 
       $data= view('admin.account.hotmenuTable',compact('menus','subMenus','usersmenus','id','usersHotMenus'))->render(); 
       return response($data);
     }  
@@ -313,39 +312,11 @@ class AccountController extends Controller
                 $response["msg"]=$errors[0];
                 return response()->json($response);// response as json
             }     
-            // $menu =  new Minu();
-            //  $menu->sub_minu_id = implode(",", $request->sub_menu);
-            //  $menu->admin_id = $request->user; 
-            //  $menu->save(); 
-            // $response['msg'] = 'Access Save Successfully';
-            // $response['status'] = 1;
-            // return response()->json($response); 
-      
-         
-        $data = $request->except('_token');        
-        $user_count = count($data['sub_menu']);
-        $menuOldDatas =  Minu::where('admin_id',$request->user)->get();  
-        if ($menuOldDatas->count()!=0) {
-          foreach ($menuOldDatas as $key => $menuOldData) {
-            $menu =  Minu::find($menuOldData->id); 
-            $menu->status = 0;
-            $menu->save();
-          } 
-        }
-        for ($i=0; $i < $user_count; $i++) { 
-            $menu =  Minu::updateOrCreate(['admin_id'=>$request->user,'sub_menu_id'=>$data['sub_menu'][$i]]);
-            $menu->sub_menu_id = $data['sub_menu'] [$i];
-             $menuData =SubMenu::find($data['sub_menu'] [$i]);
-            $menu->minu_id = $menuData->menu_type_id;
-            $menu->admin_id = $data['user'];
-            $menu->status = 1;
-
-            $menu->save();             
-        }
-
+        $menuId= implode(',',$request->sub_menu); 
+        DB::select(DB::raw("call up_setuserpermission ($request->user, '$menuId')")); 
         $response['msg'] = 'Access Save Successfully';
-         $response['status'] = 1;
-         return response()->json($response);  
+        $response['status'] = 1;
+        return response()->json($response);  
 
         
         
@@ -365,18 +336,9 @@ class AccountController extends Controller
                 $response["msg"]=$errors[0];
                 return response()->json($response);// response as json
             } 
-            $data = $request->except('_token');        
-            $user_count = count($data['sub_menu']);
-            for ($i=0; $i < $user_count; $i++) { 
-                $menu =  HotMenu::updateOrCreate(['admin_id'=>$request->user,'sub_menu_id'=>$data['sub_menu'][$i]]);
-                $menu->sub_menu_id = $data['sub_menu'] [$i];
-                 $menuData =SubMenu::find($data['sub_menu'] [$i]);
-                $menu->minu_id = $menuData->menu_type_id;
-                $menu->admin_id = $data['user'];
-
-                $menu->save();             
-            }
-
+            $menuId= implode(',',$request->sub_menu); 
+            DB::select(DB::raw("call up_setuserquickpermission ($request->user, '$menuId')")); 
+            
           $response['msg'] = 'Access Save Successfully';
            $response['status'] = 1;
            return response()->json($response);  

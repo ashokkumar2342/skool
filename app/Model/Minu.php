@@ -34,4 +34,6 @@ class Minu extends Model
      public function subMenuTypes(){
         return $this->hasOne(SubMenu::class,'id','sub_menu_id');
     }
+
+    
 }
