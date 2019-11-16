@@ -515,5 +515,10 @@ class AccountController extends Controller
         return $pdf->stream('menu_report.pdf');
     
   }
+  public function quickView($value='')
+  {
+    $roles = Role::orderBy('name','ASC')->get();
+     return view('admin.account.quick_view',compact('roles'));
+  }
 
 }
