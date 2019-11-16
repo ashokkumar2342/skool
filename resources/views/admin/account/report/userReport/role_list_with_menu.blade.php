@@ -36,7 +36,7 @@
                   $arrayId=1;
                      
                   @endphp
-                @foreach($admins as $admin)
+              @foreach($admins as $admin)
                 
                 <tr style="{{ $admin->status==1?'background-color: #95e49b':'' }}">
                   <td>{{ $arrayId ++ }}</td>
@@ -60,6 +60,7 @@
                   <td></td>
                 </tr>  
                 @foreach ($usersmenus as $usersmenu)
+                @if ($admin->id==$usersmenu->admin_id) 
                      <tr style="{{ $usersmenu->status==1?'background-color: #95e49b':'background-color: #ec2020' }}">
                       <td></td>
                       <td>{{ $usersmenu->minutypes->name }}</td> 
@@ -73,8 +74,10 @@
                       <td>@if ( $usersmenu->status==1) Yes @else  No @endif  </td>
                        <td></td> 
                     </tr> 
-                 @endforeach 
-                @endforeach
+                @endif    
+                @endforeach  
+                
+              @endforeach
               </table>
 
             </div> 

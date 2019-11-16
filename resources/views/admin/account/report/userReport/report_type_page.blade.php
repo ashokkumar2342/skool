@@ -1,7 +1,7 @@
 @if ($reportType==1)
 <label>Role</label> 
 <select name="role_id" class="form-control form-group">
-	<option value="0">All</option>
+	<option value="all">All</option>
 	@foreach ($datas as $data)
 	   <option value="{{ $data->id }}">{{ $data->name }}</option> 
 	@endforeach 

@@ -33,15 +33,15 @@
                   </div>
                   <div class="col-lg-4 text-center">
                     <label>All</label>
-                    <input type="radio" name="user_status" value="0"> 
+                    <input type="radio" name="user_status" value="all"> 
                   </div>
                   <div class="col-lg-4 text-center">
                     <label>Active</label>
                     <input type="radio" name="user_status" value="1"> 
                   </div>
                   <div class="col-lg-4 text-center">
-                    <label>Not Active</label>
-                    <input type="radio" name="user_status" value="2"> 
+                    <label> Inactive</label>
+                    <input type="radio" name="user_status" value="0"> 
                   </div>
                   <div class="col-lg-12 text-center" style="margin-top: 30px">
                   <label><h4><b>Report Details Type</b></h4></label> 

@@ -34,26 +34,28 @@ class UserReportController extends Controller
     }
     public function filter(Request $request)
     {  
-    	// return $request;
+    	  $arrayStatusId=[$request->user_status];
+          $admin=new Admin();
     if ($request->report_type==1) { 
-    	 if ($request->role_id==0) {
-    		$admins = Admin::orderBy('first_name','ASC')->get();
-    	} 
-    	elseif ($request->user_status==0) { 
-    	    $admins = Admin::where('role_id',$request->role_id)->orderBy('first_name','ASC')->get();
-            $adminArrayId = Admin::where('role_id',$request->role_id)->orderBy('first_name','ASC')->pluck('id')->toArray();
-             $usersmenus =Minu::whereIn('admin_id',$adminArrayId)->where('status',1)->with(['subMenuTypes'])->get();
-    	}
-    	 
-    }	
-    if ($request->report_type==2) { 
-        if ($request->user_status==0) { 
-            $admins = Admin::where('id',$request->user_id)->orderBy('first_name','ASC')->get();
+         $admins=$admin->getUserDetailsByRoleId($request->role_id,$arrayStatusId); 
+         $adminArrayId = Admin::
+                                where('role_id',$request->role_id)
+                              ->orderBy('first_name','ASC')
+                              ->pluck('id')
+                              ->toArray();
+         $usersmenus =Minu::
+                              whereIn('admin_id',$adminArrayId)
+                             ->where('status',1)
+                             ->with(['subMenuTypes'])
+                             ->get();
+   } 
+   if ($request->report_type==2) { 
+            $admins=$admin->getUserDetailsByUserId($request->user_id,$arrayStatusId); 
             $adminArrayId = Admin::where('id',$request->user_id)->orderBy('first_name','ASC')->pluck('id')->toArray();
             $usersmenus =Minu::whereIn('admin_id',$adminArrayId)->where('status',1)->with(['subMenuTypes'])->get();
         }
         
-    }   
+   }   
      
     	
         if ($request->report_details==1) {  
@@ -65,14 +67,14 @@ class UserReportController extends Controller
 
     	return $pdf->stream('section.pdf');
     	}
-    	elseif ($request->report_details==2) {
+    	elseif ($request->report_details==2) { 
     	    
             // $usersmenus = Minu::where('admin_id',$id)->where('status',0)->pluck('sub_menu_id')->toArray();
         	$pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.account.report.userReport.role_list_with_menu',compact('admins','menus','subMenus','usersmenus','id')); 
+        ->loadView('admin.account.report.userReport.role_list_with_menu',compact('admins','usersmenus','id')); 
     	return $pdf->stream('section.pdf');
     	}
     	 
