@@ -1,8 +1,6 @@
 <div class="col-lg-6">
 	
- @php
- 	$datas =explode(',', $roles->sub_menu_id);
- @endphp
+ 
 
  {{ Form::label('sub_menu','Menu',['class'=>' control-label']) }} <br>
 <select class="multiselect" multiple="multiple"  name="sub_menu[]" id="role_id"> 
@@ -20,7 +18,7 @@
 </select>
 </div>
  <div class="col-md-1" style="margin-top: 24px"> 
-  <button  class="btn btn-success">Save</button> 
+  <button type="submit"  class="btn btn-success">Save</button> 
   
    
  </div>  <div class="col-md-1" style="margin-top: 24px"> 

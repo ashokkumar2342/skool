@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DefaultRoleMenu extends Model
+class DefaultRoleQuickMenu extends Model
 {
   
 
@@ -14,8 +14,8 @@ class DefaultRoleMenu extends Model
          
     ];
   
-    protected $table = 'default_role_menu';
-    public $timestamps = false;
+    protected $table = 'default_role_quick_menu';
+     public $timestamps = false;
 
     
     

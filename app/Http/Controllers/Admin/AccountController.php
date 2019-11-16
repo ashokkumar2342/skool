@@ -7,6 +7,7 @@ use App\Events\SmsEvent;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
+use App\Model\DefaultRoleMenu;
 use App\Model\HotMenu;
 use App\Model\Minu;
 use App\Model\MinuType;
@@ -16,11 +17,11 @@ use App\Model\SubMenu;
 use App\Model\UserClass;
 use App\Model\UserClassType;
 use Auth;
-use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Mail;
+use PDF;
 use Symfony\Component\HttpKernel\DataCollector\collect;
 class AccountController extends Controller
 {
@@ -397,8 +398,8 @@ class AccountController extends Controller
                 $id = $request->id;
             $menus = MinuType::all();
             $subMenus = SubMenu::all();
-           $roles = Role::find($id); 
-        $data= view('admin.account.roleMenuTable',compact('menus','subMenus','roles','id'))->render(); 
+            $datas  = DefaultRoleMenu::where('role_id',$id)->where('status',1)->pluck('sub_menu_id')->toArray(); 
+        $data= view('admin.account.roleMenuTable',compact('menus','subMenus','datas','id'))->render(); 
         return response($data);
     }
 
@@ -414,10 +415,29 @@ class AccountController extends Controller
                $response["status"]=0;
                $response["msg"]=$errors[0];
                return response()->json($response);// response as json
-           }     
-        $role =Role::find($request->role); 
-        $role->sub_menu_id = implode($request->sub_menu, ',');   
-        $role->save(); 
+           }  
+
+           $data = $request->except('_token');        
+           $user_count = count($data['sub_menu']);
+          $menuOldDatas =  DefaultRoleMenu::where('role_id',$data['role'])->get();  
+           if ($menuOldDatas->count()!=0) { 
+             foreach ($menuOldDatas as $key => $menuOldData) { 
+               $menu =  DefaultRoleMenu::find($menuOldData->id); 
+               $menu->status = 0;
+               $menu->save();
+             } 
+           } 
+           for ($i=0; $i < $user_count; $i++) {  
+               $menu =  DefaultRoleMenu::firstOrNew(['role_id'=>$request->role,'sub_menu_id'=>$data['sub_menu'][$i]]);
+               
+               $menu->sub_menu_id = $data['sub_menu'] [$i];
+                 
+               $menu->role_id = $data['role'];
+               $menu->status = 1;
+
+               $menu->save();             
+           }  
+          
         $response['msg'] = 'Save Successfully';
         $response['status'] = 1;
         return response()->json($response);  
@@ -490,8 +510,8 @@ class AccountController extends Controller
 
      $menus = MinuType::all();
      $subMenus = SubMenu::all();
-    $roles = Role::find($id);
-       $pdf = PDF::setOptions([
+     $roles = Role::find($id);
+     $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])

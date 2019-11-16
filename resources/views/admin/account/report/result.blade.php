@@ -1,6 +1,4 @@
- @php
-$datas =explode(',', $roles->sub_menu_id);
-@endphp 
+ 
 <div class="col-lg-12" style="margin-top:10px;">
   <table class="table table-condensed "id="menu_role_table" style="width: 100%">
     <thead>
