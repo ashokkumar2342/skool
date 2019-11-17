@@ -838,6 +838,12 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('store/{id?}', 'MasterController@bloodgroupStore')->name('admin.bloodgroup.store'); 
 			    Route::get('delete/{id}', 'MasterController@bloodgroupDestroy')->name('admin.bloodgroup.delete'); 
 			});	
+			Route::group(['prefix' => 'student-status'], function() {
+			    Route::get('studentStatus', 'MasterController@studentStatus')->name('admin.studentStatus.list'); 
+			    Route::get('add/{id?}', 'MasterController@addstudentStatus')->name('admin.studentStatus.add');	 	
+			    Route::post('store/{id?}', 'MasterController@studentStatusStore')->name('admin.studentStatus.store'); 
+			    Route::get('delete/{id}', 'MasterController@studentStatusDestroy')->name('admin.studentStatus.delete'); 
+			});	
 			//------------------------- SMS ---------------------------------
 			Route::group(['prefix' => 'sms'], function() {
 			    Route::get('/', 'Sms\SmsController@index')->name('admin.sms.form');	 	

@@ -11,6 +11,7 @@ use App\Model\GuardianRelationType;
 use App\Model\IncomeRange;
 use App\Model\Profession;
 use App\Model\Religion;
+use App\Model\StudentStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -483,6 +484,55 @@ class MasterController extends Controller
         {
              $id =Crypt::decrypt($id); 
             $Category =BloodGroup::find($id);
+            $Category->delete();
+             return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+        } 
+
+         //--------------student-status---------------------------------------//
+        public function studentStatus($value='')
+        {
+          $completions=StudentStatus::orderBy('name','ASC')->get();
+          return view('admin.master.studentStatus.list',compact('completions')); 
+        }
+        public function addstudentStatus($id=null)
+        {
+           if ($id!=null) {
+              $completion=StudentStatus::find($id);
+           }
+           if ($id==null) {
+              $completion='';
+           }
+           return view('admin.master.studentStatus.add_form',compact('completion')); 
+        }
+        public function studentStatusStore(Request $request,$id=null)
+      {
+          $rules=[
+              
+                'name' => 'required|max:50|unique:student_statuses,name,'.$id, 
+            
+             
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              else {
+               $Category=StudentStatus::firstOrNew(['id'=>$id]);  
+               $Category->name=$request->name;  
+              
+               $Category->save();
+                $response=['status'=>1,'msg'=>'Created Successfully'];
+              }     return response()->json($response);
+        }
+        public function studentStatusDestroy($id)
+        {
+             $id =Crypt::decrypt($id); 
+            $Category =StudentStatus::find($id);
             $Category->delete();
              return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         } 
