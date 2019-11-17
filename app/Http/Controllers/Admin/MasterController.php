@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
+use App\Model\BloodGroup;
 use App\Model\Category;
+use App\Model\Complextion;
 use App\Model\GuardianRelationType;
 use App\Model\IncomeRange;
 use App\Model\Profession;
@@ -287,7 +289,7 @@ class MasterController extends Controller
         //------------------------religion-----------------------------------------//
        public function religion($id='')
        {
-          $religions=Religion::all(); 
+          $religions=Religion::orderBy('name','ASC')->get(); 
           return view('admin.master.religion.list',compact('religions')); 
        }
        public function addForm($id='')
@@ -335,7 +337,7 @@ class MasterController extends Controller
        //-------------category-----------------------//
        public function category($id='')
        {
-          $categorys=Category::all(); 
+          $categorys=Category::orderBy('name','ASC')->get(); 
           return view('admin.master.category.list',compact('categorys')); 
        }
        public function addCategory($id='')
@@ -352,7 +354,8 @@ class MasterController extends Controller
       {
           $rules=[
               
-                  
+                'name' => 'required|max:50|unique:categories,name,'.$id, 
+             'code' => 'required|max:3|unique:categories,code,'.$id   
              
             ];
 
@@ -379,4 +382,108 @@ class MasterController extends Controller
             $Category->delete();
              return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         }
+
+
+
+
+        //--------------complextion---------------------------------------//
+        public function complextion($value='')
+        {
+          $completions=Complextion::orderBy('name','ASC')->get();
+          return view('admin.master.complextion.list',compact('completions')); 
+        }
+        public function addComplextion($id=null)
+        {
+           if ($id!=null) {
+              $completion=Complextion::find($id);
+           }
+           if ($id==null) {
+              $completion='';
+           }
+           return view('admin.master.complextion.add_form',compact('completion')); 
+        }
+        public function complextionStore(Request $request,$id=null)
+      {
+          $rules=[
+              
+                'name' => 'required|max:50|unique:complextions,name,'.$id, 
+             'code' => 'required|max:3|unique:complextions,code,'.$id   
+             
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              else {
+               $Category=Complextion::firstOrNew(['id'=>$id]);  
+               $Category->name=$request->name;  
+               $Category->code=$request->code; 
+               $Category->save();
+                $response=['status'=>1,'msg'=>'Created Successfully'];
+              }     return response()->json($response);
+        }
+        public function complextionDestroy($id)
+        {
+             $id =Crypt::decrypt($id); 
+            $Category =Complextion::find($id);
+            $Category->delete();
+             return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+        } 
+
+
+
+
+        //--------------blood-group---------------------------------------//
+        public function bloodgroup($value='')
+        {
+          $completions=BloodGroup::orderBy('name','ASC')->get();
+          return view('admin.master.bloodGroup.list',compact('completions')); 
+        }
+        public function addbloodgroup($id=null)
+        {
+           if ($id!=null) {
+              $completion=BloodGroup::find($id);
+           }
+           if ($id==null) {
+              $completion='';
+           }
+           return view('admin.master.bloodGroup.add_form',compact('completion')); 
+        }
+        public function bloodgroupStore(Request $request,$id=null)
+      {
+          $rules=[
+              
+                'name' => 'required|max:50|unique:blood_groups,name,'.$id, 
+             'code' => 'required|max:3|unique:blood_groups,code,'.$id   
+             
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              else {
+               $Category=BloodGroup::firstOrNew(['id'=>$id]);  
+               $Category->name=$request->name;  
+               $Category->code=$request->code; 
+               $Category->save();
+                $response=['status'=>1,'msg'=>'Created Successfully'];
+              }     return response()->json($response);
+        }
+        public function bloodgroupDestroy($id)
+        {
+             $id =Crypt::decrypt($id); 
+            $Category =BloodGroup::find($id);
+            $Category->delete();
+             return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+        } 
 }

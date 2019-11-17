@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Model\BloodGroup;
 use App\Model\Category;
 use App\Model\ClassType;
+use App\Model\Complextion;
 use App\Model\DiscountType;
 use App\Model\Document;
 use App\Model\DocumentType;
@@ -68,17 +69,7 @@ class StudentMedicalInfoController extends Controller
     {   
         $rules=[
           
-            'ondate' => 'required', 
-            'hb' => 'numeric|max:20', 
-            'height' => 'required', 
-            'weight' => 'required', 
-            'bp_uper' => 'required', 
-            'bp_lower' => 'required', 
-            'complextion' => 'required', 
-            'bloodgroup_id' => 'required', 
-            'id_marks1' => 'required', 
-            'physical_handicapped' => 'required', 
-            'alergey' => 'required', 
+             
        
         ];
 
@@ -109,6 +100,9 @@ class StudentMedicalInfoController extends Controller
         $medical->student_id = $request->student_id;
         $medical->vision = $request->vision;
         $medical->weight = $request->weight; 
+        $medical->isalgeric = $request->isalgeric; 
+        $medical->ishandicapped = $request->ishandicapped; 
+        $medical->handi_percent = $request->parcent; 
         $medical->save();
         if ($request->send_sms==1) {
         $this->medicalSendSms($request->student_id); 
@@ -224,9 +218,10 @@ class StudentMedicalInfoController extends Controller
         $subjectTypes = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
         $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $isoptionals = array_pluck(Isoptional::get(['id','name'])->toArray(),'name', 'id');
-        $bloodgroups = array_pluck(BloodGroup::get(['id','name'])->toArray(),'name', 'id');
-        $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 
-       return view('admin.student.studentdetails.include.medical_info_edit',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions','medicalInfo'));
+        $bloodgroups = array_pluck(BloodGroup::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id');
+        $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id');
+        $complextions=Complextion::orderBy('name','ASC')->get();  
+       return view('admin.student.studentdetails.include.medical_info_edit',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','complextions','medicalInfo'));
     }
 
     /**
@@ -240,17 +235,7 @@ class StudentMedicalInfoController extends Controller
     {  
         $rules=[
           
-            'ondate' => 'required', 
-            'hb' => 'numeric|max:20', 
-            'height' => 'required', 
-            'weight' => 'required', 
-            'bp_uper' => 'required', 
-            'bp_lower' => 'required', 
-            'complextion' => 'required', 
-            'bloodgroup_id' => 'required', 
-            'id_marks1' => 'required', 
-            'physical_handicapped' => 'required', 
-            'alergey' => 'required',
+            
        
         ];
 
@@ -281,6 +266,9 @@ class StudentMedicalInfoController extends Controller
         
         $medical->vision = $request->vision;
         $medical->weight = $request->weight;
+        $medical->isalgeric = $request->isalgeric; 
+        $medical->ishandicapped = $request->ishandicapped; 
+        $medical->handi_percent = $request->parcent;
         
        $medical->save();
         $response=['status'=>1,'msg'=>'Update Successfully'];
@@ -314,10 +302,10 @@ class StudentMedicalInfoController extends Controller
         $subjectTypes = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
         $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $isoptionals = array_pluck(Isoptional::get(['id','name'])->toArray(),'name', 'id');
-        $bloodgroups = array_pluck(BloodGroup::get(['id','name'])->toArray(),'name', 'id');
+        $bloodgroups = array_pluck(BloodGroup::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id');
         $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 
-         
-        return view('admin.student.studentdetails.include.add_medical_info',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions'));
+        $complextions=Complextion::orderBy('name','ASC')->get(); 
+        return view('admin.student.studentdetails.include.add_medical_info',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','complextions'));
     }
     public function medicalInfoList(Request $request){ 
          $parentsType = array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name','id');

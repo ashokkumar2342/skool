@@ -24,12 +24,12 @@ class GenderController extends Controller
        }
      return view('admin.gender.add_form',compact('genders'));    
     }
-    public function store(Request $request,$id='')
+    public function store(Request $request,$id=null)
     { 
     	 $rules=[
     	  
-            // 'gender_name' => 'required|max:20|unique:genders,gender'.$id, 
-            // 'code' => 'required|max:2|unique:genders,code'.$id, 
+            'gender_name' => 'required|max:20|unique:genders,genders'.$id, 
+            'code' => 'required|max:2|unique:genders,code'.$id, 
              
        
     	];
@@ -54,7 +54,7 @@ class GenderController extends Controller
     public function destroy($id)
     {
     	$genders=Gender::find($id);
-    	$gender->delete();
+    	$genders->delete();
     	return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
 }

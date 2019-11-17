@@ -27,12 +27,12 @@ b{
           
           <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-user"></i> Student Details</a></li>
-              <li><a data-toggle="tab" data-table="sibling_items" href="#sibling" id="sibling_info_tab"  onclick="callAjax(this,'{{ route('admin.sibling.table.show',$student->id) }}','sibling_info_list')"><i class="fa fa-users" id="sibling_info"></i> Sibling info</a></li>
-              <li><a data-toggle="tab" data-table="parents_items" href="#parent" id="parent_info_tab"  onclick="callAjax(this,'{{ route('admin.parents.list',$student->id) }}','parent_info_list')"><i class="fa fa-user-circle"></i> Parent Info</a></li>
+              <li><a data-toggle="tab" data-table="sibling_items" href="#sibling" id="sibling_info_tab"  onclick="callAjax(this,'{{ route('admin.sibling.table.show',$student->id) }}','sibling_info_list')"><i class="fa fa-users" id="sibling_info"></i> Sibling Detail</a></li>
+              <li><a data-toggle="tab" data-table="parents_items" href="#parent" id="parent_info_tab"  onclick="callAjax(this,'{{ route('admin.parents.list',$student->id) }}','parent_info_list')"><i class="fa fa-user-circle"></i> Parent Detail</a></li>
 
               <li><a data-toggle="tab" href="#address" data-table="address_info_table" id="address_info" onclick="callAjax(this,'{{ route('admin.parents.address',$student->id) }}','address_list')"><i class="fa fa-home"></i> Address</a></li>
 
-              <li><a data-toggle="tab" data-table="medical_info_table" href="#medical" id="medical_info_tab" onclick="callAjax(this,'{{ route('admin.medical.info.list',$student->id) }}','medical_info_page')"><i class="fa fa-user-md" id="medical_info"></i> Medical info</a></li>
+              <li><a data-toggle="tab" data-table="medical_info_table" href="#medical" id="medical_info_tab" onclick="callAjax(this,'{{ route('admin.medical.info.list',$student->id) }}','medical_info_page')"><i class="fa fa-user-md" id="medical_info"></i> Medical Detail</a></li>
               <li><a data-toggle="tab" href="#subjects" id="subject_tab" onclick="callAjax(this,'{{ route('admin.studentSubject.list',$student->id) }}','subject_list')"><i class="fa fa-book" {{-- id="subject_tab" --}}></i>  Subjects</a></li>
               <li><a data-toggle="tab" href="#sport"><i class="fa fa-life-ring" id="sport_tab"></i> Sport hobby</a></li>
               <li><a data-toggle="tab" href="#document"><i class="fa fa-file" id="document_tab"></i> Document</a></li>
@@ -48,28 +48,34 @@ b{
                                 <div class="col-md-6 border_bottom">
                                     <ul class="list-group">
                                      
-                                      <li class="list-group-item">Name <span class="fa fa-asterisk"></span><span class="fs"><input type="text" value="{{ $student->name }}" maxlength="50" name="student_name"> </span></li>
+                                      <li class="list-group-item">Name <span class="fa fa-asterisk"></span><span class="fs"><input type="text" value="{{ $student->name }}" maxlength="50" name="student_name" style="width: 290px"> </span></li>
+                                       <li class="list-group-item">Nick Name <span  class="fs"><input type="text" name="nick_name" maxlength="20" style="width: 290px" value="{{ $student->nick_name }}" name=""> </span></li>
                                      
                                       <li class="list-group-item">Class <span class="fa fa-asterisk"></span><span class="fs"> 
                                         {{-- <input type="text" maxlength="50"  value="{{ $student->classes->name or ''}}" name="nick_name"> --}}
-                                        <select name="class" style="width: 202px" onchange="callAjax(this,'{{ route('admin.student.final.report.class.wise.section') }}','section_div')">
+                                        <select name="class" style="width: 290px"onchange="callAjax(this,'{{ route('admin.student.final.report.class.wise.section') }}','section_div')">
                                           @foreach ($classes as $id=>$value)
                                            <option value="{{ $id }}"{{ $student->class_id==$id? 'selected' : ''}}>{{ $value }}</option> 
-                                          @endforeach
-                                           
+                                          @endforeach 
+                                        </select> 
+                                      </span></li>
+                                      <li class="list-group-item">Section <span class="fa fa-asterisk"></span><span class="fs">{{-- <input type="text" maxlength="50"  style="width: 290px" value="{{ $student->sectionTypes->name or ''}}" >  --}}
+                                        <select name="section" id="section_div" style="width: 290px">
+                                        @foreach ($sections as $section)
+                                          <option  value="{{ $section->id }}"{{ $student->section_id==$section->id? 'selected' : '' }}>{{ $section->name }}</option> 
+                                            
+                                         @endforeach 
                                         </select>
-                                        
-
-
                                       </span></li>
                                      
-                                      <li class="list-group-item">Registration No <span class="fa fa-asterisk"></span><span class="fs"><input type="text" disabled="" value="{{ $student->registration_no or ''}}" > </span></li>
+                                      <li class="list-group-item">Registration No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" disabled="" style="width: 290px" value="{{ $student->registration_no or ''}}" > </span></li>
                                       
-                                      <li class="list-group-item">Roll No <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" value="{{ $student->roll_no or ''}}" name="roll_no" disabled> </span></li>
-                                      <li class="list-group-item">Date Of Addmission <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" value="{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}" name="date_of_admission"> </span></li>
+                                      <li class="list-group-item">Roll No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" style="width: 290px" value="{{ $student->roll_no or ''}}" disabled> </span></li>
+                                      <li class="list-group-item">Addmission No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" disabled="" style="width: 290px" value="{{ $student->admission_no }}" > </span></li>
+                                      
                                      
-                                      <li class="list-group-item">Date Of Birth <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="10" value="{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}" name="date_of_birth"> </span></li>
-                                      <li class="list-group-item">Aadhaar No <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="12" value="{{ $student->adhar_no}}" name="aadhaar_no"> </span></li>
+                                      
+                                      
                                      
                                        
                                       
@@ -82,23 +88,19 @@ b{
 
                                 <div class="col-md-6 border_bottom">
                                     <ul class="list-group">
-                                     <li class="list-group-item">Nick Name <span  class="fs"><input type="text" name="nick_name" maxlength="50" value="{{ $student->nick_name }}" name=""> </span></li>
-                                      <li class="list-group-item">Section <span class="fa fa-asterisk"></span><span class="fs">{{-- <input type="text" maxlength="50"  value="{{ $student->sectionTypes->name or ''}}" >  --}}
-                                        <select name="section" id="section_div" style="width: 202px">
-                                        @foreach ($sections as $section)
-                                          <option value="{{ $section->id }}"{{ $student->section_id==$section->id? 'selected' : '' }}>{{ $section->name }}</option> 
-                                            
-                                         @endforeach 
-                                        </select>
-                                      </span></li>
-                                      <li class="list-group-item">Addmission No <span class="fa fa-asterisk"></span><span class="fs"><input type="text" disabled="" value="{{ $student->admission_no }}" > </span></li>
-                                      <li class="list-group-item">Username <span class="fa fa-asterisk"></span><span class="fs"><input type="text" disabled="" value="{{ $student->username }}" name="email" > </span></li>
-                                       <li class="list-group-item">Date of Activation <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation"> </span></li> 
-                                        <li class="list-group-item">Gender <span class="fa fa-asterisk"></span><span class="fs"><input type="text" value="{{ $student->genders->genders or ''}}" disabled=""> </span></li>
+                                    
+                                      
+                                      <li class="list-group-item">Date of Addmission <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" style="width: 290px" value="{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}" name="date_of_admission"> </span></li>
+                                      <li class="list-group-item">Date of Activation <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" style="width: 290px" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation"> </span></li>
+                                      <li class="list-group-item">Date of Birth <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="10" style="width: 290px" value="{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}" name="date_of_birth"> </span></li>
+                                      <li class="list-group-item">Username <span class="fa fa-asterisk"></span><span class="fs"><input type="text" disabled="" style="width: 290px" value="{{ $student->username }}" name="email" > </span></li>
+                                        
+                                        <li class="list-group-item">Gender <span class="fa fa-asterisk"></span><span class="fs"><input type="text" style="width: 290px" value="{{ $student->genders->genders or ''}}" disabled=""> </span></li>
+                                        <li class="list-group-item">Aadhaar No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="12" style="width: 290px" value="{{ $student->adhar_no}}" name="aadhaar_no"> </span></li>
                                         <li class="list-group-item">House Name <span class="fa fa-asterisk"></span><span class="fs">
-                                          <select name="house" style="width: 202px">
+                                          <select name="house" style="width: 290px">
                                             @foreach ($houses as $house)
-                                              <option value="{{ $house->id }}"{{ $student->house_no==$house->id? 'selected' : '' }}>{{ $house->name }}</option> 
+                                              <option  value="{{ $house->id }}"{{ $student->house_no==$house->id? 'selected' : '' }}>{{ $house->name }}</option> 
                                               
                                             @endforeach
                                           </select>
@@ -113,7 +115,7 @@ b{
                               </form>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3" style="margin-top: 40px">
                              @php
                              $profile = route('admin.student.image',$student->picture);
                              @endphp
@@ -147,7 +149,7 @@ b{
                 </div>
                 <div id="parent" class="tab-pane fade">
                                         
-                      <span ><button type="button" class="add_btn_parets btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.parents.add.form',$student->id) }}')" style="margin: 10px">Add Parent</button>
+                      <span ><button type="button" class="add_btn_parets btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.parents.add.form',$student->id) }}')" style="margin: 10px">Parent Detail</button>
                          
                         
                     
@@ -160,7 +162,7 @@ b{
                     </div> 
                 </div>
                  <div id="medical" class="tab-pane fade">
-                    <button type="button" class="btn btn-info btn-sm btn_add_medical_info" onclick="callPopupLarge(this,'{{ route('admin.medical.info.add.form',$student->id) }}')" style="margin: 10px">Add Medical info</button>
+                    <button type="button" class="btn btn-info btn-sm btn_add_medical_info" onclick="callPopupLarge(this,'{{ route('admin.medical.info.add.form',$student->id) }}')" style="margin: 10px">Add Medical Detail</button>
                      
                     <div class="table-responsive" id="medical_info_page">
                    
@@ -168,7 +170,7 @@ b{
                      
                  </div>   
                 <div id="sibling" class="tab-pane fade">
-                 <button type="button" class="btn btn-info btn-sm btn_add_sibling_info"  onclick="callPopupLarge(this,'{{ route('admin.sibling.add.form',$student->id) }}')" style="margin: 10px">Add Sibling info</button>
+                 <button type="button" class="btn btn-info btn-sm btn_add_sibling_info"  onclick="callPopupLarge(this,'{{ route('admin.sibling.add.form',$student->id) }}')" style="margin: 10px">Add Sibling </button>
                  
                  <div class="table-responsive" id="sibling_info_list">
                     </div> 

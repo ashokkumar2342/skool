@@ -56,10 +56,25 @@ class UserReportController extends Controller
              if ($request->report_type==2) { 
                      $admins=$admin->getUserDetailsByUserId($request->user_id,$arrayStatusId); 
                      $adminAId=$admin->getDetailsAdminId($request->user_id,$arrayStatusId);
-                     $usersmenus =Minu::where('admin_id',$adminAId)
+                     $usersmenus =Minu::where('admin_id',$request->user_id)
                                         ->where('status',1)
                                         ->with(['subMenuTypes'])
                                         ->get();
+                  
+             }
+             if ($request->report_type==3) { 
+                      $usersmenus =Minu::where('sub_menu_id',$request->sub_menu_id)
+                                        ->where('status',1)
+                                        ->with(['subMenuTypes'])
+                                        ->get();
+                                         $admins=array();   
+                 $pdf = PDF::setOptions([
+                'logOutputFile' => storage_path('logs/log.htm'),
+                'tempDir' => storage_path('logs/')
+                 ])
+                 ->loadView('admin.account.report.userReport.menu_with_user',compact('usersmenus','admins')); 
+                  return $pdf->stream('section.pdf');
+
                   
              } 
             if ($request->report_details==1) {  

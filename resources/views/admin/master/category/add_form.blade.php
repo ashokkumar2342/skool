@@ -26,7 +26,7 @@
                       </div>
                       <div class="col-lg-6">
                         <label>Category Code</label>
-                        <input type="text" name="code" class="form-control" placeholder="Enter Category Code" value="{{ @$category->code }}" maxlength="2"> 
+                        <input type="text" name="code" class="form-control" placeholder="Enter Category Code" value="{{ @$category->code }}" maxlength="3"> 
                       </div>  
                     <div class="col-lg-12 text-center" style="padding-top: 10px">
                       <input type="submit" class="btn btn-success">

@@ -5,6 +5,7 @@
 			<th>Password</th>
 			<th>Sender Name</th>
 			<th>Url</th>
+			<th>Enable Auto Send</th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -15,6 +16,7 @@
 					<td>{{ $smsApi->password }}</td>
 					<td>{{ $smsApi->sender_id }}</td>
 					<td>{{ $smsApi->url }}</td>
+					<td>{{ $smsApi->enableAutoSend==1?'Yes' : 'No'}}</td>
 					<td>
 						@if ($smsApi->status==1 )
 						<a class="btn btn-success btn-xs" success-popup="true" button-click="btn_outhor_table_show" style="width:60px" onclick="callAjax(this,'{{ route('admin.api.status',[$smsApi->id,1]) }}')">Active</i></a>

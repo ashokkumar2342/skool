@@ -51,8 +51,11 @@ class ApiSetingController extends Controller
 		       $smsApi->url=$request->url;  
 		       $smsApi->sender_id=$request->sender_name;  
            $smsApi->enableAutoSend=$request->enable_auto_send;  
+           if ($smsApi->status==null) {
+             $smsApi->status=0;
+           }
 		       $smsApi->last_updated_by=1;  
-		       $smsApi->status=0;
+		       
 	    	   $smsApi->save();
 	    	$response=['status'=>1,'msg'=>'Created Successfully'];
 	            return response()->json($response);
@@ -91,7 +94,7 @@ class ApiSetingController extends Controller
 	            'password' => 'required|max:50', 
 	            'encryption' => 'required|max:200',
 	            'from' => 'required|max:50', 
-              'enable_auto_send' => 'required', 
+               
 	       
 	    	];
 
@@ -113,7 +116,9 @@ class ApiSetingController extends Controller
 		       $smsApi->mail_from=$request->from;
            $smsApi->enableAutoSend=$request->enable_auto_send;  
 		       $smsApi->last_updated_by=1;  
-		       $smsApi->status=0;
+		       if ($smsApi->status==null) {
+             $smsApi->status=0;
+           }
 	    	   $smsApi->save();
 	    	$response=['status'=>1,'msg'=>'Created Successfully'];
 	            return response()->json($response);
