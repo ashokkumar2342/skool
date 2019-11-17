@@ -509,6 +509,7 @@ class MasterController extends Controller
           $rules=[
               
                 'name' => 'required|max:50|unique:student_statuses,name,'.$id, 
+                'code' => 'required|max:5|unique:student_statuses,code,'.$id, 
             
              
             ];
@@ -524,6 +525,7 @@ class MasterController extends Controller
               else {
                $Category=StudentStatus::firstOrNew(['id'=>$id]);  
                $Category->name=$request->name;  
+               $Category->code=$request->code;  
               
                $Category->save();
                 $response=['status'=>1,'msg'=>'Created Successfully'];

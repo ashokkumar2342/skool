@@ -17,7 +17,8 @@
                       <thead>
                       <tr>
                         <th>SR.No.</th> 
-                        <th>Status</th> 
+                        <th>Status Name</th> 
+                        <th>Code</th> 
                         <th>Action</th>
                          </tr>
                       </thead>
@@ -30,6 +31,7 @@
                       <tr>
                         <td>{{ $completionsId++ }}</td> 
                         <td>{{ $completions->name }} </td>
+                        <td>{{ $completions->code }} </td>
                         
                         <td>
                          @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
