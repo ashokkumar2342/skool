@@ -14,6 +14,9 @@ class StudentMedicalInfo extends Model
      Public function bloodgroups(){
         return $this->hasOne('App\Model\bloodGroup','id','bloodgroup_id');
     }
+    Public function complextions(){
+        return $this->hasOne('App\Model\Complextion','id','complextion');
+    }
     protected $fillable = [
        'alergey', 
         'alergey_vacc',

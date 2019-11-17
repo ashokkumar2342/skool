@@ -4,8 +4,8 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BloodGroup extends Model
+class Complextion extends Model
 {
-  protected $fillable=[
-  	'id',];
+    protected $fillable=[
+     'id',];
 }

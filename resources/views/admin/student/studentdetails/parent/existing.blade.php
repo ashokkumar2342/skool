@@ -27,11 +27,10 @@
 		@endforeach
 	</tbody>
 </table>
+<div class="col-lg-12 text-center" >
+<input type="submit" class="btn btn-success" style="margin: 10px"> 
+</div>
+</div>
   </div>
-<div class="col-lg-12 text-center">
-<input type="submit" class="btn btn-success">
-	
-</div>
-</div>
 
  

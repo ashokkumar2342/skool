@@ -24,11 +24,11 @@
     <td>{{ $student->addressDetails->address->primary_email or '' }}</td>
      
     <td align="center">
-      @if ($menuPermision->r_status==1)
+     {{--  @if ($menuPermision->r_status==1)
        <a class="btn btn-primary btn-xs" title="View Student" href="{{ route('admin.student.view',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a>
-       @endif 
+       @endif  --}}
        @if ($menuPermision->w_status==1) 
-      <a class="btn btn-warning btn-xs"  title="Edit Student" href="{{ route('admin.student.edit',$student->id) }}"><i class="fa fa-edit"></i> 
+      <a class="btn btn-warning btn-xs"  title="Edit Student" href="{{ route('admin.student.view',$student->id) }}" target="_blank"><i class="fa fa-edit"></i> 
     {{--  @endif --}}
      
       {{-- <a onclick="return confirm('Are you sure to reset this student password.')" class="btn btn-danger btn-xs" title="Password Reset" href="{{ route('admin.student.passwordreset',$student->id) }}"><i class="fa fa-key"></i></a> --}}

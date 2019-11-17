@@ -817,13 +817,26 @@ Route::group(['middleware' => 'admin'], function() {
 			   Route::get('delete/{id?}', 'MasterController@religionDestroy')->name('admin.religion.delete');	 	
 			    
 
-			});Route::group(['prefix' => 'category'], function() {
+			});
+			Route::group(['prefix' => 'category'], function() {
 			    Route::get('category', 'MasterController@category')->name('admin.category.list');	 	
 			    Route::get('add/{id?}', 'MasterController@addCategory')->name('admin.category.add');	 	
 			    Route::post('store/{id?}', 'MasterController@categoryStore')->name('admin.category.store'); 
 			    Route::get('delete/{id}', 'MasterController@categoryDestroy')->name('admin.category.delete');	 	
 			    
 
+			});
+			Route::group(['prefix' => 'complextion'], function() {
+			    Route::get('complextion', 'MasterController@complextion')->name('admin.complextion.list');	 	
+			    Route::get('add/{id?}', 'MasterController@addComplextion')->name('admin.complextion.add');	 	
+			    Route::post('store/{id?}', 'MasterController@complextionStore')->name('admin.complextion.store'); 
+			    Route::get('delete/{id}', 'MasterController@complextionDestroy')->name('admin.complextion.delete'); 
+			});
+			Route::group(['prefix' => 'blood-group'], function() {
+			    Route::get('bloodgroup', 'MasterController@bloodgroup')->name('admin.bloodgroup.list');	 	
+			    Route::get('add/{id?}', 'MasterController@addbloodgroup')->name('admin.bloodgroup.add');	 	
+			    Route::post('store/{id?}', 'MasterController@bloodgroupStore')->name('admin.bloodgroup.store'); 
+			    Route::get('delete/{id}', 'MasterController@bloodgroupDestroy')->name('admin.bloodgroup.delete'); 
 			});	
 			//------------------------- SMS ---------------------------------
 			Route::group(['prefix' => 'sms'], function() {

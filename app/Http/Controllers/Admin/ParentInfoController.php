@@ -47,8 +47,8 @@ class ParentInfoController extends Controller
     public function perentInfoAddForm(Request $request)
     {
          $parentsType= array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name', 'id'); 
-        $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 
-        $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
+        $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id')->orderBy('name','ASC'); 
+        $incomes = array_pluck(IncomeRange::orderBy('range','ASC')->get(['id','range'])->toArray(),'range', 'id');
         $student=$request->id;
           return view('admin.student.studentdetails.include.add_parents_info',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions'));
     }
@@ -141,13 +141,11 @@ class ParentInfoController extends Controller
     {    
         $rules=[
         'name' => 'required',               
-        'mobile' => 'required|digits:10',              
-        'education' => 'required',              
+             
+        
         'profession' => 'required',              
         'income' => 'required',              
-        'email' => 'required',              
-        'dob' => 'required',              
-        'doa' => 'required',              
+           
         'islive' => 'required',              
                    
         
@@ -170,6 +168,8 @@ class ParentInfoController extends Controller
         $parentsinfo->email = $request->email;
         $parentsinfo->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
         $parentsinfo->doa = $request->doa == null ? $request->doa : date('Y-m-d',strtotime($request->doa));
+        $parentsinfo->organization_address = $request->organization_address;
+        $parentsinfo->f_designation = $request->f_designation;
         $parentsinfo->office_address = $request->office_address;
         $parentsinfo->islive = $request->islive;
         $parentsinfo->save();
@@ -244,13 +244,10 @@ class ParentInfoController extends Controller
     {   
         $rules=[
        'name' => 'required',               
-        'mobile' => 'required|digits:10',              
-        'education' => 'required',              
+             
         'profession' => 'required',              
         'income' => 'required',              
-        'email' => 'required',              
-        'dob' => 'required',              
-        'doa' => 'required',              
+          
         'islive' => 'required',              
         
         ];
@@ -276,6 +273,8 @@ class ParentInfoController extends Controller
         $parentsinfo->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
         $parentsinfo->doa = $request->doa == null ? $request->doa : date('Y-m-d',strtotime($request->doa));
         $parentsinfo->organization_address = $request->organization_address;
+        $parentsinfo->f_designation = $request->f_designation;
+        $parentsinfo->office_address = $request->office_address;
         $parentsinfo->islive = $request->islive;   
         $parentsinfo->save();
         $response=['status'=>1,'msg'=>'Parent Information Update Successfully'];

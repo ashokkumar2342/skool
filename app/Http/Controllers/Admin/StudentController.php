@@ -563,7 +563,7 @@ class StudentController extends Controller
          
         $admin_id = Auth::guard('admin')->user()->id; 
         $student->admin_id = $admin_id; 
-        $student->roll_no= $request->roll_no;     
+          
         $student->class_id= $request->class;     
         $student->section_id= $request->section;     
         $student->date_of_admission= $request->date_of_admission == null ? $request->date_of_admission : date('Y-m-d',strtotime($request->date_of_admission));

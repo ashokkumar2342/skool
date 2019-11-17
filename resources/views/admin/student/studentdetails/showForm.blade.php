@@ -15,9 +15,9 @@
               <div class="card card-primary card-outline"> 
                 <div class="card-body">
                   <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#home">Class With Section</a></li>
-                    <li><a data-toggle="tab" href="#menu1">Student Registration No</a></li>
-                    <li><a data-toggle="tab" href="#menu2">Student Search</a></li>
+                    <li class="active"><a data-toggle="tab" href="#home">Class/Section</a></li>
+                    <li><a data-toggle="tab" href="#menu1">Registration No.</a></li>
+                    <li><a data-toggle="tab" href="#menu2">Search</a></li>
                   </ul> 
                   <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
