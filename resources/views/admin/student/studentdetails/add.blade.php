@@ -26,16 +26,16 @@
                                     <div class="form-group">
                                         <div class="col-lg-3">                         
                                             <div class="form-group">
-                                            {{ Form::label('sibling_register','Sibling Register',['class'=>' control-label']) }}
+                                            {{ Form::label('sibling_registration','Sibling Ragistration',['class'=>' control-label']) }}
                                                 <span class="fa fa-asterisk"></span>
-                                                <select name="sibling_register"  class="form-control" id="sibling_register" onchange="if(this.value==='yes'){
+                                                <select name="sibling_registration"  class="form-control" id="sibling_registration" onchange="if(this.value==='yes'){
                                                     showHideDiv(1,'registration_div_yes');
                                                     showHideDiv(0,'registration_div_no');
                                                 }else{
                                                     showHideDiv(0,'registration_div_yes');
                                                     showHideDiv(1,'registration_div_no');
                                                 }">
-                                                    <option selected disabled>Select Sibling Register</option>
+                                                    <option selected disabled>Select Sibling Ragistration</option>
                                                     <option value="yes">Yes</option>
                                                     <option value="no">No</option>
                                                      
@@ -47,7 +47,7 @@
                                                 <div class="form-group">
                                                 {{ Form::label('sibling_register','Sibling Register No',['class'=>' control-label']) }}
                                                     <span class="fa fa-asterisk"></span>
-                                                    <input type="text" onblur="callAjax(this,'{{ route('admin.student.details.show') }}','sibling_details')" name="sibling_rigister_no" id="sibling_rigister_no" class="form-control">
+                                                    <input type="text" onblur="callAjax(this,'{{ route('admin.student.details.show') }}','sibling_details')" name="sibling_registration_no" id="sibling_registration_no" class="form-control">
                                                 </div>
                                             </div>  
                                             <div class="col-lg-6">                         

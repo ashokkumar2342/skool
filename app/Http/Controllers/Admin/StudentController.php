@@ -227,10 +227,10 @@ class StudentController extends Controller
     {   
        
        $rules=[
-            'sibling_register' => 'required',
-            'sibling_rigister_no' => 'required_if:sibling_register,yes',
-            'mobile_no' => 'required_if:sibling_register,no',
-            'email' => 'required_if:sibling_register,no',
+            'sibling_registration' => 'required',
+            'sibling_registration_no' => 'required_if:sibling_registration,yes',
+            'mobile_no' => 'required_if:sibling_registration,no',
+            'email' => 'required_if:sibling_registration,no',
             'class' => 'required',
             "section" => 'required',
             "registration_no" => 'required|max:20|unique:students',
@@ -251,14 +251,27 @@ class StudentController extends Controller
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
         } 
-        else { return $request;
+        else {   
         $admin_id = Auth::guard('admin')->user()->id;
         $username = str_random('10');
         $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
         $student= new Student();
-        $student->username= $username;    
-        $student->password = bcrypt($char);
-        $student->tem_pass = $char; 
+        if ($request->sibling_registration=='yes') {  
+          $sibling= $student->getDetailByRegistrationNo($request->sibling_registration_no);
+          if (is_null($sibling)) {
+            $response=array();
+            $response['status']=0;
+            $response['msg']='Sibling Invalied Ragistration No';
+            return $response;
+          }
+          $student->siblingId= $sibling->id;
+        }
+        
+         
+        $student->emailid= $request->email;  
+        $student->mobileno= $request->mobile_no; 
+        $student->dpassword= $char;  
+        $student->dpassword_encrypt= bcrypt($char); 
         $student->admin_id = $admin_id; 
         $student->class_id= $request->class;
         $student->section_id= $request->section;     
@@ -273,28 +286,16 @@ class StudentController extends Controller
         $student->nick_name= $request->nick_name; 
         
         $student->dob= $request->date_of_birth == null ? $request->date_of_birth : date('Y-m-d',strtotime($request->date_of_birth));
-        $student->gender_id= $request->gender; 
-        $student->gender_id= $request->gender; 
-        $student->gender_id= $request->gender; 
-        if($student->save()){            
-            $student->username= 'ISKOOL10'.$student->id;
-            $student->save(); 
-            // $subjects = Subject::where('classType_id',$student->class_id)->get();
-            // if ($subjects != NULL) {
-            //     foreach ($subjects as $subject){                 
-            //      $studentSubject = StudentSubject::firstOrNew(['subject_type_id' => $subject->subject_type_id, 'student_id' => $student->id]);
-            //      $studentSubject->subject_type_id = $subject->subjectType_id;
-            //      $studentSubject->student_id = $student->id;
-            //      $studentSubject->isoptional_id = $subject->isoptional_id;
-                  
-            //      $studentSubject->save();                     
-            //     }
-           
-            // } 
-             
-            $response=['status'=>1,'msg'=>'Created Successfully'];
-            return response()->json($response);
-          } 
+        $student->gender_id= $request->gender;        
+         $student->save()  ;
+            $response=array();
+            $response['status']=1;
+            $response['msg']='Created Successfully';
+            
+
+        
+            return $response;
+          
         }
 
 
@@ -1111,8 +1112,11 @@ class StudentController extends Controller
     public function studentSearchByRegisterNo(Request $request)
     {  
         $st =new Student();
-        $student_id= $st->getDetailByRegistrationNo($request->id)->id;
-        $student= $st->getStudentDetailsById($student_id);
+        $std= $st->getDetailByRegistrationNo($request->id);
+        if ($std==null) {
+           return '<p style="color:red">Sibling Registration No Invalid</p>';
+        }
+        $student= $st->getStudentDetailsById($std->id);
         return view('admin.student.studentdetails.details',compact('student'))->render();
     }
 }
