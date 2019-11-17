@@ -4,14 +4,16 @@
                                 <th><span class="text-nowrap">Name </span></th>
                                 <th><span class="text-nowrap">Relation </span></th>
                                 <th><span class="text-nowrap">Education </span></th>
-                                <th><span class="text-nowrap">Occupation </span></th>
-                                <th><span class="text-nowrap">Income Slab(Annual)</span></th>
-                                <th><span class="text-nowrap">Mobile No</span></th>
-                                <th><span class="text-nowrap">E-mail ID</span></th>
-                                <th><span class="text-nowrap">Date Of Birth </span></th>
-                                <th><span class="text-nowrap">Date Of Anniversary </span></th>
-                                <th><span class="text-nowrap">Organization Address </span></th>
-                                <th><span class="text-nowrap">Islive </span></th>
+                                <th><span class="text-nowrap">Profetion </span></th>
+                                <th><span class="text-nowrap">Annual Income</span></th>
+                                <th><span class="text-nowrap">Mobile No.</span></th>
+                                <th><span class="text-nowrap">Email </span></th>
+                                <th><span class="text-nowrap">Date of Birth </span></th>
+                                <th><span class="text-nowrap">Date of Anniversary </span></th>
+                                <th><span class="text-nowrap">Office Address </span></th>
+                                <th><span class="text-nowrap">Organization Name </span></th>
+                                <th><span class="text-nowrap">Designation Address </span></th>
+                                <th><span class="text-nowrap">Alive </span></th>
                                 <th><span class="text-nowrap">Photo </span></th>
                                 <th><span class="text-nowrap" style="margin:5px">Action </span></th>
                             </tr>
@@ -28,7 +30,9 @@
                                 <td>{{ $parent->parentInfo->email or ''}}</td>
                                 <td>{{ $parent->parentInfo->dob!=null?date('d-m-Y',strtotime( $parent->parentInfo->dob)):'' }}</td>
                                 <td>{{ $parent->parentInfo->doa!=null?date('d-m-Y',strtotime( $parent->parentInfo->doa)): '' }}</td>
+                                <td>{{ $parent->parentInfo->office_address or ''}}</td>
                                 <td>{{ $parent->parentInfo->organization_address or ''}}</td>
+                                <td>{{ $parent->parentInfo->f_designation or ''}}</td>
                                 <td>{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</td>                            
                                                         
                                  

@@ -54,27 +54,26 @@
               <label>City</label> <span class="fa fa-asterisk"></span>
               <input type="text" name="city" class="form-control" placeholder="" maxlength="50" value="{{ $address->city }}">
             </div>
-            <div class="form-group form-group col-lg-6">
+           <div class="form-group col-lg-6">
               <label>Permanent  Address</label> <span class="fa fa-asterisk"></span>
-              <textarea class="form-control" name="p_address" rows="1" id="p_address" maxlength="200">{{ $address->p_address }}</textarea>
+              <textarea class="form-control" name="p_address" id="p_address" rows="1" maxlength="200"style="width: 100%; height: 80px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" >{{ $address->p_address }}</textarea>
             </div>
-            <div class="form-group form-group col-lg-4">
-              <label>Permanent  Pincode</label> <span class="fa fa-asterisk"></span>
-              <input type="text" name="p_pincode" id="p_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200" required="" value="{{ $address->p_pincode }}">
+            <div class="form-group col-lg-4" style="margin-left:200px;">
+              <label>Pincode</label> <span class="fa fa-asterisk"></span>
+              <input type="number" name="p_pincode" id="p_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200" required="" value="{{ $address->p_pincode }}">
             </div>
-            <div class="form-group form-group col-lg-2" style="margin-top: 30px">
-              
-              <input type="checkbox" id="addressCheck" name="addressCheck">
+              <div class="form-group col-lg-2 text-center">
+              <input type="checkbox" id="addressCheck" name="addressCheck" style="margin-top: 30px">
               <label>Same As</label> 
-            </div>
-            <div class="form-group form-group col-lg-6">
+            </div>   
+            <div class="form-group col-lg-6" style="margin-right: 200px;" >
               <label>Correspondence Address</label> <span class="fa fa-asterisk"></span>
-              <textarea class="form-control" rows="1" name="c_address" id="c_address" maxlength="200">{{ $address->c_address }}</textarea>
+              <textarea class="form-control" name="c_address" rows="1" id="c_address" maxlength="200" style="width: 100%; height: 80px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $address->c_address }}</textarea>
             </div> 
-            <div class="form-group form-group col-lg-4">
-              <label>Correspondence Pincode</label>
-              <input type="text" name="c_pincode" id="c_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200" value="{{ $address->c_pincode }}">
-            </div> 
+            <div class="form-group col-lg-4">
+              <label>Pincode</label>
+              <input type="number" name="c_pincode" id="c_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200" value="{{ $address->c_pincode }}">
+            </div>
           <div class="form-group col-lg-12 text-center" style="margin-top: 10px">
             <input type="submit" value="Update" class="btn btn-success">
             

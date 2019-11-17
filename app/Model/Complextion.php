@@ -4,9 +4,8 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StudentStatus extends Model
+class Complextion extends Model
 {
-	
     protected $fillable=[
-    	'id',];
+     'id',];
 }

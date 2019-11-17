@@ -30,8 +30,8 @@ class StudentAddressDetailController extends Controller
     public function addAddress(Request $request,$student_id)
     {
         
-        $cotegorys=Category::orderBy('id','ASC')->get();
-        $religions=Religion::orderBy('id','ASC')->get(); 
+        $cotegorys=Category::orderBy('name','ASC')->get();
+        $religions=Religion::orderBy('name','ASC')->get(); 
         return view('admin.student.studentdetails.parent.add_address',compact('cotegorys','religions','student_id'));   
     }
     public function sameAS(Request $request)
@@ -96,8 +96,8 @@ class StudentAddressDetailController extends Controller
     public function addressEdit($id)
     {
       $address=Address::find($id);
-      $cotegorys=Category::orderBy('id','ASC')->get();
-      $religions=Religion::orderBy('id','ASC')->get(); 
+      $cotegorys=Category::orderBy('name','ASC')->get();
+      $religions=Religion::orderBy('name','ASC')->get(); 
       return view('admin.student.studentdetails.parent.add_address_edit',compact('cotegorys','religions','address')); 
     }
     public function addressUpdate(Request $request,$id)

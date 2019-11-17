@@ -17,7 +17,7 @@
 @endif
 @if ($reportType==3)
  {{ Form::label('sub_menu','Menu',['class'=>' control-label']) }} <br>
-<select class="multiselect" multiple="multiple"  name="sub_menu_id[]" > 
+<select class="form-control"  name="sub_menu_id" > 
   @foreach ($menus as $menu) 
     <optgroup label="{{ $menu->name }}"> 
       @foreach ($subMenus as $subMenu)

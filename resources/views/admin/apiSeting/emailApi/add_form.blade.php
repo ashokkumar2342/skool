@@ -46,7 +46,7 @@
                     </div>
                     <div class="form-group   col-lg-4">
                       <label>Enable Auto Send</label>
-                      <input type="checkbox" name="enable_auto_send" value="1">
+                      <input type="checkbox" name="enable_auto_send" value="1" {{ @$emailApi->enableAutoSend? 'checked' : '' }}>
                        
                     </div> 
                    <div class="row">

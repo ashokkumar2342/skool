@@ -7,7 +7,7 @@
    
    </style>
 <section class="content-header">
-    <h1> Student Add <small>Details</small> </h1>
+    <h1> New Student<small>Details</small> </h1>
        @includeIf('admin.include.hot_menu', ['menu_type_id' => 3]) 
      </section>      
     <section class="content">        
@@ -100,7 +100,7 @@
                                             </div>
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('registration_no','Registration no',['class'=>' control-label ']) }}
+                                                    {{ Form::label('registration_no','Registration No.',['class'=>' control-label ']) }}
                                                     <span class="fa fa-asterisk"></span>                         
                                                     {{ Form::text('registration_no','',['class'=>'form-control','maxlength'=>'20']) }}
                                                     <p class="text-danger">{{ $errors->first('registration_no') }}</p>
@@ -108,7 +108,7 @@
                                             </div>
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('admission_no','Admission No',['class'=>' control-label']) }}
+                                                    {{ Form::label('admission_no','Admission No.',['class'=>' control-label']) }}
                                                     <span class="fa fa-asterisk"></span>
                                                     {{ Form::text('admission_no','',['class'=>'form-control','maxlength'=>'20']) }}
                                                     <p class="text-danger">{{ $errors->first('admission_no') }}</p>
@@ -116,7 +116,7 @@
                                             </div>
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
-                                                    {{ Form::label('roll_no','Roll No',['class'=>' control-label']) }}
+                                                    {{ Form::label('roll_no','Roll No.',['class'=>' control-label']) }}
                                                     <span class="fa fa-asterisk"></span>
                                                     {{ Form::text('roll_no','',['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'4']) }}
                                                     <p class="text-danger">{{ $errors->first('roll_no') }}</p>
@@ -170,7 +170,7 @@
                                                 <div class="form-group">
                                                     {{ Form::label('nick_name','Nick Name',['class'=>' control-label']) }}
                                                    {{--  <span class="fa fa-asterisk"></span> --}}                         
-                                                    {{ Form::text('nick_name','',['class'=>'form-control','maxlength'=>'50']) }}
+                                                    {{ Form::text('nick_name','',['class'=>'form-control','maxlength'=>'20']) }}
                                                     <p class="text-danger">{{ $errors->first('nick_name') }}</p>
                                                 </div>
                                             </div> 
@@ -187,7 +187,7 @@
                                                     <p class="text-danger">{{ $errors->first('date_of_birth') }}</p>
                                                 </div>
                                             </div> 
-                                              <div class="col-lg-4">                         
+                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('gender','Gender',['class'=>' control-label']) }}
                                                     <span class="fa fa-asterisk"></span>
@@ -195,14 +195,14 @@
                                                     <p class="text-danger">{{ $errors->first('gender') }}</p>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4">                         
+                                            <div class="col-lg-3">                         
                                                 <div class="form-group">
-                                                    <label>Aadhaar No</label>
+                                                    <label>Aadhaar No.</label>
                                                     <span class="fa fa-asterisk"></span>
-                                                    <input type="text" name="aadhaar_no" class="form-control"  maxlength="12" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                    <input type="text" name="aadhaar_no" class="form-control"  maxlength="12" placeholder="Enter Adhaar No." onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4">                         
+                                            <div class="col-lg-6">                         
                                                 <div class="form-group">
                                                     <label>House Name</label>
                                                     <span class="fa fa-asterisk"></span>

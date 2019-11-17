@@ -11,8 +11,11 @@
                                  <th> <span class="text-nowrap">Vision </span></th>
                                  <th> <span class="text-nowrap">Complextion </span></th>
                                  <th> <span class="text-nowrap">Alergey </span></th>
+                                 <th> <span class="text-nowrap">Isalgeric </span></th>
                                  <th> <span class="text-nowrap">Alergey Vacc </span></th>
                                  <th> <span class="text-nowrap">Physical Handicapped </span></th>
+                                 <th> <span class="text-nowrap">Percent<span></th>
+                                 <th> <span class="text-nowrap">Ishandicapped </span></th>
                                  <th> <span class="text-nowrap">Narration </span></th>
                                  <th> <span class="text-nowrap">Dental </span></th>
                                  <th> <span class="text-nowrap">BP Upper</span></th>
@@ -32,10 +35,13 @@
                                  <td>{{ $medicalInfo->height }}</td>
                                  
                                  <td>{{ $medicalInfo->vision }}</td>
-                                 <td>{{ $medicalInfo->complextion }}</td>
+                                 <td>{{ $medicalInfo->complextions->name or '' }}</td>
                                  <td>{{ $medicalInfo->alergey }}</td>
+                                 <td>{{ $medicalInfo->isalgeric }}</td>
                                  <td>{{ $medicalInfo->alergey_vacc }}</td>
                                  <td>{{ $medicalInfo->physical_handicapped }}</td>
+                                 <td>{{ $medicalInfo->handi_percent }}</td>
+                                 <td>{{ $medicalInfo->ishandicapped }}</td>
                                  <td>{{ $medicalInfo->narration }}</td>
                                  <td>{{ $medicalInfo->dental }}</td>                                  
                                  <td>{{ $medicalInfo->bp_uper }}</td> 
