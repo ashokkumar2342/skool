@@ -209,6 +209,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::post('reset-roll-no-update', 'StudentController@resetRollNoUpdate')->name('admin.student.reset.roll.no.update');
 		Route::get('student-request-update', 'StudentController@studentRequestUpdate')->name('admin.student.request.update');
 		Route::get('student-serach/{menu_id}', 'StudentController@studentSearch')->name('admin.student.view.search');
+		Route::get('student-serach-by-register-no/', 'StudentController@studentSearchByRegisterNo')->name('admin.student.details.show');
 
 
 		});

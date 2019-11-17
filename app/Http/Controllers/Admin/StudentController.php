@@ -227,6 +227,10 @@ class StudentController extends Controller
     {   
        
        $rules=[
+            'sibling_register' => 'required',
+            'sibling_rigister_no' => 'required_if:sibling_register,yes',
+            'mobile_no' => 'required_if:sibling_register,no',
+            'email' => 'required_if:sibling_register,no',
             'class' => 'required',
             "section" => 'required',
             "registration_no" => 'required|max:20|unique:students',
@@ -246,8 +250,8 @@ class StudentController extends Controller
             $response["status"]=0;
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
-        }
-        else {
+        } 
+        else { return $request;
         $admin_id = Auth::guard('admin')->user()->id;
         $username = str_random('10');
         $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
@@ -270,21 +274,23 @@ class StudentController extends Controller
         
         $student->dob= $request->date_of_birth == null ? $request->date_of_birth : date('Y-m-d',strtotime($request->date_of_birth));
         $student->gender_id= $request->gender; 
+        $student->gender_id= $request->gender; 
+        $student->gender_id= $request->gender; 
         if($student->save()){            
             $student->username= 'ISKOOL10'.$student->id;
             $student->save(); 
-            $subjects = Subject::where('classType_id',$student->class_id)->get();
-            if ($subjects != NULL) {
-                foreach ($subjects as $subject){                 
-                 $studentSubject = StudentSubject::firstOrNew(['subject_type_id' => $subject->subject_type_id, 'student_id' => $student->id]);
-                 $studentSubject->subject_type_id = $subject->subjectType_id;
-                 $studentSubject->student_id = $student->id;
-                 $studentSubject->isoptional_id = $subject->isoptional_id;
+            // $subjects = Subject::where('classType_id',$student->class_id)->get();
+            // if ($subjects != NULL) {
+            //     foreach ($subjects as $subject){                 
+            //      $studentSubject = StudentSubject::firstOrNew(['subject_type_id' => $subject->subject_type_id, 'student_id' => $student->id]);
+            //      $studentSubject->subject_type_id = $subject->subjectType_id;
+            //      $studentSubject->student_id = $student->id;
+            //      $studentSubject->isoptional_id = $subject->isoptional_id;
                   
-                 $studentSubject->save();                     
-                }
+            //      $studentSubject->save();                     
+            //     }
            
-            } 
+            // } 
              
             $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
@@ -1100,5 +1106,13 @@ class StudentController extends Controller
     {
         $studentRequests=RequestUpdate::orderBy('id','DESC')->get();
         return view('admin.student.requestUpdation.request_list',compact('studentRequests')); 
+    }
+
+    public function studentSearchByRegisterNo(Request $request)
+    {  
+        $st =new Student();
+        $student_id= $st->getDetailByRegistrationNo($request->id)->id;
+        $student= $st->getStudentDetailsById($student_id);
+        return view('admin.student.studentdetails.details',compact('student'))->render();
     }
 }

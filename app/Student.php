@@ -282,5 +282,14 @@ class Student extends Authenticatable
 
     }
 
+    public function getDetailByRegistrationNo($registration_no){
+    try {
+    return $this->where("registration_no",$registration_no)
+    ->first();
+    } catch (QueryException $e) {
+    return $e; 
+    }
+    }
+
     
 }

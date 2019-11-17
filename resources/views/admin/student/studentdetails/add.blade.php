@@ -16,14 +16,72 @@
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="row">
+
+                    
                     <div class="col-lg-12 "> 
                     <form action="{{ route('admin.student.post') }}" method="post" class="add_form">
                               {{ csrf_field() }}                                            
                              <div class="row">{{--row start --}}
                                 <div class="col-md-12 ">
                                     <div class="form-group">
-                                        <div class="col-md-12">                                          
-                                             <div class="col-lg-3">                         
+                                        <div class="col-lg-3">                         
+                                            <div class="form-group">
+                                            {{ Form::label('sibling_register','Sibling Register',['class'=>' control-label']) }}
+                                                <span class="fa fa-asterisk"></span>
+                                                <select name="sibling_register"  class="form-control" id="sibling_register" onchange="if(this.value==='yes'){
+                                                    showHideDiv(1,'registration_div_yes');
+                                                    showHideDiv(0,'registration_div_no');
+                                                }else{
+                                                    showHideDiv(0,'registration_div_yes');
+                                                    showHideDiv(1,'registration_div_no');
+                                                }">
+                                                    <option selected disabled>Select Sibling Register</option>
+                                                    <option value="yes">Yes</option>
+                                                    <option value="no">No</option>
+                                                     
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="registration_div_yes" style="display: none;">
+                                            <div class="col-lg-3">                         
+                                                <div class="form-group">
+                                                {{ Form::label('sibling_register','Sibling Register No',['class'=>' control-label']) }}
+                                                    <span class="fa fa-asterisk"></span>
+                                                    <input type="text" onblur="callAjax(this,'{{ route('admin.student.details.show') }}','sibling_details')" name="sibling_rigister_no" id="sibling_rigister_no" class="form-control">
+                                                </div>
+                                            </div>  
+                                            <div class="col-lg-6">                         
+                                                <div class="form-group" id="sibling_details">
+
+                                                </div>
+                                            </div>  
+                                        </div>
+                                        <div id="registration_div_no" style="display: none;">
+                                            <div class="col-lg-3">                         
+                                                <div class="form-group">
+                                                {{ Form::label('sibling_mobile_no','Mobile No',['class'=>' control-label']) }}
+                                                    <span class="fa fa-asterisk"></span>
+                                                    <input type="text" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'  name="mobile_no" id="mobile_no" class="form-control">
+                                                </div>
+                                            </div>  
+                                            <div class="col-lg-6">                         
+                                                <div class="form-group" id="sibling_details">
+                                                    <div class="form-group">
+                                                    {{ Form::label('email','Email Id',['class'=>' control-label']) }}
+                                                        <span class="fa fa-asterisk"></span>
+                                                        <input type="text"  name="email" id="email" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                        </div>
+                                        
+                                       
+                                    </div>
+                                    </div>                      
+                                    <div class="form-group">
+                                        <div class="col-md-12">                                     
+
+                                            <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('class','Class',['class'=>' control-label']) }}
                                                     <span class="fa fa-asterisk"></span>
