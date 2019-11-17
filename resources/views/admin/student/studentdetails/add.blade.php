@@ -19,7 +19,7 @@
 
                     
                     <div class="col-lg-12 "> 
-                    <form action="{{ route('admin.student.post') }}" method="post" class="add_form">
+                    <form action="{{ route('admin.student.post') }}" call-back="redirectStudent" method="post" class="add_form">
                               {{ csrf_field() }}                                            
                              <div class="row">{{--row start --}}
                                 <div class="col-md-12 ">
@@ -34,6 +34,8 @@
                                                 }else{
                                                     showHideDiv(0,'registration_div_yes');
                                                     showHideDiv(1,'registration_div_no');
+                                                    $('#sibling_registration_no').val('');
+
                                                 }">
                                                     <option selected disabled>Select Sibling Ragistration</option>
                                                     <option value="yes">Yes</option>
@@ -61,15 +63,15 @@
                                                 <div class="form-group">
                                                 {{ Form::label('sibling_mobile_no','Mobile No',['class'=>' control-label']) }}
                                                     <span class="fa fa-asterisk"></span>
-                                                    <input type="text" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'  name="mobile_no" id="mobile_no" class="form-control">
+                                                    <input type="text" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'  name="mobileno" id="mobileno" class="form-control">
                                                 </div>
                                             </div>  
                                             <div class="col-lg-6">                         
                                                 <div class="form-group" id="sibling_details">
                                                     <div class="form-group">
-                                                    {{ Form::label('email','Email Id',['class'=>' control-label']) }}
+                                                    {{ Form::label('emailid','Email Id',['class'=>' control-label']) }}
                                                         <span class="fa fa-asterisk"></span>
-                                                        <input type="text"  name="email" id="email" class="form-control">
+                                                        <input type="text"  name="emailid" id="email" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>  
@@ -304,7 +306,15 @@
                    
         });
     }
-    
+
+function redirectStudent() {
+ $(document).ajaxSuccess(function(event, xhr, settings) {
+   console.log(xhr.responseText.student_id)
+   var student_id = xhr.responseText.student_id;
+   window.location.replace(" {{ url('admin/student/view') }}/"+student_id);
+ });
+}
+ 
 </script>
 
 @endpush

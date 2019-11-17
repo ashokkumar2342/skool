@@ -229,8 +229,8 @@ class StudentController extends Controller
        $rules=[
             'sibling_registration' => 'required',
             'sibling_registration_no' => 'required_if:sibling_registration,yes',
-            'mobile_no' => 'required_if:sibling_registration,no',
-            'email' => 'required_if:sibling_registration,no',
+            'mobileno' => 'required_if:sibling_registration,no|unique:students',
+            'emailid' => 'required_if:sibling_registration,no|unique:students',
             'class' => 'required',
             "section" => 'required',
             "registration_no" => 'required|max:20|unique:students',
@@ -268,8 +268,8 @@ class StudentController extends Controller
         }
         
          
-        $student->emailid= $request->email;  
-        $student->mobileno= $request->mobile_no; 
+        $student->emailid= $request->emailid;  
+        $student->mobileno= $request->mobileno; 
         $student->dpassword= $char;  
         $student->dpassword_encrypt= bcrypt($char); 
         $student->admin_id = $admin_id; 
@@ -290,10 +290,8 @@ class StudentController extends Controller
          $student->save()  ;
             $response=array();
             $response['status']=1;
-            $response['msg']='Created Successfully';
-            
-
-        
+            $response['msg']='Created Successfully';   
+            $response['student_id']=$student->id;   
             return $response;
           
         }
