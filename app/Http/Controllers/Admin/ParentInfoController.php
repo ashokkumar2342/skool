@@ -47,7 +47,7 @@ class ParentInfoController extends Controller
     public function perentInfoAddForm(Request $request)
     {
          $parentsType= array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name', 'id'); 
-        $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id')->orderBy('name','ASC'); 
+        $professions = array_pluck(Profession::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id');
         $incomes = array_pluck(IncomeRange::orderBy('range','ASC')->get(['id','range'])->toArray(),'range', 'id');
         $student=$request->id;
           return view('admin.student.studentdetails.include.add_parents_info',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions'));
