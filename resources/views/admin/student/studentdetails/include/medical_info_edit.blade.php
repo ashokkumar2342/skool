@@ -68,7 +68,7 @@
                     
                     <div class="form-group col-md-4">
                         {{ Form::label('vision','vision',['class'=>' control-label ']) }}                         
-                        {{ Form::text('vision',$medicalInfo->vision,['class'=>'form-control ','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'50']) }}
+                        {{ Form::text('vision',$medicalInfo->vision,['class'=>'form-control ','maxlength'=>'50']) }}
                          
                     </div>
                     <div class="form-group col-md-4">

@@ -101,7 +101,7 @@
        
     </div> 
     <div class="row" > 
-        <div class="col-lg-6" style="margin-left: 10px"> 
+        <div class="col-lg-6" style="margin-left: 25px"> 
              <b >{{ $student->addressDetails->address->p_address or ''}}</b> 
         </div>
         <div class="col-lg-4"> 
@@ -118,7 +118,7 @@
         </div>
     </div>
     <div class="row" > 
-        <div class="col-lg-6" style="margin-left: 10px">
+        <div class="col-lg-6" style="margin-left: 25px">
              <b>{{ $student->addressDetails->address->c_address or ''}}</b>
         </div> 
         <div class="col-lg-5">
@@ -145,8 +145,8 @@
               <div class="col-lg-6">
                 <li>Name :- <b>{{ $parent->parentInfo->name  or ''}}</b></li>
                 <li>Education :-<b> {{ $parent->parentInfo->education or ''}} </b> </li>
-                <li>Income Slab(Annual):-<b> {{ $parent->parentInfo->incomes->range or ''}} </b> </li>
-                <li>Is live :- <b>{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li>
+                <li>Annual Income :-<b> {{ $parent->parentInfo->incomes->range or ''}} </b> </li>
+                <li>Alive :- <b>{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li>
                  <li>Office Address :- <b>{{ $parent->parentInfo->office_address or ''}}</b></li>  
               </div>
               <div class="col-lg-6">

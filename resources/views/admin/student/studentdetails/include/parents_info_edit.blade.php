@@ -64,12 +64,12 @@
                         <p class="text-danger">{{ $errors->first('doa') }}</p>
                     </div>                  
                     <div class="form-group col-md-4">
-                        {{ Form::label('islive','IsLive',['class'=>' control-label']) }}                         
+                        {{ Form::label('islive','Alive',['class'=>' control-label']) }}                         
                         {!! Form::select('islive',[
                           '1'=>'Yes',                                                    
                           '0'=>'No'
                           ], null, ['class'=>'form-control']) !!}
-                        <p class="text-danger">{{ $errors->first('islive') }}</p>
+                        <p class="text-danger">{{ $errors->first('Alive') }}</p>
                     </div> 
                     <div class="form-group col-md-12">
                         {{ Form::label('office_address','Office Address',['class'=>' control-label']) }}                         
@@ -77,13 +77,13 @@
                         <p class="text-danger">{{ $errors->first('organization_address') }}</p>
                     </div>
                     <div class="form-group col-md-12">
-                        {{ Form::label('organization_address','Organization Address',['class'=>' control-label']) }}                         
+                        {{ Form::label('organization_address','Organization Name',['class'=>' control-label']) }}                         
                         {{ Form::textarea('organization_address',$parentsInfo->organization_address,['class'=>'form-control','rows'=>2 ,'maxlength'=>'200']) }}
                         <p class="text-danger">{{ $errors->first('organization_address') }}</p>
                     </div>
                     <div class="form-group col-md-12">
-                        {{ Form::label('f_designation','Designation Address',['class'=>' control-label']) }}                         
-                        {{ Form::textarea('f_designation',$parentsInfo->f_designation,['class'=>'form-control','rows'=>2 ,'maxlength'=>'200']) }}
+                        {{ Form::label('f_designation','Designation',['class'=>' control-label']) }}                         
+                        {{ Form::textarea('f_designation',$parentsInfo->f_designation,['class'=>'form-control','rows'=>2 ,'maxlength'=>'50']) }}
                         <p class="text-danger">{{ $errors->first('organization_address') }}</p>
                     </div>
                 <div class="col-lg-12 text-center">

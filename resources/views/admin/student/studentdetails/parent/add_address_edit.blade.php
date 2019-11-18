@@ -18,7 +18,7 @@
               <input type="text" name="primary_mobile" class="form-control" placeholder="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="{{ $address->primary_mobile }}" >
             </div>
             <div class="form-group col-lg-4">
-              <label>Primary E-mail</label> <span class="fa fa-asterisk"></span>
+              <label>Primary Email</label> 
               <input type="email" name="primary_email" class="form-control" placeholder="" maxlength="100" value="{{ $address->primary_email }}">
             </div>
             <div class="form-group col-lg-4">
@@ -30,7 +30,7 @@
                 @endforeach 
               </select>
             </div>
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-4">
               <label>Religion</label> <span class="fa fa-asterisk"></span>
               <select name="religion_id" class="form-control">
                 <option selected disabled>Select Religion</option>
@@ -39,18 +39,18 @@
                 @endforeach 
               </select>
             </div>
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-4">
               <label>Nationality</label> <span class="fa fa-asterisk"></span>
               <select name="nationality" class="form-control">
                 <option selected value="1">Indian</option>
                 <option   value="2">Other Country</option> 
               </select>
             </div> 
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-4">
               <label>State</label> <span class="fa fa-asterisk"></span>
               <input type="text" name="state" class="form-control" placeholder="" maxlength="50" value="{{ $address->state }}">
             </div>
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-12">
               <label>City</label> <span class="fa fa-asterisk"></span>
               <input type="text" name="city" class="form-control" placeholder="" maxlength="50" value="{{ $address->city }}">
             </div>

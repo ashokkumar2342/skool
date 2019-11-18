@@ -1,6 +1,69 @@
- <!--- Model parents      -->     
-     <!-- Modal -->
-    <div id="add_sport_hobby" class="modal fade" role="dialog">
+
+
+<div class="modal-dialog" style="width:50%">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">{{ @$sportHobby->id?'Edit' : 'Add' }} Sport/Hobbies</h4>
+    </div>
+    <div class="modal-body"> 
+      <form  action="{{ route('admin.hobby.update',@$sportHobby->id) }}"  method="post" button-click="btn_close,sport_hobbies_tab" content-refresh="parents_items" class="add_form">
+        {{ csrf_field() }}
+         <div class="row">
+                 <input type="hidden" name="student_id" value="{{ @$student_id }}"> 
+                <div class="col-lg-12 form-group">
+                  <label>Academic Year</label>
+                  <select name="academic_year" class="form-control">
+                    @foreach ($academicYears as $awardLevel)
+                       <option value="{{ $awardLevel->id }}" {{ @$sportHobby->session_id==$awardLevel->id? 'selected' : '' }}>{{ $awardLevel->name }}</option> 
+                    @endforeach
+                  </select> 
+                </div>   
+                
+                 
+                <div class="col-lg-12 form-group ">
+                  <label>Level</label>
+                  <select name="level" class="form-control">
+                    @foreach ($awardLevels as $awardLevel)
+                       <option value="{{ $awardLevel->id }}"{{ @$sportHobby->award_level==$awardLevel->id? 'selected' : '' }}>{{ $awardLevel->name }}</option> 
+                    @endforeach
+                  </select> 
+                </div>
+                <div class="col-lg-12 form-group ">
+                  <label>Sports Activity Name</label>
+                    <input type="text" name="sports_activity_name" class="form-control" maxlength="200" placeholder="Enter Sports Activity Name" value="{{ @$sportHobby->sports_activity_name }}">
+                </div>
+                <div class="col-lg-12 form-group text-center">
+                  <input type="submit" class="btn btn-success" style="margin-top: 24px">
+                </div>   
+                
+           
+            </div>
+         </form>
+         
+    </div>
+  </div>   
+</div>
+
+                 
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   {{--  <div id="add_sport_hobby" class="modal fade" role="dialog">
         <div class="modal-dialog">
          <!-- Modal content-->
             <div class="modal-content">
@@ -11,30 +74,12 @@
                  <div class="modal-body">
                    <form id="sport_hobby-form">                    
                      
-                     <div class="form-group">
-                          {{ Form::label('session_id','Academic Year Prize',['class'=>' control-label']) }}
-                          {!! Form::select('session_id',$sessions, null, ['class'=>'form-control']) !!}
-                          <p class="text-danger">{{ $errors->first('session_id') }}</p>
-                     </div> 
-                   <div class="form-group">
-                        {{ Form::label('sports_activity_name','Sports Activity Name',['class'=>' control-label']) }}                         
-                        {{ Form::text('sports_activity_name','',['class'=>'form-control']) }}
-                        <p class="text-danger">{{ $errors->first('sports_activity_name') }}</p>
-                    </div>
-                    <div class="form-group">
-                        {{ Form::label('level','Level',['class'=>' control-label']) }}
-                        {!! Form::select('level',$awardLevels, null, ['class'=>'form-control']) !!} 
-                        <p class="text-danger">{{ $errors->first('award_level') }}</p>
-                    </div>                                       
+                                                           
                      
                 </form>                     
 
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="add_btn_sport_hobby btn btn-success">Save</button>
-                    <button type="button" class="update_btn_sport_hobby btn btn-success">Update</button>
-                </div>
+                
             </div>
        </div>
     </div>
@@ -174,4 +219,4 @@
                                          
     </script>
       
-    @endpush
+    @endpush --}}

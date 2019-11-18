@@ -10,7 +10,7 @@ b{
   align-items: right;
 }
 .fs{
-    float: right; font-weight:800;padding-right: 10px;
+    float: right; font-weight:750;padding-right: 10px;
 }
 </style>
 @endpush
@@ -34,7 +34,7 @@ b{
 
               <li><a data-toggle="tab" data-table="medical_info_table" href="#medical" id="medical_info_tab" onclick="callAjax(this,'{{ route('admin.medical.info.list',$student->id) }}','medical_info_page')"><i class="fa fa-user-md" id="medical_info"></i> Medical Detail</a></li>
               <li><a data-toggle="tab" href="#subjects" id="subject_tab" onclick="callAjax(this,'{{ route('admin.studentSubject.list',$student->id) }}','subject_list')"><i class="fa fa-book" {{-- id="subject_tab" --}}></i>  Subjects</a></li>
-              <li><a data-toggle="tab" href="#sport"><i class="fa fa-life-ring" id="sport_tab"></i> Sport hobby</a></li>
+              <li><a data-toggle="tab" href="#sport" id="sport_hobbies_tab" onclick="callAjax(this,'{{ route('admin.hobby.show',$student->id) }}','sport_hobbies_list')"><i class="fa fa-life-ring" id="sport_tab"></i> Sports/Hobbies</a></li>
               <li><a data-toggle="tab" href="#document"><i class="fa fa-file" id="document_tab"></i> Document</a></li>
               <li><a data-toggle="tab" href="#award_list"><i class="fa fa-angellist" id="award_list_tab"></i> Award</a></li>
             </ul>
@@ -147,12 +147,8 @@ b{
                         </div>                        
                     </div>
                 </div>
-                <div id="parent" class="tab-pane fade">
-                                        
-                      <span ><button type="button" class="add_btn_parets btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.parents.add.form',$student->id) }}')" style="margin: 10px">Parent Detail</button>
-                         
-                        
-                    
+                <div id="parent" class="tab-pane fade"> 
+                      <span ><button type="button" class="add_btn_parets btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.parents.add.form',$student->id) }}')" style="margin: 10px">Add Parent Detail</button> 
                    <div class="table-responsive" id="parent_info_list">
                     </div> 
                 </div>
@@ -170,7 +166,7 @@ b{
                      
                  </div>   
                 <div id="sibling" class="tab-pane fade">
-                 <button type="button" class="btn btn-info btn-sm btn_add_sibling_info"  onclick="callPopupLarge(this,'{{ route('admin.sibling.add.form',$student->id) }}')" style="margin: 10px">Add Sibling </button>
+                 <button type="button" class="btn btn-info btn-sm btn_add_sibling_info"  onclick="callPopupLarge(this,'{{ route('admin.sibling.add.form',$student->id) }}')" style="margin: 10px">Add Sibling Detail</button>
                  
                  <div class="table-responsive" id="sibling_info_list">
                     </div> 
@@ -186,30 +182,10 @@ b{
                    </div>
                 </div>
                 <div id="sport" class="tab-pane fade">
-                   <button type="button" class="btn btn-info btn-sm btn_add_sport_hobby" style="margin: 10px" data-toggle="modal"   data-target="#add_sport_hobby">Sport Hobby</button>
-                  <table class="table" id="sport_hobby_items">                         
-                       <thead>
-                           <tr>
-                               <th>Academic Year Prize</th>
-                               <th>Sports Activity Name</th>
-                               <th>Level</th>
-                               <th>Action</th>
-                           </tr>
-                       </thead>
-                       <tbody>
-                        @foreach (App\Model\StudentSportHobby::where('student_id',$student->id)->get() as $sportHobby) 
-                           <tr>
-                               <td>{{$sportHobby->sessions->name or ''  }}</td>
-                               <td>{{ $sportHobby->sports_activity_name }}</td>
-                               <td>{{ $sportHobby->awardLevel->name or '' }}</td>
-                               <td>
-                                <button class="btn_sport_hobby_edit btn btn-warning btn-xs"  data-id="{{ $sportHobby->id }}"  ><i class="fa fa-edit"></i></button>  
-                                 <button class="btn_sport_hobby_delete btn btn-danger btn-xs" onclick="return confirm('Are you Sure delete')" data-id="{{ $sportHobby->id }}"  ><i class="fa fa-trash"></i></button>
-                               </td>
-                           </tr>
-                         @endforeach
-                       </tbody>
-                   </table>
+                   <button type="button" class="btn btn-info btn-sm btn_add_sport_hobby" style="margin: 10px" onclick="callPopupLarge(this,'{{ route('admin.hobby.add',$student->id) }}')">Add Sport/Hobbies</button>
+                   <div id="sport_hobbies_list">
+                     
+                   </div> 
                    <div class="text-center">
                      <button type="button" onclick="$('#subject_tab').click()" class="btn btn-success btn-sm">Previous</button> 
                      <button type="button" onclick="$('#document_tab').click()" class="btn btn-success btn-sm">Next</button> 
@@ -256,7 +232,7 @@ b{
 {{-- @include('admin.student.studentdetails.include.add_medical_info') --}}
 {{-- @include('admin.student.studentdetails.include.add_sibling_info') --}}
 {{-- @include('admin.student.studentdetails.include.add_subject')
- --}}@include('admin.student.studentdetails.include.add_sport_hobby')
+ --}}
 @include('admin.student.studentdetails.include.add_document')
 @endsection
 @push('links')
@@ -289,6 +265,7 @@ b{
         $('#address_items').DataTable();
         $('#btn_event_type_table_show').click();
         $('#btn_student_document_list').click();
+        $('#btn_image_refrash').click();
 
     });
      var errors = '{{ $errors->first() }}';

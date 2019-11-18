@@ -1,74 +1,83 @@
+  <!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<style type="text/css" media="screen">
+     
+    li{
+        padding-bottom: 2px;
+        padding-left: 10px;
+
+    }
+
+    .page-breck{
+      page-break-before:always; 
+    }
   
-                    <table class="table-responsive" id="medical_info_table">                         
-                         <thead>
-                             <tr>
-                                 <th> <span class="text-nowrap">Ondate </span></th>
-                                 <th> <span class="text-nowrap">Blood Group </span></th>
-                                 <th> <span class="text-nowrap">HB </span></th>
-                                 <th> <span class="text-nowrap">Weight </span></th>
-                                 <th> <span class="text-nowrap">Height </span></th>
-                                 
-                                 <th> <span class="text-nowrap">Vision </span></th>
-                                 <th> <span class="text-nowrap">Complextion </span></th>
-                                 <th> <span class="text-nowrap">Alergey </span></th>
-                                 <th> <span class="text-nowrap">Isalgeric </span></th>
-                                 <th> <span class="text-nowrap">Alergey Vacc </span></th>
-                                 <th> <span class="text-nowrap">Physical Handicapped </span></th>
-                                 <th> <span class="text-nowrap">Percent<span></th>
-                                 <th> <span class="text-nowrap">Ishandicapped </span></th>
-                                 <th> <span class="text-nowrap">Narration </span></th>
-                                 <th> <span class="text-nowrap">Dental </span></th>
-                                 <th> <span class="text-nowrap">BP Upper</span></th>
-                                 <th> <span class="text-nowrap">BP Lower</span></th>
-                                 <th> <span class="text-nowrap">Id Marks1 </span></th>
-                                 <th> <span class="text-nowrap">Id Marks2 </span></th>
-                                 <th> <span class="text-nowrap"  style="margin :35px">Action </span></th>
-                             </tr>
-                         </thead>
-                         <tbody>
-                            @foreach (App\Model\StudentMedicalInfo::where('student_id',$student)->get() as $medicalInfo)
-                             <tr>
-                                 <td>{{ Carbon\Carbon::parse($medicalInfo->ondate)->format('d-m-Y') }}</td>
-                                 <td>{{ $medicalInfo->bloodgroups->name or ''}}</td>
-                                 <td>{{ $medicalInfo->hb }}</td>
-                                 <td>{{ $medicalInfo->weight }}</td>
-                                 <td>{{ $medicalInfo->height }}</td>
-                                 
-                                 <td>{{ $medicalInfo->vision }}</td>
-                                 <td>{{ $medicalInfo->complextions->name or '' }}</td>
-                                 <td>{{ $medicalInfo->alergey }}</td>
-                                 <td>{{ $medicalInfo->isalgeric }}</td>
-                                 <td>{{ $medicalInfo->alergey_vacc }}</td>
-                                 <td>{{ $medicalInfo->physical_handicapped }}</td>
-                                 <td>{{ $medicalInfo->handi_percent }}</td>
-                                 <td>{{ $medicalInfo->ishandicapped }}</td>
-                                 <td>{{ $medicalInfo->narration }}</td>
-                                 <td>{{ $medicalInfo->dental }}</td>                                  
-                                 <td>{{ $medicalInfo->bp_uper }}</td> 
-                                 <td>{{ $medicalInfo->bp_lower }}</td> 
-                                 <td>{{ $medicalInfo->id_marks1 }}</td>
-                                 <td>{{ $medicalInfo->id_marks2 }}</td>
-                                 <td style="width: 100px"> 
-                                  <button class="btn_medical_view btn btn-info btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.medical.view',$medicalInfo->id) }}')" data-id=""  ><i class="fa fa-eye"></i></button>
+ 
+    @include('admin.include.boostrap')
+
+</style>
+<body>
+   
+  
+@foreach (App\Model\StudentMedicalInfo::where('student_id',$student)->get() as $medicalInfo)
+    <div class="panel panel-info" style="margin-right: 8px">
+      <div class="panel-heading">
+        <h4 class="panel-title" style="margin-left: 470px">
+          <a data-toggle="collapse" data-parent="#accordion" href="#parent{{ $medicalInfo->id }}">Medical Details</a>
+        </h4>
+      </div>
+      <div id="parent{{ $medicalInfo->id }}" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <div class="row">
+              <div class="col-lg-4">
+                <li>Ondate :- <b>{{ Carbon\Carbon::parse($medicalInfo->ondate)->format('d-m-Y') }}</b></li>
+                <li>Blood Group :-<b> {{ $medicalInfo->bloodgroups->name or ''}} </b> </li>
+                <li>HB :-<b> {{ $medicalInfo->hb }} </b> </li>
+                <li>Weight :- <b>{{ $medicalInfo->weight }}</b></li> 
+                 <li>Vision :- <b>{{ $medicalInfo->vision }}</b></li>
+                 <li>BP Upper :-<b> {{ $medicalInfo->bp_uper }}</b> </li>   
+                  
+                  
+              </div>
+              <div class="col-lg-4"> 
+                <li>Physical Handicapped :- <b>{{ $medicalInfo->physical_handicapped }}</b></li>
+                <li>Percent:- <b>{{ $medicalInfo->handi_percent }}</b></li>
+                <li>Ishandicapped:-<b> {{ $medicalInfo->ishandicapped }} </b> </li>
+                 <li>Height :- <b>{{ $medicalInfo->height }}</b></li> 
+                <li>Narration :-<b> {{ $medicalInfo->narration }} </b> </li>
+                <li> Bp Lower :-<b> {{ $medicalInfo->bp_lower }} </b> </li>
+                <li>Complextion :- <b>{{ $medicalInfo->complextions->name or '' }}</b></li> 
+                 
+              </div>
+              <div class="col-lg-4">
+                 <li>Alergey :- <b>{{ $medicalInfo->alergey }}</b></li>  
+                 <li>Isalgeric :- <b>{{ $medicalInfo->isalgeric }}</b></li>  
+                 <li>Alergey Vacc :- <b>{{ $medicalInfo->alergey_vacc }}</b></li>  
+                <li>Dental :-<b> {{ $medicalInfo->dental }} </b> </li> 
+                <li>ID Marks1 :-<b>{{ $medicalInfo->id_marks1 }} </b> </li> 
+                <li>ID Marks2 :-<b>{{ $medicalInfo->id_marks2 }} </b> </li> 
+              </div>
+                 <div class="col-lg-10 text-center" style="margin-top: 10px">
+                    <button class="btn_medical_view btn btn-info btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.medical.view',$medicalInfo->id) }}')" data-id=""  ><i class="fa fa-eye"></i></button>
 
                                     <button class="btn_medical_view btn btn-warning btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.medical.edit',$medicalInfo->id) }}')" data-id=""  ><i class="fa fa-edit"></i></button>
 
                                      <button class="btn_medical_delete btn btn-danger btn-xs" button-click="medical_info_tab" onclick="return confirm('Are you Sure delete'),callAjax(this,'{{ route('admin.medical.delete',$medicalInfo->id) }}')"  ><i class="fa fa-trash"></i></button>
                                      <a href="{{ route('admin.medical.send.sms',$medicalInfo->id) }}" title="Send SMS"><i class=" btn btn-primary btn-xs fa fa-send"></i></a>
                                      <a href="{{ route('admin.medical.send.email',$medicalInfo->id) }}" title="Send Email" style="color: red"><i class="btn btn-danger btn-xs fa fa-envelope"></i></a>
-
-                                 </td>
-
-                                                                  
-                             </tr> 
-                             @endforeach
-                         </tbody>
-                     </table> 
-                 
-                     <div class="text-center">
-                     <button type="button" onclick="$('#address_info').click()" class="btn btn-success btn-sm">Previous</button>
-                     <button type="button" onclick="$('#subject_tab').click()" class="btn btn-success btn-sm">Next</button>
-                      <a href="{{ route('admin.medical.pdf.generate',$student) }}"  class="btn btn-success btn-sm" target="_blank" title="">PDF Generate</a> 
- 
-                     </div> 
-                  
+                       
+                   </div>  
+                
+                   
+               </div> 
+            </div> 
+        </div>
+      </div>
+    </div>  
+@endforeach 
+</body>
+</html>

@@ -56,7 +56,7 @@
      
 </div>                  
 <div class="form-group col-md-4">
-    {{ Form::label('islive','IsLive',['class'=>' control-label']) }}
+    {{ Form::label('islive','ALive',['class'=>' control-label']) }}
                              
     {!! Form::select('islive',[
       '1'=>'Yes',                                                    
@@ -77,9 +77,9 @@
      
 </div>
 <div class="form-group col-md-12">
-    {{ Form::label('f_designation','Designation Address',['class'=>' control-label']) }}
+    {{ Form::label('f_designation','Designation',['class'=>' control-label']) }}
                             
-    {{ Form::textarea('f_designation','',['class'=>'form-control','rows'=>2,'maxlength'=>'200' ]) }}
+    {{ Form::textarea('f_designation','',['class'=>'form-control','rows'=>2,'maxlength'=>'50' ]) }}
      
 </div>
   <div class="col-lg-12 text-center">

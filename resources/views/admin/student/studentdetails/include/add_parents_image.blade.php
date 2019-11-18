@@ -19,11 +19,11 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12"> 
-             <form id="parents-form" action="{{ route('admin.parents.image.store') }}"  method="post" button-click="btn_close,parent_info_tab" content-refresh="parents_items" class="add_form" enctype="multipart/form-data">
+             <form id="parents-form" action="{{ route('admin.parents.image.store') }}"  method="post" button-click="btn_close,parent_info_tab,btn_image_refrash" content-refresh="parents_items" class="add_form" enctype="multipart/form-data">
               {{ csrf_field() }}
                  <div class="col-lg-12">
                   <label>Image</label>
-                  <input type="file" class="form-group form-control" name="image"> 
+                  <input type="file" class="form-group form-control" name="image" accept=".png, .jpg, .jpeg" /> 
                   <input type="text" hidden="" class="hidden" name="parent_id" value="{{ $parent_id }}"> 
                   </div>
                   <div class="col-lg-12 text-center"> 

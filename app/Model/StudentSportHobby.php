@@ -8,6 +8,7 @@ class StudentSportHobby extends Model
 {
 	
      protected $fillable = [
+       'id', 
        'student_id', 
        'sports_activity_name', 
       'session_id',

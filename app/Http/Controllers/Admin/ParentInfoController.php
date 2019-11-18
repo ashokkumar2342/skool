@@ -68,7 +68,8 @@ class ParentInfoController extends Controller
     {
        
          $rules=[
-            'image' => 'required|mimes:jpeg,jpg,png|max:500',   
+            'image' => 'required|mimes:jpeg,jpg,png|max:200',
+
               
         ];
 
@@ -119,17 +120,15 @@ class ParentInfoController extends Controller
                 {   ob_end_clean(); // discards the contents of the topmost output buffer
                     return Response::make(file_get_contents($storagePath), 200, $headers);
 
-                }
-       
-
-        
-                
-          
+                } 
 
     }
 
         
-  
+          public function imageRefresh($parent_id)
+          {
+               return view('admin.student.studentdetails.include.parents_image_refresh',compact('parent_id'));
+          }
 
     /**
      * Store a newly created resource in storage.
@@ -228,7 +227,7 @@ class ParentInfoController extends Controller
         $parentsInfo = ParentsInfo::find($id);
          $parentsType= array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name', 'id'); 
         $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 
-        $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
+        $incomes = array_pluck(IncomeRange::orderBy('code','ASC')->get(['id','range'])->toArray(),'range', 'id');
         $student=$request->id;
           return view('admin.student.studentdetails.include.parents_info_edit',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions','parentsInfo'));
     }
@@ -305,7 +304,7 @@ class ParentInfoController extends Controller
     {
          $parentsType= array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name', 'id'); 
         $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 
-        $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
+        $incomes = array_pluck(IncomeRange::orderBy('code','ASC')->get(['id','range'])->toArray(),'range', 'id');
         $student=$request->id;
           return view('admin.student.studentdetails.parent.new',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions'));
         

@@ -41,7 +41,16 @@ class StudentAddressDetailController extends Controller
     public function addressStore(Request $request)
     { 
         $rules=[
-        
+          'primary_mobile'=>'required',
+          'cotegory_id'=>'required',
+          'religion_id'=>'required',
+          'nationality'=>'required',
+          'state'=>'required',
+          'city'=>'required',
+          'p_address'=>'required',
+          'p_pincode'=>'required',
+          'c_address'=>'required',
+          'c_pincode'=>'required',
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -103,7 +112,16 @@ class StudentAddressDetailController extends Controller
     public function addressUpdate(Request $request,$id)
     { 
         $rules=[
-        
+            'primary_mobile'=>'required',
+          'cotegory_id'=>'required',
+          'religion_id'=>'required',
+          'nationality'=>'required',
+          'state'=>'required',
+          'city'=>'required',
+          'p_address'=>'required',
+          'p_pincode'=>'required',
+          'c_address'=>'required',
+          'c_pincode'=>'required',
         ];
 
         $validator = Validator::make($request->all(),$rules);

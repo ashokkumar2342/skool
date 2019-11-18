@@ -231,6 +231,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('image/{id}', 'ParentInfoController@image')->name('admin.parents.image');
 	    Route::post('image-store', 'ParentInfoController@imageStore')->name('admin.parents.image.store');
 	    Route::get('image-show/{image}', 'ParentInfoController@imageShow')->name('admin.parents.image.show');
+	    Route::get('image-refresh/{image}', 'ParentInfoController@imageRefresh')->name('admin.parents.image.refresh');
 	    Route::post('update/{id}', 'ParentInfoController@update')->name('admin.parents.update');
 	    Route::get('parent-add-new', 'ParentInfoController@parentAddNew')->name('admin.parents.add.new'); 
 	    Route::get('parent-search', 'ParentInfoController@parentSearch')->name('admin.parents.search');
@@ -285,10 +286,11 @@ Route::group(['middleware' => 'admin'], function() {
  
 	     	// ---------------sport-hobby----------------------------------------
 	 Route::group(['prefix' => 'sport-hobby'], function() {
-	    Route::post('add', 'StudentSportHobbyController@store')->name('admin.hobby.add');
-	    Route::delete('delete', 'StudentSportHobbyController@destroy')->name('admin.hobby.delete');
-	    Route::get('edit', 'StudentSportHobbyController@edit')->name('admin.hobby.edit');
-	    Route::post('update', 'StudentSportHobbyController@update')->name('admin.hobby.update');
+	    Route::get('add/{id?}', 'StudentSportHobbyController@addForm')->name('admin.hobby.add');
+	    Route::get('list/{id}', 'StudentSportHobbyController@show')->name('admin.hobby.show');
+	    Route::get('delete/{id}', 'StudentSportHobbyController@destroy')->name('admin.hobby.delete');
+	    Route::get('edit/{id?}', 'StudentSportHobbyController@edit')->name('admin.hobby.edit');
+	    Route::post('update/{id?}', 'StudentSportHobbyController@update')->name('admin.hobby.update');
 	 });
 	 // ---------------award-level----------------------------------------
 	 Route::group(['prefix' => 'award-level'], function() {

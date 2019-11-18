@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Model\StudentSportHobby;
-use App\Model\SessionDate;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\AcademicYear;
+use App\Model\AwardLevel;
+use App\Model\SessionDate;
+use App\Model\StudentSportHobby;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class StudentSportHobbyController extends Controller
 {
@@ -35,17 +38,12 @@ class StudentSportHobbyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function addForm(Request $request,$student_id)
     {
-        
-        $sportHobby = new StudentSportHobby();
-        $sportHobby->student_id = $request->student_id;
-        $sportHobby->sports_activity_name = $request->sports_activity_name;        
-        $sportHobby->session_id = $request->session_id;
-        $sportHobby->award_level = $request->level;
-        $sportHobby->save();  
 
-        return response()->json([$sportHobby, 'message'=>'Success']) ;
+        $academicYears=AcademicYear::orderBy('id','DESC')->get();
+        $awardLevels=AwardLevel::all();
+        return view('admin.student.studentdetails.include.add_sport_hobby',compact('sportHobbies','student_id','academicYears','awardLevels'));
 
 
     }
@@ -56,9 +54,10 @@ class StudentSportHobbyController extends Controller
      * @param  \App\Model\StudentSportHobby  $studentSportHobby
      * @return \Illuminate\Http\Response
      */
-    public function show(StudentSportHobby $studentSportHobby)
+    public function show($id)
     {
-        //
+        $sportHobbies =  StudentSportHobby::where('student_id',$id)->get();
+        return view('admin.student.studentdetails.include.sport_hobbies_list',compact('sportHobbies'));
     }
 
     /**
@@ -67,14 +66,15 @@ class StudentSportHobbyController extends Controller
      * @param  \App\Model\StudentSportHobby  $studentSportHobby
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, StudentSportHobby $studentSportHobby)
+    public function edit(Request $request,$id)
     {
      
-
-        $sportHobby = StudentSportHobby::where('id',$request->id)->get();
-        
-
-        return response()->json(['sport_hobby'=>$sportHobby]);
+       
+       $academicYears=AcademicYear::orderBy('id','DESC')->get();
+        $awardLevels=AwardLevel::all();
+        $sportHobby = StudentSportHobby::find($id);
+         $student_id=$sportHobby->student_id; 
+        return view('admin.student.studentdetails.include.add_sport_hobby',compact('sportHobbies','student_id','academicYears','awardLevels','sportHobby'));
     }
 
     /**
@@ -84,16 +84,34 @@ class StudentSportHobbyController extends Controller
      * @param  \App\Model\StudentSportHobby  $studentSportHobby
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StudentSportHobby $studentSportHobby)
-    {
-        $sportHobby = StudentSportHobby::find($request->id);
+    public function update(Request $request,$id=null)
+    {  
+        $rules=[
+          
+            'academic_year'=>'required',
+            'level'=>'required',
+            'sports_activity_name'=>'required',
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+        $sportHobby = StudentSportHobby::firstOrNew(['id'=>$id]);
         $sportHobby->student_id = $request->student_id;
         $sportHobby->sports_activity_name = $request->sports_activity_name;        
-        $sportHobby->session_id = $request->session_id;
+        $sportHobby->session_id = $request->academic_year;
         $sportHobby->award_level = $request->level;
         $sportHobby->save();  
-
-        return response()->json([$sportHobby, 'message'=>'Success']) ;
+        $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
+        }  
     }
 
     /**
@@ -102,13 +120,14 @@ class StudentSportHobbyController extends Controller
      * @param  \App\Model\StudentSportHobby  $studentSportHobby
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, StudentSportHobby $studentSportHobby)
-    {
-        $sportHobby = StudentSportHobby::find($request->id);
+    public function destroy($id)
+    { 
+        $sportHobby = StudentSportHobby::find($id);
+        $sportHobby->delete();
+         $response=['status'=>1,'msg'=>'Delete Successfully'];
+            return response()->json($response);
            
 
-         $sportHobby->delete();
-
-         return response()->json([$sportHobby, 'message'=>'Delete Succeefully']);
+        
     }
 }
