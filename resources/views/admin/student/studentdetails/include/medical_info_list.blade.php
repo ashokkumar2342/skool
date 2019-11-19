@@ -7,7 +7,7 @@
 <style type="text/css" media="screen">
      
     li{
-        padding-bottom: 2px;
+        padding-bottom: 4px;
         padding-left: 10px;
 
     }
@@ -33,33 +33,56 @@
       <div id="parent{{ $medicalInfo->id }}" class="panel-collapse collapse in">
         <div class="panel-body">
             <div class="row">
-              <div class="col-lg-4">
-                <li>Ondate :- <b>{{ Carbon\Carbon::parse($medicalInfo->ondate)->format('d-m-Y') }}</b></li>
-                <li>Blood Group :-<b> {{ $medicalInfo->bloodgroups->name or ''}} </b> </li>
-                <li>HB :-<b> {{ $medicalInfo->hb }} </b> </li>
-                <li>Weight :- <b>{{ $medicalInfo->weight }}</b></li> 
-                 <li>Vision :- <b>{{ $medicalInfo->vision }}</b></li>
-                 <li>BP Upper :-<b> {{ $medicalInfo->bp_uper }}</b> </li>   
-                  
-                  
+              <div class="col-lg-2">
+                <li>On Date</li>
+                <li>Blood Group</li>
+                <li>HB</li>
+                <li>Weight</li> 
+                 <li>Vision</li>
+                 <li>BP Upper</li>
+                  <li>Narration  </li> 
               </div>
-              <div class="col-lg-4"> 
-                <li>Physical Handicapped :- <b>{{ $medicalInfo->physical_handicapped }}</b></li>
-                <li>Percent:- <b>{{ $medicalInfo->handi_percent }}</b></li>
-                <li>Ishandicapped:-<b> {{ $medicalInfo->ishandicapped }} </b> </li>
-                 <li>Height :- <b>{{ $medicalInfo->height }}</b></li> 
-                <li>Narration :-<b> {{ $medicalInfo->narration }} </b> </li>
-                <li> Bp Lower :-<b> {{ $medicalInfo->bp_lower }} </b> </li>
-                <li>Complextion :- <b>{{ $medicalInfo->complextions->name or '' }}</b></li> 
-                 
+              <div class="col-lg-2">
+                  <li><b>{{ Carbon\Carbon::parse($medicalInfo->ondate)->format('d-m-Y') }}</b></li>
+                  <li><b> {{ $medicalInfo->bloodgroups->name or ''}} </b> </li>
+                  <li><b> {{ $medicalInfo->hb }} </b> </li>
+                  <li><b>{{ $medicalInfo->weight }}</b></li> 
+                  <li><b>{{ $medicalInfo->vision }}</b></li>
+                  <li><b> {{ $medicalInfo->bp_uper }}</b> </li>
+                  <li><b> {{ $medicalInfo->narration }} </b> </li> 
               </div>
-              <div class="col-lg-4">
-                 <li>Alergey :- <b>{{ $medicalInfo->alergey }}</b></li>  
-                 <li>Isalgeric :- <b>{{ $medicalInfo->isalgeric }}</b></li>  
-                 <li>Alergey Vacc :- <b>{{ $medicalInfo->alergey_vacc }}</b></li>  
-                <li>Dental :-<b> {{ $medicalInfo->dental }} </b> </li> 
-                <li>ID Marks1 :-<b>{{ $medicalInfo->id_marks1 }} </b> </li> 
-                <li>ID Marks2 :-<b>{{ $medicalInfo->id_marks2 }} </b> </li> 
+              <div class="col-lg-2"> 
+                <li>Physical Handicapped </li>
+                <li>Percent </li>
+                <li>Handicapped Description</li>
+                 <li>Height   </li> 
+                <li> BP Lower </li>
+                <li>Complexion  </li>
+              </div>
+              <div class="col-lg-2"> 
+                  <li><b>{{ $medicalInfo->ishandicapped==1?'Yes' :'No' }}</b></li>
+                  <li><b>{{ $medicalInfo->handi_percent }}</b></li>
+                  <li><b> {{ $medicalInfo->physical_handicapped }} </b> </li>
+                  <li><b>{{ $medicalInfo->height }}</b></li> 
+                  
+                  <li><b> {{ $medicalInfo->bp_lower }} </b> </li>
+                  <li><b>{{ $medicalInfo->complextions->name or '' }}</b></li> 
+              </div>
+              <div class="col-lg-2">
+                 <li>Allergy</li> 
+                 <li>Allergy Description</li> 
+                 <li>Allergy Vaccine</li>  
+                <li>Dental</li> 
+                <li>ID Marks1 </li> 
+                <li>ID Marks2 </li>
+              </div>
+              <div class="col-lg-2">
+                <li><b>{{ $medicalInfo->isalgeric==1?'Yes' :'No' }}</b></li>  
+                <li><b>{{ $medicalInfo->alergey }}</b></li>  
+                <li><b>{{ $medicalInfo->alergey_vacc }}</b></li>  
+                <li><b>{{ $medicalInfo->dental }} </b> </li> 
+                <li><b>{{ $medicalInfo->id_marks1 }} </b> </li> 
+                <li><b>{{ $medicalInfo->id_marks2 }} </b> </li> 
               </div>
                  <div class="col-lg-10 text-center" style="margin-top: 10px">
                     <button class="btn_medical_view btn btn-info btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.medical.view',$medicalInfo->id) }}')" data-id=""  ><i class="fa fa-eye"></i></button>

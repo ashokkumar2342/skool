@@ -101,7 +101,7 @@
                     </div>
                     
                     <div class="form-group col-md-4">
-                        {{ Form::label('alergey','Alergey',['class'=>' control-label']) }} 
+                        {{ Form::label('alergey','Allergy',['class'=>' control-label']) }} 
                          
                          <select name="alergey" id="alergey" class="form-control" onchange="showHideDiv(this.value,'alergey_vacc_div')">
                             <option value="0">No</option>
@@ -112,12 +112,12 @@
                      
                     <div style="display: none" id="alergey_vacc_div">
                       <div  class="form-group col-md-4" >
-                        {{ Form::label('isalgeric','Isalgeric ',['class'=>' control-label ']) }} 
+                        {{ Form::label('isalgeric','Allergy Description ',['class'=>' control-label ']) }} 
                         <input type="text" name="isalgeric"  class="form-control" maxlength="50">   
                        
                        </div>
                     <div  class="form-group col-md-4" >
-                        {{ Form::label('alergey_vacc','Alergey Vacc',['class'=>' control-label ']) }} 
+                        {{ Form::label('alergey_vacc','Allergy Vaccine',['class'=>' control-label ']) }} 
                         <input type="text" name="alergey_vacc"  class="form-control" maxlength="50">   
                        
                   </div>
@@ -134,18 +134,23 @@
                     <div style="display: none" id="narration_div"> 
                    
                     <div class="form-group col-md-4">
-                        {{ Form::label('parcent','parcent',['class'=>' control-label ']) }}
+                        {{ Form::label('parcent','percent',['class'=>' control-label ']) }}
                                                  
                         {{ Form::text('parcent','',['class'=>'form-control','maxlength'=>'3']) }}
                        
                     </div>  
                     <div class="form-group col-md-4" >
-                        {{ Form::label('ishandicapped','Ishandicapped',['class'=>' control-label ','maxlength'=>'5']) }}
+                        {{ Form::label('ishandicapped','Handicapped Description',['class'=>' control-label ','maxlength'=>'5']) }}
                                                  
                         {{ Form::text('ishandicapped','',['class'=>'form-control ']) }}
                        
                     </div> 
-                    </div>  
+                    </div>
+                     <div class="form-group col-md-8">
+                      <label>Narration</label>
+                      <input type="text" name="narration" class="form-control">
+                      
+                    </div>    
                      
                      <div class="col-lg-12 text-center">
                       <a href="#" title="" onclick="callPopupLevel2(this,'{{ route('admin.medical.template.view',3) }}')">Template View</a>&nbsp;&nbsp;

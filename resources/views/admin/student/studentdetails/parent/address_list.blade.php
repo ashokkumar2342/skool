@@ -35,24 +35,39 @@
       <div id="parent" class="panel-collapse collapse in">
         <div class="panel-body">
             <div class="row">
-              <div class="col-lg-4">
-                 <li>Primary Mobile No :- <b>{{ $addres->primary_mobile }}</b></li>
-                 <li>Primary Email  :- <b>{{ $addres->primary_email }}</b></li>
-                 <li>Permanent Pincode  :- <b>{{ $addres->p_pincode }}</b></li>
-                 <li>Permanent  Address  :- <b>{{ $addres->p_address }}</b></li>    
+              <div class="col-lg-3">
+                 <li>Primary Mobile No</li>
+                 <li>Primary Email </li> 
+                 <li>Category </li>
+                 <li>Religion </li> 
+                 <li>Correspondence  Address </li>
+                 <li style="margin-top: 20px">Correspondence  Pincode</li>
+                
+                 
                  
               </div>
-              <div class="col-lg-4">
-               <li>Category  :- <b>{{ $addres->categories->name or ''}}</b></li>
-               <li>Religion  :- <b>{{ $addres->religions->name or ''}}</b></li>
-               <li>Nationality  :- <b>{{ $addres->nationality==1?'Indian' : 'Other Country' }}</b></li>
-               
+              <div class="col-lg-3">
+                <li><b>{{ $addres->primary_mobile }}</b></li>
+                <li><b>{{ $addres->primary_email }}</b></li>
+                <li><b>{{ $addres->categories->name or ''}}</b></li>
+                <li><b>{{ $addres->religions->name or ''}}</b></li>
+                <li><b>{{ $addres->c_address }}</b></li>
+                <li style="margin-top: 20px"><b>{{ $addres->c_pincode }}</b></li> 
               </div>
-              <div class="col-lg-4"> 
-                 <li>State  :- <b>{{ $addres->state }}</b></li>
-                 <li>City  :- <b>{{ $addres->city }}</b></li>
-                 <li>Correspondence  Pincode  :- <b>{{ $addres->c_pincode }}</b></li>
-                 <li>Correspondence  Address  :- <b>{{ $addres->c_address }}</b></li>   
+              <div class="col-lg-3"> 
+                 <li>State </li>
+                 <li>City</li>
+                 <li>Nationality </li>
+                 <li>Permanent  Address </li> 
+                 <li style="margin-top: 20px">Permanent Pincode </li>
+                      
+              </div>
+              <div class="col-lg-3">
+                  <li><b>{{ $addres->state }}</b></li>
+                  <li><b>{{ $addres->city }}</b></li>
+                  <li><b>{{ $addres->nationality==1?'Indian' : 'Other Country' }}</b></li> 
+                  <li><b>{{ $addres->p_address }}</b></li> 
+                  <li style="margin-top: 20px"><b>{{ $addres->p_pincode }}</b></li> 
               </div> 
                  <div class="col-lg-10 text-center" >
                     <button type="button" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.parents.address.edit',$addres->id) }}')"><i class="fa fa-edit"></i></button>

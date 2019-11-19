@@ -83,7 +83,8 @@ class StudentMedicalInfoController extends Controller
         }
         else {
         $medical = new StudentMedicalInfo();
-        $medical->alergey = $request->alergey;
+        $medical->isalgeric = $request->alergey; 
+        $medical->alergey = $request->isalgeric;
         $medical->alergey_vacc = $request->alergey_vacc;
         $medical->bp_lower = $request->bp_lower;
         $medical->bp_uper = $request->bp_uper;
@@ -96,13 +97,13 @@ class StudentMedicalInfoController extends Controller
         $medical->id_marks2 = $request->id_marks2;
         $medical->narration = $request->narration;
         $medical->ondate = $request->ondate == null ? $request->ondate : date('Y-m-d',strtotime($request->ondate));
-        $medical->physical_handicapped = $request->physical_handicapped;
+        $medical->physical_handicapped = $request->ishandicapped;
+        $medical->ishandicapped = $request->physical_handicapped; 
+        $medical->handi_percent = $request->parcent; 
         $medical->student_id = $request->student_id;
         $medical->vision = $request->vision;
         $medical->weight = $request->weight; 
-        $medical->isalgeric = $request->isalgeric; 
-        $medical->ishandicapped = $request->ishandicapped; 
-        $medical->handi_percent = $request->parcent; 
+        
         $medical->save();
         if ($request->send_sms==1) {
         $this->medicalSendSms($request->student_id); 
@@ -249,7 +250,8 @@ class StudentMedicalInfoController extends Controller
         }
         else {
         $medical =StudentMedicalInfo::find($id);
-        $medical->alergey = $request->alergey;
+        $medical->isalgeric = $request->alergey; 
+        $medical->alergey = $request->isalgeric;
         $medical->alergey_vacc = $request->alergey_vacc;
         $medical->bp_lower = $request->bp_lower;
         $medical->bp_uper = $request->bp_uper;
@@ -262,13 +264,12 @@ class StudentMedicalInfoController extends Controller
         $medical->id_marks2 = $request->id_marks2;
         $medical->narration = $request->narration;
         $medical->ondate = $request->ondate == null ? $request->ondate : date('Y-m-d',strtotime($request->ondate));
-        $medical->physical_handicapped = $request->physical_handicapped;
-        
+        $medical->physical_handicapped = $request->ishandicapped;
+        $medical->ishandicapped = $request->physical_handicapped; 
+        $medical->handi_percent = $request->parcent; 
+         
         $medical->vision = $request->vision;
-        $medical->weight = $request->weight;
-        $medical->isalgeric = $request->isalgeric; 
-        $medical->ishandicapped = $request->ishandicapped; 
-        $medical->handi_percent = $request->parcent;
+        $medical->weight = $request->weight; 
         
        $medical->save();
         $response=['status'=>1,'msg'=>'Update Successfully'];

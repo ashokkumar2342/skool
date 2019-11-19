@@ -460,7 +460,7 @@ class MasterController extends Controller
           $rules=[
               
                 'name' => 'required|max:50|unique:blood_groups,name,'.$id, 
-             'code' => 'required|max:3|unique:blood_groups,code,'.$id   
+               
              
             ];
 
@@ -475,7 +475,7 @@ class MasterController extends Controller
               else {
                $Category=BloodGroup::firstOrNew(['id'=>$id]);  
                $Category->name=$request->name;  
-               $Category->code=$request->code; 
+               
                $Category->save();
                 $response=['status'=>1,'msg'=>'Created Successfully'];
               }     return response()->json($response);
