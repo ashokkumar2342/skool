@@ -7,8 +7,8 @@
             <!-- /.box-header -->            
           <div class="box">
             <div class="box-header">
-               <button type="button" class="btn btn-info btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.complextion.add') }}')">Add Complextion</button>
-              <h3 class="box-title">Complextion List</h3>
+               <button type="button" class="btn btn-info btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.complextion.add') }}')">Add Complexion</button>
+              <h3 class="box-title">Complexion List</h3>
             </div>
               
 
@@ -19,8 +19,8 @@
                       <thead>
                       <tr>
                         <th>SR.No.</th> 
-                        <th>Name</th>
-                        <th>code</th>
+                        <th>Complexion Name</th>
+                        <th>Complexion Code</th>
                         <th>Action</th>
                          </tr>
                       </thead>

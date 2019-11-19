@@ -13,7 +13,9 @@
         padding-left: 10px;
 
     }
-
+    .panel{
+       margin-right: 10px
+    }
     .page-breck{
       page-break-before:always; 
     }
@@ -33,43 +35,64 @@
     <div id="collapse1" class="panel-collapse collapse in">
       <div class="panel-body">
          <div class="row"> 
-           <div class="col-lg-6"> 
-           <li>Name :-<b> {{ $student->name }}  </b> </li> 
-           <li>Nick Name :-<b>{{ $student->nick_name }}</b></li>
-           <li>Class :-<b>{{ $student->classes->name or '' }}</b></li>
-           <li>Section :-<b>{{ $student->sectionTypes->name or '' }}</b></li>
-           <li>Registration No :-<b>{{ $student->registration_no }}</b></li>
-           <li>Admission No :-<b>{{ $student->admission_no }}</b></li>
-           <li>Date Of Admission :-<b>{{ date('d-m-Y',strtotime($student->date_of_admission))}}</b></li>
-           <li>Date Of Activation :-<b>{{date('d-m-Y',strtotime($student->date_of_activation ))}}</b></li>
-           <li>Category :-<b> {{ $student->addressDetails->address->categories->name or ''}} </b> </li>
-           <li>State :-<b> {{ $student->addressDetails->address->state or ''}} </b> </li> 
-           
-                
+           <div class="col-lg-3"> 
+            <li>Name           
+            <li>Nick Name           
+            <li>Class  </li>
+            <li>Section</li>
+            <li>Registration No. </li>
+            <li>Admission No </li>           
+            <li>Date Of Admission </li>
+            <li>Date Of Activation </li>
+            <li>Category</li> 
+            <li>Religion</li>
+            <li>Date Of Birth </li> 
+            <li>Mobile No.</li>
+            <li>Aadhaar No.</li>           
+            <li>User Name </li>   
+            <li>Password </li>
+            <li>Email</li> 
+            <li>Gender</b></li>
+            <li> House Name </li> 
+            <li>State</li>
+            <li>City </li>  
            </div>
            <div class="col-lg-6"> 
-           @php
+            <li><b> {{ $student->name }}  </b> </li> 
+            <li><b>{{ $student->nick_name }}</b></li>
+            <li><b>{{ $student->classes->name or '' }}</b></li>
+            <li><b>{{ $student->sectionTypes->name or '' }}</b></li>
+            <li><b>{{ $student->registration_no }}</b></li>
+            <li><b>{{ $student->admission_no }}</b></li>
+            <li><b>{{ date('d-m-Y',strtotime($student->date_of_admission))}}</b></li>
+            <li><b>{{date('d-m-Y',strtotime($student->date_of_activation ))}}</b></li>
+            <li><b> {{ $student->addressDetails->address->categories->name or ''}} </b> </li>
+            <li><b> {{ $student->addressDetails->address->religions->name or ''}} </b></li>
+            <li><b>{{date('d-m-Y',strtotime($student->dob ))}}</b></li> 
+            <li><b>{{ $student->addressDetails->address->primary_mobile  or ''}}</b></li>
+            <li><b>{{ $student->adhar_no }}</b></li>
+            <li><b>{{ $student->username }}</b></li>   
+            <li><b>{{ $student->tem_pass }}</b></li>
+            <li><b> {{ $student->addressDetails->address->primary_email or ''}} </b></li>
+            <li><b>{{ $student->genders->genders or '' }}</b></li>
+            <li><b>{{$student->houses->name or ''}}</b></li>
+            <li><b> {{ $student->addressDetails->address->state or ''}} </b> </li> 
+            <li><b>{{ $student->addressDetails->address->city or ''}}</b></li>
+           </div>
+           <div class="col-lg-3" style="margin-right: 10">
+             @php
             $routeName= Route::currentRouteName();
             $path =storage_path('app/student/profile/'.$student->picture); 
             $profile = route('admin.student.image',$student->picture);
             @endphp 
              @if ( $routeName=='admin.student.pdf.generate')
-             <img  src="{{ $path }}" alt="" width="103px" height="103px" style=" float: right;margin-top: 10px; border:solid 2px Black"> 
+             <img  src="{{ $path }}" alt="" width="103px" height="103px" style="margin-top: 10px; border:solid 2px Black"> 
              @else 
               
-            <img  src="{{ ($student->picture)? $profile : asset('profile-img/user.png') }}" width="103px" height="103px" style="float: right; border:solid 2px Black">
-             @endif
-            <li>Date Of Birth :-<b>{{date('d-m-Y',strtotime($student->dob ))}}</b></li> 
-            <li>Mobile No:- <b>{{ $student->addressDetails->address->primary_mobile  or ''}}</b></li>
-            <li>Aadhaar No :-<b>{{ $student->adhar_no }}</b></li>
-            <li>User Name :- <b>{{ $student->username }}</b></li>   
-            <li>Password :- <b>{{ $student->tem_pass }}</b></li>
-            <li>E-mail ID:-<b> {{ $student->addressDetails->address->primary_email or ''}} </b></li>
-            <li>Gender :-<b>{{ $student->genders->genders or '' }}</b></li>
-            <li>Religion :-<b> {{ $student->addressDetails->address->religions->name or ''}} </b></li>
-            <li>City :- <b>{{ $student->addressDetails->address->city or ''}}</b></li>
-            <li> House Name :-<b>{{$student->houses->name or ''}}</b></li>
-        </div>
+            <img  src="{{ ($student->picture)? $profile : asset('profile-img/user.png') }}" width="120px" height="120px" style="border:solid 2px Black">
+                 @endif
+             
+           </div>
            </div>  
          </div> 
       </div>
@@ -135,22 +158,36 @@
     <div class="panel panel-info">
       <div class="panel-heading">
         <h4 class="panel-title text-center">
-          <a data-toggle="collapse" data-parent="#accordion" href="#parent{{ $parent->relation->id or ''}}">
+          <a data-toggle="collapse" data-parent="#accordion" href="#parent1{{ $parent->relation->id or ''}}">
            {{ $parent->relation->name or ''}}'s Details</a>
         </h4>
       </div>
-      <div id="parent{{ $parent->relation->id or ''}}" class="panel-collapse collapse in">
+      <div id="parent1{{ $parent->relation->id or ''}}" class="panel-collapse collapse in">
         <div class="panel-body">
             <div class="row">
-              <div class="col-lg-6">
-                <li>Name :- <b>{{ $parent->parentInfo->name  or ''}}</b></li>
-                <li>Education :-<b> {{ $parent->parentInfo->education or ''}} </b> </li>
-                <li>Annual Income :-<b> {{ $parent->parentInfo->incomes->range or ''}} </b> </li>
-                <li>Alive :- <b>{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li>
-                 <li>Office Address :- <b>{{ $parent->parentInfo->office_address or ''}}</b></li>  
+              <div class="col-lg-3">
+                <li>Name</li> 
+                <li>Mobile No. </li>
+                <li>Education</li>
+                <li>Date of Birth</li>
+                <li>Date Of Anniversary</li>
+                <li>Annual Income</li> 
+                <li>Profession </li> 
+                <li>Alive</li> 
               </div>
               <div class="col-lg-6">
-                @php
+                <li><b>{{ $parent->parentInfo->name  or ''}}</b></li>
+                 <li><b> {{ $parent->parentInfo->mobile or ''}} </b></li>
+                <li><b> {{ $parent->parentInfo->education or ''}} </b></li> 
+                 <li><b>{{ date('d-m-Y', strtotime($parent->parentInfo->dob or ''))}}</b></li>
+                 <li><b>{{ date('d-m-Y', strtotime($parent->parentInfo->doa or ''))}}</b></li>
+                <li><b> {{ $parent->parentInfo->incomes->range or ''}} </b></li> 
+                 <li><b> {{ $parent->parentInfo->profetions->name or ''}} </b></li>  
+                <li><b>{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li>
+                 
+              </div> 
+              <div class="col-lg-3" style="float: right;">
+                 @php
                 $routeNames= Route::currentRouteName();
                 $paths =storage_path('app/'.$parent->parentInfo->photo); 
                 $image = route('admin.parents.image.show',$parent->parentInfo->id); 
@@ -160,16 +197,22 @@
                 <img  src="{{ ($parent->parentInfo->id)? $image : asset('profile-img/user.png') }}" width="103px" height="103px" style="float: right; border:solid 2px Black"> 
                  @else  
                 <img  src="{{ $paths }}" alt="" width="103px" height="103px" style="float: right;margin-top: 10px; border:solid 2px Black">  
-                @endif
-                <li>Date of Birth :- <b>{{ date('d-m-Y', strtotime($parent->parentInfo->dob or ''))}}</b></li>
-                <li>Date Of Anniversary:- <b>{{ date('d-m-Y', strtotime($parent->parentInfo->doa or ''))}}</b></li>
-                <li>Mobile No:-<b> {{ $parent->parentInfo->mobile or ''}} </b> </li>
-                <li>Profession :-<b> {{ $parent->parentInfo->profetions->name or ''}} </b> </li>
+                @endif 
+                  </div> 
+              </div>
+              <div class="row">
+                <div class="col-lg-3">
+                 <li>Office Address</li>   
+                 <li>Organization Name</li>  
+                 <li>Designation</li>  
+               </div>
+               <div class="col-lg-9">
+                 <li><b> {{ $parent->parentInfo->office_address or ''}} </b></li>
+                 <li><b> {{ $parent->parentInfo->organization_address or ''}} </b></li>
+                 <li><b> {{ $parent->parentInfo->f_designation or ''}} </b></li> 
+               </div>
                 
-                
-                
-              </div> 
-            </div>
+             </div>
       
         </div>
       </div>

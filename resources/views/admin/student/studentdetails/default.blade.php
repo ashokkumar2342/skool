@@ -19,13 +19,13 @@
                                 <div class="col-md-12 ">
                                     <div class="form-group">
                                         <div class="col-md-12">                                          
-                                             <div class="col-lg-2">                         
+                                             {{-- <div class="col-lg-2">                         
                                                 <div class="form-group">
                                                     {{ Form::label('academic_year','Academic Year',['class'=>' control-label']) }}
                                                     {!! Form::select('academic_year',$academicYears, @$default->academicYears->id, ['class'=>'form-control','placeholder'=>'Select Academic Year']) !!}
                                                     <p class="text-danger">{{ $errors->first('Academic Year') }}</p>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-lg-2">                         
                                                 <div class="form-group">
                                                     {{ Form::label('class','Class',['class'=>' control-label']) }}
@@ -49,10 +49,38 @@
                                             </div>
                                             <div class="col-lg-2">                         
                                                 <div class="form-group">
+                                                    {{ Form::label('gender','Gender',['class'=>' control-label']) }}
+                                                    {!! Form::select('gender_id',$genders, @$default->genders->id, ['class'=>'form-control','placeholder'=>'Select Gender']) !!}
+                                                    <p class="text-danger">{{ $errors->first('gender_id') }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
                                                     {{ Form::label('category','Category',['class'=>' control-label']) }}
                                                     {!! Form::select('category',$categories,@$default->categories->id, ['class'=>'form-control','placeholder'=>'Select Category']) !!}
                                                     <p class="text-danger">{{ $errors->first('category') }}</p>
                                                 </div>
+                                            </div>
+                                              <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    {{ Form::label('admission_date','Date of Admission',['class'=>' control-label']) }}
+                                                    {!! Form::date('admission_date', @$default->admission_date, ['class'=>'form-control']) !!}
+                                                    <p class="text-danger">{{ $errors->first('admission_date') }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    {{ Form::label('activation_date ','Date of Activation',['class'=>' control-label']) }}
+                                                    {!! Form::date('activation_date ', @$default->activation_date , ['class'=>'form-control']) !!}
+                                                    <p class="text-danger">{{ $errors->first('activation_date ') }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                  {{ Form::label('house_id','House Name',['class'=>' control-label']) }}
+                                                  {!! Form::select('house_id',$houses, @$default->houses->id, ['class'=>'form-control','placeholder'=>'Select House Name']) !!}
+                                                  <p class="text-danger">{{ $errors->first('house_id') }}</p>
+                                              </div>
                                             </div>
                                              <div class="col-lg-2">                         
                                                 <div class="form-group">
@@ -86,11 +114,65 @@
                                                     <p class="text-danger">{{ $errors->first('nationality') }}</p>
                                                 </div>
                                             </div>
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    {{ Form::label('alive','Parent Alive',['class'=>' control-label']) }}
+                                                     <select name="alive" class="form-control" >
+                                                       <option value="1" {{ @$default->alive==1? 'selected' :'' }}>Yes</option> 
+                                                       <option value="2" {{ @$default->alive==2? 'selected' :'' }}>No</option> 
+                                                     </select>                       
+                                                     
+                                                    <p class="text-danger">{{ $errors->first('nationality') }}</p>
+                                                </div>
+                                            </div> 
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    {{ Form::label('m_ondate','Medical On Date',['class'=>' control-label']) }}                         
+                                                    {{ Form::date('m_ondate',@$default->m_ondate,array('class' => 'form-control' )) }}
+                                                    <p class="text-danger">{{ $errors->first('m_ondate') }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    {{ Form::label('m_hb','HB',['class'=>' control-label']) }}                         
+                                                    {{ Form::text('m_hb',@$default->m_hb,array('class' => 'form-control' )) }}
+                                                    <p class="text-danger">{{ $errors->first('m_hb') }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    {{ Form::label('m_bp_l','BP Lower',['class'=>' control-label']) }}                         
+                                                    {{ Form::text('m_bp_l',@$default->m_bp_l,array('class' => 'form-control' )) }}
+                                                    <p class="text-danger">{{ $errors->first('m_bp_l') }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    {{ Form::label('m_bp_u','BP Upper',['class'=>' control-label']) }}                         
+                                                    {{ Form::text('m_bp_u',@$default->m_bp_u,array('class' => 'form-control' )) }}
+                                                    <p class="text-danger">{{ $errors->first('m_bp_u') }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    {{ Form::label('m_weight','Weight(In Kg.)',['class'=>' control-label']) }}                         
+                                                    {{ Form::text('m_weight',@$default->m_weight,array('class' => 'form-control' )) }}
+                                                    <p class="text-danger">{{ $errors->first('m_weight') }}</p>
+                                                </div>
+                                            </div>
+                                             
+                                            <div class="col-lg-2">                         
+                                                <div class="form-group">
+                                                    {{ Form::label('m_height','Height(In Cm.)',['class'=>' control-label']) }}                         
+                                                    {{ Form::text('m_height',@$default->m_height,array('class' => 'form-control' )) }}
+                                                    <p class="text-danger">{{ $errors->first('m_height') }}</p>
+                                                </div>
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
                                     </div> 
-                                        <div class="panel panel-default">
+                                       {{--  <div class="panel panel-default">
                                          <div class="text-center"><b>Birthday Template</b></div> 
                                           <div class="panel-body"> 
                                             @php
@@ -358,7 +440,7 @@
                                             </div>  
                                                   </div>
                                                 </div>
-                                              </div>
+                                              </div> --}}
  
                            
                                  

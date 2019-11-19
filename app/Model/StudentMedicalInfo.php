@@ -12,7 +12,7 @@ class StudentMedicalInfo extends Model
         return $this->hasOne('App\Student','id','student_id');
     }
      Public function bloodgroups(){
-        return $this->hasOne('App\Model\bloodGroup','id','bloodgroup_id');
+        return $this->hasOne('App\Model\BloodGroup','id','bloodgroup_id');
     }
     Public function complextions(){
         return $this->hasOne('App\Model\Complextion','id','complextion');

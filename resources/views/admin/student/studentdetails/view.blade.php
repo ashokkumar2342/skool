@@ -48,19 +48,19 @@ b{
                                 <div class="col-md-6 border_bottom">
                                     <ul class="list-group">
                                      
-                                      <li class="list-group-item">Name <span class="fa fa-asterisk"></span><span class="fs"><input type="text" value="{{ $student->name }}" maxlength="50" name="student_name" style="width: 290px"> </span></li>
-                                       <li class="list-group-item">Nick Name <span  class="fs"><input type="text" name="nick_name" maxlength="20" style="width: 290px" value="{{ $student->nick_name }}" name=""> </span></li>
+                                      <li class="list-group-item">Name <span class="fa fa-asterisk"></span><span class="fs"><input type="text" value="{{ $student->name }}" maxlength="50" name="student_name" style="width: 290px;height: 28px"> </span></li>
+                                       <li class="list-group-item">Nick Name <span  class="fs"><input type="text" name="nick_name" maxlength="20" style="width: 290px;height: 28px" value="{{ $student->nick_name }}" name=""> </span></li>
                                      
                                       <li class="list-group-item">Class <span class="fa fa-asterisk"></span><span class="fs"> 
                                         {{-- <input type="text" maxlength="50"  value="{{ $student->classes->name or ''}}" name="nick_name"> --}}
-                                        <select name="class" style="width: 290px"onchange="callAjax(this,'{{ route('admin.student.final.report.class.wise.section') }}','section_div')">
+                                        <select name="class" style="width: 290px;height: 28px"onchange="callAjax(this,'{{ route('admin.student.final.report.class.wise.section') }}','section_div')">
                                           @foreach ($classes as $id=>$value)
                                            <option value="{{ $id }}"{{ $student->class_id==$id? 'selected' : ''}}>{{ $value }}</option> 
                                           @endforeach 
                                         </select> 
                                       </span></li>
-                                      <li class="list-group-item">Section <span class="fa fa-asterisk"></span><span class="fs">{{-- <input type="text" maxlength="50"  style="width: 290px" value="{{ $student->sectionTypes->name or ''}}" >  --}}
-                                        <select name="section" id="section_div" style="width: 290px">
+                                      <li class="list-group-item">Section <span class="fa fa-asterisk"></span><span class="fs">{{-- <input type="text" maxlength="50"  style="width: 290px;height: 28px" value="{{ $student->sectionTypes->name or ''}}" >  --}}
+                                        <select name="section" id="section_div" style="width: 290px;height: 28px">
                                         @foreach ($sections as $section)
                                           <option  value="{{ $section->id }}"{{ $student->section_id==$section->id? 'selected' : '' }}>{{ $section->name }}</option> 
                                             
@@ -68,10 +68,10 @@ b{
                                         </select>
                                       </span></li>
                                      
-                                      <li class="list-group-item">Registration No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" disabled="" style="width: 290px" value="{{ $student->registration_no or ''}}" > </span></li>
+                                      <li class="list-group-item">Registration No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" disabled="" style="width: 290px;height: 28px" value="{{ $student->registration_no or ''}}" > </span></li>
                                       
-                                      <li class="list-group-item">Roll No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" style="width: 290px" value="{{ $student->roll_no or ''}}" disabled> </span></li>
-                                      <li class="list-group-item">Addmission No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" disabled="" style="width: 290px" value="{{ $student->admission_no }}" > </span></li>
+                                      <li class="list-group-item">Roll No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" style="width: 290px;height: 28px" value="{{ $student->roll_no or ''}}" disabled> </span></li>
+                                      <li class="list-group-item">Addmission No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" disabled="" style="width: 290px;height: 28px" value="{{ $student->admission_no }}" > </span></li>
                                       
                                      
                                       
@@ -90,15 +90,15 @@ b{
                                     <ul class="list-group">
                                     
                                       
-                                      <li class="list-group-item">Date of Addmission <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" style="width: 290px" value="{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}" name="date_of_admission"> </span></li>
-                                      <li class="list-group-item">Date of Activation <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" style="width: 290px" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation"> </span></li>
-                                      <li class="list-group-item">Date of Birth <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="10" style="width: 290px" value="{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}" name="date_of_birth"> </span></li>
-                                      <li class="list-group-item">Username <span class="fa fa-asterisk"></span><span class="fs"><input type="text" disabled="" style="width: 290px" value="{{ $student->username }}" name="email" > </span></li>
+                                      <li class="list-group-item">Date of Addmission <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" style="width: 290px;height: 28px" value="{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}" name="date_of_admission"> </span></li>
+                                      <li class="list-group-item">Date of Activation <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" style="width: 290px;height: 28px" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation"> </span></li>
+                                      <li class="list-group-item">Date of Birth <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="10" style="width: 290px;height: 28px" value="{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}" name="date_of_birth"> </span></li>
+                                      <li class="list-group-item">Username <span class="fa fa-asterisk"></span><span class="fs"><input type="text" disabled="" style="width: 290px;height: 28px" value="{{ $student->username }}" name="email" > </span></li>
                                         
-                                        <li class="list-group-item">Gender <span class="fa fa-asterisk"></span><span class="fs"><input type="text" style="width: 290px" value="{{ $student->genders->genders or ''}}" disabled=""> </span></li>
-                                        <li class="list-group-item">Aadhaar No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="12" style="width: 290px" value="{{ $student->adhar_no}}" name="aadhaar_no"> </span></li>
+                                        <li class="list-group-item">Gender <span class="fa fa-asterisk"></span><span class="fs"><input type="text" style="width: 290px;height: 28px" value="{{ $student->genders->genders or ''}}" disabled=""> </span></li>
+                                        <li class="list-group-item">Aadhaar No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="12" style="width: 290px;height: 28px" value="{{ $student->adhar_no}}" name="aadhaar_no"> </span></li>
                                         <li class="list-group-item">House Name <span class="fa fa-asterisk"></span><span class="fs">
-                                          <select name="house" style="width: 290px">
+                                          <select name="house" style="width: 290px;height: 28px">
                                             @foreach ($houses as $house)
                                               <option  value="{{ $house->id }}"{{ $student->house_no==$house->id? 'selected' : '' }}>{{ $house->name }}</option> 
                                               

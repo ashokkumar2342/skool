@@ -83,7 +83,8 @@ class StudentMedicalInfoController extends Controller
         }
         else {
         $medical = new StudentMedicalInfo();
-        $medical->alergey = $request->alergey;
+        $medical->isalgeric = $request->alergey; 
+        $medical->alergey = $request->isalgeric;
         $medical->alergey_vacc = $request->alergey_vacc;
         $medical->bp_lower = $request->bp_lower;
         $medical->bp_uper = $request->bp_uper;
@@ -96,13 +97,13 @@ class StudentMedicalInfoController extends Controller
         $medical->id_marks2 = $request->id_marks2;
         $medical->narration = $request->narration;
         $medical->ondate = $request->ondate == null ? $request->ondate : date('Y-m-d',strtotime($request->ondate));
-        $medical->physical_handicapped = $request->physical_handicapped;
+        $medical->physical_handicapped = $request->ishandicapped;
+        $medical->ishandicapped = $request->physical_handicapped; 
+        $medical->handi_percent = $request->parcent; 
         $medical->student_id = $request->student_id;
         $medical->vision = $request->vision;
         $medical->weight = $request->weight; 
-        $medical->isalgeric = $request->isalgeric; 
-        $medical->ishandicapped = $request->ishandicapped; 
-        $medical->handi_percent = $request->parcent; 
+        
         $medical->save();
         if ($request->send_sms==1) {
         $this->medicalSendSms($request->student_id); 
@@ -249,7 +250,8 @@ class StudentMedicalInfoController extends Controller
         }
         else {
         $medical =StudentMedicalInfo::find($id);
-        $medical->alergey = $request->alergey;
+        $medical->isalgeric = $request->alergey; 
+        $medical->alergey = $request->isalgeric;
         $medical->alergey_vacc = $request->alergey_vacc;
         $medical->bp_lower = $request->bp_lower;
         $medical->bp_uper = $request->bp_uper;
@@ -262,13 +264,12 @@ class StudentMedicalInfoController extends Controller
         $medical->id_marks2 = $request->id_marks2;
         $medical->narration = $request->narration;
         $medical->ondate = $request->ondate == null ? $request->ondate : date('Y-m-d',strtotime($request->ondate));
-        $medical->physical_handicapped = $request->physical_handicapped;
-        
+        $medical->physical_handicapped = $request->ishandicapped;
+        $medical->ishandicapped = $request->physical_handicapped; 
+        $medical->handi_percent = $request->parcent; 
+         
         $medical->vision = $request->vision;
-        $medical->weight = $request->weight;
-        $medical->isalgeric = $request->isalgeric; 
-        $medical->ishandicapped = $request->ishandicapped; 
-        $medical->handi_percent = $request->parcent;
+        $medical->weight = $request->weight; 
         
        $medical->save();
         $response=['status'=>1,'msg'=>'Update Successfully'];
@@ -295,8 +296,10 @@ class StudentMedicalInfoController extends Controller
             return response()->json($response);
     }
     public function medicalInfoAddForm(Request $request){
-         $student=$request->id; 
-         $parentsType = array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name','id');
+        $user_id=Auth::guard('admin')->user()->id;
+         $student=$request->id;
+        $default = StudentDefaultValue::where('user_id',$user_id)->first(); 
+        $parentsType = array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name','id');
         $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
         $documentTypes = array_pluck(DocumentType::get(['id','name'])->toArray(),'name', 'id');
         $subjectTypes = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
@@ -304,8 +307,10 @@ class StudentMedicalInfoController extends Controller
         $isoptionals = array_pluck(Isoptional::get(['id','name'])->toArray(),'name', 'id');
         $bloodgroups = array_pluck(BloodGroup::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id');
         $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 
-        $complextions=Complextion::orderBy('name','ASC')->get(); 
-        return view('admin.student.studentdetails.include.add_medical_info',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','complextions'));
+        $complextions=Complextion::orderBy('name','ASC')->get();
+        $defaults=StudentDefaultValue::all(); 
+        $default = StudentDefaultValue::where('user_id',$user_id)->first(); 
+        return view('admin.student.studentdetails.include.add_medical_info',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','complextions','default'));
     }
     public function medicalInfoList(Request $request){ 
          $parentsType = array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name','id');

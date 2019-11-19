@@ -71,13 +71,9 @@
                         {{ Form::text('vision',$medicalInfo->vision,['class'=>'form-control ','maxlength'=>'50']) }}
                          
                     </div>
-                    <div class="form-group col-md-4">
-                      <label>Narration</label>
-                      <input type="text" name="narration" class="form-control">
-                      
-                    </div> 
+                    
                   <div class="form-group col-md-4">
-                       {{ Form::label('complextion','Complextion',['class'=>' control-label ']) }}     
+                       {{ Form::label('complextion','Complexion',['class'=>' control-label ']) }}     
                       <select name="complextion" class="form-control">
                         @foreach ($complextions as $complextion)
                           <option value="{{ $complextion->id }}">{{ $complextion->name }}</option>  
@@ -85,13 +81,13 @@
                       </select> 
                      </div>
                     <div class="form-group col-md-4">
-                        {{ Form::label('id_marks1','Id Marks1',['class'=>' control-label ']) }}
+                        {{ Form::label('id_marks1','ID Marks1',['class'=>' control-label ']) }}
                          
                         {{ Form::text('id_marks1',$medicalInfo->id_marks1,['class'=>'form-control','maxlength'=>'200']) }}
                          
                     </div> 
                     <div class="form-group col-md-4">
-                        {{ Form::label('id_marks2','Id Marks2',['class'=>' control-label ']) }}
+                        {{ Form::label('id_marks2','ID Marks2',['class'=>' control-label ']) }}
                         {{ Form::text('id_marks2',$medicalInfo->id_marks2,['class'=>'form-control','maxlength'=>'200']) }}
                          
                     </div>
@@ -102,50 +98,70 @@
                     </div>
                    
                    <div class="form-group col-md-4">
-                        {{ Form::label('alergey','Alergey',['class'=>' control-label']) }} 
+                        {{ Form::label('alergey','Allergy',['class'=>' control-label']) }} 
                          
                          <select name="alergey" id="alergey" class="form-control" onchange="showHideDiv(this.value,'alergey_vacc_div')">
                             <option value="0">No</option>
-                            <option value="1">Yes</option> 
+                            <option value="1"{{ $medicalInfo->isalgeric==1? 'selected' : '' }}>Yes</option> 
                           </select>
                          
                     </div>
-                     
+                    @if ($medicalInfo->isalgeric!=1)
                     <div style="display: none" id="alergey_vacc_div">
                       <div  class="form-group col-md-4" >
-                        {{ Form::label('isalgeric','Isalgeric ',['class'=>' control-label ']) }} 
-                        <input type="text" name="isalgeric"  class="form-control" maxlength="50">   
-                       
+                        {{ Form::label('isalgeric','Allergy Description ',['class'=>' control-label ']) }} 
+                        <input type="text" name="isalgeric"  class="form-control" maxlength="50"> 
                        </div>
                     <div  class="form-group col-md-4" >
-                        {{ Form::label('alergey_vacc','Alergey Vacc',['class'=>' control-label ']) }} 
-                        <input type="text" name="alergey_vacc"  class="form-control" maxlength="50">   
-                       
-                  </div>
+                        {{ Form::label('alergey_vacc','Allergy Vaccine',['class'=>' control-label ']) }} 
+                        <input type="text" name="alergey_vacc"  class="form-control" maxlength="50">  
+                    </div> 
                 </div>
+                    @else
+                      <div  class="form-group col-md-4" >
+                        {{ Form::label('isalgeric','Allergy Description ',['class'=>' control-label ']) }} 
+                        <input type="text" name="isalgeric"  class="form-control" maxlength="50" value="{{ $medicalInfo->alergey }}"> 
+                       </div>
+                    <div  class="form-group col-md-4" >
+                        {{ Form::label('alergey_vacc','Allergy Vaccine',['class'=>' control-label ']) }} 
+                        <input type="text" name="alergey_vacc"  class="form-control" maxlength="50" value="{{ $medicalInfo->alergey_vacc }}">  
+                    </div>
+                     @endif 
                     <div class="form-group col-md-4">
                         {{ Form::label('physical_handicapped','Physical Handicapped',['class'=>' control-label ']) }}
                          
                         <select name="physical_handicapped" onchange="showHideDiv(this.value,'narration_div')" class="form-control">
                           <option value="0">No</option>
-                          <option value="1">Yes</option> 
+                          <option value="1"{{ $medicalInfo->ishandicapped==1? 'selected' : '' }}>Yes</option> 
                         </select>
                         
-                    </div> 
+                    </div>
+                   @if ($medicalInfo->ishandicapped!=1) 
                     <div style="display: none" id="narration_div"> 
-                   
                     <div class="form-group col-md-4">
-                        {{ Form::label('parcent','parcent',['class'=>' control-label ']) }}
-                                                 
-                        {{ Form::text('parcent','',['class'=>'form-control','maxlength'=>'3']) }}
-                       
+                        {{ Form::label('parcent','Percent',['class'=>' control-label ']) }} 
+                        {{ Form::text('parcent','',['class'=>'form-control','maxlength'=>'3']) }} 
                     </div>  
                     <div class="form-group col-md-4" >
-                        {{ Form::label('ishandicapped','Ishandicapped',['class'=>' control-label ','maxlength'=>'5']) }}
-                                                 
-                        {{ Form::text('ishandicapped','',['class'=>'form-control ']) }}
-                       
-                    </div> 
+                        {{ Form::label('ishandicapped','Handicapped Description',['class'=>' control-label ','maxlength'=>'5']) }}                 
+                        {{ Form::text('ishandicapped','' ,['class'=>'form-control ']) }} 
+                    </div>
+                    @else
+
+                    <div class="form-group col-md-4">
+                        {{ Form::label('parcent','Percent',['class'=>' control-label ']) }} 
+                        {{ Form::text('parcent',$medicalInfo->handi_percent,['class'=>'form-control','maxlength'=>'3']) }} 
+                    </div>  
+                    <div class="form-group col-md-4" >
+                        {{ Form::label('ishandicapped','Handicapped Description',['class'=>' control-label ','maxlength'=>'5']) }}                 
+                        {{ Form::text('ishandicapped',$medicalInfo->physical_handicapped,['class'=>'form-control ']) }} 
+                    </div>
+                    
+                     @endif   
+                    <div class="form-group col-md-8">
+                      <label>Narration</label>
+                      <input type="text" name="narration" class="form-control" value="{{ $medicalInfo->narration }}">
+                      
                     </div>  
                     <div class="col-lg-12 text-center">
                     

@@ -8,7 +8,7 @@
   
 </style>
  
-  <div class="modal-dialog" style="width:50%">
+  <div class="modal-dialog" style="width:40%">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -20,14 +20,11 @@
              <form action="{{ route('admin.bloodgroup.store',@$completion->id) }}" method="post" class="add_form" button-click="btn_event_type_table_show,btn_close" content-refresh="category_dataTable">
                    {{ csrf_field() }}
                     <div class="row"> 
-                      <div class="col-lg-6">
+                      <div class="col-lg-12">
                         <label>Blood Group Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter Blood Group Name" value="{{ @$completion->name }}" maxlength="30"> 
+                        <input type="text" name="name" class="form-control" placeholder="Enter Blood Group Name" value="{{ @$completion->name }}" maxlength="10"> 
                       </div>
-                      <div class="col-lg-6">
-                        <label>Code</label>
-                        <input type="text" name="code" class="form-control" placeholder="Enter Code" value="{{ @$completion->code }}" maxlength="3"> 
-                      </div>  
+                      
                     <div class="col-lg-12 text-center" style="padding-top: 10px">
                       <input type="submit" class="btn btn-success">
                     </div> 

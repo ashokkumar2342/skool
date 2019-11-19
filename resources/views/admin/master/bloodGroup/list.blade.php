@@ -20,7 +20,7 @@
                       <tr>
                         <th>SR.No.</th> 
                         <th>Name</th>
-                        <th>code</th>
+                       
                         <th>Action</th>
                          </tr>
                       </thead>
@@ -34,7 +34,7 @@
                         <td>{{ $completionsId++ }}</td>
                         
                         <td>{{ $completions->name }} </td>
-                        <td>{{ $completions->code }} </td>
+                         
                         <td>
                          @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
                             <button type="button" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.bloodgroup.add',$completions->id) }}')"><i class="fa fa-edit"></i></button> 
