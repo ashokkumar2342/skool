@@ -226,80 +226,80 @@ class StudentController extends Controller
     public function store(Request $request)
     {   
        
-       $rules=[
-            'sibling_registration' => 'required',
-            'sibling_registration_no' => 'required_if:sibling_registration,yes',
-            'mobileno' => 'required_if:sibling_registration,no|unique:students',
-            'emailid' => 'required_if:sibling_registration,no|unique:students',
-            'class' => 'required',
-            "section" => 'required',
-            "registration_no" => 'required|max:20|unique:students',
-            "admission_no" => 'required|max:20|unique:students',
-            "roll_no" => 'required|max:20|unique:students',
-            "date_of_admission" => 'required|date', 
-            "date_of_activation" => 'required|date',
-            "student_name" => 'required|max:199', 
-            "date_of_birth" => 'required|date',
-            "aadhaar_no" => "required|digits:12",
-            "house_name" => "required", 
-        ];
-        $validator = Validator::make($request->all(),$rules);
-        if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            $response=array();
-            $response["status"]=0;
-            $response["msg"]=$errors[0];
-            return response()->json($response);// response as json
-        } 
-        else {   
-        $admin_id = Auth::guard('admin')->user()->id;
-        $username = str_random('10');
-        $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
-        $student= new Student();
-        if ($request->sibling_registration=='yes') {  
-          $sibling= $student->getDetailByRegistrationNo($request->sibling_registration_no);
-          if (is_null($sibling)) {
-            $response=array();
-            $response['status']=0;
-            $response['msg']='Sibling Invalied Ragistration No';
-            return $response;
-          }
-          $student->siblingId= $sibling->id;
-        }
-        
+       try {
+        $rules=[
+             'sibling_registration' => 'required',
+             'sibling_registration_no' => 'required_if:sibling_registration,yes',
+             'mobileno' => 'required_if:sibling_registration,no|unique:students',
+             'emailid' => 'required_if:sibling_registration,no|unique:students',
+             'class' => 'required',
+             "section" => 'required',
+             "registration_no" => 'required|max:20|unique:students',
+             "admission_no" => 'required|max:20|unique:students',
+             "roll_no" => 'required|max:20|unique:students',
+             "date_of_admission" => 'required|date', 
+             "date_of_activation" => 'required|date',
+             "student_name" => 'required|max:199', 
+             "date_of_birth" => 'required|date',
+             "aadhaar_no" => "required|digits:12",
+             "house_name" => "required", 
+         ];
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         } 
+         else {   
+         $admin_id = Auth::guard('admin')->user()->id;
+         $username = str_random('10');
+         $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
+         $student= new Student();
+         if ($request->sibling_registration=='yes') {  
+           $sibling= $student->getDetailByRegistrationNo($request->sibling_registration_no);
+           if (is_null($sibling)) {
+             $response=array();
+             $response['status']=0;
+             $response['msg']='Sibling Invalied Ragistration No';
+             return $response;
+           }
+           $student->siblingId= $sibling->id;
+         }
          
-        $student->emailid= $request->emailid;  
-        $student->mobileno= $request->mobileno; 
-        $student->dpassword= $char;  
-        $student->dpassword_encrypt= bcrypt($char); 
-        $student->admin_id = $admin_id; 
-        $student->class_id= $request->class;
-        $student->section_id= $request->section;     
-        $student->registration_no= $request->registration_no;     
-        $student->admission_no= $request->admission_no;     
-        $student->roll_no= $request->roll_no;     
-        $student->adhar_no= $request->aadhaar_no;     
-        $student->house_no= $request->house_name;     
-        $student->date_of_admission= $request->date_of_admission == null ? $request->date_of_admission : date('Y-m-d',strtotime($request->date_of_admission));        
-        $student->date_of_activation= $request->date_of_activation == null ? $request->date_of_activation : date('Y-m-d',strtotime($request->date_of_activation));
-        $student->name= $request->student_name;
-        $student->nick_name= $request->nick_name; 
-        
-        $student->dob= $request->date_of_birth == null ? $request->date_of_birth : date('Y-m-d',strtotime($request->date_of_birth));
-        $student->gender_id= $request->gender;        
-         $student->save()  ;
-            $response=array();
-            $response['status']=1;
-            $response['msg']='Created Successfully';   
-            $response['student_id']=$student->id;   
-            return $response;
           
-        }
-
-
-
-
-        return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
+         $student->emailid= $request->emailid;  
+         $student->mobileno= $request->mobileno; 
+         $student->dpassword= $char;  
+         $student->dpassword_encrypt= bcrypt($char); 
+         $student->admin_id = $admin_id; 
+         $student->class_id= $request->class;
+         $student->section_id= $request->section;     
+         $student->registration_no= $request->registration_no;     
+         $student->admission_no= $request->admission_no;     
+         $student->roll_no= $request->roll_no;     
+         $student->adhar_no= $request->aadhaar_no;     
+         $student->house_no= $request->house_name;     
+         $student->date_of_admission= $request->date_of_admission == null ? $request->date_of_admission : date('Y-m-d',strtotime($request->date_of_admission));        
+         $student->date_of_activation= $request->date_of_activation == null ? $request->date_of_activation : date('Y-m-d',strtotime($request->date_of_activation));
+         $student->name= $request->student_name;
+         $student->nick_name= $request->nick_name; 
+         
+         $student->dob= $request->date_of_birth == null ? $request->date_of_birth : date('Y-m-d',strtotime($request->date_of_birth));
+         $student->gender_id= $request->gender;        
+         $student->save();
+         $response=array();
+         $response['status']=1;
+         $response['msg']='Created Successfully';   
+         $response['student_id']=$student->id;   
+         return $response; 
+         } 
+         
+       } catch (Exception $e) {
+         Log::error('Student store :'.$e);
+       }
+ 
     }
 
     /**

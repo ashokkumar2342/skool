@@ -308,10 +308,10 @@
     }
 
 function redirectStudent() {
- $(document).ajaxSuccess(function(event, xhr, settings) {
-   console.log(xhr.responseText.student_id)
-   var student_id = xhr.responseText.student_id;
-   window.location.replace(" {{ url('admin/student/view') }}/"+student_id);
+ $(document).ajaxSuccess(function(event, xhr, settings) {   
+   var json = xhr.responseText;
+   var obj = JSON.parse(json); 
+   window.location.replace(" {{ url('admin/student/view') }}/"+obj.student_id); 
  });
 }
  
