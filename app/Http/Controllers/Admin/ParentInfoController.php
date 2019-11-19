@@ -11,12 +11,14 @@ use App\Model\ParentsInfo;
 use App\Model\Profession;
 use App\Model\Religion;
 use App\Model\SiblingGroup;
+use App\Model\StudentDefaultValue;
 use App\Model\StudentPerentDetail;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Response;
+use Auth;
 
 class ParentInfoController extends Controller
 {
@@ -226,7 +228,7 @@ class ParentInfoController extends Controller
     {
         $parentsInfo = ParentsInfo::find($id);
          $parentsType= array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name', 'id'); 
-        $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 
+        $professions = array_pluck(Profession::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id'); 
         $incomes = array_pluck(IncomeRange::orderBy('code','ASC')->get(['id','range'])->toArray(),'range', 'id');
         $student=$request->id;
           return view('admin.student.studentdetails.include.parents_info_edit',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions','parentsInfo'));
@@ -301,12 +303,13 @@ class ParentInfoController extends Controller
 
     
     public function parentAddNew(Request $request)
-    {
+    {     $user_id=Auth::guard('admin')->user()->id;
+          $student=$request->id;
          $parentsType= array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name', 'id'); 
-        $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 
-        $incomes = array_pluck(IncomeRange::orderBy('code','ASC')->get(['id','range'])->toArray(),'range', 'id');
-        $student=$request->id;
-          return view('admin.student.studentdetails.parent.new',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions'));
+        $professions = array_pluck(Profession::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id'); 
+        $incomes = array_pluck(IncomeRange::orderBy('code','ASC')->get(['id','range'])->toArray(),'range', 'id'); 
+        $default = StudentDefaultValue::where('user_id',$user_id)->first(); 
+          return view('admin.student.studentdetails.parent.new',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','professions','default'));
         
     }
     public function parentSearch(Request $request)

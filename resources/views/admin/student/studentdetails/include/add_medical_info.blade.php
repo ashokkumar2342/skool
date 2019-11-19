@@ -27,7 +27,7 @@
 
                          {{ Form::label('ondate','On Date',['class'=>' control-label']) }} 
                           
-                         {{ Form::date('ondate','',['class'=>'form-control datepicker']) }}
+                         {{ Form::date('ondate',@$default->m_ondate,['class'=>'form-control datepicker']) }}
                          
                      </div>
 
@@ -39,32 +39,32 @@
                      </div> 
                    <div class="form-group col-md-4">
                         {{ Form::label('hb','HB ',['class'=>' control-label']) }}                         
-                        {{ Form::text('hb',14,['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
+                        {{ Form::text('hb',@$default->m_hb,['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                         
                     </div>
                      <div class="form-group col-md-2">
                         {{ Form::label('bp','BP Lower',['class'=>' control-label ']) }}
                          
-                        {{ Form::text('bp_lower','80',['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
+                        {{ Form::text('bp_lower',@$default->m_bp_l,['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                         
                     </div> 
                     <div class="form-group col-md-2">
                         {{ Form::label('bp','BP Upper',['class'=>' control-label ']) }}
                          
-                        {{ Form::text('bp_uper','120',['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
+                        {{ Form::text('bp_uper',@$default->m_bp_u,['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                        
                     </div>
                     <div class="form-group col-md-4">
                         {{ Form::label('weight','Weight (In kg)',['class'=>' control-label','maxlength'=>'3']) }}  
                                                 
-                        {{ Form::text('weight','',['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
+                        {{ Form::text('weight',@$default->m_weight,['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                          
                     </div>
                      
                      <div class="form-group col-md-4">
                         {{ Form::label('height','Height (In cm)',['class'=>' control-label ','maxlength'=>'3']) }}   
                                                
-                        {{ Form::text('height','',['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
+                        {{ Form::text('height',@$default->m_height,['class'=>'form-control','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','maxlength'=>'3']) }}
                         
                     </div>
                     

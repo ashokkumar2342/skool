@@ -132,7 +132,7 @@
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>                          
-                                                    {{ Form::text('date_of_admission','',array('class' => 'form-control datepicker' )) }}
+                                                    {{ Form::date('date_of_admission', @$default->admission_date,array('class' => 'form-control datepicker' )) }}
                                                     </div>
                                                     <p class="text-danger">{{ $errors->first('date_of_admission') }}</p>
                                                 </div>
@@ -146,7 +146,7 @@
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>                          
-                                                    {{ Form::text('date_of_activation','',array('class' => 'form-control datepicker' )) }}
+                                                    {{ Form::date('date_of_activation',@$default->activation_date ,array('class' => 'form-control datepicker' )) }}
                                                     </div>
                                                     <p class="text-danger">{{ $errors->first('date_of_activation') }}</p>
                                                 </div>
@@ -211,7 +211,7 @@
                                                     <select name="house_name" class="form-control">
                                                         <option selected disabled>Select House</option>
                                                         @foreach ($houses as $house)
-                                                          <option value="{{ $house->id }}">{{ $house->name }}</option> 
+                                                          <option value="{{ $house->id }}"{{ @$default->house_id==$house->id? 'selected' : '' }}>{{ $house->name }}</option> 
                                                         @endforeach 
                                                     </select>
                                                   

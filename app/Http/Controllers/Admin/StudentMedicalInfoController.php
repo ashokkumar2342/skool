@@ -296,8 +296,10 @@ class StudentMedicalInfoController extends Controller
             return response()->json($response);
     }
     public function medicalInfoAddForm(Request $request){
-         $student=$request->id; 
-         $parentsType = array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name','id');
+        $user_id=Auth::guard('admin')->user()->id;
+         $student=$request->id;
+        $default = StudentDefaultValue::where('user_id',$user_id)->first(); 
+        $parentsType = array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name','id');
         $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
         $documentTypes = array_pluck(DocumentType::get(['id','name'])->toArray(),'name', 'id');
         $subjectTypes = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
@@ -305,8 +307,10 @@ class StudentMedicalInfoController extends Controller
         $isoptionals = array_pluck(Isoptional::get(['id','name'])->toArray(),'name', 'id');
         $bloodgroups = array_pluck(BloodGroup::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id');
         $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 
-        $complextions=Complextion::orderBy('name','ASC')->get(); 
-        return view('admin.student.studentdetails.include.add_medical_info',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','complextions'));
+        $complextions=Complextion::orderBy('name','ASC')->get();
+        $defaults=StudentDefaultValue::all(); 
+        $default = StudentDefaultValue::where('user_id',$user_id)->first(); 
+        return view('admin.student.studentdetails.include.add_medical_info',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','complextions','default'));
     }
     public function medicalInfoList(Request $request){ 
          $parentsType = array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name','id');

@@ -12,6 +12,7 @@ use App\Model\DiscountType;
 use App\Model\DocumentType;
 use App\Model\Gender;
 use App\Model\GuardianRelationType;
+use App\Model\House;
 use App\Model\IncomeRange;
 use App\Model\Isoptional;
 use App\Model\ParentsInfo;
@@ -51,6 +52,7 @@ class StudentDefaultValueController extends Controller
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
+        $houses = array_pluck(House::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id');
         $default = StudentDefaultValue::where('user_id',$user_id)->first();
         $smsbirthdayTemplates=SmsTemplate::where('template_type_id',1)->get(); 
         $emailbirthdayTemplates=EmailTemplate::where('template_type_id',1)->get(); 
@@ -65,9 +67,9 @@ class StudentDefaultValueController extends Controller
         $smsMedicalTemplates=SmsTemplate::where('template_type_id',6)->get(); 
         $emailMedicalTemplates=EmailTemplate::where('template_type_id',6)->get();
         $smsabsentTemplates=SmsTemplate::where('template_type_id',7)->get(); 
-        $emailabsentTemplates=EmailTemplate::where('template_type_id',7)->get(); 
-           
-        return view('admin.student.studentdetails.default',compact('classes','sessions','default','genders','religions','categories','default','academicYears','smsbirthdayTemplates','emailbirthdayTemplates','smshomeworkTemplates','emailhomeworkTemplates','smsclasstestTemplates','emailclasstestTemplates','smsTimetableTemplates','emailTimetableTemplates','smsclasstestDetailsTemplates','emailclasstestDetailsTemplates','smsMedicalTemplates','emailMedicalTemplates','smsabsentTemplates','emailabsentTemplates'));
+        $emailabsentTemplates=EmailTemplate::where('template_type_id',7)->get();
+
+        return view('admin.student.studentdetails.default',compact('classes','sessions','default','genders','religions','categories','default','academicYears','houses','smsbirthdayTemplates','emailbirthdayTemplates','smshomeworkTemplates','emailhomeworkTemplates','smsclasstestTemplates','emailclasstestTemplates','smsTimetableTemplates','emailTimetableTemplates','smsclasstestDetailsTemplates','emailclasstestDetailsTemplates','smsMedicalTemplates','emailMedicalTemplates','smsabsentTemplates','emailabsentTemplates'));
     }
 
     /**
@@ -90,41 +92,52 @@ class StudentDefaultValueController extends Controller
     {
          // return $request;
         $user_id=Auth::guard('admin')->user()->id;
-        $default = StudentDefaultValue::firstOrNew(['user_id'=>$user_id]);
-        $default->year = $request->academic_year;
+        $default = StudentDefaultValue::firstOrNew(['user_id'=>$user_id]); 
         $default->user_id = $user_id;
         $default->class_id = $request->class;
         $default->section_id = $request->section;
         $default->religion_id = $request->religion;
         $default->category_id = $request->category;
+        $default->gender_id = $request->gender_id;
+        $default->admission_date = $request->admission_date;
+        $default->activation_date = $request->activation_date_;
+        $default->house_id = $request->house_id;
         $default->state = $request->state;
         $default->city = $request->city;
         $default->pincode = $request->pincode;
         $default->nationality = $request->nationality;
+        $default->alive = $request->alive; 
+        $default->m_ondate = $request->m_ondate;
+        $default->m_hb = $request->m_hb;
+        $default->m_bp_l = $request->m_bp_l;
+        $default->m_bp_u = $request->m_bp_u;
+        $default->m_weight = $request->m_weight;
+        $default->m_height = $request->m_height; 
+ 
         
-        $default->birthday_message_id = $request->birthday_message_id;
-        $default->birthday_email_id = $request->birthday_email_id; 
+        // $default->birthday_message_id = $request->birthday_message_id;
+        // $default->birthday_email_id = $request->birthday_email_id; 
         
         
-        $default->homework_message_id = $request->homework_message_id;
-        $default->homework_email_id = $request->homework_email_id; 
+        // $default->homework_message_id = $request->homework_message_id;
+        // $default->homework_email_id = $request->homework_email_id; 
         
         
-        $default->classTest_message_id = $request->classTest_message_id;
-        $default->classTest_email_id = $request->classTest_email_id;
+        // $default->classTest_message_id = $request->classTest_message_id;
+        // $default->classTest_email_id = $request->classTest_email_id;
 
-        $default->class_test_details_email_id = $request->class_test_details_email_id;
-        $default->class_test_details_message_id = $request->class_test_details_message_id; 
+        // $default->class_test_details_email_id = $request->class_test_details_email_id;
+        // $default->class_test_details_message_id = $request->class_test_details_message_id; 
         
        
-        $default->timetable_message_id = $request->timetable_message_id;
-        $default->timetable_email_id = $request->timetable_email_id;
+        // $default->timetable_message_id = $request->timetable_message_id;
+        // $default->timetable_email_id = $request->timetable_email_id;
 
-        $default->medical_message_id = $request->medical_message_id;
-        $default->medical_email_id = $request->medical_email_id;
+        // $default->medical_message_id = $request->medical_message_id;
+        // $default->medical_email_id = $request->medical_email_id;
 
-        $default->absent_student_message_id = $request->absent_student_message_id;
-        $default->absent_student_email_id = $request->absent_student_email_id; 
+        // $default->absent_student_message_id = $request->absent_student_message_id;
+        // $default->absent_student_email_id = $request->absent_student_email_id; 
         
         $default->save();
         return redirect()->back()->with(['message'=>'Default Value Updated','class'=>'success']);

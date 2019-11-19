@@ -22,7 +22,7 @@
                     <div class="row"> 
                       <div class="col-lg-12">
                         <label>Blood Group Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter Blood Group Name" value="{{ @$completion->name }}" maxlength="30"> 
+                        <input type="text" name="name" class="form-control" placeholder="Enter Blood Group Name" value="{{ @$completion->name }}" maxlength="10"> 
                       </div>
                       
                     <div class="col-lg-12 text-center" style="padding-top: 10px">

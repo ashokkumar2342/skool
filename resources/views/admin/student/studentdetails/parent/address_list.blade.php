@@ -40,39 +40,31 @@
                  <li>Primary Email </li> 
                  <li>Category </li>
                  <li>Religion </li> 
+                 <li>State </li>
+                 <li>City</li>
+                 <li>Nationality </li>
                  <li>Correspondence  Address </li>
-                 <li style="margin-top: 20px">Correspondence  Pincode</li>
-                
-                 
-                 
+                 <li>Correspondence  Pincode</li> 
+                 <li>Permanent  Address </li> 
+                 <li>Permanent Pincode </li>
               </div>
-              <div class="col-lg-3">
+              <div class="col-lg-9">
                 <li><b>{{ $addres->primary_mobile }}</b></li>
                 <li><b>{{ $addres->primary_email }}</b></li>
                 <li><b>{{ $addres->categories->name or ''}}</b></li>
                 <li><b>{{ $addres->religions->name or ''}}</b></li>
+                <li><b>{{ $addres->state }}</b></li>
+                <li><b>{{ $addres->city }}</b></li>
+                <li><b>{{ $addres->nationality==1?'Indian' : 'Other Country' }}</b></li> 
                 <li><b>{{ $addres->c_address }}</b></li>
-                <li style="margin-top: 20px"><b>{{ $addres->c_pincode }}</b></li> 
-              </div>
-              <div class="col-lg-3"> 
-                 <li>State </li>
-                 <li>City</li>
-                 <li>Nationality </li>
-                 <li>Permanent  Address </li> 
-                 <li style="margin-top: 20px">Permanent Pincode </li>
-                      
-              </div>
-              <div class="col-lg-3">
-                  <li><b>{{ $addres->state }}</b></li>
-                  <li><b>{{ $addres->city }}</b></li>
-                  <li><b>{{ $addres->nationality==1?'Indian' : 'Other Country' }}</b></li> 
-                  <li><b>{{ $addres->p_address }}</b></li> 
-                  <li style="margin-top: 20px"><b>{{ $addres->p_pincode }}</b></li> 
+                <li><b>{{ $addres->c_pincode }}</b></li>  
+                <li><b>{{ $addres->p_address }}</b></li> 
+                <li><b>{{ $addres->p_pincode }}</b></li> 
               </div> 
                  <div class="col-lg-10 text-center" >
                     <button type="button" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.parents.address.edit',$addres->id) }}')"><i class="fa fa-edit"></i></button>
 
-                     <a href="#" class="btn btn-danger btn-xs" success-popup="true" button-click="address_info"  title="Delete" onclick="callAjax(this,'{{ route('admin.parents.address.delete',$addres->id) }}')"><i class="fa fa-trash"></i></a> 
+                     <a href="#" class="btn btn-danger btn-xs" success-popup="true" button-click="address_info"  title="Delete"onclick="if (confirm('Are you Sure delete')){callAjax(this,'{{ route('admin.parents.address.delete',$addres->id) }}') } else{console_Log('cancel') }" ><i class="fa fa-trash"></i></a> 
                        
                   </div>  
                 
