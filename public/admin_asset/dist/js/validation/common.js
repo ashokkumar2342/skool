@@ -204,6 +204,15 @@ function callJqueryDefault(divId){
 					callJqueryDefault(formObj.getAttribute('call-jquery-default'));
 					
 		}
+		if(formObj.getAttribute('select-triger')){
+				
+				 var myStr = formObj.getAttribute('select-triger');
+        	    var strArray = myStr.split(",");
+        
+	        	for(var i = 0; i < strArray.length; i++){
+	        		$("#"+strArray[i]).trigger('change');
+	       		 }
+			}
 			
 	} 
 	$('button[type=submit], input[type=submit]').prop('disabled',false); 

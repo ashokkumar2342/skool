@@ -7,11 +7,13 @@ use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\Sms\EmailTemplate;
+use App\Model\Sms\MessagePurpose;
 use App\Model\Sms\SmsTemplate;
 use App\Model\Sms\TemplateType;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class SmsController extends Controller
@@ -130,17 +132,23 @@ class SmsController extends Controller
     }
 //----------------------------------------sms-template-------------------------------------------------------//
     public function smsTemplate(){
-        return view('admin.sms.smsTemplate.list');
+        $messagePurposes=MessagePurpose::all();
+        return view('admin.sms.smsTemplate.list',compact('messagePurposes'));
+    }
+    public function smsTemplateOnchange(Request $request){
+        $message_purpose_id=$request->id;
+        $smsTemplates=SmsTemplate::where('message_purpose_id',$request->id)->get();
+         return view('admin.sms.smsTemplate.table',compact('smsTemplates','message_purpose_id'));
     }
     public function smsTemplateAdd($id){
-        $templteNames=TemplateType::where('id',$id)->get();
-        return view('admin.sms.smsTemplate.add_form',compact('templteNames'));
+        $messagePurposes=MessagePurpose::find($id); 
+        return view('admin.sms.smsTemplate.add_form',compact('message_purpose_id','messagePurposes'));
     }
       public function smsTemplateStore(Request $request){ 
-
+       
       $rules=[
           
-            'name' => 'required', 
+            'name' => 'required|max:50|unique:sms_templates', 
             'message' => 'required', 
             
        
@@ -155,25 +163,18 @@ class SmsController extends Controller
             return response()->json($response);// response as json
         }
         else {
-         //    $smsTemplate=SmsTemplate::where('template_type_id',$request->name)->count();
-         // if ($smsTemplate==2) {
-         //   $response=['status'=>0,'msg'=>'2 Template Already Create'];
-         //    return response()->json($response);
-         // }
+        
         $smsTemplate=new SmsTemplate();
-        $smsTemplate->template_type_id=$request->name;
+        $smsTemplate->message_purpose_id=$request->message_purpose_id; 
+        $smsTemplate->name=$request->name;
         $smsTemplate->message=$request->message;
+        $smsTemplate->discription=$request->description;
          
         $smsTemplate->save();
         $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
         } 
     } 
-    public function smsTemplateTable($id){
-         $smsTemplates=SmsTemplate::where('template_type_id',$id)->get();
-         return view('admin.sms.smsTemplate.table',compact('smsTemplates'));
-    }
-
     public function smsTemplateEdit($id)
     {   $templteNames=TemplateType::orderBy('id','ASC')->get();
         $smsTemplates=SmsTemplate::findOrFail(Crypt::decrypt($id));
@@ -187,13 +188,20 @@ class SmsController extends Controller
     {
          $smsTemplates=SmsTemplate::findOrFail(Crypt::decrypt($id));
          $smsTemplates->delete();
-         return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+         $response=['status'=>1,'msg'=>'Delete Successfully'];
+            return response()->json($response);
+          
+    }
+    public function smsTemplateStatus($id)
+    {
+        DB::select(DB::raw("call up_set_message_default ($id)")); 
+          
     }
 
     public function smsTemplateUpdate(Request $request,$id){  
    $rules=[
           
-            'name' => 'required', 
+            'name' => 'required|max:50|unique:sms_templates,name,'.$id, 
             'message' => 'required', 
             
        
@@ -211,6 +219,7 @@ class SmsController extends Controller
         $smsTemplate=SmsTemplate::find($id);
         $smsTemplate->name=$request->name;
         $smsTemplate->message=$request->message;
+        $smsTemplate->discription=$request->description;
          
         $smsTemplate->save();
         $response=['status'=>1,'msg'=>'Update Successfully'];

@@ -854,10 +854,11 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('quick-sms', 'Sms\SmsController@quickSms')->name('admin.quick.sms'); 
 			    Route::get('send-report', 'Sms\SmsController@smsReport')->name('admin.sms.smsReport'); 
 			    Route::post('quick-email', 'Sms\SmsController@quickEmail')->name('admin.quick.email');
-			    Route::get('sms-template', 'Sms\SmsController@smsTemplate')->name('admin.sms.template');
-			    Route::get('sms-template-add/{id}', 'Sms\SmsController@smsTemplateAdd')->name('admin.sms.template.add');
+			    Route::get('sms-list', 'Sms\SmsController@smsTemplate')->name('admin.sms.template');
+			    Route::get('sms-template', 'Sms\SmsController@smsTemplateOnchange')->name('admin.sms.template.onchange');
+			    Route::get('sms-template-add/{id?}', 'Sms\SmsController@smsTemplateAdd')->name('admin.sms.template.add');
 			    Route::post('sms-template-store', 'Sms\SmsController@smsTemplateStore')->name('admin.sms.template.store');
-			    Route::get('sms-template-table/{id}', 'Sms\SmsController@smsTemplateTable')->name('admin.sms.template.table');
+			    Route::get('sms-template-status/{id}', 'Sms\SmsController@smsTemplateStatus')->name('admin.sms.template.status'); 
 			    Route::get('sms-template-edit/{id}', 'Sms\SmsController@smsTemplateEdit')->name('admin.sms.template.edit');
 			    Route::get('sms-template-delete/{id}', 'Sms\SmsController@smsTemplateDestroy')->name('admin.sms.template.delete');
 			    Route::get('sms-template-view/{id}', 'Sms\SmsController@smsTemplateView')->name('admin.sms.template.view');

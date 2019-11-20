@@ -17,11 +17,7 @@
         <h4 class="modal-title">Template</h4>
       </div>
        <div class="modal-body">
-       <div class="form-group">
-           <div class="col-sm-12 bd"> 
-            <p>Tamplate Name :<b>  {{ $smsTemplates->templateType->name or ''}} </b> </p>  
-           </div>
-        
+       <div class="form-group">  
        <p style="margin-left:12px">Message : </p>
        <b>{{ $smsTemplates->message }}</b> 
         
