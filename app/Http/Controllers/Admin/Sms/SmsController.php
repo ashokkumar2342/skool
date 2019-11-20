@@ -176,7 +176,7 @@ class SmsController extends Controller
         } 
     } 
     public function smsTemplateEdit($id)
-    {   $templteNames=TemplateType::orderBy('id','ASC')->get();
+    {    
         $smsTemplates=SmsTemplate::findOrFail(Crypt::decrypt($id));
         return view('admin.sms.smsTemplate.edit',compact('smsTemplates','templteNames'));
     } public function smsTemplateView($id)
