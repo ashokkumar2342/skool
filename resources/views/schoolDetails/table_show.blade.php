@@ -8,7 +8,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach ($SchoolDetails as $SchoolDetail)
+ 
 			 
 		<tr>
 			<td>{{ $SchoolDetail->name }}</td>
@@ -16,6 +16,9 @@
 			<td>{{ $SchoolDetail->contact }}</td>
 			<td>{{ $SchoolDetail->logo }}</td>
 		</tr>
-		@endforeach
+		 
 	</tbody>
 </table>
+<div class="col-lg-12">
+	{!! $SchoolDetail->report_header !!}
+</div>

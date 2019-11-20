@@ -22,7 +22,7 @@ class SchoolDetailsController extends Controller
     	 return view('schoolDetails.add_form',compact('schoolDetail'));
     }
     public function store(Request $request)
-    {
+    {  
 
     	$rules=[
     	  
@@ -46,22 +46,29 @@ class SchoolDetailsController extends Controller
     	}
         else {
 
-    	$request->hasFile('image');
-    	$request->hasFile('logo');        
-            $image=$request->image;
-            $logoImage=$request->logo;
-            $filename='image'.date('d-m-Y').time().'.jpg'; 
-            $filelogo='logo'.date('d-m-Y').time().'.jpg'; 
-            $path ='school/logo/';
-            $image->storeAs($path,$filename); 
-            $logoImage->storeAs($path,$filelogo); 
-    	$schoolDetails= School_details::firstOrNew(['id'=>$request->id]); 
+    	 $schoolDetails= School_details::firstOrNew(['id'=>$request->id]);    
+        if ($request->hasFile('logo')) {
+               $logoImage=$request->logo; 
+                $filelogo='logo'.date('d-m-Y').time().'.jpg'; 
+                $path ='school/logo/';
+                $logoImage->storeAs($path,$filelogo);
+                $schoolDetails->logo=$path.$filelogo; 
+        }  
+        if ($request->hasFile('image')) {
+            $image=$request->image;            
+            $filename='image'.date('d-m-Y').time().'.jpg';  
+            $image->storeAs($path,$filename);    
+            $schoolDetails->image=$path.$filename;
+          }   
+    	
     	$schoolDetails->name=$request->name; 
     	$schoolDetails->mobile=$request->mobile; 
     	$schoolDetails->contact=$request->contact; 
-    	$schoolDetails->logo=$path.$filelogo; 
-    	$schoolDetails->image=$path.$filename; 
+
+    	
+    	 
     	$schoolDetails->address=$request->address; 
+        $schoolDetails->report_header=$request->report_header; 
     	$schoolDetails->save();
     	$response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
@@ -71,8 +78,8 @@ class SchoolDetailsController extends Controller
     }
     public function tableShow()
     {
-         $SchoolDetails=School_details::all();
-         return view('schoolDetails.table_show',compact('SchoolDetails'));
+         $SchoolDetail=School_details::first();
+         return view('schoolDetails.table_show',compact('SchoolDetail'));
     }
 
 

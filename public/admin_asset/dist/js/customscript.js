@@ -98,6 +98,24 @@ function callAjax(obj,url,divId,callback){
 				       
 				  });
 			}
+			if(obj.getAttribute('text-editor')!=""){
+				$('.'+obj.getAttribute('text-editor')).summernote({
+					toolbar: [
+					     
+					     ['font', ['bold', 'italic', 'underline']], 
+					     ['fontsize', ['fontsize']],
+					     ['color', ['color']],
+					     ['para', ['ul', 'ol', 'paragraph']],
+					     ['height', ['height']], 		      
+					     ['insert', ['link', 'picture','video']],
+					  
+					   ],
+
+					 placeholder: 'write here...',
+					 height: 100
+				}); 
+							
+			}
 			else if(obj.getAttribute('data-table-without-pagination'))
 			{
 			$("#"+obj.getAttribute('data-table-without-pagination')).DataTable({
@@ -239,6 +257,24 @@ function callPopupLarge(obj,url){
 				$(".select2").select2();
 			}	
 				
+			}
+			if(obj.getAttribute('text-editor')!=""){
+				$('.'+obj.getAttribute('text-editor')).summernote({
+					toolbar: [
+					     
+					     ['font', ['bold', 'italic', 'underline']], 
+					     ['fontsize', ['fontsize']],
+					     ['color', ['color']],
+					     ['para', ['ul', 'ol', 'paragraph']],
+					     ['height', ['height']], 		      
+					     ['insert', ['link', 'picture','video']],
+					  
+					   ],
+
+					 placeholder: 'write here...',
+					 height: 100
+				}); 
+							
 			}
     });
 

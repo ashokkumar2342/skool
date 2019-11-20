@@ -29,11 +29,11 @@
                     </div> 
                     <div class="form-group  col-lg-4">
                       <label>Mobile</label>
-                      <input type="text" name="mobile" class="form-control" placeholder="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
+                      <input type="text" name="mobile" value="{{ @$schoolDetail->mobile }}" class="form-control" placeholder="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
                     </div> 
                     <div class="form-group  col-lg-4">
                       <label>Contact</label>
-                      <input type="text" name="contact" class="form-control" placeholder="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
+                      <input type="text"  value="{{ @$schoolDetail->contact }}" name="contact" class="form-control" placeholder="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
                     </div> 
                     <div class="form-group  col-lg-4">
                       <label>Logo</label>
@@ -47,6 +47,14 @@
                       <label>Address</label>
                       <textarea  name="address" class="form-control"></textarea> 
                     </div>  
+                   </div>
+                   <div class="row">
+                     <div class="col-lg-12">
+                       <div class="form-group ">
+                         <label>Report Header</label>
+                         <textarea  name="report_header" class="form-control summernote">{{ @$schoolDetail->report_header }}</textarea> 
+                       </div>
+                     </div>
                    </div>
                    <div class="row">
                     <div class="col-lg-12 text-center" style="padding-top: 10px">

@@ -179,14 +179,19 @@ function callJqueryDefault(divId){
 		if(formObj.getAttribute('no-reset')!="true"){
 			formObj.reset();
 			$(formObj).find('.multiselect').selectpicker("refresh");
-			$(formObj).find('.summernote').shouldInitialize = function () {
-				$(formObj).find('.summernote').summernote("reset");
-				};
+			 
+		}
+		if(formObj.getAttribute('reset-select2')=="true"){
+		   $('.select2').val('').trigger('change');
+		}
+		if(formObj.getAttribute('no-reset-summernote')!="true"){
+					 
+		    $(formObj).find('.summernote').summernote("reset");
 		}
 		if(formObj.getAttribute('call-jquery-default')!=""){
-					callJqueryDefault(formObj.getAttribute('call-jquery-default'));
+		   callJqueryDefault(formObj.getAttribute('call-jquery-default'));
 					
-				}
+		}
 			
 	}
     });
