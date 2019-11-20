@@ -32,7 +32,7 @@
                      <div class="form-group col-md-4">
                           {{ Form::label('bloodgroup_id','Blood Group',['class'=>' control-label']) }}
                            
-                          {!! Form::select('bloodgroup_id',$bloodgroups,@$medicalInfo->bloodgroups->id,['class'=>'form-control','placeholder'=>'Select Blood Group','required']) !!}
+                          {!! Form::select('bloodgroup_id',$bloodgroups,@$medicalInfo->bloodgroups->id,['class'=>'form-control','placeholder'=>'Select Blood Group']) !!}
                           
                      </div> 
                    <div class="form-group col-md-4">

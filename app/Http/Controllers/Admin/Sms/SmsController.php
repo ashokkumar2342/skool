@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers\Admin\Sms;
 
+use App\Admin;
 use App\Events\SmsEvent;
 use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\Sms\EmailTemplate;
+use App\Model\Sms\MessagePurpose;
+use App\Model\Sms\SentSmsDetail;
 use App\Model\Sms\SmsTemplate;
 use App\Model\Sms\TemplateType;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class SmsController extends Controller
@@ -125,22 +129,62 @@ class SmsController extends Controller
     }
 
     //report
-    public function smsReport(){
-    	return view('admin.sms.smsReport');
+    public function smsReport(Request $request){
+         $reportType=$request->report_type;
+        $messagePurposes=MessagePurpose::orderBy('name','ASC')->get();
+        $admins=Admin::orderBy('first_name','ASC')->get();
+        $students=Student::orderBy('registration_no','ASC')->get();
+        $classes = MyFuncs::getClassByHasUser();
+    	return view('admin.sms.smsReport',compact('reportType','messagePurposes','admins','students','classes'));
+    }
+    public function smsReportType(Request $request)
+    {   $reportType=$request->report_type;
+        $messagePurposes=MessagePurpose::orderBy('name','ASC')->get();
+        $admins=Admin::orderBy('first_name','ASC')->get();
+        $students=Student::orderBy('registration_no','ASC')->get();
+        $classes = MyFuncs::getClassByHasUser();
+        return view('admin.sms.report_type_page',compact('reportType','messagePurposes','admins','students','classes'));
+    }
+    public function smsReportFilter(Request $request)
+    {
+        if (!empty($request->daterange)) {
+              $daterange  = explode('-',$request->daterange); 
+              $month = date( 'Y-m-d', strtotime($daterange[0]));
+              $to_month = date( 'Y-m-d', strtotime($daterange[1])); 
+              $sentSmsDetails=SentSmsDetail::whereBetween('submit_date', [$month,$to_month])->get(); 
+        }else{
+             $sentSmsDetails=SentSmsDetail::
+                                        orWhere('purpose',$request->message_purpose_id)
+                                      ->orWhere('user_id',$request->user_id)
+                                      ->orWhere('student_id',$request->student_id)
+                                      ->orWhere('mobileno','like', '%'.$request->mobile_no.'%') 
+                                      ->orWhere('submit_date',$request->date)->get(); 
+        }
+            $response=array();
+            $response["status"]=1;
+            $response["data"]=view('admin.sms.sms_history_table',compact('sentSmsDetails'))->render(); 
+            return $response;
+         
     }
 //----------------------------------------sms-template-------------------------------------------------------//
     public function smsTemplate(){
-        return view('admin.sms.smsTemplate.list');
+        $messagePurposes=MessagePurpose::all();
+        return view('admin.sms.smsTemplate.list',compact('messagePurposes'));
+    }
+    public function smsTemplateOnchange(Request $request){
+        $message_purpose_id=$request->id;
+        $smsTemplates=SmsTemplate::where('message_purpose_id',$request->id)->get();
+         return view('admin.sms.smsTemplate.table',compact('smsTemplates','message_purpose_id'));
     }
     public function smsTemplateAdd($id){
-        $templteNames=TemplateType::where('id',$id)->get();
-        return view('admin.sms.smsTemplate.add_form',compact('templteNames'));
+        $messagePurposes=MessagePurpose::find($id); 
+        return view('admin.sms.smsTemplate.add_form',compact('message_purpose_id','messagePurposes'));
     }
       public function smsTemplateStore(Request $request){ 
-
+       
       $rules=[
           
-            'name' => 'required', 
+            'name' => 'required|max:50|unique:sms_templates', 
             'message' => 'required', 
             
        
@@ -155,27 +199,20 @@ class SmsController extends Controller
             return response()->json($response);// response as json
         }
         else {
-         //    $smsTemplate=SmsTemplate::where('template_type_id',$request->name)->count();
-         // if ($smsTemplate==2) {
-         //   $response=['status'=>0,'msg'=>'2 Template Already Create'];
-         //    return response()->json($response);
-         // }
+        
         $smsTemplate=new SmsTemplate();
-        $smsTemplate->template_type_id=$request->name;
+        $smsTemplate->message_purpose_id=$request->message_purpose_id; 
+        $smsTemplate->name=$request->name;
         $smsTemplate->message=$request->message;
+        $smsTemplate->discription=$request->description;
          
         $smsTemplate->save();
         $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
         } 
     } 
-    public function smsTemplateTable($id){
-         $smsTemplates=SmsTemplate::where('template_type_id',$id)->get();
-         return view('admin.sms.smsTemplate.table',compact('smsTemplates'));
-    }
-
     public function smsTemplateEdit($id)
-    {   $templteNames=TemplateType::orderBy('id','ASC')->get();
+    {    
         $smsTemplates=SmsTemplate::findOrFail(Crypt::decrypt($id));
         return view('admin.sms.smsTemplate.edit',compact('smsTemplates','templteNames'));
     } public function smsTemplateView($id)
@@ -187,13 +224,20 @@ class SmsController extends Controller
     {
          $smsTemplates=SmsTemplate::findOrFail(Crypt::decrypt($id));
          $smsTemplates->delete();
-         return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+         $response=['status'=>1,'msg'=>'Delete Successfully'];
+            return response()->json($response);
+          
+    }
+    public function smsTemplateStatus($id)
+    {
+        DB::select(DB::raw("call up_set_message_default ($id)")); 
+          
     }
 
     public function smsTemplateUpdate(Request $request,$id){  
    $rules=[
           
-            'name' => 'required', 
+            'name' => 'required|max:50|unique:sms_templates,name,'.$id, 
             'message' => 'required', 
             
        
@@ -211,6 +255,7 @@ class SmsController extends Controller
         $smsTemplate=SmsTemplate::find($id);
         $smsTemplate->name=$request->name;
         $smsTemplate->message=$request->message;
+        $smsTemplate->discription=$request->description;
          
         $smsTemplate->save();
         $response=['status'=>1,'msg'=>'Update Successfully'];

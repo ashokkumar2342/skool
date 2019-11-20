@@ -33,12 +33,11 @@
       <div id="parent{{ $medicalInfo->id }}" class="panel-collapse collapse in">
         <div class="panel-body">
             <div class="row">
-              <div class="col-lg-3">
+              <div class="col-lg-2">
                 <li>On Date</li>
                 <li>Blood Group</li>
                 <li>HB</li>
-                <li>BP Lower</li>
-                <li>BP Upper</li>
+                <li>BP Lower/Upper</li> 
                 <li>Weight</li> 
                 <li>Height</li> 
                 <li>Complexion </li>
@@ -46,20 +45,18 @@
                 <li>Allergy</li> 
                 <li>Allergy Description</li> 
                 <li>Allergy Vaccine</li>
-                <li>Physical Handicapped </li>
-                <li>Percent </li>
-                <li>Handicapped Description</li>   
+                <li>Physical Handicapped </li> 
                 <li>ID Marks1 </li> 
                 <li>ID Marks2 </li>
                  <li>Vision</li>
                 <li>Narration  </li> 
               </div>
-              <div class="col-lg-9">
+              <div class="col-lg-10">
                   <li><b>{{ Carbon\Carbon::parse($medicalInfo->ondate)->format('d-m-Y') }}</b></li>
                   <li><b> {{ $medicalInfo->bloodgroups->name or ''}} </b> </li>
                   <li><b> {{ $medicalInfo->hb }} </b> </li>
-                  <li><b> {{ $medicalInfo->bp_lower }} </b> </li>
-                  <li><b> {{ $medicalInfo->bp_uper }}</b> </li>
+                  <li><b> {{ $medicalInfo->bp_lower }}/{{ $medicalInfo->bp_uper }} </b> </li>
+                   
                   <li><b>{{ $medicalInfo->weight }}</b></li> 
                   <li><b>{{ $medicalInfo->height }}</b></li> 
                   <li><b>{{ $medicalInfo->complextions->name or '' }}</b></li> 
@@ -67,9 +64,8 @@
                   <li><b>{{ $medicalInfo->isalgeric==1?'Yes' :'No' }}</b></li>  
                   <li><b>{{ $medicalInfo->alergey }}</b></li>  
                   <li><b>{{ $medicalInfo->alergey_vacc }}</b></li>  
-                  <li><b>{{ $medicalInfo->ishandicapped==1?'Yes' :'No' }}</b></li>
-                  <li><b>{{ $medicalInfo->handi_percent }}</b></li>
-                  <li><b> {{ $medicalInfo->physical_handicapped }} </b> </li>
+                  <li><b>{{ $medicalInfo->ishandicapped==1?'Yes' :'No' }} &nbsp;&nbsp;&nbsp;{{ $medicalInfo->handi_percent }}% &nbsp;&nbsp;&nbsp;{{ $medicalInfo->physical_handicapped }}</b></li>
+                  
                   <li><b>{{ $medicalInfo->id_marks1 }} </b> </li> 
                   <li><b>{{ $medicalInfo->id_marks2 }} </b> </li> 
                   <li><b>{{ $medicalInfo->vision }}</b></li>

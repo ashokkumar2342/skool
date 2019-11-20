@@ -34,9 +34,10 @@
       <div id="parent{{ $parent->relation->id or ''}}" class="panel-collapse collapse in">
         <div class="panel-body">
             <div class="row">
-              <div class="col-lg-3">
+              <div class="col-lg-2">
                 <li>Name</li> 
                 <li>Mobile No. </li>
+                <li>Email</li>
                 <li>Education</li>
                 <li>Date of Birth</li>
                 <li>Date Of Anniversary</li>
@@ -44,9 +45,10 @@
                 <li>Profession </li> 
                 <li>Alive</li> 
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-8">
                 <li><b>{{ $parent->parentInfo->name  or ''}}</b></li>
                  <li><b> {{ $parent->parentInfo->mobile or ''}} </b></li>
+                 <li><b> {{ $parent->parentInfo->email or ''}} </b></li>
                 <li><b> {{ $parent->parentInfo->education or ''}} </b></li> 
                  <li><b>{{ date('d-m-Y', strtotime($parent->parentInfo->dob or ''))}}</b></li>
                  <li><b>{{ date('d-m-Y', strtotime($parent->parentInfo->doa or ''))}}</b></li>
@@ -55,7 +57,7 @@
                 <li><b>{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li>
                  
               </div> 
-              <div class="col-lg-3" style="float: right;">
+              <div class="col-lg-2" style="float: right;">
                  @php
                   $image = route('admin.parents.image.show',$parent->parentInfo->id); 
                   @endphp 
@@ -67,12 +69,12 @@
                   </div> 
               </div>
               <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                  <li>Office Address</li>   
                  <li>Organization Name</li>  
                  <li>Designation</li>  
                </div>
-               <div class="col-lg-6">
+               <div class="col-lg-10">
                  <li><b> {{ $parent->parentInfo->office_address or ''}} </b></li>
                  <li><b> {{ $parent->parentInfo->organization_address or ''}} </b></li>
                  <li><b> {{ $parent->parentInfo->f_designation or ''}} </b></li> 
