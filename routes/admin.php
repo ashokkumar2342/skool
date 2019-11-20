@@ -852,7 +852,9 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'Sms\SmsController@index')->name('admin.sms.form');	 	
 			    Route::post('send', 'Sms\SmsController@smsSend')->name('admin.sms.sendSms'); 
 			    Route::post('quick-sms', 'Sms\SmsController@quickSms')->name('admin.quick.sms'); 
-			    Route::get('send-report', 'Sms\SmsController@smsReport')->name('admin.sms.smsReport'); 
+			    Route::get('sms-report', 'Sms\SmsController@smsReport')->name('admin.sms.smsReport'); 
+			    Route::get('sms-report-type', 'Sms\SmsController@smsReportType')->name('admin.sms.smsReport.type'); 
+			    Route::post('sms-report-filter', 'Sms\SmsController@smsReportFilter')->name('admin.sms.smsReport.filter'); 
 			    Route::post('quick-email', 'Sms\SmsController@quickEmail')->name('admin.quick.email');
 			    Route::get('sms-list', 'Sms\SmsController@smsTemplate')->name('admin.sms.template');
 			    Route::get('sms-template', 'Sms\SmsController@smsTemplateOnchange')->name('admin.sms.template.onchange');

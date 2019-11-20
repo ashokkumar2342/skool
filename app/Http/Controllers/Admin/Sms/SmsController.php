@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Sms;
 
+use App\Admin;
 use App\Events\SmsEvent;
 use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\Sms\EmailTemplate;
 use App\Model\Sms\MessagePurpose;
+use App\Model\Sms\SentSmsDetail;
 use App\Model\Sms\SmsTemplate;
 use App\Model\Sms\TemplateType;
 use App\Student;
@@ -127,8 +129,42 @@ class SmsController extends Controller
     }
 
     //report
-    public function smsReport(){
-    	return view('admin.sms.smsReport');
+    public function smsReport(Request $request){
+         $reportType=$request->report_type;
+        $messagePurposes=MessagePurpose::orderBy('name','ASC')->get();
+        $admins=Admin::orderBy('first_name','ASC')->get();
+        $students=Student::orderBy('registration_no','ASC')->get();
+        $classes = MyFuncs::getClassByHasUser();
+    	return view('admin.sms.smsReport',compact('reportType','messagePurposes','admins','students','classes'));
+    }
+    public function smsReportType(Request $request)
+    {   $reportType=$request->report_type;
+        $messagePurposes=MessagePurpose::orderBy('name','ASC')->get();
+        $admins=Admin::orderBy('first_name','ASC')->get();
+        $students=Student::orderBy('registration_no','ASC')->get();
+        $classes = MyFuncs::getClassByHasUser();
+        return view('admin.sms.report_type_page',compact('reportType','messagePurposes','admins','students','classes'));
+    }
+    public function smsReportFilter(Request $request)
+    {
+        if (!empty($request->daterange)) {
+              $daterange  = explode('-',$request->daterange); 
+              $month = date( 'Y-m-d', strtotime($daterange[0]));
+              $to_month = date( 'Y-m-d', strtotime($daterange[1])); 
+              $sentSmsDetails=SentSmsDetail::whereBetween('submit_date', [$month,$to_month])->get(); 
+        }else{
+             $sentSmsDetails=SentSmsDetail::
+                                        orWhere('purpose',$request->message_purpose_id)
+                                      ->orWhere('user_id',$request->user_id)
+                                      ->orWhere('student_id',$request->student_id)
+                                      ->orWhere('mobileno','like', '%'.$request->mobile_no.'%') 
+                                      ->orWhere('submit_date',$request->date)->get(); 
+        }
+            $response=array();
+            $response["status"]=1;
+            $response["data"]=view('admin.sms.sms_history_table',compact('sentSmsDetails'))->render(); 
+            return $response;
+         
     }
 //----------------------------------------sms-template-------------------------------------------------------//
     public function smsTemplate(){
