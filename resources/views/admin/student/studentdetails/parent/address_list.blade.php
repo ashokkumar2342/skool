@@ -35,7 +35,7 @@
       <div id="parent" class="panel-collapse collapse in">
         <div class="panel-body">
             <div class="row">
-              <div class="col-lg-3">
+              <div class="col-lg-2">
                  <li>Primary Mobile No</li>
                  <li>Primary Email </li> 
                  <li>Category </li>
@@ -48,7 +48,7 @@
                  <li>Permanent  Address </li> 
                  <li>Permanent Pincode </li>
               </div>
-              <div class="col-lg-9">
+              <div class="col-lg-10">
                 <li><b>{{ $addres->primary_mobile }}</b></li>
                 <li><b>{{ $addres->primary_email }}</b></li>
                 <li><b>{{ $addres->categories->name or ''}}</b></li>

@@ -54,20 +54,20 @@ class StudentDefaultValueController extends Controller
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
         $houses = array_pluck(House::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id');
         $default = StudentDefaultValue::where('user_id',$user_id)->first();
-        $smsbirthdayTemplates=SmsTemplate::where('template_type_id',1)->get(); 
-        $emailbirthdayTemplates=EmailTemplate::where('template_type_id',1)->get(); 
-        $smshomeworkTemplates=SmsTemplate::where('template_type_id',2)->get(); 
-        $emailhomeworkTemplates=EmailTemplate::where('template_type_id',2)->get();
-        $smsclasstestTemplates=SmsTemplate::where('template_type_id',3)->get(); 
-        $emailclasstestTemplates=EmailTemplate::where('template_type_id',3)->get();
-        $smsclasstestDetailsTemplates=SmsTemplate::where('template_type_id',4)->get(); 
-        $emailclasstestDetailsTemplates=EmailTemplate::where('template_type_id',4)->get();
-        $smsTimetableTemplates=SmsTemplate::where('template_type_id',5)->get(); 
-        $emailTimetableTemplates=EmailTemplate::where('template_type_id',5)->get();
-        $smsMedicalTemplates=SmsTemplate::where('template_type_id',6)->get(); 
-        $emailMedicalTemplates=EmailTemplate::where('template_type_id',6)->get();
-        $smsabsentTemplates=SmsTemplate::where('template_type_id',7)->get(); 
-        $emailabsentTemplates=EmailTemplate::where('template_type_id',7)->get();
+        // $smsbirthdayTemplates=SmsTemplate::where('template_type_id',1)->get(); 
+        // $emailbirthdayTemplates=EmailTemplate::where('template_type_id',1)->get(); 
+        // $smshomeworkTemplates=SmsTemplate::where('template_type_id',2)->get(); 
+        // $emailhomeworkTemplates=EmailTemplate::where('template_type_id',2)->get();
+        // $smsclasstestTemplates=SmsTemplate::where('template_type_id',3)->get(); 
+        // $emailclasstestTemplates=EmailTemplate::where('template_type_id',3)->get();
+        // $smsclasstestDetailsTemplates=SmsTemplate::where('template_type_id',4)->get(); 
+        // $emailclasstestDetailsTemplates=EmailTemplate::where('template_type_id',4)->get();
+        // $smsTimetableTemplates=SmsTemplate::where('template_type_id',5)->get(); 
+        // $emailTimetableTemplates=EmailTemplate::where('template_type_id',5)->get();
+        // $smsMedicalTemplates=SmsTemplate::where('template_type_id',6)->get(); 
+        // $emailMedicalTemplates=EmailTemplate::where('template_type_id',6)->get();
+        // $smsabsentTemplates=SmsTemplate::where('template_type_id',7)->get(); 
+        // $emailabsentTemplates=EmailTemplate::where('template_type_id',7)->get();
 
         return view('admin.student.studentdetails.default',compact('classes','sessions','default','genders','religions','categories','default','academicYears','houses','smsbirthdayTemplates','emailbirthdayTemplates','smshomeworkTemplates','emailhomeworkTemplates','smsclasstestTemplates','emailclasstestTemplates','smsTimetableTemplates','emailTimetableTemplates','smsclasstestDetailsTemplates','emailclasstestDetailsTemplates','smsMedicalTemplates','emailMedicalTemplates','smsabsentTemplates','emailabsentTemplates'));
     }
