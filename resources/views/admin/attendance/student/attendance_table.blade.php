@@ -46,6 +46,19 @@
     </td>
  </tr> 
   @endif
+  @if (!empty($studentattendancesclass))
+    @if ($studentattendancesclass->verified!=1) 
+    <tr>
+        <td colspan="5">                                 
+          <div class="row">                              
+           <div class="col-md-12 text-center">
+            <button class="btn btn-success " id="subjectBtn">Save Attendance</button>
+           </div>
+          </div>  
+        </td>
+     </tr>
+      @endif 
+  @endif
 </tfoot>
 </tbody>
 </table>

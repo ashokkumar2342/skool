@@ -82,7 +82,7 @@ class StudentAttendanceController extends Controller
         }
         $studentAttendanceClass=StudentAttendanceClass::firstOrNew(['date'=>date('Y-m-d',strtotime($date)),'class_id'=>$request->class_id,'section_id'=>$request->section_id]);
         $studentAttendanceClass->class_id=$request->class_id;
-        $studentAttendanceClass->class_id=$request->section_id;
+        $studentAttendanceClass->section_id=$request->section_id;
         $studentAttendanceClass->last_updated_by = $user_id; 
         $studentAttendanceClass->attendance =0; 
         $studentAttendanceClass->verified =0;
@@ -125,7 +125,7 @@ class StudentAttendanceController extends Controller
         }
         $studentAttendanceClass=StudentAttendanceClass::firstOrNew(['date'=>date('Y-m-d',strtotime($date)),'class_id'=>$request->class_id,'section_id'=>$request->section_id]);
         $studentAttendanceClass->class_id=$request->class_id;
-        $studentAttendanceClass->class_id=$request->section_id;
+        $studentAttendanceClass->section_id=$request->section_id;
         $studentAttendanceClass->last_updated_by = $user_id; 
         $studentAttendanceClass->attendance =1; 
         $studentAttendanceClass->verified =1;
@@ -253,6 +253,14 @@ class StudentAttendanceController extends Controller
            $student->verified_attendance_type_id =0;
            $student->verified =0;
            $student->save();
+           $studentAttendanceClass=StudentAttendanceClass::firstOrNew(['date'=>date('Y-m-d',strtotime($date)),'class_id'=>$StudentAttendancesBarcode->class_id,'section_id'=>$StudentAttendancesBarcode->section_id]);
+            $studentAttendanceClass->class_id=$StudentAttendancesBarcode->class_id;
+            $studentAttendanceClass->section_id=$StudentAttendancesBarcode->section_id;
+            $studentAttendanceClass->last_updated_by = $user_id; 
+            $studentAttendanceClass->attendance =0; 
+            $studentAttendanceClass->verified =0;
+            $studentAttendanceClass->verified_by =0;
+            $studentAttendanceClass->save();
         $response=['status'=>1,'msg'=>'Save Successfully'];
             return response()->json($response);
         } 
