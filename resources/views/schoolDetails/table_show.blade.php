@@ -19,6 +19,7 @@
 		 
 	</tbody>
 </table>
+<hr>
 <div class="col-lg-12">
 	{!! $SchoolDetail->report_header !!}
 </div>
