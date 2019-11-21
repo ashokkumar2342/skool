@@ -75,16 +75,16 @@ class LoginController extends Controller
                    
             } 
 
-            $student = Student::orWhere('username',$request->email)->first();
-             if (!empty($student)) {
-                 if (Hash::check($request->password, $student->password)) {
-                     auth()->guard('student')->loginUsingId($student->id);
-                     return redirect()->route('student.dashboard');
+            // $student = Student::orWhere('username',$request->email)->first();
+            //  if (!empty($student)) {
+            //      if (Hash::check($request->password, $student->password)) {
+            //          auth()->guard('student')->loginUsingId($student->id);
+            //          return redirect()->route('student.dashboard');
 
-                 } else {
-                     return Redirect()->back()->with(['message'=>'Invalid User or Password','class'=>'error']);
-                 }
-             }
+            //      } else {
+            //          return Redirect()->back()->with(['message'=>'Invalid User or Password','class'=>'error']);
+            //      }
+            //  }
             
             // if (auth()->guard('student')->attempt($credentials)) {
             //   return redirect()->route('student.dashboard');
