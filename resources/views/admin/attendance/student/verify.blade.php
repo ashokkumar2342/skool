@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body') 
 <section class="content-header">
-<h1>  Student Attendence  </h1>
+<h1>Attendance Verify</h1>
      
 </section>
     <section class="content">
@@ -40,7 +40,7 @@
                   </div>
               </div>
               </div>
-              <form action="{{ route('admin.attendance.student.save') }}" method="post" class="add_form">
+              <form action="{{ route('admin.attendance.student.verify.store') }}" method="post" class="add_form">
                 {{ csrf_field() }}
                 <div id="attendance_table">
                   
@@ -50,41 +50,28 @@
         </div> 
     </section>
 @endsection
-@push('links')
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-@endpush
  @push('scripts')
- <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
- 
-<script type="text/javascript">
-     $(document).ready(function() {
-    $('#dataTable').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel'
-        ]
-    } );
-} );     
- </script>
+
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <script type="text/javascript">
+   $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
+    
+        $('.checked_all').on('change', function() {     
+                $('.checkbox').prop('checked', $(this).prop("checked"));              
+        });
+        //deselect "checked all", if one of the listed checkbox product is unchecked amd select "checked all" if all of the listed checkbox product is checked
+        $('.checkbox').change(function(){ //".checkbox" change 
+            if($('.checkbox:checked').length == $('.checkbox').length){
+                   $('.checked_all').prop('checked',true);
+            }else{
+                   $('.checked_all').prop('checked',false);
+            }
+        });       
+
+    
+
+  </script>
 
  
-<script>
- $( function() {
-   
-   $('button').click(function(){
-       $('#attendance_table input:radio:checked').filter(':checked').click(function () {
-         $(this).prop('checked', false);
-       });
-       $('.'+$(this).attr('data-click')).prop('checked', true);
-     });
-   });
- </script>
- <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
- <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
- <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
- <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
- <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
- <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
- <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"> 
+
 @endpush
