@@ -6,9 +6,11 @@ namespace App\Http\Controllers\Admin;
 use App\Events\SmsEvent;
 use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
+use App\Model\AttendanceType;
 use App\Model\ClassType;
 use App\Model\SessionDate;
 use App\Model\Sms\SmsTemplate;
+use App\Model\StudentAttendanceClass;
 use App\Model\StudentAttendance;
 use App\Model\StudentDefaultValue;
 use App\Student;
@@ -27,7 +29,7 @@ class StudentAttendanceController extends Controller
     public function index()
     {
  
-        $classes = MyFuncs::getClasses();
+        $classes = MyFuncs::getClassByHasUser();
         return view('admin.attendance.student.list',compact('centers','classes'));
     }
 
@@ -38,21 +40,11 @@ class StudentAttendanceController extends Controller
      */
     public function search(Request $request)
     {
-
-        $students = Student::where(['class_id'=>$request->class,'section_id'=>$request->section])->get(['id','name','class_id','section_id']);  
-          $studentId=1;   
-        foreach ($students as $student) {
-            
-            $row = '<tr><td>'.$studentId++.'</td><td>'.$student->name.'</td>';
-            foreach(\App\Model\AttendanceType::all() as $attendance){
-                $checked = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>$attendance->id,'date'=>date('Y-m-d',strtotime($request->date))])->count())?'checked':'';
-                      $row .='<td ><label class="radio-inline"><input type="radio" '.$checked.' name="value['.$student->id.']" class="'. str_replace(' ', '_', strtolower($attendance->name)).'" value="'. $attendance->id .'"> '. $attendance->name .' </label></td>';
-            }
-            $row .= '</tr>';
-            $options[] = [$row];
-        }   
-        return response()->json($options);  
-        // return view('admin.attendance.student.list',compact('students'));
+        $students=Student::where('class_id',$request->class_id)->where('section_id',$request->section_id)->get();
+        $attendancesTypes=AttendanceType::all();
+        return view('admin.attendance.student.attendance_table',compact('students','attendancesTypes'));
+        
+        
     }
    
     /**
@@ -63,21 +55,85 @@ class StudentAttendanceController extends Controller
      */
     public function store(Request $request)
     {
+         
          $user_id=Auth::guard('admin')->user()->id;
-        $this->validate($request,['date'=>'required|date','value'=>'required']);
-        foreach ($request->value as $key => $value) {
+         $date=date('d-m-Y');
+        $rules=[
 
-           $student = StudentAttendance::where(['date'=>date('Y-m-d',strtotime($request->date)),'student_id'=>$key])->firstOrNew(['student_id'=>$key]);
-           $student->student_id = $key;
-           $student->attendance_type_id = $value;
-           $student->date = date('Y-m-d',strtotime($request->date));
-           $student->last_updated_by = $user_id;
-           $student->save();
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        } 
+        foreach ($request->attendenceType_id as $key => $value) {
+           $studentAttendance = StudentAttendance::where(['date'=>date('Y-m-d',strtotime($date)),'student_id'=>$key])->firstOrNew(['student_id'=>$key]); 
+           $studentAttendance->student_id = $key;
+           $studentAttendance->attendance_type_id = $value;
+           $studentAttendance->date = date('Y-m-d',strtotime($date));
+           $studentAttendance->last_updated_by = $user_id;
+           $studentAttendance->verified_attendance_type_id =0;
+           $studentAttendance->verified =0;
+           $studentAttendance->save(); 
         }
-        return response()->json(['class'=>'success','message'=>'Attendance Mark Successfully']);
-        
+        $studentAttendanceClass=StudentAttendanceClass::firstOrNew(['date'=>date('Y-m-d',strtotime($date)),'class_id'=>$request->class_id,'section_id'=>$request->section_id]);
+        $studentAttendanceClass->class_id=$request->class_id;
+        $studentAttendanceClass->section_id=$request->section_id;
+        $studentAttendanceClass->last_updated_by = $user_id; 
+        $studentAttendanceClass->attendance =0; 
+        $studentAttendanceClass->verified =0;
+        $studentAttendanceClass->verified =0;
+        $studentAttendanceClass->save(); 
+         $response=['status'=>1,'msg'=>'Save successfully'];
+            return response()->json($response); 
     }
 
+    public function verify()
+    {    $classes = MyFuncs::getClassByHasUser();
+         return view('admin.attendance.student.verify',compact('classes')); 
+    }
+    public function verifyStore(Request $request)
+    {
+         $user_id=Auth::guard('admin')->user()->id;
+         $date=date('d-m-Y');
+        $rules=[
+
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        } 
+        foreach ($request->attendenceType_id as $key => $value) {
+           $studentAttendance = StudentAttendance::where(['date'=>date('Y-m-d',strtotime($date)),'student_id'=>$key])->firstOrNew(['student_id'=>$key]); 
+           $studentAttendance->student_id = $key;
+           $studentAttendance->attendance_type_id = $value;
+           $studentAttendance->date = date('Y-m-d',strtotime($date));
+           $studentAttendance->last_updated_by = $user_id;
+           $studentAttendance->verified_attendance_type_id =$value;
+           $studentAttendance->verified =1;
+           $studentAttendance->verified_by =$user_id;
+           $studentAttendance->save(); 
+        }
+        $studentAttendanceClass=StudentAttendanceClass::firstOrNew(['date'=>date('Y-m-d',strtotime($date)),'class_id'=>$request->class_id,'section_id'=>$request->section_id]);
+        $studentAttendanceClass->class_id=$request->class_id;
+        $studentAttendanceClass->section_id=$request->section_id;
+        $studentAttendanceClass->last_updated_by = $user_id; 
+        $studentAttendanceClass->attendance =1; 
+        $studentAttendanceClass->verified =1;
+        $studentAttendanceClass->verified_by =$user_id;
+        $studentAttendanceClass->save(); 
+         $response=['status'=>1,'msg'=>'Save successfully'];
+            return response()->json($response);
+    }
     /**
      * Display the specified resource.
      *
@@ -95,10 +151,6 @@ class StudentAttendanceController extends Controller
      * @param  \App\StudentAttendance  $studentAttendance
      * @return \Illuminate\Http\Response
      */
-    public function edit(StudentAttendance $studentAttendance)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -178,8 +230,8 @@ class StudentAttendanceController extends Controller
 
     public function attendanceBarcodeSave(Request $request)
     {
-        
-         $StudentAttendancesBarcode=Student::where('registration_no',$request->registration_no)->first();
+         $user_id=Auth::guard('admin')->user()->id;
+         $StudentAttendancesBarcode=Student::find($request->student_id);
         $date=date('d-m-Y');
         
         $rules=[];
@@ -197,7 +249,18 @@ class StudentAttendanceController extends Controller
            $student->student_id = $StudentAttendancesBarcode->id;
            $student->attendance_type_id =1;
            $student->date = date('Y-m-d',strtotime($date));
+           $student->last_updated_by = $user_id;
+           $student->verified_attendance_type_id =0;
+           $student->verified =0;
            $student->save();
+           $studentAttendanceClass=StudentAttendanceClass::firstOrNew(['date'=>date('Y-m-d',strtotime($date)),'class_id'=>$StudentAttendancesBarcode->class_id,'section_id'=>$StudentAttendancesBarcode->section_id]);
+            $studentAttendanceClass->class_id=$StudentAttendancesBarcode->class_id;
+            $studentAttendanceClass->section_id=$StudentAttendancesBarcode->section_id;
+            $studentAttendanceClass->last_updated_by = $user_id; 
+            $studentAttendanceClass->attendance =0; 
+            $studentAttendanceClass->verified =0;
+            $studentAttendanceClass->verified_by =0;
+            $studentAttendanceClass->save();
         $response=['status'=>1,'msg'=>'Save Successfully'];
             return response()->json($response);
         } 

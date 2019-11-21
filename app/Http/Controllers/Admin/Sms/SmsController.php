@@ -7,6 +7,7 @@ use App\Events\SmsEvent;
 use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
+use App\Model\Section;
 use App\Model\Sms\EmailTemplate;
 use App\Model\Sms\MessagePurpose;
 use App\Model\Sms\SentSmsDetail;
@@ -138,31 +139,29 @@ class SmsController extends Controller
     	return view('admin.sms.smsReport',compact('reportType','messagePurposes','admins','students','classes'));
     }
     public function smsReportType(Request $request)
-    {   $reportType=$request->report_type;
+    {   
+        $reportType=$request->id;
         $messagePurposes=MessagePurpose::orderBy('name','ASC')->get();
         $admins=Admin::orderBy('first_name','ASC')->get();
         $students=Student::orderBy('registration_no','ASC')->get();
-        $classes = MyFuncs::getClassByHasUser();
-        return view('admin.sms.report_type_page',compact('reportType','messagePurposes','admins','students','classes'));
+        $sections =Section::orderBy('class_id','ASC')->orderBy('section_id','ASC')->get();
+        return view('admin.sms.report_type_page',compact('reportType','messagePurposes','admins','students','sections'));
     }
     public function smsReportFilter(Request $request)
-    {
-        if (!empty($request->daterange)) {
-              $daterange  = explode('-',$request->daterange); 
-              $month = date( 'Y-m-d', strtotime($daterange[0]));
-              $to_month = date( 'Y-m-d', strtotime($daterange[1])); 
-              $sentSmsDetails=SentSmsDetail::whereBetween('submit_date', [$month,$to_month])->get(); 
-        }else{
-             $sentSmsDetails=SentSmsDetail::
-                                        orWhere('purpose',$request->message_purpose_id)
-                                      ->orWhere('user_id',$request->user_id)
-                                      ->orWhere('student_id',$request->student_id)
-                                      ->orWhere('mobileno','like', '%'.$request->mobile_no.'%') 
-                                      ->orWhere('submit_date',$request->date)->get(); 
-        }
+    {    $conditionId=$request->sent_to;
+          if ($request->sent_to==0) {
+           $sentSmsDetails=DB::select(DB::raw("call up_sent_sms_report ($request->sent_to,'$request->message_purpose_id','$request->sent_by','0','0','$request->mobile_no','$request->from_date','$request->to_date')")); 
+          }
+          elseif ($request->sent_to==1) {
+              $sentSmsDetails=DB::select(DB::raw("call up_sent_sms_report ($request->sent_to,'$request->message_purpose_id','$request->sent_by','0','$request->class_id','$request->mobile_no','$request->from_date','$request->to_date')")); 
+          }
+          elseif ($request->sent_to=3) {
+             $sentSmsDetails=DB::select(DB::raw("call up_sent_sms_report ($request->sent_to,'$request->message_purpose_id','$request->sent_by','$request->user_id','0','$request->mobile_no','$request->from_date','$request->to_date')")); 
+          }
+
             $response=array();
             $response["status"]=1;
-            $response["data"]=view('admin.sms.sms_history_table',compact('sentSmsDetails'))->render(); 
+            $response["data"]=view('admin.sms.sms_history_table',compact('sentSmsDetails','conditionId'))->render(); 
             return $response;
          
     }

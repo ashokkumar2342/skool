@@ -16,10 +16,11 @@
 	<tbody> 
 			<tr>
 				 
-				<td>{{ $StudentAttendancesBarcode->name}}</td>
-				<td>{{ $StudentAttendancesBarcode->registration_no}}</td> 
+				<td>{{ $StudentAttendancesBarcode->name or ''}}</td>
+				<td>{{ $StudentAttendancesBarcode->registration_no or ''}}</td>
+				<input type="hidden" name="student_id" value="{{ $StudentAttendancesBarcode->id }}"> 
 				<td>{{ $StudentAttendancesBarcode->classes->name or ''}}</td> 
-				<td>{{ $StudentAttendancesBarcode->sectionTypes->name}}</td> 
+				<td>{{ $StudentAttendancesBarcode->sectionTypes->name or ''}}</td> 
 				
 			</tr>
 		 
