@@ -12,73 +12,85 @@
       	<div class="box"> 
             <div class="box-body">
                 <form action="{{ route('admin.sms.smsReport.filter') }}" method="post" class="add_form" success-content-id="sms_history_table" no-reset="true" data-table-without-pagination="sms_history_datatable">
-                  {{ csrf_field() }}
-                 <div class="row"> 
-                    <div class="col-lg-4">
-                    <div class="form-group">
-                      <label>Message Purpose</label>
-                      <select name="message_purpose_id" class="form-control">
-                        @foreach ($messagePurposes as $messagePurpose)
-                             <option value="{{ $messagePurpose->id }}">{{ $messagePurpose->name }}</option>  
-                        @endforeach
-                      </select> 
-                    </div> 
-                  </div> 
-                    <div class="col-lg-4">
-                    <div class="form-group">
-                      <label>User Name</label>
-                      <select name="user_id" class="form-control select2">
+                  {{ csrf_field() }} 
+                    <div class="panel panel-default"> 
+                      <div class="panel-body">
+                       <div class="col-lg-4">
+                       <div class="form-group">
+                         <label>Message Purpose</label>
+                         <select name="message_purpose_id" class="form-control">
+                          <option value="0">All</option>
+                           @foreach ($messagePurposes as $messagePurpose)
+                                <option value="{{ $messagePurpose->id }}">{{ $messagePurpose->name }}</option>  
+                           @endforeach
+                         </select> 
+                       </div> 
+                     </div> 
+                  </div>
+                </div>
+                 <div class="panel panel-default"> 
+                    <div class="panel-body">
+                     <div class="col-lg-4">
+                     <div class="form-group">
+                       <label>Sent By</label>
+                      <select name="sent_by" class="form-control select2">
+                        <option value="0">All</option>
                         @foreach ($admins as $admin)
                              <option value="{{ $admin->id }}">{{ $admin->email }} ({{ $admin->first_name }})</option>  
                         @endforeach
-                      </select> 
-                    </div> 
-                  </div> 
-                    <div class="col-lg-4">
-                    <div class="form-group">
-                      <label>Student Name</label>
-                      <select name="student_id" class="form-control select2">
-                        @foreach ($students as $student)
-                             <option value="{{ $student->id }}">{{ $student->registration_no }} ({{ $student->name }})</option>  
-                        @endforeach
-                      </select> 
-                    </div> 
-                  </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-4">
-                    <div class="form-group">
-                      <label>Class</label>
-                      <select name="class_id" class="form-control">
-                        @foreach ($classes as $class)
-                             <option value="{{ $class->id }}">{{ $class->name }}</option>  
-                        @endforeach
-                      </select> 
-                    </div> 
-                  </div> 
-                    <div class="col-lg-4">
-                    <div class="form-group">
-                      <label>Mobile No.</label>
-                      <input type="number" name="mobile_no" class="form-control" placeholder="Enter Mobile No."> 
-                    </div> 
-                  </div> 
-                    <div class="col-lg-4">
-                    <div class="form-group"> 
-                      <label>Date Range</label> 
-                    <input type="text" name="daterange" class="form-control ">
-                    </div> 
-                  </div> 
-                  </div>
-                  <div class="col-lg-12 text-center">
-                    <div class="form-group"> 
-                      <input type="submit" class="btn btn-success" value="Show" style="margin-top: 24px"> 
-                    </div> 
-                  </div> 
-                </form> 
-              <div id="sms_history_table" style="margin-top: 20px">
-                
+                      </select>
+                     </div> 
+                   </div> 
+                </div>
               </div>
               
+               <div class="panel panel-default"> 
+                  <div class="panel-body">
+                   <div class="col-lg-4">
+                   <div class="form-group">
+                     <label>Sent To</label>
+                     <select name="sent_to" class="form-control" select2="true" onchange="callAjax(this,'{{ route('admin.sms.smsReport.type') }}','sent_to_div')">
+                     <option value="0">All</option>
+                      <option value="1">Student</option>
+                      <option value="2">Staff</option>
+                      <option value="3">User</option> 
+                    </select>
+                   </div> 
+                 </div> 
+                 <div id="sent_to_div"> 
+                  </div> 
+              </div>
+            </div>
+            <div class="panel panel-default"> 
+                  <div class="panel-body">
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label>Mobile No.</label>
+                      <input type="text" name="mobile_no" class="form-control" placeholder="Enter Mobile No" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
+                    </div> 
+                  </div>  
+                    <div class="col-lg-4">
+                    <div class="form-group"> 
+                      <label> Form Date</label> 
+                    <input type="date" name="from_date" class="form-control ">
+                    </div> 
+                  </div> 
+                  <div class="col-lg-4">
+                    <div class="form-group"> 
+                      <label>To Date</label> 
+                    <input type="date" name="to_date" class="form-control ">
+                    </div> 
+                  </div> 
+              </div>
+            </div>
+                <div class="col-lg-12 text-center">
+                  <div class="form-group"> 
+                    <input type="submit" class="btn btn-success" value="Show" style="margin-top: 24px"> 
+                  </div> 
+                </div>
+        </form>  
+               <div id="sms_history_table" style="margin-top: 20px"> 
+              </div> 
             </div> 
         </div> 
     </section> 
