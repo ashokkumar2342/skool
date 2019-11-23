@@ -25,11 +25,11 @@
 @endsection
 @push('links')
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-<link href="{!! asset('admin_asset/dist/css/summernote.css') !!}"  rel="stylesheet" type="text/css">
+
 @endpush
 @push('scripts')
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
- <script src={!! asset('admin_asset/dist/js/summernote.js?ver=1') !!}></script>
+
  <script type="text/javascript">
      $(document).ready(function(){
         $('#event_type_data_table').DataTable();

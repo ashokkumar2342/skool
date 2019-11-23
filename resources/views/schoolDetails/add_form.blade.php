@@ -19,7 +19,7 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12"> 
-             <form action="{{ route('admin.school.details.store') }}" method="post" class="add_form" button-click="btn_outhor_table_show,btn_close">
+             <form action="{{ route('admin.school.details.store') }}" method="post" class="add_form" button-click="btn_event_type_table_show,btn_close">
                    {{ csrf_field() }}
                    <input type="hidden" name="id" value="{{ @$schoolDetail->id }}">
                    <div class="row">
