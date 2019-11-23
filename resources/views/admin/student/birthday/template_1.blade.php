@@ -24,8 +24,8 @@ $paths =storage_path('app/student/birthday/birthday.jpg');
       @php
   		$path =storage_path('app/student/profile/'.$student->picture);
   	 @endphp
-  	 <div style="padding-top:50px;margin-left: 50px;">
-  	 	<img src="{{ $path }}"   id="imgBorder" style="width:150px">
+  	 <div style="padding-top:50px;margin-left: 50px;float: right">
+  	 	<img src="{{ $path }}"   id="imgBorder" style="width:150px;">
   	 	<h3 style="padding-top:-30px;padding-left: 15px;" >{{ $student->name }}</h3>
   	 </div>
   	 

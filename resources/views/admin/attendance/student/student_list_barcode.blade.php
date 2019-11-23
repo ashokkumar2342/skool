@@ -36,11 +36,9 @@
   	 </div>
   </div>
 </div>
-<div class="col-lg-12 text-center">
 	
-<input type="submit" class="btn btn-success" value="Save" style="margin-top:5px">
-</div>
+<button type="submit" id="btn_save_attendance_barcode" class="btn btn-success hidden" value="Save" style="margin-top:5px"> Save</button>
+ 
  
  </body>
  </html>
-	 

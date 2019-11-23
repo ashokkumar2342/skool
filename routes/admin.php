@@ -457,6 +457,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    });
 	    Route::group(['prefix' => 'attendance-barcode'], function() { 
 	        Route::get('barcode', 'StudentAttendanceController@attendanceBarcode')->name('admin.attendance.barcode');
+	        Route::get('click', 'StudentAttendanceController@btnClick')->name('admin.attendance.barcode.click');
 	        Route::get('show', 'StudentAttendanceController@attendanceBarcodeshow')->name('admin.attendance.barcode.show');
 	        Route::post('save', 'StudentAttendanceController@attendanceBarcodeSave')->name('admin.attendance.barcode.save');
 	        

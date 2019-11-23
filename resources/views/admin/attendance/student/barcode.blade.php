@@ -1,45 +1,36 @@
 @extends('admin.layout.base')
-@section('body')
-@push('links') 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <style type="text/css">
-      .radio label {
-    padding-right: 20px;
-}
-  </style>
-@endpush
+@section('body') 
 <section class="content-header">
-<h1>Attendence Barcode  </h1>
+<h1>  Student Attendence  </h1>
      
 </section>
     <section class="content">
-      	<div class="box">    
-        {{ $errors->first() }}         
-            <!-- /.box-header -->
-            <div class="box-body"> 
-                     <form  action="{{ route('admin.attendance.barcode.save') }}" method="post" class="add_form">
-                      {{ csrf_field() }}
-                      <div class="row">
-                        <div class="col-lg-4" style="margin-left: 20px">
-                          <label>Registration No</label>
-                          <input type="text" class="form-control" name="registration_no" onkeyup="callAjax(this,'{{ route('admin.attendance.barcode.show') }}','div_show')"> 
-                        </div>
-                      </div>
-                        <div class="col-lg-12" id="div_show" style="padding-top: 20px">
-                        
-                          
-                        </div>
-                        
-                       
-
+        <div class="box">  
+            <div class="box-body">
+              <button type="button" class="hidden" id="btn_click_form_blade" onclick="callAjax(this,'{{ route('admin.attendance.barcode.click') }}','barcode_blade')"></button>
+              <div  id="barcode_blade">
+                
+              
+                     
+              </div>
                              
-                      {{ Form::close() }}
-
-            </div>
-            
-
+                      
+            </div> 
+        </div> 
     </section>
-    <!-- /.content -->
-    
 @endsection
+@push('links')
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+@endpush
+ @push('scripts')
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  
+<script type="text/javascript">
+   $('#btn_save_attendance_barcode').click();  
+   $('#btn_click_form_blade').click();  
+ </script>
+
+ 
+ 
+  
+@endpush

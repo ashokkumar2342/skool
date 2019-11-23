@@ -267,14 +267,22 @@ class StudentAttendanceController extends Controller
     {
       return  view('admin.attendance.student.barcode');   
     }
+    public function btnClick()
+    {
+      return  view('admin.attendance.student.barcode_form');   
+    }
     public function attendanceBarcodeshow(Request $request)
     {
        $StudentAttendancesBarcode=Student::where('registration_no',$request->id)->first();
-       return  view('admin.attendance.student.student_list_barcode',compact('StudentAttendancesBarcode'));  
+       if ($StudentAttendancesBarcode->registration_no==$request->id) {
+       return  view('admin.attendance.student.student_list_barcode',compact('StudentAttendancesBarcode'));
+
+       }
+        
     }
 
     public function attendanceBarcodeSave(Request $request)
-    {
+    {  
          $user_id=Auth::guard('admin')->user()->id;
          $StudentAttendancesBarcode=Student::find($request->student_id);
         $date=date('d-m-Y');
@@ -308,8 +316,8 @@ class StudentAttendanceController extends Controller
             $studentAttendanceClass->save();
         $response=['status'=>1,'msg'=>'Save Successfully'];
             return response()->json($response);
-        } 
-           
+        
+        }   
          
          
     }
