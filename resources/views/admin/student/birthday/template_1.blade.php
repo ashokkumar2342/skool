@@ -31,7 +31,7 @@ $paths =storage_path('app/student/birthday/birthday.jpg');
   	 
   	 <div style="margin-left: 50px;">
   	 	 
-  	 	<h4 style="padding-left: 15px;" >{{ $message }}</h4>
+  	 	<h4 style="padding-left: 15px;" >{{ $template->message }}</h4>
   	 </div> 
 </body>
 @endforeach

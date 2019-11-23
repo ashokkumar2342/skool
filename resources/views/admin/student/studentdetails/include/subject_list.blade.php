@@ -1,4 +1,40 @@
-<table class="table" id="subject_items">                         
+    <!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<style type="text/css" media="screen">
+     
+    li{
+        padding-bottom: 2px;
+        padding-left: 10px;
+
+    }
+
+    .page-breck{
+      page-break-before:always; 
+    }
+  
+ 
+    @include('admin.include.boostrap')
+
+</style>
+<body>
+   
+   
+ @foreach ($studentSubjects as $studentSubject)
+      @if ($studentSubject->session_id==1) 
+    <div class="panel panel-info" style="margin-right: 8px;margin-top: 18px">
+      <div class="panel-heading">
+        <h4 class="panel-title" style="margin-left: 470px">
+          <a data-toggle="collapse" data-parent="#accordion" href="#parent">Subject Details {{ $studentSubject->academicYears->name or '' }}</a>
+        </h4>
+      </div>
+      <div id="parent" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <div class="row">
+             <table class="table" id="subject_items">                         
                        <thead>
                            <tr>
                                <th>Subject Name</th>
@@ -19,3 +55,14 @@
                          @endforeach
                        </tbody>
                    </table>
+                
+                   
+               </div> 
+            </div> 
+        </div>
+      </div>
+    </div> 
+     @endif  
+@endforeach 
+</body>
+</html>

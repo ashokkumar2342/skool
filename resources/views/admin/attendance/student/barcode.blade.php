@@ -22,7 +22,7 @@
                       <div class="row">
                         <div class="col-lg-4" style="margin-left: 20px">
                           <label>Registration No</label>
-                          <input type="text" class="form-control" name="registration_no" onkeypress="callAjax(this,'{{ route('admin.attendance.barcode.show') }}','div_show')"> 
+                          <input type="text" class="form-control" name="registration_no" onkeyup="callAjax(this,'{{ route('admin.attendance.barcode.show') }}','div_show')"> 
                         </div>
                       </div>
                         <div class="col-lg-12" id="div_show" style="padding-top: 20px">

@@ -56,6 +56,7 @@
             <li> House Name </li> 
             <li>State</li>
             <li>City </li>  
+             
            </div>
            <div class="col-lg-6"> 
             <li><b> {{ $student->name }}  </b> </li> 
@@ -78,6 +79,7 @@
             <li><b>{{$student->houses->name or ''}}</b></li>
             <li><b> {{ $student->addressDetails->address->state or ''}} </b> </li> 
             <li><b>{{ $student->addressDetails->address->city or ''}}</b></li>
+           
            </div>
            <div class="col-lg-3" style="margin-right: 10">
              @php
@@ -90,70 +92,27 @@
              @else 
               
             <img  src="{{ ($student->picture)? $profile : asset('profile-img/user.png') }}" width="120px" height="120px" style="border:solid 2px Black">
-                 @endif
-             
+                 @endif 
            </div>
+           </div>
+           <div class="row">
+            <div class="col-lg-3">
+              <li>Permanent Address</li>  
+            <li>Permanent Pincode</li>  
+            <li>Correspondence Address</li>  
+            <li>Correspondence Pincode</li> 
+            </div> 
+            <div class="col-lg-9">
+               <li><b>{{ $student->addressDetails->address->p_address or ''}}</b></li>
+            <li><b>{{ $student->addressDetails->address->p_pincode or ''}}</b></li>
+            <li><b>{{ $student->addressDetails->address->c_address or ''}}</b></li>
+            <li><b>{{ $student->addressDetails->address->c_pincode or ''}}</b></li>
+            </div> 
            </div>  
          </div> 
       </div>
-    </div>
-
-    
-    
-@if (!empty($student->addressDetails->address))
-    
-
-     <div class="panel panel-info">
-    <div class="panel-heading">
-      <h4 class="panel-title text-center">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-        Address Details</a>
-      </h4>
-    </div>
-    <div id="collapse2" class="panel-collapse collapse in">
-      <div class="panel-body">
-          
-    
-    <div class="row" > 
-        <div class="col-lg-6"> 
-            <li> Permanent Address  </li> 
-        </div>
-        <div class="col-lg-6"> 
-            
-        </div>  
-       
     </div> 
-    <div class="row" > 
-        <div class="col-lg-6" style="margin-left: 25px"> 
-             <b >{{ $student->addressDetails->address->p_address or ''}}</b> 
-        </div>
-        <div class="col-lg-4"> 
-            <li>Pincode :- <b>{{ $student->addressDetails->address->p_pincode or ''}}</b></li>  
-        </div>  
-       
-    </div>  
-    <div class="row" > 
-        <div class="col-lg-6">
-            <li>Correspondence Address </li>
-        </div> 
-        <div class="col-lg-6">
-           
-        </div>
-    </div>
-    <div class="row" > 
-        <div class="col-lg-6" style="margin-left: 25px">
-             <b>{{ $student->addressDetails->address->c_address or ''}}</b>
-        </div> 
-        <div class="col-lg-5">
-           <li>Pincode :- <b>{{ $student->addressDetails->address->c_pincode or ''}}</b></li>     
-        </div>
-    </div>
-   
-      </div>
-    </div>
-  </div> 
- @endif
-  
+  <div class="page-breck"></div> 
 @foreach ($student->parents as $parent)
     <div class="panel panel-info">
       <div class="panel-heading">
@@ -175,7 +134,7 @@
                 <li>Profession </li> 
                 <li>Alive</li> 
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-7">
                 <li><b>{{ $parent->parentInfo->name  or ''}}</b></li>
                  <li><b> {{ $parent->parentInfo->mobile or ''}} </b></li>
                 <li><b> {{ $parent->parentInfo->education or ''}} </b></li> 
@@ -186,7 +145,7 @@
                 <li><b>{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li>
                  
               </div> 
-              <div class="col-lg-3" style="float: right;">
+              <div class="col-lg-2" style="float: right;">
                  @php
                 $routeNames= Route::currentRouteName();
                 $paths =storage_path('app/'.$parent->parentInfo->photo); 
@@ -217,9 +176,9 @@
         </div>
       </div>
     </div> 
-   
-@endforeach
   
+@endforeach
+   <div class="page-breck"></div>
       
     @php
       $studentMedicalDetails=App\Model\StudentMedicalInfo::where('student_id',$student->id)->first();

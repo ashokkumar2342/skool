@@ -27,6 +27,7 @@ use App\Model\StudentFee;
 use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
+use App\Model\Template\BirthdayTemplate;
 use App\Student;
 use Auth;
 use Carbon;
@@ -54,22 +55,9 @@ class StudentDefaultValueController extends Controller
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
         $houses = array_pluck(House::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id');
         $default = StudentDefaultValue::where('user_id',$user_id)->first();
-        // $smsbirthdayTemplates=SmsTemplate::where('template_type_id',1)->get(); 
-        // $emailbirthdayTemplates=EmailTemplate::where('template_type_id',1)->get(); 
-        // $smshomeworkTemplates=SmsTemplate::where('template_type_id',2)->get(); 
-        // $emailhomeworkTemplates=EmailTemplate::where('template_type_id',2)->get();
-        // $smsclasstestTemplates=SmsTemplate::where('template_type_id',3)->get(); 
-        // $emailclasstestTemplates=EmailTemplate::where('template_type_id',3)->get();
-        // $smsclasstestDetailsTemplates=SmsTemplate::where('template_type_id',4)->get(); 
-        // $emailclasstestDetailsTemplates=EmailTemplate::where('template_type_id',4)->get();
-        // $smsTimetableTemplates=SmsTemplate::where('template_type_id',5)->get(); 
-        // $emailTimetableTemplates=EmailTemplate::where('template_type_id',5)->get();
-        // $smsMedicalTemplates=SmsTemplate::where('template_type_id',6)->get(); 
-        // $emailMedicalTemplates=EmailTemplate::where('template_type_id',6)->get();
-        // $smsabsentTemplates=SmsTemplate::where('template_type_id',7)->get(); 
-        // $emailabsentTemplates=EmailTemplate::where('template_type_id',7)->get();
+        $birthdaytemplates=BirthdayTemplate::orderBy('id','ASC')->get();
 
-        return view('admin.student.studentdetails.default',compact('classes','sessions','default','genders','religions','categories','default','academicYears','houses','smsbirthdayTemplates','emailbirthdayTemplates','smshomeworkTemplates','emailhomeworkTemplates','smsclasstestTemplates','emailclasstestTemplates','smsTimetableTemplates','emailTimetableTemplates','smsclasstestDetailsTemplates','emailclasstestDetailsTemplates','smsMedicalTemplates','emailMedicalTemplates','smsabsentTemplates','emailabsentTemplates'));
+        return view('admin.student.studentdetails.default',compact('classes','sessions','default','genders','religions','categories','default','academicYears','houses','birthdaytemplates'));
     }
 
     /**
@@ -113,6 +101,7 @@ class StudentDefaultValueController extends Controller
         $default->m_bp_u = $request->m_bp_u;
         $default->m_weight = $request->m_weight;
         $default->m_height = $request->m_height; 
+        $default->birthday_template_id = $request->birthday_template_id; 
  
         
         // $default->birthday_message_id = $request->birthday_message_id;

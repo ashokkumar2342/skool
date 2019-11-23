@@ -38,11 +38,36 @@ class StudentAttendanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
-    {
+    public function search(Request $request,$condition_id)
+    {     $date=$request->date;
+          $class=$request->class_id;
+          $section=$request->section_id;
+         $rules=[
+          
+            'class_id' => 'required', 
+            'section_id' => 'required', 
+            'date' => "required", 
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
         $students=Student::where('class_id',$request->class_id)->where('section_id',$request->section_id)->get();
         $attendancesTypes=AttendanceType::all();
-        return view('admin.attendance.student.attendance_table',compact('students','attendancesTypes'));
+        $response=array();
+        $response["status"]=1;
+        if ($condition_id==1) {
+         $response["data"]=view('admin.attendance.student.attendance_table',compact('students','attendancesTypes','date','class','section'))->render(); 
+        }else{
+            $response["data"]=view('admin.attendance.student.verify_attendance',compact('students','attendancesTypes','date','class','section'))->render();  
+        }
+        return $response;
         
         
     }
@@ -57,8 +82,12 @@ class StudentAttendanceController extends Controller
     {
          
          $user_id=Auth::guard('admin')->user()->id;
-         $date=date('d-m-Y');
+         $date=$request->date;
         $rules=[
+            'class_id' => 'required', 
+            'section_id' => 'required', 
+            'date' => "required", 
+            'attendenceType_id' => "required", 
 
         ];
 
@@ -69,7 +98,8 @@ class StudentAttendanceController extends Controller
             $response["status"]=0;
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
-        } 
+        }
+        
         foreach ($request->attendenceType_id as $key => $value) {
            $studentAttendance = StudentAttendance::where(['date'=>date('Y-m-d',strtotime($date)),'student_id'=>$key])->firstOrNew(['student_id'=>$key]); 
            $studentAttendance->student_id = $key;
@@ -97,9 +127,9 @@ class StudentAttendanceController extends Controller
          return view('admin.attendance.student.verify',compact('classes')); 
     }
     public function verifyStore(Request $request)
-    {
+    {    
          $user_id=Auth::guard('admin')->user()->id;
-         $date=date('d-m-Y');
+         $date=$request->date;
         $rules=[
 
         ];
@@ -113,25 +143,18 @@ class StudentAttendanceController extends Controller
             return response()->json($response);// response as json
         } 
         foreach ($request->attendenceType_id as $key => $value) {
-           $studentAttendance = StudentAttendance::where(['date'=>date('Y-m-d',strtotime($date)),'student_id'=>$key])->firstOrNew(['student_id'=>$key]); 
-           $studentAttendance->student_id = $key;
-           $studentAttendance->attendance_type_id = $value;
-           $studentAttendance->date = date('Y-m-d',strtotime($date));
-           $studentAttendance->last_updated_by = $user_id;
+           $studentAttendance = StudentAttendance::where(['date'=>date('Y-m-d',strtotime($date)),'student_id'=>$key])->firstOrNew(['student_id'=>$key]);  
            $studentAttendance->verified_attendance_type_id =$value;
            $studentAttendance->verified =1;
            $studentAttendance->verified_by =$user_id;
            $studentAttendance->save(); 
         }
-        $studentAttendanceClass=StudentAttendanceClass::firstOrNew(['date'=>date('Y-m-d',strtotime($date)),'class_id'=>$request->class_id,'section_id'=>$request->section_id]);
-        $studentAttendanceClass->class_id=$request->class_id;
-        $studentAttendanceClass->section_id=$request->section_id;
-        $studentAttendanceClass->last_updated_by = $user_id; 
+        $studentAttendanceClass=StudentAttendanceClass::firstOrNew(['date'=>date('Y-m-d',strtotime($date)),'class_id'=>$request->class_id,'section_id'=>$request->section_id]); 
         $studentAttendanceClass->attendance =1; 
         $studentAttendanceClass->verified =1;
         $studentAttendanceClass->verified_by =$user_id;
         $studentAttendanceClass->save(); 
-         $response=['status'=>1,'msg'=>'Save successfully'];
+         $response=['status'=>1,'msg'=>'Verified successfully'];
             return response()->json($response);
     }
     /**
@@ -140,9 +163,31 @@ class StudentAttendanceController extends Controller
      * @param  \App\StudentAttendance  $studentAttendance
      * @return \Illuminate\Http\Response
      */
-    public function show(StudentAttendance $studentAttendance)
+    public function unlock($ctudentAttendanceClass_id)
     {
-        //
+          $studentAttendanceClass=StudentAttendanceClass::find($ctudentAttendanceClass_id);
+          $studentAttendanceClass->verified=0;
+          $studentAttendanceClass->verified_by=null;
+          $studentAttendanceClass->save();
+          $students=Student::where('class_id',$studentAttendanceClass->class_id)
+                            ->where('section_id',$studentAttendanceClass->section_id)
+                            ->get();
+          foreach ($students as $student) {
+            $studentAttendances = StudentAttendance::
+                                            where('student_id',$student->id)
+                                            ->where('date',$studentAttendanceClass->date)
+                                            ->get();
+               foreach ($studentAttendances as $studentAttendance) {
+                    
+                        $studentAttendance->verified_attendance_type_id=null;
+                        $studentAttendance->verified=0;
+                        $studentAttendance->verified_by=null;
+                        $studentAttendance->save();                 
+               }
+          }
+          $response=['status'=>1,'msg'=>'Unlock successfully'];
+            return response()->json($response);
+                  
     }
 
     /**

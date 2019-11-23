@@ -440,10 +440,11 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::group(['prefix' => 'attendance'], function() {
 	    Route::group(['prefix' => 'student'], function() {
 	        Route::get('/', 'StudentAttendanceController@index')->name('admin.attendance.student.form');
-	        Route::get('search', 'StudentAttendanceController@search')->name('admin.attendance.student.search');
+	        Route::post('search/{id}', 'StudentAttendanceController@search')->name('admin.attendance.student.search');
 	        Route::post('store', 'StudentAttendanceController@store')->name('admin.attendance.student.save');
 	        Route::get('verify', 'StudentAttendanceController@verify')->name('admin.attendance.student.verify');
 	        Route::post('verify-store', 'StudentAttendanceController@verifyStore')->name('admin.attendance.student.verify.store');
+	        Route::get('unlock/{id}', 'StudentAttendanceController@unlock')->name('admin.attendance.student.verify.unlock');
 	        Route::get('{attendance}/delete', 'StudentAttendanceController@destroy')->name('admin.attendance.student.delete');
 	        Route::get('attendance-continue', 'StudentAttendanceController@attendanceContinue')->name('admin.attendance.student.attendance.continue');
 	    });

@@ -802,9 +802,10 @@ class StudentController extends Controller
 
     //birthday print one
     public function birthdayPrint($id){
-        $message='';
-        $template = BirthdayTemplate::find(1);
-        $viewUrl = 'admin.student.birthday.'.$template->name;
+         $userid=Auth::guard('admin')->user()->id;
+         $studentDefaultValue=StudentDefaultValue::where('user_id',$userid)->first();
+        $template = BirthdayTemplate::where('id',$studentDefaultValue->birthday_template_id)->first();
+        $viewUrl = 'admin.student.birthday.template_'.$studentDefaultValue->birthday_template_id;
         $student = Student::find($id);
          $students = Student::where('id',$id)->get();
          $customPaper = array(0,0,355.00,530.80);   
@@ -812,7 +813,7 @@ class StudentController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView($viewUrl,compact('students','message'))->setPaper($customPaper, 'landscape');;  
+        ->loadView($viewUrl,compact('students','template'))->setPaper($customPaper, 'landscape');;  
         return $pdf->download($student->registration_no.'_birthday_card.pdf');
     }
 

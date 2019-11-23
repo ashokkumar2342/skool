@@ -8,6 +8,7 @@
 			@if ($conditionId==3) 
 			 <th class="text-nowrap">User Name</th> 
 			@endif
+			<th class="text-nowrap">Send Form</th>
 			<th class="text-nowrap">Mobile No.</th>
 			<th class="text-nowrap">SMS Count</th>
 			<th class="text-nowrap">Submit Date</th>
@@ -26,6 +27,7 @@
 					 <td class="text-nowrap">{{ $sentSmsDetail->sd_to or ''}} </td>
 					 	 
 					 @endif 
+					<td class="text-nowrap">{{ $sentSmsDetail->sd_from or ''}}</td>
 					<td class="text-nowrap">{{ $sentSmsDetail->mobileno or ''}}</td>
 					<td class="text-nowrap">{{ $sentSmsDetail->sms_count or ''}}</td>
 					<td class="text-nowrap">{{ date('d-m-Y H:i:s',strtotime(  $sentSmsDetail->submit_date)) }}</td>

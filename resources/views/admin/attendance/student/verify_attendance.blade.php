@@ -7,7 +7,12 @@
   Verified Attendance :-> <b>{{ $studentattendancesclass->verifieds->first_name or '' }}</b>
   
 </div>
-<table class="table table-bordered">
+<div class="col-lg-12">
+  @if (!empty($studentattendancesclass->verified_by))
+    <button type="button" success-popup="true" button-click="btn_virify_show" class="btn btn-danger btn-sm" onclick="callAjax(this,'{{ route('admin.attendance.student.verify.unlock',$studentattendancesclass->id) }}')">Unlock</button>
+    @else 
+<table class="table table-bordered"> 
+ 
  <thead>                  
      <tr>
         <td><b>Registration No.</b></td>
@@ -19,7 +24,7 @@
  </thead>
  <tbody> 
  @foreach ($students as $student) 
-          @php
+     @php
             $color = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>1,'date'=>date('Y-m-d',strtotime($date))]))->first();
             @endphp
             @php
@@ -30,9 +35,8 @@
             @endphp
              
         <tr style="@if (!empty($color)) background-color: #61e66b @endif @if (!empty($colors)) background-color: #f64d56 @endif @if (!empty($colorss)) background-color:#f8af3b @endif">
+          <td>{{ $student->registration_no }}</td>
           
-       
-          <td>{{ $student->registration_no }}</td> 
           <input type="hidden" name="date" value="{{ $date }}">
           <input type="hidden" name="class_id" value="{{ $student->class_id }}">
           <input type="hidden" name="section_id" value="{{ $student->section_id }}">
@@ -69,7 +73,7 @@
         <td colspan="5">                                 
           <div class="row">                              
            <div class="col-md-12 text-center">
-            <button class="btn btn-success " id="subjectBtn">Save Attendance</button>
+            <button class="btn btn-success " id="subjectBtn">Verified Attendance</button>
            </div>
           </div>  
         </td>
@@ -79,6 +83,8 @@
 </tfoot>
 </tbody>
 </table>
+ @endif
+ </div>
 
 
 

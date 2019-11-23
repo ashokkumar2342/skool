@@ -17,6 +17,10 @@ class StudentSubject extends Model
     	return $this->hasOne('App\Model\Isoptional','id','isoptional_id');
     	
     } 
+    Public function academicYears(){
+    	return $this->hasOne('App\Model\AcademicYear','id','session_id');
+    	
+    } 
 
 
 }
