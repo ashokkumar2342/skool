@@ -462,6 +462,25 @@ Route::group(['middleware' => 'admin'], function() {
 	        Route::post('save', 'StudentAttendanceController@attendanceBarcodeSave')->name('admin.attendance.barcode.save');
 	        
 	    });
+	    Route::group(['prefix' => 'student-leave-type'], function() { 
+	        Route::get('list', 'StudentLeaveController@LeaveType')->name('admin.attendance.leave.type');
+	        Route::get('add-form/{id?}', 'StudentLeaveController@AddForm')->name('admin.attendance.leave.addform');
+	        Route::post('store/{id?}', 'StudentLeaveController@leaveTypeStore')->name('admin.attendance.leave.type.store');
+	        Route::get('delete/{id?}', 'StudentLeaveController@leaveTypeDelete')->name('admin.attendance.leave.type.delete'); 
+	    });
+	    Route::group(['prefix' => 'student-leave'], function() { 
+	        Route::get('/', 'StudentLeaveController@index')->name('admin.attendance.leave');
+	        Route::get('list', 'StudentLeaveController@show')->name('admin.attendance.lest');
+	        Route::get('leave-apply/{id?}', 'StudentLeaveController@leaveApply')->name('admin.attendance.leave.apply');
+	        Route::post('store/{id?}', 'StudentLeaveController@store')->name('admin.attendance.leave.store');
+	        Route::get('delete/{id?}', 'StudentLeaveController@destroy')->name('admin.attendance.leave.delete'); 
+	    });
+	    Route::group(['prefix' => 'leave-verify'], function() { 
+	        Route::get('verify', 'StudentLeaveController@verify')->name('admin.attendance.leave.verify');
+	        Route::get('verify-form/{id?}', 'StudentLeaveController@verifyForm')->name('admin.attendance.leave.verify.form');
+	        Route::post('verify-store/{id?}', 'StudentLeaveController@LeaveverifyStore')->name('admin.attendance.leave.verify.store');
+	       
+	    });
 	//------------------------- Finance ---------------------------------
 	Route::group(['prefix' => 'finance'], function() {
 		//------------------------- fee acoout ---------------------------------

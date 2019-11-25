@@ -20,13 +20,9 @@
  <tbody> 
  @foreach ($students as $student) 
           @php
-            $color = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>1,'date'=>date('Y-m-d',strtotime($date))]))->first();
-            @endphp
-            @php
-            $colors = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>2,'date'=>date('Y-m-d',strtotime($date))]))->first();
-            @endphp 
-            @php
-            $colorss = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>3,'date'=>date('Y-m-d',strtotime($date))]))->first();
+            $color = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>1,'date'=>date('Y-m-d',strtotime($date))]))->first(); 
+            $colors = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>2,'date'=>date('Y-m-d',strtotime($date))]))->first(); 
+            $colorss = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>3,'date'=>date('Y-m-d',strtotime($date))]))->first(); 
             @endphp
              
         <tr style="@if (!empty($color)) background-color: #61e66b @endif @if (!empty($colors)) background-color: #f64d56 @endif @if (!empty($colorss)) background-color:#f8af3b @endif">
