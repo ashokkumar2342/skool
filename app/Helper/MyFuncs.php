@@ -487,7 +487,7 @@ class MyFuncs {
                           ->where('minu_id',$menu_type_id)
                           ->get(['sub_menu_id']); 
         
-       return $subMenus = SubMenu::whereIn('id',$hotMenus)->take('5') 
+       return $subMenus = SubMenu::whereIn('id',$hotMenus)->take('7') 
                           ->get(); 
     
   } 

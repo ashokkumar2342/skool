@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class StudentDefaultValue extends Model
 {
+    public $timestamps = false;
     protected $fillable = [
         'user_id', 'class_id', 'section_id',
     ];

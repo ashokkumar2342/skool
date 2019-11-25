@@ -2,9 +2,9 @@
             <!-- Logo -->
             <a href="{{ route('admin.dashboard') }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>ISKOOL</b></span>
+                <span class="logo-mini"><b>{{ date('d-m-Y') }}</b></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg">ISKOOL</span>
+                <span class="logo-lg">{{ date('d-m-Y') }}</span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -15,6 +15,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
+                @includeIf('admin.include.hot_menu_top', ['menu_type_id' =>1])
                 <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
             <li class="dropdown messages-menu">

@@ -13,14 +13,14 @@
 			<th class="text-nowrap">SMS Count</th>
 			<th class="text-nowrap">Submit Date</th>
 			<th class="text-nowrap">Schedule Date Time</th>
-			<th class="text-nowrap">Status</th>
 			<th class="text-nowrap">SMS Text</th>
+			<th class="text-nowrap">Status</th>
 		</tr>
 	</thead>
 	<tbody>
 		@foreach ($sentSmsDetails as $sentSmsDetail)
 
-				<tr>
+				<tr style="{{ $academicYear->status==1?'background-color: #95e49b':'#f64d56' }}">
 					<td class="text-nowrap">{{ $sentSmsDetail->sd_purpose or ''}}</td>
 					@if ($conditionId==0)
 					@else
@@ -32,8 +32,8 @@
 					<td class="text-nowrap">{{ $sentSmsDetail->sms_count or ''}}</td>
 					<td class="text-nowrap">{{ date('d-m-Y H:i:s',strtotime(  $sentSmsDetail->submit_date)) }}</td>
 					<td class="text-nowrap">{{ date('d-m-Y H:i:s',strtotime(  $sentSmsDetail->schedule_date_time)) }}</td>
-					<td class="text-nowrap">{{ $sentSmsDetail->sent_status }}</td>
 					<td>{{ $sentSmsDetail->smstext }}</td>
+					<td class="text-nowrap">{{ $sentSmsDetail->sent_status==0?'Pending' : 'Sent' }}</td>
 				</tr> 
 		@endforeach
 	</tbody>
