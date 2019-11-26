@@ -60,9 +60,13 @@ class StudentAttendanceController extends Controller
         }
         $students=Student::where('class_id',$request->class_id)->where('section_id',$request->section_id)->get();
         $attendancesTypes=AttendanceType::all();
-        $response=array();
-        $response["status"]=1; 
+         $response=array();
+        $response["status"]=1;
+        if ($condition_id==1) { 
          $response["data"]=view('admin.attendance.student.attendance_table',compact('students','attendancesTypes','date','class','section'))->render(); 
+        }else{
+            $response["data"]=view('admin.attendance.student.verify_attendance',compact('students','attendancesTypes','date','class','section'))->render();  
+        }
         return $response;
         
         
@@ -76,7 +80,7 @@ class StudentAttendanceController extends Controller
      */
     public function store(Request $request)
     {
-         return $request;
+        
          $user_id=Auth::guard('admin')->user()->id;
          $date=$request->date;
         $rules=[
@@ -175,7 +179,7 @@ class StudentAttendanceController extends Controller
                                             ->get();
                foreach ($studentAttendances as $studentAttendance) {
                     
-                        $studentAttendance->verified_attendance_type_id=null;
+                        $studentAttendance->verified_attendance_type_id=0;
                         $studentAttendance->verified=0;
                         $studentAttendance->verified_by=null;
                         $studentAttendance->save();                 
