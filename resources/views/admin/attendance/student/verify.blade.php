@@ -32,7 +32,7 @@
                 <div class="col-lg-3">                         
                   <div class="form-group">
                     <label>Date</label>
-                    <input type="date" name="date" class="form-control">
+                     {!! Form::text('date', date('d-m-Y')  , ['class'=>'form-control datepicker','id'=>'date','placeholder'=>'Date'              ,'max'=>date('Y-m-d')]) !!}
                     
                   </div>
                 </div>
@@ -62,6 +62,7 @@
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  
 <script type="text/javascript">
+  $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
      $(document).ready(function() {
     $('#dataTable').DataTable( {
         dom: 'Bfrtip',

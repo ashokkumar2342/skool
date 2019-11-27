@@ -3,10 +3,12 @@
 
   @endphp 
 <div class="col-lg-12">
-  Mark Attendance :-> <b>{{ $studentattendancesclass->admins->first_name or '' }}</b><br>
-  Verified Attendance :-> <b>{{ $studentattendancesclass->verifieds->first_name or '' }}</b>
-  
+   Attendance Mark By :-> <b>{{ $studentattendancesclass->admins->first_name or '' }}</b> 
 </div>
+<div class="col-lg-12" style="margin-top: 5px"> 
+   Attendance Verified By :-> <b>{{ $studentattendancesclass->verifieds->first_name or '' }}</b> 
+</div>
+<div class="col-lg-12" style="margin-top: 10px"> 
 <table class="table table-bordered">
  <thead>                  
      <tr>
@@ -75,6 +77,8 @@
 </tfoot>
 </tbody>
 </table>
+</div>
+
 
 
 

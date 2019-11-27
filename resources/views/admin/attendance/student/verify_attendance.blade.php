@@ -3,11 +3,12 @@
 
   @endphp 
 <div class="col-lg-12">
-  Mark Attendance :-> <b>{{ $studentattendancesclass->admins->first_name or '' }}</b><br>
-  Verified Attendance :-> <b>{{ $studentattendancesclass->verifieds->first_name or '' }}</b>
-  
+   Attendance Mark By :-> <b>{{ $studentattendancesclass->admins->first_name or '' }}</b> 
 </div>
-<div class="col-lg-12">
+<div class="col-lg-12" style="margin-top: 5px"> 
+   Attendance Verified By :-> <b>{{ $studentattendancesclass->verifieds->first_name or '' }}</b> 
+</div>
+<div class="col-lg-12" style="margin-top: 10px"> 
   @if (!empty($studentattendancesclass->verified_by))
     <button type="button" success-popup="true" button-click="btn_virify_show" class="btn btn-danger btn-sm" onclick="callAjax(this,'{{ route('admin.attendance.student.verify.unlock',$studentattendancesclass->id) }}')">Unlock</button>
     @else 

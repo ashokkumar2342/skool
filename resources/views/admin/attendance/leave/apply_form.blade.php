@@ -13,7 +13,7 @@
         <h4 class="modal-title">{{ @$leaveRecord->id? 'Edit' :'Add' }} Leave Apply</h4>
       </div>
       <div class="modal-body"> 
-             <form action="{{ route('admin.attendance.leave.store',@$leaveRecord->id) }}" method="post" class="add_form" button-click="btn_click_list_show,btn_close">
+             <form action="{{ route('admin.attendance.leave.store',@$leaveRecord->id) }}" method="post" class="add_form" button-click="btn_click_list_show,btn_close" select-triger="student_div">
                    {{ csrf_field() }}
                   <div class="row">
                     <div class="col-lg-4">

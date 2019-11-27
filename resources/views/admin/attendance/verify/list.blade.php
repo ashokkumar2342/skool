@@ -17,6 +17,8 @@
                     <th>Apply Date</th>
                     <th>From Date</th>
                     <th>To Date</th>
+                    <th>Remark</th>
+                    <th>Attachment</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -30,7 +32,10 @@
                     <td>{{ date('d-m-Y',strtotime( $leaveRecord->apply_date))}}</td>
                     <td>{{ date('d-m-Y',strtotime( $leaveRecord->from_date))}}</td>
                     <td>{{ date('d-m-Y',strtotime( $leaveRecord->to_date))}}</td>
+                    <td>{{$leaveRecord->remark}}</td>
+                    <td>{{$leaveRecord->attachment}}</td>
                     <td>
+                      <a href="#"  onclick="callPopupLarge(this,'{{ route('admin.attendance.leave.delete',$leaveRecord->id) }}')" title="View" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
                       <button type="button" class="btn btn-info btn-xs" select2="true" onclick="callPopupLarge(this,'{{ route('admin.attendance.leave.verify.form',$leaveRecord->id) }}')">Approval</i></button>
                        
                     </td>

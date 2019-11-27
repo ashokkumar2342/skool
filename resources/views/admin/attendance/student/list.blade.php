@@ -32,7 +32,7 @@
                 <div class="col-lg-3">                         
                   <div class="form-group">
                     <label>Date</label>
-                    <input type="date" name="date" value="{{ date('d-m-Y') }}" class="form-control"   max="{{ date('Y-m-d') }}">
+                    {!! Form::text('date', date('d-m-Y')  , ['class'=>'form-control datepicker','id'=>'date','placeholder'=>'Date'              ,'max'=>date('Y-m-d')]) !!}
                     
                   </div>
                 </div>
@@ -56,12 +56,20 @@
     </section>
 @endsection
 @push('links')
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-@endpush
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endpush 
+
  @push('scripts')
- <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
- 
-<script type="text/javascript">
+ <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> 
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+ <script type="text/javascript"> 
+  $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
+   
      $(document).ready(function() {
     $('#dataTable').DataTable( {
         dom: 'Bfrtip',

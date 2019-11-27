@@ -11,20 +11,140 @@
             <div class="box-body">
                <form action="{{ route('admin.attendance.report.show') }}" no-reset="true" method="post" class="add_form" success-content-id="attendance_report_result" data-table-without-pagination-disable-sorting="attendance_result_table">
                 {{ csrf_field() }}
-                <div class="row">
-                  <div class="col-lg-4">
+          <div class="row">
+            <div class="col-lg-6"> 
+             <div class="panel panel-default">
+             <div class="panel-heading text-center">Strength Wise Report</div>  
+                <div class="panel-body">
+                  <div class="col-lg-5">
                     <div class="form-group">
                       <label>Date</label>
                       <input type="date" name="date" class="form-control"> 
                     </div> 
                   </div>
-                  <div class="col-lg-4">
+                  <div class="col-lg-5">
+                    <div class="form-group">
+                      <label>Class</label>
+                      <select name="class_id" class="form-control">
+                        <option selected disabled>Select Class</option>
+                        @foreach ($sections as $section)
+                              <option value="{{ $section->id }}">{{ $section->classes->name or '' }}/{{ $section->sectionTypes->name or '' }}</option> 
+                        @endforeach 
+                      </select>
+                    </div>
+                    <input type="hidden" name="strength_report" value="1"> 
+                  </div>
+                  <div class="col-lg-2">
                     <div class="form-group">
                        <input type="submit" class="btn btn-success" value="Show" style="margin-top: 24px">
                     </div> 
                   </div> 
-                </div> 
-               </form>
+                </div>
+              </div>
+            </div> 
+        </form> 
+             <form action="{{ route('admin.attendance.report.show') }}" no-reset="true" method="post" class="add_form" success-content-id="attendance_report_result" data-table-without-pagination-disable-sorting="attendance_result_table">
+                {{ csrf_field() }} 
+            <div class="col-lg-6"> 
+               <div class="panel panel-default">
+                <div class="panel-heading text-center">Attendance Report</div> 
+                  <div class="panel-body">
+                    <div class="col-lg-5">
+                      <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" name="date" class="form-control"> 
+                      </div> 
+                    </div>
+                    <div class="col-lg-5">
+                      <div class="form-group">
+                        <label>Report For</label>
+                        <select name="report_for" class="form-control">
+                          <option selected disabled>Select Option</option>
+                          <option value="4">Attendance Mark</option>
+                          <option value="1">Attendance Not Mark</option>
+                          <option value="5">Attendance Verified</option>
+                          <option value="2">Attendance Not Verified</option>
+                          <option value="6">Attendance Sms Send</option>
+                          <option value="3">Attendance Not Sms Send</option>
+                          
+                        </select>
+                      </div> 
+                    </div>
+                    <input type="hidden" name="attendance_report" value="1">
+                    <div class="col-lg-2">
+                      <div class="form-group">
+                         <input type="submit" class="btn btn-success" value="Show" style="margin-top: 24px">
+                      </div> 
+                    </div> 
+                  </div>
+                </div>
+              </div> 
+            </form> 
+            <form action="{{ route('admin.attendance.report.show') }}" no-reset="true" method="post" class="add_form" success-content-id="attendance_report_result" data-table-without-pagination-disable-sorting="attendance_result_table">
+                {{ csrf_field() }} 
+            <div class="col-lg-6"> 
+             <div class="panel panel-default">
+             <div class="panel-heading text-center">Month Wise Report</div>  
+                <div class="panel-body"> 
+                  <div class="col-lg-10">
+                    <div class="form-group">
+                      <label>Academic Year</label>
+                      <select name="academic_year_id" class="form-control">
+                        <option selected disabled>Select Academic Year</option>
+                        @foreach ($academicYears as $section)
+                              <option value="{{ $section->id }}">{{ $section->name or '' }}</option> 
+                        @endforeach 
+                      </select>
+                    </div>
+                    <input type="hidden" name="month_report" value="1"> 
+                  </div>
+                  <div class="col-lg-2">
+                    <div class="form-group">
+                       <input type="submit" class="btn btn-success" value="Show" style="margin-top: 24px">
+                    </div> 
+                  </div> 
+                </div>
+              </div>
+            </div>
+            
+            </form>  
+            <form action="{{ route('admin.attendance.report.show') }}" no-reset="true" method="post" class="add_form" success-content-id="attendance_report_result" data-table-without-pagination-disable-sorting="attendance_result_table">
+                {{ csrf_field() }} 
+            <div class="col-lg-6"> 
+             <div class="panel panel-default">
+             <div class="panel-heading text-center">Percent Wise Report</div>  
+                <div class="panel-body"> 
+                  <div class="col-lg-5">
+                    <div class="form-group">
+                      <label>Class</label>
+                      <select name="class_id" class="form-control">
+                        <option selected disabled>Select Class</option>
+                        @foreach ($sections as $section)
+                              <option value="{{ $section->id }}">{{ $section->classes->name or '' }}/{{ $section->sectionTypes->name or '' }}</option> 
+                        @endforeach 
+                      </select>
+                    </div>
+                    <input type="hidden" name="precent_report" value="1"> 
+                  </div>
+                  <div class="col-lg-5">
+                    <div class="form-group">
+                      <label>Percent</label>
+                      <input type="number" name="percent" class="form-control">
+                      
+                    </div>
+                    
+                  </div>
+                  <div class="col-lg-2">
+                    <div class="form-group">
+                       <input type="submit" class="btn btn-success" value="Show" style="margin-top: 24px">
+                    </div> 
+                  </div> 
+                </div>
+              </div>
+            </div>
+            </div>
+            </form> 
+               
                <div id="attendance_report_result">
                   
                 </div> 

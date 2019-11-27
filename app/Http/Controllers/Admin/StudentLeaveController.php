@@ -15,10 +15,16 @@ class StudentLeaveController extends Controller
 {
    public function index()
    {
-   	 return view('admin.attendance.leave.index');
+
+     $student=new Student();
+     $students=$student->getAllStudents();
+       $academicYears=AcademicYear::orderBy('id','ASC')->get();
+       $leaveTypes=LeaveTypeStudent::orderBy('name','ASC')->get();
+   	 return view('admin.attendance.leave.index',compact('students','leaveTypes','academicYears','leaveRecord'));
    } 
-   public function show()
-   {   $leaveRecords=LeaveRecord::orderBy('apply_date','ASC')->get();
+   public function show(Request $request)
+   {   
+     $leaveRecords=LeaveRecord::where('student_id',$request->id)->orderBy('apply_date','ASC')->get();
    	 return view('admin.attendance.leave.list',compact('leaveRecords'));
    }
    public function leaveApply($id=null)
@@ -63,23 +69,32 @@ class StudentLeaveController extends Controller
        $leaveType->year_id=$request->year_id;
        $leaveType->leave_id=$request->leave_id;
        $leaveType->student_id=$request->student_id;
-       $leaveType->apply_date=$request->apply_date;
+       $leaveType->apply_date=date('Y-m-d',strtotime($request->apply_date));
        $leaveType->from_date=$request->from_date;
        $leaveType->to_date=$request->to_date;
+       $leaveType->remark=$request->remark;
        $leaveType->status=0;
-       $leaveType->save();
-      $response=['status'=>1,'msg'=>'Created Successfully'];
-            return response()->json($response);
+       if ($request->hasFile('attachment')) { 
+                $attachment=$request->attachment;
+                $filename='attech'.date('d-m-Y').time().'.pdf'; 
+                $attachment->storeAs('public/student/leave/',$filename);
+                $leaveType->attachment=$filename; 
+                $leaveType->save();
+                $response=['status'=>1,'msg'=>'Created Successfully'];
+                return response()->json($response);
         } 
+
+      }
+      $leaveType->save();
+                $response=['status'=>1,'msg'=>'Created Successfully'];
+                return response()->json($response);
    }
 
 
   public function destroy($id)
   {
     $leaveRecord=LeaveRecord::find($id);
-    $leaveRecord->delete();
-    $response=['status'=>1,'msg'=>'Delete Successfully'];
-            return response()->json($response);
+    return view('admin.attendance.Leave.view',compact('leaveRecord'));
   }
 
    //----------------leave-type-----------------------------//

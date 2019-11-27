@@ -17,6 +17,10 @@ class StudentAttendanceClass extends Model
     {
     	return $this->hasOne('App\Admin','id','verified_by');
     }
+    public function sendBy()
+    {
+        return $this->hasOne('App\Admin','id','sms_sent_by');
+    }
     public function classes()
     {
         return $this->hasOne('App\Model\ClassType','id','class_id');

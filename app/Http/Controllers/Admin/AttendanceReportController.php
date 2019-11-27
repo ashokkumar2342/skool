@@ -3,34 +3,56 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\AcademicYear;
 use App\Model\LeaveRecord;
 use App\Model\Section;
+use App\Model\StudentAttendance;
 use App\Model\StudentAttendanceClass;
-use Illuminate\Http\Request;
+use App\Student;
 use Auth;
+use Illuminate\Http\Request;
 
 class AttendanceReportController extends Controller
 {
     public function index()
     {
-    	 return view('admin.attendance.report.view');
+      $sections=Section::orderBy('class_id','ASC')->orderBy('section_id','ASC')->get();
+      $academicYears=AcademicYear::all();
+    	 return view('admin.attendance.report.view',compact('sections','academicYears'));
     }
-    public function show(Request $request)
-    {
-      $attendanceClass=StudentAttendanceClass::where('date',$request->date)->get();
-      foreach ($attendanceClass as $value) {
-      $sections=Section::where('class_id','!=',$value->class_id)->orderBy('class_id','ASC')->orderBy('section_id','ASC')->get(); 
+    public function show(Request $request){
+      $date=$request->date;  
+     if ($request->strength_report==1) {
+         $sections=Section::find($request->class_id);
+         $attendanceClass=StudentAttendanceClass::where('class_id',$sections->class_id)
+                                                ->where('section_id',$sections->section_id)
+                                                ->where('date',$request->date)
+                                                ->get(); 
+         $student=Student::where('class_id',$sections->class_id)
+                          ->where('section_id',$sections->section_id)
+                          ->pluck('id')
+                          ->toArray();
+	       $response["status"]=1;
+	       $response["data"]=view('admin.attendance.report.result1',compact('date','student','attendanceClass'))->render(); 
+	       return $response; 
       }
-      if (empty($sections)) {
-        $response=array();
-	    $response["status"]=0;
-	    $response["msg"]='Record Not Found'; 
-	    return $response; 
+    elseif ($request->attendance_report==1) {
+            $report_for=$request->report_for;
+            $date=$request->date;
+            $sections=Section::orderBy('class_id','ASC')->orderBy('section_id','ASC')->get();  
+            $response=array();
+            $response["status"]=1;
+            $response["data"]=view('admin.attendance.report.result2',compact('date','sections','report_for'))->render(); 
+            return $response; 
       }
-	  $response=array();
-	  $response["status"]=1;
-	  $response["data"]=view('admin.attendance.report.result',compact('sections','attendanceClass'))->render(); 
-	  return $response; 
+    elseif ($request->month_report==1) {
+      return $request;
+      return  $academicYears=AcademicYear::where('id','<=',$request->academic_year_id)->get();      
+      $response=array();
+      $response["status"]=1;
+      $response["data"]=view('admin.attendance.report.result2',compact('date','AttendanceReport','stusents'))->render(); 
+      return $response; 
+      }
     }
 
     //-------------leave-report-------------------------------------------------------
@@ -59,11 +81,11 @@ class AttendanceReportController extends Controller
        return view('admin.attendance.sendsms.list');
     }
     public function SmsSendshow(Request $request)
-    {
-       $attendanceClass=StudentAttendanceClass::where('date',$request->date)->where('verified','!=',0)->get();
+    {  $date=$request->date;
+       $sections=Section::orderBy('class_id','ASC')->orderBy('section_id','ASC')->get(); 
        $response=array();
        $response["status"]=1;
-       $response["data"]=view('admin.attendance.sendsms.send_table',compact('sections','attendanceClass'))->render(); 
+       $response["data"]=view('admin.attendance.sendsms.send_table',compact('sections','attendanceClass','date'))->render(); 
        return $response; 
         
     }
