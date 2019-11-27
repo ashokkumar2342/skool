@@ -481,6 +481,24 @@ Route::group(['middleware' => 'admin'], function() {
 	        Route::post('verify-store/{id?}', 'StudentLeaveController@LeaveverifyStore')->name('admin.attendance.leave.verify.store');
 	       
 	    });
+	    //------------------------- attendance-report ---------------------------------
+	    Route::group(['prefix' => 'attendance-report'], function() { 
+	        Route::get('/', 'AttendanceReportController@index')->name('admin.attendance.report');
+	        Route::post('show', 'AttendanceReportController@show')->name('admin.attendance.report.show');
+	         
+	       
+	    });
+	    Route::group(['prefix' => 'leave-report'], function() { 
+	        Route::get('leave-report', 'AttendanceReportController@leaveReport')->name('admin.attendance.leave.report');
+	        Route::get('leave-report-filter', 'AttendanceReportController@leaveReportFilter')->name('admin.attendance.leave.report.filter');
+	        Route::post('leave-report-show', 'AttendanceReportController@leaveReportShow')->name('admin.attendance.leave.report.show'); 
+	    });
+	    Route::group(['prefix' => 'sms-send'], function() { 
+	        Route::get('sms-send', 'AttendanceReportController@smsSend')->name('admin.attendance.sms.send');
+	        Route::post('show', 'AttendanceReportController@SmsSendshow')->name('admin.attendance.sms.send.show');
+	        Route::post('sent', 'AttendanceReportController@SmsSendFinal')->name('admin.attendance.sms.send.final');
+	        
+	    });
 	//------------------------- Finance ---------------------------------
 	Route::group(['prefix' => 'finance'], function() {
 		//------------------------- fee acoout ---------------------------------

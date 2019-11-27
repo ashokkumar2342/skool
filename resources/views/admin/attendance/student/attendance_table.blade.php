@@ -65,7 +65,7 @@
         <td colspan="5">                                 
           <div class="row">                              
            <div class="col-md-12 text-center">
-            <button class="btn btn-success " id="subjectBtn">Save Attendance</button>
+            <button class="btn btn-success " id="subjectBtn">Verify Attendance</button>
            </div>
           </div>  
         </td>

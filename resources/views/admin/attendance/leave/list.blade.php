@@ -22,13 +22,13 @@
 			<td>{{ date('d-m-Y',strtotime( $leaveRecord->from_date))}}</td>
 			<td>{{ date('d-m-Y',strtotime( $leaveRecord->to_date))}}</td>
 			 @if ($leaveRecord->status==0)
-			 	<td ><span class="label label-warning">Pending</span></td> 
+			 	<td >Pending</td> 
 			 @endif
 			 @if ($leaveRecord->status==1)
-			 	<td ><span class="label label-success">Approval</span></td> 
+			 	<td >Approval</td> 
 			 @endif
 			 @if ($leaveRecord->status==2)
-			 	<td ><span class="label label-danger">Reject</span> </td> 
+			 	<td >Reject </td> 
 			 @endif
 			<td>
 				<button type="button" class="btn btn-info btn-xs" select2="true" onclick="callPopupLarge(this,'{{ route('admin.attendance.leave.apply',$leaveRecord->id) }}')"><i class="fa fa-edit"></i></button>
