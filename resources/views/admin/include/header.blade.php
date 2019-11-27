@@ -1,3 +1,8 @@
+ @php
+     $notifications=App\Model\Notification::orderBy('id','DESC')->get(); 
+     $academicYear=App\Model\AcademicYear::where('status',1)->first(); 
+      
+ @endphp
   <header class="main-header">
             <!-- Logo -->
             <a href="{{ route('admin.dashboard') }}" class="logo">
@@ -18,12 +23,11 @@
                 @includeIf('admin.include.hot_menu_top', ['menu_type_id' =>1])
                 <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+              <li><a href="#" title="">{{ $academicYear->name }}</a></li>
             <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-               @php
-                   $notifications=App\Model\Notification::orderBy('id','DESC')->get(); 
-               @endphp
+              
                @foreach ($notifications as $notification)
                  <span class="label label-success">{{ $notification->count('id') }}</span> 
                @endforeach

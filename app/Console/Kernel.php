@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         'App\Console\Commands\ReportGenrate',
         'App\Console\Commands\StudentProfileReportRequest',
+        'App\Console\Commands\SendSms',
     ];
 
     /**
@@ -25,8 +26,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('report:generate')->everyMinute();
-         $schedule->command('student:report')->everyMinute();
+         // $schedule->command('report:generate')->everyMinute();
+         // $schedule->command('student:report')->everyMinute();
+         $schedule->command('send:sms')->everyMinute();
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Admin;
 use App\Admin\Model\SmsApi;
 use App\Events\SmsEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -29,10 +30,12 @@ class SmsEventListener
   public function handle(SmsEvent $event)
   {  
         $smsApi=SmsApi::where('status',1)->first(); 
+        $admin=Admin::where('role_id',1)->first(); 
+
         if ($smsApi->enableAutoSend==1) {
          $msg=urlencode($event->message);
          
-         $url = "http://bulksms.innovusine.com/sendurlcomma.aspx?user=$smsApi->user_id&pwd=$smsApi->password&senderid=$smsApi->sender_id&mobileno=$event->mobile&msgtext=$msg";
+         $url = "http://bulksms.innovusine.com/sendurlcomma.aspx?user=$smsApi->user_id&pwd=$smsApi->password&senderid=$smsApi->sender_id&mobileno=$admin->mobile&msgtext=$msg";
          $ch = curl_init($url);
          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          $curl_scraped_page = curl_exec($ch);

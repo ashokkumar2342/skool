@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SentSmsDetail extends Model
 {
 	protected $table = 'sent_sms_detail';
+    public $timestamps = false;
 
     public function admins()
     {
