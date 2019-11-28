@@ -19,14 +19,14 @@
                   <div class="col-lg-5">
                     <div class="form-group">
                       <label>Date</label>
-                      <input type="date" name="date" class="form-control"> 
+                      <input type="date" required="" name="date" class="form-control"> 
                     </div> 
                   </div>
                   <div class="col-lg-5">
                     <div class="form-group">
-                      <label>Class</label>
-                      <select name="class_id" class="form-control">
-                        <option selected disabled>Select Class</option>
+                      <label>Class</label><br>
+                      <select name="class_id[]" class="multiselect" multiple="multiple" required="">
+                         
                         @foreach ($sections as $section)
                               <option value="{{ $section->id }}">{{ $section->classes->name or '' }}/{{ $section->sectionTypes->name or '' }}</option> 
                         @endforeach 
@@ -52,13 +52,13 @@
                     <div class="col-lg-5">
                       <div class="form-group">
                         <label>Date</label>
-                        <input type="date" name="date" class="form-control"> 
+                        <input type="date" required="" name="date" class="form-control"> 
                       </div> 
                     </div>
                     <div class="col-lg-5">
                       <div class="form-group">
                         <label>Report For</label>
-                        <select name="report_for" class="form-control">
+                        <select name="report_for" class="form-control" required="">
                           <option selected disabled>Select Option</option>
                           <option value="4">Attendance Mark</option>
                           <option value="1">Attendance Not Mark</option>
@@ -89,7 +89,7 @@
                   <div class="col-lg-10">
                     <div class="form-group">
                       <label>Academic Year</label>
-                      <select name="academic_year_id" class="form-control">
+                      <select name="academic_year_id" class="form-control" required="">
                         <option selected disabled>Select Academic Year</option>
                         @foreach ($academicYears as $section)
                               <option value="{{ $section->id }}">{{ $section->name or '' }}</option> 
@@ -117,7 +117,7 @@
                   <div class="col-lg-5">
                     <div class="form-group">
                       <label>Class</label>
-                      <select name="class_id" class="form-control">
+                      <select name="class_id" class="form-control" required="">
                         <option selected disabled>Select Class</option>
                         @foreach ($sections as $section)
                               <option value="{{ $section->id }}">{{ $section->classes->name or '' }}/{{ $section->sectionTypes->name or '' }}</option> 

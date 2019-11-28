@@ -166,6 +166,7 @@ class StudentAttendanceController extends Controller
     public function unlock($ctudentAttendanceClass_id)
     {
           $studentAttendanceClass=StudentAttendanceClass::find($ctudentAttendanceClass_id);
+          if ($studentAttendanceClass->sms_sent==0) {
           $studentAttendanceClass->verified=0;
           $studentAttendanceClass->verified_by=null;
           $studentAttendanceClass->save();
@@ -185,9 +186,13 @@ class StudentAttendanceController extends Controller
                         $studentAttendance->save();                 
                }
           }
-          $response=['status'=>1,'msg'=>'Unlock successfully'];
+           $response=['status'=>1,'msg'=>'Unlock successfully'];
             return response()->json($response);
-                  
+            
+         }
+
+        $response=['status'=>0,'msg'=>' Not Unlock '];
+            return response()->json($response);       
     }
 
     /**

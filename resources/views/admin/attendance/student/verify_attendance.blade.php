@@ -11,7 +11,8 @@
 <div class="col-lg-12" style="margin-top: 10px"> 
   @if (!empty($studentattendancesclass->verified_by))
     <button type="button" success-popup="true" button-click="btn_virify_show" class="btn btn-danger btn-sm" onclick="callAjax(this,'{{ route('admin.attendance.student.verify.unlock',$studentattendancesclass->id) }}')">Unlock</button>
-    @else 
+    @endif
+
 <table class="table table-bordered"> 
  
  <thead>                  
@@ -57,17 +58,7 @@
  @endforeach                     
  </tbody>
 <tfoot> 
-  @if (empty($studentattendancesclass))
-  <tr>
-    <td colspan="5">                                 
-      <div class="row">                              
-       <div class="col-md-12 text-center">
-        <button class="btn btn-success " id="subjectBtn">Save Attendance</button>
-       </div>
-      </div>  
-    </td>
- </tr> 
-  @endif
+  @if (empty($studentattendancesclass->verified_by))
   @if (!empty($studentattendancesclass))
     @if ($studentattendancesclass->verified!=1) 
     <tr>
@@ -80,11 +71,12 @@
         </td>
      </tr>
       @endif 
+      @endif 
   @endif
 </tfoot>
 </tbody>
 </table>
- @endif
+ 
  </div>
 
 

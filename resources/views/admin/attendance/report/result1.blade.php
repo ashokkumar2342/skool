@@ -18,25 +18,32 @@
 		</tr>
 	</thead>
 	<tbody> 
-		@foreach ($attendanceClass as $section) 
+		@foreach ($sections as $section) 
 		         @php
-		         	$students=App\Student::where('class_id',$section->class_id)->where('section_id',$section->section_id)->count('id');
-		         	$pstudents=App\Model\StudentAttendance::whereIn('student_id',$student)->where('attendance_type_id',1)->count('student_id');
-		         	$Astudents=App\Model\StudentAttendance::whereIn('student_id',$student)->where('attendance_type_id',2)->count('student_id');
-		         	$Lstudents=App\Model\StudentAttendance::whereIn('student_id',$student)->where('attendance_type_id',3)->count('student_id');
-		         
-			           $max =$students;
-                       $marObt =$pstudents+$Lstudents;
+                     $students=App\Student::where('class_id',$section->class_id)->where('section_id',$section->section_id)->count('id'); 
+                     $studentArryId=App\Student::where('class_id',$section->class_id)->where('section_id',$section->section_id)->pluck('id')->toArray(); 
+		         	 
+		         	$Pstudents=App\Model\StudentAttendance::whereIn('student_id',$studentArryId)->where('attendance_type_id',1)->whereDate('date',$date)->count('student_id');
+		         	$Astudents=App\Model\StudentAttendance::whereIn('student_id',$studentArryId)->whereDate('date',$date)->where('attendance_type_id',2)->count('student_id');
+		         	$Lstudents=App\Model\StudentAttendance::whereIn('student_id',$studentArryId)->whereDate('date',$date)->where('attendance_type_id',3)->count('student_id');
+		         	 if ($students!=0){  
+			           $max =$students; 
+                       $marObt =$Pstudents+$Lstudents;
                        $percentile=($marObt/$max)*100; 
-		         @endphp
-			         
+                       $precent=number_format( $percentile, 1 );
+                       }   
+		         	 if ($students==0){  
+			           $precent=0; 
+		         	 } 
+		         @endphp 
 					        <tr> 
 								<td>{{ $section->classes->name or '' }}/{{ $section->sectionTypes->name or '' }}</td> 
-								<td> {{ $students }}</td> 
-								<td> {{ $pstudents }}</td> 
-								<td> {{ $Astudents }}</td> 
-								<td> {{ $Lstudents }}</td> 
-								<td> {{ $percentile}}</td> 
+								<td>{{ $students or ''}}</td> 
+								<td>{{ $Pstudents or ''}}</td> 
+								<td>{{ $Astudents or ''}}</td> 
+								<td>{{ $Lstudents or ''}}</td> 
+								<td>{{ $precent or ''}} %</td> 
+								 
 							</tr>
 			         
 				 

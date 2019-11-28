@@ -22,21 +22,13 @@ class AttendanceReportController extends Controller
     }
     public function show(Request $request){
       $date=$request->date;  
-     if ($request->strength_report==1) {
-         $sections=Section::find($request->class_id);
-         $attendanceClass=StudentAttendanceClass::where('class_id',$sections->class_id)
-                                                ->where('section_id',$sections->section_id)
-                                                ->where('date',$request->date)
-                                                ->get(); 
-         $student=Student::where('class_id',$sections->class_id)
-                          ->where('section_id',$sections->section_id)
-                          ->pluck('id')
-                          ->toArray();
+     if ($request->strength_report==1) { 
+         $sections=Section::whereIn('id',$request->class_id)->orderBy('class_id','ASC')->orderBy('section_id','ASC')->get();
 	       $response["status"]=1;
-	       $response["data"]=view('admin.attendance.report.result1',compact('date','student','attendanceClass'))->render(); 
+	       $response["data"]=view('admin.attendance.report.result1',compact('date','sections','attendanceClass'))->render(); 
 	       return $response; 
       }
-    elseif ($request->attendance_report==1) {
+    elseif ($request->attendance_report==1) { 
             $report_for=$request->report_for;
             $date=$request->date;
             $sections=Section::orderBy('class_id','ASC')->orderBy('section_id','ASC')->get();  
