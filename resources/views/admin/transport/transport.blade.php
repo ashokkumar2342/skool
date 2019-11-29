@@ -3,7 +3,7 @@
 <section class="content-header">
     <h1>Transport </h1>
       
-        @includeIf('admin.include.hot_menu', ['menu_type_id' => 14])
+        
       
 </section>
     <section class="content">

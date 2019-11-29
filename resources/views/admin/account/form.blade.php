@@ -9,10 +9,7 @@
           <div class="box">
             <div class="box-header"> 
               <h3 class="box-title">New User</h3>
-              <div class="col-lg-6 pull-right">
-               @includeIf('admin.include.hot_menu', ['menu_type_id' =>1])
-             </div>
-
+              
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -79,7 +76,7 @@
                         </div>                     
                                         
                     <!-- /.box-body -->
-                    <div class="box-footer">
+                    <div class="box-footer text-center">
                       <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>

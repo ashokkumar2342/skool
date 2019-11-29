@@ -2,7 +2,7 @@
 @section('body')
 <section class="content-header">
     <h1>Certificate  Download  <small>List</small> </h1>
-    @includeIf('admin.include.hot_menu', ['menu_type_id' => 10])
+     
       {{-- <ol class="breadcrumb">
        <li><span ><a href="{{ route('admin.student.certificateIssu.apply') }}" class="btn btn-info btn-sm" >Apply</a></span></li>        
       </ol> --}}

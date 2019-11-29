@@ -1,6 +1,6 @@
  	 
 	 
-<table class="table table-striped table-bordered table-condensed table-responsive table-hover" id="send_sms_table">
+<table class="table table-striped table-bordered table-condensed table-responsive table-hover" id="attendance_result_table">
 	<thead>
 		<tr>
 			<th>Class/Section</th>

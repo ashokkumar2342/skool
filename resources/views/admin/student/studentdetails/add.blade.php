@@ -8,7 +8,7 @@
    </style>
 <section class="content-header">
     <h1> New Student<small>Details</small> </h1>
-       @includeIf('admin.include.hot_menu', ['menu_type_id' => 3]) 
+      
      </section>      
     <section class="content">        
       

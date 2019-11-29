@@ -7,10 +7,7 @@
             <!-- /.box-header -->            
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">List Users</h3>
-               <div class="col-lg-6 pull-right">
-               @includeIf('admin.include.hot_menu', ['menu_type_id' =>1])
-             </div>
+              <h3 class="box-title">List Users</h3> 
             </div> 
             <div class="box-body">
             <form action="{{ route('admin.account.list.user.generate') }}" method="post" target="blank">

@@ -11,9 +11,7 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Class Assign</h3>
-               <div class="col-lg-6 pull-right">
-               @includeIf('admin.include.hot_menu', ['menu_type_id' =>1])
-             </div>
+                
             </div>             
 
             <!-- /.box-header -->

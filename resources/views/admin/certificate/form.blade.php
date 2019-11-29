@@ -5,7 +5,7 @@
 @section('body')
 <section class="content-header">
     <h1> Certificate Apply <small>Details</small> </h1>
-     @includeIf('admin.include.hot_menu', ['menu_type_id' => 10])
+     
 </section>
     <section class="content">        
         {{Form::close()}}
