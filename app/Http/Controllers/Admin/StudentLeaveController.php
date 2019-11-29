@@ -159,70 +159,27 @@ class StudentLeaveController extends Controller
       $leaveRecords=LeaveRecord::where('status',0)->orderBy('apply_date','ASC')->get();
       return view('admin.attendance.verify.list',compact('leaveRecords'));
    }
+    
    public function verifyForm($id=null)
    {
-    if ($id!=null) {
+     $user_id=Auth::guard('admin')->user()->id; 
       $leaveRecord=LeaveRecord::find($id);
-    }
-    if ($id==null) {
-      $leaveRecord='';
-    }
-     $student=new Student();
-     $students=$student->getAllStudents();
-       $academicYears=AcademicYear::orderBy('id','ASC')->get();
-       $leaveTypes=LeaveTypeStudent::orderBy('name','ASC')->get();
-     return view('admin.attendance.verify.verify_form',compact('students','leaveTypes','academicYears','leaveRecord'));
+      $leaveRecord->status=1;
+      $leaveRecord->action_by=$user_id;
+      $leaveRecord->action_date=date('Y-m-d');
+      $leaveRecord->save();
+       return redirect()->back()->with(['message'=>'Approval Successfully','class'=>'success']);
+    
+     
    }
 
-   public function LeaveverifyStore(Request $request,$id=null){
-   $user_id=Auth::guard('admin')->user()->id; 
-     $rules=[
-        
-             
-            'year_id' => 'required', 
-            'leave_id' => 'required', 
-            'student_id' => 'required', 
-            'apply_date' => 'required', 
-            'from_date' => 'required', 
-            'to_date' => 'required', 
-           
-       
-      ];
-
-      $validator = Validator::make($request->all(),$rules);
-      if ($validator->fails()) {
-          $errors = $validator->errors()->all();
-          $response=array();
-          $response["status"]=0;
-          $response["msg"]=$errors[0];
-          return response()->json($response);// response as json
-      }
-        else {
-       $leaveType= LeaveRecord::firstOrNew(['id'=>$id]);
-       $leaveType->year_id=$request->year_id;
-       $leaveType->leave_id=$request->leave_id;
-       $leaveType->student_id=$request->student_id;
-       $leaveType->apply_date=$request->apply_date;
-       $leaveType->from_date=$request->from_date;
-       $leaveType->to_date=$request->to_date;
-       switch ($request->input('action')) {
-        case 'Verify':
-        $leaveType->status=1;
-        $leaveType->action_date=date('Y-m-d');
-        $leaveType->action_by=$user_id;
-         $leaveType->save();
-         return redirect()->back()->with(['message'=>'Approval Successfully','class'=>'success']);     
-            break; 
-        case 'Reject':
-          $leaveType->status=2;
-        $leaveType->action_date=date('Y-m-d');
-        $leaveType->action_by=$user_id;
-         $leaveType->save();
-         return redirect()->back()->with(['message'=>'Reject Successfully','class'=>'success']);    
-            break;
-        }
-       
-      }  
-     
+   public function LeaveverifyStore($id=null){
+     $user_id=Auth::guard('admin')->user()->id; 
+      $leaveRecord=LeaveRecord::find($id);
+      $leaveRecord->status=2;
+      $leaveRecord->action_by=$user_id;
+      $leaveRecord->action_date=date('Y-m-d');
+      $leaveRecord->save();
+       return redirect()->back()->with(['message'=>'Reject Successfully','class'=>'success']);
    }
 }

@@ -113,4 +113,10 @@ class StudentIdCardController extends Controller
      
     	 
     }
+
+    //-----------------------------report----------------------------------------------------
+    public function report($value='')
+    {
+        return view('admin.student.idCard.report.view',compact('students'));
+    }
 }

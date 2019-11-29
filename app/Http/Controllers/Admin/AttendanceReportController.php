@@ -60,9 +60,12 @@ class AttendanceReportController extends Controller
         
     }
     public function leaveReportShow(Request $request) 
-    {
-      
-      return $leaveapply=LeaveRecord::where('apply_date',$request->apply_date)->get();
+    {  
+          $leaveapplys=LeaveRecord::whereBetween('created_at', [$request->from_date,$request->to_date ])->get();
+          $response=array();
+          $response["status"]=1;
+          $response["data"]=view('admin.attendance.report.leave_result',compact('leaveapplys'))->render(); 
+          return $response; 
     }
 
 

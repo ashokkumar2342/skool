@@ -477,8 +477,8 @@ Route::group(['middleware' => 'admin'], function() {
 	    });
 	    Route::group(['prefix' => 'leave-verify'], function() { 
 	        Route::get('verify', 'StudentLeaveController@verify')->name('admin.attendance.leave.verify');
-	        Route::get('verify-form/{id?}', 'StudentLeaveController@verifyForm')->name('admin.attendance.leave.verify.form');
-	        Route::post('verify-store/{id?}', 'StudentLeaveController@LeaveverifyStore')->name('admin.attendance.leave.verify.store');
+	        Route::get('approval/{id?}', 'StudentLeaveController@verifyForm')->name('admin.attendance.leave.verify.form');
+	        Route::get('reject/{id?}', 'StudentLeaveController@LeaveverifyStore')->name('admin.attendance.leave.verify.store');
 	       
 	    });
 	    //------------------------- attendance-report ---------------------------------
@@ -1113,6 +1113,12 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'StudentIDCard\StudentIDCardController@index')->name('admin.student.id.card');
 			    Route::get('generate-class-wise', 'StudentIDCard\StudentIDCardController@generateClassWise')->name('admin.student.idcard.generate.classwise');
 			    Route::get('store', 'StudentIDCard\StudentIDCardController@store')->name('admin.student.idcard.generate.store');
+			    
+
+          });
+               Route::group(['prefix' => 'student-idcard'], function() {
+			    Route::get('report', 'StudentIDCard\StudentIDCardController@report')->name('admin.student.idcard.report');
+			    
 			    
 
           });

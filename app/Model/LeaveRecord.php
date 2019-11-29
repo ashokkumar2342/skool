@@ -21,4 +21,8 @@ class LeaveRecord extends Model
     {
     	 return $this->hasOne('App\Student','id','student_id');
     }
+    public function admins()
+    {
+         return $this->hasOne('App\Admin','id','action_by');
+    }
 }

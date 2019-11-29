@@ -69,7 +69,7 @@
 			 </div>
 			 <div style="padding-top: 4px">
 			 <span class="a">
-				  <img  src="{{ $paths }}" width="130px" height="45px" style="float:left;">
+				 {{--  <img  src="{{ $paths }}" width="130px" height="45px" style="float:left;"> --}}
 			</span> 
 			 </div>
 			 <div  style="font-size: 17px;text-align:center"><b>{{ $student->name }} {{ $student->last_name }}</b></div> 

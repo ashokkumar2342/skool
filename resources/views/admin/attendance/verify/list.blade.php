@@ -11,32 +11,35 @@
               <table class="table table-striped table-responsive table-bordered" id="leave_record_table">
                 <thead>
                   <tr>
-                    <th>Academic year</th>
-                    <th>Leave Type</th>
-                    <th>student Name</th>
-                    <th>Apply Date</th>
-                    <th>From Date</th>
-                    <th>To Date</th>
-                    <th>Remark</th>
-                    <th>Attachment</th>
-                    <th>Action</th>
+                    <th class="text-nowrap">Academic year</th>
+                    <th class="text-nowrap">Leave Type</th>
+                    <th class="text-nowrap">student Name</th>
+                    <th class="text-nowrap">Apply Date</th>
+                    <th class="text-nowrap">From Date</th>
+                    <th class="text-nowrap">To Date</th>
+                    <th class="text-nowrap">Remark</th>
+                    <th class="text-nowrap">Attachment</th>
+                    <th class="text-nowrap">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach ($leaveRecords as $leaveRecord)
                      
                   <tr>
-                    <td>{{ $leaveRecord->academicYear->name or '' }}</td>
-                    <td>{{ $leaveRecord->leaveTypes->name or '' }}</td>
-                    <td>{{ $leaveRecord->students->name or '' }}</td>
-                    <td>{{ date('d-m-Y',strtotime( $leaveRecord->apply_date))}}</td>
-                    <td>{{ date('d-m-Y',strtotime( $leaveRecord->from_date))}}</td>
-                    <td>{{ date('d-m-Y',strtotime( $leaveRecord->to_date))}}</td>
-                    <td>{{$leaveRecord->remark}}</td>
-                    <td>{{$leaveRecord->attachment}}</td>
-                    <td>
+                    <td class="text-nowrap">{{ $leaveRecord->academicYear->name or '' }}</td>
+                    <td class="text-nowrap">{{ $leaveRecord->leaveTypes->name or '' }}</td>
+                    <td class="text-nowrap">{{ $leaveRecord->students->name or '' }}</td>
+                    <td class="text-nowrap">{{ date('d-m-Y',strtotime( $leaveRecord->apply_date))}}</td>
+                    <td class="text-nowrap">{{ date('d-m-Y',strtotime( $leaveRecord->from_date))}}</td>
+                    <td class="text-nowrap">{{ date('d-m-Y',strtotime( $leaveRecord->to_date))}}</td>
+                    <td class="text-nowrap">{{$leaveRecord->remark}}</td>
+                    <td class="text-nowrap">{{$leaveRecord->attachment}}</td>
+                    <td class="text-nowrap">
                       <a href="#"  onclick="callPopupLarge(this,'{{ route('admin.attendance.leave.delete',$leaveRecord->id) }}')" title="View" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
-                      <button type="button" class="btn btn-info btn-xs" select2="true" onclick="callPopupLarge(this,'{{ route('admin.attendance.leave.verify.form',$leaveRecord->id) }}')">Approval</i></button>
+                      <a href="{{ route('admin.attendance.leave.verify.form',$leaveRecord->id) }}" class="btn btn-info btn-xs" title="Approval">Approval</a>
+                      <a href="{{ route('admin.attendance.leave.verify.store',$leaveRecord->id) }}" class="btn btn-danger btn-xs" title="Approval">Reject</a>
+
+                       
                        
                     </td>
                      
