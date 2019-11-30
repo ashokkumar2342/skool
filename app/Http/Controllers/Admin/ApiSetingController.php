@@ -170,7 +170,7 @@ class ApiSetingController extends Controller
    }
    public function testMessage(Request $request,$id)
    {
-         return view('admin.apiseting.test_form',compact('id'));
+         return view('admin.apiSeting.test_form',compact('id'));
          
    }
    public function MessageSend(Request $request)
