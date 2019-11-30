@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Jobs\SendSmsJob;
 use App\Model\Sms\SentSmsDetail;
 use Illuminate\Console\Command;
-
+use App\Events\SmsEvent;
 class SendSms extends Command
 {
     /**
