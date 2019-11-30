@@ -912,7 +912,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('email-template-list', 'Sms\SmsController@emailTemplateOnchange')->name('admin.email.template.onchange');
 			    Route::get('email-template-edit/{id}', 'Sms\SmsController@emailTemplateEdit')->name('admin.email.template.edit');
 			    Route::get('email-template-delete/{id}', 'Sms\SmsController@emailTemplateDestroy')->name('admin.email.template.delete');
-			    Route::post('email-template-update/{id}', 'Sms\SmsController@emailTemplateUpdate')->name('admin.email.template.update');
+			    Route::post('email-template-update/{id}/{message_purpose_id}', 'Sms\SmsController@emailTemplateUpdate')->name('admin.email.template.update');
 			    Route::get('email-template-view/{id}', 'Sms\SmsController@emailTemplateView')->name('admin.email.template.view');
                 
 			});	

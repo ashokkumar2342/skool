@@ -34,7 +34,7 @@
 	<div id="logo"> 
 		@php
 			 $temp = new App\Model\Sms\EmailTemplate();
-			 $template= $temp->getTemplateByTempalateId(1);
+			 $template= $temp->getTemplateByTempalateId(2);
 		@endphp
 		    
 	 {!! str_replace("#SN#",$name,$template->message)  !!}

@@ -64,7 +64,8 @@ class WishesSend extends Command
 
     public function sendEmail($students)
     {      $temp = new EmailTemplate();
-           $template= $temp->getTemplateByTempalateId(1);    
+           $template= $temp->getTemplateByTempalateId(2);    
+           dd($students);
              foreach($students as $student){ 
                   $message = $student->message;         
                   $emailto = $student->emailid;         

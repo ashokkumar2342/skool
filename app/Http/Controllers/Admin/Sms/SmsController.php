@@ -315,7 +315,7 @@ class SmsController extends Controller
         } 
     }
     public function emailTemplateTable(Request $request,$id){
-        $templteNames=TemplateType::orderBy('id','ASC')->get();
+       
          $EmailTemplates=EmailTemplate::where('template_type_id',$id)->get();
          return view('admin.sms.emailTemplate.table',compact('EmailTemplates'));
     }

@@ -5,12 +5,11 @@
  <table id="author_table" class="table table-bordered table-striped table-hover table-responsive"> 
                <thead>
                  <tr>
-                   <th>Sr.No.</th>
-                   <th>Template </th>
+                   <th>Sr.No.</th> 
+                   <th>Name</th>
                    <th>Massage</th>
-                   <th>Subject</th>
                    <th>Status</th>
-                   <th>Action</th>
+                   <th>Action</th> 
                    
                  </tr>
                </thead>
@@ -21,7 +20,8 @@
                 @foreach ($emailTemplates  as $EmailTemplates) 
                  <tr>
                   <th>{{ $id++ }}</th>
-                   <td>{{ $EmailTemplates->templateType->name or '' }}</td>
+                    
+                   <td>{!! $EmailTemplates->messagePorpose->name or '' !!}</td>
                    <td>{!! $EmailTemplates->message !!}</td>
                    
                    <td style="width: 200px">{{ $EmailTemplates->subject }}</td>

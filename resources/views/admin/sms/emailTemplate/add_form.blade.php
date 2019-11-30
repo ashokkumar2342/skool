@@ -18,7 +18,7 @@
       </div>
       <div class="modal-body"> 
         <div class="row">
-          <form action="{{ route('admin.email.template.store',$messagePurposes->id) }}" method="post" class="add_form" button-click="btn_absent_student_show,btn_close" select-triger="message_purpose_box">
+          <form action="{{ route('admin.email.template.store',$messagePurposes->id) }}" method="post" class="add_form" button-click="btn_close" select-triger="message_purpose_box">
                 {{ csrf_field() }}
                 
                   <div class="col-md-12">
