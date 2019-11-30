@@ -32,7 +32,7 @@ class ApiSetingController extends Controller
 	            'user_name' => 'required|max:50', 
 	            'password' => 'required|max:50', 
 	            'sender_name' => "required|max:6", 
-	            'url' => "required", 
+	            'url' => "required|url", 
 	       
 	    	];
 
@@ -176,7 +176,7 @@ class ApiSetingController extends Controller
    public function MessageSend(Request $request)
    { 
          
-        event(new SmsEvent($request->mobile,'Test')); 
+        event(new SmsEvent($request->mobile,'Api   Integration Successfully')); 
        $response=['status'=>1,'msg'=>'send Successfully'];
               return response()->json($response);
    }

@@ -914,6 +914,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('email-template-delete/{id}', 'Sms\SmsController@emailTemplateDestroy')->name('admin.email.template.delete');
 			    Route::post('email-template-update/{id}/{message_purpose_id}', 'Sms\SmsController@emailTemplateUpdate')->name('admin.email.template.update');
 			    Route::get('email-template-view/{id}', 'Sms\SmsController@emailTemplateView')->name('admin.email.template.view');
+			    Route::get('email-template-status/{id}', 'Sms\SmsController@emailTemplateStatus')->name('admin.email.template.status');
                 
 			});	
 
