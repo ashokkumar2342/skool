@@ -38,14 +38,14 @@
                 </div>
               <div class="col-lg-3">
                 <div class="form-group">
-                  <input type="submit" value="Show" class="btn btn-success" style="margin-top: 24px">
+                  <input type="submit" id="btn_attendance_list_show" value="Show" class="btn btn-success" style="margin-top: 24px">
                   
                 </div>
             </form> 
                 
               </div>
               </div>
-             <form action="{{ route('admin.attendance.student.save') }}" method="post" class="add_form" no-reset="true">
+             <form action="{{ route('admin.attendance.student.save') }}" method="post" button-click="btn_attendance_list_show" class="add_form" no-reset="true">
                 {{ csrf_field() }}
                 <div id="attendance_table">
                   

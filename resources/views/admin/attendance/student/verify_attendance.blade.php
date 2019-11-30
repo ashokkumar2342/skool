@@ -28,10 +28,10 @@
  @foreach ($students as $student)
           @if (!empty($studentattendancesclass->verified_by)) 
            @php 
-            $danger = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'verified_attendance_type_id'=>1,'date'=>date('Y-m-d',strtotime($date))]))->first();
+            $success = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'verified_attendance_type_id'=>1,'date'=>date('Y-m-d',strtotime($date))]))->first();
             @endphp
             @php
-            $success = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'verified_attendance_type_id'=>2,'date'=>date('Y-m-d',strtotime($date))]))->first();
+            $danger = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'verified_attendance_type_id'=>2,'date'=>date('Y-m-d',strtotime($date))]))->first();
             @endphp 
             @php
             $warning = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'verified_attendance_type_id'=>3,'date'=>date('Y-m-d',strtotime($date))]))->first();
@@ -45,8 +45,11 @@
             $danger = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>2,'date'=>date('Y-m-d',strtotime($date))]))->first();
             @endphp 
             @php
-            $warning = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>3,'date'=>date('Y-m-d',strtotime($date))]))->first();
-
+            $warning = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>3,'date'=>date('Y-m-d',strtotime($date))]))->first(); 
+            
+            @endphp
+          @endif  
+          @php
              $color ='';
             if(!empty($success)){
               $color = 'lebel label-success';
@@ -55,15 +58,14 @@
             }else if(!empty($warning)){
                $color = 'lebel label-warning';
             }
-            if(empty($success)){
+           else if(empty($success)){
               $color = 'lebel label-success';
             }else if(empty($danger)){
               $color = 'lebel label-danger';
             }else if(empty($warning)){
                $color = 'lebel label-warning';
             }
-            @endphp
-          @endif  
+          @endphp
         <tr id="tr-{{ $student->id }}" class="{{ $color }}">
           <td>{{ $student->registration_no }}</td>
           
