@@ -35,12 +35,12 @@ class SmsEventListener
         if ($smsApi->enableAutoSend==1) {
          $msg=urlencode($event->message);
          
-         $url = "http://bulksms.innovusine.com/sendurlcomma.aspx?user=$smsApi->user_id&pwd=$smsApi->password&senderid=$smsApi->sender_id&mobileno=$admin->mobile&msgtext=$msg";
+         $url = "$smsApi->url?user=$smsApi->user_id&pwd=$smsApi->password&senderid=$smsApi->sender_id&mobileno=$admin->mobile&msgtext=$msg";
          $ch = curl_init($url);
          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          $curl_scraped_page = curl_exec($ch);
          curl_close($ch); 
-          Log::info($event->mobile.' : '.$event->message);
+          Log::info($curl_scraped_page);
         }
         
         

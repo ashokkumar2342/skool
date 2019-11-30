@@ -229,7 +229,9 @@ class SmsController extends Controller
     }
     public function smsTemplateStatus($id)
     {
-        DB::select(DB::raw("call up_set_message_default ($id)")); 
+        DB::select(DB::raw("call up_set_message_default ($id)"));
+        $response=['status'=>1,'msg'=>'Default Set Successfully'];
+            return response()->json($response); 
           
     }
 
@@ -366,5 +368,11 @@ class SmsController extends Controller
          $smsTemplates=EmailTemplate::findOrFail(Crypt::decrypt($id));
          $smsTemplates->delete();
          return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+     public function emailTemplateStatus($id)
+    { 
+        DB::select(DB::raw("call up_set_email_default ($id)"));
+          
+          
     }
 }

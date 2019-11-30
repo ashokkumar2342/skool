@@ -1,5 +1,5 @@
 <div class="col-lg-12" style="float: right;">
- <button type="button" class="btn btn-primary pull-right" text-editor="summernote" onclick="callPopupLarge(this,'{{ route('admin.email.template.addform',$message_purpose_id)}}')" style="margin:10px">Add Birthday Template</button>
+ <button type="button" class="btn btn-primary pull-right" text-editor="summernote" onclick="callPopupLarge(this,'{{ route('admin.email.template.addform',$message_purpose_id)}}')" style="margin:10px">Add New Template</button>
    
  </div>
  <table id="author_table" class="table table-bordered table-striped table-hover table-responsive"> 
@@ -25,8 +25,16 @@
                    <td>{!! $EmailTemplates->message !!}</td>
                    
                    <td style="width: 200px">{{ $EmailTemplates->subject }}</td>
-                   <td>{!! $EmailTemplates->status==1?'Active':'Inactive' !!}</td>
-                   
+                   <td>
+                     
+                   @if ($EmailTemplates->status==1)
+                    
+                      <a href="#" select-triger="message_purpose_box" onclick="callAjax(this,'{{ route('admin.email.template.status',$EmailTemplates->id) }}')" title="" class="btn btn-success btn-xs">Default</a> 
+                      @else
+                      <a href="#" select-triger="message_purpose_box" onclick="callAjax(this,'{{ route('admin.email.template.status',$EmailTemplates->id) }}')" title="" class="btn btn-default btn-xs">Default</a> 
+                    
+                   @endif
+                   </td>
                    <td style="width: 100px">
                      <button class="btn btn-info btn-xs" title="View" onclick="callPopupLarge(this,'{{ route('admin.email.template.view',$EmailTemplates->id) }}')"><i class="fa fa-eye"></i></button>
 
