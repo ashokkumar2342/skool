@@ -43,11 +43,12 @@ class SendSms extends Command
        $sentSmsDetails=SentSmsDetail::whereIn('id',$id)->update(['sent_status'=>2]); 
        $sentSmsDetailsFinalDatas=SentSmsDetail::where('sent_status',2)->get(); 
        foreach ($sentSmsDetailsFinalDatas as $sentSmsDetailsFinalDatas) {
-          $array=array();       
-          $array['mobile']=$sentSmsDetailsFinalDatas->mobileno;
-          $array['message']=$sentSmsDetailsFinalDatas->smstext;
-          $job=(new SendSmsJob($array))->delay(now()->addSeconds(5));
-          dispatch($job); 
+        event(new smsEvent($sentSmsDetailsFinalDatas->mobileno,$sentSmsDetailsFinalDatas->smstext)); 
+          // $array=array();       
+          // $array['mobile']=$sentSmsDetailsFinalDatas->mobileno;
+          // $array['message']=$sentSmsDetailsFinalDatas->smstext;
+          // $job=(new SendSmsJob($array))->delay(now()->addSeconds(5));
+          // dispatch($job); 
 
        }
        $arrId =$sentSmsDetailsFinalDatas->pluck('id')->toArray();
