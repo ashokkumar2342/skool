@@ -55,7 +55,13 @@ function callAjax(obj,url,divId,callback){
 			if(obj.getAttribute('success-popup')){
 				var response=data.msg; 
 				if (response!=null) {
-					successMsg(response);	
+					if (data.status==1) {
+						successMsg(response);	
+					}
+					else if(data.status==0){
+						errorMsg(response);
+					}
+					 
 				}
 				
 			

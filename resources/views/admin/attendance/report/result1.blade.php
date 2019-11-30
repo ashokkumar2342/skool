@@ -23,9 +23,9 @@
                      $students=App\Student::where('class_id',$section->class_id)->where('section_id',$section->section_id)->count('id'); 
                      $studentArryId=App\Student::where('class_id',$section->class_id)->where('section_id',$section->section_id)->pluck('id')->toArray(); 
 		         	 
-		         	$Pstudents=App\Model\StudentAttendance::whereIn('student_id',$studentArryId)->where('attendance_type_id',1)->whereDate('date',$date)->count('student_id');
-		         	$Astudents=App\Model\StudentAttendance::whereIn('student_id',$studentArryId)->whereDate('date',$date)->where('attendance_type_id',2)->count('student_id');
-		         	$Lstudents=App\Model\StudentAttendance::whereIn('student_id',$studentArryId)->whereDate('date',$date)->where('attendance_type_id',3)->count('student_id');
+		         	$Pstudents=App\Model\StudentAttendance::whereIn('student_id',$studentArryId)->where('verified_attendance_type_id',1)->whereDate('date',$date)->count('student_id');
+		         	$Astudents=App\Model\StudentAttendance::whereIn('student_id',$studentArryId)->whereDate('date',$date)->where('verified_attendance_type_id',2)->count('student_id');
+		         	$Lstudents=App\Model\StudentAttendance::whereIn('student_id',$studentArryId)->whereDate('date',$date)->where('verified_attendance_type_id',3)->count('student_id');
 		         	 if ($students!=0){  
 			           $max =$students; 
                        $marObt =$Pstudents+$Lstudents;
