@@ -92,7 +92,8 @@
         $('.leave').prop('checked', true);
      }
   }    
-     
+ 
+   
    
  </script>
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>

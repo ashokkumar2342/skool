@@ -1,3 +1,7 @@
+<div class="col-lg-12" style="float: right;">
+ <button type="button" class="btn btn-primary pull-right" text-editor="summernote" onclick="callPopupLarge(this,'{{ route('admin.email.template.addform',$message_purpose_id)}}')" style="margin:10px">Add Birthday Template</button>
+   
+ </div>
  <table id="author_table" class="table table-bordered table-striped table-hover table-responsive"> 
                <thead>
                  <tr>
@@ -14,7 +18,7 @@
                 @php
                   $id=1;
                 @endphp
-                @foreach ($EmailTemplates as $EmailTemplates) 
+                @foreach ($emailTemplates  as $EmailTemplates) 
                  <tr>
                   <th>{{ $id++ }}</th>
                    <td>{{ $EmailTemplates->templateType->name or '' }}</td>

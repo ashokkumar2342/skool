@@ -907,8 +907,9 @@ Route::group(['middleware' => 'admin'], function() {
 
 			    Route::get('email-template', 'Sms\SmsController@emailTemplate')->name('admin.email.template');
 			    Route::get('email-template-addform/{id}', 'Sms\SmsController@emailTemplateAddForm')->name('admin.email.template.addform');
-			    Route::post('email-template-store', 'Sms\SmsController@emailTemplateStore')->name('admin.email.template.store');
+			    Route::post('email-template-store/{id}', 'Sms\SmsController@emailTemplateStore')->name('admin.email.template.store');
 			    Route::get('email-template-table/{id}', 'Sms\SmsController@emailTemplateTable')->name('admin.email.template.table');
+			    Route::get('email-template-list', 'Sms\SmsController@emailTemplateOnchange')->name('admin.email.template.onchange');
 			    Route::get('email-template-edit/{id}', 'Sms\SmsController@emailTemplateEdit')->name('admin.email.template.edit');
 			    Route::get('email-template-delete/{id}', 'Sms\SmsController@emailTemplateDestroy')->name('admin.email.template.delete');
 			    Route::post('email-template-update/{id}', 'Sms\SmsController@emailTemplateUpdate')->name('admin.email.template.update');

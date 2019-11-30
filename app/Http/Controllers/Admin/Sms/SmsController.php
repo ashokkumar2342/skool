@@ -263,18 +263,25 @@ class SmsController extends Controller
     } 
 
     public function emailTemplate()
-    {
-         return view('admin.sms.emailTemplate.list');
+    {    $messagePurposes=MessagePurpose::all();  
+         return view('admin.sms.emailTemplate.list',compact('messagePurposes'));
+    }
+    public function emailTemplateOnchange(Request $request){
+        $message_purpose_id=$request->id;
+        $emailTemplates=EmailTemplate::where('message_purpose_id',$request->id)->get();
+         return view('admin.sms.emailTemplate.table',compact('emailTemplates','message_purpose_id'));
     }
     public function emailTemplateAddForm($id){
-        $templteNames=TemplateType::where('id',$id)->get();
-        return view('admin.sms.emailTemplate.add_form',compact('templteNames'));
+
+        $messagePurposes=MessagePurpose::find($id); 
+        return view('admin.sms.emailTemplate.add_form',compact('messagePurposes'));
+        
     }
-    public function emailTemplateStore(Request $request)
+    public function emailTemplateStore(Request $request,$id)
     {  
         $rules=[
           
-            'name' => 'required', 
+           
             'message' => 'required', 
             'subject' => 'required', 
             
@@ -298,7 +305,7 @@ class SmsController extends Controller
          // }
 
         $smsTemplate=new EmailTemplate();
-        $smsTemplate->template_type_id=$request->name;
+        $smsTemplate->message_purpose_id=$id;
         $smsTemplate->message=$request->message;
         $smsTemplate->subject=$request->subject;
          
@@ -314,15 +321,16 @@ class SmsController extends Controller
     }
     public function emailTemplateEdit($id)
     {
-        $templteNames=TemplateType::orderBy('id','ASC')->get();
+        
          $EmailTemplates=EmailTemplate::findOrFail(crypt::decrypt($id));
-         return view('admin.sms.emailTemplate.edit',compact('EmailTemplates','templteNames'));
+
+         return view('admin.sms.emailTemplate.edit',compact('EmailTemplates'));
     }
-    public function emailTemplateUpdate(Request $request,$id)
+    public function emailTemplateUpdate(Request $request,$id,$message_purpose_id)
     {
         $rules=[
           
-            'name' => 'required', 
+            
             'message' => 'required', 
             'subject' => 'required', 
             
@@ -339,7 +347,7 @@ class SmsController extends Controller
         }
         else {
         $smsTemplate=  EmailTemplate::find($id);
-        $smsTemplate->template_type_id=$request->name;
+        $smsTemplate->message_purpose_id=$message_purpose_id;
         $smsTemplate->message=$request->message;
         $smsTemplate->subject=$request->subject;
          

@@ -28,27 +28,43 @@
  @foreach ($students as $student)
           @if (!empty($studentattendancesclass->verified_by)) 
            @php 
-            $color = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'verified_attendance_type_id'=>1,'date'=>date('Y-m-d',strtotime($date))]))->first();
+            $danger = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'verified_attendance_type_id'=>1,'date'=>date('Y-m-d',strtotime($date))]))->first();
             @endphp
             @php
-            $colors = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'verified_attendance_type_id'=>2,'date'=>date('Y-m-d',strtotime($date))]))->first();
+            $success = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'verified_attendance_type_id'=>2,'date'=>date('Y-m-d',strtotime($date))]))->first();
             @endphp 
             @php
-            $colorss = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'verified_attendance_type_id'=>3,'date'=>date('Y-m-d',strtotime($date))]))->first();
+            $warning = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'verified_attendance_type_id'=>3,'date'=>date('Y-m-d',strtotime($date))]))->first();
             @endphp
             @endif
             @if (empty($studentattendancesclass->verified_by)) 
             @php 
-            $color = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>1,'date'=>date('Y-m-d',strtotime($date))]))->first();
+            $success = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>1,'date'=>date('Y-m-d',strtotime($date))]))->first();
             @endphp
             @php
-            $colors = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>2,'date'=>date('Y-m-d',strtotime($date))]))->first();
+            $danger = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>2,'date'=>date('Y-m-d',strtotime($date))]))->first();
             @endphp 
             @php
-            $colorss = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>3,'date'=>date('Y-m-d',strtotime($date))]))->first();
+            $warning = (\App\Model\StudentAttendance::where(['student_id'=>$student->id,'attendance_type_id'=>3,'date'=>date('Y-m-d',strtotime($date))]))->first();
+
+             $color ='';
+            if(!empty($success)){
+              $color = 'lebel label-success';
+            }else if(!empty($danger)){
+              $color = 'lebel label-danger';
+            }else if(!empty($warning)){
+               $color = 'lebel label-warning';
+            }
+            if(empty($success)){
+              $color = 'lebel label-success';
+            }else if(empty($danger)){
+              $color = 'lebel label-danger';
+            }else if(empty($warning)){
+               $color = 'lebel label-warning';
+            }
             @endphp
           @endif  
-        <tr style="@if (!empty($color)) background-color: #61e66b @endif @if (!empty($colors)) background-color: #f64d56 @endif @if (!empty($colorss)) background-color:#f8af3b @endif">
+        <tr id="tr-{{ $student->id }}" class="{{ $color }}">
           <td>{{ $student->registration_no }}</td>
           
           <input type="hidden" name="date" value="{{ $date }}">
@@ -68,7 +84,23 @@
             @endif  
                     <td>
                     <label class="radio-inline">
-                      <input type="radio" {{ $checked }} id="{{ $attendancesType->name }}{{ $student->id }}" onclick="$('#subject{{ $student->id }}').prop('checked', true)" class="{{ str_replace(' ', '_', strtolower($attendancesType->name)) }}" name="attendenceType_id[{{ $student->id }}]"  value="{{ $attendancesType->id }}">{{ $attendancesType->name }}</label>
+                      <input type="radio" {{ $checked }} id="{{ $attendancesType->name }}{{ $student->id }}" onclick="$('#subject{{ $student->id }}').prop('checked', true);
+                      if(this.value==1){
+                        $('#tr-{{ $student->id }}').removeClass('lebel label-danger')
+                        $('#tr-{{ $student->id }}').removeClass('lebel label-warning')
+                        $('#tr-{{ $student->id }}').addClass('lebel label-success')
+                      }else if(this.value==2){
+                        $('#tr-{{ $student->id }}').addClass('lebel label-danger')
+                         $('#tr-{{ $student->id }}').removeClass('lebel label-success')
+                        $('#tr-{{ $student->id }}').removeClass('lebel label-warning')
+
+                      }else if(this.value==3){
+                        $('#tr-{{ $student->id }}').removeClass('lebel label-danger')
+                         $('#tr-{{ $student->id }}').removeClass('lebel label-success')
+                        $('#tr-{{ $student->id }}').addClass('lebel label-warning')
+
+                      }
+                      " class="{{ str_replace(' ', '_', strtolower($attendancesType->name)) }}" name="attendenceType_id[{{ $student->id }}]"  value="{{ $attendancesType->id }}">{{ $attendancesType->name }}</label>
                     </td>  
                      
           @endforeach
