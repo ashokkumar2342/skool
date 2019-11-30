@@ -19,7 +19,7 @@
 
               <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
-                  <button type="button" class="btn btn-primary pull-right" onclick="callPopupLarge(this,'{{ route('admin.email.template.addform',1)}}')" style="margin:10px">Add Birthday Template</button>
+                  <button type="button" class="btn btn-primary pull-right" text-editor="summernote" onclick="callPopupLarge(this,'{{ route('admin.email.template.addform',1)}}')" style="margin:10px">Add Birthday Template</button>
                 <button id="btn_outhor_table_show" hidden  onclick="callAjax(this,'{{ route('admin.email.template.table',1) }}','othor_details_table_show')">show </button>
                  <div id="othor_details_table_show">
                     
