@@ -34,7 +34,7 @@
                     <input type="text" name="subject" class="form-control" maxlength="100" placeholder="Subject" value="{{ $EmailTemplates->subject }}">
                      
                    </div> 
-                  <textarea class="textarea" name="message" placeholder="Message"
+                  <textarea class="textarea summernote" name="message" placeholder="Message"
                             style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $EmailTemplates->message }}</textarea>
                
                    <div class="row">

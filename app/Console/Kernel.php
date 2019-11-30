@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
          // $schedule->command('report:generate')->everyMinute();
          // $schedule->command('student:report')->everyMinute();
          $schedule->command('send:sms')->everyMinute();
+         $schedule->command('wishes:send')->dailyAt('7:00');
     }
 
     /**

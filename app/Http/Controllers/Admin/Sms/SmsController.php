@@ -271,7 +271,7 @@ class SmsController extends Controller
         return view('admin.sms.emailTemplate.add_form',compact('templteNames'));
     }
     public function emailTemplateStore(Request $request)
-    {
+    {  
         $rules=[
           
             'name' => 'required', 
