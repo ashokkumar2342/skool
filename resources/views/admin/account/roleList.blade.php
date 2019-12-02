@@ -137,7 +137,7 @@
             <!-- /.box-header -->            
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Default User Role</h3>
+              <h3 class="box-title">Default User Permission</h3>
             </div>             
 
             <!-- /.box-header -->

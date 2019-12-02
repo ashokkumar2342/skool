@@ -75,7 +75,8 @@ class AccountController extends Controller
     	$accounts->password = bcrypt($request['password']);
     	$accounts->mobile = $request->mobile;
     	$accounts->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
-    	 $accounts->save();          
+    	 $accounts->status=1;          
+       $accounts->save();          
        $MailHelper = new MailHelper();
        $array = array();
        $array['email'] = $request->email;
@@ -467,7 +468,7 @@ class AccountController extends Controller
   } 
   public function defaultUserRolrReportGenerate($id)
   {   
-
+     $datas  = DefaultRoleMenu::where('role_id',$id)->where('status',1)->pluck('sub_menu_id')->toArray(); 
      $menus = MinuType::all();
      $subMenus = SubMenu::all();
      $roles = Role::find($id);
@@ -475,7 +476,7 @@ class AccountController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.account.report.result',compact('menus','subMenus','roles','id'));
+        ->loadView('admin.account.report.result',compact('menus','subMenus','roles','datas'));
         return $pdf->stream('menu_report.pdf');
     
   }
