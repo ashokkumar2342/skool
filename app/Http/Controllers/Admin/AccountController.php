@@ -233,6 +233,19 @@ class AccountController extends Controller
         $data= view('admin.account.menuTable',compact('menus','subMenus','usersmenus','id'))->render(); 
         return response($data);
     }
+    public function defaultUserMenuAssignReport($id)
+    {
+
+     $usersmenus = array_pluck(Minu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id'])->toArray(), 'sub_menu_id'); 
+     $menus = MinuType::all();
+     $subMenus = SubMenu::all(); 
+     $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.account.report.user_menu_assign_repot',compact('menus','subMenus','usersmenus','id'));
+        return $pdf->stream('menu_report.pdf');
+    }
 
 
     Public function userClass(){
@@ -475,7 +488,7 @@ class AccountController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.account.report.result',compact('menus','subMenus','roles','datas'));
+        ->loadView('admin.account.report.result',compact('menus','subMenus','roles','datas','id'));
         return $pdf->stream('menu_report.pdf');
     
   }

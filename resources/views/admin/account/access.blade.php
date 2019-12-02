@@ -8,13 +8,13 @@
           <div class="box"> 
             <div class="box-body"> 
                 
-               <form action="{{ route('admin.userAccess.add') }}" method="post" class="add_form form-horizontal" accept-charset="utf-8" no-reset="true"> 
+               <form action="{{ route('admin.userAccess.add') }}" method="post" class="add_form form-horizontal" accept-charset="utf-8" no-reset="true" select-triger="user_select_box"> 
                  {{ csrf_field() }}
               <div class="col-md-4">
                 <div class="form-group col-md-12">
                   {{ Form::label('User','User',['class'=>' control-label']) }}                         
                   <div class="form-group">  
-                         <select class="form-control"  multiselect-form="true"  name="user"  onchange="callAjax(this,'{{route('admin.account.menuTable')}}'+'?id='+this.value,'menu_list')" > 
+                         <select class="form-control" id="user_select_box"  multiselect-form="true"  name="user"  onchange="callAjax(this,'{{route('admin.account.menuTable')}}'+'?id='+this.value,'menu_list')" > 
                           <option value="" disabled selected>Select User</option>
                          @foreach ($users as $user)
                               <option value="{{ $user->id }}">{{ $user->email }} &nbsp;&nbsp;&nbsp;&nbsp;( {{ $user->first_name }} )</option> 
@@ -25,14 +25,10 @@
                 </div> 
               </div>
 
-              <div class="col-md-3" id="menu_list">  
+              <div  id="menu_list">  
                  
               </div>
-              <div class="col-md-2 text-center">  
-                <br>
-                <button type="submit" class="btn btn-primary" style="margin: 7px"> Save</button>
-
-              </div>
+               
 
            </form>
 

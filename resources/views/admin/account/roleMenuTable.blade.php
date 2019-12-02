@@ -1,7 +1,4 @@
-<div class="col-lg-6">
-	
- 
-
+<div class="col-lg-6"> 
  {{ Form::label('sub_menu','Menu',['class'=>' control-label']) }} <br>
 <select class="multiselect" multiple="multiple"  name="sub_menu[]" id="role_id"> 
   @foreach ($menus as $menu) 
