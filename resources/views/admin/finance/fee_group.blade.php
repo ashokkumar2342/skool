@@ -92,7 +92,7 @@
                                          
                                    <div class="form-group">
                                      {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee account name','maxlength'=>'30']) }}
-                                     <span class="fa fa-asterisk"></span>
+                                      
                                      <p class="errorName text-center alert alert-danger hidden"></p>
                                    </div>      
                                     <div class="form-group">

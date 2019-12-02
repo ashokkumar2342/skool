@@ -35,9 +35,8 @@
 	                    </div>                     
 	                    <div class="col-lg-4">                         
 	                        <div class="form-group">
-                            <label>Sorting Order No </label>
-                            <span class="fa fa-asterisk"></span>
-	                          {{ Form::text('sorting_order_no','',['class'=>'form-control','id'=>'sorting_order_no','rows'=>1, 'placeholder'=>'Enter Sorting Order No','maxlength'=>'2','onkeypress'=>'return event.charSorting >= 48 && event.charSorting <= 57']) }}
+                            <label>Sorting Order No </label> 
+	                          {{ Form::text('sorting_order_no','',['class'=>'form-control','id'=>'sorting_order_no','rows'=>1, 'placeholder'=>"Enter Sorting Order No",'autocomplete'=>'off','maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
 	                          <p class="errorDescription text-center alert alert-danger hidden"></p>
 	                        </div>
 	                    </div>
@@ -80,11 +79,11 @@
                         		<td>{{ ++$loop->index }}</td>
                         		<td>{{ $feeAccount->code }}</td>
                         		<td>{{ $feeAccount->name }}</td>
-                            <td>{{ $feeAccount->orderby_no }}</td>
+                            <td>{{ $feeAccount->sorting_order_no }}</td>
                         		<td>{{ $feeAccount->description }}</td>
                         		<td> 
                                @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
-                        			<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $feeAccount->id }}"  data-code="{{ $feeAccount->code }}" data-name="{{ $feeAccount->name }}" data-description="{{ $feeAccount->description }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
+                        			<button type="button" class="btn_edit btn btn-warning btn-xs" data-toggle="modal" data-id="{{ $feeAccount->id }}"  data-code="{{ $feeAccount->code }}" data-name="{{ $feeAccount->name }}" data-sorting="{{ $feeAccount->sorting_order_no }}" data-description="{{ $feeAccount->description }}" data-target="#add_parent"><i class="fa fa-edit"></i> </button>
                               @endif
 
                                @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
@@ -127,12 +126,13 @@
                                      {{ Form::text('name','',['class'=>'form-control','id'=>'edit_name','rows'=>4, 'placeholder'=>'Enter fee account name','maxlength'=>'30']) }}
                                      <p class="errorName text-center alert alert-danger hidden"></p>
                                    </div>      
-                                    <div class="form-group">
-                                      <label>Sorting Order No </label>
-                                      <span class="fa fa-asterisk"></span>
-                                      {{ Form::text('sorting_order_no','',['class'=>'form-control','id'=>'edit_orderby_no','rows'=>1, 'placeholder'=>'Enter Orderby No','maxlength'=>'2','onkeypress'=>'return event.charSorting >= 48 && event.charSorting <= 57']) }}
-                                      <p class="errorDescription text-center alert alert-danger hidden"></p> 
-                                </div>
+                                                 
+                                      <div class="form-group">
+                                         <label>Sorting Order No </label> 
+                                        {{ Form::text('sorting_order_no','',['class'=>'form-control','id'=>'edit_sorting_order_no','rows'=>1, 'placeholder'=>"Enter Sorting Order No",'maxlength'=>'2','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
+                                        <p class="errorDescription text-center alert alert-danger hidden"></p>
+                                      </div>
+                                  
                                 <div class="form-group">
                                   <label>Description</label>
                                       {{ Form::textarea('description','',['class'=>'form-control','id'=>'edit_description','rows'=>1, 'placeholder'=>'Enter Description','maxlength'=>'200']) }}
@@ -225,7 +225,7 @@
          $('#edit_id').val($(this).data('id'));        
          $('#edit_code').val($(this).data('code'));        
          $('#edit_name').val($(this).data('name'));        
-         $('#edit_orderby_no').val($(this).data('orderby_no'));        
+         $('#edit_sorting_order_no').val($(this).data('sorting'));        
          $('#edit_description').val($(this).data('description'));        
                
          $('#fee_account_model').modal('show');

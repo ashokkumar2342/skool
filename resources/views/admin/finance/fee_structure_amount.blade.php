@@ -30,7 +30,7 @@
 	                       <div class="form-group">
                            {{ Form::label('amount','Amount',['class'=>'form-label']) }}
                            <span class="fa fa-asterisk"></span>                          
-	                         {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>4, 'placeholder'=>'Enter Amount','maxlength'=>'6','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
+	                         {{ Form::text('amount','',['class'=>'form-control','id'=>'amount','rows'=>4, 'placeholder'=>'Enter Amount','maxlength'=>'7','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
 	                         <p class="errorName text-center alert alert-danger hidden"></p>
 	                       </div>                                         
 	                    </div>
@@ -117,7 +117,7 @@
                                <div class="form-group">
                                 {{ Form::label('amount','Amount',['class'=>' control-label']) }}
                                 <span class="fa fa-asterisk"></span>                                
-                                 {{ Form::text('amount','',['class'=>'form-control','id'=>'edit_amount','rows'=>4, 'placeholder'=>'Enter fee structure amount','maxlength'=>'6','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
+                                 {{ Form::text('amount','',['class'=>'form-control','id'=>'edit_amount','rows'=>4, 'placeholder'=>'Enter fee structure amount','maxlength'=>'7','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                                  <p class="errorName text-center alert alert-danger hidden"></p>
                                </div>      
                               
