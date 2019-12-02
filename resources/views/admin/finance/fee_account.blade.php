@@ -44,7 +44,7 @@
                           <div class="form-group">
                             <label>Description</label>
 
-                            {{ Form::textarea('description','',['class'=>'form-control','id'=>'description','rows'=>1, 'placeholder'=>'Enter Description','maxlength'=>'250']) }}
+                            {{ Form::textarea('description','',['class'=>'form-control','id'=>'description','rows'=>1, 'placeholder'=>'Enter Description','maxlength'=>'200']) }}
                             <p class="errorDescription text-center alert alert-danger hidden"></p>
                           </div>
                       </div>

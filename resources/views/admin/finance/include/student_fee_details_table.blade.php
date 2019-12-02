@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table" id="student_fee_datatable">
 	<thead>
 		<tr>
 			<th>Name</th>

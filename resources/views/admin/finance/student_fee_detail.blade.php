@@ -9,11 +9,12 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-                  <form success-content-id="student_fee_details_table" class="form-vertical add_form" action="{{ route('admin.studentFeeDetail.post') }}" method="post">
+                  <form success-content-id="student_fee_details_table" class="form-vertical add_form" action="{{ route('admin.studentFeeDetail.post') }}" method="post" data-table="student_fee_datatable">
                     {{ csrf_field() }}
                          <div class="col-lg-3">                           
                              <div class="form-group">
                               {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
+                              <span class="fa fa-asterisk"></span>
                                {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control','placeholder'=>"Select Academic Year"]) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
@@ -21,6 +22,7 @@
                          <div class="col-lg-3">                           
                              <div class="form-group">
                               {{ Form::label('class_id','Class',['class'=>' control-label']) }}
+                              <span class="fa fa-asterisk"></span>
                                {{ Form::select('class_id',$classess,null,['class'=>'form-control','placeholder'=>"Select Class"]) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
@@ -28,20 +30,20 @@
                          <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('from_date2','From Date',['class'=>' control-label']) }}
-                               {{ Form::text('from_date','',['class'=>'form-control datepicker','id'=>'from_date','placeholder'=>"dd-mm-yyyy"]) }}
+                               {{ Form::text('from_date','',['class'=>'form-control datepicker','id'=>'from_date','readonly','placeholder'=>"dd-mm-yyyy"]) }}
                                <p class="from_date text-center alert alert-danger hidden"></p>
                              </div>    
                         </div> 
                          <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('to_date','To Date',['class'=>' control-label ']) }}
-                               {{ Form::text('to_date','',['class'=>'form-control datepicker','placeholder'=>"dd-mm-yyyy"]) }}
+                               {{ Form::text('to_date','',['class'=>'form-control datepicker','readonly','placeholder'=>"dd-mm-yyyy"]) }}
                                <p class="to_date text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>  
                                                                                            
                        <div class="col-lg-2" style="padding-top: 20px;">                                             
-                       <button class="btn btn-success" type="submit" >Create</button> 
+                       <button class="btn btn-success" type="submit" >Submit</button> 
                       </div>                     
                   </form> 
                 </div> 
@@ -66,6 +68,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush 
  @push('scripts')
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
  <script> 
@@ -73,6 +76,7 @@
  
  </script>
   <script>
+    $('#student_fee_datatable').DataTable();       
     $('#btn_student_fee_detail_create').click(function(event) {        
       $.ajaxSetup({
                 headers: {

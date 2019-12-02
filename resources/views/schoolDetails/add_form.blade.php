@@ -45,7 +45,7 @@
                     </div> 
                     <div class="form-group  col-lg-4">
                       <label>Address</label>
-                      <textarea  name="address" class="form-control"></textarea> 
+                      <textarea  name="address" class="form-control">{{ @$schoolDetail->address }}</textarea> 
                     </div>  
                    </div>
                    <div class="row">

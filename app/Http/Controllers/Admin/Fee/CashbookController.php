@@ -48,7 +48,7 @@ class CashbookController extends Controller
 
     public function daterange(Request $request)
     {
-         return $request;
+          
         $date  = explode('-',$request->daterange);// dateRange is you string
         $dateFrom = date( 'Y-m-d', strtotime($date[0]));
         $dateTo = date( 'Y-m-d', strtotime($date[1])); 

@@ -172,11 +172,16 @@ class CertificateIssueDetailController extends Controller
      * @param  \App\Model\CertificateIssueDetail  $certificateIssueDetail
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function verifyStatus($id)
     {  
+        $admins= Auth::guard('admin')->user()->id;
          $certificate = CertificateIssueDetail::find($id);
-         $students=Student::where('student_status_id',1)->get();
-         return view('admin.certificate.certificate_edit',compact('certificate','students'));
+         $certificate->status = 2;
+         $certificate->virify_by =$admins;
+         $certificate->save();
+         $response=['status'=>1,'msg'=>'Virify Successfully'];
+         return response()->json($response);
+          
 
     }
 
@@ -187,137 +192,39 @@ class CertificateIssueDetailController extends Controller
      * @param  \App\Model\CertificateIssueDetail  $certificateIssueDetail
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function verifyRejectStatus($id)
     {
-         $admin= Auth::guard('admin')->user()->id;
-          if ($request->file('attachment') != null) 
-        {
-            
-            $rules=[
-          
-            "registration_no" => 'required|max:199',            
-              
-             "date" => 'required',
-             "certificate_type" => 'required|max:199',
-             "reason" => 'required|max:199',
-             "attachment" => 'mimes:pdf|max:1024', 
-       
-        ];
-
-        $validator = Validator::make($request->all(),$rules);
-        if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            $response=array();
-            $response["status"]=0;
-            $response["msg"]=$errors[0];
-            return response()->json($response);// response as json
-        }
-        else {
-          
-          $student = Student::where('registration_no',$request->registration_no)->first();  
-            $certificate =  CertificateIssueDetail::find($id);
-            $file = $request->file('attachment');
-            $file->store('student/document');
-            $certificate->attachment = $file->hashName(); 
-             
-             $certificate->date= $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
-             $certificate->reason = $request->reason;
-             $certificate->slc_no = $request->slc_no;
-             $certificate->udise_code = $request->udise_code;
-             $certificate->department_school_code = $request->department_school_code;
-             $certificate->file_no = $request->file_no;
-             $certificate->certificate_type = $request->certificate_type;
-             $certificate->status =2;
-             $certificate->virify_by =$admin;
-             $certificate->save();
-               $response=['status'=>1,'msg'=>'Virify Successfully'];
-            return response()->json($response);
-        }   
-        }
-        else {
-            // return $request->all();
-
-          $rules=[
-          
-            "registration_no" => 'required|max:199',            
-              
-             "date" => 'required',
-             "certificate_type" => 'required|max:199',
-             "reason" => 'required|max:199',
-             "attachment" => 'mimes:pdf|max:1024', 
-       
-        ];
-
-        $validator = Validator::make($request->all(),$rules);
-        if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            $response=array();
-            $response["status"]=0;
-            $response["msg"]=$errors[0];
-            return response()->json($response);// response as json
-        }
-        else {
-            $student = Student::where('registration_no',$request->registration_no)->first();  
-            $certificate =  CertificateIssueDetail::find($id);
-            // $file = $request->file('attachment');
-            // $file->store('student/document');
-            // $certificate->attachment = $file->hashName(); 
-              
-             $certificate->date= $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
-             $certificate->reason = $request->reason;
-             $certificate->slc_no = $request->slc_no;
-             $certificate->udise_code = $request->udise_code;
-             $certificate->department_school_code = $request->department_school_code;
-             $certificate->file_no = $request->file_no;
-             $certificate->certificate_type = $request->certificate_type;
-             $certificate->status =2;
-             $certificate->virify_by =$admin;
-                 $certificate->save(); 
-               $response=['status'=>1,'msg'=>'Virify Successfully'];
-               return response()->json($response);
-           }
-
-        }    
+        $admins= Auth::guard('admin')->user()->id;
+        $certificate = CertificateIssueDetail::find($id);
+         $certificate->status =4;
+         $certificate->reject_by =$admins;
+         $certificate->save();
+         $response=['status'=>1,'msg'=>'Reject Successfully'];
+         return response()->json($response);   
+         
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\CertificateIssueDetail  $certificateIssueDetail
-     * @return \Illuminate\Http\Response
-     */
-    public function reject(CertificateIssueDetail $certificateIssueDetail,$id)
-    { 
-         $admins= Auth::guard('admin')->user()->id;
-          $CertificateIssueDetail=CertificateIssueDetail::find($id);
-          $certificate->reject_by=$admins;
-         $CertificateIssueDetail->status=4;
-         $CertificateIssueDetail->save();
-          return redirect()->back()->with(['message'=>'Reject Successfully','class'=>'success']);
-    }
-
-    //download
+   
+     
     public function download(CertificateIssueDetail $certificate)
     { 
-          
+         
         $st=new Student();
         $student=$st->getStudentDetailsById($certificate->student_id); 
         $CertificateIssueDetail=CertificateIssueDetail::where('student_id',$certificate->student_id)->first();
          
 
            $documentUrl = Storage_path() . '/app/student/document/certificate';
-           @mkdir($documentUrl, 0755, true); 
-                if ($certificate->certificate_type==4) {
-                $pdf = PDF::loadView('admin.certificate.tuitionfee.date_of_birth_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_date_of_birth_certificate.pdf'); 
-                return $pdf->stream('date_of_birth_certificate.pdf'); 
-                 } if ($certificate->certificate_type==2) {
-                $pdf = PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student','CertificateIssueDetail'))->save($documentUrl.'/'.$certificate->students->registration_no.'_leaving_certificate.pdf'); 
-                return $pdf->stream('leaving_certificate.pdf'); 
-                 } if ($certificate->certificate_type==3) {
-                $pdf = PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_character_certificate.pdf'); 
-                return $pdf->stream('character_certificate.pdf'); 
-                
+            if ($certificate->certificate_type==4) {
+              return response()->file($documentUrl.'/'.$certificate->students->registration_no.'_date_of_birth_certificate.pdf');
+             } 
+             if ($certificate->certificate_type==3) {
+              return response()->file($documentUrl.'/'.$certificate->students->registration_no.'_character_certificate.pdf');
+             } 
+             if ($certificate->certificate_type==2) {
+              return response()->file($documentUrl.'/'.$certificate->students->registration_no.'_leaving_certificate.pdf');
              }
+              
              
     }
 
@@ -347,107 +254,43 @@ class CertificateIssueDetailController extends Controller
         
     }
     public function approvalCheck(Request $request,$id)
-    {     $certificate = CertificateIssueDetail::find($id);
-         $students=Student::where('student_status_id',1)->get();
-         return view('admin.certificate.approval_check',compact('certificate','students'));
-         
+    {    $admin= Auth::guard('admin')->user()->id; 
+         $certificate = CertificateIssueDetail::find($id);
+          $certificate->status =3;
+          $certificate->approval_by =$admin;
+          $certificate->save();
+          $st=new Student();
+        $student=$st->getStudentDetailsById($certificate->student_id); 
+        $CertificateIssueDetail=CertificateIssueDetail::where('student_id',$certificate->student_id)->first(); 
+           $documentUrl = Storage_path() . '/app/student/document/certificate';
+           @mkdir($documentUrl, 0755, true); 
+                if ($certificate->certificate_type==4) {
+                $pdf = PDF::loadView('admin.certificate.tuitionfee.date_of_birth_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_date_of_birth_certificate.pdf'); 
+                 
+                 } if ($certificate->certificate_type==2) {
+                $pdf = PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student','CertificateIssueDetail'))->save($documentUrl.'/'.$certificate->students->registration_no.'_leaving_certificate.pdf'); 
+                 
+                 } if ($certificate->certificate_type==3) {
+                $pdf = PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_character_certificate.pdf'); 
+                 
+                
+             }
+          return redirect()->back()->with(['message'=>'Approval Successfully','class'=>'success']); 
 
     }
      
-   public function approvalStatus(Request $request,$id)
+   public function approvalReject(Request $request,$id)
     {
         
-         $admin= Auth::guard('admin')->user()->id;
-          if ($request->file('attachment') != null) 
-        {
-            
-            $rules=[
+         $admin= Auth::guard('admin')->user()->id; 
+         $certificate = CertificateIssueDetail::find($id);
+          $certificate->status =4;
+          $certificate->reject_by =$admin;
+          $certificate->save();
+          return redirect()->back()->with(['message'=>'Reject Successfully','class'=>'success']); 
           
-            "registration_no" => 'required|max:199',            
-              
-             "date" => 'required',
-             "certificate_type" => 'required|max:199',
-             "reason" => 'required|max:199',
-             "attachment" => 'mimes:pdf|max:1024', 
-       
-        ];
 
-        $validator = Validator::make($request->all(),$rules);
-        if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            $response=array();
-            $response["status"]=0;
-            $response["msg"]=$errors[0];
-            return response()->json($response);// response as json
-        }
-        else {
-          
-          $student = Student::where('registration_no',$request->registration_no)->first();  
-            $certificate =  CertificateIssueDetail::find($id);
-            $file = $request->file('attachment');
-            $file->store('student/document');
-            $certificate->attachment = $file->hashName(); 
-             
-             $certificate->date= $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
-             $certificate->reason = $request->reason;
-             $certificate->slc_no = $request->slc_no;
-             $certificate->udise_code = $request->udise_code;
-             $certificate->department_school_code = $request->department_school_code;
-             $certificate->file_no = $request->file_no;
-             $certificate->certificate_type = $request->certificate_type;
-             $certificate->status =3;
-             $certificate->virify_by =$admin;
-             $certificate->save();
-               $this->CertificateCardMail($request->certificate_type,$id);
-               $response=['status'=>1,'msg'=>'Approval Successfully'];
-            return response()->json($response);
-        }   
-        }
-        else {
-            // return $request->all();
-
-          $rules=[
-          
-            "registration_no" => 'required|max:199',            
-              
-             "date" => 'required',
-             "certificate_type" => 'required|max:199',
-             "reason" => 'required|max:199',
-             "attachment" => 'mimes:pdf|max:1024', 
-       
-        ];
-
-        $validator = Validator::make($request->all(),$rules);
-        if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            $response=array();
-            $response["status"]=0;
-            $response["msg"]=$errors[0];
-            return response()->json($response);// response as json
-        }
-        else {
-            $student = Student::where('registration_no',$request->registration_no)->first();  
-            $certificate =  CertificateIssueDetail::find($id);
-            // $file = $request->file('attachment');
-            // $file->store('student/document');
-            // $certificate->attachment = $file->hashName(); 
-              
-             $certificate->date= $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
-             $certificate->reason = $request->reason;
-             $certificate->slc_no = $request->slc_no;
-             $certificate->udise_code = $request->udise_code;
-             $certificate->department_school_code = $request->department_school_code;
-             $certificate->file_no = $request->file_no;
-             $certificate->certificate_type = $request->certificate_type;
-             $certificate->status =3;
-             $certificate->virify_by =$admin;
-                 // $certificate->save();
-              $this->CertificateCardMail($request->certificate_type,$id); 
-               $response=['status'=>1,'msg'=>'Approval Successfully'];
-               return response()->json($response);
-           }
-
-        }    
+         
     }
     public function checkStatus()
     {

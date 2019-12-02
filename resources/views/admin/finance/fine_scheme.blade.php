@@ -68,8 +68,8 @@
                            </div>                                         
                         </div>                     
 	                   
-	                     <div class="col-lg-12 text-right">                                             
-	                     <button class="btn btn-success" type="button" id="btn_fine_scheme_create">Create</button> 
+	                     <div class="col-lg-12 text-center">                                             
+	                     <button class="btn btn-success" type="button" id="btn_fine_scheme_create">Submit</button> 
 	                    </div>                     
 	                </form> 
                 </div> 
@@ -216,8 +216,10 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush 
  @push('scripts')
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
   <script>
-  	$('#btn_fine_scheme_create').click(function(event) {  		  
+  	$('#fine_scheme_table').DataTable();		  
+    $('#btn_fine_scheme_create').click(function(event) {        
   		$.ajaxSetup({
   		          headers: {
   		          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

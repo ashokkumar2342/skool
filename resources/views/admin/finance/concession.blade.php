@@ -52,7 +52,7 @@
                     <table id="concession_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sn</th>                                 
+                                <th>SR.No.</th>                                 
                                 <th>Name</th>
                                 <th>Amount</th>
                                 <th>Percentage</th>
@@ -133,12 +133,14 @@
     <!-- /.content -->
 @endsection
 @push('links')
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"> 
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-@endpush 
- @push('scripts')
+@endpush
+@push('scripts')
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
   <script>
-  	$('#btn_concession_create').click(function(event) {  		  
+  	$('#concession_table').DataTable();  		  
+    $('#btn_concession_create').click(function(event) {       
   		$.ajaxSetup({
   		          headers: {
   		          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

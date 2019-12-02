@@ -90,8 +90,12 @@
                          @endif 
                    </td> --}}
                     {{-- <td><button class="btn_add_remarks btn btn-success btn-xs" data-id="{{ $certificate->id }}">Remarks</button></td> --}}
-                    <td>  {{-- <a class="btn btn-success btn-xs" title="Certificate Approval" href="{{ route('admin.student.attachment.approval.status',$certificate->id) }}">Approval</a> --}}
-                      <button class="btn btn-primary btn-xs" select2="true" title="virify" onclick="callPopupLarge(this,'{{ route('admin.student.attachment.approval.check',$certificate->id) }}')">Approval</button>
+                    <td class="text-nowrap">  {{-- <a class="btn btn-success btn-xs" title="Certificate Approval" href="{{ route('admin.student.attachment.approval.status',$certificate->id) }}">Approval</a> --}}
+
+                      
+                      <a href="{{ route('admin.student.attachment.approval.check',$certificate->id) }}"class="btn btn-primary btn-xs" success-popup="true" title="Approval" >Approval</a>
+                      <a href="{{ route('admin.student.attachment.approval.status',$certificate->id) }}"class="btn btn-danger btn-xs" success-popup="true" title="Reject"  >Reject</a>
+ 
                     </td>
                      
                      

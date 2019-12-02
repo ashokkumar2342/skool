@@ -86,7 +86,9 @@
                 @endphp --}}
                 {{-- @foreach ($signatureStamp as $signatureStam) 
                    @if ($certificate->certificate_type==$signatureStam->certificate_type_id)  --}}
-                    <td> <button class="btn btn-primary btn-xs" select2="true" title="virify" onclick="callPopupLarge(this,'{{ route('admin.student.certificateIssu.edit',$certificate->id) }}')">Virify</button></td>
+                    <td class="text-nowrap"> 
+                      <button class="btn btn-primary btn-xs" success-popup="true" button-click="btn_certificateIssu_apply_table_show" title="virify" onclick="callAjax(this,'{{ route('admin.student.certificateIssu.edit',$certificate->id) }}')">Virify</button> 
+                     <button class="btn btn-danger btn-xs" success-popup="true" button-click="btn_certificateIssu_apply_table_show" title="Reject" onclick="callAjax(this,'{{ route('admin.student.certificateIssu.update',$certificate->id) }}')">Reject</button></td>
                   {{--  @endif
                 @endforeach --}}
                      

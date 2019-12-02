@@ -144,10 +144,12 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush 
  @push('scripts')
+  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
  <script>
  
+    $( "#fee_structure_amount_table" ).DataTable();
     $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
     
  

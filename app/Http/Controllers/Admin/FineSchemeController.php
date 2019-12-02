@@ -108,8 +108,8 @@ class FineSchemeController extends Controller
         $validator = Validator::make($request->all(), [
         
             
-            'code' => 'required|max:3|unique:fine_schemes', 
-            'name' => 'required|max:30|unique:fine_schemes', 
+            'code' => 'required|max:3|unique:fine_schemes,code,'.$request->id, 
+            'name' => 'required|max:30|unique:fine_schemes,name,'.$request->id, 
             'fine_amount1' => 'required|max:10', 
             'fine_amount2' => 'required|max:10', 
             'fine_amount3' => 'required|max:10', 
