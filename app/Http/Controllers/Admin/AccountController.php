@@ -83,9 +83,8 @@ class AccountController extends Controller
        $array['password'] = $request->password;
       $MailHelper->welcomemail($accounts->id,$array);
       event(new SmsEvent($request->mobile,'User Id Your Email and Password:'.$request->password));
-      $response['msg'] = 'Account created Successfully';
-      $response['status'] = 1;
-      return response()->json($response);    
+     $response=['status'=>1,'msg'=>'Account Created Successfully'];
+            return response()->json($response);   
     }
 
     // public function defaultMenuAccess($roleId,$userId){
