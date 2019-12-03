@@ -23,6 +23,7 @@
                   <label>Certificate Type</label>
                   <select name="certificate_type_id" class="form-control">
                     <option selected disabled>Select Certificate Type</option> 
+                    <option value="0">All</option> 
                     <option value="2">School Leaving Certificate</option> 
                     <option value="3">Character Certificate</option> 
                     <option value="4">Date of Birth Certificate</option>  

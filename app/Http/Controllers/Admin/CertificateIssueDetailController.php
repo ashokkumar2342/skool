@@ -78,80 +78,52 @@ class CertificateIssueDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  $admin= Auth::guard('admin')->user()->id;
-        if ($request->file('attachment') != null) 
-        {
-           
-         $this->validate($request,[ 
-            
-             "registration_no" => 'required|max:199',            
-              
-             "date" => 'required',
-             "certificate_type" => 'required|max:199',
-             "reason" => 'required|max:199',
-             "attachment" => 'mimes:pdf|max:1024',
-         ]);   
-          
-          $student = Student::where('id',$request->registration_no)->first();  
-            $certificate = new CertificateIssueDetail();
-            $file = $request->file('attachment');
-            $file->store('student/document');
-            $certificate->attachment = $file->hashName(); 
-             $certificate->academic_year_id =$request->academic_year_id; 
-             $certificate->student_id =  $student->id; 
-             $certificate->date= $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
-             $certificate->reason = $request->reason;
-             $certificate->slc_no = $request->slc_no;
-             $certificate->udise_code = $request->udise_code;
-             $certificate->department_school_code = $request->department_school_code;
-             $certificate->file_no = $request->file_no;
-             $certificate->certificate_type = $request->certificate_type;
-             $certificate->apply_by = $admin;
-                if($certificate->save())
-                {
-
-                 return redirect()->back()->with(['message'=>'Apply Certificate Successfully','class'=>'success']);
-                } 
-               
-        }
-        else {
-            // return $request->all();
-
-          $this->validate($request,[ 
-            
-             "registration_no" => 'required|max:199',            
-              
-             "date" => 'required',
-             "certificate_type" => 'required|max:199',
-             "reason" => 'required|max:199',
-             // "attachment" => 'mimes:pdf|max:1024',
-         ]);   
-          
-            $student = Student::where('id',$request->registration_no)->first();  
-            $certificate = new CertificateIssueDetail();
-            // $file = $request->file('attachment');
-            // $file->store('student/document');
-            // $certificate->attachment = $file->hashName();
-             $certificate->academic_year_id =$request->academic_year_id; 
-             $certificate->student_id =  $student->id; 
-             $certificate->date= $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
-             $certificate->reason = $request->reason;
-             $certificate->slc_no = $request->slc_no;
-             $certificate->udise_code = $request->udise_code;
-             $certificate->department_school_code = $request->department_school_code;
-             $certificate->file_no = $request->file_no;
-             $certificate->certificate_type = $request->certificate_type;
-             $certificate->apply_by = $admin;
-                if($certificate->save())
-                {
-
-                 return redirect()->back()->with(['message'=>'Apply Certificate Successfully','class'=>'success']);
-                } 
-                 
+    {  $admin= Auth::guard('admin')->user()->id;   
+      $rules=[
         
+            "academic_year_id" => 'required',            
+             "registration_no" => 'required|max:20', 
+             "date" => 'required|date',
+             "certificate_type" => 'required',
+             
+       
+      ];
 
-        }    
-                 
+      $validator = Validator::make($request->all(),$rules);
+      if ($validator->fails()) {
+          $errors = $validator->errors()->all();
+          $response=array();
+          $response["status"]=0;
+          $response["msg"]=$errors[0];
+          return response()->json($response);// response as json
+      }
+        else {
+             $student = Student::where('id',$request->registration_no)->first();  
+            $certificate = new CertificateIssueDetail(); 
+             $certificate->academic_year_id =$request->academic_year_id; 
+             $certificate->student_id =  $student->id; 
+             $certificate->date= $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
+             $certificate->reason = $request->reason;
+             $certificate->slc_no = $request->slc_no;
+             $certificate->udise_code = $request->udise_code;
+             $certificate->department_school_code = $request->department_school_code;
+             $certificate->file_no = $request->file_no;
+             $certificate->certificate_type = $request->certificate_type;
+             $certificate->apply_by = $admin; 
+             if ($request->hasFile('attachment')) { 
+                    $attachment=$request->attachment;
+                    $filename='attech'.date('d-m-Y').time().'.pdf'; 
+                    $attachment->storeAs('app/student/document',$filename);
+                    $certificate->attachment='app/student/document'.$filename; 
+                    $certificate->save();
+                    $response=['status'=>1,'msg'=>'Apply Certificate Successfully'];
+                    return response()->json($response);
+             } 
+
+        }
+        $certificate->save();
+                $response=['status'=>1,'msg'=>'Apply Certificate Successfully'];
+                return response()->json($response);           
 
     }
 
@@ -299,7 +271,9 @@ class CertificateIssueDetailController extends Controller
     }
     public function checkStatusShow(Request $request)
     {
-        if ($request->registration_no!=null &&  $request->certificate_type_id!=null){
+        if ($request->registration_no!=null &&  $request->certificate_type_id==0){
+            $CertificateIssueDetail =  CertificateIssueDetail::where('student_id',$request->registration_no)->get(); 
+        }elseif ($request->registration_no!=null &&  $request->certificate_type_id!=null){
             $CertificateIssueDetail =  CertificateIssueDetail::where('student_id',$request->registration_no)->where('certificate_type',$request->certificate_type_id)->get();  
         }elseif ($request->registration_no!=null){
             $CertificateIssueDetail =  CertificateIssueDetail::where('student_id',$request->registration_no)->get();  
