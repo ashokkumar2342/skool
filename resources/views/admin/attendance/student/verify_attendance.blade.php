@@ -58,13 +58,13 @@
             }else if(!empty($warning)){
                $color = 'lebel label-warning';
             }
-           else if(empty($success)){
-              $color = 'lebel label-success';
-            }else if(empty($danger)){
-              $color = 'lebel label-danger';
-            }else if(empty($warning)){
-               $color = 'lebel label-warning';
-            }
+           // else if(empty($success)){
+           //    $color = 'lebel label-success';
+           //  }else if(empty($danger)){
+           //    $color = 'lebel label-danger';
+           //  }else if(empty($warning)){
+           //     $color = 'lebel label-warning';
+           //  }
           @endphp
         <tr id="tr-{{ $student->id }}" class="{{ $color }}">
           <td>{{ $student->registration_no }}</td>
