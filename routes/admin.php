@@ -386,6 +386,7 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('show/{certificate}', 'CertificateIssueDetailController@show')->name('admin.student.certificateIssu.show'); 
 	     Route::get('update/{id}', 'CertificateIssueDetailController@verifyRejectStatus')->name('admin.student.certificateIssu.update');
 	     Route::get('download/{certificate}', 'CertificateIssueDetailController@download')->name('admin.student.attachment.download');
+	     Route::get('attachdownload/{id?}', 'CertificateIssueDetailController@attachDownload')->name('admin.student.attachment.attachdownload');
 	     Route::get('verify', 'CertificateIssueDetailController@verify')->name('admin.student.attachment.virify');
 	     Route::get('approval', 'CertificateIssueDetailController@approval')->name('admin.student.attachment.approval');
 	     Route::get('aproval-check/{id}', 'CertificateIssueDetailController@approvalCheck')->name('admin.student.attachment.approval.check');

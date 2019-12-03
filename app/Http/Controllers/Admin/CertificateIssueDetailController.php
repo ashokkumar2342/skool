@@ -113,8 +113,8 @@ class CertificateIssueDetailController extends Controller
              if ($request->hasFile('attachment')) { 
                     $attachment=$request->attachment;
                     $filename='attech'.date('d-m-Y').time().'.pdf'; 
-                    $attachment->storeAs('app/student/document',$filename);
-                    $certificate->attachment='app/student/document'.$filename; 
+                    $attachment->storeAs('student/document/certificate/attech/',$filename);
+                    $certificate->attachment=$filename; 
                     $certificate->save();
                     $response=['status'=>1,'msg'=>'Apply Certificate Successfully'];
                     return response()->json($response);
@@ -179,13 +179,10 @@ class CertificateIssueDetailController extends Controller
    
      
     public function download(CertificateIssueDetail $certificate)
-    { 
-         
+    {  
         $st=new Student();
         $student=$st->getStudentDetailsById($certificate->student_id); 
-        $CertificateIssueDetail=CertificateIssueDetail::where('student_id',$certificate->student_id)->first();
-         
-
+        $CertificateIssueDetail=CertificateIssueDetail::where('student_id',$certificate->student_id)->first(); 
            $documentUrl = Storage_path() . '/app/student/document/certificate';
             if ($certificate->certificate_type==4) {
               return response()->file($documentUrl.'/'.$certificate->students->registration_no.'_date_of_birth_certificate.pdf');
@@ -195,9 +192,15 @@ class CertificateIssueDetailController extends Controller
              } 
              if ($certificate->certificate_type==2) {
               return response()->file($documentUrl.'/'.$certificate->students->registration_no.'_leaving_certificate.pdf');
-             }
-              
+             } 
              
+    }
+    public function attachDownload($id)
+    { 
+         $documentUrl = Storage_path() . '/app/student/document/certificate/attech/'.$id;
+            
+              return response()->file($documentUrl);
+           
     }
 
     //verify
