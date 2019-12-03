@@ -240,25 +240,13 @@ class CertificateIssueDetailController extends Controller
            $documentUrl = Storage_path() . '/app/student/document/certificate';
            @mkdir($documentUrl, 0755, true); 
                 if ($certificate->certificate_type==4) {
-                $pdf=PDF::setOptions([
-            'logOutputFile' => storage_path('logs/log.htm'),
-            'tempDir' => storage_path('logs/')
-        ])
-        ->loadView('admin.certificate.tuitionfee.date_of_birth_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_date_of_birth_certificate.pdf'); 
+                $pdf=PDF::loadView('admin.certificate.tuitionfee.date_of_birth_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_date_of_birth_certificate.pdf'); 
                  
                  } elseif ($certificate->certificate_type==2) {
-                $pdf=PDF::setOptions([
-            'logOutputFile' => storage_path('logs/log.htm'),
-            'tempDir' => storage_path('logs/')
-        ])
-        ->loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student','CertificateIssueDetail'))->save($documentUrl.'/'.$certificate->students->registration_no.'_leaving_certificate.pdf'); 
+                $pdf=PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student','CertificateIssueDetail'))->save($documentUrl.'/'.$certificate->students->registration_no.'_leaving_certificate.pdf'); 
                  
                  } elseif ($certificate->certificate_type==3) {
-                $pdf=PDF::setOptions([
-            'logOutputFile' => storage_path('logs/log.htm'),
-            'tempDir' => storage_path('logs/')
-        ])
-        ->loadView('admin.certificate.tuitionfee.character_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_character_certificate.pdf'); 
+                $pdf=PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_character_certificate.pdf'); 
                  
                 
              }
