@@ -512,7 +512,24 @@ class MyFuncs {
               
 
   }
-       // read write delete permission check
+     // all permission check
+  public static function isPermission(){ 
+    $user =Auth::guard('admin')->user();
+    $routeName= Route::currentRouteName();
+    $subMenu =SubMenu::where('url',$routeName)->first(); 
+       if (empty($subMenu)) {
+           return true;
+       }else{
+            $menu= Minu::where('admin_id',$user->id)->where('status',1)->where('sub_menu_id',$subMenu->id)->first();
+            if (empty($menu)) {
+                return false;
+            }else{
+                return true;
+            }
+       }          
+
+   }
+// read write delete permission check
   public static function userHasMinu(){ 
     return array_pluck(Minu::where('admin_id',Auth::guard('admin')->user()->id)->where('status',1)->distinct()->get(['minu_id'])->toArray(), 'minu_id');
                
