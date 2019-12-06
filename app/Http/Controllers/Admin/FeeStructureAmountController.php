@@ -19,10 +19,10 @@ class FeeStructureAmountController extends Controller
     public function index()
     {
         $feeStructureAmounts = FeeStructureAmount::OrderBy('created_at')->paginate(20);         
-        $acardemicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(), 'name', 'id');
-        $feeStructur = array_pluck(FeeStructure::get(['id','name'])->toArray(),'name', 'id');
-         
-        return view('admin.finance.fee_structure_amount',compact('feeStructureAmounts','acardemicYear','feeStructur'));
+        $acardemicYears = AcademicYear::all();
+        $acardemicYearsSet = AcademicYear::where('status',1)->first();
+        $feeStructur = array_pluck(FeeStructure::get(['id','name'])->toArray(),'name', 'id'); 
+        return view('admin.finance.fee_structure_amount',compact('feeStructureAmounts','acardemicYears','feeStructur','acardemicYearsSet'));
     }
 
     /**
@@ -30,9 +30,11 @@ class FeeStructureAmountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function onchange(Request $request)
     {
-        //
+        $academic_year_id=$request->id;
+        $feeStructurs = FeeStructure::all();
+        return view('admin.finance.fee_structure_amount_table',compact('academic_year_id','feeStructurs'));
     }
 
     /**
@@ -43,23 +45,32 @@ class FeeStructureAmountController extends Controller
      */
     public function store(Request $request)
     {       
-        $validator = Validator::make($request->all(), [                     
-            'academic_year_id' => 'required',    
-            'fee_structure_id' => 'required',    
-            'amount' => 'required|max:7',    
-              
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
+         $rules=[
+          
+           'academic_year_id' => 'required', 
+            'amount' => 'required',
+       
+        ];
 
-        } else {
-            $feeStructureamount = FeeStructureAmount::firstOrNew(['academic_year_id'=>$request->academic_year_id,'fee_structure_id'=>$request->fee_structure_id]);             
-            $feeStructureamount->academic_year_id = $request->academic_year_id;
-            $feeStructureamount->fee_structure_id = $request->fee_structure_id;
-            $feeStructureamount->amount = $request->amount;             
-            $feeStructureamount->save();
-            return response()->json([$feeStructureamount,'class'=>'success','message'=>'Fee Structure Amount Created Successfully']);
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
         }
+        else {
+        foreach ($request->amount as $key => $value) {
+           $feeStructureamount = FeeStructureAmount::firstOrNew(['academic_year_id'=>$request->academic_year_id,'fee_structure_id'=>$key]);             
+            $feeStructureamount->academic_year_id = $request->academic_year_id;
+            $feeStructureamount->fee_structure_id = $key;
+            $feeStructureamount->amount = $value;             
+            $feeStructureamount->save();   
+        }
+        $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
+        } 
     }
 
     /**

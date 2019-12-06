@@ -8,7 +8,7 @@
     <section class="content">
         <div class="box"> 
           <div class="box-body">
-             <form action="{{ route('admin.medical.student.show') }}" method="post" class="add_form" success-content-id="student_list" no-reset="true">
+             <form action="{{ route('admin.medical.student.show') }}" method="post" class="add_form" success-content-id="student_list" no-reset="true" button-click="btn_medical_form">
                {{ csrf_field() }}
 
                 <div class="col-lg-4 form-group">
@@ -43,6 +43,7 @@
  <script type="text/javascript">
      $(document).ready(function(){
         $('#dataTable').DataTable();
+        
     });
      
  </script>

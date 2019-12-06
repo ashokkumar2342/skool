@@ -25,9 +25,15 @@ class FeeGroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addForm($id=null)
     {
-        //
+        if ($id!=null) {
+        $feeGroups = FeeGroup::find($id); 
+        }
+        if ($id==null) {
+        $feeGroups = ''; 
+        }
+        return view('admin.finance.fee_group_form',compact('feeGroups'));  
     }
 
     /**
@@ -36,25 +42,27 @@ class FeeGroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id=null)
     {
-        $validator = Validator::make($request->all(), [
-        
-            
-            'name' => 'required|max:30|unique:fee_groups', 
-            
-              
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
-
-        } else {
-            $feeGroup = new FeeGroup();
-          
+        $rules= [ 
+            'name' => 'required|max:30|unique:fee_groups,name,'.$id, 
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }else {
+            $feeGroup = FeeGroup::firstOrNew(['id'=>$id]); 
             $feeGroup->name = $request->name;
             $feeGroup->description = $request->description;
             $feeGroup->save();
-            return response()->json([$feeGroup,'class'=>'success','message'=>'Fee Group Created Successfully']);
+            $response["status"]=1;
+            $response["msg"]='Fee Group Submit Successfully';
+            return response()->json($response);
+            
         }
     }
 
@@ -87,39 +95,18 @@ class FeeGroupController extends Controller
      * @param  \App\Model\FeeGroup  $feeGroup
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FeeGroup $feeGroup)
-    {
-        $validator = Validator::make($request->all(), [
-        
-            
-            'name' => 'required|max:30|unique:fee_groups,name,'.$request->id, 
-            
-              
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
-
-        } else {
-            $feeGroup =  FeeGroup::find($request->id);
-            
-            $feeGroup->name = $request->name;
-            $feeGroup->description = $request->description;
-            $feeGroup->save();
-            return response()->json([$feeGroup,'class'=>'success','message'=>'Fee Group Created Successfully']);
-        }
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Model\FeeGroup  $feeGroup
      * @return \Illuminate\Http\Response
      */
-   public function destroy(Request $request)
+   public function destroy($id)
    {
 
-       $feeGroup = FeeGroup::findOrFail($request->id);
+       $feeGroup = FeeGroup::find($id);
        $feeGroup->delete();
-       return  response()->json([$feeGroup,'message'=>'Fee Group Delete Successfully','class'=>'success']);
+       return  redirect()->back()->with(['message'=>'Fee Group Delete Successfully','class'=>'success']);
    }
 }

@@ -25,9 +25,16 @@ class ConcessionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addForm($id=null)
     {
-        //
+        if ($id!=null) {
+        $concessions = Concession::find($id);
+            
+        }if ($id==null) {
+        $concessions = '';
+            
+        }
+        return view('admin.finance.concession_form',compact('concessions'));
     }
 
     /**
@@ -36,27 +43,31 @@ class ConcessionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id=null)
     {
-        $validator = Validator::make($request->all(), [       
+       $rules=[       
             
-            'name' => 'required|max:30|unique:fee_groups', 
-            'amount' => 'required|max:6', 
-            'percentage' => 'required|max:6', 
+            'name' => 'required|max:30|unique:concessions,name,'.$id, 
+            'amount' => 'required|max:7', 
              
-              
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
-
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
         } else {
-            $concession = new Concession();
-          
+            $concession =  Concession::firstOrNew(['id'=>$id]); 
             $concession->name = $request->name;
             $concession->amount = $request->amount;
             $concession->percentage = $request->percentage;
             $concession->save();
-            return response()->json([$concession,'class'=>'success','message'=>'Concession Created Successfully']);
+             $response["status"]=1;
+            $response["msg"]='Concession Submit Successfully';
+            return response()->json($response);
+            
         }
     }
 
@@ -91,41 +102,17 @@ class ConcessionController extends Controller
      * @param  \App\Model\Concession  $concession
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Concession $concession)
-    {
-        $validator = Validator::make($request->all(), [
-        
-            
-             'name' => 'required|max:30|unique:fee_groups,name,'.$request->id, 
-            'amount' => 'required|max:6', 
-            'percentage' => 'required|max:6', 
-            
-              
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
-
-        } else {
-            $concession =  Concession::find($request->id);
-            
-            $concession->name = $request->name;
-            $concession->amount = $request->amount;
-            $concession->percentage = $request->percentage;
-            $concession->save();
-            return response()->json([$concession,'class'=>'success','message'=>'Fee Group Created Successfully']);
-        }
-    }
-
+     
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Model\Concession  $concession
      * @return \Illuminate\Http\Response
      */
-   public function destroy(Request $request)
+   public function destroy($id)
    {
-       $concession = Concession::findOrFail($request->id);
+       $concession = Concession::find($id);
        $concession->delete();
-       return  response()->json([$concession,'message'=>'Concession Delete Successfully','class'=>'success']);
+       return  redirect()->back()->with(['message'=>'Concession Delete Successfully','class'=>'success']);
    }
 }

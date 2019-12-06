@@ -1,4 +1,4 @@
-<table class="table table-responsive table-striped">
+<table class="table table-responsive table-striped hidden">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -18,4 +18,4 @@
 		</tr> 
 	</tbody>
 </table>
-<button class="btn btn-info" id="btn_medical_form" onclick="callPopupLarge(this,'{{ route('admin.medical.info.add.form',$student->id) }}')">Medical Form</button>
+<button class="btn btn-info hidden" id="btn_medical_form" onclick="callPopupLarge(this,'{{ route('admin.medical.info.add.form',$student->id) }}')">Medical Form</button>

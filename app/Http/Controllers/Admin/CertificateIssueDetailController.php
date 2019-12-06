@@ -240,13 +240,25 @@ class CertificateIssueDetailController extends Controller
            $documentUrl = Storage_path() . '/app/student/document/certificate';
            @mkdir($documentUrl, 0755, true); 
                 if ($certificate->certificate_type==4) {
-                $pdf=PDF::loadView('admin.certificate.tuitionfee.date_of_birth_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_date_of_birth_certificate.pdf'); 
+                $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.certificate.tuitionfee.date_of_birth_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_date_of_birth_certificate.pdf'); 
                  
                  } elseif ($certificate->certificate_type==2) {
-                $pdf=PDF::loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student','CertificateIssueDetail'))->save($documentUrl.'/'.$certificate->students->registration_no.'_leaving_certificate.pdf'); 
+                $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.certificate.tuitionfee.leaving_certificate',compact('student','CertificateIssueDetail'))->save($documentUrl.'/'.$certificate->students->registration_no.'_leaving_certificate.pdf'); 
                  
                  } elseif ($certificate->certificate_type==3) {
-                $pdf=PDF::loadView('admin.certificate.tuitionfee.character_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_character_certificate.pdf'); 
+                $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.certificate.tuitionfee.character_certificate',compact('student'))->save($documentUrl.'/'.$certificate->students->registration_no.'_character_certificate.pdf'); 
                  
                 
              }
@@ -390,8 +402,9 @@ class CertificateIssueDetailController extends Controller
         return view('admin.certificate.tuitionfee.class_wise_section',compact('sections'));
     }
     public function reportCertificateGenerate(Request $request){
-             
-            $student=Student::where('id',$request->registration_no)->where('student_status_id',1)->first();
+        
+            $st=new Student(); 
+            $student=$st->getStudentDetailsById($request->registration_no);
            if ($request->report_wise==2) { 
                 if ($request->report_for==1) {
                 $pdf = PDF::loadView('admin.certificate.tuitionfee.print',compact('student')); 

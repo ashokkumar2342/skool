@@ -7,7 +7,9 @@
    p{
     font-size: 18px;
     letter-spacing: 1px;
-   }
+
+    text-align: justify;
+    }
  </style>
  @include('admin.include.boostrap')
  <body>
