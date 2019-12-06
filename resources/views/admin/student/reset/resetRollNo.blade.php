@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1> Reset Roll No  <small>List</small> </h1>
+    <h1> Update Roll No  <small>List</small> </h1>
       <ol class="breadcrumb"> 
       </ol>
 </section> 
@@ -35,7 +35,7 @@
                          <select name="select_format" class="form-control">
                           <option value="" disabled="" selected="">Select</option>
                           <option value="1">Alphabetic</option>
-                          <option value="2">Admission No</option>
+                          <option value="2">Registration No</option>
                           <option value="3">Roll No</option> 
                             </select>
                          

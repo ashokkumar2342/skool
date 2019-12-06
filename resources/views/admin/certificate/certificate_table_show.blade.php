@@ -78,7 +78,10 @@
                     <td>{{ $certificate->udise_code }}</td>
                     <td>{{ $certificate->department_school_code }}</td>
                     <td>{{ $certificate->file_no }}</td>
-                    <td>{{ $certificate->attachment?'Yes':'No'}}</td>
+                     <td class="text-nowrap">
+                   <a  target="blank" title="Attachment Download" href="{{ route('admin.student.attachment.attachdownload',$certificate->attachment) }}">Attachment Download</a>
+
+                    </td>
                    {{--  <td> @if ($certificate->status == 1)
                             <button class="btn btn-primary btn-xs">On Active</button> 
                          @elseif($certificate->status == 2)

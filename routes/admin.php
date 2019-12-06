@@ -386,6 +386,7 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('show/{certificate}', 'CertificateIssueDetailController@show')->name('admin.student.certificateIssu.show'); 
 	     Route::get('update/{id}', 'CertificateIssueDetailController@verifyRejectStatus')->name('admin.student.certificateIssu.update');
 	     Route::get('download/{certificate}', 'CertificateIssueDetailController@download')->name('admin.student.attachment.download');
+	     Route::get('attachdownload/{id?}', 'CertificateIssueDetailController@attachDownload')->name('admin.student.attachment.attachdownload');
 	     Route::get('verify', 'CertificateIssueDetailController@verify')->name('admin.student.attachment.virify');
 	     Route::get('approval', 'CertificateIssueDetailController@approval')->name('admin.student.attachment.approval');
 	     Route::get('aproval-check/{id}', 'CertificateIssueDetailController@approvalCheck')->name('admin.student.attachment.approval.check');
@@ -503,28 +504,28 @@ Route::group(['middleware' => 'admin'], function() {
 		//------------------------- fee acoout ---------------------------------
 		Route::group(['prefix' => 'fee-account'], function() {
 		    Route::get('/', 'FeeAccountController@index')->name('admin.feeAcount.list');	 	
-		    Route::post('add', 'FeeAccountController@store')->name('admin.feeAcount.post');
-		    Route::delete('delete', 'FeeAccountController@destroy')->name('admin.feeAcount.delete');
-		    Route::put('update', 'FeeAccountController@update')->name('admin.feeAcount.update');
+		    Route::get('add/{id?}', 'FeeAccountController@addForm')->name('admin.feeAcount.add.form');
+		    Route::post('store/{id?}', 'FeeAccountController@store')->name('admin.feeAcount.post');
+		    Route::get('delete/{id}', 'FeeAccountController@destroy')->name('admin.feeAcount.delete');
 		 });
 		//------------------------- Fine scheme ---------------------------------
 		Route::group(['prefix' => 'fine-scheme'], function() {
 		    Route::get('/', 'FineSchemeController@index')->name('admin.fineScheme.list');	 	
-		    Route::post('add', 'FineSchemeController@store')->name('admin.fineScheme.post');
-		    Route::delete('delete', 'FineSchemeController@destroy')->name('admin.fineScheme.delete');
-		    Route::put('update', 'FineSchemeController@update')->name('admin.fineScheme.update');
+		    Route::get('add/{id?}', 'FineSchemeController@AddForm')->name('admin.fineScheme.add.form');
+		    Route::post('store/{id?}', 'FineSchemeController@store')->name('admin.fineScheme.post');
+		    Route::get('delete/{id?}', 'FineSchemeController@destroy')->name('admin.fineScheme.delete');
 		 });
 		//------------------------- fee structure ---------------------------------
 		Route::group(['prefix' => 'fee-structure'], function() {
 		    Route::get('/', 'FeeStructureController@index')->name('admin.feeStructure.list');		     	 	
-		    Route::post('add', 'FeeStructureController@store')->name('admin.feeStructure.post');
-		    Route::delete('delete', 'FeeStructureController@destroy')->name('admin.feeStructure.delete');
-		    Route::put('update', 'FeeStructureController@update')->name('admin.feeStructure.update');
+		    Route::get('add/{id?}', 'FeeStructureController@addForm')->name('admin.feeStructure.add.form');
+		    Route::post('store/{id?}', 'FeeStructureController@store')->name('admin.feeStructure.post');
+		    Route::get('delete/{id}', 'FeeStructureController@destroy')->name('admin.feeStructure.delete');
 		 });
 		//------------------------- fee structure amount ---------------------------------
 		Route::group(['prefix' => 'fee-structure-amount'], function() {
 		    Route::get('/', 'FeeStructureAmountController@index')->name('admin.feeStructureAmount.list');
-		    Route::get('amount', 'FeeStructureAmountController@amount')->name('admin.feeStructureAmount.amount');
+		    Route::get('filter', 'FeeStructureAmountController@onchange')->name('admin.feeStructureAmount.onchange');
 		    Route::get('search', 'FeeStructureAmountController@search')->name('admin.feeStructureAmount.search'); 	
 		    Route::post('add', 'FeeStructureAmountController@store')->name('admin.feeStructureAmount.post');
 		    Route::delete('delete', 'FeeStructureAmountController@destroy')->name('admin.feeStructureAmount.delete');
@@ -549,9 +550,9 @@ Route::group(['middleware' => 'admin'], function() {
 	     });//------------------------- fee-group ---------------------------------
 	    Route::group(['prefix' => 'fee-group'], function() {
 		    Route::get('/', 'FeeGroupController@index')->name('admin.feeGroup.list');	 	
-		    Route::post('add', 'FeeGroupController@store')->name('admin.feeGroup.post');
-		    Route::delete('delete', 'FeeGroupController@destroy')->name('admin.feeGroup.delete');
-		    Route::put('update', 'FeeGroupController@update')->name('admin.feeGroup.update');
+		    Route::get('add/{id?}', 'FeeGroupController@addForm')->name('admin.feeGroup.add.form');
+		    Route::post('store/{id?}', 'FeeGroupController@store')->name('admin.feeGroup.post');
+		    Route::get('delete/{id?}', 'FeeGroupController@destroy')->name('admin.feeGroup.delete');
 		 });//------------------------- fee-group-detailt ---------------------------------
         Route::group(['prefix' => 'fee-group-detail'], function() {
     	    Route::get('/', 'FeeGroupDetailController@index')->name('admin.feeGroupDetail.list');	 
@@ -562,9 +563,9 @@ Route::group(['middleware' => 'admin'], function() {
     	 });//------------------------- concession ---------------------------------
         Route::group(['prefix' => 'concession'], function() {
     	    Route::get('/', 'ConcessionController@index')->name('admin.concession.list');	 	
-    	    Route::post('add', 'ConcessionController@store')->name('admin.concession.post');
-    	    Route::delete('delete', 'ConcessionController@destroy')->name('admin.concession.delete');
-    	    Route::put('update', 'ConcessionController@update')->name('admin.concession.update');
+    	    Route::get('add/{id?}', 'ConcessionController@addForm')->name('admin.concession.add.form');
+    	    Route::post('store/{id?}', 'ConcessionController@store')->name('admin.concession.post');
+    	    Route::get('delete/{id?}', 'ConcessionController@destroy')->name('admin.concession.delete');
     	    Route::get('search', 'ConcessionController@search')->name('admin.concession.search');
     	 });//------------------------- student-fee-detail ---------------------------------
         Route::group(['prefix' => 'student-fee-detail'], function() {

@@ -28,9 +28,17 @@ class FineSchemeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addForm($id=null)
     {
-        //
+        if ($id!=null) {
+          $fineSchemes = FineScheme::find($id);  
+        }
+        if ($id==null) {
+          $fineSchemes = '';  
+        }
+       
+        $finePeriod = array_pluck(FinePeriod::get(['id','name'])->toArray(),'name', 'id');
+        return view('admin.finance.fine_scheme_form',compact('fineSchemes','finePeriod'));
     }
 
     /**
@@ -39,13 +47,13 @@ class FineSchemeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id=null)
     {
         // return $request;
-        $validator = Validator::make($request->all(), [
+        $rules= [
         
-            'code' => 'required|max:3|unique:fine_schemes', 
-            'name' => 'required|max:30|unique:fine_schemes', 
+            'code' => 'required|max:3|unique:fine_schemes,code,'.$id, 
+            'name' => 'required|max:30|unique:fine_schemes,name,'.$id, 
             'fine_amount1' => 'required|max:10', 
             'fine_amount2' => 'required|max:10', 
             'fine_amount3' => 'required|max:10', 
@@ -54,12 +62,16 @@ class FineSchemeController extends Controller
             'fine_period' => 'required', 
              
               
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
-
+        ];
+       $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
         } else {
-            $fineScheme = new FineScheme();
+            $fineScheme =  FineScheme::firstOrNew(['id'=>$id]);
             $fineScheme->code = $request->code;
             $fineScheme->name = $request->name;
             $fineScheme->fine_amount1 = $request->fine_amount1;
@@ -70,7 +82,10 @@ class FineSchemeController extends Controller
             $fineScheme->fine_period_id = $request->fine_period;
             
             $fineScheme->save();
-            return response()->json([$fineScheme,'class'=>'success','message'=>'Fine Scheme Created Successfully']);
+            $response["status"]=1;
+            $response["msg"]='Fine Scheme Submit Successfully';
+            return response()->json($response);
+            
         }
     }
 
@@ -103,40 +118,7 @@ class FineSchemeController extends Controller
      * @param  \App\Model\FineScheme  $fineScheme
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FineScheme $fineScheme)
-    {
-        $validator = Validator::make($request->all(), [
-        
-            
-            'code' => 'required|max:3|unique:fine_schemes,code,'.$request->id, 
-            'name' => 'required|max:30|unique:fine_schemes,name,'.$request->id, 
-            'fine_amount1' => 'required|max:10', 
-            'fine_amount2' => 'required|max:10', 
-            'fine_amount3' => 'required|max:10', 
-            'day_after1' => 'required|max:10', 
-            'day_after2' => 'required|max:10', 
-            'fine_period' => 'required',  
-             
-              
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
-
-        } else {
-            $fineScheme = FineScheme::find($request->id);
-            $fineScheme->code = $request->code;
-            $fineScheme->name = $request->name;
-            $fineScheme->fine_amount1 = $request->fine_amount1;
-            $fineScheme->fine_amount2 = $request->fine_amount2;
-            $fineScheme->fine_amount3 = $request->fine_amount3;
-            $fineScheme->day_after1 = $request->day_after1;
-            $fineScheme->day_after2 = $request->day_after2;
-            $fineScheme->fine_period_id = $request->fine_period;
-            
-            $fineScheme->save();
-            return response()->json([$fineScheme,'class'=>'success','message'=>'Fine Scheme Created Successfully']);
-        }
-    }
+    
 
     /**
      * Remove the specified resource from storage.

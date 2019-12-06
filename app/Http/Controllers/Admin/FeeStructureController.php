@@ -24,12 +24,21 @@ class FeeStructureController extends Controller
      
         return view('admin.finance.fee_structure',compact('feeStructures','fineScheme','feeAccount'));
     }
+    public function addForm($id=null)
+    {
+        if ($id!=null) {
+          $feeStructures = FeeStructure::find($id);       
+            
+        }if ($id==null) {
+          $feeStructures = '';       
+            
+        }
+        $fineScheme = array_pluck(FineScheme::get(['id','name'])->toArray(),'name', 'id');
+        $feeAccount = array_pluck(FeeAccount::get(['id','name'])->toArray(),'name', 'id');
+        return view('admin.finance.fee_structure_form',compact('feeStructures','fineScheme','feeAccount')); 
+    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function amount(Request $request)
     {
             
@@ -43,31 +52,39 @@ class FeeStructureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id=null)
     {
 
-        $validator = Validator::make($request->all(), [
+        $rules=[
         
-            'code' => 'required|max:3|unique:fee_structures', 
-            'name' => 'required|max:30|unique:fee_structures', 
-            'fee_account_id' => 'required', 
-            'fine_scheme_id' => 'required', 
+            'code' => 'required|max:3|unique:fee_structures,code,'.$id, 
+            'fee_structure_name' => 'required|max:30|unique:fee_structures,name,'.$id, 
+            'fee_account' => 'required', 
+            'fine_scheme' => 'required', 
             'is_refundable' => 'required', 
              
               
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
-
+        ];
+       
+          $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+           
         } else {
-            $feeStructure = new FeeStructure();
+            $feeStructure =FeeStructure::firstOrNew(['id'=>$id]);
             $feeStructure->code = $request->code;
-            $feeStructure->name = $request->name;
-            $feeStructure->fee_account_id = $request->fee_account_id;
-            $feeStructure->fine_scheme_id = $request->fine_scheme_id;
+            $feeStructure->name = $request->fee_structure_name;
+            $feeStructure->fee_account_id = $request->fee_account;
+            $feeStructure->fine_scheme_id = $request->fine_scheme;
             $feeStructure->is_refundable = $request->is_refundable;
             $feeStructure->save();
-            return response()->json([$feeStructure,'class'=>'success','message'=>'Fee Account Created Successfully']);
+            $response["status"]=1;
+            $response["msg"]='Fee Structure Submit Successfully';
+            return response()->json($response);
         }
     }
 
@@ -100,33 +117,7 @@ class FeeStructureController extends Controller
      * @param  \App\Model\FeeStructure  $feeStructure
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FeeStructure $feeStructure)
-    {
-        $validator = Validator::make($request->all(), [
-        
-           'code' => 'required|max:3|unique:fee_structures', 
-            'name' => 'required|max:30|unique:fee_structures', 
-            'fee_account_id' => 'required', 
-            'fine_scheme_id' => 'required', 
-            'is_refundable' => 'required',  
-             
-             
-              
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
-
-        } else {
-            $feeStructure = FeeStructure::findOrFail($request->id);
-            $feeStructure->code = $request->code;
-            $feeStructure->name = $request->name;
-            $feeStructure->fee_account_id = $request->fee_account;
-            $feeStructure->fine_scheme_id = $request->fine_scheme;
-            $feeStructure->is_refundable = $request->is_refundable;
-            $feeStructure->save();
-            return response()->json([$feeStructure,'class'=>'success','message'=>'Fee Account Created Successfully']);
-        }
-    }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -134,10 +125,10 @@ class FeeStructureController extends Controller
      * @param  \App\Model\FeeStructure  $feeStructure
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FeeStructure $feeStructure,Request $request)
+    public function destroy($id)
     {
-        $feeStructure = FeeStructure::findOrFail($request->id);
+        $feeStructure = FeeStructure::find($id);
         $feeStructure->delete();
-        return  response()->json([$feeStructure,'message'=>'Fee Structure Delete Successfully','class'=>'success']);
+        return  redirect()->back()->with(['message'=>'Fee Structure Delete Successfully','class'=>'success']);
     }
 }

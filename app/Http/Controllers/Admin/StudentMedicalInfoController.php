@@ -66,7 +66,7 @@ class StudentMedicalInfoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {  
         $rules=[
           
              
@@ -103,7 +103,6 @@ class StudentMedicalInfoController extends Controller
         $medical->student_id = $request->student_id;
         $medical->vision = $request->vision;
         $medical->weight = $request->weight; 
-        
         $medical->save();
         if ($request->send_sms==1) {
         $this->medicalSendSms($request->student_id); 
@@ -296,8 +295,10 @@ class StudentMedicalInfoController extends Controller
             return response()->json($response);
     }
     public function medicalInfoAddForm(Request $request){
-        $user_id=Auth::guard('admin')->user()->id;
-         $student=$request->id;
+        $student_id=$request->id;
+        $user_id=Auth::guard('admin')->user()->id; 
+         $st=new Student();
+         $student=$st->getStudentDetailsById($request->id);
         $default = StudentDefaultValue::where('user_id',$user_id)->first(); 
         $parentsType = array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name','id');
         $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
@@ -310,7 +311,7 @@ class StudentMedicalInfoController extends Controller
         $complextions=Complextion::orderBy('name','ASC')->get();
         $defaults=StudentDefaultValue::all(); 
         $default = StudentDefaultValue::where('user_id',$user_id)->first(); 
-        return view('admin.student.studentdetails.include.add_medical_info',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','complextions','default'));
+        return view('admin.student.studentdetails.include.add_medical_info',compact('student_id','student','parentsType','incomes','documentTypes','isoptionals','sessions','subjectTypes','bloodgroups','complextions','default'));
     }
     public function medicalInfoList(Request $request){ 
          $parentsType = array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name','id');

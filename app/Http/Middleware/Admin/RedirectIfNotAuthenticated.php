@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware\Admin;
 
-use Closure;
+use App\Helper\MyFuncs;
 use Auth;
+use Closure;
 class RedirectIfNotAuthenticated
 {
     /**
@@ -14,9 +15,12 @@ class RedirectIfNotAuthenticated
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = 'admin')
-    {
+    {  
         if (!Auth::guard($guard)->check()) {
             return redirect()->route('admin.login');
+        }
+        if (MyFuncs::isPermission()!=true) { 
+           dd('User have not permission for this page access.');
         }
         return $next($request);
     }

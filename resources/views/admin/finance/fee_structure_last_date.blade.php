@@ -23,7 +23,7 @@
                              <div class="form-group">
                               {{ Form::label('fee_structure_id','Fee Structure',['class'=>' control-label']) }}
                               <span class="fa fa-asterisk"></span>
-                               {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control','placeholder'=>'Select Fee Structure']) }}
+                               {{ Form::select('fee_structure_id',$feeStructur,null,['class'=>'form-control','placeholder'=>'Select Fee Structure','autofocus']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div> 
