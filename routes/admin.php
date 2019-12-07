@@ -222,7 +222,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('student-serach-by-register-no/', 'StudentController@studentSearchByRegisterNo')->name('admin.student.details.show');
 		//----------student role url -------------------
 		Route::get('registration-form', 'StudentController@create')->name('admin.student.registration.form');	
-		Route::get('registration-form', 'StudentController@registrationList')->name('admin.student.registration.list'); 
+		Route::get('registration-list', 'StudentController@registrationList')->name('admin.student.registration.list'); 
 
 		});
 

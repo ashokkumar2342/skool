@@ -991,7 +991,7 @@ class StudentController extends Controller
                  $students = Student::where('class_id',$request->class) 
                                              ->where('section_id',$request->section)
                                              ->where('student_status_id',1)
-                                             ->orderBy('registration_no','asc')
+                                             ->orderBy('admission_no','asc')
                                              ->get();
             }
         if ($request->select_format==3) {
@@ -1117,5 +1117,13 @@ class StudentController extends Controller
         }
         $student= $st->getStudentDetailsById($std->id);
         return view('admin.student.studentdetails.details',compact('student'))->render();
+    }
+
+    //----------------- student registraion -------------
+    public function registrationList()
+    {  
+        $st =new Student();
+        
+       return view('admin.student.studentdetails.details',compact('student'))->render(); 
     }
 }
