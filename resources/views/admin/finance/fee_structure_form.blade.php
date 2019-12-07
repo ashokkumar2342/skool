@@ -14,7 +14,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{ @$feeStructures->id?'Edit' : 'Add' }} Fee Account</h4>
+        <h4 class="modal-title">{{ @$feeStructures->id?'Edit' : 'Add' }} Fee Structures</h4>
       </div>
       <div class="modal-body"> 
              <form action="{{ route('admin.feeStructure.post',@$feeStructures->id) }}" method="post" class="add_form" button-click="btn_close" content-refresh="fee_structure_table">

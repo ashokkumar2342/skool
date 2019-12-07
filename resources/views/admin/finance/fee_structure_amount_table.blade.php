@@ -8,10 +8,10 @@
    
 }
      </style> 
-<div class="panel"  style="background-color:#d546ca;">
+<div class="panel panel-danger">
   <div class="panel-heading"></div>
   <div class="panel-body">
-  	<table class="table" style="background-color:yellow"> 
+  	<table class="table bg-warning"> 
 	<thead>
 		<tr>
 			  
