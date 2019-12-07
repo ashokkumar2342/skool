@@ -10,6 +10,11 @@
     {{-- {{ Auth::user()->name }} --}}
     {!! Form::open(['route'=>'student.resitration.firststep.store']) !!}
       <div class="form-group has-feedback">
+        {!! Form::text('first_name', '', ['class'=>'form-control', 'placeholder'=>'First Name']) !!}
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        <p class="text-danger">{{ $errors->first('first_name') }}</p>
+      </div>
+      <div class="form-group has-feedback">
       	{!! Form::email('email', '', ['class'=>'form-control', 'placeholder'=>'mail']) !!}
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         <p class="text-danger">{{ $errors->first('email') }}</p>

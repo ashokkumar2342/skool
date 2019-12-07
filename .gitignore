@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+/public
 /storage/*.key
 /storage
 /vendor
@@ -21,4 +22,4 @@ yarn-error.log
 /demo
 /loksabha
 /policy
-
+/storage/app/public

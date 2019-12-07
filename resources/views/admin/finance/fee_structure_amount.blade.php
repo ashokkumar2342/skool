@@ -8,8 +8,8 @@
 @section('body')
 
 <section class="content-header">
-     <button type="button" class="pull-right btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.feeAcount.add.form') }}')">Add Fee Account</button>
-    <h1>Fee Accounts <small>List</small> </h1>
+    {{--  <button type="button" class="pull-right btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.feeAcount.add.form') }}')">Add Fee Account</button> --}}
+    <h1>Fee Structure Amount<small>List</small> </h1>
 </section>
     <section class="content">
         <div class="box">             
