@@ -32,6 +32,7 @@ use App\Model\SubjectType;
 use App\Student;
 use Auth;
 use Carbon;
+use CodeItNow\BarcodeBundle\Utils\BarcodeGenerator;
 use DB;
 use Excel;
 use Illuminate\Http\Request;
@@ -193,7 +194,21 @@ class ReportController extends Controller
                  }else{
                     $studentSiblingInfos=array();
                  } 
-                 //end siblind details  
+                 //end siblind details 
+                 //strat barcode// 
+                  // if ($request->barcode==1) { 
+                      
+                     $value=$student->registration_no;     
+                     $barcode = new BarcodeGenerator();
+                     $barcode->setText($value);
+                     $barcode->setType(BarcodeGenerator::Code128);
+                     $barcode->setScale(2);
+                     $barcode->setThickness(25);
+                     $barcode->setFontSize(10);
+                     $code = $barcode->generate();
+                     $data = base64_decode($code);
+                     
+                 //end barcode// 
                    
                    $profilePdfUrl = Storage_path() . '/app/student/document/profile/'.$student->class_id.'/'.$student->section_id; 
                      if ($request->report_wise==2) { 
@@ -210,7 +225,7 @@ class ReportController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
                 ]) 
-                        ->loadView('admin.report.finalReport.pdf_generate',compact('student','sectionWiseDetails','studentSiblingInfos'))->save($profilePdfUrl.'/'.$student->registration_no.'_profile.pdf');
+                        ->loadView('admin.report.finalReport.pdf_generate',compact('student','sectionWiseDetails','studentSiblingInfos','data'))->save($profilePdfUrl.'/'.$student->registration_no.'_profile.pdf');
                      }
                  $docs=Document::where('student_id',$student->id)->get();
                    $pdfMerge = new Fpdi();

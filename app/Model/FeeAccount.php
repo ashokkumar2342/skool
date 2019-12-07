@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class FeeAccount extends Model
 {
 	
-  
+  protected $fillable=[ 'id',];
 }

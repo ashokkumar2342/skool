@@ -57,8 +57,8 @@
 </div>                  
 <div class="col-lg-4">                         
 <div class="form-group">
-    {{ Form::label('alive','Parent Alive',['class'=>' control-label']) }}
-     <select name="alive" class="form-control" >
+    {{ Form::label('islive','Alive',['class'=>' control-label']) }}
+     <select name="islive" class="form-control" >
        <option value="1" {{ @$default->alive==1? 'selected' :'' }}>Yes</option> 
        <option value="2" {{ @$default->alive==2? 'selected' :'' }}>No</option> 
      </select>                       

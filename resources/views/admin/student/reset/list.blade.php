@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1> Reset Admission  Number <small></small> </h1>
+    <h1> Update Admission  Number <small></small> </h1>
       <ol class="breadcrumb">
               
       </ol>

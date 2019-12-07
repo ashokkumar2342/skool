@@ -9,6 +9,7 @@ class FeeStructure extends Model
    
     protected $fillable = [
       
+      'id', 
       'code', 
       'name', 
       'fee_account_id',       

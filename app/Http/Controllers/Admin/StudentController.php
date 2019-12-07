@@ -991,7 +991,7 @@ class StudentController extends Controller
                  $students = Student::where('class_id',$request->class) 
                                              ->where('section_id',$request->section)
                                              ->where('student_status_id',1)
-                                             ->orderBy('admission_no','asc')
+                                             ->orderBy('registration_no','asc')
                                              ->get();
             }
         if ($request->select_format==3) {

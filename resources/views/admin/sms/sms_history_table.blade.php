@@ -20,7 +20,7 @@
 	<tbody>
 		@foreach ($sentSmsDetails as $sentSmsDetail)
 
-				<tr style="{{ $academicYear->status==1?'background-color: #95e49b':'#f64d56' }}">
+				<tr style="{{ $sentSmsDetail->sent_status==0?'background-color:#f1f412':'background-color:#2cdd16' }}">
 					<td class="text-nowrap">{{ $sentSmsDetail->sd_purpose or ''}}</td>
 					@if ($conditionId==0)
 					@else

@@ -25,38 +25,51 @@ class FeeAccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addForm(Request $request,$id=null)
     {
-        //
+        if ($id!=null) {
+            $feeAccounts=FeeAccount::find($id);
+        }
+        if ($id==null) {
+            $feeAccounts='';
+        }
+       return view('admin.finance.fee_account_form',compact('feeAccounts'));  
+         
     }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id=null)
     {
-
-        $validator = Validator::make($request->all(), [
-        
-            'code' => 'required|max:3|unique:fee_accounts', 
-            'name' => 'required|max:30|unique:fee_accounts', 
+       
+       $rules=[
+            'code' => 'required|max:3|unique:fee_accounts,code,'.$id,
+            'name' => 'required|max:50|unique:fee_accounts,name,'.$id,
             
-              
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
+        ];
 
-        } else {
-            $feeAccount = new FeeAccount();
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+            $feeAccount =FeeAccount::firstOrNew(['id'=>$id]);
             $feeAccount->code = $request->code;
             $feeAccount->name = $request->name;
             $feeAccount->description = $request->description;
             $feeAccount->sorting_order_no = $request->sorting_order_no;
             $feeAccount->save();
-            return response()->json([$feeAccount,'class'=>'success','message'=>'Fee Account Created Successfully']);
+            $response=array();
+            $response["status"]=1;
+            $response["msg"]='Fee Account Create Successfully';
+            return response()->json($response);  
         }
     }
 
@@ -89,31 +102,7 @@ class FeeAccountController extends Controller
      * @param  \App\Model\FeeAccount  $feeAccount
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FeeAccount $feeAccount)
-    {
-         
-        $id=$request->id;
-        $validator = Validator::make($request->all(), [
-        
-            'code' => 'required|max:3|unique:fee_accounts,code,'.$id, 
-            'name' => 'required|max:30|unique:fee_accounts,name,'.$id, 
-            
-              
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
-
-        } else {
-            $feeAccount =  FeeAccount::find($request->id);
-            // return $feeAccount;
-            $feeAccount->code = $request->code;
-            $feeAccount->name = $request->name;
-            $feeAccount->description = $request->description;
-            $feeAccount->sorting_order_no = $request->sorting_order_no;
-            $feeAccount->save();
-            return response()->json([$feeAccount,'class'=>'success','message'=>'Fee Account Created Successfully']);
-        }
-    }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -121,11 +110,11 @@ class FeeAccountController extends Controller
      * @param  \App\Model\FeeAccount  $feeAccount
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
 
-        $feeAccount = FeeAccount::findOrFail($request->id);
+        $feeAccount = FeeAccount::find($id);
         $feeAccount->delete();
-        return  response()->json([$feeAccount,'message'=>'Fee Account Delete Successfully','class'=>'success']);
+        return  redirect()->back()->with(['message'=>'Fee Account Delete Successfully','class'=>'success']);
     }
 }
