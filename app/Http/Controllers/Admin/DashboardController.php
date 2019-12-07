@@ -30,7 +30,7 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {  
         $admins=Auth::guard('admin')->user();
         $date = date('Y-m-d');
         $present = StudentAttendance::where('attendance_type_id',1)
@@ -50,7 +50,12 @@ class DashboardController extends Controller
         $feeDues = StudentFeeDetail::where('paid',0)->get()->sum('fee_amount');                      
          $feePaid = StudentFeeDetail::where('paid',1)->get()->sum('fee_amount');
          $classTypes=ClassType::orderBy('id','ASC')->get(); 
-        return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','newRegistraions','feeDues','feePaid','classTypes','students','admins'));
+         if ($admins->role_id==12) { 
+            return view('admin/dashboard/student_dashboard');
+         }else{
+          return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','newRegistraions','feeDues','feePaid','classTypes','students','admins'));
+         }
+        
         
     }  
 

@@ -1,7 +1,17 @@
 <?php
 
 use App\Http\Controllers\Admin\reportGenerateBarcode;
- 
+//registration start
+Route::prefix('resitration')->group(function () {
+    Route::get('form', 'AccountController@firststep')->name('student.resitration.firststep');
+     Route::post('form', 'AccountController@studentStore')->name('student.resitration.firststep.store');
+     Route::get('verification/{id}', 'AccountController@verification')->name('student.resitration.verification');
+     Route::post('mobile-verify', 'AccountController@verifyMobile')->name('student.resitration.verifyMobile');
+     Route::post('email-verify', 'AccountController@verifyEmail')->name('student.resitration.verifyEmail');
+     Route::get('resitration-form', 'AccountController@resitrationForm')->name('student.resitration.resitrationForm'); 
+ Route::get('resitration-form1', 'AccountController@resitrationForm')->name('student.resitration.resitrationForm'); 
+});
+//registration end 
 Route::get('/', 'Auth\LoginController@index')->name('admin.home');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('admin.login'); 
 Route::get('admin-password/reset', 'Auth\ForgetPasswordController@sendResetLinkEmail')->name('admin.password.email');
@@ -165,7 +175,7 @@ Route::group(['middleware' => 'admin'], function() {
     });
 	//---------------Student--------------------------------------------------------------------
 	 Route::group(['prefix' => 'student'], function() {
-	     Route::get('add', 'StudentController@create')->name('admin.student.form');	     
+	     Route::get('add', 'StudentController@create')->name('admin.student.form');	
 	     Route::get('view/{student}', 'StudentController@show')->name('admin.student.view');	   
 	     Route::get('preview/{id}', 'StudentController@previewshow')->name('admin.student.preview');	   
 	     Route::get('pdf/{id}', 'StudentController@pdfGenerate')->name('admin.student.pdf.generate');	   
@@ -210,7 +220,9 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('student-request-update', 'StudentController@studentRequestUpdate')->name('admin.student.request.update');
 		Route::get('student-serach/{menu_id}', 'StudentController@studentSearch')->name('admin.student.view.search');
 		Route::get('student-serach-by-register-no/', 'StudentController@studentSearchByRegisterNo')->name('admin.student.details.show');
-
+		//----------student role url -------------------
+		Route::get('registration-form', 'StudentController@create')->name('admin.student.registration.form');	
+		Route::get('registration-form', 'StudentController@registrationList')->name('admin.student.registration.list'); 
 
 		});
 

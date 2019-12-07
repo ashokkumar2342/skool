@@ -19,6 +19,7 @@ use App\Model\UserClass;
 use App\Model\UserClassType;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -77,12 +78,12 @@ class AccountController extends Controller
     	$accounts->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
     	 $accounts->status=1;          
        $accounts->save();          
-       $MailHelper = new MailHelper();
-       $array = array();
-       $array['email'] = $request->email;
-       $array['password'] = $request->password;
-      $MailHelper->welcomemail($accounts->id,$array);
-      event(new SmsEvent($request->mobile,'User Id Your Email and Password:'.$request->password));
+      //  $MailHelper = new MailHelper();
+      //  $array = array();
+      //  $array['email'] = $request->email;
+      //  $array['password'] = $request->password;
+      // $MailHelper->welcomemail($accounts->id,$array);
+      // event(new SmsEvent($request->mobile,'User Id Your Email and Password:'.$request->password));
      $response=['status'=>1,'msg'=>'Account Created Successfully'];
             return response()->json($response);   
     }
@@ -531,6 +532,116 @@ class AccountController extends Controller
       $response['msg'] = 'Save Successfully';
       $response['status'] = 1;
       return response()->json($response);  
+    }
+    //registration parent-----------
+    public function firststep()
+    {
+        return view('front.registration.firststep');
+    }
+    public function studentStore(Request $request)
+    {  
+        $this->validate($request,[
+            'first_name' => 'required',             
+            'email' => 'required|email|max:50|unique:admins',             
+            'mobile' => 'required|numeric|digits:10|unique:admins',             
+            'password' => 'required|min:6',
+            'password_confirm' => 'required_with:password|same:password|min:6'            
+            ]);
+ 
+        $accounts = new Admin(); 
+        $accounts->first_name = $request->first_name;
+        $accounts->email = $request->email;
+        $accounts->email_otp = mt_rand(100000,999999);
+        $accounts->mobile_otp = mt_rand(100000,999999);
+        $accounts->password = bcrypt($request['password']);
+        $accounts->mobile = $request->mobile; 
+      
+        if ($accounts->save())
+         { 
+            event(new SmsEvent($accounts->mobile,$accounts->mobile_otp));
+            $data = array( 'email' => $accounts->email, 'otp' => $accounts->email_otp, 'from' => 'school@iskool.com', 'from_name' => 'school' );
+
+            Mail::send( 'mail', $data, function( $message ) use ($data)
+            {
+                $message->to( $data['email'] )->from( $data['from'], $data['otp'] )->subject( 'Otp Verification!' );
+            });
+
+          return redirect()->route('student.resitration.verification',Crypt::encrypt($accounts->id))->with(['message'=>'Account created Successfully.','class'=>'success']);        
+        }
+        else{
+            return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
+            }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\ParentRegistration  $parentRegistration
+     * @return \Illuminate\Http\Response
+     */
+    public function verification($id)
+    {
+       $parentRegistration= Admin::find(Crypt::decrypt($id));
+         return view('front.registration.verification',compact('parentRegistration'));
+    }
+
+    public function verifyMobile(Request $request)
+    {
+        $this->validate($request,[
+                      
+            'mobile_otp' => 'required|numeric',  
+            ]);
+         
+        $parentRegistration= Admin::where('mobile',$request->mobile)
+                                                    ->where('mobile_otp',$request->mobile_otp)
+                                                    ->first();
+        if ($parentRegistration==null) {
+            return redirect()->back()->with(['class'=>'error','message'=>'Mobile Otp Not Match']);      
+        }else{
+             $parentRegistration->mobile_verify=1;                                        
+             $parentRegistration->save() ;
+             if ($parentRegistration->email_verify==1 && $parentRegistration->mobile_verify==1) {
+               return redirect()->route('parent.login.form')->with(['class'=>'success','message'=>'Mobile Otp Verify']);  
+            }else{
+             return redirect()->back()->with(['class'=>'success','message'=>'Mobile Otp Verify']);
+            }
+
+        }
+                                           
+             
+             
+        
+        
+        // return redirect()->back()->with(['class'=>'success','message'=>'Email Otp Verify']);
+        
+
+    }
+    public function verifyEmail(Request $request)
+    {
+
+       $this->validate($request,[
+                     
+           'email_otp' => 'required|numeric',  
+           ]);
+        
+       $parentRegistration= Admin::where('email',$request->email)
+                                                   ->where('email_otp',$request->email_otp)
+                                                   ->first();
+       if ($parentRegistration==null) {
+           return redirect()->back()->with(['class'=>'error','message'=>'Email Otp Not Match']);      
+       }else{
+            $parentRegistration->email_verify=1;                                        
+            $parentRegistration->save() ;
+            if ($parentRegistration->email_verify==1 && $parentRegistration->mobile_verify==1) {
+               return redirect()->route('parent.login.form')->with(['class'=>'success','message'=>'Email Otp Verify']);  
+            }else{
+               return redirect()->back()->with(['class'=>'success','message'=>'Email Otp Verify']); 
+            }
+            
+
+       }
+
+
     }
 
 }
