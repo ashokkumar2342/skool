@@ -105,7 +105,7 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
+    {   $user = Auth::guard('admin')->user();
         $classes = MyFuncs::getClasses();   
         $sessions = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
@@ -113,7 +113,7 @@ class StudentController extends Controller
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
         $default = StudentDefaultValue::find(1); 
         $houses=House::orderBy('id','ASC')->get();   
-        return view('admin.student.studentdetails.add',compact('classes','sessions','default','genders','religions','categories','houses'));
+        return view('admin.student.studentdetails.add',compact('classes','sessions','default','genders','religions','categories','houses','user'));
     }
     public function showForm()
     {        

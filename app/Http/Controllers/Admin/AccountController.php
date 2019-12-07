@@ -555,6 +555,7 @@ class AccountController extends Controller
         $accounts->mobile_otp = mt_rand(100000,999999);
         $accounts->password = bcrypt($request['password']);
         $accounts->mobile = $request->mobile; 
+        $accounts->role_id =12; 
       
         if ($accounts->save())
          { 
@@ -601,7 +602,7 @@ class AccountController extends Controller
              $parentRegistration->mobile_verify=1;                                        
              $parentRegistration->save() ;
              if ($parentRegistration->email_verify==1 && $parentRegistration->mobile_verify==1) {
-               return redirect()->route('parent.login.form')->with(['class'=>'success','message'=>'Mobile Otp Verify']);  
+               return redirect()->route('admin.login')->with(['class'=>'success','message'=>'Mobile Otp Verify']);  
             }else{
              return redirect()->back()->with(['class'=>'success','message'=>'Mobile Otp Verify']);
             }
@@ -631,9 +632,10 @@ class AccountController extends Controller
            return redirect()->back()->with(['class'=>'error','message'=>'Email Otp Not Match']);      
        }else{
             $parentRegistration->email_verify=1;                                        
+            $parentRegistration->status=1;                                        
             $parentRegistration->save() ;
             if ($parentRegistration->email_verify==1 && $parentRegistration->mobile_verify==1) {
-               return redirect()->route('parent.login.form')->with(['class'=>'success','message'=>'Email Otp Verify']);  
+               return redirect()->route('admin.login')->with(['class'=>'success','message'=>'Email Otp Verify']);  
             }else{
                return redirect()->back()->with(['class'=>'success','message'=>'Email Otp Verify']); 
             }
