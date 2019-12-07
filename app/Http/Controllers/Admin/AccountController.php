@@ -262,7 +262,7 @@ class AccountController extends Controller
          $user_id = $request->id;   
          $classes = ClassType::all(); 
          $usersClasses = Admin::find($user_id);
-         $userClassTypes = UserClassType::where('admin_id',$user_id)->orderBy('class_id','ASC')->orderBy('section_id','ASC')->get();
+         $userClassTypes = UserClassType::where('admin_id',$user_id)->where('status',1)->orderBy('class_id','ASC')->orderBy('section_id','ASC')->get();
          $data= view('admin.account.classAllSelect',compact('classes','user_id','usersClasses','userClassTypes'))->render(); 
         return response($data);
 
@@ -274,7 +274,7 @@ class AccountController extends Controller
          $classes = ClassType::where('id',$request->class_id)->get();
          $sections = Section::where('class_id',$request->class_id)->get();
          
-        $usersSections = array_pluck(UserClassType::where('admin_id',$request->user_id)->where('class_id',$request->class_id)->get(['section_id'])->toArray(), 'section_id');
+        $usersSections = array_pluck(UserClassType::where('admin_id',$request->user_id)->where('class_id',$request->class_id)->where('status',1)->get(['section_id'])->toArray(), 'section_id');
          $data= view('admin.account.classSelect',compact('classes','sections','user_id','usersSections'))->render(); 
         return response($data);
 
@@ -295,12 +295,15 @@ class AccountController extends Controller
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
         }
-         
+         $userTypeArrId =UserClassType::where('admin_id',$request->user)->where('class_id',$request->class_id)->where('status',1)->pluck('id')->toArray();
+          $uctOld=UserClassType::whereIn('id',$userTypeArrId)->update(['status'=>0]);
+
         foreach ($request->section as $key => $value) {
         $section =UserClassType::firstOrNew(['class_id'=>$request->class_id,'admin_id'=>$request->user,'section_id'=>$value]); 
            $section->class_id = $request->class_id;  
            $section->admin_id = $request->user;  
            $section->section_id = $value; 
+           $section->status = 1; 
            $section->save(); 
 
         }
