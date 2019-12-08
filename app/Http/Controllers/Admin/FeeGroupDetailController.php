@@ -7,6 +7,7 @@ use App\Model\FeeGroup;
 use App\Model\FeeGroupDetail;
 use App\Model\FeeStructure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FeeGroupDetailController extends Controller
 {
@@ -40,30 +41,32 @@ class FeeGroupDetailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-   public function store(Request $request)
-
+   public function store(Request $request,$id) 
    {
-       // return dd($request->all());
-
-       // $validator = Validator::make($request->all(), [
        
-       //     'fee_group_id' => 'required|max:3', 
-       //     'fee_structure_id' => 'required|max:30', 
-       //     'is_applicable' => 'required', 
-            
-             
-       // ]);
-       foreach ($request->value as $key => $value) {
-        
+        $rules=[
+           
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        } 
+    
+       foreach ($request->value as $key => $value) { 
          $feeGroupDetail = FeeGroupDetail::where(['fee_group_id'=>$request->fee_group_id,'fee_structure_id'=>$key])->firstOrNew(['fee_structure_id'=>$key]);
          $feeGroupDetail->fee_structure_id = $key;
          $feeGroupDetail->isapplicable_id = $value;
          $feeGroupDetail->fee_group_id = $request->fee_group_id;
-         $feeGroupDetail->save();
-
+         $feeGroupDetail->save(); 
       }
           
-      return response()->json(['message'=>'Save Succesfully', 'class'=>'sucess']);
+     $response=['status'=>1,'msg'=>'Save successfully'];
+            return response()->json($response);
    }
     /////////////////////////search////////////////
     public function search(Request $request)

@@ -21,7 +21,7 @@ class FeeStructureLastDateController extends Controller
     public function index()    {
         $feeStructureLastDstes = FeeStructureLastDate::OrderBy('last_date')->paginate(20);         
         $acardemicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(), 'name', 'id');
-        $feeStructur = array_pluck(FeeStructure::get(['id','name'])->toArray(),'name', 'id');
+        $feeStructur =FeeStructure::orderBy('name','ASC')->get();
         $forSessionMonth = array_pluck(ForSessionMonth::get(['id','name'])->toArray(),'name', 'id');
         return view('admin.finance.fee_structure_last_date',compact('feeStructureLastDstes','acardemicYear','feeStructur','forSessionMonth'));
     }
@@ -46,7 +46,7 @@ class FeeStructureLastDateController extends Controller
     {
          
          
-        $validator = Validator::make($request->all(), [
+        $rules=[
         
             'fee_structure_id' => 'required|max:10', 
             'academic_year_id' => 'required|max:10', 
@@ -55,11 +55,16 @@ class FeeStructureLastDateController extends Controller
             // 'last_date' => 'required|max:10', 
              
               
-        ]);
-        if ($validator->fails()) {                    
-             return response()->json(['errors'=>$validator->errors()->all(),'class'=>'error']); 
+        ];
 
-        } else {
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }else {
             $academicYear=AcademicYear::find($request->academic_year_id);
              $date =  date_create(date('Y-m-d',strtotime($academicYear->start_date ."+9 days")));              
             $data = ForSessionMonth::find($request->for_session_month_id)->times;
@@ -84,7 +89,8 @@ class FeeStructureLastDateController extends Controller
              
              $feeStructureLastDate->save();
             }
-             return response()->json([$feeStructureLastDate,'class'=>'success','message'=>'Successfully']);
+            $response=['status'=>1,'msg'=>'Created Successfully'];
+            return response()->json($response);
            
         }
     }
@@ -106,9 +112,11 @@ class FeeStructureLastDateController extends Controller
      * @param  \App\Model\FeeStructureLastDate  $feeStructureLastDate
      * @return \Illuminate\Http\Response
      */
-    public function edit(FeeStructureLastDate $feeStructureLastDate)
+    public function edit($id)
     {
-        //
+        $feeStructureLastDate = FeeStructureLastDate::find($id);
+         $forSessionMonths =ForSessionMonth::all();
+        return view('admin.finance.fee_structure_last_date_edit',compact('feeStructureLastDate','forSessionMonths'));
     }
 
     /**
@@ -118,9 +126,36 @@ class FeeStructureLastDateController extends Controller
      * @param  \App\Model\FeeStructureLastDate  $feeStructureLastDate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FeeStructureLastDate $feeStructureLastDate)
+    public function update(Request $request,$id)
     {
-        //
+       $rules=[
+        
+           
+            'amount' => 'required|max:8|regex:/^\d*(\.\d{1,2})?$/', 
+            'last_date' => 'required|date', 
+            'for_session_month_id' => 'required|max:30', 
+            // 'last_date' => 'required|max:10', 
+             
+              
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }else { 
+             $feeStructureLastDate = FeeStructureLastDate::find($id); 
+             $feeStructureLastDate->for_session_month_id = $request->for_session_month_id;
+             $feeStructureLastDate->amount = $request->amount; 
+             $feeStructureLastDate->last_date=$request->last_date; 
+             $feeStructureLastDate->save(); 
+            $response=['status'=>1,'msg'=>'Update Successfully'];
+            return response()->json($response);
+           
+        }
     }
 
     /**
@@ -129,10 +164,11 @@ class FeeStructureLastDateController extends Controller
      * @param  \App\Model\FeeStructureLastDate  $feeStructureLastDate
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FeeStructureLastDate $feeStructureLastDate,Request $request)
+    public function destroy($id)
     {
-        $feeStructureLastDate = FeeStructureLastDate::findOrFail($request->id);
+        $feeStructureLastDate = FeeStructureLastDate::find($id);
         $feeStructureLastDate->delete();
-        return  response()->json([$feeStructureLastDate,'message'=>'Fee Structure Last Date Delete Successfully','class'=>'success']);
+       $response=['status'=>1,'msg'=>'Delete Successfully'];
+            return response()->json($response);
     }
 }

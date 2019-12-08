@@ -32,6 +32,9 @@
                             <td>{{ $feeGroup->description }}</td>
                             <td>
                              @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
+                              <button type="button" class="btn btn-warning btn-xs" onclick="callPopupLarge(this,'{{ route('admin.feeGroup.group',$feeGroup->id) }}')" title="Group"><i class="fa fa-group" style="color:yellow"></i></i> </button>
+                              @endif
+                               @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
                               <button type="button" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.feeGroup.add.form',$feeGroup->id) }}')"><i class="fa fa-edit"></i> </button>
                               @endif
 

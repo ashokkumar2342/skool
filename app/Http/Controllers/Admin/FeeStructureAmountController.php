@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\FeeStructure;
 use App\Model\FeeStructureAmount;
+use App\Model\FeeStructureLastDate;
+use App\Model\ForSessionMonth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,7 +35,7 @@ class FeeStructureAmountController extends Controller
     public function onchange(Request $request)
     {
         $academic_year_id=$request->id;
-        $feeStructurs = FeeStructure::all();
+        $feeStructurs = FeeStructure::OrderBy('name','ASC')->get();
         return view('admin.finance.fee_structure_amount_table',compact('academic_year_id','feeStructurs'));
     }
 
@@ -84,10 +86,11 @@ class FeeStructureAmountController extends Controller
         //
     }
     public function search(Request $request)
-    {
+    { 
         $feeStructureAmount = FeeStructureAmount::where('fee_structure_id',$request->id)->first()->amount;
-
-       return response()->json($feeStructureAmount);
+        $feeStructureLastDstes = FeeStructureLastDate::where('fee_structure_id',$request->id)->OrderBy('fee_structure_id','ASC')->get(); 
+        $forSessionMonths =ForSessionMonth::OrderBy('name','ASC')->get();
+        return view('admin.finance.fee_structure_last_date_table',compact('feeStructureLastDstes','feeStructureAmount','forSessionMonths'));
     }
 
     /**

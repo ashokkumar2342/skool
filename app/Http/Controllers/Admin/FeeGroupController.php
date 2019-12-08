@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\FeeGroup;
+use App\Model\FeeStructure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -72,9 +73,11 @@ class FeeGroupController extends Controller
      * @param  \App\Model\FeeGroup  $feeGroup
      * @return \Illuminate\Http\Response
      */
-    public function show(FeeGroup $feeGroup)
+    public function group($id)
     {
-        //
+         $feeGroups=$id;
+         $feeStructures = FeeStructure::orderBy('name','ASC')->get();  
+         return view('admin.finance.fee_group_collection',compact('feeGroups','feeStructures'));   
     }
 
     /**

@@ -546,8 +546,9 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::group(['prefix' => 'fee-structure-last-date'], function() {
 	        Route::get('/', 'FeeStructureLastDateController@index')->name('admin.feeStructureLastDate.list');	 	
 	        Route::post('add', 'FeeStructureLastDateController@store')->name('admin.feeStructureLastDate.post');
-	        Route::delete('delete', 'FeeStructureLastDateController@destroy')->name('admin.feeStructureLastDate.delete');
-	        Route::put('update', 'FeeStructureLastDateController@update')->name('admin.feeStructureLastDate.update');
+	        Route::get('edit/{id}', 'FeeStructureLastDateController@edit')->name('admin.feeStructureLastDate.edit');
+	        Route::post('update/{id}', 'FeeStructureLastDateController@update')->name('admin.feeStructureLastDate.update');
+	        Route::get('delete/{id}', 'FeeStructureLastDateController@destroy')->name('admin.feeStructureLastDate.delete');
 	     });
 	    //------------------------- class-fee-structure ---------------------------------
 	    Route::group(['prefix' => 'class-fee-structure'], function() {
@@ -565,11 +566,12 @@ Route::group(['middleware' => 'admin'], function() {
 		    Route::get('add/{id?}', 'FeeGroupController@addForm')->name('admin.feeGroup.add.form');
 		    Route::post('store/{id?}', 'FeeGroupController@store')->name('admin.feeGroup.post');
 		    Route::get('delete/{id?}', 'FeeGroupController@destroy')->name('admin.feeGroup.delete');
+		    Route::get('group/{id?}', 'FeeGroupController@group')->name('admin.feeGroup.group');
 		 });//------------------------- fee-group-detailt ---------------------------------
         Route::group(['prefix' => 'fee-group-detail'], function() {
     	    Route::get('/', 'FeeGroupDetailController@index')->name('admin.feeGroupDetail.list');	 
 	        Route::post('search', 'FeeGroupDetailController@search')->name('admin.feeGroupDetail.search'); 
-    	    Route::post('add', 'FeeGroupDetailController@store')->name('admin.feeGroupDetail.post');
+    	    Route::post('add/{id?}', 'FeeGroupDetailController@store')->name('admin.feeGroupDetail.post');
     	    Route::delete('delete', 'FeeGroupDetailController@destroy')->name('admin.feeGroupDetail.delete');
     	    Route::put('update', 'FeeGroupDetailController@update')->name('admin.feeGroupDetail.update');
     	 });//------------------------- concession ---------------------------------

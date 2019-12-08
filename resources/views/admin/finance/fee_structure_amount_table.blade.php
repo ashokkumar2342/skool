@@ -8,10 +8,10 @@
    
 }
      </style> 
-<div class="panel panel-danger">
+<div class="panel panel-default">
   <div class="panel-heading"></div>
   <div class="panel-body">
-  	<table class="table bg-warning"> 
+  	<table class="table table-bordered table-striped table-hover"> 
 	<thead>
 		<tr>
 			  
