@@ -23,12 +23,11 @@
 <body>
    
    
- @foreach ($studentSubjects as $studentSubject)
-      @if ($studentSubject->session_id==1) 
+  
     <div class="panel panel-info" style="margin-right: 8px;margin-top: 18px">
       <div class="panel-heading">
         <h4 class="panel-title" style="margin-left: 470px">
-          <a data-toggle="collapse" data-parent="#accordion" href="#parent">Subject Details {{ $studentSubject->academicYears->name or '' }}</a>
+          <a data-toggle="collapse" data-parent="#accordion" href="#parent">Subject Details</a>
         </h4>
       </div>
       <div id="parent" class="panel-collapse collapse in">
@@ -38,12 +37,13 @@
                        <thead>
                            <tr>
                                <th>Subject Name</th>
-                               <th>ISOptional</th>
+                               <th>Is Optional</th>
                                <th>Action</th>
                            </tr>
                        </thead>
                        <tbody>
-                           @foreach ($studentSubjects as $studentSubject) 
+                           @foreach ($studentSubjects as $studentSubject)
+
                           <tr>
                               <td>{{ $studentSubject->SubjectTypes->name or ''}}</td>
                               <td>{{ $studentSubject->ISOptionals->name or ''}}</td>                             
@@ -62,7 +62,5 @@
         </div>
       </div>
     </div> 
-     @endif  
-@endforeach 
-</body>
+ </body>
 </html>

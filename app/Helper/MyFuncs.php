@@ -31,6 +31,12 @@ class MyFuncs {
        return $user = Auth::guard('admin')->user()->id;  
     }
 
+    public static function getStudentClasses(){
+
+        $user = MyFuncs::getUser();    
+        $userClass = UserClassType::where('admin_id',$user->id)->distinct()->get(['class_id']);
+        return $classes = array_pluck(ClassType::get(['id','name'])->toArray(),'name', 'id');
+    }
     public static function getClasses(){
 
         $user = MyFuncs::getUser();    
@@ -53,6 +59,13 @@ class MyFuncs {
         $userClass = UserClassType::where('admin_id',$user->id)->distinct()->get(['class_id']);
         $userSections = UserClassType::where('admin_id',$user->id)->where('class_id',$class_id)->get(['section_id']);  
        return SectionType::whereIn('id',$userSections)->get();
+       
+    }
+    public static function getStudentSections($class_id){
+        $user = MyFuncs::getUser();
+        $userClass = UserClassType::where('admin_id',$user->id)->distinct()->get(['class_id']);
+        $userSections = UserClassType::where('admin_id',$user->id)->where('class_id',$class_id)->get(['section_id']);  
+       return SectionType::all();
        
     }
 
