@@ -20,7 +20,7 @@
 					<td>{{ $smsApi->password }}</td>
 					<td>{{ $smsApi->encryption }}</td>
 					<td>{{ $smsApi->mail_from }}</td>
-					<td>{{ $smsApi->enableAutoSend==1?'Yes' : 'No'}}</td>
+					<td>{{ $smsApi->enableautosend==1?'Yes' : 'No'}}</td>
 					<td>
 						@if ($smsApi->status==1 )
 						<button class="btn btn-success btn-xs" style="width:60px" success-popup="true" button-click="btn_homework_table_show" onclick="callAjax(this,'{{ route('admin.api.status',[$smsApi->id,2]) }}')">Active</i></button>

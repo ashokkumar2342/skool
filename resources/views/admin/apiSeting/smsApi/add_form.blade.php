@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-lg-12">
                       <label>Enable Auto Send</label>
-                        <input type="checkbox" name="enable_auto_send" value="1" {{ @$smsApi->enableAutoSend==1?'checked' : '' }}>
+                        <input type="checkbox" name="enable_auto_send" value="1" {{ @$smsApi->enableautosend==1?'checked' : '' }}>
                     </div>
                     {{-- <div class="form-group   col-lg-4" style="margin-top: 20px">
                       <label>Mobile No</label>
