@@ -8,6 +8,7 @@ Route::prefix('resitration')->group(function () {
      Route::get('verification/{id}', 'AccountController@verification')->name('student.resitration.verification');
      Route::post('mobile-verify', 'AccountController@verifyMobile')->name('student.resitration.verifyMobile');
      Route::post('email-verify', 'AccountController@verifyEmail')->name('student.resitration.verifyEmail');
+     Route::get('resend-otp/{id?}/{otp_type}', 'AccountController@resendOTP')->name('student.resitration.resend.otp');
      Route::get('resitration-form', 'AccountController@resitrationForm')->name('student.resitration.resitrationForm'); 
  Route::get('resitration-form1', 'AccountController@resitrationForm')->name('student.resitration.resitrationForm'); 
 });

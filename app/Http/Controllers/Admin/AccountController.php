@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Admin;
+use App\AdminOtp;
 use App\Events\SmsEvent;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
@@ -543,32 +544,35 @@ class AccountController extends Controller
     }
     public function studentStore(Request $request)
     {  
+       
         $this->validate($request,[
             'first_name' => 'required',             
             'email' => 'required|email|max:50|unique:admins',             
             'mobile' => 'required|numeric|digits:10|unique:admins',             
             'password' => 'required|min:6',
-            'password_confirm' => 'required_with:password|same:password|min:6'            
+            'password_confirm' => 'required_with:password|same:password|min:6',
+            'captcha' => 'required|captcha'             
             ]);
  
         $accounts = new Admin(); 
         $accounts->first_name = $request->first_name;
-        $accounts->email = $request->email;
-        $accounts->email_otp = mt_rand(100000,999999);
-        $accounts->mobile_otp = mt_rand(100000,999999);
+        $accounts->email = $request->email; 
         $accounts->password = bcrypt($request['password']);
         $accounts->mobile = $request->mobile; 
-        $accounts->role_id =12; 
-      
+        $accounts->role_id =12;
+        $accounts->password_plain =$request->password;  
+        $accounts->status =2; 
+     
         if ($accounts->save())
          { 
-            event(new SmsEvent($accounts->mobile,$accounts->mobile_otp));
-            $data = array( 'email' => $accounts->email, 'otp' => $accounts->email_otp, 'from' => 'school@iskool.com', 'from_name' => 'school' );
 
-            Mail::send( 'mail', $data, function( $message ) use ($data)
-            {
-                $message->to( $data['email'] )->from( $data['from'], $data['otp'] )->subject( 'Otp Verification!' );
-            });
+            // event(new SmsEvent($accounts->mobile,$accounts->mobile_otp));
+            // $data = array( 'email' => $accounts->email, 'otp' => $accounts->email_otp, 'from' => 'school@iskool.com', 'from_name' => 'school' );
+
+            // Mail::send( 'mail', $data, function( $message ) use ($data)
+            // {
+            //     $message->to( $data['email'] )->from( $data['from'], $data['otp'] )->subject( 'Otp Verification!' );
+            // });
 
           return redirect()->route('student.resitration.verification',Crypt::encrypt($accounts->id))->with(['message'=>'Account created Successfully.','class'=>'success']);        
         }
@@ -586,7 +590,9 @@ class AccountController extends Controller
     public function verification($id)
     {
        $parentRegistration= Admin::find(Crypt::decrypt($id));
-         return view('front.registration.verification',compact('parentRegistration'));
+       $adminOtpMobile= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',1)->first();
+       $adminOtpemail= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',2)->first();
+         return view('front.registration.verification',compact('parentRegistration','adminOtpMobile','adminOtpemail'));
     }
 
     public function verifyMobile(Request $request)
@@ -596,15 +602,17 @@ class AccountController extends Controller
             'mobile_otp' => 'required|numeric',  
             ]);
          
-        $parentRegistration= Admin::where('mobile',$request->mobile)
-                                                    ->where('mobile_otp',$request->mobile_otp)
-                                                    ->first();
-        if ($parentRegistration==null) {
+        $parentRegistration= Admin::where('mobile',$request->mobile)->first();
+        $adminOtpMobile= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',1)->first();
+        $adminOtpEmail= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',2)->first();
+
+        if ($adminOtpMobile->otp!=$request->mobile_otp) {
             return redirect()->back()->with(['class'=>'error','message'=>'Mobile Otp Not Match']);      
         }else{
-             $parentRegistration->mobile_verify=1;                                        
-             $parentRegistration->save() ;
-             if ($parentRegistration->email_verify==1 && $parentRegistration->mobile_verify==1) {
+             $adminOtpMobile->otp_verified=1;                                        
+             $adminOtpMobile->save() ;
+             if ($adminOtpEmail->otp_verified==1 && $adminOtpMobile->otp_verified==1) {
+                
                return redirect()->route('admin.login')->with(['class'=>'success','message'=>'Mobile Otp Verify']);  
             }else{
              return redirect()->back()->with(['class'=>'success','message'=>'Mobile Otp Verify']);
@@ -628,25 +636,30 @@ class AccountController extends Controller
            'email_otp' => 'required|numeric',  
            ]);
         
-       $parentRegistration= Admin::where('email',$request->email)
-                                                   ->where('email_otp',$request->email_otp)
-                                                   ->first();
-       if ($parentRegistration==null) {
-           return redirect()->back()->with(['class'=>'error','message'=>'Email Otp Not Match']);      
-       }else{
-            $parentRegistration->email_verify=1;                                        
-            $parentRegistration->status=1;                                        
-            $parentRegistration->save() ;
-            if ($parentRegistration->email_verify==1 && $parentRegistration->mobile_verify==1) {
+       $parentRegistration= Admin::where('email',$request->email)->first();
+        $adminOtpMobile= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',1)->first();
+        $adminOtpEmail= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',2)->first();
+
+        if ($adminOtpEmail->otp!=$request->email_otp) {
+            return redirect()->back()->with(['class'=>'error','message'=>'Email Otp Not Match']);      
+        }else{
+             $adminOtpEmail->otp_verified=1;                                        
+             $adminOtpEmail->save() ;
+             if ($adminOtpEmail->otp_verified==1 && $adminOtpMobile->otp_verified==1) {
+                
                return redirect()->route('admin.login')->with(['class'=>'success','message'=>'Email Otp Verify']);  
             }else{
-               return redirect()->back()->with(['class'=>'success','message'=>'Email Otp Verify']); 
+             return redirect()->back()->with(['class'=>'success','message'=>'Email Otp Verify']);
             }
-            
 
-       }
+        }
 
 
+    }
+    public function resendOTP(Request $request,$user_id,$otp_type)
+    {
+       DB::select(DB::raw("call up_generate_otp_newuser ($user_id, '$otp_type')"));
+       return redirect()->back()->with(['message'=>'Resend OTP Successfully.','class'=>'success']); 
     }
 
 }

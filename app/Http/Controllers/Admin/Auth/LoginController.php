@@ -9,6 +9,7 @@ use App\Student;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 class LoginController extends Controller
@@ -59,8 +60,12 @@ class LoginController extends Controller
           $this->validate($request, [
               'email' => 'required', 
               'password' => 'required',
-              // 'captcha' => 'required|captcha' 
+              'captcha' => 'required|captcha' 
           ]);
+          $admins=Admin::where('email',$request->email)->first();
+          if ($admins->status==2) {
+            return redirect()->route('student.resitration.verification',Crypt::encrypt($admins->id)); 
+          }
           $credentials = [
                      'email' => $request['email'],
                      'password' => $request['password'],

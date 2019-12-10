@@ -8,11 +8,11 @@
   <div class="login-box-body">
     <p class="login-box-msg">OTP Verification</p>
     {{-- {{ Auth::user()->name }} --}}
-    @if ($parentRegistration->mobile_verify !=1)
+    @if (@$adminOtpMobile->otp_verified !=1)
     {!! Form::open(['route'=>'student.resitration.verifyMobile']) !!}
        
       <div class="form-group has-feedback">
-        {!! Form::hidden('mobile', $parentRegistration->mobile, ['class'=>'form-control', 'placeholder'=>'Mobile']) !!}
+        {!! Form::hidden('mobile', @$parentRegistration->mobile, ['class'=>'form-control', 'placeholder'=>'Mobile']) !!}
         <span class="glyphicon glyphicon-phone form-control-feedback"></span>
         {{-- <p class="text-danger">{{ $errors->first('mobile') }}</p> --}}
       </div>
@@ -25,21 +25,25 @@
      
        
       <div class="row">
-        <div class="col-xs-8">
-           
+        <div class="col-xs-4">
+            
+        </div>
+        <div class="col-xs-4">
+          <a href="{{ route('student.resitration.resend.otp',[@$parentRegistration->id,1]) }}" title="">Resend OTP</a>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
+          
           <button type="submit" class="btn btn-primary btn-block btn-flat">Verify</button>
         </div>
         <!-- /.col -->
       </div>
       @endif
     {!! Form::close() !!}
-    @if ($parentRegistration->email_verify !=1)
+    @if (@$adminOtpEmail->otp_verified !=1)
           {!! Form::open(['route'=>'student.resitration.verifyEmail']) !!}
           <div class="form-group has-feedback">
-            {!! Form::hidden('email', $parentRegistration->email, ['class'=>'form-control', 'placeholder'=>'mail']) !!}
+            {!! Form::hidden('email', @$parentRegistration->email, ['class'=>'form-control', 'placeholder'=>'mail']) !!}
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             {{-- <p class="text-danger">{{ $errors->first('email') }}</p> --}}
           </div>
@@ -53,11 +57,15 @@
          
            
           <div class="row">
-            <div class="col-xs-8">
+            <div class="col-xs-4">
                
+            </div>
+            <div class="col-xs-4">
+              <a href="{{ route('student.resitration.resend.otp',[@$parentRegistration->id,2]) }}" title="">Resend OTP</a>
             </div>
             <!-- /.col -->
             <div class="col-xs-4">
+              
               <button type="submit" class="btn btn-primary btn-block btn-flat">Verify</button>
             </div>
             <!-- /.col -->
@@ -74,17 +82,4 @@
 <!-- /.login-box -->
 @endsection
 
-  @push('scripts') 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-@if(Session::has('message'))
-<script type="text/javascript">
-
-    Command: toastr["{{ Session::get('class') }}"]("{{ Session::get('message') }}");
-</script>
-
-@endif
- 
- <script src={!! asset('admin_asset/dist/js/validation/common.js?ver=1') !!}></script>
-    <script src={!! asset('admin_asset/dist/js/customscript.js?ver=1') !!}></script>
-
-@endpush
+  
