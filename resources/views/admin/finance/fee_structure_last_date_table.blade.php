@@ -10,8 +10,16 @@
         @endforeach 
     </select> 
 </div>
+@php
+   $num= $feeStructureLastDstes->count();
+@endphp
 <div class="col-lg-1">
-    <input type="submit" class="btn btn-success" style="margin-top: 24px">
+    @if($num!=0)
+    <input type="submit" onclick="return confirm('Are you sure you want to overwrite?')"  class="btn btn-success" class="btn btn-success" style="margin-top: 24px">
+    @else
+     <input type="submit"  style="margin-top: 24px">
+    @endif
+
     
 </div>
 <div class="col-lg-12"> 

@@ -66,7 +66,11 @@ class FeeStructureLastDateController extends Controller
             return response()->json($response);// response as json
         }else {
             $academicYear=AcademicYear::find($request->academic_year_id);
-             $date =  date_create(date('Y-m-d',strtotime($academicYear->start_date ."+9 days")));              
+             $date =  date_create(date('Y-m-d',strtotime($academicYear->start_date ."+9 days")));    
+             $feeStructureLastDatesIdArr = FeeStructureLastDate::where(['fee_structure_id'=>$request->fee_structure_id,'academic_year_id'=>$request->academic_year_id])->pluck('id')->toArray();  
+             if ( count($feeStructureLastDatesIdArr)!=null) {
+                  FeeStructureLastDate::whereIn('id',$feeStructureLastDatesIdArr)->delete();
+             }          
             $data = ForSessionMonth::find($request->for_session_month_id)->times;
             for ($i=0; $i < $data; $i++) {  
              $feeStructureLastDate = new FeeStructureLastDate();
