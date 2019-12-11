@@ -63,8 +63,10 @@ class LoginController extends Controller
               'captcha' => 'required|captcha' 
           ]);
           $admins=Admin::where('email',$request->email)->first();
-          if ($admins->status==2) {
+          if (!empty($admins)) { 
+            if ($admins->status==2) {
             return redirect()->route('student.resitration.verification',Crypt::encrypt($admins->id)); 
+            }
           }
           $credentials = [
                      'email' => $request['email'],
