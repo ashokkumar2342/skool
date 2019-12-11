@@ -103,11 +103,11 @@
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('registration_no','Registration No.',['class'=>' control-label ']) }}
-                                                    <span class="fa fa-asterisk"></span>                         
-                                                    {{ Form::text('registration_no','',['class'=>'form-control','maxlength'=>'20']) }}
-                                                    <p class="text-danger">{{ $errors->first('registration_no') }}</p>
+                                                    <span class="fa fa-asterisk"></span> 
+                                                    <input type="text" class="form-control" name="registration_no" maxlength="{{ $schoolinfo->reg_length }}" min="{{ $schoolinfo->reg_length }}" placeholder="Enter Registration No."> 
                                                 </div>
                                             </div>
+                                            <input type="hidden" name="reg_length" value="{{ $schoolinfo->reg_length }}">
                                              <div class="col-lg-3">                         
                                                 <div class="form-group">
                                                     {{ Form::label('admission_no','Admission No.',['class'=>' control-label']) }}

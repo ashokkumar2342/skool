@@ -15,9 +15,24 @@
         <div class="box-body">
 
             <form action="{{ route('admin.student.registration.store') }}" call-back="redirectStudent" method="post" class="add_form">
-                {{ csrf_field() }}                                            
+                {{ csrf_field() }}
+                <div class="row"> 
+                <div class="col-lg-4">                         
+                    <div class="form-group">
+                        <label>Academic Year</label>
+                        <span class="fa fa-asterisk"></span>
+                         <select name="academic_year_id" class="form-control" onchange="callAjax(this,'{{ route('admin.student.registration.academicYear') }}','select_class_box')">
+                             <option selected disabled>Select Academic Year</option>
+                             @foreach ($academicYears as $academicYear)
+                               <option value="{{ $academicYear->academic_year_Id }}">{{ $academicYear->name }}</option> 
+                             @endforeach
+                              
+                         </select>
+                    </div>
+                </div>
+                </div>                                            
                 <div class="row">  
-                    <div class="col-lg-3">                         
+                    {{-- <div class="col-lg-3">                         
                         <div class="form-group">
                             {{ Form::label('sibling_registration','Sibling Ragistration',['class'=>' control-label']) }}
                             <span class="fa fa-asterisk"></span>
@@ -69,15 +84,20 @@
                         </div>
                     </div>  
                 </div>
-             </div> 
-             <div class="row"> 
+             </div>  --}}
+             
+
                 <div class="col-lg-4">                         
                     <div class="form-group">
                         {{ Form::label('class','Class',['class'=>' control-label']) }}
                         <span class="fa fa-asterisk"></span>
+                        <select name="class" class="form-control" id="select_class_box">
+                            <option selected disabled>Select Class</option>}
+                             
+                        </select>
 
-                        {!! Form::select('class',$classes, @$default->class_id, ['class'=>'form-control','placeholder'=>'Select Class']) !!}
-                        <p class="text-danger">{{ $errors->first('session') }}</p>
+                        {{-- {!! Form::select('class',$classes, @$default->class_id, ['class'=>'form-control','placeholder'=>'Select Class']) !!}
+                        <p class="text-danger">{{ $errors->first('session') }}</p> --}}
                     </div>
                 </div> 
                 <div class="col-lg-4">                         

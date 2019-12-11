@@ -7,6 +7,7 @@ use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Model\AcademicYear;
 use App\Model\Address;
+use App\Model\AdmissionSeat;
 use App\Model\AwardLevel;
 use App\Model\BloodGroup;
 use App\Model\Category;
@@ -25,6 +26,7 @@ use App\Model\PaymentType;
 use App\Model\Profession;
 use App\Model\Religion;
 use App\Model\RequestUpdate;
+use App\Model\Schoolinfo;
 use App\Model\SiblingGroup;
 use App\Model\Sms\EmailTemplate;
 use App\Model\Sms\SmsTemplate;
@@ -113,8 +115,9 @@ class StudentController extends Controller
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
         $default = StudentDefaultValue::find(1); 
-        $houses=House::orderBy('id','ASC')->get();   
-        return view('admin.student.studentdetails.add',compact('classes','sessions','default','genders','religions','categories','houses','user'));
+        $houses=House::orderBy('id','ASC')->get();
+        $schoolinfo=Schoolinfo::first();   
+        return view('admin.student.studentdetails.add',compact('classes','sessions','default','genders','religions','categories','houses','user','schoolinfo'));
     }
     public function showForm()
     {        
@@ -235,7 +238,8 @@ class StudentController extends Controller
              'emailid' => 'required_if:sibling_registration,no|unique:students',
              'class' => 'required',
              "section" => 'required',
-             "registration_no" => 'required|max:20|unique:students',
+             'registration_no' => "required||min:$request->reg_length|max:$request->reg_length",
+             // "registration_no" => 'required|max:20|unique:students',
              "admission_no" => 'required|max:20|unique:students',
              "roll_no" => 'required|max:20|unique:students',
              "date_of_admission" => 'required|date', 
@@ -1160,25 +1164,33 @@ class StudentController extends Controller
     public function registrationForm($value='')
     {
         $user = Auth::guard('admin')->user();
-        $classes = MyFuncs::getClasses();   
-        $sessions = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
-        $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
-        $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
-        $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
-        $default = StudentDefaultValue::find(1); 
-        $houses=House::orderBy('id','ASC')->get();   
+        if ($user->role_id==12) {
+           $classes = MyFuncs::getStudentClasses();
+        }else{
+           $classes = MyFuncs::getClasses();
+        } 
+        $academicYears=DB::select(DB::raw("select DISTINCT `as`.`academic_year_Id`, `ay`.`name` from `admission_seats` `as` Inner join `academic_years` `ay` on `as`.`academic_year_id` = `ay`.`id` WHERE curdate() >= `as`.`from_date` And curdate() <= `as`.`last_date`")); 
         
-      return view('admin.student.studentdetails.newregistration.form',compact('classes','sessions','default','genders','religions','categories','houses','user'));
+        $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id'); 
+        $default = StudentDefaultValue::find(1); 
+        return view('admin.student.studentdetails.newregistration.form',compact('classes','academicYears','default','genders','religions','categories','houses','user'));
+    }
+    public function academicYearOnchange(Request $request)
+    {
+      $admissionSeat=AdmissionSeat::where('academic_year_id',$request->id)->pluck('class_id')->toArray();
+      $classes=ClassType::whereIn('id',$admissionSeat)->get();
+      return view('admin.student.studentdetails.newregistration.class_select_box',compact('classes'));
     }
     public function registrationStore(Request $request)
     {   
        
        try {
         $rules=[
-             'sibling_registration' => 'required',
-             'sibling_registration_no' => 'required_if:sibling_registration,yes',
-             'mobileno' => 'required_if:sibling_registration,no|unique:students',
-             'emailid' => 'required_if:sibling_registration,no|unique:students',
+             // 'sibling_registration' => 'required',
+             // 'sibling_registration_no' => 'required_if:sibling_registration,yes',
+             // 'mobileno' => 'required_if:sibling_registration,no|unique:students',
+             // 'emailid' => 'required_if:sibling_registration,no|unique:students',
+             
              'class' => 'required', 
              "student_name" => 'required|max:199', 
              "dob" => 'required|date',
@@ -1195,24 +1207,24 @@ class StudentController extends Controller
          } 
          else {   
          $admin_id = Auth::guard('admin')->user()->id;
-         $username = str_random('10');
+         // $username = str_random('10');
          $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
          $student= new Student();
-         if ($request->sibling_registration=='yes') {  
-           $sibling= $student->getDetailByRegistrationNo($request->sibling_registration_no);
-           if (is_null($sibling)) {
-             $response=array();
-             $response['status']=0;
-             $response['msg']='Sibling Invalied Ragistration No';
-             return $response;
-           }
-           $student->siblingId= $sibling->id;
-         }
+         // if ($request->sibling_registration=='yes') {  
+         //   $sibling= $student->getDetailByRegistrationNo($request->sibling_registration_no);
+         //   if (is_null($sibling)) {
+         //     $response=array();
+         //     $response['status']=0;
+         //     $response['msg']='Sibling Invalied Ragistration No';
+         //     return $response;
+         //   }
+         //   $student->siblingId= $sibling->id;
+         // }
          
           
-         $student->emailid= $request->emailid;  
-         $student->mobileno= $request->mobileno; 
-         $student->dpassword= $char;  
+         // $student->emailid= $request->emailid;  
+         // $student->mobileno= $request->mobileno; 
+         // $student->dpassword= $char;  
          $student->dpassword_encrypt= bcrypt($char); 
          $student->admin_id = $admin_id; 
          $student->class_id= $request->class; 
@@ -1236,7 +1248,7 @@ class StudentController extends Controller
     }
     public function registrationList()
     {  
-      return  $userId=Auth::guard('admin')->user();
+      $userId=Auth::guard('admin')->user();
        $studentUserMaps=StudentUserMap::where('userId',$userId->id)->get();
        return view('admin.student.studentdetails.newregistration.student_list',compact('studentUserMaps')); 
     }

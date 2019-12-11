@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
+use App\Model\AdmissionSeat;
 use App\Model\BloodGroup;
 use App\Model\Category;
 use App\Model\Complextion;
@@ -538,4 +540,60 @@ class MasterController extends Controller
             $Category->delete();
              return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         } 
+
+
+
+        //-----------admission seat-----------------------------
+
+        public function adminssionSeat($value='')
+        {
+          $adminssionSeats=AdmissionSeat::orderBy('academic_year_id','ASC')->get();  
+          return view('admin.master.admissionSeat.list',compact('adminssionSeats')); 
+        }
+        public function addadminssionSeat($id=null)
+        {
+          $academicYears=AcademicYear::orderBy('id','ASC')->get();
+          $classes=MyFuncs::getClassByHasUser();
+          if ($id!=null) {
+            $adminssionSeat=AdmissionSeat::find($id);
+           }
+           if ($id==null) {
+            $adminssionSeat='';
+           } 
+          return view('admin.master.admissionSeat.form',compact('academicYears','classes','adminssionSeat')); 
+        }
+
+        public function adminssionSeatStore(Request $request,$id=null)
+      {  
+          $rules=[
+              
+                'academic_year_id' => 'required', 
+                'class_id' => 'required', 
+                'total_seat' => 'required', 
+                'from_date' => 'required|date', 
+                'last_date' => 'required|date', 
+                
+            
+             
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              else {
+               $adminssionSeat=AdmissionSeat::firstOrNew(['id'=>$id]);  
+               $adminssionSeat->academic_year_id=$request->academic_year_id;  
+               $adminssionSeat->class_id=$request->class_id;  
+               $adminssionSeat->total_seat=$request->total_seat;  
+               $adminssionSeat->from_date=$request->from_date;  
+               $adminssionSeat->last_date=$request->last_date; 
+               $adminssionSeat->save();
+                $response=['status'=>1,'msg'=>'Submit Successfully'];
+              }     return response()->json($response);
+        }
 }

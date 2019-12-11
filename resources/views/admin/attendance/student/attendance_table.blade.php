@@ -51,18 +51,15 @@
                     <td>
                     <label class="radio-inline">
                       <input type="radio" {{ $checked }} id="{{ $attendancesType->name }}{{ $student->id }}" onclick="$('#subject{{ $student->id }}').prop('checked', true);
+                      $('#tr-{{ $student->id }}').removeClass('lebel label-danger')
+                      $('#tr-{{ $student->id }}').removeClass('lebel label-warning')
+                      $('#tr-{{ $student->id }}').removeClass('lebel label-success')
+                      
                       if(this.value==1){
-                        $('#tr-{{ $student->id }}').removeClass('lebel label-danger')
-                        $('#tr-{{ $student->id }}').removeClass('lebel label-warning')
-                        $('#tr-{{ $student->id }}').addClass('lebel label-success')
+                       $('#tr-{{ $student->id }}').addClass('lebel label-success')
                       }else if(this.value==2){
                         $('#tr-{{ $student->id }}').addClass('lebel label-danger')
-                         $('#tr-{{ $student->id }}').removeClass('lebel label-success')
-                        $('#tr-{{ $student->id }}').removeClass('lebel label-warning')
-
                       }else if(this.value==3){
-                        $('#tr-{{ $student->id }}').removeClass('lebel label-danger')
-                         $('#tr-{{ $student->id }}').removeClass('lebel label-success')
                         $('#tr-{{ $student->id }}').addClass('lebel label-warning')
 
                       }

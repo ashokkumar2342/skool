@@ -7,14 +7,15 @@
     <section class="content">
         <div class="box">  
             <div class="box-body">
-              <button type="button" class="hidden" id="btn_click_form_blade" onclick="callAjax(this,'{{ route('admin.attendance.barcode.click') }}','barcode_blade')"></button>
-              <div  id="barcode_blade">
-                
-              
-                     
-              </div>
-                             
-                      
+               <div class="row">
+                  <div class="col-lg-4" style="margin-left: 20px">
+                     <label>Registration No</label>
+                       <input type="text" class="form-control"  autocomplete="off" name="registration_no" id="registration_no" autofocus onkeyup="aaaaa(this)" > 
+                        </div>
+                  </div> 
+                  <div id="div_show" style="margin-top: 40px">
+                           
+                  </div> 
             </div> 
         </div> 
     </section>
@@ -26,8 +27,17 @@
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  
 <script type="text/javascript">
-   $('#btn_save_attendance_barcode').click();  
-   $('#btn_click_form_blade').click();  
+  function aaaaa(obj) { 
+   
+    if (obj.value.length=={{ $schoolinfo }}) {  
+        callAjax(this,'{{ route('admin.attendance.barcode.show') }}'+'?registration_no='+$('#registration_no').val(),'div_show'); 
+        document.getElementById("registration_no").value= '';
+    }
+
+
+  }
+   // $('#btn_save_attendance_barcode').click();  
+   // $('#btn_click_form_blade').click();  
  </script>
 
  

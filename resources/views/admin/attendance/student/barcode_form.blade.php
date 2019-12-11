@@ -3,7 +3,8 @@
                       <div class="row">
                         <div class="col-lg-4" style="margin-left: 20px">
                           <label>Registration No</label>
-                          <input type="text" class="form-control" name="registration_no" button-click="btn_save_attendance_barcode" onkeyup="callAjax(this,'{{ route('admin.attendance.barcode.show') }}','div_show')"> 
+                          <input type="text" class="form-control" name="registration_no" id="registration_no" button-click="btn_save_attendance_barcode" onkeyup="aaaaa(this)"> 
+
                         </div>
                       </div>
               </form>

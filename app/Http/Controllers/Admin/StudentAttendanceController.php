@@ -8,15 +8,17 @@ use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\AttendanceType;
 use App\Model\ClassType;
+use App\Model\Schoolinfo;
 use App\Model\SessionDate;
 use App\Model\Sms\SmsTemplate;
-use App\Model\StudentAttendanceClass;
 use App\Model\StudentAttendance;
+use App\Model\StudentAttendanceClass;
 use App\Model\StudentDefaultValue;
 use App\Student;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class StudentAttendanceController extends Controller
@@ -270,19 +272,22 @@ class StudentAttendanceController extends Controller
 //-------------------attendance-barcode------------------------------------------------//
     public function attendanceBarcode()
     {
-      return  view('admin.attendance.student.barcode');   
+      $schoolinfo=Schoolinfo::first()->reg_length; 
+      return  view('admin.attendance.student.barcode',compact('schoolinfo'));   
     }
     public function btnClick()
     {
+          
       return  view('admin.attendance.student.barcode_form');   
     }
     public function attendanceBarcodeshow(Request $request)
-    {
-       $StudentAttendancesBarcode=Student::where('registration_no',$request->id)->first();
-       if ($StudentAttendancesBarcode->registration_no==$request->id) {
-       return  view('admin.attendance.student.student_list_barcode',compact('StudentAttendancesBarcode'));
-
-       }
+    {  
+      $user_id=Auth::guard('admin')->user()->id;
+          $StudentAttendancesBarcode=DB::select(DB::raw("call up_mark_att_student_barcode ('$request->registration_no', '$user_id')")); 
+        
+       
+        return  view('admin.attendance.student.student_list_barcode',compact('StudentAttendancesBarcode')); 
+        
         
     }
 

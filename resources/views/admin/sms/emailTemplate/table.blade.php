@@ -6,9 +6,8 @@
                <thead>
                  <tr>
                    <th>Sr.No.</th> 
-                   <th>Name</th>
                    <th>Massage</th>
-                   <th>Status</th>
+                   <th>Hints</th>
                    <th>Action</th> 
                    
                  </tr>
@@ -19,9 +18,8 @@
                 @endphp
                 @foreach ($emailTemplates  as $EmailTemplates) 
                  <tr>
-                  <th>{{ $id++ }}</th>
-                    
-                   <td>{!! $EmailTemplates->messagePorpose->name or '' !!}</td>
+                  <th>{{ $id++ }}</th> 
+                  
                    <td>{!! $EmailTemplates->message !!}</td>
                    
                    <td style="width: 200px">{{ $EmailTemplates->subject }}</td>

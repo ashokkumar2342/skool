@@ -223,6 +223,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('student-serach-by-register-no/', 'StudentController@studentSearchByRegisterNo')->name('admin.student.details.show');
 		//----------student role url -------------------
 		Route::get('registration-form', 'StudentController@registrationForm')->name('admin.student.registration.form');	
+		Route::get('admission-class-avalval', 'StudentController@academicYearOnchange')->name('admin.student.registration.academicYear'); 
 		Route::post('registration-store', 'StudentController@registrationStore')->name('admin.student.registration.store');	
 		Route::get('registration-list', 'StudentController@registrationList')->name('admin.student.registration.list'); 
 
@@ -550,7 +551,7 @@ Route::group(['middleware' => 'admin'], function() {
 	        Route::post('add', 'FeeStructureLastDateController@store')->name('admin.feeStructureLastDate.post');
 	        Route::get('edit/{id}', 'FeeStructureLastDateController@edit')->name('admin.feeStructureLastDate.edit');
 	        Route::post('update/{id}', 'FeeStructureLastDateController@update')->name('admin.feeStructureLastDate.update');
-	        Route::get('delete/{id}', 'FeeStructureLastDateController@destroy')->name('admin.feeStructureLastDate.delete');
+	        Route::get('delete/{id?}', 'FeeStructureLastDateController@destroy')->name('admin.feeStructureLastDate.delete');
 	     });
 	    //------------------------- class-fee-structure ---------------------------------
 	    Route::group(['prefix' => 'class-fee-structure'], function() {
@@ -901,6 +902,12 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('add/{id?}', 'MasterController@addstudentStatus')->name('admin.studentStatus.add');	 	
 			    Route::post('store/{id?}', 'MasterController@studentStatusStore')->name('admin.studentStatus.store'); 
 			    Route::get('delete/{id}', 'MasterController@studentStatusDestroy')->name('admin.studentStatus.delete'); 
+			});
+			Route::group(['prefix' => 'adminssion-seat'], function() {
+			    Route::get('admission-seat', 'MasterController@adminssionSeat')->name('admin.adminssion.seat'); 
+			    Route::get('add/{id?}', 'MasterController@addadminssionSeat')->name('admin.adminssion.seat.add');	 	
+			    Route::post('store/{id?}', 'MasterController@adminssionSeatStore')->name('admin.adminssion.seat.store'); 
+			    // Route::get('delete/{id}', 'MasterController@studentStatusDestroy')->name('admin.studentStatus.delete'); 
 			});	
 			//------------------------- SMS ---------------------------------
 			Route::group(['prefix' => 'sms'], function() {
