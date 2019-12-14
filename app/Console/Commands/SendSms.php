@@ -46,12 +46,7 @@ class SendSms extends Command
        $sentSmsDetails=SentSmsDetail::whereIn('id',$id)->update(['sent_status'=>2]); 
        $sentSmsDetailsFinalDatas=SentSmsDetail::where('sent_status',2)->get(); 
        foreach ($sentSmsDetailsFinalDatas as $sentSmsDetailsFinalDatas) {
-        event(new smsEvent($sentSmsDetailsFinalDatas->mobileno,$sentSmsDetailsFinalDatas->smstext)); 
-          // $array=array();       
-          // $array['mobile']=$sentSmsDetailsFinalDatas->mobileno;
-          // $array['message']=$sentSmsDetailsFinalDatas->smstext;
-          // $job=(new SendSmsJob($array))->delay(now()->addSeconds(5));
-          // dispatch($job); 
+        event(new smsEvent($sentSmsDetailsFinalDatas->mobileno,$sentSmsDetailsFinalDatas->smstext));  
 
        }
        $arrId =$sentSmsDetailsFinalDatas->pluck('id')->toArray();
@@ -61,14 +56,7 @@ class SendSms extends Command
       $id=SentEmailDetail::where('sent_status',0)->pluck('id')->toArray(); 
       $sentEmailDetails=SentEmailDetail::whereIn('id',$id)->update(['sent_status'=>2]); 
       $sentEmailDetailsFinalDatas=SentEmailDetail::where('sent_status',2)->get(); 
-      foreach ($sentEmailDetailsFinalDatas as $sentEmailDetailsFinalData) {
-         
-        
-        
-         // $documentUrl = Storage_path() . '/app/student/birthday/';
-         // @mkdir($documentUrl, 0755, true);
-         // $pdf = PDF::loadView('admin.student.birthday.birthday_card',compact('student','message','id'))->save($documentUrl.'/'.$student->registration_no.'_birthday_card.pdf'); 
-         // $url =$documentUrl.$student->registration_no.'_birthday_card.pdf';
+      foreach ($sentEmailDetailsFinalDatas as $sentEmailDetailsFinalData) { 
             $message =$sentEmailDetailsFinalData->email_text;         
             $emailto = $sentEmailDetailsFinalData->email_id;         
             $subject = $sentEmailDetailsFinalData->email_subject;
@@ -76,6 +64,8 @@ class SendSms extends Command
             $temp_name='';
             if ($template_purpose==1) {
               $temp_name='message';
+            }else{
+               $temp_name='message';
             }
             $up_u=array(); 
             $up_u['data']=$message;
@@ -83,25 +73,16 @@ class SendSms extends Command
          
         $mailHelper =new MailHelper(); 
         $mailHelper->mailsend('emails.'.$temp_name,$up_u,'No-Reply',$subject,$emailto,'noreply@esgekool.com',5);
-         }
-
-
-
-
-
-
-
-
+         } 
          $array=array();       
-         $array['mobile']=$sentSmsDetailsFinalDatas->mobileno;
-         $array['message']=$sentSmsDetailsFinalDatas->smstext;
+         $array['mobile']=$sentEmailDetailsFinalData->mobileno;
+         $array['message']=$sentEmailDetailsFinalData->smstext;
          $job=(new SendSmsJob($array))->delay(now()->addSeconds(5));
-         dispatch($job); 
-         event(new smsEvent($sentEmailDetailsFinalData->mobileno,$sentEmailDetailsFinalData->smstext)); 
+         dispatch($job);  
 
-      }
-      $arrId =$sentSmsDetailsFinalDatas->pluck('id')->toArray();
-      $sentSmsDetails=SentSmsDetail::whereIn('id',$arrId)->update(['sent_status'=>1]); 
+       
+      $arrId =$sentEmailDetailsFinalDatas->pluck('id')->toArray();
+      $sentSmsDetails=SentEmailDetail::whereIn('id',$arrId)->update(['sent_status'=>1]); 
 
     }
 }
