@@ -226,10 +226,30 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('admission-class-avalval', 'StudentController@academicYearOnchange')->name('admin.student.registration.academicYear'); 
 		Route::post('registration-store', 'StudentController@registrationStore')->name('admin.student.registration.store');	
 		Route::get('registration-list', 'StudentController@registrationList')->name('admin.student.registration.list'); 
-
+		Route::get('registration-list-filter/{id?}', 'StudentController@registrationListFilter')->name('admin.student.registration.list.filter'); 
+        //-----------student school wise admission-------- 
+        Route::get('school-wise-admission', 'StudentController@schoolWiseAdmission')->name('admin.student.school.wise.admission');	
+        Route::post('school-wise-admission-store', 'StudentController@schoolWiseAdmissionStore')->name('admin.student.school.wise.admission.store');	
 		});
 
-	 	// ---------------Default Value----------------------------------------
+	 	// ---------------Submit Application Form ----------------------------------------
+	 Route::group(['prefix' => 'submit-application-form'], function() {
+	    Route::get('/', 'SubmitApplicationFormController@index')->name('admin.submit.application.form');
+	    Route::post('search', 'SubmitApplicationFormController@search')->name('admin.submit.application.search');
+	    Route::post('submitted', 'SubmitApplicationFormController@submitted')->name('admin.submit.application.submitted');
+	     
+	    
+	 });
+	 Route::group(['prefix' => 'application-scrutiny'], function() {
+	    Route::get('scrutiny', 'SubmitApplicationFormController@scrutiny')->name('admin.submit.application.scrutiny');
+	    Route::get('filter/{id?}', 'SubmitApplicationFormController@filter')->name('admin.submit.application.filter');
+	    Route::get('accepted/{id}', 'SubmitApplicationFormController@accepted')->name('admin.submit.application.accepted');
+	    Route::get('rejected/{id}', 'SubmitApplicationFormController@rejected')->name('admin.submit.application.rejected');
+	    Route::get('pending/{id}', 'SubmitApplicationFormController@pending')->name('admin.submit.application.pending');
+	    
+	  
+	    
+	 });
 	 Route::group(['prefix' => 'default-Value'], function() {
 	    Route::get('/', 'StudentDefaultValueController@index')->name('admin.defaultValue.list');
 	    Route::post('add', 'StudentDefaultValueController@store')->name('admin.defaultValue.post');
