@@ -570,7 +570,7 @@ Route::group(['middleware' => 'admin'], function() {
 	        Route::get('/', 'FeeStructureLastDateController@index')->name('admin.feeStructureLastDate.list');	 	
 	        Route::post('add', 'FeeStructureLastDateController@store')->name('admin.feeStructureLastDate.post');
 	        Route::get('edit/{id}', 'FeeStructureLastDateController@edit')->name('admin.feeStructureLastDate.edit');
-	        Route::post('update/{id}', 'FeeStructureLastDateController@update')->name('admin.feeStructureLastDate.update');
+	        Route::post('update/{id?}', 'FeeStructureLastDateController@update')->name('admin.feeStructureLastDate.update');
 	        Route::get('delete/{id?}', 'FeeStructureLastDateController@destroy')->name('admin.feeStructureLastDate.delete');
 	     });
 	    //------------------------- class-fee-structure ---------------------------------
@@ -631,7 +631,7 @@ Route::group(['middleware' => 'admin'], function() {
     	 //------------------------- Fee Collection --------------------------------- 
     	Route::group(['prefix' => 'fee-collection'], function() {
     	    Route::get('/', 'Fee\FeeCollectionController@index')->name('admin.studentFeeCollection.list');	 	
-    	    Route::get('show', 'Fee\FeeCollectionController@show')->name('admin.studentFeeCollection.show');
+    	    Route::post('show', 'Fee\FeeCollectionController@show')->name('admin.studentFeeCollection.show');
     	    Route::get('show-fee-detail', 'Fee\FeeCollectionController@showfeedetail')->name('admin.studentFeeCollection.showFeeDetail');
 
     	    Route::post('add', 'Fee\FeeCollectionController@store')->name('admin.studentFeeCollection.post');
