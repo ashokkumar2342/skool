@@ -603,15 +603,13 @@ class AccountController extends Controller
             ]);
          
         $parentRegistration= Admin::where('mobile',$request->mobile)->first();
-        $adminOtpMobile= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',1)->first();
-        $adminOtpEmail= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',2)->first();
-
+        $adminOtpMobile= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',1)->first(); 
         if ($adminOtpMobile->otp!=$request->mobile_otp) {
             return redirect()->back()->with(['class'=>'error','message'=>'Mobile Otp Not Match']);      
         }else{
              $adminOtpMobile->otp_verified=1;                                        
              $adminOtpMobile->save() ;
-             if ($adminOtpEmail->otp_verified==1 && $adminOtpMobile->otp_verified==1) {
+             if ($parentRegistration->status==1) {
                 
                return redirect()->route('admin.login')->with(['class'=>'success','message'=>'Mobile Otp Verify']);  
             }else{
@@ -636,8 +634,7 @@ class AccountController extends Controller
            'email_otp' => 'required|numeric',  
            ]);
         
-       $parentRegistration= Admin::where('email',$request->email)->first();
-        $adminOtpMobile= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',1)->first();
+       $parentRegistration= Admin::where('email',$request->email)->first(); 
         $adminOtpEmail= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',2)->first();
 
         if ($adminOtpEmail->otp!=$request->email_otp) {
@@ -645,7 +642,7 @@ class AccountController extends Controller
         }else{
              $adminOtpEmail->otp_verified=1;                                        
              $adminOtpEmail->save() ;
-             if ($adminOtpEmail->otp_verified==1 && $adminOtpMobile->otp_verified==1) {
+             if ($parentRegistration->status==1) {
                 
                return redirect()->route('admin.login')->with(['class'=>'success','message'=>'Email Otp Verify']);  
             }else{
@@ -659,6 +656,7 @@ class AccountController extends Controller
     public function resendOTP(Request $request,$user_id,$otp_type)
     {
        DB::select(DB::raw("call up_generate_otp_newuser ($user_id, '$otp_type')"));
+       \Artisan::call('send:sms');
        return redirect()->back()->with(['message'=>'Resend OTP Successfully.','class'=>'success']); 
     }
 
