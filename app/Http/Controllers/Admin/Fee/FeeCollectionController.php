@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\BalanceAmount;
 use App\Model\Cashbook;
+use App\Model\FeeStructureLastDate;
 use App\Model\FineScheme;
 use App\Model\Month;
 use App\Model\PaymentMode;
@@ -32,26 +33,47 @@ class FeeCollectionController extends Controller
     public function index(){
        
     	$students = array_pluck(Student::get(['id','registration_no']), 'registration_no','id');
-    	return view('admin.finance.feecollection.fee_collection_form',compact('students'));
+      $feeStructureLastDates = FeeStructureLastDate::get();
+    	return view('admin.finance.feecollection.fee_collection_form',compact('students','feeStructureLastDates'));
     }
 
     // show main form show search stuent form
     public function show(Request $request){ 
-         
+        
        $st=new Student();
-        $student=$st->getStudentDetailsById($request->student_id);
-    	 
-       $defultDate = StudentDefaultValue::find(1);
+       $student=$st->getStudentDetailsById($request->student_id); 
+       $defultDate = StudentDefaultValue::find(1); 
+       $months=Month::orderBy('id','ASC')->get();
+       //-----------
+      $toDate =FeeStructureLastDate::find($request->fee_paid_upto)->last_date;
+       $BalanceAmount=0;
+        $fromDate=$StudentFeeDetails = StudentFeeDetail::whereDate('last_date',$toDate)->first()->from_date;
+        $student = Student::find($request->student_id);
+         $studentSibling=new SiblingGroup();
+         $siblings=$studentSibling->getSiblingByStudentId($request->student_id);
+        
 
-      $months=Month::orderBy('id','ASC')->get();
-     $StudentFeeDetailMonthYears = StudentFeeDetail::where('student_id',$request->student_id)->where('paid',0)->orderBy('id','ASC')->distinct('last_date')->pluck('last_date')->toArray();
-    	$data = view('admin.finance.feecollection.fee_collection_detail',compact('student','defultDate','months','StudentFeeDetailMonthYears','student'))->render();
-    	return response()->json($data);
+        $StudentFeeDetail = new StudentFeeDetail(); 
+        $StudentFeeDetails = $StudentFeeDetail->getFeeDetailsByUpTodate($toDate,$request->student_id); 
+                          
+        $FeeDetails=$StudentFeeDetails->groupBy('name');
+        $paymentModes=PaymentMode::all();                               
+        $FineSchemes=FineScheme::get();                               
+        $Balance=BalanceAmount::where('student_id',$request->student_id)->first();
+        if ($Balance!=null) {
+          $BalanceAmount=$Balance->balance_amount;
+          }                               
+       //-------
+       $response =array();
+       $response['status']=1;
+      
+    	 $response["data"] = view('admin.finance.feecollection.fee_collection_detail',compact('student','defultDate','months','FeeDetails','siblings','request','paymentModes','toDate','BalanceAmount','FineSchemes'))->render();
+    	return $response;
     }
 
 
     // show show all fee deatial
-    public function feeDetail(Request $request){  
+    public function feeDetail(Request $request){     
      $toDate =$request->StudentFeeDetailMonthYear;
      $BalanceAmount=0;
       $fromDate=$StudentFeeDetails = StudentFeeDetail::whereDate('last_date',$toDate)->first()->from_date;

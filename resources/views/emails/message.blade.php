@@ -36,7 +36,7 @@
 </div>
 	</br>
 	 
- 
+	{!! $data !!}
  
 	 @includeIf('emails.footer')
 </div>

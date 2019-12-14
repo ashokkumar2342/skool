@@ -9,32 +9,37 @@
             <!-- /.box-header -->
             <div class="box-body"> 
                 <div class="row">  
-                    <div class="col-md-12"> 
-                        <form class="form-vertical fee_collection_form"> 
-                            <div class="col-md-2">                           
-                                 <div class="form-group">
-                                  {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
-                                   {{ Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required',]) }}
-                                   <p class="errorAmount1 text-center alert alert-danger hidden"></p>
-                                 </div>    
-                            </div>                                                             
-                           <div class="col-md-2" style="padding-top: 20px;"> 
-                           <button class="btn btn-success" type="button" id="btn_student_registration_show" style="width: 130px">Show</button>
-                          </div>                     
-                        </form> 
-                      <div class="col-md-8 text-center" style="padding-top: 20px;">
-                           <button class="btn btn-warning" type="button" id="btn_student_registration_show" data-toggle="modal" data-target="#myModal" style="width: 130px">Search</button> 
-                       
-                           <a href="{{ route('admin.cashbook.list') }}" id="btn_student_ledger" class="btn btn-info" style="width: 130px">Ledger</a>
-                   
-                      
-                           <button class="btn btn-primary" type="button" id="btn_student_ledger" style="width: 130px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Previous Reciept</button> 
-                       
-                     
-                           <button class="btn btn-danger" type="button" id="btn_student_ledger" style="width: 130px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Cancel Reciept</button> 
+                  <form  action="{{ route('admin.studentFeeCollection.show') }}" class="add_form" no-reset="true" method="post" success-content-id="fee_collection_detail"> 
+                   {{ csrf_field() }}
+                      <div class="col-md-2">                           
+                           <div class="form-group">
+                            {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
+                             {{ Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required',]) }}
+                             <p class="errorAmount1 text-center alert alert-danger hidden"></p>
+                           </div>    
                       </div>
+                      <div class="col-md-2">     
+                           <div class="form-group"> 
+                             <label for="email">Fee Paid Upto:</label>  
+                             <select name="fee_paid_upto" class="form-control">      
+                               <option disabled selected>Select Fee Paid Upto</option> 
+                               @foreach ($feeStructureLastDates as $feeStructureLastDate)
+                                <option value="{{ $feeStructureLastDate->id }}"> {{date('F',strtotime($feeStructureLastDate->last_date)) }} </option>
+                               @endforeach 
+                             </select> 
+                           </div> 
+                           {{-- <button type="button" id="fee_collection_details_btn" class="btn btn-warning" >Show</button> --}} 
+                      </div>                                                     
+                     <div class="col-md-2" style="padding-top: 20px;"> 
+                     <input class="btn btn-success" type="submit"  style="width: 130px" value="Show"> 
+                    </div>                     
+                  </form> 
+                    <div class="col-md-6 text-center" style="padding-top: 20px;">
+                         <button class="btn btn-warning" type="button" id="btn_student_registration_show" data-toggle="modal" data-target="#myModal" style="width: 130px">Search</button> 
+                         <a href="{{ route('admin.cashbook.list') }}" id="btn_student_ledger" class="btn btn-info" style="width: 130px">Ledger</a> 
+                         <button class="btn btn-primary" type="button" id="btn_student_ledger" style="width: 130px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Previous Reciept</button>  
+                         <button class="btn btn-danger" type="button" id="btn_student_ledger" style="width: 130px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Cancel Reciept</button> 
                     </div> 
-
                  </div>  
             </div>
             <!-- /.box-body -->
@@ -117,53 +122,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> 
  
   <script>
-    $('#btn_student_registration_show').click(function(event) {        
-      $.ajaxSetup({
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-       $.ajax({
-           url: '{{ route('admin.studentFeeCollection.show') }}',
-           type: 'get',       
-           data: $('.fee_collection_form').serialize() ,
-      })
-      .done(function(response) {
-         $('#fee_collection_detail').html(response); 
-         $('#fee_collection_details_btn').focus();
-         
-      })
-      .fail(function() {
-        console.log("error");
-      })
-      .always(function() {
-        console.log("complete");
-      }); 
-    }); 
+     
 /////////////////////shwo fee detaila//////////////
-    // $('#show_fee_btn').click(function(event) {  
-      function callAjax(){ 
-      $.ajaxSetup({
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-       $.ajax({
-           url: '{{ route('admin.studentFeeCollection.search') }}',
-           type: 'get',       
-           data: $('#show_fee_detail_form').serialize() ,
-      })
-      .done(function(response) {
-         $('#fee_detail').html(response);
-         scrollCommentDiv();
-      })
-      .fail(function() {
-        console.log("error");
-      })
-      .always(function() {
-        console.log("complete");
-      }); 
-    }  
+   
+      
 
     function showHide(){ 
 
