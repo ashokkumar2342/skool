@@ -72,7 +72,7 @@ class SendSms extends Command
             
          
         $mailHelper =new MailHelper(); 
-        $mailHelper->mailsend('emails.'.$temp_name,$up_u,'No-Reply',$subject,$emailto,'noreply@esgekool.com',5);
+        $mailHelper->mailsend('emails.'.$temp_name,$up_u,'No-Reply',$subject,'dilipkumarchauhan2342@gmail.com','info@eageskool.com',5);
          } 
          $array=array();       
          $array['mobile']=$sentEmailDetailsFinalData->mobileno;
