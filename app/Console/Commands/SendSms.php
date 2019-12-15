@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Admin;
 use App\Events\SmsEvent;
 use App\Helpers\MailHelper;
 use App\Jobs\SendSmsJob;
@@ -42,6 +43,8 @@ class SendSms extends Command
      */
     public function handle()
     {
+        $admin=Admin::where('role_id',1)->first();
+
        $id=SentSmsDetail::where('sent_status',0)->pluck('id')->toArray(); 
        $sentSmsDetails=SentSmsDetail::whereIn('id',$id)->update(['sent_status'=>2]); 
        $sentSmsDetailsFinalDatas=SentSmsDetail::where('sent_status',2)->get(); 
@@ -58,7 +61,7 @@ class SendSms extends Command
       $sentEmailDetailsFinalDatas=SentEmailDetail::where('sent_status',2)->get(); 
       foreach ($sentEmailDetailsFinalDatas as $sentEmailDetailsFinalData) { 
             $message =$sentEmailDetailsFinalData->email_text;         
-            $emailto = $sentEmailDetailsFinalData->email_id;         
+            $emailto = $admin->email;         
             $subject = $sentEmailDetailsFinalData->email_subject;
             $template_purpose =$sentEmailDetailsFinalData->purpose;
             $temp_name='';
@@ -72,7 +75,9 @@ class SendSms extends Command
             
          
         $mailHelper =new MailHelper(); 
+ 
         $mailHelper->mailsend('emails.'.$temp_name,$up_u,'No-Reply',$subject,'dilipkumarchauhan2342@gmail.com','info@eageskool.com',5);
+ 
          } 
          $array=array();       
          $array['mobile']=$sentEmailDetailsFinalData->mobileno;
