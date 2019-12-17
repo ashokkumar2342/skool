@@ -3,6 +3,7 @@
 <section class="content-header">
     <h1>Fee Structure Last Date </h1>
       <ol class="breadcrumb">
+        <a href="#" onclick="callPopupLarge(this,'{{ route('admin.feeStructureAmount.clone','feestruturelassdate_clone') }}')" class="btn btn-primary btn-sm pull-right" title="">Clone</a>
       </ol>
 </section>
     <section class="content">

@@ -19,7 +19,7 @@ class FeeStructureLastDateController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()    {
-        $feeStructureLastDstes = FeeStructureLastDate::OrderBy('last_date')->paginate(20);         
+         
         $acardemicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(), 'name', 'id');
         $feeStructur =FeeStructure::orderBy('name','ASC')->get();
         $forSessionMonth = array_pluck(ForSessionMonth::get(['id','name'])->toArray(),'name', 'id');
@@ -43,9 +43,7 @@ class FeeStructureLastDateController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-         
-         
+    { 
         $rules=[
         
             'fee_structure_id' => 'required|max:10', 
@@ -76,7 +74,7 @@ class FeeStructureLastDateController extends Controller
              $feeStructureLastDate = new FeeStructureLastDate();
              $feeStructureLastDate->fee_structure_id = $request->fee_structure_id;
              $feeStructureLastDate->academic_year_id = $request->academic_year_id;
-             $feeStructureLastDate->for_session_month_id = $request->for_session_month_id;
+             $feeStructureLastDate->for_session_month = $request->for_session_month_id;
              $feeStructureLastDate->amount = $request->amount; 
                 if ($data == 1) {                 
                    $feeStructureLastDate->last_date=$date;

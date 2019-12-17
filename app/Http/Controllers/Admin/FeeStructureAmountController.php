@@ -9,6 +9,7 @@ use App\Model\FeeStructureAmount;
 use App\Model\FeeStructureLastDate;
 use App\Model\ForSessionMonth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class FeeStructureAmountController extends Controller
@@ -146,4 +147,39 @@ class FeeStructureAmountController extends Controller
         $$feeStructureAmount->delete();
         return  response()->json([$$feeStructureAmount,'message'=>'Fee Structure Amount Delete Successfully','class'=>'success']);
     }
+
+//-----------clone-------------------------------------
+    public function clone($condition_id)
+    {  
+        $acardemicYears=AcademicYear::all();
+        return view('admin.finance.fee_structure_amount_clone',compact('acardemicYears','condition_id'));
+    }
+    public function cloneStore(Request $request,$condition_id)
+    {  
+        $rules=[
+          
+           'for_academic_year_id' => 'required', 
+            'new_academic_year_id' => 'required',
+       
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        if ($condition_id=='feestrutureAmount_clone') {
+            
+         DB::select(DB::raw("call up_clone_fee_amt ('$request->for_academic_year_id', '$request->new_academic_year_id')")); 
+        }
+        else if ($condition_id=='feestruturelassdate_clone') {
+             
+         DB::select(DB::raw("call up_clone_fee_lastdate ('$request->for_academic_year_id', '$request->new_academic_year_id')")); 
+        }
+         $response=['status'=>1,'msg'=>'Cloning Successfully'];
+         return response()->json($response);
+   }      
 }

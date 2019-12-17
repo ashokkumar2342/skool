@@ -25,7 +25,7 @@ class FeeStructureController extends Controller
         return view('admin.finance.fee_structure',compact('feeStructures','fineScheme','feeAccount'));
     }
     public function addForm($id=null)
-    {
+    { 
         if ($id!=null) {
           $feeStructures = FeeStructure::find($id);       
             
@@ -34,7 +34,7 @@ class FeeStructureController extends Controller
             
         }
         $fineScheme = array_pluck(FineScheme::get(['id','name'])->toArray(),'name', 'id');
-        $feeAccount = array_pluck(FeeAccount::get(['id','name'])->toArray(),'name', 'id');
+        $feeAccount = array_pluck(FeeAccount::orderBy('sorting_order_no','ASC')->get(['id','name'])->toArray(),'name', 'id');
         return view('admin.finance.fee_structure_form',compact('feeStructures','fineScheme','feeAccount')); 
     }
 

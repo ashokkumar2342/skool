@@ -9,7 +9,7 @@
 }
      </style> 
 <div class="panel panel-default">
-  <div class="panel-heading"></div>
+  <div class="panel-heading text-right"><a href="#" onclick="callPopupLarge(this,'{{ route('admin.feeStructureAmount.clone','feestrutureAmount_clone') }}')" class="btn btn-primary btn-sm" title="">Clone</a></div>
   <div class="panel-body">
   	<table class="table table-bordered table-striped table-hover"> 
 	<thead>
