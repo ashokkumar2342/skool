@@ -227,6 +227,8 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::post('registration-store', 'StudentController@registrationStore')->name('admin.student.registration.store');	
 		Route::get('registration-list', 'StudentController@registrationList')->name('admin.student.registration.list'); 
 		Route::get('registration-list-filter/{id?}', 'StudentController@registrationListFilter')->name('admin.student.registration.list.filter'); 
+		Route::get('final-submit/{id?}', 'StudentController@registrationFinalSubmit')->name('admin.student.registration.final.submit'); 
+		Route::get('profile-view/{id?}', 'StudentController@registrationProfileView')->name('admin.student.registration.profile.view'); 
         //-----------student school wise admission-------- 
         Route::get('school-wise-admission', 'StudentController@schoolWiseAdmission')->name('admin.student.school.wise.admission');	
         Route::post('school-wise-admission-store', 'StudentController@schoolWiseAdmissionStore')->name('admin.student.school.wise.admission.store');	
@@ -246,6 +248,8 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('accepted/{id}', 'SubmitApplicationFormController@accepted')->name('admin.submit.application.accepted');
 	    Route::get('rejected/{id}', 'SubmitApplicationFormController@rejected')->name('admin.submit.application.rejected');
 	    Route::get('pending/{id}', 'SubmitApplicationFormController@pending')->name('admin.submit.application.pending');
+	    Route::get('remark/{id}', 'SubmitApplicationFormController@remark')->name('admin.submit.application.remark');
+	    Route::post('remark-store/{id}', 'SubmitApplicationFormController@remarkStore')->name('admin.submit.application.remark.store');
 	    
 	  
 	    
@@ -565,6 +569,8 @@ Route::group(['middleware' => 'admin'], function() {
 		    Route::post('add', 'FeeStructureAmountController@store')->name('admin.feeStructureAmount.post');
 		    Route::delete('delete', 'FeeStructureAmountController@destroy')->name('admin.feeStructureAmount.delete');
 		    Route::put('update', 'FeeStructureAmountController@update')->name('admin.feeStructureAmount.update');
+		    Route::get('clone/{condition_id}', 'FeeStructureAmountController@clone')->name('admin.feeStructureAmount.clone');
+		    Route::post('clone-store/{condition_id}', 'FeeStructureAmountController@cloneStore')->name('admin.feeStructureAmount.clone.store');
 		 });//------------------------- fee structure amount ---------------------------------
 	    Route::group(['prefix' => 'fee-structure-last-date'], function() {
 	        Route::get('/', 'FeeStructureLastDateController@index')->name('admin.feeStructureLastDate.list');	 	
