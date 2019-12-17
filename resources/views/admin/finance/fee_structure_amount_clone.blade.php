@@ -11,7 +11,7 @@
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-lg-6 form-group"> 
-                             <label>For Academic Year</label>
+                             <label>Reference Academic Year</label>
                              <select name="for_academic_year_id" class="form-control">
                                  <option selected disabled>Select For Academic Year</option>
                                  @foreach ($acardemicYears as $acardemicYear)
