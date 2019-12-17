@@ -89,7 +89,7 @@ class FeeStructureAmountController extends Controller
     public function search(Request $request)
     { 
         $feeStructureAmount = FeeStructureAmount::where('fee_structure_id',$request->id)->first()->amount;
-        $feeStructureLastDstes = FeeStructureLastDate::where('fee_structure_id',$request->id)->OrderBy('fee_structure_id','ASC')->get(); 
+        $feeStructureLastDstes = FeeStructureLastDate::where('fee_structure_id',$request->id)->where('academic_year_id',$request->academic_year_id)->OrderBy('fee_structure_id','ASC')->get(); 
         $forSessionMonths =ForSessionMonth::OrderBy('name','ASC')->get();
         return view('admin.finance.fee_structure_last_date_table',compact('feeStructureLastDstes','feeStructureAmount','forSessionMonths'));
     }

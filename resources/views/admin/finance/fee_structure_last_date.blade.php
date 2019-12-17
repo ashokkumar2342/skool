@@ -17,7 +17,7 @@
                              <div class="form-group">
                               {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
                               <span class="fa fa-asterisk"></span>
-                               {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control']) }}
+                               {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control','id'=>'academic_year_id']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
@@ -25,7 +25,7 @@
                              <div class="form-group">
                               {{ Form::label('fee_structure_id','Fee Structure',['class'=>' control-label']) }}
                               <span class="fa fa-asterisk"></span>
-                              <select name="fee_structure_id" id="fee_structure_select_box" class="form-control" data-table="fee_structure_last_date_table"  onchange="callAjax(this,'{{ route('admin.feeStructureAmount.search') }}','form_fee_structure_last_date_table')" autofocus>
+                              <select name="fee_structure_id" id="fee_structure_select_box" class="form-control" data-table="fee_structure_last_date_table"  onchange="callAjax(this,'{{ route('admin.feeStructureAmount.search') }}'+'?academic_year_id='+$('#academic_year_id').val(),'form_fee_structure_last_date_table')" autofocus>
                                 <option selected disabled>Select Fee Structurer</option>
                                 @foreach ($feeStructur as $feeStructu)
                                 <option value="{{ $feeStructu->id }}">{{ $feeStructu->name }}</option> 

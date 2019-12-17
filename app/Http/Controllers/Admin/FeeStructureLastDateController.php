@@ -9,6 +9,7 @@ use App\Model\FeeStructureLastDate;
 use App\Model\ForSessionMonth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class FeeStructureLastDateController extends Controller
@@ -49,10 +50,6 @@ class FeeStructureLastDateController extends Controller
             'fee_structure_id' => 'required|max:10', 
             'academic_year_id' => 'required|max:10', 
             'for_session_month_id' => 'required|max:30', 
-            'amount' => 'required|max:8|regex:/^\d*(\.\d{1,2})?$/', 
-            // 'last_date' => 'required|max:10', 
-             
-              
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -62,39 +59,40 @@ class FeeStructureLastDateController extends Controller
             $response["status"]=0;
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
-        }else {
-            $academicYear=AcademicYear::find($request->academic_year_id);
-             $date =  date_create(date('Y-m-d',strtotime($academicYear->start_date ."+9 days")));    
-             $feeStructureLastDatesIdArr = FeeStructureLastDate::where(['fee_structure_id'=>$request->fee_structure_id,'academic_year_id'=>$request->academic_year_id])->pluck('id')->toArray();  
-             if ( count($feeStructureLastDatesIdArr)!=null) {
-                  FeeStructureLastDate::whereIn('id',$feeStructureLastDatesIdArr)->delete();
-             }          
-            $data = ForSessionMonth::find($request->for_session_month_id)->times;
-            for ($i=0; $i < $data; $i++) {  
-             $feeStructureLastDate = new FeeStructureLastDate();
-             $feeStructureLastDate->fee_structure_id = $request->fee_structure_id;
-             $feeStructureLastDate->academic_year_id = $request->academic_year_id;
-             $feeStructureLastDate->for_session_month = $request->for_session_month_id;
-             $feeStructureLastDate->amount = $request->amount; 
-                if ($data == 1) {                 
-                   $feeStructureLastDate->last_date=$date;
-                }elseif ($data == 4){
-                   $i==0?'':date_add($date, date_interval_create_from_date_string('3 month'));                      
-                   $feeStructureLastDate->last_date=date_format($date, 'Y-m-d'); 
-                }
-                else {
-                $i==0?'':date_add($date, date_interval_create_from_date_string('1 month'));                      
+        }
+             DB::select(DB::raw("call up_create_fee_lastdate ('$request->academic_year_id','$request->fee_structure_id','$request->for_session_month_id')")); 
+            // $academicYear=AcademicYear::find($request->academic_year_id);
+            //  $date =  date_create(date('Y-m-d',strtotime($academicYear->start_date ."+9 days")));    
+            //  $feeStructureLastDatesIdArr = FeeStructureLastDate::where(['fee_structure_id'=>$request->fee_structure_id,'academic_year_id'=>$request->academic_year_id])->pluck('id')->toArray();  
+            //  if ( count($feeStructureLastDatesIdArr)!=null) {
+            //       FeeStructureLastDate::whereIn('id',$feeStructureLastDatesIdArr)->delete();
+            //  }          
+            // $data = ForSessionMonth::find($request->for_session_month_id)->times;
+            // for ($i=0; $i < $data; $i++) {  
+            //  $feeStructureLastDate = new FeeStructureLastDate();
+            //  $feeStructureLastDate->fee_structure_id = $request->fee_structure_id;
+            //  $feeStructureLastDate->academic_year_id = $request->academic_year_id;
+            //  $feeStructureLastDate->for_session_month = $request->for_session_month_id;
+            //  $feeStructureLastDate->amount = $request->amount; 
+            //     if ($data == 1) {                 
+            //        $feeStructureLastDate->last_date=$date;
+            //     }elseif ($data == 4){
+            //        $i==0?'':date_add($date, date_interval_create_from_date_string('3 month'));                      
+            //        $feeStructureLastDate->last_date=date_format($date, 'Y-m-d'); 
+            //     }
+            //     else {
+            //     $i==0?'':date_add($date, date_interval_create_from_date_string('1 month'));                      
                      
-                $feeStructureLastDate->last_date=date_format($date, 'Y-m-d');
+            //     $feeStructureLastDate->last_date=date_format($date, 'Y-m-d');
 
-                }           
+            //     }           
              
-             $feeStructureLastDate->save();
-            }
+            //  $feeStructureLastDate->save();
+          
             $response=['status'=>1,'msg'=>'Created Successfully'];
             return response()->json($response);
            
-        }
+       
     }
 
     /**
@@ -130,13 +128,15 @@ class FeeStructureLastDateController extends Controller
      */
     public function update(Request $request,$id)
     {
+       
        $rules=[
         
            
             'amount' => 'required|max:8|regex:/^\d*(\.\d{1,2})?$/', 
-            'last_date' => 'required|date', 
-            'for_session_month_id' => 'required|max:30', 
-            // 'last_date' => 'required|max:10', 
+            'due_month' => 'required', 
+            'due_year' => 'required', 
+            'for_session_month' => 'required|max:30', 
+           
              
               
         ];
@@ -150,9 +150,10 @@ class FeeStructureLastDateController extends Controller
             return response()->json($response);// response as json
         }else { 
              $feeStructureLastDate = FeeStructureLastDate::find($id); 
-             $feeStructureLastDate->for_session_month_id = $request->for_session_month_id;
              $feeStructureLastDate->amount = $request->amount; 
-             $feeStructureLastDate->last_date=$request->last_date; 
+             $feeStructureLastDate->due_month=$request->due_month; 
+             $feeStructureLastDate->due_year=$request->due_year; 
+             $feeStructureLastDate->for_session_month = $request->for_session_month;
              $feeStructureLastDate->save(); 
             $response=['status'=>1,'msg'=>'Update Successfully'];
             return response()->json($response);

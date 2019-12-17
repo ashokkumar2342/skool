@@ -30,8 +30,7 @@
                 <th>Fee Structure</th> 
                 <th>Academic Year</th>
                 <th>Amount</th>
-                <th>Last Date</th>
-                <th>Month</th>                                                            
+                <th>Due Month/Year</th>                                   
                 <th>For Session/Month</th>                                                            
                 <th>Action</th>                                                            
             </tr>
@@ -44,9 +43,9 @@
                 <td>{{ $feeStructureLastDste->academicYears->name or ''}}</td>
 
                 <td>{{ $feeStructureLastDste->amount }}</td>
-                <td>{{ Carbon\Carbon::parse($feeStructureLastDste->last_date)->format('d-m-Y') }}</td>
-                <td> {{ Carbon\Carbon::parse($feeStructureLastDste->last_date)->format(' F ') }} </td>
-                <td> {{ $feeStructureLastDste->forSessionMonths->name or ''}} </td>
+                <td>{{ $feeStructureLastDste->due_month }}/{{ $feeStructureLastDste->due_year }}</td>
+                 
+                <td> {{ $feeStructureLastDste->for_session_month or ''}} </td>
                 <td>
                 <a href="#" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.feeStructureLastDate.edit',$feeStructureLastDste->id) }}')" title="Delete"><i class="fa fa-edit"></i></a>  
                 <a href="#" class="btn btn-danger btn-xs" select-triger="fee_structure_select_box" success-popup="true" onclick="callAjax(this,'{{ route('admin.feeStructureLastDate.delete',$feeStructureLastDste->id) }}')" title="Delete"><i class="fa fa-trash"></i></a>  

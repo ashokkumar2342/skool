@@ -25,20 +25,16 @@
                         <input type="text" name="amount" class="form-control" value="{{ $feeStructureLastDate->amount }}"> 
                     </div>
                     <div class="col-lg-12 form-group">
-                        <label>Last Date</label>
-                        <input type="date" name="last_date" class="form-control" value="{{ $feeStructureLastDate->last_date }}"> 
+                        <label>Due Month</label>
+                        <input type="text" name="due_month" class="form-control" value="{{ $feeStructureLastDate->due_month }}"> 
                     </div>
-                   {{--  <div class="col-lg-12 form-group">
-                        <label>Month</label>
-                        <input type="month" name="month" class="form-control" value="{{ $feeStructureLastDate->last_date }}"> 
-                    </div> --}}
+                    <div class="col-lg-12 form-group">
+                        <label>Due Year</label>
+                        <input type="text" name="due_year" class="form-control" value="{{ $feeStructureLastDate->due_year }}"> 
+                    </div>
                     <div class="col-lg-12 form-group">
                         <label>For Session/Month</label>
-                        <select name="for_session_month_id" class="form-control">
-                            @foreach ($forSessionMonths as $forSessionMonth)
-                            <option value="{{ $forSessionMonth->id }}"{{$feeStructureLastDate->for_session_month_id==$forSessionMonth->id?'selected' : '' }}>{{ $forSessionMonth->name}}</option> 
-                            @endforeach 
-                        </select> 
+                       <input type="text" name="for_session_month" class="form-control" value="{{ $feeStructureLastDate->for_session_month }}"> 
                     </div> 
                 <div class="col-lg-12 form-group text-center">
                          <input type="submit" class="btn btn-success" value="Update">
