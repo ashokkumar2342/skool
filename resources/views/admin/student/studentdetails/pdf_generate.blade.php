@@ -25,6 +25,7 @@
 
 </style>
 <body>
+  <div style="margin:20px">Application No. <img src="data:image/png;base64,{{ base64_encode($data)}}" width="20%" height="20%" alt="{{ $data }}" />    </div>
     <div class="panel panel-info">
     <div class="panel-heading">
       <h4 class="panel-title text-center">

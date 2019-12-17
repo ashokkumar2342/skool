@@ -7,6 +7,7 @@ use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Model\AcademicYear;
 use App\Model\Address;
+use App\Model\AdmissionApplication;
 use App\Model\AdmissionSeat;
 use App\Model\AwardLevel;
 use App\Model\BloodGroup;
@@ -44,6 +45,7 @@ use App\Model\Template\BirthdayTemplate;
 use App\Student;
 use Auth;
 use Carbon;
+use CodeItNow\BarcodeBundle\Utils\BarcodeGenerator;
 use DB;
 use Excel;
 use Illuminate\Http\Request;
@@ -159,7 +161,20 @@ class StudentController extends Controller
          $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 
           $documents = Document::where('student_id',$id)->get(); 
           $studentSubjects=StudentSubject::where('student_id',$id)->get();
-         return view('admin.student.studentdetails.preview',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address'));
+         //application barcode ///
+                     $admissionApplication=AdmissionApplication::where('student_id',$student->id)->first();
+                     $value=$admissionApplication->id;     
+                     $barcode = new BarcodeGenerator();
+                     $barcode->setText($value);
+                     $barcode->setType(BarcodeGenerator::Code128);
+                     $barcode->setScale(2);
+                     $barcode->setThickness(25);
+                     $barcode->setFontSize(10);
+                     $code = $barcode->generate();
+                     $data = base64_decode($code); 
+           //application barcode end///
+
+         return view('admin.student.studentdetails.preview',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address','data'));
     }
     public function pdfGenerate($id){
       // return 'dddddd';
@@ -180,7 +195,19 @@ class StudentController extends Controller
          }else{
             $studentSiblingInfos=array();
          } 
-         //end sibling detaild///  
+         //end sibling detaild///
+         //application barcode ///
+                     $admissionApplication=AdmissionApplication::where('student_id',$student->id)->first();
+                     $value=$admissionApplication->id;     
+                     $barcode = new BarcodeGenerator();
+                     $barcode->setText($value);
+                     $barcode->setType(BarcodeGenerator::Code128);
+                     $barcode->setScale(2);
+                     $barcode->setThickness(25);
+                     $barcode->setFontSize(10);
+                     $code = $barcode->generate();
+                     $data = base64_decode($code); 
+           //application barcode end///          
           $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 
           $documents = Document::where('student_id',$id)->get(); 
           $studentSubjects=StudentSubject::where('student_id',$id)->get();
@@ -191,7 +218,7 @@ class StudentController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.student.studentdetails.pdf_generate',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address'))->save($profilePdfUrl);
+        ->loadView('admin.student.studentdetails.pdf_generate',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address','data'))->save($profilePdfUrl);
         $docs=$documents; 
                    $pdfMerge = new Fpdi();
                    $dt =array();
@@ -257,7 +284,7 @@ class StudentController extends Controller
              $response["msg"]=$errors[0];
              return response()->json($response);// response as json
          } 
-         else {   
+         else { 
          $admin_id = Auth::guard('admin')->user()->id;
          $username = str_random('10');
          $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
@@ -1186,11 +1213,105 @@ class StudentController extends Controller
        
        try {
         $rules=[
-             // 'sibling_registration' => 'required',
-             // 'sibling_registration_no' => 'required_if:sibling_registration,yes',
+            
+             'class' => 'required', 
+             "student_name" => 'required|max:199', 
+             "dob" => 'required|date',
+             "gender" => "required", 
+             "aadhaar_no" => "required|digits:12|unique:students,adhar_no",
+              'last_school_name' => 'required', 
+              'max_marks' => 'required', 
+              'marks_obt' => 'required', 
+              'marks_percent' => 'required', 
+         ];
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         } 
+         else {   
+         $admin_id = Auth::guard('admin')->user()->id;
+         $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
+         $student= new Student(); 
+         $student->dpassword= $char;  
+         $student->dpassword_encrypt= bcrypt($char); 
+         $student->roll_no=$request->academic_year_id; 
+         $student->admin_id = $admin_id; 
+         $student->class_id= $request->class; 
+         $student->name= $request->student_name;
+         $student->nick_name= $request->nick_name; 
+         $student->dob= $request->date_of_birth == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
+         $student->gender_id= $request->gender;        
+         $student->adhar_no= $request->aadhaar_no; 
+         $student->student_status_id=8; 
+         $student->save();
+         $AdmissionApplication=AdmissionApplication::orderBy('id','DESC')->first();
+         $AdmissionApplication=AdmissionApplication::find($AdmissionApplication->id);
+         $AdmissionApplication->last_school_name=$request->last_school_name;
+         $AdmissionApplication->marks_max=$request->max_marks;
+         $AdmissionApplication->marks_obt=$request->marks_obt;
+         $AdmissionApplication->marks_percentage=$request->marks_percent;
+         $AdmissionApplication->save();
+         $response=array();
+         $response['status']=1;
+         $response['msg']='Registration Successfully';   
+         $response['student_id']=$student->id;   
+         return $response; 
+         } 
+         
+       } catch (Exception $e) {
+         Log::error('Student store :'.$e);
+       }
+ 
+    }
+    public function registrationList()
+    {   
+       return view('admin.student.studentdetails.newregistration.student_list'); 
+    }
+    public function registrationListFilter(Request $request,$id)
+    {   
+       $userId=Auth::guard('admin')->user();
+       $conditionId=$id;
+       $studentUserMaps=StudentUserMap::where('userId',56)->pluck('student_id')->toArray();
+       if ($id==1) {
+         $students=Student::whereIn('id',$studentUserMaps)->where('student_status_id',8)->get(); 
+       }elseif ($id==2) {
+         $students=Student::whereIn('id',$studentUserMaps)->where('student_status_id',1)->get(); 
+       }elseif ($id==3) { 
+         $students=Student::whereIn('id',$studentUserMaps)->where('student_status_id','>',8)->get(); 
+       }
+       return view('admin.student.studentdetails.newregistration.student_list_filter',compact('students','conditionId')); 
+    }
+
+    //----school-wise-admission-----------------------------
+    public function schoolWiseAdmission($value='')
+    {
+        $user = Auth::guard('admin')->user();
+        if ($user->role_id==12) {
+           $classes = MyFuncs::getStudentClasses();
+        }else{
+           $classes = MyFuncs::getClasses();
+        } 
+        $academicYears=DB::select(DB::raw("select DISTINCT `as`.`academic_year_Id`, `ay`.`name` from `admission_seats` `as` Inner join `academic_years` `ay` on `as`.`academic_year_id` = `ay`.`id` WHERE curdate() >= `as`.`from_date` And curdate() <= `as`.`last_date`")); 
+        
+        $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id'); 
+        $default = StudentDefaultValue::find(1); 
+        return view('admin.student.studentdetails.schoolwiseadmission.form',compact('classes','academicYears','default','genders','religions','categories','houses','user'));
+    }
+    public function schoolWiseAdmissionStore(Request $request)
+    {
+       
+        try {
+        $rules=[
+             'academic_year_id' => 'required',
+             'sibling_registration' => 'required',
+             'sibling_registration_no' => 'required_if:sibling_registration,yes',
              // 'mobileno' => 'required_if:sibling_registration,no|unique:students',
-             // 'emailid' => 'required_if:sibling_registration,no|unique:students',
-             
+             // 'emailid' => 'required_if:sibling_registration,no|unique:students', 
+             'sibling_application_no' => 'required_if:sibling_registration,app', 
              'class' => 'required', 
              "student_name" => 'required|max:199', 
              "dob" => 'required|date',
@@ -1205,27 +1326,37 @@ class StudentController extends Controller
              $response["msg"]=$errors[0];
              return response()->json($response);// response as json
          } 
-         else {   
+         else { 
+
          $admin_id = Auth::guard('admin')->user()->id;
-         // $username = str_random('10');
+         $username = str_random('10');
          $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
          $student= new Student();
-         // if ($request->sibling_registration=='yes') {  
-         //   $sibling= $student->getDetailByRegistrationNo($request->sibling_registration_no);
-         //   if (is_null($sibling)) {
-         //     $response=array();
-         //     $response['status']=0;
-         //     $response['msg']='Sibling Invalied Ragistration No';
-         //     return $response;
-         //   }
-         //   $student->siblingId= $sibling->id;
-         // }
-         
-          
-         // $student->emailid= $request->emailid;  
-         // $student->mobileno= $request->mobileno; 
-         // $student->dpassword= $char;  
-         $student->dpassword_encrypt= bcrypt($char); 
+         if ($request->sibling_registration=='yes') {  
+           $sibling= $student->getDetailByRegistrationNo($request->sibling_registration_no);
+           if (is_null($sibling)) {
+             $response=array();
+             $response['status']=0;
+             $response['msg']='Sibling Invalied Ragistration No.';
+             return $response;
+           }
+           $student->siblingId= $sibling->id;
+         }elseif ($request->sibling_registration=='app') {
+           $studentApp=new AdmissionApplication();  
+           $siblingApplication= $studentApp->getStudentIdByApplicationNo($request->sibling_application_no);
+           if (is_null($siblingApplication)) {
+             $response=array();
+             $response['status']=0;
+             $response['msg']='Sibling Invalied Application No.';
+             return $response;
+           }
+           $student->siblingId= $sibling->id;
+         } 
+         $student->emailid= $request->emailid;  
+         $student->mobileno= $request->mobileno; 
+         $student->dpassword= $char;  
+         $student->dpassword_encrypt= bcrypt($char);  
+         $student->roll_no=$request->academic_year_id; 
          $student->admin_id = $admin_id; 
          $student->class_id= $request->class; 
          $student->name= $request->student_name;
@@ -1233,6 +1364,7 @@ class StudentController extends Controller
          $student->dob= $request->date_of_birth == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
          $student->gender_id= $request->gender;        
          $student->adhar_no= $request->aadhaar_no; 
+         $student->student_status_id=8; 
          $student->save();
          $response=array();
          $response['status']=1;
@@ -1246,10 +1378,86 @@ class StudentController extends Controller
        }
  
     }
-    public function registrationList()
-    {  
-      $userId=Auth::guard('admin')->user();
-       $studentUserMaps=StudentUserMap::where('userId',$userId->id)->get();
-       return view('admin.student.studentdetails.newregistration.student_list',compact('studentUserMaps')); 
+    public function registrationFinalSubmit($student_id)
+    {
+       $st =new Student();
+           $student=$st->getStudentDetailsById($student_id); 
+           //sibling details//
+          $studentSibling=SiblingGroup::
+                                        where('student_id',$student_id)
+                                        ->count();
+         if ($studentSibling!=0) {
+           $studentSiblingId=SiblingGroup::
+                                           where('student_id',$student_id)
+                                           ->first();
+         $studentSiblingInfos=SiblingGroup::
+                                            where('group',$studentSiblingId->group)
+                                           ->where('student_id','!=',$student_id)
+                                            ->get();
+         }else{
+            $studentSiblingInfos=array();
+         } 
+         //end sibling detaild///
+         //application barcode ///
+                     $admissionApplication=AdmissionApplication::where('student_id',$student->id)->first();
+                     $value=$admissionApplication->id;     
+                     $barcode = new BarcodeGenerator();
+                     $barcode->setText($value);
+                     $barcode->setType(BarcodeGenerator::Code128);
+                     $barcode->setScale(2);
+                     $barcode->setThickness(25);
+                     $barcode->setFontSize(10);
+                     $code = $barcode->generate();
+                     $data = base64_decode($code); 
+           //application barcode end///          
+          // $studentMedicalInfos = StudentMedicalInfo::where('student_id',$student_id)->get(); 
+          // $documents = Document::where('student_id',$student_id)->get(); 
+          $studentSubjects=StudentSubject::where('student_id',$student_id)->get();
+          $admissionApplication=AdmissionApplication::where('student_id',$student_id)->first(); 
+          $profilePdfUrl = Storage_path() . '/app/student/profile/newstudent/';
+          @mkdir($profilePdfUrl, 0755, true); 
+          $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.student.studentdetails.pdf_generate',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address','data'))->save($profilePdfUrl.'/'.$admissionApplication->id.'_student_all_details.pdf'); 
+        
+         $admissionApplication->status=2;
+         $admissionApplication->profile_path=$profilePdfUrl.'/'.$admissionApplication->id.'_student_all_details.pdf';
+         $admissionApplication->save();
+        return redirect()->back()->with(['message'=>'Final Submit successfully','class'=>'success']);
+      
     }
+    public function registrationProfileView($student_id)
+    {
+        $admissionApplication=AdmissionApplication::where('student_id',$student_id)->first();
+        $documents=Document::where('student_id',$student_id)->get(); 
+        $docs=$documents; 
+                   $pdfMerge = new Fpdi();
+                   $dt =array();
+                  $dt['student']=$admissionApplication->profile_path;
+                   foreach ($docs as $key=>$document) {
+                    
+                     $dt[$key]=Storage_path('app/'.$document->document_url);  
+                  
+                  }
+                
+                   $files =$dt;
+                   foreach ($files as $file) {
+                      $pageCount =$pdfMerge->setSourceFile($file);
+                      for ($pageNo=1; $pageNo <=$pageCount ; $pageNo++) { 
+                          $pdfMerge->AddPage();
+                          $pageId = $pdfMerge->importPage($pageNo, '/MediaBox');
+                          //$pageId = $pdfMerge->importPage($pageNo, Fpdi\PdfReader\PageBoundaries::ART_BOX);
+                          $s = $pdfMerge->useTemplate($pageId, 10, 10, 200);
+                      }
+                   }
+                   $file = uniqid().'.pdf';
+                   // $pdfMerge->Output('I', 'simple.pdf');
+                      // $pdf->stream('student_all_report.pdf'); 
+                   dd($pdfMerge->Output('I', 'simple.pdf'));
+      
+      // return $pdf->stream('student_all_report.pdf');
+    }
+   
 }

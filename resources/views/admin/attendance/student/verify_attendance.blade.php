@@ -66,7 +66,7 @@
            //     $color = 'lebel label-warning';
            //  }
           @endphp
-        <tr id="tr-{{ $student->id }}" class="{{ $color }}">
+        <tr id="tr-{{ $student->id }}" class="{{ $color }}"  color-change="true">
           <td>{{ $student->registration_no }}</td>
           
           <input type="hidden" name="date" value="{{ $date }}">

@@ -8,7 +8,7 @@
   
 </style>
  
-  <div class="modal-dialog" style="width:40%">
+  <div class="modal-dialog" style="width:60%">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -17,10 +17,10 @@
         <h4 class="modal-title">{{ @$adminssionSeat->id?'Edit' : 'Add' }} Admission Seat</h4>
       </div>
       <div class="modal-body"> 
-            <form action="{{ route('admin.adminssion.seat.store',@$adminssionSeat->id) }}" method="post" class="add_form" content-refresh="admission_seat_table" button-click="btn_close">
+            <form action="{{ route('admin.adminssion.seat.store',@$adminssionSeat->id) }}" method="post" class="add_form" content-refresh="admission_seat_table" button-click="btn_close" enctype="multipart/form-data">
               {{ csrf_field() }}
               <div class="row">
-                <div class="col-lg-12 form-group">
+                <div class="col-lg-6 form-group">
                   <label>Academic Year</label>
                   <select name="academic_year_id" class="form-control">
                     <option selected disabled> Select Academic Year</option>
@@ -29,7 +29,7 @@
                     @endforeach 
                   </select> 
                 </div> 
-                <div class="col-lg-12 form-group">
+                <div class="col-lg-6 form-group">
                   <label>Class</label>
                   <select name="class_id" class="form-control">
                     <option selected disabled> Select Class</option>
@@ -38,17 +38,37 @@
                     @endforeach 
                   </select> 
                 </div>
-                <div class="col-lg-12 form-group">
+                <div class="col-lg-6 form-group">
                   <label>Total Seat</label>
                   <input type="text" name="total_seat" class="form-control" placeholder="Enter" maxlength="10" value="{{ @$adminssionSeat->total_seat }}"> 
                 </div>
-                <div class="col-lg-12 form-group">
+                <div class="col-lg-6 form-group">
                   <label>From Date</label>
                   <input type="date" name="from_date" class="form-control" value="{{ @$adminssionSeat->from_date }}"> 
                 </div>
-                <div class="col-lg-12 form-group">
+                <div class="col-lg-6 form-group">
+                  <label>From Fee</label>
+                  <input type="number" name="from_fee" class="form-control" value="{{ @$adminssionSeat->from_date }}"> 
+                </div>
+                <div class="col-lg-6 form-group">
                   <label>Last Date</label>
                   <input type="date" name="last_date" class="form-control" value="{{ @$adminssionSeat->last_date }}"> 
+                </div> 
+                <div class="col-lg-6 form-group">
+                  <label>Test Date</label>
+                  <input type="date" name="test_date" class="form-control" value="{{ @$adminssionSeat->last_date }}"> 
+                </div>
+                <div class="col-lg-6 form-group">
+                  <label>Retest Date</label>
+                  <input type="date" name="retest_date" class="form-control" value="{{ @$adminssionSeat->last_date }}"> 
+                </div>
+                <div class="col-lg-6 form-group">
+                  <label>Result Date</label>
+                  <input type="date" name="result_date" class="form-control" value="{{ @$adminssionSeat->last_date }}"> 
+                </div>
+                <div class="col-lg-6 form-group">
+                  <label>syllabus</label>
+                  <input type="file" name="attachment" class="form-control" value="{{ @$adminssionSeat->last_date }}"> 
                 </div>
                 <div class="col-lg-12 form-group text-center" >
                    <input type="submit" class="btn btn-success">

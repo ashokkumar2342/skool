@@ -573,7 +573,7 @@ class AccountController extends Controller
             // {
             //     $message->to( $data['email'] )->from( $data['from'], $data['otp'] )->subject( 'Otp Verification!' );
             // });
-
+          \Artisan::call('send:sms');
           return redirect()->route('student.resitration.verification',Crypt::encrypt($accounts->id))->with(['message'=>'Account created Successfully.','class'=>'success']);        
         }
         else{

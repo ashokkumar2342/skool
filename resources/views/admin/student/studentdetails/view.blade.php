@@ -16,10 +16,20 @@ b{
 @endpush
 @section('body')
     <section class="content">
-        <div class="box">  
-          <button type="button" class="btn btn-xs btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.student.preview',$student->id) }}')" style="margin:5px">Preview</button>
+        <div class="box"> 
+        @php
+           $admissionApplication=App\Model\AdmissionApplication::where('student_id',$student->id)->first();
+         @endphp 
+         @if ($student->student_status_id==1)
+           <button type="button" class="btn btn-xs btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.student.preview',$student->id) }}')" style="margin:5px">Preview</button>
 
           <a href="{{ route('admin.student.pdf.generate',$student->id) }}" class="btn btn-xs btn-success pull-right" title="Download Profile " target="_blank" style="margin:5px">PDF</a>
+         @endif
+          
+          @if ($admissionApplication->status>=2) 
+          <a href="{{ route('admin.student.registration.profile.view',$student->id) }}" class="btn btn-xs btn-primary pull-right" title="Download Profile " target="_blank" style="margin:5px">View Details</a>
+          
+          @endif
 
            
 
@@ -49,12 +59,40 @@ b{
                                    $disabled='';
                                    if ($userId->role_id==12){ 
                                     $disabled='disabled'; 
+                                   } 
+                                 if(!empty($admissionApplication)){   
+                                   $status='';
+                                   if($admissionApplication->status==1){
+                                     $status='New Application';
+                                   }else if($admissionApplication->status==2){
+                                     $status='Form Submited';
+                                   }else if($admissionApplication->status==3){
+                                     $status='Application Form Received';
+                                   }else if($admissionApplication->status==4){
+                                     $status='Accepted';
+                                   }else if($admissionApplication->status==5){
+                                     $status='Rejected';
+                                   }else if($admissionApplication->status==6){
+                                     $status='Pass';
+                                   }else if($admissionApplication->status==7){
+                                     $status='Retest';
+                                   }else if($admissionApplication->status==8){
+                                     $status='Fail';
+                                   }else if($admissionApplication->status==9){
+                                     $status='Admitted';
+                                   }else if($admissionApplication->status==10){
+                                     $status='Admission Close';
                                    }
+                                 }
                                   @endphp
                                 <div class="col-md-6 border_bottom">
                                     <ul class="list-group">
-                                     
-                                      <li class="list-group-item">Name <span class="fa fa-asterisk"></span><span class="fs"><input type="text" value="{{ $student->name }}" maxlength="50" name="student_name" style="width: 290px;height: 28px"> </span></li>
+                                   @if(!empty($admissionApplication))     
+                                    @if ($userId->role_id==12) 
+                                       <span style="margin-left: 10px">Application No. <b>{{ $admissionApplication->id }}</b></span>
+                                     @endif  
+                                    @endif  
+                                      <li class="list-group-item" style="margin-top: 10px">Name <span class="fa fa-asterisk"></span><span class="fs"><input type="text" value="{{ $student->name }}" maxlength="50" name="student_name" style="width: 290px;height: 28px"> </span></li>
                                        
                                       <li class="list-group-item">Class <span class="fa fa-asterisk"></span><span class="fs"> 
                                         {{-- <input type="text" maxlength="50"  value="{{ $student->classes->name or ''}}" name="nick_name"> --}}
@@ -93,9 +131,13 @@ b{
 
                                 <div class="col-md-6 border_bottom">
                                     <ul class="list-group">
-                                    
-                                      
-                                      <li class="list-group-item">Date of Admission <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" {{ $disabled }} style="width: 290px;height: 28px" value="{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}" name="date_of_admission"> </span></li>
+                                      @if(!empty($admissionApplication))     
+                                    @if ($userId->role_id==12) 
+                                       <span style="">Status &nbsp;<b> {{ $status}}</b></span>
+                                     @endif  
+                                    @endif
+                                     
+                                      <li class="list-group-item" style="margin-top: 10px">Date of Admission <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" {{ $disabled }} style="width: 290px;height: 28px" value="{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}" name="date_of_admission"> </span></li>
                                       <li class="list-group-item">Date of Activation <span class="fa fa-asterisk"></span><span class="fs"><input type="text" {{ $disabled }} maxlength="50" style="width: 290px;height: 28px" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation"> </span></li>
                                       <li class="list-group-item">Date of Birth <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="10" style="width: 290px;height: 28px" value="{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}" name="date_of_birth"> </span></li> 
                                         <li class="list-group-item">Gender <span class="fa fa-asterisk"></span><span class="fs">
@@ -231,7 +273,15 @@ b{
           <!-- /.box -->
           <!-- Trigger the modal with a button -->
                
-
+<div class="col-lg-4 text-center">
+  @if ($admissionApplication->status==2)
+    <a href="{{ route('admin.student.registration.final.submit',$student->id) }}" title="Final Submit" class="btn btn-primary hidden" target="blank">Final Submit</a>
+    @else
+    <a href="{{ route('admin.student.registration.final.submit',$student->id) }}" title="Final Submit" class="btn btn-primary" target="blank">Final Submit</a>
+  @endif
+  
+  
+</div>
     </section>
 
    

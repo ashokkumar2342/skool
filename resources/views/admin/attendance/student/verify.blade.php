@@ -76,13 +76,19 @@
  
 <script>
   function callChecked(obj) {
+     $('[color-change="true"]').removeClass('lebel label-danger')
+     $('[color-change="true"]').removeClass('lebel label-success')
+     $('[color-change="true"]').removeClass('lebel label-warning')
     var value =obj.getAttribute('data-click');
      if(value=='Present'){
         $('.present').prop('checked', true);
+        $('[color-change="true"]').addClass('lebel label-success'); 
      }else if(value=='Absent'){
         $('.absent').prop('checked', true);
+        $('[color-change="true"]').addClass('lebel label-danger'); 
      }else if(value=='Leave'){
         $('.leave').prop('checked', true);
+        $('[color-change="true"]').addClass('lebel label-warning'); 
      }
   }    
      

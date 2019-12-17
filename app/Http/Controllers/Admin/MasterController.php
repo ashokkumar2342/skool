@@ -572,6 +572,10 @@ class MasterController extends Controller
                 'total_seat' => 'required', 
                 'from_date' => 'required|date', 
                 'last_date' => 'required|date', 
+                'test_date' => 'required|date', 
+                'retest_date' => 'required|date', 
+                'result_date' => 'required|date', 
+                'attachment' => 'required', 
                 
             
              
@@ -590,8 +594,18 @@ class MasterController extends Controller
                $adminssionSeat->academic_year_id=$request->academic_year_id;  
                $adminssionSeat->class_id=$request->class_id;  
                $adminssionSeat->total_seat=$request->total_seat;  
+               $adminssionSeat->from_fee=$request->from_fee;  
                $adminssionSeat->from_date=$request->from_date;  
                $adminssionSeat->last_date=$request->last_date; 
+               $adminssionSeat->test_date=$request->test_date; 
+               $adminssionSeat->retest_date=$request->retest_date; 
+               $adminssionSeat->result_date=$request->result_date;
+               if ($request->hasFile('attachment')) { 
+                $attachment=$request->attachment;
+                $filename='test_syllabus'.date('d-m-Y').time().'.pdf'; 
+                $attachment->storeAs('app/student/test/syllabus/',$filename);
+                } 
+               $adminssionSeat->syllabus=$filename;
                $adminssionSeat->save();
                 $response=['status'=>1,'msg'=>'Submit Successfully'];
               }     return response()->json($response);
