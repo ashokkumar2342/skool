@@ -38,17 +38,10 @@
                         @php
                             $checked =App\Model\FeeGroupDetail::where('isapplicable_id',1)->where('fee_group_id',@$feeGroups)->where('fee_structure_id',$feeStructure->id)->count()?'checked':'';
                             $checked2 =App\Model\FeeGroupDetail::where('isapplicable_id',2)->where('fee_group_id',@$feeGroups)->where('fee_structure_id',$feeStructure->id)->count()?'checked':'';
-                             $success = (\App\Model\FeeGroupDetail::where(['fee_structure_id'=>$feeStructure->id,'isapplicable_id'=>1,'fee_group_id'=>@$feeGroups]))->first(); 
-                             $danger = (\App\Model\FeeGroupDetail::where(['fee_structure_id'=>$feeStructure->id,'isapplicable_id'=>2,'fee_group_id'=>@$feeGroups]))->first(); 
-                         $color ='';
-                        if(!empty($success)){
-                        $color = 'lebel label-success';
-                        }else if(!empty($danger)){
-                        $color = 'lebel label-danger';
-                        } 
+                             
                        @endphp
            
-                       <tr id="tr-{{ $feeStructure->id }}" class="{{ $color }}">
+                       <tr>
                             <td>{{ $loopId++ }}</td> 
                             <td>{{ $feeStructure->name }}</td> 
                             <td><input type="radio" {{ $checked }} name="value[{{ $feeStructure->id  }}]" value="1" onclick="$('#subject{{ $feeStructure->id }}').prop('checked', true);
