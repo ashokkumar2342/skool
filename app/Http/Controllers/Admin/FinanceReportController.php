@@ -12,8 +12,9 @@ use App\Model\PaymentMode;
 use App\Model\StudentFeeDetail;
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-
+use PDF;
 class FinanceReportController extends Controller
 {
   public function dateRange(Request $request)
@@ -209,5 +210,32 @@ class FinanceReportController extends Controller
                   $response['status'] = 1; 
                   $response['data'] =view('admin.financeReport.newAdmission.show' ,compact('students'))->render(); 
                     return response()->json($response); 
+   }
+
+   //--------------class-fee-structure-report-----------------------------------------
+   public function classFeeStructureReport($value='')
+   {
+      $academicYears=AcademicYear::all();
+      return  view('admin.financeReport.classFeeStructure.index' ,compact('academicYears')); 
+   }
+   public function classFeeStructureReportShow(Request $request)
+   {
+      $pagebreak=$request->checked;
+      if ($request->academic_year_id==null) {
+       return ' Please Select Academic Year';
+      }
+      $datas=DB::select(DB::raw("call up_report_class_feestructure ('$request->academic_year_id')"));
+      $classFeeStructureReports= collect($datas)->groupBy('class_id');
+      $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.financeReport.classFeeStructure.result' ,compact('classFeeStructureReports','pagebreak'));
+        return $pdf->stream('class_fee_structure.pdf');
+      // $response = array();
+      // $response['status'] = 1; 
+      // $response['data'] =view('admin.financeReport.classFeeStructure.result' ,compact('classFeeStructureReports'))->render(); 
+      //   return response()->json($response); 
+      
    }
 }

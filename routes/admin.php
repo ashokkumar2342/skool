@@ -681,6 +681,11 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::get('admission', 'FinanceReportController@adminssionReport')->name('admin.finance.report.adminssion'); 
     	    Route::post('admission-show', 'FinanceReportController@adminssionReportShow')->name('admin.finance.report.adminssion.show'); 
     	  });
+    	Route::group(['prefix' => 'class-fee-structure-report'], function() {
+    	    Route::get('class-fee-structure-report', 'FinanceReportController@classFeeStructureReport')->name('admin.finance.class.fee.structure.report'); 
+    	    Route::post('class-fee-structure-show', 'FinanceReportController@classFeeStructureReportShow')->name('admin.finance.class.fee.structure.report.show'); 
+    	    
+    	  });
      
 
     	 //------------------------- Student Search --------------------------------- 
