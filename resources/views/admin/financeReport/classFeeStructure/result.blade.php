@@ -39,11 +39,11 @@
     	</thead>
     	<tbody>
       @php
-   		$total ='';
+   		$total = (int) '';
    	  @endphp
    	  @foreach ($values as $id => $value) 
       	@php
-      		$total+= (int)$value->total_amt_due;
+      		$total+= (int) $value->total_amt_due;
    	   @endphp 
     		<tr>
     			<td>{{ $value->fee_name }}</td>
