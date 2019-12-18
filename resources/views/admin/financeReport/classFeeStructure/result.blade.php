@@ -18,13 +18,13 @@
    	 <b>Class</b> 
    	</div>
    	<div class="col-lg-3">
-   	{{ $values[0]->class_name }} 
+   	{{-- {{ $values[0]->class_name }}  --}}
    	</div>
    	<div class="col-lg-3">
    	 <b>Academic Year </b>
    	</div> 
    	<div class="col-lg-2">
-   	 {{ $values[0]->year_name }} 
+   	 {{-- {{ $values[0]->year_name }}  --}}
    	</div>
    	 
    </div> 
