@@ -25,11 +25,11 @@ b{
 
           <a href="{{ route('admin.student.pdf.generate',$student->id) }}" class="btn btn-xs btn-success pull-right" title="Download Profile " target="_blank" style="margin:5px">PDF</a>
          @endif
-          
+         @if (!empty($admissionApplication))  
           @if ($admissionApplication->status>=2) 
-          <a href="{{ route('admin.student.registration.profile.view',$student->id) }}" class="btn btn-xs btn-primary pull-right" title="Download Profile " target="_blank" style="margin:5px">View Details</a>
-          
+          <a href="{{ route('admin.student.registration.profile.view',$student->id) }}" class="btn btn-xs btn-primary pull-right" title="Download Profile " target="_blank" style="margin:5px">View Details</a> 
           @endif
+        @endif
 
            
 
@@ -274,11 +274,13 @@ b{
           <!-- Trigger the modal with a button -->
                
 <div class="col-lg-4 text-center">
+@if (!empty($admissionApplication)) 
   @if ($admissionApplication->status==2)
     <a href="{{ route('admin.student.registration.final.submit',$student->id) }}" title="Final Submit" class="btn btn-primary hidden" target="blank">Final Submit</a>
     @else
     <a href="{{ route('admin.student.registration.final.submit',$student->id) }}" title="Final Submit" class="btn btn-primary" target="blank">Final Submit</a>
   @endif
+ @endif   
   
   
 </div>

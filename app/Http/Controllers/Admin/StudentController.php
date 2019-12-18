@@ -197,8 +197,9 @@ class StudentController extends Controller
          } 
          //end sibling detaild///
          //application barcode ///
+                 if ($student->student_status_id!=1) {
                      $admissionApplication=AdmissionApplication::where('student_id',$student->id)->first();
-                     $value=$admissionApplication->id;     
+                     $value=$admissionApplication->id; 
                      $barcode = new BarcodeGenerator();
                      $barcode->setText($value);
                      $barcode->setType(BarcodeGenerator::Code128);
@@ -206,7 +207,12 @@ class StudentController extends Controller
                      $barcode->setThickness(25);
                      $barcode->setFontSize(10);
                      $code = $barcode->generate();
-                     $data = base64_decode($code); 
+                     $data = base64_decode($code);
+                  }
+                  if ($student->student_status_id==1) {
+                      
+                     $data = '';
+                  }     
            //application barcode end///          
           $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 
           $documents = Document::where('student_id',$id)->get(); 
@@ -1431,11 +1437,17 @@ class StudentController extends Controller
     public function registrationProfileView($student_id)
     {
         $admissionApplication=AdmissionApplication::where('student_id',$student_id)->first();
+        $student=Student::find($student_id);
+        $profilePdfUrl = Storage_path() . '/app/student/profile/profileDetails/'.$student->registration_no.'_student_all_details.pdf';
         $documents=Document::where('student_id',$student_id)->get(); 
         $docs=$documents; 
                    $pdfMerge = new Fpdi();
                    $dt =array();
-                  $dt['student']=$admissionApplication->profile_path;
+                   if (empty($profilePdfUrl)) {
+                    $dt['student']=$admissionApplication->profile_path; 
+                   }elseif (!empty($profilePdfUrl)) {
+                    $dt['student']=$profilePdfUrl; 
+                   }
                    foreach ($docs as $key=>$document) {
                     
                      $dt[$key]=Storage_path('app/'.$document->document_url);  

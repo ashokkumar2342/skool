@@ -29,7 +29,11 @@
 		<td>
 			@if (empty($application->first()->profile_path))
 			<a class="btn btn-warning btn-xs"  title="Edit Student" href="{{ route('admin.student.view',$student->id) }}" target="_blank"><i class="fa fa-edit"></i></a>
+			@if ($student->student_status_id==1)
+			<a class="btn btn-default btn-xs"  title="Edit Student" href="{{ route('admin.student.registration.profile.view',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a> 
+			 @else	 
 			<a class="btn btn-default btn-xs disabled"  title="Edit Student" href="{{ route('admin.student.registration.profile.view',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a> 
+			@endif
 			@else
 			<a class="btn btn-warning btn-xs" disabled title="Edit Student" href="{{ route('admin.student.view',$student->id) }}" target="_blank"><i class="fa fa-edit"></i></a>
 			<a class="btn btn-default btn-xs" title="Edit Student" href="{{ route('admin.student.registration.profile.view',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a>

@@ -17,12 +17,13 @@
                                {{ Form::select('class_id',$classess,null,['class'=>'form-control','placeholder'=>'Select Class']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
-                        </div>          
-	                                         
-	                </form> 
+                        </div>              
+	                </form>
+                  <div class="pull-right" style="margin-top: 24px">  
+                  <button type="button" class="btn btn-warning" onclick="callPopupLarge(this,'{{ route('admin.finance.class.fee.structure.report') }}')">Report</button>
+                   </div> 
                 </div> 
             </div>
-            <!-- /.box-body -->
           </div>
           <!-- /.box -->
 
