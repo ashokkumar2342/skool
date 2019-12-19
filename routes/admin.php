@@ -684,7 +684,7 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::post('admission-show', 'FinanceReportController@adminssionReportShow')->name('admin.finance.report.adminssion.show'); 
     	  });
     	Route::group(['prefix' => 'class-fee-structure-report'], function() {
-    	    Route::get('class-fee-structure-report/{id}', 'FinanceReportController@classFeeStructureReport')->name('admin.finance.class.fee.structure.report'); 
+    	    Route::get('class-fee-structure-report/{id?}', 'FinanceReportController@classFeeStructureReport')->name('admin.finance.class.fee.structure.report'); 
     	    Route::post('class-fee-structure-show/{id}', 'FinanceReportController@classFeeStructureReportShow')->name('admin.finance.class.fee.structure.report.show'); 
     	    
     	  });

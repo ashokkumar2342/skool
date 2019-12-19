@@ -42,10 +42,10 @@
     <table class="table" style="margin-top: 10px">
     	<thead>
     		<tr>
-    			<th>Fee  Name </th>
-    			<th style="width:10%">Amount</th>
-    			<th style="width:14%">Due Amount</th>
-    			<th style="width:20%">Total Due Amount</th>
+    			<th class="text-nowrap">Fee  Name </th>
+    			<th style="width:10%" class="text-nowrap">Amount</th>
+    			<th style="width:14%" class="text-nowrap">Due Amount</th>
+    			<th style="width:20%" class="text-nowrap">Total Due Amount</th>
     		</tr>
     	</thead>
     	<tbody>
@@ -57,10 +57,10 @@
       		(int)$total+= (int) $value->total_amt_due;
    	   @endphp 
     		<tr>
-    			<td>{{ $value->fee_name }}</td>
-    			<td align="right">{{ $value->fee_amt }}</td>
-    			<td align="right">{{ $value->total_dues }}</td>
-    			<td align="right">{{ $value->total_amt_due }}</td>
+    			<td class="text-nowrap">{{ $value->fee_name }}</td>
+    			<td align="right" class="text-nowrap">{{ $value->fee_amt }}</td>
+    			<td align="right" class="text-nowrap">{{ $value->total_dues }}</td>
+    			<td align="right" class="text-nowrap">{{ $value->total_amt_due }}</td>
     		</tr>
     	@endforeach 	
     	</tbody>
