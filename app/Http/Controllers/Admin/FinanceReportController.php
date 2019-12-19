@@ -220,6 +220,7 @@ class FinanceReportController extends Controller
    }
    public function classFeeStructureReportShow(Request $request,$condition_id)
    {
+      
       $pagebreak=$request->checked;
       if ($request->academic_year_id==null) {
        return ' Please Select Academic Year';

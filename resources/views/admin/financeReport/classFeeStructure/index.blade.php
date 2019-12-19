@@ -14,12 +14,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{ @$condition_id=='fee_group'?'Fee Group Report' : 'Class Fee Structure Report' }}</h4>
+        <h4 class="modal-title">{{ $condition_id=='fee_group'?'Fee Group Report' : 'Class Fee Structure Report' }}</h4>
       </div>
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12"> 
-              <form action="{{ route('admin.finance.class.fee.structure.report.show',@$condition_id) }}" method="post"  no-reset="true" target="blank">
+              <form action="{{ route('admin.finance.class.fee.structure.report.show',$condition_id) }}" method="post"  no-reset="true" target="blank">
             {{ csrf_field() }}
             <div class="row">
               <div class="col-lg-4">
