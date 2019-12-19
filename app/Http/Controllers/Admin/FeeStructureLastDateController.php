@@ -11,7 +11,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-
+use DateTime;
+use DateInterval;
+use DatePeriod;
 class FeeStructureLastDateController extends Controller
 {
     /**
@@ -114,9 +116,20 @@ class FeeStructureLastDateController extends Controller
      */
     public function edit($id)
     {
-        $feeStructureLastDate = FeeStructureLastDate::find($id);
+         $feeStructureLastDate = FeeStructureLastDate::find($id);
          $forSessionMonths =ForSessionMonth::all();
-        return view('admin.finance.fee_structure_last_date_edit',compact('feeStructureLastDate','forSessionMonths'));
+         $AcademicYear =AcademicYear::find($feeStructureLastDate->academic_year_id);
+
+         $start    = (new DateTime($AcademicYear->start_date))->modify('first day of this month');
+         $end      = (new DateTime($AcademicYear->end_date))->modify('first day of next month');
+         $interval = DateInterval::createFromDateString('1 month');
+         $period   = new DatePeriod($start, $interval, $end);
+
+         foreach ($period as $dt) {
+             $yearmonths[]=$dt->format("m-Y");
+         }
+         
+        return view('admin.finance.fee_structure_last_date_edit',compact('feeStructureLastDate','forSessionMonths','yearmonths'));
     }
 
     /**
@@ -128,13 +141,14 @@ class FeeStructureLastDateController extends Controller
      */
     public function update(Request $request,$id)
     {
-       
+
+             $due_month = date('m',strtotime($request->due_month_year));
+             $due_year = date('Y',strtotime($request->due_month_year));
        $rules=[
         
            
             'amount' => 'required|max:8|regex:/^\d*(\.\d{1,2})?$/', 
-            'due_month' => 'required', 
-            'due_year' => 'required', 
+            'due_month_year' => 'required', 
             'for_session_month' => 'required|max:30', 
            
              
@@ -151,8 +165,8 @@ class FeeStructureLastDateController extends Controller
         }else { 
              $feeStructureLastDate = FeeStructureLastDate::find($id); 
              $feeStructureLastDate->amount = $request->amount; 
-             $feeStructureLastDate->due_month=$request->due_month; 
-             $feeStructureLastDate->due_year=$request->due_year; 
+             $feeStructureLastDate->due_month=$due_month; 
+             $feeStructureLastDate->due_year=$due_year; 
              $feeStructureLastDate->for_session_month = $request->for_session_month;
              $feeStructureLastDate->save(); 
             $response=['status'=>1,'msg'=>'Update Successfully'];

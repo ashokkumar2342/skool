@@ -9,6 +9,7 @@
 
 <section class="content-header">
      <button type="button" class="pull-right btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.feeGroup.add.form') }}')">Add Fee Group</button>
+     <button type="button" class="pull-right btn btn-warning btn-sm" style="margin-right: 10px" onclick="callPopupLarge(this,'{{ route('admin.finance.class.fee.structure.report','fee_group') }}')">Report</button>
     <h1>Fee Groups <small> List </small></h1>
 </section>
     <section class="content">

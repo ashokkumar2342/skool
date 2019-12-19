@@ -9,7 +9,7 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-                  <form action="{{ route('admin.studentFeeGroupDetail.show') }}" class="form-vertical" id="form_student_fee_group_detail" method="get" class="form_class"> 
+                  <form action="{{ route('admin.studentFeeGroupDetail.show') }}"  success-content-id="form_student_fee_group_detail" method="get" class="add_form" no-reset="true"> 
                       {{ csrf_field() }}
                          <div class="col-lg-2">                           
                              <div class="form-group">
@@ -38,7 +38,10 @@
                        <input type="submit"   class="btn btn-success mr-10 mb-30" id="submit" value="show"/>
                       </div>                     
                   </form> 
-                </div> 
+                </div>
+                <di id="form_student_fee_group_detail">
+                   
+                 </div> 
             </div>
             <!-- /.box-body -->
           </div>

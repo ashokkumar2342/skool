@@ -20,7 +20,7 @@
                         </div>              
 	                </form>
                   <div class="pull-right" style="margin-top: 24px">  
-                  <button type="button" class="btn btn-warning" onclick="callPopupLarge(this,'{{ route('admin.finance.class.fee.structure.report') }}')">Report</button>
+                  <button type="button" class="btn btn-warning" onclick="callPopupLarge(this,'{{ route('admin.finance.class.fee.structure.report','fee_structure') }}')">Report</button>
                    </div> 
                 </div> 
             </div>

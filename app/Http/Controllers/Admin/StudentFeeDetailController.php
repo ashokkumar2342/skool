@@ -10,6 +10,7 @@ use App\Model\ClassFeeStructure;
 use App\Model\ClassType;
 use App\Model\Concession;
 use App\Model\FeeStructure;
+use App\Model\FeeStructureAmount;
 use App\Model\FeeStructureLastDate;
 use App\Model\Minu;
 use App\Model\StudentAddressDetail;
@@ -34,8 +35,8 @@ class StudentFeeDetailController extends Controller
         $studentFeeDetails = StudentFeeDetail::latest('created_at')->paginate(20);        
         $acardemicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(), 'name', 'id');
         $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
-        $classess = MyFuncs::getClasses();
-        $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
+        $classess = MyFuncs::getClassByHasUser();
+        // $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
         return view('admin.finance.student_fee_detail',compact('studentFeeDetails','acardemicYear','feeStructurLastDate','concession','classess'));
     }
 
@@ -44,11 +45,22 @@ class StudentFeeDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function filter(Request $request,$condition_id)
     {
-        //
-    }
-
+      if ($request->id!=0) { 
+       if ($condition_id==1) {
+        $sections = MyFuncs::getSections($request->id); 
+        return view('admin.finance.student_fee_detail_filter',compact('sections'));
+       }
+      }
+     if ($request->section_id!=0) {  
+      if ($condition_id==2) {
+        $st =new Student();
+        $students=$st->getStudentByClassSection($request->class_id,$request->section_id); 
+        return view('admin.finance.student_fee_detail_student_select',compact('students'));
+       }
+     }
+   }
     /**
      * Store a newly created resource in storage.
      *
@@ -57,7 +69,7 @@ class StudentFeeDetailController extends Controller
      */
     public function store(Request $request)
     {
-         
+         return $request;
         $rules=[
             'academic_year_id' => 'required', 
             'class_id' => 'required', 
@@ -91,9 +103,9 @@ class StudentFeeDetailController extends Controller
                                 $studentFeeDetail->concession_id = 0;
                                 $studentFeeDetail->fee_amount = $FeeStructureLastDate->amount;
                                 $studentFeeDetail->concession_amount = 0;
-                                $studentFeeDetail->last_date = $FeeStructureLastDate->last_date ;
-                                $studentFeeDetail->from_date = date('Y-m-d',strtotime($request->from_date));
-                                $studentFeeDetail->to_date = date('Y-m-d',strtotime($request->to_date));
+                                // $studentFeeDetail->last_date = $FeeStructureLastDate->last_date ;
+                                // $studentFeeDetail->from_date = date('Y-m-d',strtotime($request->from_date));
+                                // $studentFeeDetail->to_date = date('Y-m-d',strtotime($request->to_date));
                                 if (empty($studentFeeDetail)) {
                                    $studentFeeDetail->paid = 0; 
                                 }else{
@@ -134,7 +146,7 @@ class StudentFeeDetailController extends Controller
         $acardemicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(), 'name', 'id');
         $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
         $classess = MyFuncs::getClasses();
-        $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
+        // $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
         return view('admin.finance.student_fee_assign',compact('studentFeeDetails','acardemicYear','feeStructurLastDate','concession','classess','students'));   
     }
 
@@ -159,7 +171,7 @@ class StudentFeeDetailController extends Controller
         
         $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
          
-        $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
+        // $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
       $menuPermission = Minu::find($menu_id);
         $response = array();
         $response['data'] = view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','feeStructurLastDate','concession','student','menuPermission','fatherDetail','motherDetail','address'))->render();
@@ -212,6 +224,11 @@ class StudentFeeDetailController extends Controller
             $feeStructures =FeeStructure::all();
             $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
         return view('admin.finance.include.student_fee_struture_model',compact('student','feeStructures','academicYears','concession'));
+    }
+    public function showFeeStructureAmount(Request $request)
+    {
+        $FeeStructureAmount=FeeStructureAmount::where('fee_structure_id',$request->id)->first();
+        return view('admin.finance.include.student_fee_struture_amount',compact('FeeStructureAmount'));
     }
 
     //fee st details store

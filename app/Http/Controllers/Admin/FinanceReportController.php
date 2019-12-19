@@ -213,29 +213,30 @@ class FinanceReportController extends Controller
    }
 
    //--------------class-fee-structure-report-----------------------------------------
-   public function classFeeStructureReport($value='')
+   public function classFeeStructureReport($condition_id)
    {
       $academicYears=AcademicYear::all();
-      return  view('admin.financeReport.classFeeStructure.index' ,compact('academicYears')); 
+      return  view('admin.financeReport.classFeeStructure.index' ,compact('academicYears','condition_id')); 
    }
-   public function classFeeStructureReportShow(Request $request)
+   public function classFeeStructureReportShow(Request $request,$condition_id)
    {
       $pagebreak=$request->checked;
       if ($request->academic_year_id==null) {
        return ' Please Select Academic Year';
       }
-      $datas=DB::select(DB::raw("call up_report_class_feestructure ('$request->academic_year_id')"));
+      if ($condition_id=='fee_group') {
+       $datas=DB::select(DB::raw("call up_report_feegroup_detail ('$request->academic_year_id')"));
+      }else{
+       $datas=DB::select(DB::raw("call up_report_class_feestructure ('$request->academic_year_id')")); 
+     } 
       $classFeeStructureReports= collect($datas)->groupBy('class_id');
       $pdf=PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.financeReport.classFeeStructure.result' ,compact('classFeeStructureReports','pagebreak'));
+        ->loadView('admin.financeReport.classFeeStructure.result' ,compact('classFeeStructureReports','pagebreak','condition_id'));
         return $pdf->stream('class_fee_structure.pdf');
-      // $response = array();
-      // $response['status'] = 1; 
-      // $response['data'] =view('admin.financeReport.classFeeStructure.result' ,compact('classFeeStructureReports'))->render(); 
-      //   return response()->json($response); 
+      
       
    }
 }

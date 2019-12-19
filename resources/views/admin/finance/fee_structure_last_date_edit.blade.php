@@ -24,14 +24,17 @@
                         <label>Amount</label>
                         <input type="text" name="amount" class="form-control" value="{{ $feeStructureLastDate->amount }}"> 
                     </div>
+                    @php
+                        $month='0'.$feeStructureLastDate->due_month.'-'.$feeStructureLastDate->due_year;
+                    @endphp 
                     <div class="col-lg-12 form-group">
-                        <label>Due Month</label>
-                        <input type="text" name="due_month" class="form-control" value="{{ $feeStructureLastDate->due_month }}"> 
-                    </div>
-                    <div class="col-lg-12 form-group">
-                        <label>Due Year</label>
-                        <input type="text" name="due_year" class="form-control" value="{{ $feeStructureLastDate->due_year }}"> 
-                    </div>
+                        <label>Due Month/Year</label>
+                        <select name="due_month_year" class="form-control">
+                            @foreach ($yearmonths as $yearmonth)
+                                  <option value="01-{{ $yearmonth }}"{{ $month==$yearmonth?'selected' : '' }}>{{ $yearmonth }}</option> 
+                            @endforeach 
+                        </select> 
+                    </div> 
                     <div class="col-lg-12 form-group">
                         <label>For Session/Month</label>
                        <input type="text" name="for_session_month" class="form-control" value="{{ $feeStructureLastDate->for_session_month }}"> 

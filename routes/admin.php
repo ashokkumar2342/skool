@@ -613,6 +613,7 @@ Route::group(['middleware' => 'admin'], function() {
     	 });//------------------------- student-fee-detail ---------------------------------
         Route::group(['prefix' => 'student-fee-detail'], function() {
     	    Route::get('/', 'StudentFeeDetailController@index')->name('admin.studentFeeDetail.list'); 
+    	    Route::get('filter/{condition_id?}', 'StudentFeeDetailController@filter')->name('admin.studentFeeDetail.filter'); 
     	    Route::post('add', 'StudentFeeDetailController@store')->name('admin.studentFeeDetail.post');
     	    Route::get('delete/{studentFeeDetail}', 'StudentFeeDetailController@destroy')->name('admin.studentFeeDetail.delete');
     	    Route::put('update', 'StudentFeeDetailController@update')->name('admin.studentFeeDetail.update');
@@ -620,6 +621,7 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::post('assign/show/{menu_id}', 'StudentFeeDetailController@feeassignshow')->name('admin.studentFeeAssign.show');
     	    Route::post('assign/store', 'StudentFeeDetailController@assignstore')->name('admin.studentFeeAssign.post');
     	    Route::get('show-fee-struture-model/{id}', 'StudentFeeDetailController@showFeeStructureModel')->name('admin.studentFeeStructure.show.model');
+    	    Route::get('show-fee-struture-amount', 'StudentFeeDetailController@showFeeStructureAmount')->name('admin.studentFeeStructure.show.amount');
     	    Route::post('show-fee-struture-store/{id}', 'StudentFeeDetailController@feeStructureStore')->name('admin.studentFeeStructure.details.store');
     	     Route::get('show-fee-Concession-model/{id}', 'StudentFeeDetailController@showFeeDetailConcessionModel')->name('admin.studentFeeStructure.Concession.show.model');
     	      Route::post('show-fee-struture-concession-store/{id}', 'StudentFeeDetailController@feeconcessioneStore')->name('admin.studentFee.details.concession.store');
@@ -628,7 +630,7 @@ Route::group(['middleware' => 'admin'], function() {
     	 //------------------------- StudentFeeGroupDetail --------------------------------- 
     	Route::group(['prefix' => 'fee-group-wise'], function() {
     	    Route::get('/', 'StudentFeeGroupDetailController@index')->name('admin.studentFeeGroupDetail.list');	 	
-    	    Route::get('show', 'StudentFeeGroupDetailController@show')->name('admin.studentFeeGroupDetail.show');	 	
+    	    Route::post('show', 'StudentFeeGroupDetailController@show')->name('admin.studentFeeGroupDetail.show');	 	
     	    Route::post('add', 'StudentFeeGroupDetailController@store')->name('admin.studentFeeGroupDetail.post');
     	    Route::post('search', 'StudentFeeGroupDetailController@search')->name('admin.studentFeeGroupDetail.search');
     	    Route::delete('delete', 'StudentFeeGroupDetailController@destroy')->name('admin.studentFeeGroupDetail.delete');
@@ -682,8 +684,8 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::post('admission-show', 'FinanceReportController@adminssionReportShow')->name('admin.finance.report.adminssion.show'); 
     	  });
     	Route::group(['prefix' => 'class-fee-structure-report'], function() {
-    	    Route::get('class-fee-structure-report', 'FinanceReportController@classFeeStructureReport')->name('admin.finance.class.fee.structure.report'); 
-    	    Route::post('class-fee-structure-show', 'FinanceReportController@classFeeStructureReportShow')->name('admin.finance.class.fee.structure.report.show'); 
+    	    Route::get('class-fee-structure-report/{id?}', 'FinanceReportController@classFeeStructureReport')->name('admin.finance.class.fee.structure.report'); 
+    	    Route::post('class-fee-structure-show/{id?}', 'FinanceReportController@classFeeStructureReportShow')->name('admin.finance.class.fee.structure.report.show'); 
     	    
     	  });
      

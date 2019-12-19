@@ -11,7 +11,7 @@
                 <div class="col-md-12"> 
                   <form success-content-id="student_fee_details_table" class="form-vertical add_form" action="{{ route('admin.studentFeeDetail.post') }}" method="post" data-table="student_fee_datatable">
                     {{ csrf_field() }}
-                         <div class="col-lg-3">                           
+                         <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
                               <span class="fa fa-asterisk"></span>
@@ -21,28 +21,25 @@
                         </div>
                          <div class="col-lg-3">                           
                              <div class="form-group">
-                              {{ Form::label('class_id','Class',['class'=>' control-label']) }}
-                              <span class="fa fa-asterisk"></span>
-                               {{ Form::select('class_id',$classess,null,['class'=>'form-control','placeholder'=>"Select Class"]) }}
-                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
+                              <label> Class</label>
+                               <select name="class_id" id="class_id" class="form-control" onchange="callAjax(this,'{{ route('admin.studentFeeDetail.filter',1) }}','section_student_select_box')">
+                                 <option selected disabled>Select Class</option>
+                                 <option value="0">All</option>
+                                 @foreach ($classess as $classes)
+                                   <option value="{{ $classes->id }}">{{ $classes->name }}</option> 
+                                 @endforeach 
+                               </select>
                              </div>    
                         </div>
-                         <div class="col-lg-2">                           
-                             <div class="form-group">
-                              {{ Form::label('from_date2','From Date',['class'=>' control-label']) }}
-                               {{ Form::text('from_date','',['class'=>'form-control datepicker','id'=>'from_date','readonly','placeholder'=>"dd-mm-yyyy"]) }}
-                               <p class="from_date text-center alert alert-danger hidden"></p>
-                             </div>    
-                        </div> 
-                         <div class="col-lg-2">                           
-                             <div class="form-group">
-                              {{ Form::label('to_date','To Date',['class'=>' control-label ']) }}
-                               {{ Form::text('to_date','',['class'=>'form-control datepicker','readonly','placeholder'=>"dd-mm-yyyy"]) }}
-                               <p class="to_date text-center alert alert-danger hidden"></p>
-                             </div>    
-                        </div>  
+                        <div  id="section_student_select_box">
+                          
+                        </div>
+                        <div  id="student_select_box">
+                          
+                        </div>
+                          
                                                                                            
-                       <div class="col-lg-2" style="padding-top: 20px;">                                             
+                       <div class="col-lg-1" style="padding-top: 20px;">                                             
                        <button class="btn btn-success" type="submit" >Submit</button> 
                       </div>                     
                   </form> 
