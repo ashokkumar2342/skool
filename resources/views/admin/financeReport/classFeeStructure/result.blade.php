@@ -12,15 +12,26 @@
 <body>
   
  @foreach ($classFeeStructureReports as $key=>$values) 
-   <div class="row" style="margin: 8px">
-   
-   	<div class="col-lg-3">
-   	 <b>Class</b> 
+   <div class="row" style="margin-right: 18px"> 
+   	<div class="col-lg-2">
+    @if ($condition_id=='fee_group')
+   	 <b>Fee Group</b>
+     @else 
+     <b>Class</b>  
+     @endif  
    	</div>
-   	<div class="col-lg-3">
-   	{{ $values[0]->class_name }} 
+   	<div class="col-lg-2"> 
+     @if ($condition_id=='fee_group')
+      {{ $values[0]->fee_group_name }}
+      @else 
+      {{ $values[0]->class_name }} 
+     @endif 
    	</div>
-   	<div class="col-lg-3">
+    <div class="col-lg-3">
+      
+    </div>
+
+   	<div class="col-lg-2">
    	 <b>Academic Year </b>
    	</div> 
    	<div class="col-lg-2">
@@ -43,7 +54,7 @@
    	  @endphp
    	  @foreach ($values as $id => $value) 
       	@php
-      		$total+= (int) $value->total_amt_due;
+      		(int)$total+= (int) $value->total_amt_due;
    	   @endphp 
     		<tr>
     			<td>{{ $value->fee_name }}</td>
@@ -55,8 +66,8 @@
     	</tbody>
     </table>
    <div class="row" style="margin-top: 30px">
-    <div class="col-lg-3 pull-right">
-   	<span >Total &nbsp; <b>{{ $total }}</b></span> 
+    <div class="col-lg-2 pull-right">
+   	<h4><span >Total &nbsp;<b>{{ $total }}</b></span> </h4>
    	</div> 
    </div>
    <hr>
