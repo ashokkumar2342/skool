@@ -4,7 +4,7 @@
     border-bottom: #eee solid 1px;;
   }  
 </style> 
-  <div class="modal-dialog" style="width:70%"> 
+  <div class="modal-dialog" style="width:40%"> 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -18,7 +18,7 @@
           {{ csrf_field() }} 
         
              {{ Form::label('concession','Concession',['class'=>' control-label']) }}
-           <select name="concession" id="concession" class="form-control" onchange="concessitonAmount($('#concession').val())" required>
+           <select name="concession" id="concession" class="form-control form-group" onchange="concessitonAmount($('#concession').val())" required>
                   <option value="" selected="" disabled="">Select Concession</option> 
                   @foreach ($concession as $key=>$value)
                      <option value="{{ $key }}" {{ $key==$studentFeeDetail->concession_id?'selected':'' }}>{{ $value }}</option>
@@ -27,9 +27,9 @@
                 </select>
              {{ Form::label('concession_amount','Concession Amount',['class'=>' control-label']) }}
 
-            {!! Form::text('concession_amount',$studentFeeDetail->concession_amount, ['class'=>'form-control concession','placeholder'=>'Concession Amount','required','id'=>'concession_amount']) !!}
+            {!! Form::text('concession_amount',$studentFeeDetail->concession_amount, ['class'=>'form-control form-group concession','placeholder'=>'Concession Amount','required','id'=>'concession_amount']) !!}
         
-          <br><br><br><br>
+          <br> 
           <div class="text-center">
              <input type="submit" value="Update" class="btn btn-success">
           </div>

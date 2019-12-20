@@ -13,29 +13,29 @@
   
  @foreach ($classFeeStructureReports as $key=>$values) 
    <div class="row" style="margin-right: 18px"> 
-   	<div class="col-lg-2">
+   	<div class="col-lg-1" style="margin-left: 8px">
     @if ($condition_id=='fee_group')
-   	 <b>Fee Group</b>
+   	 Fee Group 
      @else 
-     <b>Class</b>  
+     Class 
      @endif  
    	</div>
    	<div class="col-lg-2"> 
      @if ($condition_id=='fee_group')
-      {{ $values[0]->fee_group_name }}
+      <b>{{ $values[0]->fee_group_name }}</b>
       @else 
-      {{ $values[0]->class_name }} 
+     <b> {{ $values[0]->class_name }} </b>
      @endif 
    	</div>
     <div class="col-lg-3">
       
     </div>
 
-   	<div class="col-lg-2">
-   	 <b>Academic Year </b>
+   	<div class="col-lg-2" style="margin-left: 30px">
+   	 Academic Year  
    	</div> 
    	<div class="col-lg-2">
-   	 {{ $values[0]->year_name }} 
+   	 <b>{{ $values[0]->year_name }} </b>
    	</div>
    	 
    </div> 
@@ -44,8 +44,8 @@
     		<tr>
     			<th class="text-nowrap">Fee  Name </th>
     			<th style="width:10%" class="text-nowrap">Amount</th>
-    			<th style="width:14%" class="text-nowrap">Due Amount</th>
-    			<th style="width:20%" class="text-nowrap">Total Due Amount</th>
+    			<th style="width:10%" class="text-nowrap">Due Count</th>
+    			<th style="width:12%" class="text-nowrap">Due Amount</th>
     		</tr>
     	</thead>
     	<tbody>
@@ -67,7 +67,7 @@
     </table>
    <div class="row" style="margin-top: 30px">
     <div class="col-lg-2 pull-right">
-   	<h4><span >Total &nbsp;<b>{{ $total }}</b></span> </h4>
+   	<h4><span >Total &nbsp;<b>{{ number_format($total,2 )}}</b></span> </h4>
    	</div> 
    </div>
    <hr>

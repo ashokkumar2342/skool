@@ -30,9 +30,10 @@
              <th>Fee Structure name</th> 
              <th>Fee Amount</th>
              
-             <th>Concession Amount</th>
-             
-             <th>Last Date</th> 
+             <th>Concession Name</th>
+             <th>Concession Amount</th> 
+             <th>Due Month/Year</th> 
+             <th>For Session/Month</th> 
              <th>Action</th>
          </tr>
      </thead>
@@ -42,20 +43,31 @@
 
            <tr>
               <td>{{ $studentFeeDetail->id }}</td> 
-              <td>{{ $studentFeeDetail->feeStructureLastDates->feeStructures->name }} </td> 
+              <td>{{ $studentFeeDetail->fee_name }} </td> 
                
               <td>{{  $studentFeeDetail->fee_amount }}</td> 
              
+              <td>{{ $studentFeeDetail->concession_name }}</td>  
               <td>{{ $studentFeeDetail->concession_amount }}</td>  
-              <td>
-                
-                {{ Carbon\Carbon::parse( $studentFeeDetail->last_date)->format(' F ') }} </td>
+              <td>{{ $studentFeeDetail->due_on }}</td>  
+              <td>{{ $studentFeeDetail->for_session_month }}</td>  
+              
+               
+              
                  <td>
-                  @if ($menuPermission->d_status==1)
-                 <a class="btn_delete btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data ?')"   href="{{ route('admin.studentFeeDetail.delete', $studentFeeDetail->id  ) }}"  ><i class="fa fa-trash"></i></a>
-                 @endif
                   @if ($menuPermission->w_status==1)
-                 <a href="#" data-id="{{ $studentFeeDetail->feeStructureLastDates->id }}" id="add_show" class="btn btn-success btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.studentFeeStructure.Concession.show.model',$studentFeeDetail->id) }}')"><i class="fa fa-edit"></i></a>
+                   @if ($studentFeeDetail->paid==0)
+                   <a href="#" data-id="{{ $studentFeeDetail->id }}" id="add_show" class="btn btn-info btn-xs"  onclick="callPopupLarge(this,'{{ route('admin.studentFeeStructure.Concession.show.model',$studentFeeDetail->id) }}')"><i class="fa fa-edit"></i></a>
+                     @else 
+                     
+                   @endif
+                 @endif
+                  @if ($menuPermission->d_status==1)
+                    @if ($studentFeeDetail->paid==0)
+                    <button class="btn btn-danger btn-xs" success-popup="true" button-click="btn_student_fee_assign_show" title="Delete" onclick="if (confirm('Are you Sure delete')){callAjax(this,'{{ route('admin.studentFeeDetail.delete', $studentFeeDetail->id  ) }}') } else{console_Log('cancel') }"  ><i class="fa fa-trash"></i></button>
+                    @else
+                     
+                 @endif
                  @endif
              </td>  
            </tr>   
@@ -72,7 +84,7 @@
           
        
     <!-- Modal -->
-    <div id="student_fee_detail_model" class="modal fade" role="dialog">
+    {{-- <div id="student_fee_detail_model" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -95,7 +107,7 @@
 
       </div>
     </div>       
- 
+  --}}
     
  <script> 
     $( ".datepicker").datepicker();

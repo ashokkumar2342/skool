@@ -13,27 +13,23 @@
         @foreach ($students as $student)  
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $student->name }}</td>
+            <td>{{ $student->stu_name }}</td>
             <td>{{ $student->registration_no}}</td> 
-            <td>{{ $student->old_fee_group}}</td> 
-            
-
-{{--  <select name="old_fee_group" class="form-control">
-@foreach ($feeGroups as $feeGroup)
-<option value=""></option> 
-@endforeach
-
-</select> --}}
-</td>
-<td>
-    <select name="old_fee_group" class="form-control">
+            <td>{{ $student->group_name}}</td> 
+        <td>
+            <input type="hidden" name="academic_year_id" value="{{ $academic_year_id }}">
+       <select name="student_id[{{ $student->id }}]" class="form-control">
+        <option value="0">No Change</option> 
         @foreach ($feeGroups as $feeGroup)
-        <option value="">{{ $feeGroup->name }}</option> 
-        @endforeach
-
-    </select>
-</td>
-</tr>
-@endforeach
-
+        <option value="{{ $feeGroup->id }}">{{ $feeGroup->name }}</option> 
+        @endforeach 
+      </select>
+     </td>
+   </tr>
+@endforeach 
 </tbody>
+</table>
+<div class="col-lg-12 text-center">
+    <input type="submit" class="btn btn-success">
+    
+</div>

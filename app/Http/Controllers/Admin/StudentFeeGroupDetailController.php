@@ -10,6 +10,7 @@ use App\Model\FeeGroup;
 use App\Model\StudentFeeGroupDetail;
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StudentFeeGroupDetailController extends Controller
 {
@@ -44,11 +45,7 @@ class StudentFeeGroupDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(Request $request)
-    {
-        
-        
-    }
+   
 
 
     public function search(Request $request)
@@ -98,17 +95,29 @@ class StudentFeeGroupDetailController extends Controller
      * @param  \App\Model\StudentFeeGroupDetail  $studentFeeGroupDetail
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,StudentFeeGroupDetail $studentFeeGroupDetail)
+    public function show(Request $request)
     { 
-       $students = Student::where('class_id',$request->class_id)
-                           ->where('section_id',$request->section)
-                           ->get(['id','name','registration_no']);
-       $feeGroups = FeeGroup::all();
+        $academic_year_id=$request->academic_year_id;
+        $feeGroups = FeeGroup::all();
+        $students=DB::select(DB::raw("call up_show_student_group_sectionwise ('$request->class_id','$request->section')"));
        $response=array();      
        $response['status']=1;      
-       $response['data']=view('admin.finance.student_fee_group_detail_show',compact('feeGroups','students'))->render();      
+       $response['data']=view('admin.finance.student_fee_group_detail_show',compact('feeGroups','students','academic_year_id'))->render();      
        return $response;
 
+    }
+     public function store(Request $request)
+    { 
+         $text='';
+         foreach ($request->student_id as $student_id => $gorup_id) {
+            $text.=$student_id.','.$gorup_id.',';
+         } 
+         $students=DB::select(DB::raw("call up_assign_fee_groupwise ('$request->academic_year_id','$text')"));
+         $response=array();      
+         $response['status']=1;      
+         $response['msg']='Submit Successfully';      
+         return $response;
+        
     }
 
     /**

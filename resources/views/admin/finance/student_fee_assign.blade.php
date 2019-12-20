@@ -11,7 +11,7 @@
                 <div class="col-md-12"> 
                   <form class="form-vertical add_form" success-content-id="student_fee_assign_show" no-reset="true" action="{{ route('admin.studentFeeAssign.show',App\Helper\MyFuncs::menuPermission()->id) }}" method="post">
                     {{ csrf_field() }}
-                         <div class="col-lg-2">                           
+                         <div class="col-lg-4">                           
                              <div class="form-group">
                               {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
                                {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control','required']) }}
@@ -25,11 +25,10 @@
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div> --}}
-                        <div class="col-lg-2">                           
+                        <div class="col-lg-4">                           
                              <div class="form-group">
                               {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
-                               {{ Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required']) }}
-                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
+                               <input type="text" name="student_id" class="form-control">
                              </div>    
                         </div>                                                             
                        <div class="col-lg-2" style="padding-top: 20px;">

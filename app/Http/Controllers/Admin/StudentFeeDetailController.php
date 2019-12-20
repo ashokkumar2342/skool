@@ -20,6 +20,7 @@ use App\Student;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Middleware\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Validator;
  
  
@@ -69,73 +70,52 @@ class StudentFeeDetailController extends Controller
      */
     public function store(Request $request)
     {
-         return $request;
-        $rules=[
-            'academic_year_id' => 'required', 
-            'class_id' => 'required', 
-            'from_date' => 'required', 
-            'to_date' => 'required', 
-           
-          ];
-
-         $validator = Validator::make($request->all(),$rules);
-         if ($validator->fails()) {
-             $errors = $validator->errors()->all();
-             $response=array();
-             $response["status"]=0;
-             $response["msg"]=$errors[0];
-             return response()->json($response);// response as json
-         }
-        else {       
-                $studentFeeDetail_id= array();
-                $students = Student::where('class_id',$request->class_id)->get(['id','name','registration_no']);
-
-                $classFeeStructures = ClassFeeStructure::where('class_id',$request->class_id)->where('isapplicable_id',1)->get(['fee_structure_id']);  
-                if (!$students->isEmpty()) { 
-                   foreach ($students as $student) {
-                       
-                       foreach ($classFeeStructures as $classFeeStructure) { 
-                           $FeeStructureLastDates = FeeStructureLastDate::where('academic_year_id',$request->academic_year_id)->where('fee_structure_id',$classFeeStructure->fee_structure_id)->get();
-                            foreach ($FeeStructureLastDates as $FeeStructureLastDate) {
-                                $studentFeeDetail = StudentFeeDetail::firstOrNew(['student_id'=>$student->id,'fee_structure_last_date_id'=>$FeeStructureLastDate->id]);  
-                                $studentFeeDetail->student_id = $student->id;
-                                $studentFeeDetail->fee_structure_last_date_id = $FeeStructureLastDate->id;
-                                $studentFeeDetail->concession_id = 0;
-                                $studentFeeDetail->fee_amount = $FeeStructureLastDate->amount;
-                                $studentFeeDetail->concession_amount = 0;
-                                // $studentFeeDetail->last_date = $FeeStructureLastDate->last_date ;
-                                // $studentFeeDetail->from_date = date('Y-m-d',strtotime($request->from_date));
-                                // $studentFeeDetail->to_date = date('Y-m-d',strtotime($request->to_date));
-                                if (empty($studentFeeDetail)) {
-                                   $studentFeeDetail->paid = 0; 
-                                }else{
-                                    if ($studentFeeDetail->paid==1) {
-                                       $studentFeeDetail->paid = 1;
-                                    }else{
-                                        $studentFeeDetail->paid = 0;
-                                    }
-                                    
-                                }
-                                
-                                $studentFeeDetail->refundable = 0;
-                                $studentFeeDetail->save();  
-                                $studentFeeDetail_id[].=$studentFeeDetail->id;
-                            }  
-                        }
-                      
-                    }
-                } 
-               else{
-                    return response()->json(['class'=>'success','message'=>'Student not found this class record']);
-               }
-               
-                $studentFeeDetails = StudentFeeDetail::whereIn('id',$studentFeeDetail_id)->get();
-                $response =array();
-                $response['status'] =1;
-                $response['msg'] ='Fee Student Details Created Successfully';
-               $response['data'] =view('admin.finance.include.student_fee_details_table',compact('studentFeeDetails'))->render();
-                return $response;
-            }  
+        $rules=array(); 
+        if ($request->academic_year_id!=null && $request->class_id!=null && $request->section_id!=null && $request->student_id!=null) { 
+            $rules['academic_year_id']='required';
+            $rules['class_id']='required';
+            $rules['section_id']='required';
+            $rules['student_id']='required';
+            $datas=DB::select(DB::raw("call up_assign_fee_classwise ('$request->academic_year_id','$request->class_id','$request->section_id','$request->student_id')")); 
+        }
+        elseif ($request->academic_year_id!=null && $request->class_id!=null && $request->section_id!=null) { 
+            $rules['academic_year_id']='required';
+            $rules['class_id']='required';
+            $rules['section_id']='required';
+            $student_id='0';
+            $datas=DB::select(DB::raw("call up_assign_fee_classwise ('$request->academic_year_id','$request->class_id','$request->section_id','$student_id')")); 
+        }
+        elseif ($request->academic_year_id!=null && $request->class_id!=null) { 
+            $rules['academic_year_id']='required';
+            $rules['class_id']='required';
+            $student_id='0';
+            $section_id='0';
+            $datas=DB::select(DB::raw("call up_assign_fee_classwise ('$request->academic_year_id','$request->class_id','$section_id','$student_id')"));
+             
+        }
+        elseif ($request->academic_year_id==null && $request->class_id==null) { 
+            $rules['academic_year_id']='required';
+            $rules['class_id']='required'; 
+        }
+        elseif ($request->class_id==null) { 
+            $rules['class_id']='required'; 
+        }
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+          $errors = $validator->errors()->all();
+          $response=array();
+          $response["status"]=0;
+          $response["msg"]=$errors[0];
+          return response()->json($response);// response as json
+        } 
+        $response = array();
+        $response['status'] = 1; 
+        $response['msg'] ='Fee Student Details Created Successfully'; 
+          return $response; 
+      
+         
+            
+         
     } 
 
     public function feeassignlist(Request $request)
@@ -164,15 +144,17 @@ class StudentFeeDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function feeassignshow(Request $request,$menu_id)
-    {   
+    {   $stuents=Student::where('registration_no',$request->student_id)->first();
+        if (empty($stuents)) {
+          $response = array();
+          $response['status']=0;
+          $response['msg']='Registration No Invalid'; 
+          return $response;  
+        }
         $st=new Student();
-        $student=$st->getStudentDetailsById($request->student_id);
-        $studentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)->get();  
-        
-        $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
-         
-        // $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
-      $menuPermission = Minu::find($menu_id);
+        $student=$st->getStudentDetailsById($stuents->id);
+        $studentFeeDetails=DB::select(DB::raw("call up_show_student_fee_detail ('$stuents->id','$request->academic_year_id')"));
+        $menuPermission = Minu::find($menu_id);
         $response = array();
         $response['data'] = view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','feeStructurLastDate','concession','student','menuPermission','fatherDetail','motherDetail','address'))->render();
         $response['status']=1;
@@ -212,13 +194,18 @@ class StudentFeeDetailController extends Controller
      * @param  \App\Model\StudentFeeDetail  $studentFeeDetail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StudentFeeDetail $studentFeeDetail)
+    public function destroy($id)
     {
-        return $studentFeeDetail;
+         $studentFeeDetail = StudentFeeDetail::find($id); 
+         $studentFeeDetail->delete(); 
+         $response['status'] =1;
+                $response['msg'] ='Delete Successfully'; 
+                return $response;
+        
     }
 
     public function showFeeStructureModel(Request $request,$id)
-    {     
+    {
             $student =Student::find($id);
             $academicYears =AcademicYear::find($request->academic_year_id);
             $feeStructures =FeeStructure::all();
@@ -233,7 +220,7 @@ class StudentFeeDetailController extends Controller
 
     //fee st details store
     public function feeStructureStore(Request $request,$student_id){
-          
+         
         $rules=[
             'to_date' => 'required', 
             'from_date' => 'required', 
@@ -248,28 +235,9 @@ class StudentFeeDetailController extends Controller
              $response["msg"]=$errors[0];
              return response()->json($response);// response as json
          }
-        else {       
-                 
-                $student = Student::find($student_id);
+        else { 
 
-                $classFeeStructures = ClassFeeStructure::where('class_id',$request->class_id)->where('isapplicable_id',1)->get(['fee_structure_id']); 
-                       
-                       $FeeStructureLastDates = FeeStructureLastDate::where('academic_year_id',$request->academic_year_id)->where('fee_structure_id',$request->fee_structure)->get();
-                        foreach ($FeeStructureLastDates as $FeeStructureLastDate) {
-                            $studentFeeDetail = StudentFeeDetail::firstOrNew(['student_id'=>$student->id,'fee_structure_last_date_id'=>$FeeStructureLastDate->id]);  
-                            $studentFeeDetail->student_id = $student->id;
-                            $studentFeeDetail->fee_structure_last_date_id = $FeeStructureLastDate->id;
-                            $studentFeeDetail->concession_id = $request->concession;
-                            $studentFeeDetail->fee_amount = $FeeStructureLastDate->amount;
-                            $studentFeeDetail->concession_amount = $request->concession_amount;
-                            $studentFeeDetail->last_date = $FeeStructureLastDate->last_date ;
-                            $studentFeeDetail->from_date = date('Y-m-d',strtotime($request->from_date));
-                            $studentFeeDetail->to_date = date('Y-m-d',strtotime($request->to_date));
-                            $studentFeeDetail->paid = 0;
-                            $studentFeeDetail->refundable = 0;
-                            $studentFeeDetail->save();  
-                            
-                        }  
+                 $datas=DB::select(DB::raw("call up_assign_fee_student_fee_structure ('$request->academic_year_id','$student_id','$request->fee_structure','$request->from_date','$request->to_date','$request->concession','$request->concession_amount')"));  
                 $response['status'] =1;
                 $response['msg'] ='Fee  Details Add Successfully'; 
                 return $response;
@@ -305,7 +273,7 @@ class StudentFeeDetailController extends Controller
          $studentFeeDetail->concession_amount = $request->concession_amount; 
          $studentFeeDetail->save();   
         $response['status'] =1;
-        $response['msg'] ='Fee  Details Add Successfully'; 
+        $response['msg'] ='Update Successfully'; 
         return $response;
         }  
     }

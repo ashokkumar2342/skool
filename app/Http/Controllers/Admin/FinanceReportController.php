@@ -7,7 +7,9 @@ use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\Cashbook;
+use App\Model\ClassFeeStructure;
 use App\Model\ClassType;
+use App\Model\FeeStructure;
 use App\Model\PaymentMode;
 use App\Model\StudentFeeDetail;
 use App\Student;
@@ -239,5 +241,52 @@ class FinanceReportController extends Controller
         return $pdf->stream('class_fee_structure.pdf');
       
       
+   }
+   //----------cloning-fee-all-details-------------------------------------------------------
+
+   public function cloningFeeAllDetails()
+   {
+       $academicYears=AcademicYear::all();
+       $classTypes=MyFuncs::getClassByHasUser();
+      return  view('admin.financeReport.cloningfeealldetails.index' ,compact('academicYears','classTypes')); 
+   }
+   public function cloningFeeAllDetailsShow(Request $request)
+   {
+      $rules=array();
+      $rules['reference_academic_year']='required';
+      $rules['new_academic_year']='required';
+      $rules['class_id']='required'; 
+      $validator = Validator::make($request->all(),$rules);
+      if ($validator->fails()) {
+          $errors = $validator->errors()->all();
+          $response=array();
+          $response["status"]=0;
+          $response["msg"]=$errors[0];
+          return response()->json($response);// response as json
+      }
+      if ($request->reference_academic_year==$request->new_academic_year) {
+        $response=array();
+          $response["status"]=0;
+          $response["msg"]='Please Select Difference Year';
+          return response()->json($response);
+      }
+      $reference_academic_year=$request->reference_academic_year;
+      $new_academic_year=$request->new_academic_year;
+      $class_id=$request->class_id;
+      $classFeeStructures=ClassFeeStructure::where('class_id',$request->class_id)->where('isapplicable_id',1)->orderBy('fee_structure_id','ASC')->get();
+      $FeeStructures=FeeStructure::orderBy('code','ASC')->get();
+      $response=array(); 
+      $response['status']=1; 
+      $response['data']=view('admin.financeReport.cloningfeealldetails.show' ,compact('classFeeStructures','FeeStructures','reference_academic_year','new_academic_year','class_id'))->render();  
+      return  $response;
+   }
+   public function cloningFeeAllDetailsStore(Request $request)
+   {
+      $feestructureid=implode(',',$request->fee_structure_id); 
+      DB::select(DB::raw("call up_clone_class_stu_fee_detail ('$request->reference_academic_year','$request->new_academic_year','$request->class_id','$feestructureid')"));
+      $response=array(); 
+      $response['status']=1; 
+      $response['msg']='Cloning successfully';
+      return  $response;
    }
 }

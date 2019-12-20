@@ -35,45 +35,22 @@
                                                                                          
                        <div class="col-lg-2" style="padding-top: 20px;">                                             
                        {{-- <button class="btn btn-success" type="button" id="btn_student_fee_detail_create">Show</button>  --}}
-                       <input type="submit"   class="btn btn-success mr-10 mb-30" id="submit" value="show"/>
+                       <input type="submit" id="btn_student_fee_group_detail"  class="btn btn-success mr-10 mb-30" id="submit" value="show"/>
                       </div>                     
                   </form> 
                 </div>
+                <form action="{{ route('admin.studentFeeGroupDetail.post') }}" method="post" class="add_form" button-click="btn_student_fee_group_detail" no-reset="true">
+                  {{ csrf_field() }}
+                  
                 <di id="form_student_fee_group_detail">
                    
-                 </div> 
+                </div> 
+                  
+                </form>
             </div>
             <!-- /.box-body -->
           </div>
-          <!-- /.box -->
-
-         {{--    <div class="box">             
-              <!-- /.box-header -->
-                <div class="box-body">
-                    <table id="student_fee_detail_table" class="display table">                     
-                        <thead>
-                            <tr>
-                                <th>Sn</th>
-                                <th>Student Name</th>
-                                <th>Registration No</th>
-                                 
-                                <th>Concession Amount</th>                               
-                                <th>Action</th>                                                            
-                            </tr>
-                        </thead>
-                        <tbody id="searchResult">
-                         
-                                                            
-                        </tbody>
-                        
-                    </table>
-                   
-
-                </div>
-            </div>    
- --}}
           
- 
     </section>
     <!-- /.content -->
 @endsection

@@ -234,7 +234,16 @@ Route::group(['middleware' => 'admin'], function() {
         Route::post('school-wise-admission-store', 'StudentController@schoolWiseAdmissionStore')->name('admin.student.school.wise.admission.store');	
 		});
 
-	 	// ---------------Submit Application Form ----------------------------------------
+	 	// ---------------student-fine-details ----------------------------------------
+	 Route::group(['prefix' => 'student-fine-details'], function() {
+	    Route::get('/', 'StudentFineDetailController@index')->name('admin.student.fine.details');
+	    Route::post('show', 'StudentFineDetailController@show')->name('admin.student.fine.details.show');
+	    Route::get('add-form/{id?}', 'StudentFineDetailController@addForm')->name('admin.student.fine.details.addform');
+	    Route::post('store/{id?}', 'StudentFineDetailController@store')->name('admin.student.fine.details.store');
+	     
+	    
+	 });
+	 // ---------------Submit Application Form ----------------------------------------
 	 Route::group(['prefix' => 'submit-application-form'], function() {
 	    Route::get('/', 'SubmitApplicationFormController@index')->name('admin.submit.application.form');
 	    Route::post('search', 'SubmitApplicationFormController@search')->name('admin.submit.application.search');
@@ -686,6 +695,13 @@ Route::group(['middleware' => 'admin'], function() {
     	Route::group(['prefix' => 'class-fee-structure-report'], function() {
     	    Route::get('class-fee-structure-report/{id?}', 'FinanceReportController@classFeeStructureReport')->name('admin.finance.class.fee.structure.report'); 
     	    Route::post('class-fee-structure-show/{id}', 'FinanceReportController@classFeeStructureReportShow')->name('admin.finance.class.fee.structure.report.show'); 
+    	    
+    	  });
+    	Route::group(['prefix' => 'cloning-fee-all-details'], function() {
+    	  Route::get('cloning-fee-all-details', 'FinanceReportController@cloningFeeAllDetails')->name('admin.finance.cloning.fee.all.details'); 
+    	  Route::post('cloning-fee-all-details-show', 'FinanceReportController@cloningFeeAllDetailsShow')->name('admin.finance.cloning.fee.all.details.show'); 
+    	  Route::post('cloning-fee-all-details-store', 'FinanceReportController@cloningFeeAllDetailsStore')->name('admin.finance.cloning.fee.all.details.store'); 
+    	    
     	    
     	  });
      

@@ -9,7 +9,7 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-                  <form success-content-id="student_fee_details_table" class="form-vertical add_form" action="{{ route('admin.studentFeeDetail.post') }}" method="post" data-table="student_fee_datatable">
+                  <form  action="{{ route('admin.studentFeeDetail.post') }}" method="post" class="add_form">
                     {{ csrf_field() }}
                          <div class="col-lg-2">                           
                              <div class="form-group">

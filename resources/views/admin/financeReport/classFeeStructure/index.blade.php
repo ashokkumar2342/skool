@@ -31,9 +31,9 @@
                   @endforeach 
                 </select>
               </div>
-              <div class="col-lg-3" style="margin-top: 26px">
+              <div class="col-lg-3" style="margin-top: 30px">
                 <label>Page Break</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="checkbox" name="checked" value="page-break"> 
+                <input type="checkbox" name="checked" value="page-break" > 
                </div>
                <div class="col-lg-2" style="margin-top: 24px" style="margin-left: 10px">
                 <input type="submit" class="btn btn-success" value="Show"> 

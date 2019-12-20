@@ -21,6 +21,7 @@
               <div class="col-md-6 form-group">
                 <label>Fee Structures</label>
                  <select name="fee_structure" class="form-control" onchange="callAjax(this,'{{ route('admin.studentFeeStructure.show.amount') }}','amount_input_box')">
+                  <option selected disabled>Select Fee Structures</option> 
                     @foreach ($feeStructures as $feeStructure)
                      <option value="{{ $feeStructure->id}}">{{ $feeStructure->name }}</option> 
                     @endforeach 
