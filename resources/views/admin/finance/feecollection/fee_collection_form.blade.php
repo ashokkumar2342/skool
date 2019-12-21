@@ -25,7 +25,7 @@
                              <select name="fee_paid_upto" class="form-control">      
                                <option disabled selected>Select Fee Paid Upto</option>
                                @foreach ($uptoMonthYears as $uptoMonthYear)
-                                <option value="{{date('m',strtotime($uptoMonthYear)) }}','{{date('Y',strtotime($uptoMonthYear)) }}"> {{date('M-Y',strtotime($uptoMonthYear)) }} </option>
+                                <option value="{{date('d-m-Y',strtotime($uptoMonthYear)) }}"> {{date('M-Y',strtotime($uptoMonthYear)) }} </option>
                                @endforeach
                              </select>
                            </div> 
@@ -48,10 +48,13 @@
           <!-- /.box -->
           <div class="box">             
               <!-- /.box-header -->
-              <div class="box-body">             
+              <div class="box-body">
+              <form  method="post" class="add_form" action="{{ route('admin.studentFeeCollection.post') }}" accept-charset="utf-8">
+            
                   <div class="col-md-12" id="fee_collection_detail"> 
                      
                   </div>  
+                </form>
                   <div class="col-md-12" id="fee_detail"> 
                      
                   </div>
@@ -207,35 +210,7 @@
        });   
     }
 
-    function feeCollectionSubmit(){
-        $.ajaxSetup({
-                  headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  }
-              });
-         $.ajax({
-             url: '{{ route('admin.studentFeeCollection.post') }}',
-             type: 'post',       
-             data: $('#fee_collection_submit_form').serialize() ,
-        })
-        .done(function(response) {
-             $('#reciept_detail').html(response);
-             var divContents = $("#reciept_detail").html();
-              var printWindow = window.open('', '', 'height=600,width=800');
-              printWindow.document.write('<html><head><title>DIV Contents</title>');
-              printWindow.document.write('</head><body >');
-              printWindow.document.write(divContents);
-              printWindow.document.write('</body></html>');
-              printWindow.document.close();
-              printWindow.print();
-        })
-        .fail(function() {
-          console.log("error");
-        })
-        .always(function() {
-          console.log("complete");
-        }); 
-    }
+    
     //fee Collection Print
     function feeCollectionPrint(){
         $.ajaxSetup({

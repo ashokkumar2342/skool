@@ -579,7 +579,7 @@ class MyFuncs {
       $end      = (new DateTime($AcademicYear->end_date))->modify('first day of next month');
       $interval = DateInterval::createFromDateString('1 month');
       $period   = new DatePeriod($start, $interval, $end);
-      $yearmonths = '';
+      $yearmonths = array();
       foreach ($period as $dt) {
           $yearmonths[]=$dt->format("d-m-Y");
       }
@@ -593,7 +593,7 @@ class MyFuncs {
       $end      = (new DateTime($AcademicYear->end_date))->modify('first day of next month');
       $interval = DateInterval::createFromDateString('1 month');
       $period   = new DatePeriod($start, $interval, $end);
-      $yearmonths = '';
+      $yearmonths = array();
       foreach ($period as $dt) {
           $yearmonths[]=$dt->format("d-m-Y");
       }

@@ -58,37 +58,16 @@ class FeeCollectionController extends Controller
        $st=new Student();
        $student=$st->getDetailByRegistrationNo($request->student); 
 
-
-      $FeeDetails= DB::select(DB::raw("call up_view_stu_fee_detail ('$student->id','$request->fee_paid_upto')"));
-      $siblings= DB::select(DB::raw("call up_view_stu_sibling_fee_detail ('$student->id','$request->fee_paid_upto')"));
+      $month =date('m',strtotime($request->fee_paid_upto));
+      $year =date('Y',strtotime($request->fee_paid_upto));
+      $FeeDetails= DB::select(DB::raw("call up_view_stu_fee_detail ('$student->id','$month','$year')"));
+      $siblings= DB::select(DB::raw("call up_view_stu_sibling_fee_detail ('$student->id','$month','$year')"));
       $paymentModes=PaymentMode::all();
 
-      //  $defultDate = StudentDefaultValue::find(1); 
-      //  $months=Month::orderBy('id','ASC')->get();
-      
-      // $toDate =FeeStructureLastDate::find($request->fee_paid_upto)->last_date;
-      //  $BalanceAmount=0;
-      //   $fromDate=$StudentFeeDetails = StudentFeeDetail::whereDate('last_date',$toDate)->first()->from_date;
-      //   $student = Student::find($request->student_id);
-      //    $studentSibling=new SiblingGroup();
-      //    $siblings=$studentSibling->getSiblingByStudentId($request->student_id);
-        
-
-      //   $StudentFeeDetail = new StudentFeeDetail(); 
-      //   $StudentFeeDetails = $StudentFeeDetail->getFeeDetailsByUpTodate($toDate,$request->student_id); 
-                          
-      //   $FeeDetails=$StudentFeeDetails->groupBy('name');
-      //   $paymentModes=PaymentMode::all();                               
-      //   $FineSchemes=FineScheme::get();                               
-      //   $Balance=BalanceAmount::where('student_id',$request->student_id)->first();
-      //   if ($Balance!=null) {
-      //     $BalanceAmount=$Balance->balance_amount;
-      //     }                               
-       //-------
        $response =array();
        $response['status']=1;
       
-    	 $response["data"] = view('admin.finance.feecollection.fee_collection_detail',compact('student','FeeDetails','siblings','paymentModes'))->render();
+    	 $response["data"] = view('admin.finance.feecollection.fee_collection_detail',compact('student','FeeDetails','siblings','paymentModes','month','year'))->render();
     	return $response;
     }
 
@@ -148,87 +127,39 @@ class FeeCollectionController extends Controller
     }
 
     // store fee collection form
-    public function store(Request $request){         
-        $students = $request->student_id; 
-        $toDate =$request->toDate;
-        foreach ($students as $key => $id) {
-            $st = Student::find($id);          
-            $student = $st->getStudentDetailsById($id);          
-            $StudentFeeDetail = new StudentFeeDetail(); 
-            $StudentFeeDetails = $StudentFeeDetail->getFeeDetailsByToDateStudentId($toDate,$student->id);
-            $StudentFeeDetailsArrId =$StudentFeeDetail->getFeeDetailsArrIdByToDateStudentId($toDate,$student->id); 
-            $cashbook = new Cashbook();
-            $cashbook->student_id = $student->id; 
-            $data = Cashbook::first();
-            if (empty($data)) { 
-             $rn=0; 
-            }else{
-               $rn = (int)Cashbook::orderBy('id', 'desc')->first()->receipt_no; 
-            } 
-            $cashbook->receipt_no = $rn+1 ;
-          
-            $cashbook->receipt_date = date('Y-m-d');
-            $cashbook->receipt_amount = $request->net_amount;
-            $cashbook->deposit_amount = $request->deposit_amount;
-            $cashbook->previous_balance = $request->previous_balance;
-            $cashbook->balance_amount = $request->fee_balance;
-            $cashbook->concession = $request->concession;
-            $cashbook->fine_amount = $request->fine_amount;
-            $cashbook->payment_mode = $request->payment_mode;
-            $cashbook->refrence_no = $request->refrence_no;
-            $cashbook->payment_mode_date = $request->payment_mode_date;
-            $cashbook->bank_name = $request->bank_name;
-            $cashbook->on_account = 1;
-            $cashbook->student_name = $student->name;
-            $cashbook->class = $student->classes->name;
-            $cashbook->class_id = $student->class_id;
-            $cashbook->section_id = $student->section_id;
-            $cashbook->roll_no = $student->roll_no;
-            $cashbook->registration_no = $student->registration_no;
-            $cashbook->father_name = $student->parents[0]->parentInfo->name;
-            $cashbook->mother_name = $student->parents[1]->parentInfo->name;
-            $cashbook->month = date('m',strtotime($toDate));
-            $cashbook->year = date('Y',strtotime($toDate));
-            $cashbook->upto_date = $toDate;
-            $cashbook->student_fee_details_id = implode(',', $StudentFeeDetailsArrId);
-            $cashbook->user_id = Auth::guard('admin')->user()->id;
-            $cashbook->save();
- 
-            //paid fee details 1
-            $FeeDetail =new StudentFeeDetail();
-            foreach ($StudentFeeDetails as $StudentFeeDetail) {
-              $insArr = array();
-              $insArr['paid']=1;
-              $FeeDetail->updateArr($insArr,$StudentFeeDetail->id);  
-            }
-            //StudentLedger save data
-            $studentLedger = new StudentLedger();
-            $studentLedger->student_id = $student->id;
-            $studentLedger->cashbook_id = $cashbook->id;
-            $studentLedger->save();
-            //StudentFee paid upto
-            $StudentFeePaidUpTo = new StudentFeePaidUpTo();
-            $StudentFeePaidUpTo->student_id = $student->id;
-            $StudentFeePaidUpTo->cashbook_id = $cashbook->id;
-            $StudentFeePaidUpTo->upto_date = $toDate;
-            $StudentFeePaidUpTo->from_month = $toDate;
-            $StudentFeePaidUpTo->save();
-
-            //BalanceAmount save data
-            $balanceAmounts = BalanceAmount::where('student_id',$student->id)->firstOrNew(['student_id'=>$student->id]);
-            $balanceAmounts->student_id= $student->id;
-            $balanceAmounts->cashbook_id = $cashbook->id;
-            $balanceAmounts->receipt_no = $cashbook->receipt_no;
-            $balanceAmounts->receipt_date = $cashbook->receipt_date;
-            $balanceAmounts->balance_amount = $request->fee_balance;
-            $balanceAmounts->save();  
-            //sms send fee details
-             $message = $student->name.' Fee Amount Paid '.'RS-'. $cashbook->deposit_amount;
-            event(new SmsEvent($student->father_mobile,$message));
-            $cashbooks[] = [$cashbook];
+    public function store(Request $request){ 
+        $rules=[
+             'payment_mode' => 'required',
+             'amount_deposit' => 'required', 
+         ];
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }
+       
+        $students = array_reverse($request->student_id); 
+        $amount_deposits= array_reverse($request->amount_deposit); 
+        $user_id = Auth::guard('admin')->user()->id;
+        $date = date('Y-m-d');
+        $payment_mode1 = $request->payment_mode[0]; 
+        $payment_mode2 = $request->payment_mode[1]; 
+        $amount1 = $request->amount[0]; 
+        $amount2 = $request->amount[1]; 
+        $bank_name1 = $request->bank_name[0]; 
+        $bank_name2 = $request->bank_name[1]; 
+        $cheeque_no1 = $request->cheeque_no[0]; 
+        $cheeque_no2 = $request->cheeque_no[1]; 
+        $receipt_id =array();
+        foreach ($students as $key => $student_id) { 
+          $deposit = $amount_deposits[$key];     
+         $receipt_id[]= $FeeDetails= DB::select(DB::raw("call up_stu_fee_submit ('$user_id','$student_id','$request->month','$request->year','$deposit','$payment_mode1','$amount1','$bank_name1','$cheeque_no1','$date','$payment_mode2','$amount2','$bank_name2','$cheeque_no2','$date')"));   
         }
-       $BalanceAmount=$request->fee_balance;                               
-        
+
+        return $receipt_id;
         // return response()->json(['message'=>'Successfully','status'=>'success']);
         $data = view('admin.finance.feecollection.print',compact('cashbooks','request'))->render();
         return response()->json($data);

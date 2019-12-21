@@ -2,25 +2,24 @@
 @php
 	$paid=0;
 	$concession_amount=0;
-	$net_amount =0;
-@endphp
-<form  method="post" id="fee_collection_submit_form" accept-charset="utf-8">
+	$net_amount =floatval(0);
 
+@endphp
+
+{{ csrf_field() }}
 <div class="panel panel-default" style="margin-top: 20px">
   <div class="panel-heading">Fee Details</div>
   <div class="panel-body">
  	<div class="row">
- 		<div class="col-lg-6">
+ 		<div class="col-lg-4">
  			<table class="table border table-striped table-bordered"> 
 		  		<thead>
 		  			<tr>
 		  				<th>Fee Name</th>
-		  				<th>Amount</th> 
+		  				<th class="text-right">Amount</th> 
 		  			</tr>
 		  		</thead>
 		  		<tbody>
-		  			 <input type="checkbox" checked name="student_id[]" value="{{ $student->id }}" style="display: none">  
-		  			   
 		  			  
 		  			@foreach ($FeeDetails as $FeeDetail) 
 		  			 
@@ -28,20 +27,17 @@
 		  				    <td style="width: 250px">
 		  					{{ $FeeDetail->name}}  
 		  					 </td>  
-					     	<td> 
+					     	<td class="text-right"> 
 					 		{{ $FeeDetail->fee_amt}}   
 					 		</td> 
 		  				</tr> 
 		  				 @php
-		  				 	$net_amount += $FeeDetail->fee_amt;
-		  				 	if($FeeDetail->name=='Concession'){
-		  				 		$concession_amount=$FeeDetail->fee_amt;
-		  				 	}
+		  				 	$net_amount += $FeeDetail->fee_amt;	  				 	
 		  				 @endphp
 		  			@endforeach
 		  			<tr>
 		  				<td>Net Amount</td>
-		  				<td>{{ $net_amount  }}  </td>
+		  				<td class="text-right">{{ floatval($net_amount +0.0)  }}  </td>
 		  			</tr>
 		  		</tbody>
 		  	</table>
@@ -55,8 +51,7 @@
 		 	 		<thead>
 		 	 			<tr>
 		 	 				<th>#</th>
-		 	 				<th>S.No</th>
-		 	 				 
+		 	 				<th>S.No</th>		 	 				 
 		 	 				<th>Class</th> 
 		 	 				<th>Registration No</th>
 		 	 				<th>Amount</th> 
@@ -69,7 +64,10 @@
 		 	 			@endphp		 	 			
 		 	 			@foreach ($siblings as $sibling)  		 	 			
 		 	 				<tr> 
-		 	 				<td><input type="checkbox"  class="checkbox" name="student_id[]" value="{{ $sibling->id }}"  > </td>
+		 	 				<td>
+		 	 				<input type="checkbox"  class="checkbox" name="student_id[]" value="{{ $sibling->id }}"> 
+		 	 				<input type="hidden"   name="amount_deposit[]" value="{{ $sibling->total_dues }}"> 
+		 	 				</td>
 		 	 				<td> {{ $sr++ }} </td>
 		 	 				<td> {{ $sibling->name }} </td>
 		 	 				<td>{{ $sibling->registration_no }}</td>
@@ -87,9 +85,9 @@
  			   <tr id="id1" class="tr_clone">
  			       <td style="width: 200px;">
  			         <label class="control-label mb-2 text-left">Payment Mode <span style="color:red;">*</span></label> 
- 			           <select name="payment_mode" class="form-control" id="payment_mode">
+ 			           <select name="payment_mode[]" class="form-control" id="payment_mode">
 		  						@foreach ($paymentModes as $mode)
-		  							<option value="{{ $mode->name }}">{{ $mode->name }}</option> 
+		  							<option value="{{ $mode->id }}">{{ $mode->name }}</option> 
 		  						@endforeach 
 		  					</select>  
  			       </td>
@@ -110,8 +108,11 @@
  			   </tr>
  			   <tr>
  			   	<td>Amount Deposit</td>
- 			   	<td>		   		
- 			   		<input type="text" id="amount_deposit" readonly  name="amount_deposit"  class="form-control">
+ 			   	<td>
+ 			   	 	<input type="checkbox" checked name="student_id[]" value="{{ $student->id }}" style="display: none">		   		
+ 			   		<input type="text" id="amount_deposit" readonly  name="amount_deposit[]"  class="form-control">
+ 			   		<input type="hidden" name="month" value="{{ $month }}" class="form-control">
+ 			   		<input type="hidden" name="year" value="{{ $year }}" class="form-control">
  			   	</td>
  			   	<td></td>
  			   	<td></td>
@@ -132,16 +133,14 @@
  		</div>
   </div>
   <div class="panel-footer text-center">
-  	 @if ($paid==0)
-  	 	 <button type="button" id="feeCollectionSubmit_btn" class="btn btn-success" onclick="feeCollectionSubmit()">Submit</button>    
+  	
+  	 	 <button type="submit" class="btn btn-success">Submit</button>    
    	    <input type="checkbox" name="print" checked autocomplete="off" style="margin-left: 20px"> Print 
-   	  @else
-   	   <button type="button" disabled="" class="btn btn-success">Paid</button>
-  	 @endif 
+   	  
   </div>
 </div>
  	 
-</form>
+
  
  <script>
  feeSum();
