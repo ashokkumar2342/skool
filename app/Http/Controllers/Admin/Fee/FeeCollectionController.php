@@ -25,49 +25,68 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\increment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
  
 
 class FeeCollectionController extends Controller
 {
     public function index(){
-       
+       $academicYear=AcademicYear::where('status',1)->first();
     	$students = array_pluck(Student::get(['id','registration_no']), 'registration_no','id');
-      $feeStructureLastDates = FeeStructureLastDate::get();
+     $feeStructureLastDates = FeeStructureLastDate::where('academic_year_id',$academicYear->id)->select('due_month','for_session_month','due_year')->get()->groupBy('due_month');   
     	return view('admin.finance.feecollection.fee_collection_form',compact('students','feeStructureLastDates'));
     }
 
     // show main form show search stuent form
     public function show(Request $request){ 
-        
+        $rules=[
+             'student' => 'required',
+             'fee_paid_upto' => 'required',
+            
+         ];
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }
        $st=new Student();
-       $student=$st->getStudentDetailsById($request->student_id); 
-       $defultDate = StudentDefaultValue::find(1); 
-       $months=Month::orderBy('id','ASC')->get();
-       //-----------
-      $toDate =FeeStructureLastDate::find($request->fee_paid_upto)->last_date;
-       $BalanceAmount=0;
-        $fromDate=$StudentFeeDetails = StudentFeeDetail::whereDate('last_date',$toDate)->first()->from_date;
-        $student = Student::find($request->student_id);
-         $studentSibling=new SiblingGroup();
-         $siblings=$studentSibling->getSiblingByStudentId($request->student_id);
+       $student=$st->getDetailByRegistrationNo($request->student); 
+
+
+      $FeeDetails= DB::select(DB::raw("call up_view_stu_fee_detail ('$student->id','$request->fee_paid_upto')"));
+      $siblings= DB::select(DB::raw("call up_view_stu_sibling_fee_detail ('$student->id','$request->fee_paid_upto')"));
+      $paymentModes=PaymentMode::all();
+
+      //  $defultDate = StudentDefaultValue::find(1); 
+      //  $months=Month::orderBy('id','ASC')->get();
+      
+      // $toDate =FeeStructureLastDate::find($request->fee_paid_upto)->last_date;
+      //  $BalanceAmount=0;
+      //   $fromDate=$StudentFeeDetails = StudentFeeDetail::whereDate('last_date',$toDate)->first()->from_date;
+      //   $student = Student::find($request->student_id);
+      //    $studentSibling=new SiblingGroup();
+      //    $siblings=$studentSibling->getSiblingByStudentId($request->student_id);
         
 
-        $StudentFeeDetail = new StudentFeeDetail(); 
-        $StudentFeeDetails = $StudentFeeDetail->getFeeDetailsByUpTodate($toDate,$request->student_id); 
+      //   $StudentFeeDetail = new StudentFeeDetail(); 
+      //   $StudentFeeDetails = $StudentFeeDetail->getFeeDetailsByUpTodate($toDate,$request->student_id); 
                           
-        $FeeDetails=$StudentFeeDetails->groupBy('name');
-        $paymentModes=PaymentMode::all();                               
-        $FineSchemes=FineScheme::get();                               
-        $Balance=BalanceAmount::where('student_id',$request->student_id)->first();
-        if ($Balance!=null) {
-          $BalanceAmount=$Balance->balance_amount;
-          }                               
+      //   $FeeDetails=$StudentFeeDetails->groupBy('name');
+      //   $paymentModes=PaymentMode::all();                               
+      //   $FineSchemes=FineScheme::get();                               
+      //   $Balance=BalanceAmount::where('student_id',$request->student_id)->first();
+      //   if ($Balance!=null) {
+      //     $BalanceAmount=$Balance->balance_amount;
+      //     }                               
        //-------
        $response =array();
        $response['status']=1;
       
-    	 $response["data"] = view('admin.finance.feecollection.fee_collection_detail',compact('student','defultDate','months','FeeDetails','siblings','request','paymentModes','toDate','BalanceAmount','FineSchemes'))->render();
+    	 $response["data"] = view('admin.finance.feecollection.fee_collection_detail',compact('student','FeeDetails','siblings','paymentModes'))->render();
     	return $response;
     }
 

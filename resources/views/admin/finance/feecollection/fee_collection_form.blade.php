@@ -14,19 +14,20 @@
                       <div class="col-md-2">                           
                            <div class="form-group">
                             {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
-                             {{ Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required',]) }}
-                             <p class="errorAmount1 text-center alert alert-danger hidden"></p>
+                            <input type="text" name="student" class="form-control">
+                             {{-- {{ Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required',]) }}
+                             <p class="errorAmount1 text-center alert alert-danger hidden"></p> --}}
                            </div>    
                       </div>
                       <div class="col-md-2">     
                            <div class="form-group"> 
-                             <label for="email">Fee Paid Upto:</label>  
+                             <label >Fee Paid Upto:</label>  
                              <select name="fee_paid_upto" class="form-control">      
-                               <option disabled selected>Select Fee Paid Upto</option> 
-                               @foreach ($feeStructureLastDates as $feeStructureLastDate)
-                                <option value="{{ $feeStructureLastDate->id }}"> {{date('F',strtotime($feeStructureLastDate->last_date)) }} </option>
-                               @endforeach 
-                             </select> 
+                                <option disabled selected>Select Fee Paid Upto</option> 
+                                @foreach ($feeStructureLastDates as $feeStructureLastDate)
+                                 <option value="{{ $feeStructureLastDate[0]->due_month }}','{{ $feeStructureLastDate[0]->due_year }}">  {{ $feeStructureLastDate[0]->for_session_month }} {{ $feeStructureLastDate[0]->due_year }} </option>
+                                @endforeach 
+                              </select> 
                            </div> 
                            {{-- <button type="button" id="fee_collection_details_btn" class="btn btn-warning" >Show</button> --}} 
                       </div>                                                     
