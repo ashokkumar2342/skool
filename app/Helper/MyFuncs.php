@@ -2,6 +2,7 @@
 
 namespace App\Helper;
 
+use App\Model\AcademicYear;
 use App\Model\ClassType;
 use App\Model\HotMenu;
 use App\Model\Minu;
@@ -11,6 +12,9 @@ use App\Model\SectionType;
 use App\Model\SubMenu;
 use App\Model\UserClassType;
 use Illuminate\Support\Facades\Auth;
+use DateTime;
+use DateInterval;
+use DatePeriod;
 use Route;
 
 class MyFuncs {
@@ -565,6 +569,35 @@ class MyFuncs {
     //                     ->where('minu_id',$menu_type_id)
     //                     ->get(['sub_menu_id']); 
    
+  }
+
+  public function getMonthYear()
+  {     
+      $AcademicYear=AcademicYear::where('status',1)->first(); 
+
+      $start    = (new DateTime($AcademicYear->start_date))->modify('first day of this month');
+      $end      = (new DateTime($AcademicYear->end_date))->modify('first day of next month');
+      $interval = DateInterval::createFromDateString('1 month');
+      $period   = new DatePeriod($start, $interval, $end);
+      $yearmonths = '';
+      foreach ($period as $dt) {
+          $yearmonths[]=$dt->format("d-m-Y");
+      }
+      return $yearmonths;
+  }  
+
+  public function getMonthYearById($academic_year_id)
+  {     
+      $AcademicYear=AcademicYear::where('id',$academic_year_id)->first(); 
+      $start    = (new DateTime($AcademicYear->start_date))->modify('first day of this month');
+      $end      = (new DateTime($AcademicYear->end_date))->modify('first day of next month');
+      $interval = DateInterval::createFromDateString('1 month');
+      $period   = new DatePeriod($start, $interval, $end);
+      $yearmonths = '';
+      foreach ($period as $dt) {
+          $yearmonths[]=$dt->format("d-m-Y");
+      }
+      return $yearmonths;
   }
 
 }
