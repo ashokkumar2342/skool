@@ -23,11 +23,11 @@
                            <div class="form-group"> 
                              <label >Fee Paid Upto:</label>  
                              <select name="fee_paid_upto" class="form-control">      
-                                <option disabled selected>Select Fee Paid Upto</option> 
-                                @foreach ($feeStructureLastDates as $feeStructureLastDate)
-                                 <option value="{{ $feeStructureLastDate[0]->due_month }}','{{ $feeStructureLastDate[0]->due_year }}">  {{ $feeStructureLastDate[0]->for_session_month }} {{ $feeStructureLastDate[0]->due_year }} </option>
-                                @endforeach 
-                              </select> 
+                               <option disabled selected>Select Fee Paid Upto</option>
+                               @foreach ($uptoMonthYears as $uptoMonthYear)
+                                <option value="{{date('m',strtotime($uptoMonthYear)) }}','{{date('Y',strtotime($uptoMonthYear)) }}"> {{date('M-Y',strtotime($uptoMonthYear)) }} </option>
+                               @endforeach
+                             </select>
                            </div> 
                            {{-- <button type="button" id="fee_collection_details_btn" class="btn btn-warning" >Show</button> --}} 
                       </div>                                                     

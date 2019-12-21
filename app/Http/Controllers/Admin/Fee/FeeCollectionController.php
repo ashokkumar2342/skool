@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Fee;
 
 use App\Events\SmsEvent;
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\BalanceAmount;
@@ -32,14 +33,15 @@ use Illuminate\Support\Facades\Validator;
 class FeeCollectionController extends Controller
 {
     public function index(){
-       $academicYear=AcademicYear::where('status',1)->first();
-    	$students = array_pluck(Student::get(['id','registration_no']), 'registration_no','id');
-     $feeStructureLastDates = FeeStructureLastDate::where('academic_year_id',$academicYear->id)->select('due_month','for_session_month','due_year')->get()->groupBy('due_month');   
-    	return view('admin.finance.feecollection.fee_collection_form',compact('students','feeStructureLastDates'));
+       
+       $feeStructureLastDates =new  MyFuncs();
+       $uptoMonthYears =$feeStructureLastDates->getMonthYear();
+    	$students = array_pluck(Student::get(['id','registration_no']), 'registration_no','id');    
+    	return view('admin.finance.feecollection.fee_collection_form',compact('students','uptoMonthYears'));
     }
 
     // show main form show search stuent form
-    public function show(Request $request){ 
+    public function show(Request $request){  
         $rules=[
              'student' => 'required',
              'fee_paid_upto' => 'required',
