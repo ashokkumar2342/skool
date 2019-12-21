@@ -240,6 +240,17 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::post('show', 'StudentFineDetailController@show')->name('admin.student.fine.details.show');
 	    Route::get('add-form/{id?}', 'StudentFineDetailController@addForm')->name('admin.student.fine.details.addform');
 	    Route::post('store/{id?}', 'StudentFineDetailController@store')->name('admin.student.fine.details.store');
+	    Route::get('edit/{id?}', 'StudentFineDetailController@edit')->name('admin.student.fine.details.edit');
+	    Route::get('delete/{id?}', 'StudentFineDetailController@delete')->name('admin.student.fine.details.delete');
+	    Route::post('update/{id?}', 'StudentFineDetailController@update')->name('admin.student.fine.details.update');
+	     
+	    
+	 });
+	 Route::group(['prefix' => 'absent-fine-details'], function() {
+	    Route::get('absent-index', 'StudentFineDetailController@absentIndex')->name('admin.absent.fine.details');
+	    Route::post('absent-show', 'StudentFineDetailController@absentShow')->name('admin.absent.fine.details.show');
+	    Route::post('absent-store', 'StudentFineDetailController@absentStore')->name('admin.absent.fine.details.store');
+	    
 	     
 	    
 	 });
