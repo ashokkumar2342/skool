@@ -41,11 +41,11 @@
 		  			@endforeach
 		  			<tr>
 		  				<td>Net Amount</td>
-		  				<td>{{ $net_amount - $concession_amount }}  </td>
+		  				<td>{{ $net_amount  }}  </td>
 		  			</tr>
 		  		</tbody>
 		  	</table>
-		  	<input type="hidden" name="net_amount" id="net_amount" value="{{ $net_amount - $concession_amount }}">
+		  	<input type="hidden" name="net_amount" id="net_amount" value="{{ $net_amount }}">
  		</div>
  		<div class="col-lg-6"> 
  			<input type="checkbox" class="checked_all" name="sibling" id="siblig_chk" onclick="showHide()">
@@ -66,21 +66,15 @@
 		 	 			@php
 		 	 			$sr=1; 
 		 	 			$sib =0;
-		 	 			@endphp
-		 	 			
-		 	 			@foreach ($siblings as $sibling)  
-		 	 			@if ($sibling->registration_no!=null)
+		 	 			@endphp		 	 			
+		 	 			@foreach ($siblings as $sibling)  		 	 			
 		 	 				<tr> 
 		 	 				<td><input type="checkbox"  class="checkbox" name="student_id[]" value="{{ $sibling->id }}"  > </td>
 		 	 				<td> {{ $sr++ }} </td>
 		 	 				<td> {{ $sibling->name }} </td>
 		 	 				<td>{{ $sibling->registration_no }}</td>
-		 	 				<td>{{ $sibling->total_dues}}</td>
-		 	 				 
-		 	 				
-		 	 			</tr> 
-		 	 			@endif
-		 	 			
+		 	 				<td>{{ $sibling->total_dues}}</td> 
+		 	 			</tr>  
 		 	 			@endforeach
 		 	 		</tbody>
 		 	 	</table>
