@@ -8,7 +8,15 @@
 
 {{ csrf_field() }}
 <div class="panel panel-default" style="margin-top: 20px">
-  <div class="panel-heading">Fee Details</div>
+  <div class="panel-heading">
+  	<div class="panel-title pull-left">
+  	            Fee Details
+  	         </div>
+  	        <div class="panel-title pull-right"><span class="btn btn-xs btn-success">Previous Receipts</span></div>
+  	        <div class="clearfix"></div>
+  	
+  	
+  </div>
   <div class="panel-body">
  	<div class="row">
  		<div class="col-lg-4">
@@ -36,8 +44,8 @@
 		  				 @endphp
 		  			@endforeach
 		  			<tr>
-		  				<td>Net Amount</td>
-		  				<td class="text-right">{{ floatval($net_amount +0.0)  }}  </td>
+		  				<td><b>Net Amount</b></td>
+		  				<td class="text-right"><b>{{ floatval($net_amount)  }} </b> </td>
 		  			</tr>
 		  		</tbody>
 		  	</table>
