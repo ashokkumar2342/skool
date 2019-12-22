@@ -49,7 +49,7 @@
           <div class="box">             
               <!-- /.box-header -->
               <div class="box-body">
-              <form  method="post" class="add_form" action="{{ route('admin.studentFeeCollection.post') }}" accept-charset="utf-8">
+              <form  method="post" class="add_form" action="{{ route('admin.studentFeeCollection.post') }}" success-content-id="reciept_detail" accept-charset="utf-8" print-data="true">
             
                   <div class="col-md-12" id="fee_collection_detail"> 
                      

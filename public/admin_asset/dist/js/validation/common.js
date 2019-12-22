@@ -213,6 +213,15 @@ function callJqueryDefault(divId){
 	        		$("#"+strArray[i]).trigger('change');
 	       		 }
 			}
+		if(formObj.getAttribute('print-data')){  
+			$('#reciept_detail').html(response);
+             var divContents = response.data;
+              var printWindow = window.open('', '', 'height=600,width=800'); 
+              printWindow.document.write(divContents); 
+              printWindow.document.close();
+              printWindow.print();
+               printWindow.close();
+		}
 			
 	} 
 	$('button[type=submit], input[type=submit]').prop('disabled',false); 

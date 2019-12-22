@@ -74,55 +74,7 @@ class FeeCollectionController extends Controller
 
     // show show all fee deatial
     public function feeDetail(Request $request){     
-     $toDate =$request->StudentFeeDetailMonthYear;
-     $BalanceAmount=0;
-      $fromDate=$StudentFeeDetails = StudentFeeDetail::whereDate('last_date',$toDate)->first()->from_date;
-      $student = Student::find($request->student_id);
-       $studentSibling=new SiblingGroup();
-       $siblings=$studentSibling->getSiblingByStudentId($request->student_id);
-      
-
-      $StudentFeeDetail = new StudentFeeDetail(); 
-      $StudentFeeDetails = $StudentFeeDetail->getFeeDetailsByUpTodate($toDate,$request->student_id); 
-                        
-      $FeeDetails=$StudentFeeDetails->groupBy('name');
-      $paymentModes=PaymentMode::all();                               
-      $FineSchemes=FineScheme::get();                               
-      $Balance=BalanceAmount::where('student_id',$request->student_id)->first();
-      if ($Balance!=null) {
-        $BalanceAmount=$Balance->balance_amount;
-        }                               
-      $data = view('admin.finance.feecollection.fee_detail_show',compact('FeeDetails','siblings','request','student','paymentModes','toDate','BalanceAmount','FineSchemes'))->render();
-      return response()->json($data);     
-       // $fromFullDate = StudentFeeDetail::where('student_id',$request->student_id)->whereMonth('last_date' , $request->month)->whereYear('last_date' , $request->year)->first()->from_date; 
-      //  $lastFullDate = StudentFeeDetail::where('student_id',$request->student_id)->whereMonth('last_date' , $request->month)->whereYear('last_date' , $request->year)->first()->last_date;   
- 
-      //   $day =date('d',strtotime($lastFullDate));
-      //   $toMonth= $request->month;
-      //  // Specify the start date. This date can be any English textual format  
-      //  $date_from = date('Y-m-d',strtotime($fromFullDate ."+9 days"));   
-
-      //  $date_from = strtotime($date_from); // Convert date to a UNIX timestamp  
-         
-      //  // Specify the end date. This date can be any English textual format  
-      // $date_to =  $request->year.'-'.$request->month.'-'.$day;  
-      //  $date_to = strtotime($date_to); // Convert date to a UNIX timestamp  
-      //    $monthArr=array();
-      //  // Loop from the start date to end date and output all dates inbetween  
-      //  for ($i=$date_from; $i<=$date_to; $i+=2628000) {  
-      //      echo $date_create=  date("Y", $i).'-'.date("m", $i).'-'.$day;  
-      //       $monthArr[]=$date_create; 
-      //  }
-                                                                     
-                             
-       // $StudentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)
-       //                            ->whereIn('last_date',$monthArr)
-       //                            ->where('paid',0)
-       //                            ->get(); 
-
-        
-    	// $StudentFeeDetails = StudentFeeDetail::where('student_id',$request->student_id)->whereIn(DB::raw('MONTH(last_date)'), $monthArr)->whereYear('last_date' , $request->year)->where('paid',0)->get(); 
-    	 
+     
     	
     }
 
@@ -146,24 +98,45 @@ class FeeCollectionController extends Controller
         $user_id = Auth::guard('admin')->user()->id;
         $date = date('Y-m-d');
         $payment_mode1 = $request->payment_mode[0]; 
-        $payment_mode2 = $request->payment_mode[1]; 
+        $payment_mode2=0;
+        if (!empty($request->payment_mode[1])) {
+          $payment_mode2 = $request->payment_mode[1]; 
+        }        
         $amount1 = $request->amount[0]; 
-        $amount2 = $request->amount[1]; 
+        $amount2 = 0;
+        if (!empty($request->amount[1])) {
+           $amount2 = $request->amount[1]; 
+        }       
         $bank_name1 = $request->bank_name[0]; 
-        $bank_name2 = $request->bank_name[1]; 
+        $bank_name2 ='';
+        if (!empty($request->bank_name[1])) {
+           $bank_name2 = $request->bank_name[1]; 
+        }        
         $cheeque_no1 = $request->cheeque_no[0]; 
-        $cheeque_no2 = $request->cheeque_no[1]; 
+        $cheeque_no2 ='';
+        if (!empty($request->cheeque_no[1])) {
+            $cheeque_no2 = $request->cheeque_no[1];  
+        } 
+       
         $receipt_id =array();
         foreach ($students as $key => $student_id) { 
           $deposit = $amount_deposits[$key];     
          $receipt_id[]= $FeeDetails= DB::select(DB::raw("call up_stu_fee_submit ('$user_id','$student_id','$request->month','$request->year','$deposit','$payment_mode1','$amount1','$bank_name1','$cheeque_no1','$date','$payment_mode2','$amount2','$bank_name2','$cheeque_no2','$date')"));   
         }
-
-        return $receipt_id;
-        // return response()->json(['message'=>'Successfully','status'=>'success']);
-        $data = view('admin.finance.feecollection.print',compact('cashbooks','request'))->render();
-        return response()->json($data);
-       
+        $response = array();
+        $response['status']=1;
+        $response['msg']='Fee Submit Successfully.';
+        foreach ($receipt_id as  $key=>$value) {
+          
+          $r_id= $value[$key]->receipt_id;
+          $feeDetails =DB::select(DB::raw("call up_show_fee_receipt_fee_detail ('$r_id')"));
+         $student=DB::select(DB::raw("call up_show_fee_receipt_stu_detail ('$r_id')"));
+           $response['data']= view('admin.finance.feecollection.print',compact('feeDetails','student'))->render();
+           
+        }
+        
+       return $response;
+      
     }
 
     // store fee collection form
