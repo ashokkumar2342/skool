@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\increment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
  
 
@@ -131,9 +132,18 @@ class FeeCollectionController extends Controller
           $r_id= $value[$key]->receipt_id;
           $feeDetails =DB::select(DB::raw("call up_show_fee_receipt_fee_detail ('$r_id')"));
          $student=DB::select(DB::raw("call up_show_fee_receipt_stu_detail ('$r_id')"));
+         //pdf generate reciept
+         $path =Storage_path() . '/app/student/feereceipt/';          
+           @mkdir($path, 0755, true); 
+           $pdf = PDF::setOptions([
+             'logOutputFile' => storage_path('logs/log.htm'),
+             'tempDir' => storage_path('logs/')
+         ])
+         ->loadView('admin.finance.feecollection.print',compact('feeDetails','student'))->save($path.$r_id.'.pdf');
            $response['data']= view('admin.finance.feecollection.print',compact('feeDetails','student'))->render();
            
         }
+        
         
        return $response;
       
