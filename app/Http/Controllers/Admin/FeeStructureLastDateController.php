@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\FeeStructure;
 use App\Model\FeeStructureLastDate;
 use App\Model\ForSessionMonth;
 use Carbon\Carbon;
+use DateInterval;
+use DatePeriod;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use DateTime;
-use DateInterval;
-use DatePeriod;
 class FeeStructureLastDateController extends Controller
 {
     /**
@@ -117,17 +118,9 @@ class FeeStructureLastDateController extends Controller
     public function edit($id)
     {
          $feeStructureLastDate = FeeStructureLastDate::find($id);
-         $forSessionMonths =ForSessionMonth::all();
-         $AcademicYear =AcademicYear::find($feeStructureLastDate->academic_year_id);
-
-         $start    = (new DateTime($AcademicYear->start_date))->modify('first day of this month');
-         $end      = (new DateTime($AcademicYear->end_date))->modify('first day of next month');
-         $interval = DateInterval::createFromDateString('1 month');
-         $period   = new DatePeriod($start, $interval, $end);
-
-         foreach ($period as $dt) {
-             $yearmonths[]=$dt->format("m-Y");
-         }
+         $forSessionMonths =ForSessionMonth::all(); 
+         $academicYear= new MyFuncs();
+         $yearmonths=$academicYear->getMonthYearById($feeStructureLastDate->academic_year_id);
          
         return view('admin.finance.fee_structure_last_date_edit',compact('feeStructureLastDate','forSessionMonths','yearmonths'));
     }
@@ -140,10 +133,10 @@ class FeeStructureLastDateController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request,$id)
-    {
+    { 
 
-             $due_month = date('m',strtotime($request->due_month_year));
-             $due_year = date('Y',strtotime($request->due_month_year));
+      $due_month = date('m',strtotime($request->due_month_year));
+      $due_year = date('Y',strtotime($request->due_month_year));
        $rules=[
         
            

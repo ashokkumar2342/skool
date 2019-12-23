@@ -12,6 +12,7 @@ use App\Model\FeeStructureLastDate;
 use App\Model\FineScheme;
 use App\Model\Month;
 use App\Model\PaymentMode;
+use App\Model\UserReceipt;
 use App\Model\SiblingGroup;
 use App\Model\StudentAddressDetail;
 use App\Model\StudentDefaultValue;
@@ -98,6 +99,9 @@ class FeeCollectionController extends Controller
         $amount_deposits= array_reverse($request->amount_deposit); 
         $user_id = Auth::guard('admin')->user()->id;
         $date = date('Y-m-d');
+        $payment_mode =PaymentMode::whereIn('id',$request->payment_mode)->get(); 
+        $cheeque_no =$request->cheeque_no; 
+        $bank_name =$request->bank_name; 
         $payment_mode1 = $request->payment_mode[0]; 
         $payment_mode2=0;
         if (!empty($request->payment_mode[1])) {
@@ -132,6 +136,7 @@ class FeeCollectionController extends Controller
           $r_id= $value[$key]->receipt_id;
           $feeDetails =DB::select(DB::raw("call up_show_fee_receipt_fee_detail ('$r_id')"));
          $student=DB::select(DB::raw("call up_show_fee_receipt_stu_detail ('$r_id')"));
+
          //pdf generate reciept
          $path =Storage_path() . '/app/student/feereceipt/';          
            @mkdir($path, 0755, true); 
@@ -140,7 +145,8 @@ class FeeCollectionController extends Controller
              'tempDir' => storage_path('logs/')
          ])
          ->loadView('admin.finance.feecollection.print',compact('feeDetails','student'))->save($path.$r_id.'.pdf');
-           $response['data']= view('admin.finance.feecollection.print',compact('feeDetails','student'))->render();
+           $response['data']= view('admin.finance.feecollection.print',compact('feeDetails','student','payment_mode','cheeque_no','bank_name'))->render();
+
            
         }
         
@@ -157,5 +163,23 @@ class FeeCollectionController extends Controller
        //     $student = Student::find($student);
        //     $StudentFeeDetails = StudentFeeDetail::where('student_id',$student->id)->whereMonth('from_date' , $request->month)->whereYear('from_date' , $request->year)->get();
        //     } 
+    }
+
+    public function PreviousReceipts()
+    {
+       $user_id=Auth::guard('admin')->user()->id;
+       $UserReceipts=UserReceipt::where('user_id',$user_id)->get();
+       return view('admin.finance.feecollection.previous_receipts',compact('UserReceipts'))->render();
+    }
+    public function PreviousReceiptsCancel($id)
+    {
+        
+       $UserReceipts=UserReceipt::find($id);
+       $UserReceipts->delete();
+       $response = array();
+       $response['status']=1;
+       $response['msg']='Receipt Cancel Successfully.';
+       return $response;
+       
     }
 }

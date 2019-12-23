@@ -31,7 +31,8 @@
                         <label>Due Month/Year</label>
                         <select name="due_month_year" class="form-control">
                             @foreach ($yearmonths as $yearmonth)
-                                  <option value="01-{{ $yearmonth }}"{{ $month==$yearmonth?'selected' : '' }}>{{ $yearmonth }}</option> 
+
+                                  <option value="{{date('d-m-Y',strtotime($yearmonth)) }}"> {{date('m-Y',strtotime($yearmonth)) }}</option> 
                             @endforeach 
                         </select> 
                     </div> 

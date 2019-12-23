@@ -12,7 +12,7 @@
   	<div class="panel-title pull-left">
   	            Fee Details
   	         </div>
-  	        <div class="panel-title pull-right"><span class="btn btn-xs btn-success">Previous Receipts</span></div>
+  	        <div class="panel-title pull-right"><span class="btn btn-xs btn-success" id="btn_previous_receipts" onclick="callPopupLarge(this,'{{ route('admin.studentFeeCollection.previous.receipts') }}')">Previous Receipts</span></div>
   	        <div class="clearfix"></div>
   	
   	

@@ -231,7 +231,14 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('profile-view/{id?}', 'StudentController@registrationProfileView')->name('admin.student.registration.profile.view'); 
         //-----------student school wise admission-------- 
         Route::get('school-wise-admission', 'StudentController@schoolWiseAdmission')->name('admin.student.school.wise.admission');	
-        Route::post('school-wise-admission-store', 'StudentController@schoolWiseAdmissionStore')->name('admin.student.school.wise.admission.store');	
+        Route::post('school-wise-admission-store', 'StudentController@schoolWiseAdmissionStore')->name('admin.student.school.wise.admission.store');
+        //-----------admission-test-marks-------- 
+        Route::get('admission-test-marks', 'StudentController@admissionTestMarks')->name('admin.student.admission.test.marks');	 
+        Route::post('admission-test-marks-search', 'StudentController@admissionTestMarksSearch')->name('admin.student.admission.test.marks.search');	 
+        Route::post('admission-test-marks-store', 'StudentController@admissionTestMarksStore')->name('admin.student.admission.test.marks.store');	 
+        //-----------admission-test-marks-------- 
+        Route::get('take-admission', 'StudentController@takeAdmission')->name('admin.student.take.admission'); 
+        Route::post('take-admission-store', 'StudentController@takeAdmissionStore')->name('admin.student.take.admission.store'); 
 		});
 
 	 	// ---------------student-fine-details ----------------------------------------
@@ -670,6 +677,8 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::delete('delete', 'Fee\FeeCollectionController@destroy')->name('admin.studentFeeCollection.delete');
     	    Route::put('update', 'Fee\FeeCollectionController@update')->name('admin.studentFeeCollection.update');
     	    Route::get('fine', 'Fee\FeeCollectionController@fineScheme')->name('admin.studentFeeCollection.fine.scheme');
+    	    Route::get('previous-receipts', 'Fee\FeeCollectionController@PreviousReceipts')->name('admin.studentFeeCollection.previous.receipts');
+    	    Route::get('previous-receipts-cancel/{id}', 'Fee\FeeCollectionController@PreviousReceiptsCancel')->name('admin.studentFeeCollection.previous.receipts.cancel');
     	 });
     	 //------------------------- Fee Cashbook --------------------------------- 
     	Route::group(['prefix' => 'cashbook'], function() {
