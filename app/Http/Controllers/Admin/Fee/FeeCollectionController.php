@@ -12,6 +12,7 @@ use App\Model\FeeStructureLastDate;
 use App\Model\FineScheme;
 use App\Model\Month;
 use App\Model\PaymentMode;
+use App\Model\UserReceipt;
 use App\Model\SiblingGroup;
 use App\Model\StudentAddressDetail;
 use App\Model\StudentDefaultValue;
@@ -147,5 +148,23 @@ class FeeCollectionController extends Controller
        //     $student = Student::find($student);
        //     $StudentFeeDetails = StudentFeeDetail::where('student_id',$student->id)->whereMonth('from_date' , $request->month)->whereYear('from_date' , $request->year)->get();
        //     } 
+    }
+
+    public function PreviousReceipts()
+    {
+       $user_id=Auth::guard('admin')->user()->id;
+       $UserReceipts=UserReceipt::where('user_id',$user_id)->get();
+       return view('admin.finance.feecollection.previous_receipts',compact('UserReceipts'))->render();
+    }
+    public function PreviousReceiptsCancel($id)
+    {
+        
+       $UserReceipts=UserReceipt::find($id);
+       $UserReceipts->delete();
+       $response = array();
+       $response['status']=1;
+       $response['msg']='Receipt Cancel Successfully.';
+       return $response;
+       
     }
 }
