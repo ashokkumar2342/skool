@@ -98,6 +98,9 @@ class FeeCollectionController extends Controller
         $amount_deposits= array_reverse($request->amount_deposit); 
         $user_id = Auth::guard('admin')->user()->id;
         $date = date('Y-m-d');
+        $payment_mode =PaymentMode::whereIn('id',$request->payment_mode)->get(); 
+        $cheeque_no =$request->cheeque_no; 
+        $bank_name =$request->bank_name; 
         $payment_mode1 = $request->payment_mode[0]; 
         $payment_mode2=0;
         if (!empty($request->payment_mode[1])) {
@@ -132,7 +135,7 @@ class FeeCollectionController extends Controller
           $r_id= $value[$key]->receipt_id;
           $feeDetails =DB::select(DB::raw("call up_show_fee_receipt_fee_detail ('$r_id')"));
          $student=DB::select(DB::raw("call up_show_fee_receipt_stu_detail ('$r_id')"));
-           $response['data']= view('admin.finance.feecollection.print',compact('feeDetails','student'))->render();
+           $response['data']= view('admin.finance.feecollection.print',compact('feeDetails','student','payment_mode','cheeque_no','bank_name'))->render();
            
         }
         

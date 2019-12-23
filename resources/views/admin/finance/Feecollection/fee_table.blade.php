@@ -95,12 +95,15 @@
                          </tr>
                           
                     @endforeach
-                   <tr>
-                    <td>Net Amount</td>
-                    <td class="text-right">{{ $student->rec_amt  }}  </td>
-                   </tr>
-               
-                     
+                    
+                    <tr>
+                        <td align="Right" style="font-weight: bold; font-size: small;">
+                            <span id="lblSSDiscount3" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Net Amount</span>
+                        </td>
+                        <td align="right">
+                            <span id="lblNetPaid" style="font-family:Arial;font-size:Small;">{{ $student->rec_amt  }}</span>
+                        </td>
+                    </tr>
                     <tr>
                         <td align="Right" style="font-weight: bold; font-size: small;">
                             <span id="lblSSDiscount3" style="display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Amount Deposit </span>
@@ -124,27 +127,58 @@
                 <hr />
             </div>
             <div style="width: 450px;" align="Left">
-                <table width="100%">
+                <table width="100%"> 
                     <tr>
                         <td>
                             <span id="Label1" style="font-weight: bold;
                                 font-size: small;">Rupees (In Words):</span>
                             <span id="lblRupee" style="font-size: small;">{{ $student->amt_in_words }}</span>
                         </td>
-                    </tr>
+                    </tr> 
                     <tr>
                         <td>
-                            <span id="Label2" style="font-weight: bold;
-                                font-size: small;">Cheque no:</span>
-                            <span id="lblChequeNo" style="font-size: small;">_____</span>
-                            &nbsp;<span id="Label3" style="font-weight: bold;
-                                font-size: small;">Date:</span>
-                            <span id="lblChequeDate" style="font-size: small;">__/__/____</span>
-                            &nbsp;<span id="Label4" style="font-weight: bold;
-                                font-size: small;">Bank Name: </span>
-                            <span id="lblbankName" style="font-size: small;">_____</span>
+                            <span id="Label1" style="font-weight: bold;
+                                font-size: small;">Payment Details</span> 
                         </td>
+                        <td align="right" style=" font-size: small;">
+                            <span id="lblLess" style="font-family:Arial;font-size:Small;"></span>
+                        </td>
+                      
                     </tr>
+                </table>
+                <table width="100%" style=" font-size: small;">
+                    <tr>
+                        <td>
+                            Payment Mode 
+                        </td>
+                        <td>
+                            Cheque No. 
+                        </td>
+                        <td>
+                            Bank Name 
+                        </td>
+                        <td align="right" style=" font-size: small;">
+                            <span id="lblLess" style="font-family:Arial;font-size:Small;"></span>
+                        </td>
+                    </tr>  
+                    @foreach ($payment_mode as $value) 
+                    <tr>
+                        <td>
+                            {{ $value->name }}
+                        </td> 
+                        @foreach ($cheeque_no as $key=> $cheque)
+                        <td>
+                                {{ $cheque }}
+                        </td>         
+                        @endforeach
+                        @foreach ($cheeque_no as $key=> $cheque)
+                        <td>
+                                {{ $cheque }}
+                        </td>         
+                        @endforeach 
+                      
+                    </tr>
+                    @endforeach
                     <tr>
                         <td align="right">
                             <div style="margin-top: 30px;">

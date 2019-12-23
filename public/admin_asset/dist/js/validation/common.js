@@ -219,8 +219,8 @@ function callJqueryDefault(divId){
               var printWindow = window.open('', '', 'height=600,width=800'); 
               printWindow.document.write(divContents); 
               printWindow.document.close();
-              printWindow.print();
-               printWindow.close();
+              // printWindow.print();
+              //  printWindow.close();
 		}
 			
 	} 

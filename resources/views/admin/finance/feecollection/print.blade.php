@@ -2,7 +2,7 @@
 <div>
     <div id="p1" style="font-family:Arial;">    
         <center>
-            @include('admin.finance.Feecollection.fee_table')
+            @include('admin.finance.feecollection.fee_table')
         </center>
     
 </div>
