@@ -725,6 +725,13 @@ Route::group(['middleware' => 'admin'], function() {
     	    
     	    
     	  });
+    	Route::group(['prefix' => 'fee-default-value'], function() {
+    	  Route::get('/', 'FeeDefaultValueController@index')->name('admin.finance.fee.default.value'); 
+    	  Route::post('store', 'FeeDefaultValueController@store')->name('admin.finance.fee.default.value.store'); 
+    	  
+    	    
+    	    
+    	  });
      
 
     	 //------------------------- Student Search --------------------------------- 

@@ -95,7 +95,7 @@
  			         <label class="control-label mb-2 text-left">Payment Mode <span style="color:red;">*</span></label> 
  			           <select name="payment_mode[]" class="form-control" id="payment_mode">
 		  						@foreach ($paymentModes as $mode)
-		  							<option value="{{ $mode->id }}">{{ $mode->name }}</option> 
+		  							<option value="{{ $mode->id }}"{{ @$feedefaultvalue->payment_mode==$mode->id?'selected' : '' }}>{{ $mode->name }}</option> 
 		  						@endforeach 
 		  					</select>  
  			       </td>

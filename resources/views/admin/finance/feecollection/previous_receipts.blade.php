@@ -18,7 +18,7 @@
 					@foreach ($UserReceipts as $UserReceipt)
 								<tr>
 									<td>{{ $UserReceipt->receipt_no }}</td>
-									<td>{{ date('d-M-Y',strtotime($UserReceipt->description)) }}</td>
+									<td>{{ $UserReceipt->description }}</td>
 									<td align="right" class="text-nowrap">{{ $UserReceipt->r_amount }}</td>
 									 
 									<td>

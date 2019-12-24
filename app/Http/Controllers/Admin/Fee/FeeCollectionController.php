@@ -8,11 +8,12 @@ use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\BalanceAmount;
 use App\Model\Cashbook;
+use App\Model\DefaultFeeValue;
 use App\Model\FeeStructureLastDate;
 use App\Model\FineScheme;
 use App\Model\Month;
 use App\Model\PaymentMode;
-use App\Model\UserReceipt;
+use App\Model\Schoolinfo;
 use App\Model\SiblingGroup;
 use App\Model\StudentAddressDetail;
 use App\Model\StudentDefaultValue;
@@ -21,6 +22,7 @@ use App\Model\StudentFeePaidUpTo;
 use App\Model\StudentLedger;
 use App\Model\StudentPerentDetail;
 use App\Model\StudentSiblingInfo;
+use App\Model\UserReceipt;
 use App\Student;
 use Auth;
 use Carbon\Carbon;
@@ -35,17 +37,22 @@ use PDF;
 class FeeCollectionController extends Controller
 {
     public function index(){
-       
+       $user_id=Auth::guard('admin')->user()->id;
        $feeStructureLastDates =new  MyFuncs();
        $uptoMonthYears =$feeStructureLastDates->getMonthYear();
-    	$students = array_pluck(Student::get(['id','registration_no']), 'registration_no','id');    
-    	return view('admin.finance.feecollection.fee_collection_form',compact('students','uptoMonthYears'));
+    	 $students = array_pluck(Student::get(['id','registration_no']), 'registration_no','id');
+       $schoolinfo=Schoolinfo::first();
+       $feedefaultvalue= DefaultFeeValue::where('userid',$user_id)->first();
+       $manth=@$feedefaultvalue->upto_month;
+       $year=@$feedefaultvalue->upto_year;
+       $upto_month_year='01'.'-'.'0'.$manth.'-'.$year;    
+    	return view('admin.finance.feecollection.fee_collection_form',compact('students','uptoMonthYears','schoolinfo','upto_month_year','feedefaultvalue'));
     }
 
     // show main form show search stuent form
     public function show(Request $request){  
         $rules=[
-             'student' => 'required',
+             'registration_no' => 'required',
              'fee_paid_upto' => 'required',
             
          ];
@@ -58,18 +65,25 @@ class FeeCollectionController extends Controller
              return response()->json($response);// response as json
          }
        $st=new Student();
-       $student=$st->getDetailByRegistrationNo($request->student); 
-
+       $student=$st->getDetailByRegistrationNo($request->registration_no);
+       if (empty($student)) {
+          $response =array();
+          $response['status']=0; 
+          $response["msg"] ='Invalid Registration No.';
+          return $response; 
+        } 
+      $user_id=Auth::guard('admin')->user()->id;
       $month =date('m',strtotime($request->fee_paid_upto));
       $year =date('Y',strtotime($request->fee_paid_upto));
       $FeeDetails= DB::select(DB::raw("call up_view_stu_fee_detail ('$student->id','$month','$year')"));
       $siblings= DB::select(DB::raw("call up_view_stu_sibling_fee_detail ('$student->id','$month','$year')"));
       $paymentModes=PaymentMode::all();
+      $feedefaultvalue= DefaultFeeValue::where('userid',$user_id)->first();
 
        $response =array();
        $response['status']=1;
       
-    	 $response["data"] = view('admin.finance.feecollection.fee_collection_detail',compact('student','FeeDetails','siblings','paymentModes','month','year'))->render();
+    	 $response["data"] = view('admin.finance.feecollection.fee_collection_detail',compact('student','FeeDetails','siblings','paymentModes','month','year','feedefaultvalue'))->render();
     	return $response;
     }
 
@@ -144,7 +158,7 @@ class FeeCollectionController extends Controller
              'logOutputFile' => storage_path('logs/log.htm'),
              'tempDir' => storage_path('logs/')
          ])
-         ->loadView('admin.finance.feecollection.print',compact('feeDetails','student'))->save($path.$r_id.'.pdf');
+         ->loadView('admin.finance.feecollection.print',compact('feeDetails','student','payment_mode','cheeque_no','bank_name'))->save($path.$r_id.'.pdf');
            $response['data']= view('admin.finance.feecollection.print',compact('feeDetails','student','payment_mode','cheeque_no','bank_name'))->render();
 
            

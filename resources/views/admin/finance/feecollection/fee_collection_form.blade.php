@@ -9,12 +9,12 @@
             <!-- /.box-header -->
             <div class="box-body"> 
                 <div class="row">  
-                  <form  action="{{ route('admin.studentFeeCollection.show') }}" class="add_form" no-reset="true" method="post" success-content-id="fee_collection_detail"> 
+                  <form  action="{{ route('admin.studentFeeCollection.show') }}" class="add_form" no-reset="true" method="post" success-content-id="fee_collection_detail" @if (@$feedefaultvalue->sibiling_detail==1) button-click="siblig_chk" @endif> 
                    {{ csrf_field() }}
                       <div class="col-md-2">                           
                            <div class="form-group">
                             {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
-                            <input type="text" name="student" class="form-control">
+                            <input type="text" name="registration_no" class="form-control" maxlength="{{ $schoolinfo->reg_length }}">
                              {{-- {{ Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required',]) }}
                              <p class="errorAmount1 text-center alert alert-danger hidden"></p> --}}
                            </div>    
@@ -25,7 +25,7 @@
                              <select name="fee_paid_upto" class="form-control">      
                                <option disabled selected>Select Fee Paid Upto</option>
                                @foreach ($uptoMonthYears as $uptoMonthYear)
-                                <option value="{{date('d-m-Y',strtotime($uptoMonthYear)) }}"> {{date('M-Y',strtotime($uptoMonthYear)) }} </option>
+                                <option value="{{date('d-m-Y',strtotime($uptoMonthYear)) }}"{{date('d-m-Y',strtotime($uptoMonthYear))==@$upto_month_year?'selected' : '' }}> {{date('M-Y',strtotime($uptoMonthYear)) }} </option>
                                @endforeach
                              </select>
                            </div> 
