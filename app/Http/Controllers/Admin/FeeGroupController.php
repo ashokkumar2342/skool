@@ -47,6 +47,7 @@ class FeeGroupController extends Controller
     {
         $rules= [ 
             'name' => 'required|max:30|unique:fee_groups,name,'.$id, 
+            'description' => 'nullable|max:100', 
         ];
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()) {

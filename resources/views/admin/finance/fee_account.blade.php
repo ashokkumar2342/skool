@@ -14,16 +14,17 @@
     <section class="content">
         <div class="box">             
             <!-- /.box-header -->
-            <div class="box-body">             
-             <table id="fee_account_table" class="display table">                     
+            <div class="box-body">
+            <div class="table-responsive"> 
+             <table id="fee_account_table" class="table table-responsive table-striped table-bordered">                     
                         <thead>
                             <tr>
-                                <th>Sr.No.</th>
-                                <th>Fee Account Code</th>
-                                <th>Fee Account Name</th>
-                                <th>Sorting Order No.</th>
-                                <th>Description</th>
-                                <th>Action</th>                                                            
+                                <th class="text-nowrap">Sr.No.</th>
+                                <th class="text-nowrap">Fee Account Code</th>
+                                <th class="text-nowrap">Fee Account Name</th>
+                                <th class="text-nowrap">Sorting Order No.</th>
+                                <th class="text-nowrap">Description</th>
+                                <th class="text-nowrap">Action</th>                                                            
                             </tr>
                         </thead>
                         <tbody>
@@ -45,11 +46,9 @@
                             </td>
                           </tr>    
                         @endforeach 
-                           
-                        </tbody>
-                             
-
-                    </table>    
+                        </tbody> 
+                    </table>
+                    </div>    
             </div>
          </div>
  

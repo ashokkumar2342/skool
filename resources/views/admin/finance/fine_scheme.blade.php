@@ -15,7 +15,7 @@
         <div class="box">             
             <!-- /.box-header -->
             <div class="box-body">             
-             <table id="fine_scheme_table" class="display table">                     
+             <table id="fine_scheme_table" class="display table table-bordered">                     
                         <thead>
                             <tr>
                                 <th>Sr.No.</th>

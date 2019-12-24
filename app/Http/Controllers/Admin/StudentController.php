@@ -28,6 +28,8 @@ use App\Model\Profession;
 use App\Model\Religion;
 use App\Model\RequestUpdate;
 use App\Model\Schoolinfo;
+use App\Model\Section;
+use App\Model\SectionType;
 use App\Model\SiblingGroup;
 use App\Model\Sms\EmailTemplate;
 use App\Model\Sms\SmsTemplate;
@@ -271,7 +273,7 @@ class StudentController extends Controller
              'emailid' => 'required_if:sibling_registration,no|unique:students',
              'class' => 'required',
              "section" => 'required',
-             'registration_no' => "required||min:$request->reg_length|max:$request->reg_length",
+             'registration_no' => "required|unique:students|min:$request->reg_length|max:$request->reg_length",
              // "registration_no" => 'required|max:20|unique:students',
              "admission_no" => 'required|max:20|unique:students',
              "roll_no" => 'required|max:20|unique:students',
@@ -1470,6 +1472,114 @@ class StudentController extends Controller
                    dd($pdfMerge->Output('I', 'simple.pdf'));
       
       // return $pdf->stream('student_all_report.pdf');
+    }
+
+
+    //----------------------admission-test-marks------------------------------------------------
+
+    public function admissionTestMarks($value='')
+    {
+       $academicYears=AcademicYear::all();
+       $classTypes=MyFuncs::getClassByHasUser();
+       return view('admin.student.studentdetails.admissiontestmark.view',compact('classTypes','academicYears'));
+    }
+    public function admissionTestMarksSearch(Request $request)
+    {
+       $rules=[
+             'academic_year_id' => 'required',
+             'class_id' => 'required',
+              
+         ];
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         } 
+       $student=Student::where('student_status_id','!=',1)->where('class_id',$request->class_id)->pluck('id')->toArray();
+       $admissionApplications=AdmissionApplication::whereIn('student_id',$student)->where('for_academic_year',$request->academic_year_id)->get();
+       $response=array();
+       $response['status']=1;
+       $response['data']=view('admin.student.studentdetails.admissiontestmark.studentlist',compact('admissionApplications'))->render();
+       return $response;
+    }
+    public function admissionTestMarksStore(Request $request)
+    {
+       foreach ($request->status as $student_id => $status_id) {
+       $admissionApplications=AdmissionApplication::firstOrNew(['student_id'=>$student_id]); 
+       $admissionApplications->status=$status_id; 
+       $admissionApplications->save(); 
+       }
+       $response=array();
+       $response['status']=1;
+       $response['msg']='Submit Successfully';
+       return $response;
+    }
+    public function takeAdmission($value='')
+    {
+      $user = Auth::guard('admin')->user();
+        $sectionTypes=SectionType::orderBy('sorting_order_id','ASC')->get();
+        $default = StudentDefaultValue::where('user_id',$user)->first();
+        $schoolinfo=Schoolinfo::first();
+        $houses=House::orderBy('id','ASC')->get();   
+       return view('admin.student.studentdetails.takeadmission.view',compact('default','schoolinfo','houses','sectionTypes'));
+    }
+    public function takeAdmissionStore(Request $request)
+    { 
+        $rules=[
+             'application_no' => 'required',
+             'section_id' => 'required',
+             'registration_no' => "required|unique:students|min:$request->reg_length|max:$request->reg_length", 
+             "admission_no" => 'required|max:20|unique:students',
+             "roll_no" => 'required|max:20|unique:students',
+             'date_of_admission' => 'required',
+             'date_of_activation' => 'required',
+             'house_name' => 'required',
+              
+         ];
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }
+       
+       $application=AdmissionApplication::where('id',$request->application_no)->first();
+       if (empty($application)) {
+         $response=array();
+         $response['status']=0;
+         $response['msg']='Invalid Application No.';
+         return $response;  
+       }else{
+        $student=Student::find($application->student_id);
+        $sections =Section::where('class_id',$student->class_id)->pluck('section_id')->toArray();
+         if (in_array($request->section_id,$sections)) {
+           $student->section_id=$request->section_id;
+           $student->registration_no=$request->registration_no;
+           $student->admission_no=$request->admission_no;
+           $student->roll_no=$request->roll_no;
+           $student->date_of_admission=$request->date_of_admission;
+           $student->date_of_activation=$request->date_of_activation;
+           $student->house_no=$request->house_name;
+           $student->student_status_id=1;
+           $student->save();
+           $response=array();
+           $response['status']=1;
+           $response['msg']='Admission Successfully.';
+           return $response;
+         }else {
+           $response=array();
+           $response['status']=0;
+           $response['msg']='Section Not Allow for Application No.';
+           return $response;
+         }
+         
+        
+       }
     }
    
 }

@@ -14,8 +14,9 @@
     <section class="content">
         <div class="box">             
             <!-- /.box-header -->
-            <div class="box-body">             
-             <table id="fee_structure_table" class="display table">                     
+            <div class="box-body">
+            <div class="table-responsive">              
+             <table id="fee_structure_table" class="display table table-bordered">                     
                         <thead>
                             <tr>
                                 <th>SR.No.</th>
@@ -50,7 +51,8 @@
                         </tbody>
                              
 
-                    </table>    
+                    </table>
+                    </div>    
             </div>
          </div>
  

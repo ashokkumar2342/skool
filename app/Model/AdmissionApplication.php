@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AdmissionApplication extends Model
 {
     protected $fillable=[
-    	'id',];
+    	'id','student_id',];
    public $timestamps = false;
     	public function students($value='')
     {

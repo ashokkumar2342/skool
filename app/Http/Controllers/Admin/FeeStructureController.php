@@ -58,7 +58,7 @@ class FeeStructureController extends Controller
         $rules=[
         
             'code' => 'required|max:3|unique:fee_structures,code,'.$id, 
-            'fee_structure_name' => 'required|max:30|unique:fee_structures,name,'.$id, 
+            'fee_structure_name' => 'required|max:50|unique:fee_structures,name,'.$id, 
             'fee_account' => 'required', 
             'fine_scheme' => 'required', 
             'is_refundable' => 'required', 
