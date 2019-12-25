@@ -29,6 +29,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\increment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 
@@ -136,7 +137,7 @@ class FeeCollectionController extends Controller
         if (!empty($request->cheeque_no[1])) {
             $cheeque_no2 = $request->cheeque_no[1];  
         } 
-       
+       $temp_id= $request->template;
         $receipt_id =array();
         foreach ($students as $key => $student_id) { 
           $deposit = $amount_deposits[$key];     
@@ -145,12 +146,14 @@ class FeeCollectionController extends Controller
         $response = array();
         $response['status']=1;
         $response['msg']='Fee Submit Successfully.';
-        foreach ($receipt_id as  $key=>$value) {
-          
-          $r_id= $value[$key]->receipt_id;
+        $feeDetailss =array();
+        $students =array();
+        foreach ($receipt_id as  $key=>$value) {          
+          $r_id= $value[0]->receipt_id; 
           $feeDetails =DB::select(DB::raw("call up_show_fee_receipt_fee_detail ('$r_id')"));
          $student=DB::select(DB::raw("call up_show_fee_receipt_stu_detail ('$r_id')"));
-
+         $feeDetailss[]=$feeDetails;
+         $students[]=$student;
          //pdf generate reciept
          $path =Storage_path() . '/app/student/feereceipt/';          
            @mkdir($path, 0755, true); 
@@ -158,11 +161,11 @@ class FeeCollectionController extends Controller
              'logOutputFile' => storage_path('logs/log.htm'),
              'tempDir' => storage_path('logs/')
          ])
-         ->loadView('admin.finance.feecollection.print',compact('feeDetails','student','payment_mode','cheeque_no','bank_name'))->save($path.$r_id.'.pdf');
-           $response['data']= view('admin.finance.feecollection.print',compact('feeDetails','student','payment_mode','cheeque_no','bank_name'))->render();
-
+         ->loadView('admin.finance.feecollection.receipt_pdf_'.$temp_id.'',compact('feeDetails','student','payment_mode','cheeque_no','bank_name'))->save($path.$r_id.'.pdf'); 
            
         }
+
+        $response['data']= view('admin.finance.feecollection.receipt_print_'.$temp_id.'',compact('feeDetailss','students','payment_mode','cheeque_no','bank_name'))->render();
         
         
        return $response;

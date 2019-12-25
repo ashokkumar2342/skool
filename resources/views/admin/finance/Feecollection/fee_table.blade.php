@@ -1,7 +1,11 @@
 @php
     $net_amount =0.0;
+
 @endphp
+@foreach ($students as $student)  
 @foreach ($student as $student)  
+  
+
 <table>
     <tr>
         <td>
@@ -83,7 +87,7 @@
                         </td>
                     </tr>
                   
-                    @foreach ($feeDetails as $feeDetail) 
+                    @foreach ($feeDetailss[0] as $feeDetail) 
                      
                          <tr>
                              <td align="left" style="font-weight: bold; font-size: small;">
@@ -196,4 +200,9 @@
        
     </tr>
 </table>
+
+@endforeach
+<div class="page-break">
+    
+</div>
 @endforeach
