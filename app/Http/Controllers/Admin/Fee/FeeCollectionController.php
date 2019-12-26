@@ -185,14 +185,13 @@ class FeeCollectionController extends Controller
        $UserReceipts=UserReceipt::where('user_id',$user_id)->get();
        return view('admin.finance.feecollection.previous_receipts',compact('UserReceipts'))->render();
     }
-    public function PreviousReceiptsCancel($id)
+    public function PreviousReceiptsRemove()
     {
-        
-       $UserReceipts=UserReceipt::find($id);
-       $UserReceipts->delete();
+       $user_id=Auth::guard('admin')->user()->id; 
+       $UserReceipts=UserReceipt::where('user_id',$user_id)->delete(); 
        $response = array();
        $response['status']=1;
-       $response['msg']='Receipt Cancel Successfully.';
+       $response['msg']='Clear Successfully.';
        return $response;
        
     }

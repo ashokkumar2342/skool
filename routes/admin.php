@@ -234,7 +234,8 @@ Route::group(['middleware' => 'admin'], function() {
         Route::post('school-wise-admission-store', 'StudentController@schoolWiseAdmissionStore')->name('admin.student.school.wise.admission.store');
         //-----------admission-test-marks-------- 
         Route::get('admission-test-marks', 'StudentController@admissionTestMarks')->name('admin.student.admission.test.marks');	 
-        Route::post('admission-test-marks-search', 'StudentController@admissionTestMarksSearch')->name('admin.student.admission.test.marks.search');	 
+        Route::post('admission-test-marks-search', 'StudentController@admissionTestMarksSearch')->name('admin.student.admission.test.marks.search'); 
+        Route::get('admission-test-marks-filter/{class_id}/{academicYear_id}/{condition_id}', 'StudentController@admissionTestMarksfilter')->name('admin.student.admission.test.marks.filter');	 
         Route::post('admission-test-marks-store', 'StudentController@admissionTestMarksStore')->name('admin.student.admission.test.marks.store');	 
         //-----------admission-test-marks-------- 
         Route::get('take-admission', 'StudentController@takeAdmission')->name('admin.student.take.admission'); 
@@ -678,7 +679,7 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::put('update', 'Fee\FeeCollectionController@update')->name('admin.studentFeeCollection.update');
     	    Route::get('fine', 'Fee\FeeCollectionController@fineScheme')->name('admin.studentFeeCollection.fine.scheme');
     	    Route::get('previous-receipts', 'Fee\FeeCollectionController@PreviousReceipts')->name('admin.studentFeeCollection.previous.receipts');
-    	    Route::get('previous-receipts-cancel/{id}', 'Fee\FeeCollectionController@PreviousReceiptsCancel')->name('admin.studentFeeCollection.previous.receipts.cancel');
+    	    Route::get('previous-receipts-remove', 'Fee\FeeCollectionController@PreviousReceiptsRemove')->name('admin.studentFeeCollection.previous.receipts.remove');
     	 });
     	 //------------------------- Fee Cashbook --------------------------------- 
     	Route::group(['prefix' => 'cashbook'], function() {
