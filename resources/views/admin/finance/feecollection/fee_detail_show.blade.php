@@ -73,7 +73,7 @@
 		 	 			@foreach ($siblings as $sibling)  		 	 			
 		 	 				<tr> 
 		 	 				<td>
-		 	 				<input type="checkbox"  class="checkbox" name="student_id[]" value="{{ $sibling->id }}"> 
+		 	 				<input type="checkbox" {{ 	@$feedefaultvalue->sibiling_detail==1?'checked':'' }}  class="checkbox" name="student_id[]" value="{{ $sibling->id }}"> 
 		 	 				<input type="hidden"   name="amount_deposit[]" value="{{ $sibling->total_dues }}"> 
 		 	 				</td>
 		 	 				<td> {{ $sr++ }} </td>
@@ -140,10 +140,11 @@
  			</table>
  		</div>
   </div>
+  <input type="hidden" name="template" value="{{ @$feedefaultvalue->rec_template_id !=null?@$feedefaultvalue->rec_template_id:1 }}"  style="margin-left: 20px">
   <div class="panel-footer text-center">
   	
   	 	 <button type="submit" class="btn btn-success">Submit</button>    
-   	    <input type="checkbox" name="print" checked autocomplete="off" style="margin-left: 20px"> Print 
+   	    <input type="checkbox" name="print" {{ @$feedefaultvalue->print_receipt==1?'checked':'' }}  autocomplete="off" style="margin-left: 20px"> Print 
    	  
   </div>
 </div>
