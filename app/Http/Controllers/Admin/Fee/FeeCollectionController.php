@@ -46,7 +46,11 @@ class FeeCollectionController extends Controller
        $feedefaultvalue= DefaultFeeValue::where('userid',$user_id)->first();
        $manth=@$feedefaultvalue->upto_month;
        $year=@$feedefaultvalue->upto_year;
-       $upto_month_year='01'.'-'.'0'.$manth.'-'.$year;    
+       if ($manth>9) {
+        $upto_month_year='01'.'-'.$manth.'-'.$year; 
+       }else{
+       $upto_month_year='01'.'-'.'0'.$manth.'-'.$year; 
+       }
     	return view('admin.finance.feecollection.fee_collection_form',compact('students','uptoMonthYears','schoolinfo','upto_month_year','feedefaultvalue'));
     }
 
