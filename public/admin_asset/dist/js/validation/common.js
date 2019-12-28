@@ -214,11 +214,11 @@ function callJqueryDefault(divId){
 	       		 }
 			}
 		if(formObj.getAttribute('print-data')){  
-			$('#reciept_detail').html(response);
-             var divContents = response.data;
-              var printWindow = window.open('', '', 'height=600,width=800'); 
-              printWindow.document.write(divContents); 
-              printWindow.document.close();
+			// $('#reciept_detail').html(response);
+   //           var divContents = response.data;
+   //            var printWindow = window.open('', '', 'height=600,width=800'); 
+   //            printWindow.document.write(divContents); 
+   //            printWindow.document.close();
               // printWindow.print();
               //  printWindow.close();
 		}

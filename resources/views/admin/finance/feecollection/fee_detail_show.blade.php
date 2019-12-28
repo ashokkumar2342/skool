@@ -144,7 +144,7 @@
   <div class="panel-footer text-center">
   	
   	 	 <button type="submit" class="btn btn-success">Submit</button>    
-   	    <input type="checkbox" name="print" {{ @$feedefaultvalue->print_receipt==1?'checked':'' }}  autocomplete="off" style="margin-left: 20px"> Print 
+   	    <input type="checkbox" value="1" name="is_print" {{ @$feedefaultvalue->print_receipt==1?'checked':'' }}  autocomplete="off" style="margin-left: 20px"> Print 
    	  
   </div>
 </div>

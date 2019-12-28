@@ -30,8 +30,10 @@ use Illuminate\Database\Eloquent\increment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use PDF;
+use setasign\Fpdi\Fpdi;
 
  
 
@@ -101,6 +103,11 @@ class FeeCollectionController extends Controller
 
     // store fee collection form
     public function store(Request $request){ 
+      if ($request->has('is_print')) {
+        $is_print = 1;
+      }else{
+        $is_print = 0;
+      }
         $rules=[
              'payment_mode' => 'required',
              'amount_deposit' => 'required', 
@@ -150,14 +157,14 @@ class FeeCollectionController extends Controller
         $response = array();
         $response['status']=1;
         $response['msg']='Fee Submit Successfully.';
-        $feeDetailss =array();
-        $students =array();
+         
+        $r_arr_id= array();
         foreach ($receipt_id as  $key=>$value) {          
           $r_id= $value[0]->receipt_id; 
+          $r_arr_id[]=$r_id;
           $feeDetails =DB::select(DB::raw("call up_show_fee_receipt_fee_detail ('$r_id')"));
          $student=DB::select(DB::raw("call up_show_fee_receipt_stu_detail ('$r_id')"));
-         $feeDetailss[]=$feeDetails;
-         $students[]=$student;
+         
          //pdf generate reciept
          $path =Storage_path() . '/app/student/feereceipt/';          
            @mkdir($path, 0755, true); 
@@ -169,7 +176,7 @@ class FeeCollectionController extends Controller
            
         }
 
-        $response['data']= view('admin.finance.feecollection.receipt_print_'.$temp_id.'',compact('feeDetailss','students','payment_mode','cheeque_no','bank_name'))->render();
+        $response['data']= view('admin.finance.feecollection.receipt_print_1',compact('r_arr_id','is_print'))->render();
         
         
        return $response;
@@ -178,12 +185,25 @@ class FeeCollectionController extends Controller
 
     // store fee collection form
     public function print(Request $request){
+        $r_arr_id= $request->all(); 
+        $pdfMerge = new Fpdi();
+        $dt =array();         
+        foreach ($r_arr_id as $key => $value) { 
+            $dt[]=Storage_path() . '/app/student/feereceipt/'.$key.'.pdf'; 
+        }       
+        
+        $files =$dt;
+        foreach ($files as $file) {
+           $pageCount =$pdfMerge->setSourceFile($file);
+           for ($pageNo=1; $pageNo <=$pageCount ; $pageNo++) { 
+               $pdfMerge->AddPage();
+               $pageId = $pdfMerge->importPage($pageNo, '/MediaBox');                       
+               $s = $pdfMerge->useTemplate($pageId, 10, 10, 200);
+           }
+        }
+        $file = uniqid().'.pdf';                 
+       dd($pdfMerge->Output('I', 'simple.pdf'));
       
-       $students = $request->student_id; 
-       // foreach ($students as $key => $student) {
-       //     $student = Student::find($student);
-       //     $StudentFeeDetails = StudentFeeDetail::where('student_id',$student->id)->whereMonth('from_date' , $request->month)->whereYear('from_date' , $request->year)->get();
-       //     } 
     }
 
     public function PreviousReceipts()
