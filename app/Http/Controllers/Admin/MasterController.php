@@ -575,7 +575,7 @@ class MasterController extends Controller
                 'test_date' => 'required|date', 
                 'retest_date' => 'required|date', 
                 'result_date' => 'required|date', 
-                'attachment' => 'required', 
+                
                 
             
              
