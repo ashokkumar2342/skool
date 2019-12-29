@@ -1283,7 +1283,7 @@ class StudentController extends Controller
     {   
        $userId=Auth::guard('admin')->user();
        $conditionId=$id;
-       $studentUserMaps=StudentUserMap::where('userId',56)->pluck('student_id')->toArray();
+       $studentUserMaps=StudentUserMap::where('userId',$userId->id)->pluck('student_id')->toArray();
        if ($id==1) {
          $students=Student::whereIn('id',$studentUserMaps)->where('student_status_id',8)->get(); 
        }elseif ($id==2) {
