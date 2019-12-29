@@ -604,8 +604,8 @@ class MasterController extends Controller
                 $attachment=$request->attachment;
                 $filename='test_syllabus'.date('d-m-Y').time().'.pdf'; 
                 $attachment->storeAs('app/student/test/syllabus/',$filename);
+                $adminssionSeat->syllabus=$filename;
                 } 
-               $adminssionSeat->syllabus=$filename;
                $adminssionSeat->save();
                 $response=['status'=>1,'msg'=>'Submit Successfully'];
               }     return response()->json($response);
