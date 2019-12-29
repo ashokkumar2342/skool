@@ -594,7 +594,7 @@ class MasterController extends Controller
                $adminssionSeat->academic_year_id=$request->academic_year_id;  
                $adminssionSeat->class_id=$request->class_id;  
                $adminssionSeat->total_seat=$request->total_seat;  
-               $adminssionSeat->from_fee=$request->from_fee;  
+               $adminssionSeat->form_fee=$request->from_fee;  
                $adminssionSeat->from_date=$request->from_date;  
                $adminssionSeat->last_date=$request->last_date; 
                $adminssionSeat->test_date=$request->test_date; 
