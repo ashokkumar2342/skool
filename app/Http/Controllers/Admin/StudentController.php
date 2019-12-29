@@ -285,15 +285,9 @@ class StudentController extends Controller
              "house_name" => "required", 
          ];
          if ($request->sibling_registration=='no') {
-          // $rules=['mobileno' => 'required_if:sibling_registration,no|unique:students,mobileno'];
-          // $rules=['emailid' => 'required_if:sibling_registration,no|unique:students,emailid'];
-                 
-
-          $arr=  ['mobileno' => 'required_if:sibling_registration,no|unique:students',
-                     'emailid' => 'required_if:sibling_registration,no|unique:students'];
-         array_push($rules, $arr);
-       
-        }
+           $rules['mobileno']= 'required_if:sibling_registration,no|unique:students,mobileno';
+           $rules['emailid'] ='required_if:sibling_registration,no|unique:students,emailid'; 
+          }
 
          $validator = Validator::make($request->all(),$rules);
          if ($validator->fails()) {
@@ -303,7 +297,7 @@ class StudentController extends Controller
              $response["msg"]=$errors[0];
              return response()->json($response);// response as json
          } 
-         else { 
+         else {  
          $admin_id = Auth::guard('admin')->user()->id;
          $username = str_random('10');
          $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
