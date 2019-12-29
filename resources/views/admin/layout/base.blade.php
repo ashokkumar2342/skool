@@ -18,6 +18,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/AdminLTE.min.css')}}">
   <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/style.css')}}">
+  <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/print.min.css')}}">
   {{-- <link rel="stylesheet" href="{{ asset('admin_asset/dist/css/alt/AdminLTE-select2.min.css')}}"> --}}
    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
@@ -98,6 +99,7 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('admin_asset/dist/js/demo.js') }}"></script>
     <script src="{{ asset('admin_asset/dist/js/toastr.min.js') }}"></script>
+    <script src="{{ asset('admin_asset/dist/js/print.min.js') }}"></script>
     <script src={!! asset('admin_asset/dist/js/validation/common.js?ver=1') !!}></script>
     <script src={!! asset('admin_asset/dist/js/customscript.js?ver=1') !!}></script>
     <script src={!! asset('admin_asset/dist/js/bootstrap-multiselect.js')!!}> 
