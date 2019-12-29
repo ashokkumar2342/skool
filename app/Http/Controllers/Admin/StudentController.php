@@ -266,11 +266,11 @@ class StudentController extends Controller
     {   
        
        try {
+          
         $rules=[
              'sibling_registration' => 'required',
              'sibling_registration_no' => 'required_if:sibling_registration,yes',
-             'mobileno' => 'required_if:sibling_registration,no|unique:students',
-             'emailid' => 'required_if:sibling_registration,no|unique:students',
+             
              'class' => 'required',
              "section" => 'required',
              'registration_no' => "required|unique:students|min:$request->reg_length|max:$request->reg_length",
@@ -284,6 +284,17 @@ class StudentController extends Controller
              "aadhaar_no" => "required|digits:12",
              "house_name" => "required", 
          ];
+         if ($request->sibling_registration=='no') {
+          // $rules=['mobileno' => 'required_if:sibling_registration,no|unique:students,mobileno'];
+          // $rules=['emailid' => 'required_if:sibling_registration,no|unique:students,emailid'];
+                 
+
+          $arr=  ['mobileno' => 'required_if:sibling_registration,no|unique:students',
+                     'emailid' => 'required_if:sibling_registration,no|unique:students'];
+         array_push($rules, $arr);
+       
+        }
+
          $validator = Validator::make($request->all(),$rules);
          if ($validator->fails()) {
              $errors = $validator->errors()->all();
