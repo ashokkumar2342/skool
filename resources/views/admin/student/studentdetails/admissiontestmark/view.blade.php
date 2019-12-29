@@ -10,7 +10,7 @@
           <form action="{{ route('admin.student.admission.test.marks.search') }}" method="post" class="add_form" success-content-id="student_marks_table" no-reset="true">
             {{ csrf_field() }}
            <div class="row">
-             <div class="col-lg-4">
+             <div class="col-lg-5">
               <label>Academic Year</label>
                 <select name="academic_year_id" id="academic_year_id" class="form-control">
                   <option selected disabled>Select Academic Year</option>
@@ -19,7 +19,7 @@
                   @endforeach
                 </select> 
              </div> 
-             <div class="col-lg-4">
+             <div class="col-lg-5">
               <label>Class</label>
                 <select name="class_id" class="form-control">
                   <option selected disabled>Select Class</option>
@@ -28,15 +28,18 @@
                   @endforeach
                 </select> 
              </div>
-             <div class="col-lg-4">
+             <div class="col-lg-2">
                <input type="submit" class="btn btn-success" value="Show" style="margin-top: 24px">
              </div> 
             </div>
           </form>
           <form action="{{ route('admin.student.admission.test.marks.store') }}" method="post" class="add_form">
             {{ csrf_field() }}
-            <div class="col-lg-9" id="student_marks_table" style="margin-top: 20px"> 
-            </div>  
+            <div class="col-lg-12" id="student_marks_table" style="margin-top: 20px"> 
+            </div>
+            <div class="col-lg-12" id="application_test_marks_list" style="margin-top: 20px">
+                
+              </div>  
           </form> 
         </div>
       </div>

@@ -25,15 +25,20 @@
                                     <input type="text" class="form-control" placeholder="Enter Application No." name="application_no" maxlength="12" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                 </div>
                             </div>
-                            <div class="col-lg-3">                         
-                                <div class="form-group">
-                                    {{ Form::label('section','Section',['class'=>' control-label']) }}
-                                    <select name="section_id" class="form-control">
-                                        @foreach ($sectionTypes as $sectionType)
-                                           <option value="{{ $sectionType->id }}">{{ $sectionType->name }}</option> 
-                                        @endforeach 
-                                    </select>
-                                </div>
+                            <div class="col-lg-3 form-group">
+                                <label>Class </label>
+                                <select name="class_id" class="form-control" onchange="callAjax(this,'{{ route('admin.student.certificateIssu.report.class.with.section') }}','section_div')">
+                                    <option selected disabled>Select Class</option>
+                                     @foreach ($classTypes as $classType)
+                                     <option value="{{ $classType->id }}">{{ $classType->name }}</option>    
+                                     @endforeach
+                                </select> 
+                            </div>
+                            <div class="col-lg-3 form-group">
+                                <label>Section</label>
+                                <select name="section_id" class="form-control" id="section_div">
+                                     
+                                </select> 
                             </div>
                             <div class="col-lg-3">                         
                                 <div class="form-group">
@@ -67,7 +72,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>                          
-                                        {{ Form::date('date_of_admission', @$default->admission_date,array('class' => 'form-control datepicker' )) }}
+                                        {{ Form::date('date_of_admission', @$default->admission_date,array('class' => 'form-control' )) }}
                                     </div>
                                     <p class="text-danger">{{ $errors->first('date_of_admission') }}</p>
                                 </div>
@@ -81,7 +86,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>                          
-                                        {{ Form::date('date_of_activation',@$default->activation_date ,array('class' => 'form-control datepicker' )) }}
+                                        {{ Form::date('date_of_activation',@$default->activation_date ,array('class' => 'form-control' )) }}
                                     </div>
                                     <p class="text-danger">{{ $errors->first('date_of_activation') }}</p>
                                 </div>

@@ -1,5 +1,6 @@
 @extends('admin.layout.base')
 @section('body')
+<link href="/css/print.css" rel="stylesheet" media="print" type="text/css">
 <section class="content-header">
     <h1>Student Fee Collection </h1>
      

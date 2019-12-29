@@ -239,7 +239,9 @@ Route::group(['middleware' => 'admin'], function() {
         Route::post('admission-test-marks-store', 'StudentController@admissionTestMarksStore')->name('admin.student.admission.test.marks.store');	 
         //-----------admission-test-marks-------- 
         Route::get('take-admission', 'StudentController@takeAdmission')->name('admin.student.take.admission'); 
-        Route::post('take-admission-store', 'StudentController@takeAdmissionStore')->name('admin.student.take.admission.store'); 
+        Route::post('take-admission-store', 'StudentController@takeAdmissionStore')->name('admin.student.take.admission.store'); //-----------new-application-report-------- 
+        Route::get('new-application-report', 'StudentController@newApplicationReport')->name('admin.student.new.application.report'); 
+        Route::post('new-application-filter', 'StudentController@newApplicationReportFilter')->name('admin.student.new.application.report.filter'); 
 		});
 
 	 	// ---------------student-fine-details ----------------------------------------

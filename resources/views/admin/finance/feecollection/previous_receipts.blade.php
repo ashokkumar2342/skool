@@ -13,8 +13,8 @@
 				<thead>
 					<tr>
 						<th>Receipt No.</th>
-						<th>Description</th>
-						<th >Receipt Amount</th> 
+						<th >Description</th>
+						<th>Receipt Amount</th> 
 					</tr>
 				</thead>
 				<tbody>
@@ -38,9 +38,10 @@
 
 
 	<script>
+		
 function printDiv() { 
             var divContents = document.getElementById("previous_receipts_print").innerHTML; 
-            var printWindow = window.open('', '', 'height=1600, width=1600'); 
+            var printWindow = window.open('', '', 'height=800, width=800'); 
               printWindow.document.write(divContents); 
               printWindow.document.close();
               printWindow.print();
