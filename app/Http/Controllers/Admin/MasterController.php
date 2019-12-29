@@ -14,6 +14,7 @@ use App\Model\IncomeRange;
 use App\Model\Profession;
 use App\Model\Religion;
 use App\Model\StudentStatus;
+use App\Model\AdmissionSeatDefault;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -552,13 +553,14 @@ class MasterController extends Controller
         }
         public function addadminssionSeat($id=null)
         {
+          $userId=Auth::guard('admin')->user()->id; 
           $academicYears=AcademicYear::orderBy('id','ASC')->get();
           $classes=MyFuncs::getClassByHasUser();
           if ($id!=null) {
             $adminssionSeat=AdmissionSeat::find($id);
            }
            if ($id==null) {
-            $adminssionSeat='';
+            $adminssionSeat=AdmissionSeatDefault::where('user_id',$userId)->first();
            } 
           return view('admin.master.admissionSeat.form',compact('academicYears','classes','adminssionSeat')); 
         }
@@ -575,7 +577,7 @@ class MasterController extends Controller
                 'test_date' => 'required|date', 
                 'retest_date' => 'required|date', 
                 'result_date' => 'required|date', 
-                'attachment' => 'required', 
+                
                 
             
              
@@ -594,7 +596,7 @@ class MasterController extends Controller
                $adminssionSeat->academic_year_id=$request->academic_year_id;  
                $adminssionSeat->class_id=$request->class_id;  
                $adminssionSeat->total_seat=$request->total_seat;  
-               $adminssionSeat->from_fee=$request->from_fee;  
+               $adminssionSeat->form_fee=$request->from_fee;  
                $adminssionSeat->from_date=$request->from_date;  
                $adminssionSeat->last_date=$request->last_date; 
                $adminssionSeat->test_date=$request->test_date; 
@@ -604,8 +606,8 @@ class MasterController extends Controller
                 $attachment=$request->attachment;
                 $filename='test_syllabus'.date('d-m-Y').time().'.pdf'; 
                 $attachment->storeAs('app/student/test/syllabus/',$filename);
+                $adminssionSeat->syllabus=$filename;
                 } 
-               $adminssionSeat->syllabus=$filename;
                $adminssionSeat->save();
                 $response=['status'=>1,'msg'=>'Submit Successfully'];
               }     return response()->json($response);

@@ -266,11 +266,11 @@ class StudentController extends Controller
     {   
        
        try {
+          
         $rules=[
              'sibling_registration' => 'required',
              'sibling_registration_no' => 'required_if:sibling_registration,yes',
-             'mobileno' => 'required_if:sibling_registration,no|unique:students',
-             'emailid' => 'required_if:sibling_registration,no|unique:students',
+             
              'class' => 'required',
              "section" => 'required',
              'registration_no' => "required|unique:students|min:$request->reg_length|max:$request->reg_length",
@@ -284,6 +284,17 @@ class StudentController extends Controller
              "aadhaar_no" => "required|digits:12",
              "house_name" => "required", 
          ];
+         if ($request->sibling_registration=='no') {
+          // $rules=['mobileno' => 'required_if:sibling_registration,no|unique:students,mobileno'];
+          // $rules=['emailid' => 'required_if:sibling_registration,no|unique:students,emailid'];
+                 
+
+          $arr=  ['mobileno' => 'required_if:sibling_registration,no|unique:students',
+                     'emailid' => 'required_if:sibling_registration,no|unique:students'];
+         array_push($rules, $arr);
+       
+        }
+
          $validator = Validator::make($request->all(),$rules);
          if ($validator->fails()) {
              $errors = $validator->errors()->all();
@@ -1283,7 +1294,7 @@ class StudentController extends Controller
     {   
        $userId=Auth::guard('admin')->user();
        $conditionId=$id;
-       $studentUserMaps=StudentUserMap::where('userId',56)->pluck('student_id')->toArray();
+       $studentUserMaps=StudentUserMap::where('userId',$userId->id)->pluck('student_id')->toArray();
        if ($id==1) {
          $students=Student::whereIn('id',$studentUserMaps)->where('student_status_id',8)->get(); 
        }elseif ($id==2) {
@@ -1498,38 +1509,51 @@ class StudentController extends Controller
              $response["msg"]=$errors[0];
              return response()->json($response);// response as json
          } 
-       $student=Student::where('student_status_id','!=',1)->where('class_id',$request->class_id)->pluck('id')->toArray();
-       $admissionApplications=AdmissionApplication::whereIn('student_id',$student)->where('for_academic_year',$request->academic_year_id)->get();
+       $academic_year_id=$request->academic_year_id;
+       $class_id=$request->class_id;
        $response=array();
        $response['status']=1;
-       $response['data']=view('admin.student.studentdetails.admissiontestmark.studentlist',compact('admissionApplications'))->render();
+       $response['data']=view('admin.student.studentdetails.admissiontestmark.studentlist',compact('academic_year_id','class_id'))->render();
        return $response;
+    }
+     public function admissionTestMarksfilter(Request $request,$class_id,$academicYear_id,$conditionId)
+    { 
+       
+         $student=Student::where('student_status_id','!=',1)->where('class_id',$class_id)->pluck('id')->toArray();
+         $admissionApplications=AdmissionApplication::whereIn('student_id',$student)->where('for_academic_year',$academicYear_id)->where('status',$conditionId)->get();
+      
+            return  view('admin.student.studentdetails.admissiontestmark.student_marks',compact('admissionApplications'))->render();
+         
     }
     public function admissionTestMarksStore(Request $request)
     {
        foreach ($request->status as $student_id => $status_id) {
-       $admissionApplications=AdmissionApplication::firstOrNew(['student_id'=>$student_id]); 
-       $admissionApplications->status=$status_id; 
-       $admissionApplications->save(); 
-       }
-       $response=array();
-       $response['status']=1;
-       $response['msg']='Submit Successfully';
-       return $response;
+         foreach ($request->marks as $key => $value) { 
+           $admissionApplications=AdmissionApplication::firstOrNew(['student_id'=>$student_id]); 
+           $admissionApplications->test_marks=$value; 
+           $admissionApplications->status=$status_id; 
+          $admissionApplications->save(); 
+           }
+      }
+          $response=array();
+          $response['status']=1;
+          $response['msg']='Submit Successfully';
+          return $response;
     }
     public function takeAdmission($value='')
     {
       $user = Auth::guard('admin')->user();
-        $sectionTypes=SectionType::orderBy('sorting_order_id','ASC')->get();
+        $classTypes=MyFuncs::getClassByHasUser();
         $default = StudentDefaultValue::where('user_id',$user)->first();
         $schoolinfo=Schoolinfo::first();
         $houses=House::orderBy('id','ASC')->get();   
-       return view('admin.student.studentdetails.takeadmission.view',compact('default','schoolinfo','houses','sectionTypes'));
+       return view('admin.student.studentdetails.takeadmission.view',compact('default','schoolinfo','houses','classTypes'));
     }
     public function takeAdmissionStore(Request $request)
     { 
         $rules=[
              'application_no' => 'required',
+             'class_id' => 'required',
              'section_id' => 'required',
              'registration_no' => "required|unique:students|min:$request->reg_length|max:$request->reg_length", 
              "admission_no" => 'required|max:20|unique:students',
@@ -1554,10 +1578,14 @@ class StudentController extends Controller
          $response['status']=0;
          $response['msg']='Invalid Application No.';
          return $response;  
-       }else{
-        $student=Student::find($application->student_id);
-        $sections =Section::where('class_id',$student->class_id)->pluck('section_id')->toArray();
-         if (in_array($request->section_id,$sections)) {
+       }elseif($application->status==9){
+         $response=array();
+         $response['status']=0;
+         $response['msg']='This Application No. Already Admitted';
+         return $response;
+       }elseif($application->status==6){
+          $student=Student::find($application->student_id); 
+           $student->class_id=$request->class_id;
            $student->section_id=$request->section_id;
            $student->registration_no=$request->registration_no;
            $student->admission_no=$request->admission_no;
@@ -1567,19 +1595,59 @@ class StudentController extends Controller
            $student->house_no=$request->house_name;
            $student->student_status_id=1;
            $student->save();
+           $application->status=9;
+           $application->save();
            $response=array();
            $response['status']=1;
            $response['msg']='Admission Successfully.';
-           return $response;
-         }else {
-           $response=array();
-           $response['status']=0;
-           $response['msg']='Section Not Allow for Application No.';
-           return $response;
-         }
-         
-        
+           return $response; 
        }
+         $response=array();
+         $response['status']=0;
+         $response['msg']='This Application No. Not Pass';
+         return $response;
+          
     }
+    //-------------new-application-report-----------------------------------------------------
+
+    public function newApplicationReport($value='')
+    {
+       $academicYears=AcademicYear::all();
+       $classTypes=MyFuncs::getClassByHasUser();
+       return view('admin.report.newApplicationReport.view',compact('academicYears','classTypes'));
+    }
+    public function newApplicationReportFilter(Request $request)
+   {   
+       $rules=array();  
+      if ($request->academic_year_id!=null && $request->class_id!=null && $request->status!=null) {
+         $student=Student::where('class_id',$request->class_id)->pluck('id')->toArray();
+         $students=AdmissionApplication::whereIn('student_id',$student)->where('for_academic_year',$request->academic_year_id)->where('status',$request->status)->get();  
+      }
+      elseif ($request->academic_year_id!=null && $request->class_id!=null) {
+          $student=Student::where('class_id',$request->class_id)->pluck('id')->toArray(); 
+          $students=AdmissionApplication::whereIn('student_id',$student)->where('for_academic_year',$request->academic_year_id)->get(); 
+      }
+      elseif ($request->academic_year_id!=null && $request->status!=null) {
+          
+          $students=AdmissionApplication::where('status',$request->status)->where('for_academic_year',$request->academic_year_id)->get(); 
+      }
+      elseif ($request->academic_year_id!=null) { 
+          $students=AdmissionApplication::where('for_academic_year',$request->academic_year_id)->get();  
+      }
+      $rules['academic_year_id']='required';
+      $validator = Validator::make($request->all(),$rules);
+      if ($validator->fails()) {
+          $errors = $validator->errors()->all();
+          $response=array();
+          $response["status"]=0;
+          $response["msg"]=$errors[0];
+          return response()->json($response);// response as json
+      }
+      $response = array();
+                  $response['status'] = 1; 
+                  $response['data'] =view('admin.report.newApplicationReport.result' ,compact('students'))->render(); 
+                    return response()->json($response); 
+   }
+
    
 }

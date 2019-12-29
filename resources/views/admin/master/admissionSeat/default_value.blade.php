@@ -1,31 +1,20 @@
-  
-  <!-- Main content -->
-   
-    <style type="text/css" media="screen">
-  .bd{
-    border-bottom: #eee solid 1px;;
-  }
-  
-</style>
- 
-  <div class="modal-dialog" style="width:60%">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{ @$adminssionSeat->id?'Edit' : 'Add' }} Admission Schedule</h4>
-      </div>
-      <div class="modal-body"> 
-            <form action="{{ route('admin.adminssion.seat.store',@$adminssionSeat->id) }}" method="post" class="add_form" content-refresh="admission_seat_table" button-click="btn_close" enctype="multipart/form-data">
+@extends('admin.layout.base')
+@section('body')
+<section class="content-header"> 
+    <h1>Admission Schedule Default Value</h1>
+</section>
+    <section class="content">
+        <div class="box"> 
+          <div class="box-body">
+           <form action="{{ route('admin.defaultValue.admission.schedule.store') }}" method="post" >
               {{ csrf_field() }}
               <div class="row">
-                <div class="col-lg-6 form-group">
+                {{-- <div class="col-lg-6 form-group">
                   <label>Academic Year</label>
                   <select name="academic_year_id" class="form-control">
                     <option selected disabled> Select Academic Year</option>
                     @foreach ($academicYears as $academicYear)
-                       <option value="{{ $academicYear->id }}"{{ @$adminssionSeat->academic_year_id==$academicYear->id?'selected' : $academicYear->status==1?'selected' : '' }}>{{ $academicYear->name }}</option> 
+                       <option value="{{ $academicYear->id }}"{{ @$adminssionSeat->academic_year_id==$academicYear->id?'selected' : '' }}>{{ $academicYear->name }}</option> 
                     @endforeach 
                   </select> 
                 </div> 
@@ -37,49 +26,68 @@
                        <option value="{{ $classe->id }}"{{ @$adminssionSeat->class_id==$classe->id?'selected' : '' }}>{{ $classe->name }}</option> 
                     @endforeach 
                   </select> 
-                </div>
-                <div class="col-lg-6 form-group">
+                </div> --}}
+                <div class="col-lg-3 form-group">
                   <label>Total Seat</label>
-                  <input type="text" name="total_seat" class="form-control" placeholder="Enter" maxlength="10" value="{{ @$adminssionSeat->total_seat }}"> 
+                  <input type="text" name="total_seat" class="form-control" placeholder="" maxlength="10" value="{{ @$adminssionSeat->total_seat }}"> 
                 </div>
-                <div class="col-lg-6 form-group">
+                <div class="col-lg-3 form-group">
                   <label>Form Fee</label>
-                  <input type="number" name="from_fee" class="form-control" value="{{ @$adminssionSeat->form_fee }}"> 
+                  <input type="number" name="form_fee" class="form-control" value="{{ @$adminssionSeat->form_fee }}"> 
                 </div>
-                <div class="col-lg-6 form-group">
+                <div class="col-lg-3 form-group">
                   <label>From Date</label>
                   <input type="date" name="from_date" class="form-control" value="{{ @$adminssionSeat->from_date }}"> 
                 </div>
-                <div class="col-lg-6 form-group">
+                <div class="col-lg-3 form-group">
                   <label>Last Date</label>
                   <input type="date" name="last_date" class="form-control" value="{{ @$adminssionSeat->last_date }}"> 
                 </div> 
-                <div class="col-lg-6 form-group">
+                <div class="col-lg-3 form-group">
                   <label>Test Date</label>
                   <input type="date" name="test_date" class="form-control" value="{{ @$adminssionSeat->last_date }}"> 
                 </div>
-                <div class="col-lg-6 form-group">
+                <div class="col-lg-3 form-group">
                   <label>Retest Date</label>
                   <input type="date" name="retest_date" class="form-control" value="{{ @$adminssionSeat->last_date }}"> 
                 </div>
-                <div class="col-lg-6 form-group">
+                <div class="col-lg-3 form-group">
                   <label>Result Date</label>
                   <input type="date" name="result_date" class="form-control" value="{{ @$adminssionSeat->last_date }}"> 
                 </div>
-                <div class="col-lg-6 form-group">
+               {{--  <div class="col-lg-6 form-group">
                   <label>syllabus</label>
                   <input type="file" name="attachment" class="form-control" value="{{ @$adminssionSeat->last_date }}"> 
-                </div>
+                </div> --}}
                 <div class="col-lg-12 form-group text-center" >
                    <input type="submit" class="btn btn-success">
                 </div> 
               </div> 
               </form>  
-            </div> 
+          </div>
         </div>
-      </div>
-
      
-    <!-- /.content -->
-
+     
+         
  
+    </section>
+    <!-- /.content -->
+@endsection
+@push('links')
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
+
+@endpush
+ @push('scripts')
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+  
+  <script>
+     $(document).ready(function() {
+       $('#admission_seat_table').DataTable( {
+            
+       } );
+   } );  
+   
+  </script>
+  
+@endpush

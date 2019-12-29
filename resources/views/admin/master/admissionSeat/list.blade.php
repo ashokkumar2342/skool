@@ -3,7 +3,7 @@
 <section class="content-header">
       
       <a  onclick="callPopupLarge(this,'{{ route('admin.adminssion.seat.add') }}')" class="btn btn-info btn-sm pull-right">Add Admission Seat</a>
-    <h1>Admission Seat</h1>
+    <h1>Admission Schedule</h1>
 </section>
     <section class="content">
         <div class="box"> 
@@ -14,8 +14,12 @@
                    <th>Academic Year</th>
                    <th>Class</th>
                    <th>Total Seat</th>
+                   <th>Form  Fee</th>
                    <th>From Date</th>
                    <th>Last Date</th>
+                   <th>Test Date</th>
+                   <th>Retest Date</th>
+                   <th>Result Date</th>
                    <th>Action</th>
                  </tr>
                </thead>
@@ -25,8 +29,12 @@
                          <td>{{ $adminssionSeat->academicYears->name or ''}}</td>
                          <td>{{ $adminssionSeat->classes->name or ''}}</td>
                          <td>{{ $adminssionSeat->total_seat}}</td>
+                         <td>{{ $adminssionSeat->form_fee}}</td>
                          <td>{{ date('d-m-Y',strtotime( $adminssionSeat->from_date))}}</td>
                          <td>{{ date('d-m-Y',strtotime( $adminssionSeat->last_date))}}</td>
+                         <td>{{ date('d-m-Y',strtotime( $adminssionSeat->test_date))}}</td>
+                         <td>{{ date('d-m-Y',strtotime( $adminssionSeat->retest_date))}}</td>
+                         <td>{{ date('d-m-Y',strtotime( $adminssionSeat->result_date))}}</td>
                          <td>
                           <a  onclick="callPopupLarge(this,'{{ route('admin.adminssion.seat.add',$adminssionSeat->id) }}')" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></a>
                           <a href="" title="" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>

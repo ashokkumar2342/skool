@@ -12,9 +12,11 @@
 			<table class="table" width="100%">
 				<thead>
 					<tr>
+
 						<th align="left">Receipt No.</th>
 						<th align="left">Description</th>
 						<th align="left">Amount</th> 
+
 					</tr>
 				</thead>
 				<tbody>
@@ -43,9 +45,12 @@
 
 
 	<script>
+		
 function printDiv() { 
             var divContents = document.getElementById("previous_receipts_print").innerHTML; 
-            var printWindow = window.open('', '', 'height=1000, width=800'); 
+
+            var printWindow = window.open('', '', 'height=800, width=800'); 
+
               printWindow.document.write(divContents); 
               printWindow.document.close();
               printWindow.print();

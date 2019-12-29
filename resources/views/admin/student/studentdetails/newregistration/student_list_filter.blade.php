@@ -16,6 +16,13 @@
 	@foreach ($students as $student)
 	@php
 		$application=App\Model\AdmissionApplication::where('student_id',$student->id)->get();
+		$studentStatus='';
+		if($student->student_status_id==1){
+           $studentStatus='hidden';
+		}
+		elseif($student->student_status_id==9){
+           $studentStatus='hidden';
+		}
 	@endphp
 	<tr>
 		<td>{{ ++$loop->index }}</td> 
@@ -28,16 +35,18 @@
 		<td>{{ $student->name or '' }}</td>
 		<td>
 			@if (empty($application->first()->profile_path))
-			<a class="btn btn-warning btn-xs"  title="Edit Student" href="{{ route('admin.student.view',$student->id) }}" target="_blank"><i class="fa fa-edit"></i></a>
-			@if ($student->student_status_id==1)
-			<a class="btn btn-default btn-xs"  title="Edit Student" href="{{ route('admin.student.registration.profile.view',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a> 
-			 @else	 
-			<a class="btn btn-default btn-xs disabled"  title="Edit Student" href="{{ route('admin.student.registration.profile.view',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a> 
+			<a class="btn btn-info btn-xs {{ $studentStatus }} " title="Edit" href="{{ route('admin.student.view',$student->id) }}" target="_blank"><i class="fa fa-edit"></i></a> 
 			@endif
-			@else
-			<a class="btn btn-warning btn-xs" disabled title="Edit Student" href="{{ route('admin.student.view',$student->id) }}" target="_blank"><i class="fa fa-edit"></i></a>
-			<a class="btn btn-default btn-xs" title="Edit Student" href="{{ route('admin.student.registration.profile.view',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a>
+			@if (!empty($application->first()->profile_path  )) 
+					<a class="btn btn-default  btn-xs"  title="View" href="{{ route('admin.student.registration.profile.view',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a> 
+			   
 			@endif
+			@if($student->student_status_id==1) 
+			<a class="btn btn-default btn-xs" title="View" href="{{ route('admin.student.registration.profile.view',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a>
+			@endif
+			@if($student->student_status_id==9) 
+			<a class="btn btn-default btn-xs" title="View" href="{{ route('admin.student.registration.profile.view',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a>
+			@endif 
 			
 		</td>
 		</tr> 
