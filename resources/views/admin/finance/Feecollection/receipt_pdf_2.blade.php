@@ -30,7 +30,7 @@
                                                <tr>
                                                    <td colspan="4">
                                                        <div style="width: 600px;" align="center"> 
-                                                           <span id="lblheader" style="font-family:Arial;font-size:20;">Iskool, Jhajhar, Tele : +91-8397068001</br>Fee Receipt  Session : 2018-2019</span>
+                                                           <span id="lblheader" style="font-family:Arial;font-size:20;">eage, Jhajhar, Tele : +91-8397068001</br>Fee Receipt  Session : 2018-2019</span>
                                                            <hr />
                                                        </div>
                                                    </td>
@@ -57,7 +57,7 @@
                                                        <span id="lblStudentId" style="font-size:Small;">{{ $student->registration_no }}</span>
                                                    </td>
                                                    <td align="left" style="font-weight: bold; font-size: small;">
-                                                       <span id="lblRegistraionFees5" style="display:inline-block;font-family:Arial;font-size:Small;width:130px;text-align: left;">Class : </span>
+                                                       <span id="lblRegistraionFees5" style="display:inline-block;font-family:Arial;font-size:Small;text-align: left;">Class : </span>
                                                    </td>
                                                    <td>
                                                        <span id="lblClass" style="font-size:Small;">{{ $student->class_name }}</span>
@@ -68,15 +68,15 @@
                                                        <span id="lblStudentName" style="display:inline-block;font-family:Arial;font-size:Small;width:180px;text-align: left;">Name: </span>
                                                    </td>
                                                    <td>
-                                                       <span id="lblName" style="font-size:Small;">{{ $student->stu_name }} Chauhan</span>
+                                                       <span id="lblName" style="font-size:Small;">{{ $student->stu_name }} </span>
                                                    </td>
                                                    <td class="style1">
                                                        
-                                                       <span id="lblRegistraionFees7" style="font-weight: bold; display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Mobile No.:</span>
+                                                       <span id="lblRegistraionFees7" style="font-weight: bold; display:inline-block;font-family:Arial;font-size:Small;text-align: left;">Mobile No.:</span>
                                                    </td>
                                                    <td>
                                                        
-                                                       <span id="lblMother1" style="font-size:Small;">4444444444</span>
+                                                       <span id="lblMother1" style="font-size:Small;"></span>
                                                    </td>
                                                    
                                                </tr>
@@ -90,7 +90,7 @@
                                                     
                                                    <td class="style1">
                                                        
-                                                       <span id="lblRegistraionFees7" style="font-weight: bold; display:inline-block;font-family:Arial;font-size:Small;width:120px;text-align: left;">Period:</span>
+                                                       <span id="lblRegistraionFees7" style="font-weight: bold; display:inline-block;font-family:Arial;font-size:Small;text-align: left;">Period:</span>
                                                    </td>
                                                    <td>
                                                        

@@ -68,7 +68,7 @@
   	            	   	                            <span id="lblStudentName" style="display:inline-block;font-family:Arial;font-size:Small;width:180px;text-align: left;">Name: </span>
   	            	   	                        </td>
   	            	   	                        <td>
-  	            	   	                            <span id="lblName" style="font-size:Small;">{{ $student->stu_name }} Chauhan</span>
+  	            	   	                            <span id="lblName" style="font-size:Small;">{{ $student->stu_name }} </span>
   	            	   	                        </td>
   	            	   	                        <td class="style1">
   	            	   	                            
