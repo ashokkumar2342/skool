@@ -288,6 +288,8 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('/', 'StudentDefaultValueController@index')->name('admin.defaultValue.list');
 	    Route::post('add', 'StudentDefaultValueController@store')->name('admin.defaultValue.post');
 	    Route::get('template/{id}', 'StudentDefaultValueController@template')->name('admin.defaultValue.template');
+	    Route::get('admission-schedule', 'StudentDefaultValueController@admissionSchedule')->name('admin.defaultValue.admission.schedule');
+	    Route::post('admission-schedule-store', 'StudentDefaultValueController@admissionScheduleStore')->name('admin.defaultValue.admission.schedule.store');
 	    
 	 });
 	 // ---------------Parents Info----------------------------------------

@@ -14,6 +14,7 @@ use App\Model\IncomeRange;
 use App\Model\Profession;
 use App\Model\Religion;
 use App\Model\StudentStatus;
+use App\Model\AdmissionSeatDefault;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -552,13 +553,14 @@ class MasterController extends Controller
         }
         public function addadminssionSeat($id=null)
         {
+          $userId=Auth::guard('admin')->user()->id; 
           $academicYears=AcademicYear::orderBy('id','ASC')->get();
           $classes=MyFuncs::getClassByHasUser();
           if ($id!=null) {
             $adminssionSeat=AdmissionSeat::find($id);
            }
            if ($id==null) {
-            $adminssionSeat='';
+            $adminssionSeat=AdmissionSeatDefault::where('user_id',$userId)->first();
            } 
           return view('admin.master.admissionSeat.form',compact('academicYears','classes','adminssionSeat')); 
         }

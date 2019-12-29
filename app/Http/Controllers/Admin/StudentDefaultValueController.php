@@ -23,6 +23,7 @@ use App\Model\Sms\EmailTemplate;
 use App\Model\Sms\SmsTemplate;
 use App\Model\Sms\TemplateType;
 use App\Model\StudentDefaultValue;
+use App\Model\AdmissionSeatDefault;
 use App\Model\StudentFee;
 use App\Model\StudentSubject;
 use App\Model\Subject;
@@ -173,9 +174,29 @@ class StudentDefaultValueController extends Controller
      * @param  \App\Model\StudentDefaultValue  $studentDefaultValue
      * @return \Illuminate\Http\Response
      */
-    public function edit(StudentDefaultValue $studentDefaultValue)
+    public function admissionSchedule()
     {
-        //
+        $userId=Auth::guard('admin')->user()->id;
+        $adminssionSeat=AdmissionSeatDefault::where('user_id',$userId)->first();
+       return view('admin.master.admissionSeat.default_value',compact('adminssionSeat'));  
+    }
+    public function admissionScheduleStore(Request $request)
+    {
+         // return $request;
+        $user_id=Auth::guard('admin')->user()->id;
+        $default = AdmissionSeatDefault::firstOrNew(['user_id'=>$user_id]); 
+        $default->user_id = $user_id;
+        $default->total_seat = $request->total_seat;
+        $default->form_fee = $request->form_fee;
+        $default->from_date = $request->from_date;
+        $default->last_date = $request->last_date;
+        $default->test_date = $request->test_date;
+        $default->retest_date = $request->retest_date;
+        $default->result_date = $request->result_date;
+        $default->save();
+        return redirect()->back()->with(['message'=>'Default Value Updated','class'=>'success']);
+
+
     }
 
     /**
