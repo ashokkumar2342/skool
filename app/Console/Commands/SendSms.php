@@ -7,6 +7,7 @@ use App\Events\SmsEvent;
 use App\Helpers\MailHelper;
 use App\Jobs\SendSmsJob;
 use App\Model\Sms\EmailTemplate;
+use App\Model\Sms\SentEmailAttachment;
 use App\Model\Sms\SentEmailDetail;
 use App\Model\Sms\SentSmsDetail;
 use Illuminate\Console\Command;
@@ -72,18 +73,23 @@ class SendSms extends Command
             }
             $up_u=array(); 
             $up_u['data']=$message;
+            $urls=SentEmailAttachment::where('sent_email_detail_id',$sentEmailDetailsFinalData->id)->pluck('attachment_file')->toArray();
             
+             // Log::info(Storage_path() . '/app/student/feereceipt/100.pdf');
+            
+            
+             
+
          
         $mailHelper =new MailHelper(); 
- 
-        $mailHelper->mailsend('emails.'.$temp_name,$up_u,'No-Reply',$subject,'dilipkumarchauhan2342@gmail.com','info@eageskool.com',5);
+        $mailHelper->mailsendwithattachment('emails.'.$temp_name,$up_u,'No-Reply',$subject,'dilipkumarchauhan2342@gmail.com','info@eageskool.com',5,$urls);
  
          } 
-         $array=array();       
-         $array['mobile']=$sentEmailDetailsFinalData->mobileno;
-         $array['message']=$sentEmailDetailsFinalData->smstext;
-         $job=(new SendSmsJob($array))->delay(now()->addSeconds(5));
-         dispatch($job);  
+         // $array=array();       
+         // $array['mobile']=$sentEmailDetailsFinalData->mobileno;
+         // $array['message']=$sentEmailDetailsFinalData->smstext;
+         // $job=(new SendSmsJob($array))->delay(now()->addSeconds(5));
+         // dispatch($job);  
 
        
       $arrId =$sentEmailDetailsFinalDatas->pluck('id')->toArray();

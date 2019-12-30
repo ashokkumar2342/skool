@@ -159,7 +159,7 @@ class MailHelper
 		$this->mailsend('emails.securedevice',$up_u,'No-Reply','New Device',$user,env('MAIL_USERNAME'),5);
 	}
 
-    public function mailsendwithattachment($template,$data_mail,$sender_name,$subject,$to,$from,$delaytime,$url){
+    public function mailsendwithattachment($template,$data_mail,$sender_name,$subject,$to,$from,$delaytime,$url=null){
 
 		$array=array();
 		$array['template']=$template;

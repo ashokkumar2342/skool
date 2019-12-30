@@ -44,7 +44,10 @@ class SendEmailAttach implements ShouldQueue
             $message->from($from, $sender_name);
             $message->subject($subject);
             $message->to($to);
-            $message->attach($attach);
+            foreach ($attach as $key => $value) {
+               $message->attach($value);
+            }
+            
             
         });
     }
