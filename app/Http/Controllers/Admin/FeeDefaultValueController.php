@@ -46,6 +46,8 @@ class FeeDefaultValueController extends Controller
     	$feedefaultvalue->payment_mode=$request->payment_mode;
     	$feedefaultvalue->sibiling_detail=$request->sibiling_detail;
     	$feedefaultvalue->print_receipt=$request->print_receipt;
+        $feedefaultvalue->rec_header=$request->rec_header;
+        $feedefaultvalue->rec_note=$request->rec_note;
     	$feedefaultvalue->save();
     	$response=['status'=>1,'msg'=>'Submit Successfully'];
             return response()->json($response);

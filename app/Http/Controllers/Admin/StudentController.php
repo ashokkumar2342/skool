@@ -164,8 +164,9 @@ class StudentController extends Controller
           $documents = Document::where('student_id',$id)->get(); 
           $studentSubjects=StudentSubject::where('student_id',$id)->get();
          //application barcode ///
+                     if ($student->student_status_id!=1) {
                      $admissionApplication=AdmissionApplication::where('student_id',$student->id)->first();
-                     $value=$admissionApplication->id;     
+                     $value=$admissionApplication->id; 
                      $barcode = new BarcodeGenerator();
                      $barcode->setText($value);
                      $barcode->setType(BarcodeGenerator::Code128);
@@ -173,7 +174,12 @@ class StudentController extends Controller
                      $barcode->setThickness(25);
                      $barcode->setFontSize(10);
                      $code = $barcode->generate();
-                     $data = base64_decode($code); 
+                     $data = base64_decode($code);
+                  }
+                  if ($student->student_status_id==1) {
+                      
+                     $data = '';
+                  }     
            //application barcode end///
 
          return view('admin.student.studentdetails.preview',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address','data'));
@@ -1331,6 +1337,10 @@ class StudentController extends Controller
              "gender" => "required", 
              "aadhaar_no" => "required|digits:12|unique:students,adhar_no",
          ];
+         if ($request->sibling_registration=='no') {
+           $rules['mobileno']= 'required_if:sibling_registration,no|unique:students,mobileno';
+           $rules['emailid'] ='required_if:sibling_registration,no|unique:students,emailid'; 
+          }
          $validator = Validator::make($request->all(),$rules);
          if ($validator->fails()) {
              $errors = $validator->errors()->all();
@@ -1435,7 +1445,7 @@ class StudentController extends Controller
         ])
         ->loadView('admin.student.studentdetails.pdf_generate',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address','data'))->save($profilePdfUrl.'/'.$admissionApplication->id.'_student_all_details.pdf'); 
         
-         $admissionApplication->status=2;
+         $admissionApplication->status=1;
          $admissionApplication->profile_path=$profilePdfUrl.'/'.$admissionApplication->id.'_student_all_details.pdf';
          $admissionApplication->save();
         return redirect()->back()->with(['message'=>'Final Submit successfully','class'=>'success']);
@@ -1449,12 +1459,8 @@ class StudentController extends Controller
         $documents=Document::where('student_id',$student_id)->get(); 
         $docs=$documents; 
                    $pdfMerge = new Fpdi();
-                   $dt =array();
-                   if (empty($profilePdfUrl)) {
+                   $dt =array(); 
                     $dt['student']=$admissionApplication->profile_path; 
-                   }elseif (!empty($profilePdfUrl)) {
-                    $dt['student']=$profilePdfUrl; 
-                   }
                    foreach ($docs as $key=>$document) {
                     
                      $dt[$key]=Storage_path('app/'.$document->document_url);  

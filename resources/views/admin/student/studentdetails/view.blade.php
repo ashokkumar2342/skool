@@ -26,9 +26,9 @@ b{
           <a href="{{ route('admin.student.pdf.generate',$student->id) }}" class="btn btn-xs btn-success pull-right" title="Download Profile " target="_blank" style="margin:5px">PDF</a>
          @endif
          @if (!empty($admissionApplication))  
-          @if ($admissionApplication->status>=2) 
+          {{-- @if ($admissionApplication->status>=2)  --}}
           <a href="{{ route('admin.student.registration.profile.view',$student->id) }}" class="btn btn-xs btn-primary pull-right" title="Download Profile " target="_blank" style="margin:5px">View Details</a> 
-          @endif
+        {{--   @endif --}}
         @endif
 
            
@@ -58,7 +58,7 @@ b{
                                   @php
                                    $disabled='';
                                    if ($userId->role_id==12){ 
-                                    $disabled='disabled'; 
+                                    $disabled='hidden'; 
                                    } 
                                  if(!empty($admissionApplication)){   
                                    $status='';
@@ -111,7 +111,7 @@ b{
                                         </select>
                                       </span></li>
                                      
-                                      <li class="list-group-item">Registration No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->registration_no or ''}}" name="registration_no"> </span></li>
+                                      <li class="list-group-item">Registration No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->registration_no or ''}}" name="registration_no" id="registration_no"> </span></li>
                                       
                                       <li class="list-group-item">Roll No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text"maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="width: 290px;height: 28px" value="{{ $student->roll_no or ''}}" {{ $disabled }} name="roll_no"> </span></li>
                                       <li class="list-group-item">Admission No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->admission_no }}" name="admission_no"> </span></li>
@@ -316,6 +316,14 @@ b{
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  <script type="text/javascript">
+   $("#registration_no").keypress(function(event) {
+    var character = String.fromCharCode(event.keyCode);
+    return isValid(character);     
+});
+
+function isValid(str) {
+    return !/[~`!@#$%\^&*()+=\-\_[\]\\';,./{}|\\":<>\?]/g.test(str);
+}
      $(document).ready(function(){
         
           $('#show_webcam').hide('400')
