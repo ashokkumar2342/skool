@@ -104,7 +104,7 @@
                                                 <div class="form-group">
                                                     {{ Form::label('registration_no','Registration No.',['class'=>' control-label ']) }}
                                                     <span class="fa fa-asterisk"></span> 
-                                                    <input type="text" class="form-control" name="registration_no" maxlength="{{ $schoolinfo->reg_length }}" min="{{ $schoolinfo->reg_length }}" placeholder="Enter Registration No."> 
+                                                    <input type="text" class="form-control" name="registration_no" maxlength="{{ $schoolinfo->reg_length }}" min="{{ $schoolinfo->reg_length }}" placeholder="Enter Registration No." id="registration_no"> 
                                                 </div>
                                             </div>
                                             <input type="hidden" name="reg_length" value="{{ $schoolinfo->reg_length }}">
@@ -247,6 +247,14 @@
  @push('scripts')
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  <script type="text/javascript"> 
+    $("#registration_no").keypress(function(event) {
+    var character = String.fromCharCode(event.keyCode);
+    return isValid(character);     
+});
+
+function isValid(str) {
+    return !/[~`!@#$%\^&*()+=\-\_[\]\\';,./{}|\\":<>\?]/g.test(str);
+}
     $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
     $('#date_of_birth').datepicker({
      dateFormat: "dd-mm-yy",

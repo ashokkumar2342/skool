@@ -8,9 +8,16 @@
     @page{
         margin:0px
     }
+    li:before {
+       /* vertical-align: sub ;*/
+        content:' * ';
+        font-size: 20px;
+        font:center;
+        
+
+    }
     li{
-        padding-bottom: 1px;
-        padding-left: 10px;
+        list-style: none;
 
     }
     .panel{
@@ -19,8 +26,7 @@
     .page-breck{
       page-break-before:always; 
     }
-  
- 
+      
     @include('admin.include.boostrap')
 
 </style>
@@ -63,26 +69,26 @@
              
            </div>
            <div class="col-lg-6"> 
-            <li><b> {{ $student->name }}  </b> </li> 
-            <li><b>{{ $student->nick_name }}</b></li>
-            <li><b>{{ $student->classes->name or '' }}</b></li>
-            <li><b>{{ $student->sectionTypes->name or '' }}</b></li>
-            <li><b>{{ $student->registration_no }}</b></li>
-            <li><b>{{ $student->admission_no }}</b></li>
-            <li><b>{{ date('d-m-Y',strtotime($student->date_of_admission))}}</b></li>
-            <li><b>{{date('d-m-Y',strtotime($student->date_of_activation ))}}</b></li>
-            <li><b> {{ $student->addressDetails->address->categories->name or ''}} </b> </li>
-            <li><b> {{ $student->addressDetails->address->religions->name or ''}} </b></li>
-            <li><b>{{date('d-m-Y',strtotime($student->dob ))}}</b></li> 
-            <li><b>{{ $student->addressDetails->address->primary_mobile  or ''}}</b></li>
-            <li><b>{{ $student->adhar_no }}</b></li>
-            <li><b>{{ $student->username }}</b></li>   
-            <li><b>{{ $student->tem_pass }}</b></li>
-            <li><b> {{ $student->addressDetails->address->primary_email or ''}} </b></li>
-            <li><b>{{ $student->genders->genders or '' }}</b></li>
-            <li><b>{{$student->houses->name or ''}}</b></li>
-            <li><b> {{ $student->addressDetails->address->state or ''}} </b> </li> 
-            <li><b>{{ $student->addressDetails->address->city or ''}}</b></li>
+           <li><b> {{ $student->name }}  </b> </li> 
+           <li><b>{{ $student->nick_name }}</b></li>
+           <li><b>{{ $student->classes->name or '' }}</b></li>
+           <li><b>{{ $student->sectionTypes->name or '' }}</b></li>
+           <li><b>{{ $student->registration_no }}</b></li>
+           <li><b>{{ $student->admission_no }}</b></li>
+           <li><b>{{ date('d-m-Y',strtotime($student->date_of_admission))}}</b></li>
+           <li><b>{{date('d-m-Y',strtotime($student->date_of_activation ))}}</b></li>
+           <li><b> {{ $student->addressDetails->address->categories->name or ''}} </b> </li>
+           <li><b> {{ $student->addressDetails->address->religions->name or ''}} </b></li>
+           <li><b>{{date('d-m-Y',strtotime($student->dob ))}}</b></li> 
+           <li><b>{{ $student->addressDetails->address->primary_mobile  or ''}}</b></li>
+           <li><b>{{ $student->adhar_no }}</b></li>
+           <li><b>{{ $student->username }}</b></li>   
+           <li><b>{{ $student->tem_pass }}</b></li>
+           <li><b> {{ $student->addressDetails->address->primary_email or ''}} </b></li>
+           <li><b>{{ $student->genders->genders or '' }}</b></li>
+           <li><b>{{$student->houses->name or ''}}</b></li>
+           <li><b> {{ $student->addressDetails->address->state or ''}} </b> </li> 
+           <li><b>{{ $student->addressDetails->address->city or ''}}</b></li>
            
            </div>
            <div class="col-lg-3" style="margin-right: 10">
