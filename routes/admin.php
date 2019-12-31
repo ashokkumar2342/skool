@@ -658,6 +658,9 @@ Route::group(['middleware' => 'admin'], function() {
     	     Route::get('show-fee-Concession-model/{id}', 'StudentFeeDetailController@showFeeDetailConcessionModel')->name('admin.studentFeeStructure.Concession.show.model');
     	      Route::post('show-fee-struture-concession-store/{id}', 'StudentFeeDetailController@feeconcessioneStore')->name('admin.studentFee.details.concession.store');
     	      Route::get('previous-reciept-model-show', 'StudentFeeDetailController@previousRecieptModel')->name('admin.privious.reciept.show.model');
+    	      Route::get('previous-reciept-search', 'StudentFeeDetailController@previousRecieptSearch')->name('admin.privious.reciept.search');
+    	      Route::get('previous-reciept-show', 'StudentFeeDetailController@previousRecieptShow')->name('admin.privious.reciept.show');
+    	      Route::get('previous-reciept-download/{id}', 'StudentFeeDetailController@previousRecieptDownload')->name('admin.privious.reciept.download');
     	 });
     	 //------------------------- StudentFeeGroupDetail --------------------------------- 
     	Route::group(['prefix' => 'fee-group-wise'], function() {

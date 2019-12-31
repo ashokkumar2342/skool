@@ -33,14 +33,15 @@
                            {{-- <button type="button" id="fee_collection_details_btn" class="btn btn-warning" >Show</button> --}} 
                       </div>                                                     
                      <div class="col-md-2" style="padding-top: 20px;"> 
-                     <input class="btn btn-success" type="submit"  style="width: 130px" value="Show"> 
+                     <input class="btn btn-success" type="submit"  style="width: 115px" value="Show"> 
                     </div>                     
                   </form> 
                     <div class="col-md-6 text-center" style="padding-top: 20px;">
-                         <button class="btn btn-warning" type="button" id="btn_student_registration_show" data-toggle="modal" data-target="#myModal" style="width: 130px">Search</button> 
-                         <a href="{{ route('admin.cashbook.list') }}" id="btn_student_ledger" class="btn btn-info" style="width: 130px">Ledger</a> 
-                         <button class="btn btn-primary" type="button" id="btn_student_ledger" style="width: 130px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Previous Reciept</button>  
-                         <button class="btn btn-danger" type="button" id="btn_student_ledger" style="width: 130px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Cancel Reciept</button> 
+                         <button class="btn btn-warning" type="button" id="btn_student_registration_show" data-toggle="modal" data-target="#myModal" style="width: 115px">Search</button> 
+                         <a href="{{ route('admin.cashbook.list') }}" id="btn_student_ledger" class="btn btn-info" style="width: 115px">Ledger</a> 
+                         <button class="btn btn-primary" type="button" id="btn_student_ledger" style="width: 115px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Previous Reciept</button>  
+                         <button class="btn btn-danger" type="button" id="btn_student_ledger" style="width: 115px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Cancel Reciept</button> 
+                         <button class="btn btn-warning"  type="button" id="btn_student_ledger" data-table="previos_receipt_data_table" style="width: 115px;background-color: #1b11b5" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.search') }}'+'?student_id='+$('#student_id').val())">Reciept Print</button> 
                     </div> 
                  </div>  
             </div>

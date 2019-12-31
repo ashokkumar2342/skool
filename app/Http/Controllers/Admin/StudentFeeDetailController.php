@@ -13,6 +13,7 @@ use App\Model\FeeStructure;
 use App\Model\FeeStructureAmount;
 use App\Model\FeeStructureLastDate;
 use App\Model\Minu;
+use App\Model\ReceiptDetail;
 use App\Model\StudentAddressDetail;
 use App\Model\StudentFeeDetail;
 use App\Model\StudentPerentDetail;
@@ -291,6 +292,33 @@ class StudentFeeDetailController extends Controller
         }
          
         
+    }
+
+    //previous Reciept print
+    public function previousRecieptSearch(Request $request)
+    {
+         return view('admin.finance.feecollection.previous_receipts_print',compact('datas','cashbooks')); 
+    }
+    public function previousRecieptShow(Request $request)
+    {
+        if ($request->date!=null && $request->receipt_no!=null) {
+         $receiptDetails=ReceiptDetail::where('rcpt_date',$request->date)->where('rcpt_no',$request->receipt_no)->get();   
+        }
+        elseif ($request->date!=null) {
+          $receiptDetails=ReceiptDetail::where('rcpt_date',$request->date)->get(); 
+        }
+        elseif ($request->receipt_no!=null) {
+          $receiptDetails=ReceiptDetail::where('rcpt_no',$request->receipt_no)->get();  
+        } 
+          return view('admin.finance.feecollection.previous_receipts_print_list',compact('receiptDetails')); 
+        
+    }
+
+    public function previousRecieptDownload($receipt_no)
+    {
+      $documentUrl = Storage_path() . '/app/student/feereceipt'; 
+      return response()->file($documentUrl.'/'.$receipt_no.'.'.'pdf');
+       
     }
     
 }
