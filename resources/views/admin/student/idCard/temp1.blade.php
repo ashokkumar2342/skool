@@ -61,11 +61,18 @@
 			  <div align="center">
 			  	@php
 			  		$path =storage_path('app/student/profile/'.$student->picture);
+			  		$paths =storage_path('app/student/profile/'.''); 
 			  	@endphp
 			  	@php
 			  		$data =storage_path('app/student/barcode/'.$student->registration_no.'.'.'png');
 			  	@endphp
-				  <img  src="{{ $path }}" alt="" width="103px" height="103px" style="border:solid 2px Black">
+			  	@if ($path==$paths)
+			  	<img  src="''" alt="" width="103px" height="103px" style="border:solid 2px Black"> 
+				  @else
+				  <img  src="{{ $path }}" alt="" width="103px" height="103px" style="border:solid 2px Black"> 
+
+			  	@endif
+
 			 </div>
 			 <div style="padding-top: 25px">
 			 <span class="a">
