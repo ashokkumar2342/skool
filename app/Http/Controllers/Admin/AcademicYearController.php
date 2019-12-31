@@ -93,7 +93,7 @@ class AcademicYearController extends Controller
             return response()->json($response);// response as json
         }
         else {
-        $academicYears = AcademicYear::firstOrNew(['id'=>$id]);;
+        $academicYears = AcademicYear::firstOrNew(['id'=>$id]);
         $academicYears->name = $request->name;
         $academicYears->start_date = date('Y-m-d',strtotime($request->start_date)) ;
         $academicYears->end_date = date('Y-m-d',strtotime($request->end_date));

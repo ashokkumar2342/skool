@@ -48,27 +48,22 @@ class StudentIdCardController extends Controller
         }if ($request->report_for==4) {
          $students=$student->getStudentByClassSection($request->class_id,$request->section_id);
         } 
-    // if ($request->barcode==1) { 
-    //    foreach ($students as $values) {   
-    //    $value=$values->registration_no;     
-    //    $barcode = new BarcodeGenerator();
-    //    $barcode->setText($value);
-    //    $barcode->setType(BarcodeGenerator::Code128);
-    //    $barcode->setScale(2);
-    //    $barcode->setThickness(25);
-    //    $barcode->setFontSize(10);
-    //    $code = $barcode->generate();
-    //    $data = base64_decode($code);
-    //    $image_name= $value.'.png';     
-    //    $path = Storage_path() . "/app/student/profile/" . $image_name; 
-    //    file_put_contents($path, $data);  
-    //    $imgs[$value]=$code;
-    //    $student= Student::find($values->id);
-    //    $student->barcode=$image_name;
-    //    $student->save();
-    //    }
-    // }  
-       
+   if ($request->barcode==1) { 
+       foreach ($students as $values) {   
+       $value=$values->registration_no;     
+       $barcode = new BarcodeGenerator();
+       $barcode->setText($value);
+       $barcode->setType(BarcodeGenerator::Code128);
+       $barcode->setScale(2);
+       $barcode->setThickness(25);
+       $barcode->setFontSize(10);
+       $code = $barcode->generate();
+       $data = base64_decode($code);
+       $image_name= $value.'.png';     
+       $path = Storage_path() . "/app/student/barcode/" . $image_name; 
+       file_put_contents($path, $data); 
+       }
+    }  
       if ($request->student_idcard==1) {
          
          if ($request->template_name==1) {
@@ -77,7 +72,7 @@ class StudentIdCardController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.student.idCard.temp1',compact('students','studentP'))->setPaper($customPaper, 'landscape'); 
+        ->loadView('admin.student.idCard.temp1',compact('students','studentP','data'))->setPaper($customPaper, 'landscape'); 
         return $pdf->stream('student_all_report.pdf');
            
          } if ($request->template_name==2) {

@@ -989,7 +989,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('admission-seat', 'MasterController@adminssionSeat')->name('admin.adminssion.seat'); 
 			    Route::get('add/{id?}', 'MasterController@addadminssionSeat')->name('admin.adminssion.seat.add');	 	
 			    Route::post('store/{id?}', 'MasterController@adminssionSeatStore')->name('admin.adminssion.seat.store'); 
-			    // Route::get('delete/{id}', 'MasterController@studentStatusDestroy')->name('admin.studentStatus.delete'); 
+			    Route::get('delete/{id}', 'MasterController@adminssionSeatDestroy')->name('admin.adminssion.seat.delete'); 
 			});	
 			//------------------------- SMS ---------------------------------
 			Route::group(['prefix' => 'sms'], function() {

@@ -18,7 +18,7 @@
   </div>
   <div style="padding-top: 10px">
     <p>This is to certify that Km. <b>{{  $student->name }} </b>
-    Regis.No. <b>{{  $student->registration_no }}</b> D/o <b>{{  $student->parents[2]->parentInfo->name }}</b> & Smt.<b>{{  $student->parents[0]->parentInfo->name }}.</b> 
+    Regis.No. <b>{{  $student->registration_no }}</b> D/o <b>{{  $student->parents[2]->parentInfo->name or ''}}</b> & Smt.<b>{{  $student->parents[0]->parentInfo->name or ''}}.</b> 
     has been a bonafide student of class <b>{{  $student->classes->name or '' }}</b> of this school   </p> 
     <p>The guardian has paid a sum of Rs<b>2345.00</b> (Rs <b>Two thousant three hundred fourty five</b>) 
     towards the fee of his/her ward from <b>April-2019</b> 

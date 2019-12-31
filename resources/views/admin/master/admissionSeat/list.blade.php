@@ -37,7 +37,7 @@
                          <td>{{ date('d-m-Y',strtotime( $adminssionSeat->result_date))}}</td>
                          <td>
                           <a  onclick="callPopupLarge(this,'{{ route('admin.adminssion.seat.add',$adminssionSeat->id) }}')" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></a>
-                          <a href="" title="" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                          <a href="{{ route('admin.adminssion.seat.delete',$adminssionSeat->id) }}" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                         </td>
 
                        </tr> 

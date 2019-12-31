@@ -111,7 +111,8 @@ b{
                                         </select>
                                       </span></li>
                                      
-                                      <li class="list-group-item">Registration No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->registration_no or ''}}" name="registration_no" id="registration_no"> </span></li>
+                                      <li class="list-group-item">Registration No. <span class="fa fa-asterisk"></span><span class="fs">
+                                        <input type="text" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->registration_no or ''}}" name="registration_no" id="registration_no" maxlength="{{ $schoolinfo->reg_length }}" min="{{ $schoolinfo->reg_length }}"> </span></li>
                                       
                                       <li class="list-group-item">Roll No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text"maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="width: 290px;height: 28px" value="{{ $student->roll_no or ''}}" {{ $disabled }} name="roll_no"> </span></li>
                                       <li class="list-group-item">Admission No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->admission_no }}" name="admission_no"> </span></li>

@@ -382,9 +382,10 @@ class StudentController extends Controller
           $sections = MyFuncs::getSections($student->class_id);
         } 
         $houses=House::orderBy('id','ASC')->get(); 
-        $genders=Gender::orderBy('genders','ASC')->get(); 
+        $genders=Gender::orderBy('genders','ASC')->get();
+        $schoolinfo=Schoolinfo::first(); 
          
-        return view('admin.student.studentdetails.view',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','awardLevels','subjectTypes','bloodgroups','professions','classes','sections','houses','genders','userId'));
+        return view('admin.student.studentdetails.view',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','awardLevels','subjectTypes','bloodgroups','professions','classes','sections','houses','genders','userId','schoolinfo'));
     }
     public function excelData(){
 

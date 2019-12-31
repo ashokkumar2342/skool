@@ -612,4 +612,10 @@ class MasterController extends Controller
                 $response=['status'=>1,'msg'=>'Submit Successfully'];
               }     return response()->json($response);
         }
+        public function adminssionSeatDestroy($id)
+        {
+           $adminssionSeat=AdmissionSeat::find($id);  
+           $adminssionSeat->delete();  
+           return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+        }
 }
