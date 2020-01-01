@@ -702,6 +702,14 @@ Route::group(['middleware' => 'admin'], function() {
     	      
     	    
     	 });
+    	Route::group(['prefix' => 'other-receipt'], function() {
+    	    Route::get('/', 'OtherReceiptController@index')->name('admin.other.receipt');	 	
+    	    Route::get('add-form/{id?}', 'OtherReceiptController@addForm')->name('admin.other.receipt.addform');	 	
+    	    Route::post('store/{id?}', 'OtherReceiptController@store')->name('admin.other.receipt.store');	 	
+    	    
+    	      
+    	    
+    	 });
     	Route::group(['prefix' => 'finance-report'], function() {
     	    Route::get('/', 'FinanceReportController@index')->name('admin.finance.report');	 	
     	    Route::get('fee-report', 'FinanceReportController@feeReport')->name('admin.finance.report.fee.report');	 	
