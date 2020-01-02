@@ -270,7 +270,7 @@ class SmsController extends Controller
     }
     public function emailTemplateOnchange(Request $request){
         $message_purpose_id=$request->id;
-       return  $emailTemplates=EmailTemplate::where('message_purpose_id',$request->id)->get();
+        $emailTemplates=EmailTemplate::where('message_purpose_id',$request->id)->get();
          return view('admin.sms.emailTemplate.table',compact('emailTemplates','message_purpose_id'));
     }
     public function emailTemplateAddForm($id){

@@ -26,9 +26,9 @@ b{
           <a href="{{ route('admin.student.pdf.generate',$student->id) }}" class="btn btn-xs btn-success pull-right" title="Download Profile " target="_blank" style="margin:5px">PDF</a>
          @endif
          @if (!empty($admissionApplication))  
-          {{-- @if ($admissionApplication->status>=2)  --}}
+          @if ($admissionApplication->status>=2) 
           <a href="{{ route('admin.student.registration.profile.view',$student->id) }}" class="btn btn-xs btn-primary pull-right" title="Download Profile " target="_blank" style="margin:5px">View Details</a> 
-        {{--   @endif --}}
+          @endif
         @endif
 
            

@@ -2,7 +2,7 @@
 @section('body')
 <section class="content-header">
       
-      <a  onclick="callPopupLarge(this,'{{ route('admin.adminssion.seat.add') }}')" class="btn btn-info btn-sm pull-right">Add Admission Seat</a>
+      <a  onclick="callPopupLarge(this,'{{ route('admin.adminssion.seat.add') }}')" class="btn btn-info btn-sm pull-right">Add Admission Schedule</a>
     <h1>Admission Schedule</h1>
 </section>
     <section class="content">
@@ -14,7 +14,7 @@
                    <th>Academic Year</th>
                    <th>Class</th>
                    <th>Total Seat</th>
-                   <th>Form  Fee</th>
+                   <th>Prospectus Fee</th>
                    <th>From Date</th>
                    <th>Last Date</th>
                    <th>Test Date</th>

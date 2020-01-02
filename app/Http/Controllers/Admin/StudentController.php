@@ -1239,10 +1239,7 @@ class StudentController extends Controller
              "dob" => 'required|date',
              "gender" => "required", 
              "aadhaar_no" => "required|digits:12|unique:students,adhar_no",
-              'last_school_name' => 'required', 
-              'max_marks' => 'required', 
-              'marks_obt' => 'required', 
-              'marks_percent' => 'required', 
+             
          ];
          $validator = Validator::make($request->all(),$rules);
          if ($validator->fails()) {
@@ -1390,6 +1387,13 @@ class StudentController extends Controller
          $student->adhar_no= $request->aadhaar_no; 
          $student->student_status_id=8; 
          $student->save();
+         $AdmissionApplication=AdmissionApplication::orderBy('id','DESC')->first();
+         $AdmissionApplication=AdmissionApplication::find($AdmissionApplication->id);
+         $AdmissionApplication->last_school_name=$request->last_school_name;
+         $AdmissionApplication->marks_max=$request->max_marks;
+         $AdmissionApplication->marks_obt=$request->marks_obt;
+         $AdmissionApplication->marks_percentage=$request->marks_percent;
+         $AdmissionApplication->save();
          $response=array();
          $response['status']=1;
          $response['msg']='Registration Successfully';   
@@ -1446,7 +1450,7 @@ class StudentController extends Controller
         ])
         ->loadView('admin.student.studentdetails.pdf_generate',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address','data'))->save($profilePdfUrl.'/'.$admissionApplication->id.'_student_all_details.pdf'); 
         
-         $admissionApplication->status=1;
+         $admissionApplication->status=2;
          $admissionApplication->profile_path=$profilePdfUrl.'/'.$admissionApplication->id.'_student_all_details.pdf';
          $admissionApplication->save();
         return redirect()->back()->with(['message'=>'Final Submit successfully','class'=>'success']);

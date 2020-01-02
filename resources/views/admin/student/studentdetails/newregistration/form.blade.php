@@ -7,7 +7,7 @@
 
 </style>
 <section class="content-header">
-    <h1> New Registration Form<small>Details</small> </h1>
+    <h1> Admission Form<small>Details</small> </h1>
 
 </section>      
 <section class="content"> 

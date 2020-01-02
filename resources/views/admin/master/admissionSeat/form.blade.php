@@ -43,7 +43,7 @@
                   <input type="text" name="total_seat" class="form-control" placeholder="Enter" maxlength="10" value="{{ @$adminssionSeat->total_seat }}"> 
                 </div>
                 <div class="col-lg-6 form-group">
-                  <label>Form Fee</label>
+                  <label>Prospectus Fee</label>
                   <input type="number" name="from_fee" class="form-control" value="{{ @$adminssionSeat->form_fee }}"> 
                 </div>
                 <div class="col-lg-6 form-group">
@@ -67,7 +67,7 @@
                   <input type="date" name="result_date" class="form-control" value="{{ @$adminssionSeat->last_date }}"> 
                 </div>
                 <div class="col-lg-6 form-group">
-                  <label>syllabus</label>
+                  <label>Syllabus</label>
                   <input type="file" name="attachment" class="form-control" value="{{ @$adminssionSeat->last_date }}"> 
                 </div>
                 <div class="col-lg-12 form-group text-center" >

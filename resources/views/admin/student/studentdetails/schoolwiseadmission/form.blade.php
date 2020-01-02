@@ -168,6 +168,22 @@
                         <input type="text" name="aadhaar_no" class="form-control"  maxlength="12" placeholder="Enter Adhaar No." onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                     </div>
                 </div> 
+                <div class="col-lg-3 form-group">
+                    <label>Last School Name</label>
+                    <input type="text" name="last_school_name" maxlength="100" class="form-control" placeholder="Enter Last School Name"> 
+                 </div>
+                 <div class="col-lg-3 form-group">
+                    <label>Max Marks</label>
+                    <input type="text" name="max_marks" maxlength="6" class="form-control" placeholder="Enter Max Marks"> 
+                 </div>
+                 <div class="col-lg-3 form-group">
+                    <label>Marks OBT</label>
+                    <input type="text" name="marks_obt" maxlength="6" class="form-control" placeholder="Enter Marks OBT"> 
+                 </div>
+                 <div class="col-lg-3 form-group">
+                    <label>Marks Percent</label>
+                    <input type="text" name="marks_percent" maxlength="6" class="form-control" placeholder="Enter Marks Percent"> 
+                 </div>
 
                 @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
 

@@ -596,7 +596,7 @@ class AccountController extends Controller
     }
 
     public function verifyMobile(Request $request)
-    {
+    {  
         $this->validate($request,[
                       
             'mobile_otp' => 'required|numeric',  
@@ -604,24 +604,18 @@ class AccountController extends Controller
          
         $parentRegistration= Admin::where('mobile',$request->mobile)->first();
         $adminOtpMobile= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',1)->first(); 
+        $adminOtpEmail= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',2)->first(); 
         if ($adminOtpMobile->otp!=$request->mobile_otp) {
             return redirect()->back()->with(['class'=>'error','message'=>'Mobile Otp Not Match']);      
         }else{
              $adminOtpMobile->otp_verified=1;                                        
-             $adminOtpMobile->save() ;
-             if ($parentRegistration->status==1) {
-                
+             $adminOtpMobile->save();
+             }
+            if ($adminOtpEmail->otp_verified==1 && $adminOtpMobile->otp_verified==1) { 
                return redirect()->route('admin.login')->with(['class'=>'success','message'=>'Mobile Otp Verify']);  
             }else{
              return redirect()->back()->with(['class'=>'success','message'=>'Mobile Otp Verify']);
-            }
-
-        }
-                                           
-             
-             
-        
-        
+            } 
         // return redirect()->back()->with(['class'=>'success','message'=>'Email Otp Verify']);
         
 
@@ -636,22 +630,19 @@ class AccountController extends Controller
         
        $parentRegistration= Admin::where('email',$request->email)->first(); 
         $adminOtpEmail= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',2)->first();
+        $adminOtpMobile= AdminOtp::where('admin_id',$parentRegistration->id)->where('otp_type',1)->first();
 
         if ($adminOtpEmail->otp!=$request->email_otp) {
             return redirect()->back()->with(['class'=>'error','message'=>'Email Otp Not Match']);      
         }else{
              $adminOtpEmail->otp_verified=1;                                        
-             $adminOtpEmail->save() ;
-             if ($parentRegistration->status==1) {
-                
+             $adminOtpEmail->save();
+           }
+           if ($adminOtpEmail->otp_verified==1 && $adminOtpMobile->otp_verified==1) { 
                return redirect()->route('admin.login')->with(['class'=>'success','message'=>'Email Otp Verify']);  
             }else{
              return redirect()->back()->with(['class'=>'success','message'=>'Email Otp Verify']);
-            }
-
-        }
-
-
+            } 
     }
     public function resendOTP(Request $request,$user_id,$otp_type)
     {

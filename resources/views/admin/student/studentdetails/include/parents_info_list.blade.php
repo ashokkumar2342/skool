@@ -50,8 +50,8 @@
                  <li><b> {{ $parent->parentInfo->mobile or ''}} </b></li>
                  <li><b> {{ $parent->parentInfo->email or ''}} </b></li>
                 <li><b> {{ $parent->parentInfo->education or ''}} </b></li> 
-                 <li><b>{{ date('d-m-Y', strtotime($parent->parentInfo->dob or ''))}}</b></li>
-                 <li><b>{{ date('d-m-Y', strtotime($parent->parentInfo->doa or ''))}}</b></li>
+                 <li><b>{{$parent->parentInfo->dob? date('d-m-Y', strtotime($parent->parentInfo->dob)) : null}}</b></li>
+                 <li><b>{{$parent->parentInfo->doa? date('d-m-Y', strtotime($parent->parentInfo->doa)) : null}}</b></li>
                 <li><b> {{ $parent->parentInfo->incomes->range or ''}} </b></li> 
                  <li><b> {{ $parent->parentInfo->profetions->name or ''}} </b></li>  
                 <li><b>{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li>

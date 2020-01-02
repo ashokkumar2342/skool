@@ -40,7 +40,7 @@
       </div>
       @endif
     {!! Form::close() !!}
-    @if (@$adminOtpEmail->otp_verified !=1)
+    @if (@$adminOtpemail->otp_verified !=1)
           {!! Form::open(['route'=>'student.resitration.verifyEmail']) !!}
           <div class="form-group has-feedback">
             {!! Form::hidden('email', @$parentRegistration->email, ['class'=>'form-control', 'placeholder'=>'mail']) !!}
