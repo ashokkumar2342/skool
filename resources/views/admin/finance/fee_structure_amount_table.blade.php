@@ -28,7 +28,7 @@
 		    @endphp 
 			<tr> 
 				<td>{{ $feeStructur->name}}</td> 
-				<td><input type="number" name="amount[{{ $feeStructur->id }}]" value="{{ $feeStructureAmounts->first()->amount or '' }}"></td> 
+				<td><input type="text" class="text-right" style="width: 100px" name="amount[{{ $feeStructur->id }}]" value="{{ $feeStructureAmounts->first()->amount or '' }}" maxlength="7" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></td> 
 			</tr>
 		@endforeach
 	</tbody>

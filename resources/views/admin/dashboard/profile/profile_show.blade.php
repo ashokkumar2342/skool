@@ -16,7 +16,12 @@
                     @php
                       $profile = route('admin.profile.photo.show',$admins->profile_pic);
                     @endphp
-                    <img  class="profile-user-img img-responsive img-circle" src="{{ ($admins->profile_pic)? $profile : asset('profile-img/user.png') }}" alt="{{ $admins->first_name }}">
+                   @if ($admins->profile_pic==null) 
+                 <img src="{{asset('front_asset/images/hdg-01.jpg')}}" alt="" class="profile-user-img img-responsive img-circle">
+   
+                  @else
+                  <img src="{{ $profile }}" class="user-image">
+                  @endif
 
 
                    {{--  <img class="profile-user-img img-responsive img-circle" src="{{ url('storage/profile/'.$admins->profile_pic) }}">

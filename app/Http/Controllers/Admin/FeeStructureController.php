@@ -18,7 +18,7 @@ class FeeStructureController extends Controller
      */
     public function index()
     {
-        $feeStructures = FeeStructure::latest('created_at')->paginate(20);         
+        $feeStructures = FeeStructure::orderBy('name','ASC')->get();         
         $fineScheme = array_pluck(FineScheme::get(['id','name'])->toArray(),'name', 'id');
         $feeAccount = array_pluck(FeeAccount::get(['id','name'])->toArray(),'name', 'id');
      

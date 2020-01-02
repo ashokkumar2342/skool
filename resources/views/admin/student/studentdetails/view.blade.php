@@ -31,16 +31,23 @@ b{
           @endif
         @endif
 
-           
+           @php
+             if ($userId->role_id==12){ 
+               $hidden='hidden'; 
+              }
+              else{ 
+               $hidden=''; 
+              }
+           @endphp
 
            
           
           <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-user"></i> Student Details</a></li>
-              <li><a data-toggle="tab" data-table="sibling_items" href="#sibling" id="sibling_info_tab"  onclick="callAjax(this,'{{ route('admin.sibling.table.show',$student->id) }}','sibling_info_list')"><i class="fa fa-users" id="sibling_info"></i> Sibling Detail</a></li>
-              <li><a data-toggle="tab" data-table="parents_items" href="#parent" id="parent_info_tab"  onclick="callAjax(this,'{{ route('admin.parents.list',$student->id) }}','parent_info_list')"><i class="fa fa-user-circle"></i> Parent Detail</a></li>
+              <li><a data-toggle="tab" data-table="sibling_items" class="{{ $hidden }}" href="#sibling" id="sibling_info_tab"  onclick="callAjax(this,'{{ route('admin.sibling.table.show',$student->id) }}','sibling_info_list')"><i class="fa fa-users" id="sibling_info"></i> Sibling Detail</a></li>
+              <li><a data-toggle="tab" data-table="parents_items" href="#parent" id="parent_info_tab" class="{{ $showHide }}" onclick="callAjax(this,'{{ route('admin.parents.list',$student->id) }}','parent_info_list')"><i class="fa fa-user-circle"></i> Parent Detail</a></li>
 
-              <li><a data-toggle="tab" href="#address" data-table="address_info_table" id="address_info" onclick="callAjax(this,'{{ route('admin.parents.address',$student->id) }}','address_list')"><i class="fa fa-home"></i> Address</a></li>
+              <li><a data-toggle="tab" href="#address" data-table="address_info_table" id="address_info"class="{{ $showHide }}" onclick="callAjax(this,'{{ route('admin.parents.address',$student->id) }}','address_list')"><i class="fa fa-home"></i> Address</a></li>
 
               <li><a data-toggle="tab" data-table="medical_info_table" href="#medical" id="medical_info_tab" onclick="callAjax(this,'{{ route('admin.medical.info.list',$student->id) }}','medical_info_page')"><i class="fa fa-user-md" id="medical_info"></i> Medical Detail</a></li>
               <li><a data-toggle="tab" href="#subjects" id="subject_tab" onclick="callAjax(this,'{{ route('admin.studentSubject.list',$student->id) }}','subject_list')"><i class="fa fa-book" {{-- id="subject_tab" --}}></i>  Subjects</a></li>

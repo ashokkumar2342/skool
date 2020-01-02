@@ -383,9 +383,15 @@ class StudentController extends Controller
         } 
         $houses=House::orderBy('id','ASC')->get(); 
         $genders=Gender::orderBy('genders','ASC')->get();
-        $schoolinfo=Schoolinfo::first(); 
+        $schoolinfo=Schoolinfo::first();
+        $studentStatus=DB::select(DB::raw("call up_check_user_student_status ('$userId->id')")); 
+        if ($studentStatus[0]->show_status==1) {
+            $showHide='';
+        }else{
+            $showHide='hidden';
+        }  
          
-        return view('admin.student.studentdetails.view',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','awardLevels','subjectTypes','bloodgroups','professions','classes','sections','houses','genders','userId','schoolinfo'));
+        return view('admin.student.studentdetails.view',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','awardLevels','subjectTypes','bloodgroups','professions','classes','sections','houses','genders','userId','schoolinfo','showHide'));
     }
     public function excelData(){
 
