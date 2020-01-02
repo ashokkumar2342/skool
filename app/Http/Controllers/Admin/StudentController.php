@@ -58,6 +58,7 @@ use Illuminate\Support\Facades\Validator;
 use PDF;
 use Storage;
 use setasign\Fpdi\Fpdi;
+use Response;
 
 class StudentController extends Controller
 {
@@ -407,8 +408,32 @@ class StudentController extends Controller
 
     }
     public function image($image){
+        $parent=ParentsInfo::find($image);
+
+        $storagePath = storage_path('app/student/profile/'.$image);              
+        $mimeType = mime_content_type($storagePath); 
+        if( ! \File::exists($storagePath)){
+
+            return view('error.home');
+        }
+        $headers = array(
+            'Content-Type' => $mimeType,
+            'Content-Disposition' => 'inline; '
+        );
+          
+        if($image==null)
+        {
+             ob_end_clean(); // discards the contents of the topmost output buffer
+            return Response::make(file_get_contents('profile-img/user.png'), 200, $headers);
+        }
+        else
+        {   ob_end_clean(); // discards the contents of the topmost output buffer
+            return Response::make(file_get_contents($storagePath), 200, $headers);
+
+        }
         $img = Storage::disk('student')->get('profile/'.$image);
-        return response($img);
+         return response($img)->header('Content-Type', 'image/jpeg');
+       
     }
      public function imageWebUpdate(Request $request,$id){
       
@@ -451,8 +476,9 @@ class StudentController extends Controller
         list($type, $data) = explode(';', $data);
         list(, $data)      = explode(',', $data);
         $data = base64_decode($data);
-        $image_name= time().'.png';       
-        $path = Storage_path() . "/app/student/profile/" . $image_name;       
+        $image_name= time().'.jpg';       
+        $path = Storage_path() . "/app/student/profile/" . $image_name; 
+        @mkdir(Storage_path() . "/app/student/profile/", 0755, true);     
         file_put_contents($path, $data); 
         $student->picture = $image_name;
         $student->save();
