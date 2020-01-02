@@ -87,6 +87,7 @@ class ParentInfoController extends Controller
             $profilePhoto=$request->image;
             $filename='parent'.date('d-m-Y').time().'.jpg'; 
             $path ='student/profile/parent/';
+            @mkdir($path, 0755, true); 
             $profilePhoto->storeAs($path,$filename); 
             $parentsinfo=ParentsInfo::find($request->parent_id); 
             $parentsinfo->photo=$path.$filename; 
