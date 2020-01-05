@@ -37,7 +37,7 @@
            <div class="small-box bg-aqua">
              <div class="inner">
               <a href="#" style="color:white" onclick="callPopupLarge(this,'{{ route('admin.student.Registration.details') }}')"  >
-               <h3>{{ $newRegistraions->count() }}</h3> </a>
+               <h3>0</h3> </a>
                <p>New Registration</p>
              </div>
              <div class="icon">

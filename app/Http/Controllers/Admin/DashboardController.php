@@ -46,14 +46,14 @@ class DashboardController extends Controller
         $studentDOBs = Student::whereMonth('dob',date('m'))
                             ->whereDay('dob',date('d'))
                             ->get(); 
-        $newRegistraions = ParentRegistration::get();  
+        // $newRegistraions = ParentRegistration::get();  
         $feeDues = StudentFeeDetail::where('paid',0)->get()->sum('fee_amount');                      
          $feePaid = StudentFeeDetail::where('paid',1)->get()->sum('fee_amount');
          $classTypes=ClassType::orderBy('id','ASC')->get(); 
          if ($admins->role_id==12) { 
             return view('admin/dashboard/student_dashboard');
          }else{
-          return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','newRegistraions','feeDues','feePaid','classTypes','students','admins'));
+          return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','feeDues','feePaid','classTypes','students','admins'));
          }
         
         
