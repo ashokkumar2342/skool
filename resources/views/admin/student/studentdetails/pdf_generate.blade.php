@@ -34,7 +34,7 @@
   @php
    $routeName= Route::currentRouteName();
    $applicationNo=App\Model\AdmissionApplication::where('student_id',$student->id)->first(); 
-   $data =storage_path('app/student/barcode/application'.$applicationNo->id.'.'.'png');
+   $data =storage_path('app/student/barcode/application/'.$applicationNo->id.'.'.'png');
   @endphp
   @if ($student->student_status_id!=1)
    @if ( $routeName=='admin.student.registration.profile.view')
