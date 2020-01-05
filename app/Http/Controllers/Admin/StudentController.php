@@ -1487,7 +1487,7 @@ class StudentController extends Controller
         ->loadView('admin.student.studentdetails.pdf_generate',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address','data'))->save($profilePdfUrl.'/'.$admissionApplication->id.'_student_all_details.pdf'); 
         
          $admissionApplication->status=2;
-         $admissionApplication->profile_path=$profilePdfUrl.'/'.$admissionApplication->id.'_student_all_details.pdf';
+         $admissionApplication->profile_path='student/profile/newstudent/'.$admissionApplication->id.'_student_all_details.pdf';
          $admissionApplication->save();
         return redirect()->back()->with(['message'=>'Final Submit successfully','class'=>'success']);
       
@@ -1501,7 +1501,8 @@ class StudentController extends Controller
         $docs=$documents; 
                    $pdfMerge = new Fpdi();
                    $dt =array(); 
-                    $dt['student']=$admissionApplication->profile_path; 
+                   $base_path =Storage_path() . "/app/".$admissionApplication->profile_path;
+                    $dt['student']=$base_path; 
                    foreach ($docs as $key=>$document) {
                     
                      $dt[$key]=Storage_path('app/'.$document->document_url);  

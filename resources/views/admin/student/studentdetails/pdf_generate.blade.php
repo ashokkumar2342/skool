@@ -36,7 +36,7 @@
    $data =storage_path('app/student/barcode/'.$student->registration_no.'.'.'png');
   @endphp
   @if ($student->student_status_id!=1)
-   @if ( $routeName=='admin.student.registration.final.submit')
+   @if ( $routeName=='admin.student.registration.profile.view')
       <div style="margin:20px">Application No. <img src="{{$data}}" width="20%" height="20%"> </div>
      {{--  @else
       <div style="margin:20px">Application No. <img src="data:image/png;base64,{{ base64_encode($data)}}" width="20%" height="20%" alt="{{ $data }}" />  --}}    
