@@ -275,10 +275,7 @@ Route::group(['middleware' => 'admin'], function() {
 	 Route::group(['prefix' => 'application-scrutiny'], function() {
 	    Route::get('scrutiny', 'SubmitApplicationFormController@scrutiny')->name('admin.submit.application.scrutiny');
 	    Route::get('filter/{id?}', 'SubmitApplicationFormController@filter')->name('admin.submit.application.filter');
-	    Route::get('accepted/{id}', 'SubmitApplicationFormController@accepted')->name('admin.submit.application.accepted');
-	    Route::get('rejected/{id}', 'SubmitApplicationFormController@rejected')->name('admin.submit.application.rejected');
-	    Route::get('pending/{id}', 'SubmitApplicationFormController@pending')->name('admin.submit.application.pending');
-	    Route::get('remark/{id}', 'SubmitApplicationFormController@remark')->name('admin.submit.application.remark');
+	    Route::get('remark/{id}/{status}', 'SubmitApplicationFormController@remark')->name('admin.submit.application.remark');
 	    Route::post('remark-store/{id}', 'SubmitApplicationFormController@remarkStore')->name('admin.submit.application.remark.store');
 	    
 	  

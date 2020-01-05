@@ -1442,7 +1442,10 @@ class StudentController extends Controller
                      $barcode->setThickness(25);
                      $barcode->setFontSize(10);
                      $code = $barcode->generate();
-                     $data = base64_decode($code); 
+                     $data = base64_decode($code);
+                     $image_name= $value.'.png';     
+                     $path = Storage_path() . "/app/student/barcode/application/" . $image_name; 
+                     file_put_contents($path, $data);  
            //application barcode end///          
           // $studentMedicalInfos = StudentMedicalInfo::where('student_id',$student_id)->get(); 
           // $documents = Document::where('student_id',$student_id)->get(); 
@@ -1463,7 +1466,7 @@ class StudentController extends Controller
       
     }
     public function registrationProfileView($student_id)
-    {
+    { 
         $admissionApplication=AdmissionApplication::where('student_id',$student_id)->first();
         $student=Student::find($student_id);
         $profilePdfUrl = Storage_path() . '/app/student/profile/profileDetails/'.$student->registration_no.'_student_all_details.pdf';
@@ -1537,15 +1540,12 @@ class StudentController extends Controller
          
     }
     public function admissionTestMarksStore(Request $request)
-    {
-       foreach ($request->status as $student_id => $status_id) {
-         foreach ($request->marks as $key => $value) { 
+    { 
+        foreach ($request->marks as $student_id => $mark) { 
            $admissionApplications=AdmissionApplication::firstOrNew(['student_id'=>$student_id]); 
-           $admissionApplications->test_marks=$value; 
-           $admissionApplications->status=$status_id; 
-          $admissionApplications->save(); 
-           }
-      }
+           $admissionApplications->test_marks=$mark; 
+           $admissionApplications->save();
+        } 
           $response=array();
           $response['status']=1;
           $response['msg']='Submit Successfully';

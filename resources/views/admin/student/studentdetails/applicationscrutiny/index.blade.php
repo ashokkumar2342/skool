@@ -7,14 +7,32 @@
     <section class="content"> 
       <div class="box"> 
         <div class="box-body">
-        <div class="col-lg-4">
-            <button type="button" class="btn btn-warning" onclick="callAjax(this,'{{ route('admin.submit.application.filter',3) }}','student_list_filter')">Pending</button>
+          <div class="col-lg-3">
+            <label>Academic Year</label>
+            <select name="academic_year" id="academic_year" class="form-control">
+              
+              @foreach ($academicYears as $academicYear)
+              <option value="{{ $academicYear->id }}"{{ $academicYear->status==1?'selected' : '' }}>{{ $academicYear->name }}</option>  
+              @endforeach
+            </select> 
           </div>
-          <div class="col-lg-4">
-            <button type="button" class="btn btn-success" onclick="callAjax(this,'{{ route('admin.submit.application.filter',4) }}','student_list_filter')">Accepted</button>
+          <div class="col-lg-3">
+            <label>Class</label>
+            <select name="class" id="class" class="form-control">
+              
+              @foreach ($classes as $classe)
+              <option value="{{ $classe->id }}">{{ $classe->name }}</option>  
+              @endforeach 
+            </select> 
           </div>
-          <div class="col-lg-4">
-            <button type="button" class="btn btn-danger" onclick="callAjax(this,'{{ route('admin.submit.application.filter',5) }}','student_list_filter')">Rejected</button>
+        <div class="col-lg-2">
+            <button type="button" class="btn btn-warning" style="margin-top: 24px" success-popup="true" onclick="callAjax(this,'{{ route('admin.submit.application.filter',3) }}'+'?academic_year='+$('#academic_year').val()+'&class='+$('#class').val(),'student_list_filter')">Pending</button>
+          </div>
+          <div class="col-lg-2">
+            <button type="button" class="btn btn-success" style="margin-top: 24px"success-popup="true" onclick="callAjax(this,'{{ route('admin.submit.application.filter',4) }}'+'?academic_year='+$('#academic_year').val()+'&class='+$('#class').val(),'student_list_filter')">Accepted</button>
+          </div>
+          <div class="col-lg-2">
+            <button type="button" class="btn btn-danger" style="margin-top: 24px"success-popup="true" onclick="callAjax(this,'{{ route('admin.submit.application.filter',5) }}'+'?academic_year='+$('#academic_year').val()+'&class='+$('#class').val(),'student_list_filter')">Rejected</button>
           </div>
           <div class="col-lg-12" style="margin-top: 20px">
              <table class="table" id="room_table"> 

@@ -3,7 +3,7 @@
 			<th>Application No.</th>
 			<th>Student Name</th>
 			<th>Marks OBT</th>
-			<th>Status</th>
+			
 		</tr>
 	</thead>
 	<tbody>
@@ -15,15 +15,9 @@
 						<td>{{ $admissionApplication->id }}</td>
 						<td>{{ $student->first()->name or '' }}</td>
 						<td>
-							<input type="text" name="marks[]" value="{{ $admissionApplication->test_marks }}">
+							<input type="text" name="marks[{{ $admissionApplication->student_id }}]" value="{{ $admissionApplication->test_marks }}" style="width: 100px">
 						</td>
-						<td>
-							<select name="status[{{ $admissionApplication->student_id }}]" class="form-control">
-							<option value="6"{{ $admissionApplication->status==6?'selected':'' }}>Pass</option> 
-							<option value="7"{{ $admissionApplication->status==7?'selected':'' }}>Retest</option> 
-							<option value="8"{{ $admissionApplication->status==8?'selected':'' }}>Fail</option> 
-						    </select>
-					    </td>
+						 
 					</tr> 
 		@endforeach
 		

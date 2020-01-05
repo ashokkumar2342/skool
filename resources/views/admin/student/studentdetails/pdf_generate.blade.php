@@ -31,9 +31,16 @@
 
 </style>
 <body>
+  @php
+   $routeName= Route::currentRouteName(); 
+   $data =storage_path('app/student/barcode/'.$student->registration_no.'.'.'png');
+  @endphp
   @if ($student->student_status_id!=1)
-  <div style="margin:20px">Application No. <img src="data:image/png;base64,{{ base64_encode($data)}}" width="20%" height="20%" alt="{{ $data }}" />    </div>
-   
+   @if ( $routeName=='admin.student.registration.final.submit')
+      <div style="margin:20px">Application No. <img src="{{$data}}" width="20%" height="20%"> </div>
+     {{--  @else
+      <div style="margin:20px">Application No. <img src="data:image/png;base64,{{ base64_encode($data)}}" width="20%" height="20%" alt="{{ $data }}" />  --}}    
+   @endif 
   @endif
     <div class="panel panel-info">
     <div class="panel-heading">

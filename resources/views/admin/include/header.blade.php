@@ -75,12 +75,7 @@
                 $profile = route('admin.profile.photo.show',$admins->profile_pic);
                 @endphp
               <li class="user-header">
-                 @if ($admins->profile_pic==null) 
-                 <img src="{{asset('front_asset/images/hdg-01.jpg')}}" alt="" class="user-image">
-   
-                  @else
-                  <img src="{{ $profile }}" class="user-image">
-                  @endif
+                 <img  src="{{ ($admins->profile_pic)? $profile : asset('profile-img/user.png') }}" class="profile-user-img img-responsive img-circle">
                 <p>
                   {{ Auth::guard('admin')->user()->first_name }}
                 </p>

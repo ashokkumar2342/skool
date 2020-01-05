@@ -41,7 +41,7 @@
 @if (!empty($admissionApplication))
   @if ($admissionApplication->status==3)
 		<div class="col-lg-12 text-center" style="margin-top: 20px"> 
-			<input type="submit" disabled="" class="btn btn-warning disabled" value="Receipt"> 
+			<input type="submit" hidden class="btn btn-warning hidden" value="Receipt"> 
 		</div>
    @else 
    <div class="col-lg-12 text-center" style="margin-top: 20px"> 

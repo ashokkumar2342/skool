@@ -2,7 +2,7 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header"> 
-    <h1>Submit Application Form<small></small></h1>
+    <h1>Receive Application Form<small></small></h1>
     </section>  
     <section class="content"> 
       <div class="box"> 

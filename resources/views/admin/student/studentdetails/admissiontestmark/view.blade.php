@@ -15,7 +15,7 @@
                 <select name="academic_year_id" id="academic_year_id" class="form-control">
                   <option selected disabled>Select Academic Year</option>
                   @foreach ($academicYears as $academicYear)
-                   <option value="{{ $academicYear->id }}">{{ $academicYear->name }}</option> 
+                   <option value="{{ $academicYear->id }}"{{ $academicYear->status==1?'selected' : ''  }}>{{ $academicYear->name }}</option> 
                   @endforeach
                 </select> 
              </div> 

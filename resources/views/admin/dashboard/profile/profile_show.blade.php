@@ -16,12 +16,8 @@
                     @php
                       $profile = route('admin.profile.photo.show',$admins->profile_pic);
                     @endphp
-                   @if ($admins->profile_pic==null) 
-                 <img src="{{asset('front_asset/images/hdg-01.jpg')}}" alt="" class="profile-user-img img-responsive img-circle">
-   
-                  @else
-                  <img src="{{ $profile }}" class="user-image">
-                  @endif
+                   <img  src="{{ ($admins->profile_pic)? $profile : asset('profile-img/user.png') }}" class="profile-user-img img-responsive img-circle">
+                  
 
 
                    {{--  <img class="profile-user-img img-responsive img-circle" src="{{ url('storage/profile/'.$admins->profile_pic) }}">
@@ -29,7 +25,7 @@
                     <h3 class="profile-username text-center">{{ $admins->first_name or '' }}</h3>
 
                      
-                    <button type="button" id="btn_upload_photo" style="margin-left: 90px" class="btn btn-primary btn-xs" onclick="callPopupLarge(this,'{{ route('admin.profile.photo') }}')">Upload Photo</button>
+                    <button type="button" id="btn_upload_photo" style="margin-left: 100px" class="btn btn-primary btn-xs" onclick="callPopupLarge(this,'{{ route('admin.profile.photo') }}')">Upload Photo</button>
 
                      
                   </div> 
@@ -56,7 +52,7 @@
                        <li class="list-group-item"> 
                         <b>Date of Birth</b> <a class="float-right"> <input type="date" name="dob" class="form-control" value="{{ $admins->dob }}"> </a>
                       </li> <li class="list-group-item"> 
-                        <b>E-mail ID</b> <a class="float-right"> <input type="email" name="email" class="form-control" value="{{ $admins->email or '' }}" maxlength="50"> </a>
+                        <b>Email</b> <a class="float-right"> <input type="email" name="email" class="form-control" value="{{ $admins->email or '' }}" maxlength="50"> </a>
                       </li> 
                     </ul>
                      <input type="submit" value="Update" class="btn btn-success" style="margin-left: 350px">

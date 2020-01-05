@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
+use App\Model\AcademicYear;
 use App\Model\AdmissionApplication;
 use App\Model\AdmissionSeat;
 use App\Model\PaymentMode;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Validator;
 
 class SubmitApplicationFormController extends Controller
 {
@@ -24,7 +27,13 @@ class SubmitApplicationFormController extends Controller
        $response['status']= 0; 
        $response['msg']= 'Invalid Application No.'; 
        return  $response; 
-      } 
+      }
+      elseif ($admissionApplication->status==1) {
+        $response= array();                       
+       $response['status']= 0; 
+       $response['msg']= 'Not Final Submitted'; 
+       return  $response; 
+      }
       $st=new Student();
       $student=$st->getStudentDetailsById($admissionApplication->student_id);   
       $student->classes->id;
@@ -45,52 +54,41 @@ class SubmitApplicationFormController extends Controller
        $response['msg']= 'Form Received Successfully'; 
        return  $response;
     } 
-    public function scrutiny($value=''){ 
-      return view('admin.student.studentdetails.applicationscrutiny.index',compact('admissionApplications'));
+    public function scrutiny($value=''){
+      $academicYears=AcademicYear::all(); 
+      $classes=MyFuncs::getClassByHasUser(); 
+      return view('admin.student.studentdetails.applicationscrutiny.index',compact('admissionApplications','academicYears','classes'));
     }
-    public function filter($id){
+    public function filter(Request $request,$id){
       $conditionId=$id;
-      if ($id==3) {
-        $admissionApplications=AdmissionApplication::where('status',3)->get(); 
-        }
-        else if ($id==4) {
-        $admissionApplications=AdmissionApplication::where('status',4)->get(); 
-        }
-        else if ($id==5) {
-        $admissionApplications=AdmissionApplication::where('status',5)->get(); 
-        }  
+      $student=Student::where('class_id',$request->class)->pluck('id')->toArray(); 
+      $admissionApplications=AdmissionApplication::where('for_academic_year',$request->academic_year)->whereIn('student_id',$student)->where('status',$conditionId)->get(); 
+       
       return view('admin.student.studentdetails.applicationscrutiny.filter_list',compact('admissionApplications','conditionId'));
      
     }
-    public function remark($id){ 
-      
-     return view('admin.student.studentdetails.applicationscrutiny.remark',compact('id'));
+    public function remark($id,$status){ 
+       
+     return view('admin.student.studentdetails.applicationscrutiny.remark',compact('id','status'));
     }
-    public function remarkStore(Request $request,$id){ 
-     $admissionApplications=AdmissionApplication::find(Crypt::decrypt($id));
+    public function remarkStore(Request $request,$id){
+     $admissionApplications=AdmissionApplication::find($id);
      $admissionApplications->remark=$request->remark;
+     $admissionApplications->status=$request->status;
      $admissionApplications->save();
+     if ($request->status==3) {
+         $message='Pending Successfully';
+     }
+     elseif ($request->status==4) {
+         $message='Accepted Successfully';
+     }
+     elseif ($request->status==5) {
+         $message='Rejected Successfully';
+     }
       $response= array();                       
        $response['status']= 1; 
-       $response['msg']= 'Remark Submit Successfully'; 
+       $response['msg']= $message; 
        return  $response;
     }
-    public function pending($id){ 
-      $admissionApplications=AdmissionApplication::find(Crypt::decrypt($id));
-      $admissionApplications->status=3;
-      $admissionApplications->save();
-      return redirect()->back()->with(['message'=>'Pending Successfully','class'=>'success']);
-    }
-    public function accepted($id){       
-      $admissionApplications=AdmissionApplication::find(Crypt::decrypt($id)); 
-      $admissionApplications->status=4;
-      $admissionApplications->save();
-      return redirect()->back()->with(['message'=>'Accepted Successfully','class'=>'success']); 
-    }
-    public function rejected($id){ 
-      $admissionApplications=AdmissionApplication::find(Crypt::decrypt($id));
-      $admissionApplications->status=5;
-      $admissionApplications->save();
-      return redirect()->back()->with(['message'=>'Rejected Successfully','class'=>'success']);
-    }
+    
 }
