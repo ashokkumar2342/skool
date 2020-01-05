@@ -32,14 +32,15 @@
 </style>
 <body>
   @php
-   $routeName= Route::currentRouteName(); 
-   $data =storage_path('app/student/barcode/'.$student->registration_no.'.'.'png');
+   $routeName= Route::currentRouteName();
+   $applicationNo=App\Model\AdmissionApplication::where('student_id',$student->id)->first(); 
+   $data =storage_path('app/student/barcode/application'.$applicationNo->id.'.'.'png');
   @endphp
   @if ($student->student_status_id!=1)
    @if ( $routeName=='admin.student.registration.profile.view')
       <div style="margin:20px">Application No. <img src="{{$data}}" width="20%" height="20%"> </div>
-     {{--  @else
-      <div style="margin:20px">Application No. <img src="data:image/png;base64,{{ base64_encode($data)}}" width="20%" height="20%" alt="{{ $data }}" />  --}}    
+   @else
+      <div style="margin:20px">Application No. <img src="data:image/png;base64,{{ base64_encode($data)}}" width="20%" height="20%" alt="{{ $data }}" />     
    @endif 
   @endif
     <div class="panel panel-info">
