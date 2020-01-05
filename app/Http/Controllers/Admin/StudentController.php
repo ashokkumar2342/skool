@@ -1470,7 +1470,8 @@ class StudentController extends Controller
                      $code = $barcode->generate();
                      $data = base64_decode($code);
                      $image_name= $value.'.png';     
-                     $path = Storage_path() . "/app/student/barcode/application/" . $image_name; 
+                     $path = Storage_path() . "/app/student/barcode/application/" . $image_name;
+                     @mkdir(Storage_path() . "/app/student/barcode/application/", 0755, true); 
                      file_put_contents($path, $data);  
            //application barcode end///          
           // $studentMedicalInfos = StudentMedicalInfo::where('student_id',$student_id)->get(); 
