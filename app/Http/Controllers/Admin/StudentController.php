@@ -1474,8 +1474,8 @@ class StudentController extends Controller
                      @mkdir(Storage_path() . "/app/student/barcode/application/", 0755, true); 
                      file_put_contents($path, $data);  
            //application barcode end///          
-          // $studentMedicalInfos = StudentMedicalInfo::where('student_id',$student_id)->get(); 
-          // $documents = Document::where('student_id',$student_id)->get(); 
+          $studentMedicalInfos = StudentMedicalInfo::where('student_id',$student_id)->get(); 
+          $documents = Document::where('student_id',$student_id)->get(); 
           $studentSubjects=StudentSubject::where('student_id',$student_id)->get();
           $admissionApplication=AdmissionApplication::where('student_id',$student_id)->first(); 
           $profilePdfUrl = Storage_path() . '/app/student/profile/newstudent/';
