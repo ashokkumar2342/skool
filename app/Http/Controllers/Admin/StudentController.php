@@ -1554,7 +1554,7 @@ class StudentController extends Controller
        $academic_year_id=$request->academic_year_id;
        $class_id=$request->class_id;
        $student=Student::where('student_status_id','!=',1)->where('class_id',$class_id)->pluck('id')->toArray();
-         $admissionApplications=AdmissionApplication::whereIn('student_id',$student)->where('for_academic_year',$academic_year_id)->get();
+         $admissionApplications=AdmissionApplication::whereIn('student_id',$student)->where('for_academic_year',$academic_year_id)->where('status',4)->get();
        $response=array();
        $response['status']=1;
        $response['data']=view('admin.student.studentdetails.admissiontestmark.student_marks',compact('admissionApplications'))->render();
