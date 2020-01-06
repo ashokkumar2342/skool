@@ -26,13 +26,13 @@
             </select> 
           </div>
         <div class="col-lg-2">
-            <button type="button" class="btn btn-warning" style="margin-top: 24px" success-popup="true" onclick="callAjax(this,'{{ route('admin.submit.application.filter',3) }}'+'?academic_year='+$('#academic_year').val()+'&class='+$('#class').val(),'student_list_filter')">Pending</button>
+            <button type="button" id="btn_3" class="btn btn-warning" style="margin-top: 24px"  onclick="callAjax(this,'{{ route('admin.submit.application.filter',3) }}'+'?academic_year='+$('#academic_year').val()+'&class='+$('#class').val(),'student_list_filter')">Pending</button>
           </div>
           <div class="col-lg-2">
-            <button type="button" class="btn btn-success" style="margin-top: 24px"success-popup="true" onclick="callAjax(this,'{{ route('admin.submit.application.filter',4) }}'+'?academic_year='+$('#academic_year').val()+'&class='+$('#class').val(),'student_list_filter')">Accepted</button>
+            <button type="button" id="btn_4" class="btn btn-success" style="margin-top: 24px" onclick="callAjax(this,'{{ route('admin.submit.application.filter',4) }}'+'?academic_year='+$('#academic_year').val()+'&class='+$('#class').val(),'student_list_filter')">Accepted</button>
           </div>
           <div class="col-lg-2">
-            <button type="button" class="btn btn-danger" style="margin-top: 24px"success-popup="true" onclick="callAjax(this,'{{ route('admin.submit.application.filter',5) }}'+'?academic_year='+$('#academic_year').val()+'&class='+$('#class').val(),'student_list_filter')">Rejected</button>
+            <button type="button" id="btn_5" class="btn btn-danger" style="margin-top: 24px" onclick="callAjax(this,'{{ route('admin.submit.application.filter',5) }}'+'?academic_year='+$('#academic_year').val()+'&class='+$('#class').val(),'student_list_filter')">Rejected</button>
           </div>
           <div class="col-lg-12" style="margin-top: 20px">
              <table class="table" id="room_table"> 

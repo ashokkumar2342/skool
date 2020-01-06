@@ -23,7 +23,7 @@
 		
 	</tbody>
 </table>
-<div class="col-lg-12 text-center" style="margin-left: 55px">
+<div class="col-lg-9 text-right">
 	<input type="submit" class="btn btn-success">
 	
 </div>

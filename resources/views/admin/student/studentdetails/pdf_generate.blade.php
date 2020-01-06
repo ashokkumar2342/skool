@@ -11,7 +11,7 @@
     li:before {
        /* vertical-align: sub ;*/
         content:' * ';
-        font-size: 20px;
+        font-size: 18px;
         font:center;
         
 
@@ -31,17 +31,13 @@
 
 </style>
 <body>
+  @if ($student->student_status_id!=1)
   @php
    $routeName= Route::currentRouteName();
    $applicationNo=App\Model\AdmissionApplication::where('student_id',$student->id)->first(); 
    $data =storage_path('app/student/barcode/application/'.$applicationNo->id.'.'.'png');
-  @endphp
-  @if ($student->student_status_id!=1)
-   @if ( $routeName=='admin.student.registration.profile.view')
-      <div style="margin:20px">Application No. <img src="{{$data}}" width="20%" height="20%"> </div>
-   @else
-      <div style="margin:20px">Application No. <img src="data:image/png;base64,{{ base64_encode($data)}}" width="20%" height="20%" alt="{{ $data }}" />     
-   @endif 
+  @endphp 
+      <div style="margin:20px">Application No. <img src="{{$data}}" width="20%" height="20%"> </div> 
   @endif
     <div class="panel panel-info">
     <div class="panel-heading">

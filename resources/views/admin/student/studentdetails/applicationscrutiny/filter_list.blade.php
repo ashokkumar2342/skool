@@ -12,8 +12,8 @@
                         <a onclick="callPopupLarge(this,'{{ route('admin.submit.application.remark',[$admissionApplication->id,5]) }}')" title="Rejected" class="btn btn-xs btn-danger">Rejected</a>
                         @endif
                         @if ($conditionId==4) 
-                        <a onclick="callPopupLarge(this,'{{ route('admin.submit.application.remark',[$admissionApplication->id,5]) }}')" title="Rejected" class="btn btn-xs btn-danger">Rejected</a>
-                        <a onclick="callPopupLarge(this,'{{ route('admin.submit.application.remark',[$admissionApplication->id,3]) }}')" title="Pending" class="btn btn-xs btn-warning">Pending</a> 
+                        <a onclick="callPopupLarge(this,'{{ route('admin.submit.application.remark',[$admissionApplication->id,3]) }}')" title="Pending" class="btn btn-xs btn-warning">Pending</a>
+                        <a onclick="callPopupLarge(this,'{{ route('admin.submit.application.remark',[$admissionApplication->id,5]) }}')" title="Rejected" class="btn btn-xs btn-danger">Rejected</a> 
                         @endif
                         @if ($conditionId==5) 
                         <a onclick="callPopupLarge(this,'{{ route('admin.submit.application.remark',[$admissionApplication->id,4]) }}')" title="Accepted" class="btn btn-xs btn-success">Accepted</a>

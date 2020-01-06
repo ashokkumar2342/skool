@@ -1,4 +1,4 @@
-<div class="row">
+{{-- <div class="row">
 	<div class="col-lg-3">
 		<a onclick="callAjax(this,'{{ route('admin.student.admission.test.marks.filter',[$class_id,$academic_year_id,4]) }}','application_test_marks_list')" class="btn btn-warning">Pending</a> 
 	</div>
@@ -14,3 +14,4 @@
 </div>
 
  
+ --}}

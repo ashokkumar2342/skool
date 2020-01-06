@@ -1553,9 +1553,11 @@ class StudentController extends Controller
          } 
        $academic_year_id=$request->academic_year_id;
        $class_id=$request->class_id;
+       $student=Student::where('student_status_id','!=',1)->where('class_id',$class_id)->pluck('id')->toArray();
+         $admissionApplications=AdmissionApplication::whereIn('student_id',$student)->where('for_academic_year',$academic_year_id)->get();
        $response=array();
        $response['status']=1;
-       $response['data']=view('admin.student.studentdetails.admissiontestmark.studentlist',compact('academic_year_id','class_id'))->render();
+       $response['data']=view('admin.student.studentdetails.admissiontestmark.student_marks',compact('admissionApplications'))->render();
        return $response;
     }
      public function admissionTestMarksfilter(Request $request,$class_id,$academicYear_id,$conditionId)

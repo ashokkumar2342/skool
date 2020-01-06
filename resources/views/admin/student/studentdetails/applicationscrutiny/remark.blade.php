@@ -30,7 +30,7 @@ elseif($status==4){
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12"> 
-              <form action="{{ route('admin.submit.application.remark.store',$id) }}" method="post" class="add_form" button-click="btn_close" content-refresh="room_table" >
+              <form action="{{ route('admin.submit.application.remark.store',$id) }}" method="post" class="add_form" button-click="btn_close,btn_{{ $status }}">
               {{ csrf_field() }}
               <div class="row">
                 <div class="col-lg-12">

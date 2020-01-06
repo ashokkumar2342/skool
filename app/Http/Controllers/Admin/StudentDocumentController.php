@@ -54,7 +54,7 @@ class StudentDocumentController extends Controller
               return response()->json($response);// response as json
           } 
          $file = $request->file('file');
-         $path ='student/document/'.$student->class_id.'/'.$student->section_id.'/'.$student->registration_no.'/';
+         $path ='student/document/'.$student->class_id.'/'.$request->document_type_id.'/'.$student->id.'/';
          $file->store($path);
          $document =Document::firstOrNew(['document_type_id'=>$request->document_type_id,'student_id'=>$request->student_id]);
          $document->name = $file->getClientOriginalName();     

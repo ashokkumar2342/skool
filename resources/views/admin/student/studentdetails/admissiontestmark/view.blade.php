@@ -29,17 +29,14 @@
                 </select> 
              </div>
              <div class="col-lg-2">
-               <input type="submit" class="btn btn-success" value="Show" style="margin-top: 24px">
+               <input type="submit" class="btn btn-success" id="btn_admission_test_marks" value="Show" style="margin-top: 24px">
              </div> 
             </div>
           </form>
-          <form action="{{ route('admin.student.admission.test.marks.store') }}" method="post" class="add_form">
+          <form action="{{ route('admin.student.admission.test.marks.store') }}" method="post" no-reset="true" class="add_form" button-click="btn_admission_test_marks">
             {{ csrf_field() }}
             <div class="col-lg-12" id="student_marks_table" style="margin-top: 20px"> 
-            </div>
-            <div class="col-lg-12" id="application_test_marks_list" style="margin-top: 20px">
-                
-              </div>  
+            </div> 
           </form> 
         </div>
       </div>
