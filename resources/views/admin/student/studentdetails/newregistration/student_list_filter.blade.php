@@ -46,7 +46,6 @@
 			@if($student->student_status_id==9) 
 			<a class="btn btn-default btn-xs" title="View" href="{{ route('admin.student.registration.profile.view',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a>
 			@endif 
-			
 		</td>
 		</tr> 
 		@endforeach

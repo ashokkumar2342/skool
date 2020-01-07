@@ -94,7 +94,7 @@ class StudentLeaveController extends Controller
   public function destroy($id)
   {
     $leaveRecord=LeaveRecord::find($id);
-    return view('admin.attendance.Leave.view',compact('leaveRecord'));
+    return view('admin.attendance.leave.view',compact('leaveRecord'));
   }
 
    //----------------leave-type-----------------------------//

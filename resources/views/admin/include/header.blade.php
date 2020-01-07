@@ -9,7 +9,7 @@
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>{{ date('d-m-Y') }}</b></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg">{{ date('d-m-Y') }}</span>
+                <span class="logo-lg">{{ $academicYear->name }}</span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -23,7 +23,7 @@
                 @includeIf('admin.include.hot_menu_top', ['menu_type_id' =>1])
                 <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <li><a href="#" title="">{{ $academicYear->name }}</a></li>
+              <li><a href="#" title="">{{ date('d-M-Y') }}</a></li>
             <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
