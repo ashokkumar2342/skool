@@ -29,11 +29,11 @@
                 </div> --}}
                 <div class="col-lg-3 form-group">
                   <label>Total Seat</label>
-                  <input type="text" name="total_seat" class="form-control" placeholder="" maxlength="10" value="{{ @$adminssionSeat->total_seat }}"> 
+                  <input type="text" name="total_seat" class="form-control" placeholder="Enter Total Seat" maxlength="6" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="{{ @$adminssionSeat->total_seat }}"> 
                 </div>
                 <div class="col-lg-3 form-group">
-                  <label>Form Fee</label>
-                  <input type="number" name="form_fee" class="form-control" value="{{ @$adminssionSeat->form_fee }}"> 
+                  <label>Prospectus Fee</label>
+                  <input type="number" name="form_fee" class="form-control" placeholder="Enter Prospectus Fee"  maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="{{ @$adminssionSeat->form_fee }}"> 
                 </div>
                 <div class="col-lg-3 form-group">
                   <label>From Date</label>

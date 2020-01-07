@@ -100,7 +100,6 @@
             $routeName= Route::currentRouteName(); 
             $path =storage_path('app/student/profile/'.$student->picture);
             $paths =storage_path('app/student/profile/'.''); 
-          
             $profile = route('admin.student.image',$student->picture);
             @endphp 
             @if ( $routeName=='admin.student.registration.final.submit')
@@ -111,7 +110,11 @@
                @endif 
             @endif 
             @if ( $routeName=='admin.student.pdf.generate')
-            <img  src="{{ $path }}" alt="" width="103px" height="103px" style="margin-top: 10px; border:solid 2px Black"> 
+               @if ($path==$paths)
+               <img  src="''" alt="" width="103px" height="103px" style="border:solid 2px Black"> 
+               @else
+               <img  src="{{ $path }}" alt="" width="103px" height="103px" style="margin-top: 10px; border:solid 2px Black"> 
+               @endif
             @endif
             @if ( $routeName=='admin.student.preview')
             <img  src="{{ ($student->picture)? $profile : asset('profile-img/user.png') }}" width="120px" height="120px" style="border:solid 2px Black">
