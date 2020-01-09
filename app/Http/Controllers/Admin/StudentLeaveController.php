@@ -91,11 +91,11 @@ class StudentLeaveController extends Controller
    }
 
 
-  public function destroy($id)
-  {
-        $documentUrl = Storage_path() . '/app/student/leave/'.$id; 
-        return response()->file($documentUrl); 
-  }
+  // public function destroy($id)
+  // {
+  //       $documentUrl = Storage_path() . '/app/student/leave/'.$id; 
+  //       return response()->file($documentUrl); 
+  // }
 
    //----------------leave-type-----------------------------//
 

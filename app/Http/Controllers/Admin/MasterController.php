@@ -618,9 +618,9 @@ class MasterController extends Controller
            $adminssionSeat->delete();  
            return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         }
-        public function adminssionSeatDownload($id){  
-        $documentUrl = Storage_path() . '/app/student/admissionschedule/syllabus/'.$id;
-        @mkdir($documentUrl, 0755, true);  
-        return response()->file($documentUrl); 
-       }
+       //  public function adminssionSeatDownload($id){  
+       //  $documentUrl = Storage_path() . '/app/student/admissionschedule/syllabus/'.$id;
+       //  @mkdir($documentUrl, 0755, true);  
+       //  return response()->file($documentUrl); 
+       // }
 }
