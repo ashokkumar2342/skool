@@ -10,7 +10,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><a href="{{ asset('storage/student/leave/'.$leaveRecord->attachment ) }}" target="blank" style="margin:10px">Open Attachment</a> </h4>
+        <h4 class="modal-title"><a href="{{ route('admin.attendance.leave.delete',$leaveRecord->id) }}" target="blank" style="margin:10px">Open Attachment</a> </h4>
       </div>
       <div class="modal-body"> 
         <form action="" method="get" accept-charset="utf-8">

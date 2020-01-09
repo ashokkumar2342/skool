@@ -30,7 +30,7 @@
 					<td>{{ $leaveapply->admins->first_name or '' }}</td>
 					<td>{{ $leaveapply->remark or '' }}</td>
 					<td>
-						<a href="{{ asset('storage/student/leave/'.$leaveapply->attachment ) }}" target="blank" style="margin:10px">{{ $leaveapply->attachment?'Open the pdf!' : '' }}</a>
+						<a href="{{ route('admin.attendance.leave.delete',$leaveapply->attachment) }}" target="blank" style="margin:10px">{{ $leaveapply->attachment?'Open the Attachment!' : '' }}</a>
 					</td>
 					
 						@if ($leaveapply->status==0)

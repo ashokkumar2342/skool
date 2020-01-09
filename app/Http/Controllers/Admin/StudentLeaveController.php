@@ -76,8 +76,8 @@ class StudentLeaveController extends Controller
        $leaveType->status=0;
        if ($request->hasFile('attachment')) { 
                 $attachment=$request->attachment;
-                $filename='attech'.date('d-m-Y').time().'.pdf'; 
-                $attachment->storeAs('public/student/leave/',$filename);
+                $filename=$request->student_id.'attech'.date('d-m-Y').time().'.pdf'; 
+                $attachment->storeAs('student/leave/',$filename);
                 $leaveType->attachment=$filename; 
                 $leaveType->save();
                 $response=['status'=>1,'msg'=>'Created Successfully'];
@@ -93,8 +93,8 @@ class StudentLeaveController extends Controller
 
   public function destroy($id)
   {
-    $leaveRecord=LeaveRecord::find($id);
-    return view('admin.attendance.leave.view',compact('leaveRecord'));
+        $documentUrl = Storage_path() . '/app/student/leave/'.$id; 
+        return response()->file($documentUrl); 
   }
 
    //----------------leave-type-----------------------------//

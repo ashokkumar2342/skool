@@ -998,6 +998,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('add/{id?}', 'MasterController@addadminssionSeat')->name('admin.adminssion.seat.add');	 	
 			    Route::post('store/{id?}', 'MasterController@adminssionSeatStore')->name('admin.adminssion.seat.store'); 
 			    Route::get('delete/{id}', 'MasterController@adminssionSeatDestroy')->name('admin.adminssion.seat.delete'); 
+			    Route::get('download/{id}', 'MasterController@adminssionSeatDownload')->name('admin.adminssion.seat.download'); 
 			});	
 			//------------------------- SMS ---------------------------------
 			Route::group(['prefix' => 'sms'], function() {

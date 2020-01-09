@@ -20,6 +20,7 @@
                    <th>Test Date</th>
                    <th>Retest Date</th>
                    <th>Result Date</th>
+                   <th>Syllabus</th>
                    <th>Action</th>
                  </tr>
                </thead>
@@ -35,6 +36,7 @@
                          <td>{{ date('d-m-Y',strtotime( $adminssionSeat->test_date))}}</td>
                          <td>{{ date('d-m-Y',strtotime( $adminssionSeat->retest_date))}}</td>
                          <td>{{ date('d-m-Y',strtotime( $adminssionSeat->result_date))}}</td>
+                        <td><a href="{{ route('admin.adminssion.seat.download',$adminssionSeat->syllabus) }}" target="blank" style="margin:10px">{{ $adminssionSeat->syllabus?'Open the Syllabus!' : '' }}</a></td>
                          <td>
                           <a  onclick="callPopupLarge(this,'{{ route('admin.adminssion.seat.add',$adminssionSeat->id) }}')" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></a>
                           <a href="{{ route('admin.adminssion.seat.delete',$adminssionSeat->id) }}" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>

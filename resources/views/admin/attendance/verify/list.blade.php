@@ -33,9 +33,9 @@
                     <td class="text-nowrap">{{ date('d-m-Y',strtotime( $leaveRecord->from_date))}}</td>
                     <td class="text-nowrap">{{ date('d-m-Y',strtotime( $leaveRecord->to_date))}}</td>
                     <td class="text-nowrap">{{$leaveRecord->remark}}</td>
-                    <td class="text-nowrap">{{$leaveRecord->attachment}}</td>
+                    <td><a href="{{ route('admin.attendance.leave.delete',$leaveRecord->attachment) }}" target="blank" style="margin:10px">{{ $leaveRecord->attachment?'Open the Attachment!' : '' }}</a></td>
                     <td class="text-nowrap">
-                      <a href="#"  onclick="callPopupLarge(this,'{{ route('admin.attendance.leave.delete',$leaveRecord->id) }}')" title="View" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+                      {{-- <a href="#"  onclick="callPopupLarge(this,'{{ route('admin.attendance.leave.delete',$leaveRecord->id) }}')" title="View" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a> --}}
                       <a href="{{ route('admin.attendance.leave.verify.form',$leaveRecord->id) }}" class="btn btn-info btn-xs" title="Approval">Approval</a>
                       <a href="{{ route('admin.attendance.leave.verify.store',$leaveRecord->id) }}" class="btn btn-danger btn-xs" title="Approval">Reject</a>
 

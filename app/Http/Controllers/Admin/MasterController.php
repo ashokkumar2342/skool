@@ -605,7 +605,7 @@ class MasterController extends Controller
                if ($request->hasFile('attachment')) { 
                 $attachment=$request->attachment;
                 $filename='test_syllabus'.date('d-m-Y').time().'.pdf'; 
-                $attachment->storeAs('app/student/test/syllabus/',$filename);
+                $attachment->storeAs('student/admissionschedule/syllabus/',$filename);
                 $adminssionSeat->syllabus=$filename;
                 } 
                $adminssionSeat->save();
@@ -618,4 +618,8 @@ class MasterController extends Controller
            $adminssionSeat->delete();  
            return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         }
+        public function adminssionSeatDownload($id){  
+        $documentUrl = Storage_path() . '/app/student/admissionschedule/syllabus/'.$id; 
+        return response()->file($documentUrl); 
+       }
 }
