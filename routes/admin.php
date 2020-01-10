@@ -740,6 +740,7 @@ Route::group(['middleware' => 'admin'], function() {
     	  });
     	Route::group(['prefix' => 'fee-default-value'], function() {
     	  Route::get('/', 'FeeDefaultValueController@index')->name('admin.finance.fee.default.value'); 
+    	  Route::get('form', 'FeeDefaultValueController@btnClickByForm')->name('admin.finance.fee.default.value.form'); 
     	  Route::post('store', 'FeeDefaultValueController@store')->name('admin.finance.fee.default.value.store'); 
     	  
     	    

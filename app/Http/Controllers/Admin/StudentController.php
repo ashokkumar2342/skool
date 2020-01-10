@@ -344,7 +344,7 @@ class StudentController extends Controller
          $response=array();
          $response['status']=1;
          $response['msg']='Created Successfully';   
-         $response['student_id']=$student->id;   
+         $response['student_id']=Crypt::encrypt($student->id);
          return $response; 
          } 
          
@@ -360,8 +360,11 @@ class StudentController extends Controller
      * @param  \App\StudentDetails  $studentDetails
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show($student_id)
     {
+        $studentId= Crypt::decrypt($student_id);
+        $st=new Student();
+        $student=$st->getStudentDetailsById($studentId);
         $userId=Auth::guard('admin')->user(); 
         $parentsType = array_pluck(GuardianRelationType::get(['id','name'])->toArray(),'name','id');
         $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
@@ -1307,7 +1310,7 @@ class StudentController extends Controller
          $response=array();
          $response['status']=1;
          $response['msg']='Registration Successfully';   
-         $response['student_id']=$student->id;   
+         $response['student_id']=Crypt::encrypt($student->id);
          return $response; 
          } 
          
@@ -1429,7 +1432,7 @@ class StudentController extends Controller
          $response=array();
          $response['status']=1;
          $response['msg']='Registration Successfully';   
-         $response['student_id']=$student->id;   
+         $response['student_id']=Crypt::encrypt($student->id);   
          return $response; 
          } 
          

@@ -30,7 +30,7 @@
                                                <tr>
                                                    <td colspan="4">
                                                        <div style="width: 600px;" align="center"> 
-                                                           <span id="lblheader" style="font-family:Arial;font-size:20;">eage, Jhajhar, Tele : +91-8397068001</br>Fee Receipt  Session : 2018-2019</span>
+                                                           <span id="lblheader" style="font-family:Arial;font-size:20;">{!! $feedefaultvalue->rec_header !!} </span>
                                                            <hr />
                                                        </div>
                                                    </td>
@@ -201,7 +201,7 @@
                                                @endforeach
                                                <tr>
                                                    <td align="left" colspan="3">
-                                                      <p><b>Note:</b> Cheque should be in favour of <b>Eageschool EDUCATION SOCIETY</p> 
+                                                      <p><b>Note:</b> {!! $feedefaultvalue->rec_note !!} </p> 
                                                        
                                                    </td>
                                                </tr>

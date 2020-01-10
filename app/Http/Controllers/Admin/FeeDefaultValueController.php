@@ -12,15 +12,20 @@ use Illuminate\Support\Facades\Validator;
 class FeeDefaultValueController extends Controller
 {
     public function index()
-    {   $user_id=Auth::guard('admin')->user()->id;
-    	$academic=new MyFuncs();
-    	$uptoMonthYear=$academic->getMonthYear();
-    	$paymentModes=PaymentMode::orderBy('name','ASC')->get();
-    	$feedefaultvalue= DefaultFeeValue::where('userid',$user_id)->first();
+    {  
+    return view('admin.finance.feedefaultvalue.index',compact('uptoMonthYear','paymentModes','feedefaultvalue','upto_month_year')); 
+    }
+    public function btnClickByForm($value='')
+    {
+       $user_id=Auth::guard('admin')->user()->id;
+        $academic=new MyFuncs();
+        $uptoMonthYear=$academic->getMonthYear();
+        $paymentModes=PaymentMode::orderBy('name','ASC')->get();
+        $feedefaultvalue= DefaultFeeValue::where('userid',$user_id)->first();
         $manth=@$feedefaultvalue->upto_month;
-    	$year=@$feedefaultvalue->upto_year;
-    	$upto_month_year='01'.'-'.'0'.$manth.'-'.$year;
-    	return view('admin.finance.feedefaultvalue.index',compact('uptoMonthYear','paymentModes','feedefaultvalue','upto_month_year'));
+        $year=@$feedefaultvalue->upto_year;
+        $upto_month_year='01'.'-'.'0'.$manth.'-'.$year;
+        return view('admin.finance.feedefaultvalue.form',compact('uptoMonthYear','paymentModes','feedefaultvalue','upto_month_year'));  
     }
     public function store(Request $request)
     {   $user_id=Auth::guard('admin')->user()->id;

@@ -14,7 +14,9 @@
                     <tr>
                         <td colspan="4">
                             <div style="width: 450px;" align="center"> 
-                                <span id="lblheader" style="font-family:Arial;font-size:20;">Iskool, Jhajhar, Tele : +91-8397068001</br>Fee Receipt  Session : 2018-2019</span>
+                                <span id="lblheader" style="font-family:Arial;font-size:20;">
+                                   {!! $feedefaultvalue->rec_header !!} 
+                                </span>
                                 <hr />
                             </div>
                         </td>

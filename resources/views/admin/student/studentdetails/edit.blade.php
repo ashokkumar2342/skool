@@ -17,7 +17,7 @@
                     <div class="col-lg-12 ">                 
                        
                     
-                        <form action="{{ route('admin.student.update',$student->id) }}" method="post" accept-charset="utf-8" class="add_form" redirect-to="{{ route('admin.student.view',$student->id) }}"> 
+                        <form action="{{ route('admin.student.update',$student->id) }}" method="post" accept-charset="utf-8" class="add_form" redirect-to="{{ route('admin.student.view',Crypt::encrypt($student->id)) }}"> 
                             {{ csrf_field() }}
 
                              <div class="row">{{--row start --}}

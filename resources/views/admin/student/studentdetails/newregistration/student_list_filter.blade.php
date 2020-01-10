@@ -35,7 +35,7 @@
 		<td>{{ $student->name or '' }}</td>
 		<td>
 			@if (empty($application->first()->profile_path))
-			<a class="btn btn-info btn-xs {{ $studentStatus }} " title="Edit" href="{{ route('admin.student.view',$student->id) }}" target="_blank"><i class="fa fa-edit"></i></a> 
+			<a class="btn btn-info btn-xs {{ $studentStatus }} " title="Edit" href="{{ route('admin.student.view',Crypt::encrypt($student->id)) }}" target="_blank"><i class="fa fa-edit"></i></a> 
 			@endif
 			@if (!empty($application->first()->profile_path  )) 
 					<a class="btn btn-default  btn-xs"  title="View" href="{{ route('admin.student.registration.profile.view',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a> 

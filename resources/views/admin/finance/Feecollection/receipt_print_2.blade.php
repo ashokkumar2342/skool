@@ -39,7 +39,9 @@
                                      <td colspan="4">
                                          <div style="width: 450px;" align="center">
                                              <img src="{{asset('images/logo.png')}}" alt="" height="50px" /><br />
-                                             <span id="lblheader" style="font-family:Arial;font-size:Small;">Eage School , Tele : +91-8397068001</br>8th km., Jind Road, N.H. 71, Tele : +91-8570006662<br/></span>
+                                             <span id="lblheader" style="font-family:Arial;font-size:Small;">{!! $feedefaultvalue->rec_header !!} 
+                                                <br/>
+                                             </span>
                                              <hr />
                                          </div>
                                      </td>
@@ -234,7 +236,7 @@
                                  <tr>
                                      <td align="left">
                                         <span id="Label2" style="font-weight: bold;
-                                             font-size: small;">Note: Cheque should be in favour of <b>Eageschool EDUCATION SOCIETY</span> 
+                                             font-size: small;">Note: {!! $feedefaultvalue->rec_note !!} </span> 
                                          
                                      </td>
                                  </tr>

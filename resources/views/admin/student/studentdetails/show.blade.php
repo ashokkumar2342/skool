@@ -35,7 +35,7 @@
                    
                   <td align="center">
                      @if(App\Helper\MyFuncs::menuPermission()->r_status == 1)
-                   <a class="btn btn-primary btn-xs" title="View Student" href="{{ route('admin.student.view',$student->id) }}"><i class="fa fa-eye"></i></a>
+                   <a class="btn btn-primary btn-xs" title="View Student" href="{{ route('admin.student.view',Crypt::encrypt($student->id)) }}"><i class="fa fa-eye"></i></a>
                    @endif
                     @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
                     <a class="btn btn-warning btn-xs" title="Edit Student" href="{{ route('admin.student.edit',$student->id) }}"><i class="fas fa-edit"></i></a>
