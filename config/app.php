@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
+        App\Providers\MailConfigServiceProvider::class,
       
 
     ],
