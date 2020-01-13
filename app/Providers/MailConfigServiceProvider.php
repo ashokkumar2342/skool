@@ -35,7 +35,7 @@ class MailConfigServiceProvider extends ServiceProvider
                     'host'       => $mail->host,
                     'port'       => $mail->port,
                     'from'       => array('address' => $mail->mail_from, 'name' => 'no-reply'),
-                    'encryption' => null,
+                    'encryption' => $mail->encryption,
                     'username'   => $mail->username,
                     'password'   => $mail->password,
                    

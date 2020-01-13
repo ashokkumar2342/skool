@@ -82,7 +82,7 @@ class SendSms extends Command
 
          
         $mailHelper =new MailHelper(); 
-        $mailHelper->mailsendwithattachment('emails.'.$temp_name,$up_u,'No-Reply',$subject,'dilipkumarchauhan2342@gmail.com','info@eageskool.com',5,$urls);
+        $mailHelper->mailsendwithattachment('emails.'.$temp_name,$up_u,'No-Reply',$subject,'dilipkumarchauhan2342@gmail.com','dilipkumarchauhan2342@gmail.com',5,$urls);
  
          } 
          // $array=array();       
