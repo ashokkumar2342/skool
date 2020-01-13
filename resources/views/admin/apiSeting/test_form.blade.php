@@ -21,13 +21,18 @@
                    {{ csrf_field() }}
                    <div class="row"> 
                     <div class="form-group   col-lg-12">
+                      @if ($id==1)
                       <label>Mobile No</label>
                       <input type="text" name="mobile" class="form-control" placeholder="Enter Mobile No" maxlength="10">
+                      @else
+                      <label>Email</label>
+                      <input type="email" name="email" class="form-control" placeholder="Enter Email" maxlength="10"> 
+                      @endif
                       <input type="hidden" name="test" value="{{ $id }}"> 
                     </div> 
                    <div class="row">
                     <div class="col-lg-12 text-center" style="padding-top: 10px">
-                      <input type="submit" value="Test Message" class="btn btn-success">
+                      <input type="submit" value="Send" class="btn btn-success">
                     </div> 
                    </div> 
               </form> 

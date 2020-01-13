@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Admin\Model\EmailApi;
 use App\Admin\Model\SmsApi;
 use App\Events\SmsEvent;
+use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\Sms\SmsTemplate;
 use Illuminate\Http\Request;
@@ -175,10 +176,21 @@ class ApiSetingController extends Controller
    }
    public function MessageSend(Request $request)
    { 
-         
-        event(new SmsEvent($request->mobile,'Api   Integration Successfully')); 
-       $response=['status'=>1,'msg'=>'send Successfully'];
-              return response()->json($response);
+        if ($request->test==1) {
+          event(new SmsEvent($request->mobile,'Api   Integration Successfully')); 
+         }else{ 
+            $message ='Test Api Integration Successfully';         
+            $emailto = $request->email;         
+            $subject = 'Test Api'; 
+            $up_u=array(); 
+            $up_u['medicalInfo']=$message;
+            $up_u['subject']=$subject; 
+            $mailHelper =new MailHelper(); 
+            $mailHelper->mailsend('emails.message',$up_u,'No-Reply',$subject,$emailto,'noreply@esgekool.com',5); 
+         }
+         $response=['status'=>1,'msg'=>'send Successfully'];
+              return response()->json($response); 
+
    }
 
 }

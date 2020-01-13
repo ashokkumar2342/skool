@@ -43,7 +43,7 @@
                     <div class="form-group   col-lg-4">
                       <label>From</label>
                       <input type="text" name="from" class="form-control"  placeholder="Enter From" value="{{ @$emailApi->mail_from }}" maxlength="50"> 
-                      <input type="text" name="from" class="form-control"  placeholder="Enter From" value="{{ @$emailApi->enableAutoSend }}" maxlength="50"> 
+                      
                     </div>
                     <div class="form-group   col-lg-4">
                       <label>Enable Auto Send</label>
