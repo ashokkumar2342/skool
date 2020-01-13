@@ -40,45 +40,45 @@ class VehicleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-    	$rules=[
-    	'registration_no' => 'required|max:30', 
-            'chassis_no' => 'required|max:30', 
-            'model_no' => 'required|max:30', 
-            'engine_no' => 'required|max:30',
-            'siting_capacity' => 'required|max:30', 
-            'average' => 'required|max:30', 
-            'transport_id' => 'required|max:30', 
-            'vehicle_type_id' => 'required|max:30', 
-    	];
+    // public function store(Request $request)
+    // {
+    // 	$rules=[
+    // 	'registration_no' => 'required|max:30', 
+    //         'chassis_no' => 'required|max:30', 
+    //         'model_no' => 'required|max:30', 
+    //         'engine_no' => 'required|max:30',
+    //         'siting_capacity' => 'required|max:30', 
+    //         'average' => 'required|max:30', 
+    //         'transport_id' => 'required|max:30', 
+    //         'vehicle_type_id' => 'required|max:30', 
+    // 	];
 
-    	$validator = Validator::make($request->all(),$rules);
-    	if ($validator->fails()) {
-    	    $errors = $validator->errors()->all();
-    	    $response=array();
-    	    $response["status"]=0;
-    	    $response["msg"]=$errors[0];
-    	    return response()->json($response);// response as json
-    	}
-         else {
-            $Vehicle = new Vehicle();
+    // 	$validator = Validator::make($request->all(),$rules);
+    // 	if ($validator->fails()) {
+    // 	    $errors = $validator->errors()->all();
+    // 	    $response=array();
+    // 	    $response["status"]=0;
+    // 	    $response["msg"]=$errors[0];
+    // 	    return response()->json($response);// response as json
+    // 	}
+    //      else {
+    //         $Vehicle = new Vehicle();
             
-            $Vehicle->transport_id = $request->transport_id;
-            $Vehicle->vehicle_type_id = $request->vehicle_type_id;
-            $Vehicle->registration_no = $request->registration_no;
-            $Vehicle->chassis_no = $request->chassis_no;
-            $Vehicle->model_no = $request->model_no;
-            $Vehicle->engine_no = $request->engine_no;
-            $Vehicle->siting_capacity = $request->siting_capacity;
-            $Vehicle->average = $request->average;
+    //         $Vehicle->transport_id = $request->transport_id;
+    //         $Vehicle->vehicle_type_id = $request->vehicle_type_id;
+    //         $Vehicle->registration_no = $request->registration_no;
+    //         $Vehicle->chassis_no = $request->chassis_no;
+    //         $Vehicle->model_no = $request->model_no;
+    //         $Vehicle->engine_no = $request->engine_no;
+    //         $Vehicle->siting_capacity = $request->siting_capacity;
+    //         $Vehicle->average = $request->average;
             
     
-            $Vehicle->save();
-             $response=['status'=>1,'msg'=>'Created Successfully'];
-            return response()->json($response); 
-        }
-    }
+    //         $Vehicle->save();
+    //          $response=['status'=>1,'msg'=>'Created Successfully'];
+    //         return response()->json($response); 
+    //     }
+    // }
 
     /**
      * Display the specified resource.
@@ -97,12 +97,17 @@ class VehicleController extends Controller
      * @param  \App\Model\Vehicle  $Vehicle
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-
-    { 
-    $transports = array_pluck(Transport::get(['id','name'])->toArray(),'name', 'id'); 
-        $vehicleTypes = array_pluck(VehicleType::get(['id','vehicle_type'])->toArray(),'vehicle_type', 'id'); 
-         $vehicle = Vehicle::findOrFail(Crypt::decrypt($id));
+    public function edit($id=null) { 
+    
+         $transports = array_pluck(Transport::get(['id','name'])->toArray(),'name', 'id'); 
+         $vehicleTypes = array_pluck(VehicleType::get(['id','vehicle_type'])->toArray(),'vehicle_type', 'id'); 
+         if ($id==null) {
+           $vehicle = ''; 
+         }
+         if ($id!=null) {
+          $vehicle = Vehicle::findOrFail(Crypt::decrypt($id));  
+         }
+         
          
         return view('admin.transport.VehicleEdit',compact('vehicle','transports','vehicleTypes'));
          //return view('admin.transport.vehicle',compact('Vehicles','vehicleTypes','transports'));
@@ -115,7 +120,7 @@ class VehicleController extends Controller
      * @param  \App\Model\Vehicle  $Vehicle
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request,$id=null)
     {
        $rules=[
 
@@ -138,8 +143,7 @@ class VehicleController extends Controller
             return response()->json($response);// response as json
         }
          else {
-            $Vehicle =Vehicle::find($id);
-            
+            $Vehicle =Vehicle::firstOrNew(['id'=>$id]); 
             $Vehicle->transport_id = $request->transport_id;
             $Vehicle->vehicle_type_id = $request->vehicle_type_id;
             $Vehicle->registration_no = $request->registration_no;
@@ -151,7 +155,7 @@ class VehicleController extends Controller
             
     
             $Vehicle->save();
-             $response=['status'=>1,'msg'=>'Created Successfully'];
+             $response=['status'=>1,'msg'=>'Submit Successfully'];
             return response()->json($response); 
         }
     }
@@ -213,18 +217,23 @@ class VehicleController extends Controller
         return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
 
-     public function vehicleTypeedit($id)
+     public function vehicleTypeedit($id=null)
     {
-
-        $vehicleTypes  = VehicleType::find(Crypt::decrypt($id));
+        if ($id==null) {
+            $vehicleTypes  = '';
+        }
+        if ($id!=null) {
+           $vehicleTypes  = VehicleType::find(Crypt::decrypt($id)); 
+        }
+        
         return view('admin.transport.vehicletypeEdit',compact('vehicleTypes'));   
    }
         
-     public function vehicleTypeupdate(Request $request,$id)
+     public function vehicleTypeupdate(Request $request,$id=null)
     {
         $rules=[
         'vehicle_type' => 'required|max:30', 
-            'description' => 'string|nullable', 
+            
             
         ];
 
@@ -237,13 +246,13 @@ class VehicleController extends Controller
             return response()->json($response);// response as json
         }
          else {
-            $Vehicle = new VehicleType();
+            $Vehicle = VehicleType::firstOrNew(['id'=>$id]);
             
             $Vehicle->vehicle_type = $request->vehicle_type;
             $Vehicle->description = $request->description;
              
             $Vehicle->save();
-             $response=['status'=>1,'msg'=>'Created Successfully'];
+             $response=['status'=>1,'msg'=>'Submit Successfully'];
             return response()->json($response); 
         }
     }

@@ -1,90 +1,11 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
+  <button onclick="callPopupLarge(this,'{{ route('admin.vehicle.edit') }}')" class="btn_edit btn btn-info btn-sm pull-right">Add Vehicle</button>
     <h1>Vehicle </h1>
      
 </section>
-    <section class="content">
-        <div class="box">             
-            <!-- /.box-header -->
-            <div class="box-body">             
-                <div class="col-md-12"> 
-	                <form class="add_form" content-refresh="vehicle_table" action="{{ route('admin.vehicle.post') }}" method="post">              
-                  {{ csrf_field() }}                                       
-	                   <div class="col-lg-3">                                             
-	                       <div class="form-group">
-                          <label>Registration Number</label>
-                          <span class="fa fa-asterisk"></span>
-	                         {{ Form::text('registration_no','',['class'=>'form-control','id'=>'registration_no', 'placeholder'=>'Enter Registration No','maxlength'=>'20','required']) }}
-	                        
-	                       </div>                                         
-	                    </div>
-	                     <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          <label>Chassis Number</label>
-                          <span class="fa fa-asterisk"></span>
-                           {{ Form::text('chassis_no','',['class'=>'form-control','id'=>'chassis_no','rows'=>4, 'placeholder'=>'Enter Chassis No','maxlength'=>'50','required']) }}
-              
-                         </div>                                         
-                      </div> 
-                      <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          <label>Model Number</label>
-                          <span class="fa fa-asterisk"></span>
-                           {{ Form::text('model_no','',['class'=>'form-control','id'=>'model_no','rows'=>4, 'placeholder'=>'Enter Model No','maxlength'=>'50','required']) }}
-                  
-                         </div>                                         
-                      </div> 
-                      <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          <label>Engine Number</label>
-                          <span class="fa fa-asterisk"></span>
-                           {{ Form::text('engine_no','',['class'=>'form-control','id'=>'engine_no','rows'=>4, 'placeholder'=>'Enter Engine No','maxlength'=>'50','required']) }}
-                         
-                         </div>                                         
-                      </div> 
-                      <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          <label>Siting Capacity</label>
-                          <span class="fa fa-asterisk"></span>
-                           {{ Form::text('siting_capacity','',['class'=>'form-control','id'=>'siting_capacity','maxlength'=>'20','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','placeholder'=>'Enter Siting Capacity','required']) }}
-                          
-                         </div>                                         
-                      </div>
-                      <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          <label>Average</label>
-                          <span class="fa fa-asterisk"></span>
-                           {{ Form::text('average','',['class'=>'form-control','id'=>'average', 'placeholder'=>'Enter  Average','maxlength'=>'3','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','required']) }}
-                            
-                         </div>                                         
-                      </div>
-                        <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          <label>Transport</label>
-                          <span class="fa fa-asterisk"></span>
-                              {!! Form::select('transport_id',$transports, null, ['class'=>'form-control','placeholder'=>'Enter Select Transport','required']) !!}
-                         </div>                                         
-                      </div>
-                       <div class="col-lg-3">                                             
-                         <div class="form-group">
-                          <label>Select Vehicle Type</label>
-                          <span class="fa fa-asterisk"></span>
-                              {!! Form::select('vehicle_type_id',$vehicleTypes, null, ['class'=>'form-control','placeholder'=>'Enter Select Vehicle Type','required']) !!}
-                         </div>                                         
-                      </div>
-                     
-                       
-	                     <div class="col-lg-12 text-center">                                             
-	                     <button class="btn btn-success" type="submit" id="btn_fee_account_create">Create</button> 
-	                    </div>                     
-	                </form> 
-                </div> 
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-
+    <section class="content"> 
             <div class="box">             
               <!-- /.box-header -->
                 <div class="box-body">
@@ -124,7 +45,7 @@
                         	 
                         		<td> 
                                @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
-                        			  <button onclick="callPopupLarge(this,'{{ route('admin.vehicle.edit',Crypt::encrypt($Vehicle->id)) }}')" class="btn_edit btn btn-warning btn-xs"><i class="fa fa-edit"></i></button>
+                        			  <button onclick="callPopupLarge(this,'{{ route('admin.vehicle.edit',Crypt::encrypt($Vehicle->id)) }}')" class="btn_edit btn btn-info btn-xs"><i class="fa fa-edit"></i></button>
                                 @endif
 
                                  @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 

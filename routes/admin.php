@@ -775,43 +775,43 @@ Route::group(['middleware' => 'admin'], function() {
 			//------------------------- Transport ---------------------------------
 			Route::group(['prefix' => 'transport'], function() {
 			    Route::get('/', 'Transport\TransportController@index')->name('admin.transport.list');	 	
-			    Route::post('add', 'Transport\TransportController@store')->name('admin.transport.post');
+			    // Route::post('add', 'Transport\TransportController@store')->name('admin.transport.post');
 			    Route::get('delete/{id}', 'Transport\TransportController@destroy')->name('admin.transport.delete');
-			    Route::get('edit/{id}', 'Transport\TransportController@edit')->name('admin.transport.edit');
-			    Route::post('update/{id}', 'Transport\TransportController@update')->name('admin.transport.update');
+			    Route::get('edit/{id?}', 'Transport\TransportController@edit')->name('admin.transport.edit');
+			    Route::post('update/{id?}', 'Transport\TransportController@update')->name('admin.transport.update');
 			 });
 			 //------------------------- vehicle ---------------------------------
 			Route::group(['prefix' => 'vehicle'], function() {
 			    Route::get('/', 'Transport\VehicleController@index')->name('admin.vehicle.list');	 	
-			    Route::post('add', 'Transport\VehicleController@store')->name('admin.vehicle.post');
+			    // Route::post('add', 'Transport\VehicleController@store')->name('admin.vehicle.post');
 			    Route::get('delete/{id}', 'Transport\VehicleController@destroy')->name('admin.vehicle.delete');
-			     Route::get('edit/{id}', 'Transport\VehicleController@edit')->name('admin.vehicle.edit');
-			    Route::post('update/{id}', 'Transport\VehicleController@update')->name('admin.vehicle.update');
+			     Route::get('edit/{id?}', 'Transport\VehicleController@edit')->name('admin.vehicle.edit');
+			    Route::post('update/{id?}', 'Transport\VehicleController@update')->name('admin.vehicle.update');
 			 });
 			 	 //------------------------- vehicle Type ---------------------------------
 			Route::group(['prefix' => 'vehicle-type'], function() {
 			    Route::get('/', 'Transport\VehicleController@list')->name('admin.vehicleType.list');	 	
 			    Route::post('add', 'Transport\VehicleController@vehicleTypestore')->name('admin.vehicleType.post');
 			    Route::get('delete/{id}', 'Transport\VehicleController@vehicleTypedestroy')->name('admin.vehicleType.delete');
-			     Route::get('edit/{id}', 'Transport\VehicleController@vehicleTypeedit')->name('admin.vehicleType.edit');
-			      Route::post('update/{id}', 'Transport\VehicleController@vehicleTypeupdate')->name('admin.vehicleType.update');
+			     Route::get('edit/{id?}', 'Transport\VehicleController@vehicleTypeedit')->name('admin.vehicleType.edit');
+			      Route::post('update/{id?}', 'Transport\VehicleController@vehicleTypeupdate')->name('admin.vehicleType.update');
 			    
 			 });
 			 	 //------------------------- Driver ---------------------------------
 			Route::group(['prefix' => 'driver'], function() {
 			    Route::get('/', 'Transport\DriverController@index')->name('admin.driver.list');	 	
-			    Route::post('add', 'Transport\DriverController@store')->name('admin.driver.post');
+			    // Route::post('add', 'Transport\DriverController@store')->name('admin.driver.post');
 			    Route::get('delete/{id}', 'Transport\DriverController@destroy')->name('admin.driver.delete');
-			    Route::get('edit/{id}', 'Transport\DriverController@edit')->name('admin.driver.edit'); 
-			     Route::post('update/{id}', 'Transport\DriverController@update')->name('admin.driver.update'); 
+			    Route::get('edit/{id?}', 'Transport\DriverController@edit')->name('admin.driver.edit'); 
+			     Route::post('update/{id?}', 'Transport\DriverController@update')->name('admin.driver.update'); 
 			 });
 			 //------------------------- Helper ---------------------------------
 			Route::group(['prefix' => 'helper'], function() {
 			    Route::get('/', 'Transport\HelperController@index')->name('admin.helper.list');	 	
-			    Route::post('add', 'Transport\HelperController@store')->name('admin.helper.post');
+			    // Route::post('add', 'Transport\HelperController@store')->name('admin.helper.post');
 			    Route::get('delete/{id}', 'Transport\HelperController@destroy')->name('admin.helper.delete'); 
-			    Route::get('edit/{id}', 'Transport\HelperController@edit')->name('admin.helper.edit'); 
-			     Route::post('update/{id}', 'Transport\HelperController@update')->name('admin.helper.update'); 
+			    Route::get('edit/{id?}', 'Transport\HelperController@edit')->name('admin.helper.edit'); 
+			     Route::post('update/{id?}', 'Transport\HelperController@update')->name('admin.helper.update'); 
 			 });
 			  //------------------------- Helper ---------------------------------
 			Route::group(['prefix' => 'route'], function() {
@@ -822,10 +822,10 @@ Route::group(['middleware' => 'admin'], function() {
 			   //------------------------- Helper ---------------------------------
 			Route::group(['prefix' => 'boarding-point'], function() {
 			    Route::get('/', 'Transport\BoardingPointController@index')->name('admin.boardingPoint.list');	 	
-			    Route::post('add', 'Transport\BoardingPointController@store')->name('admin.boardingPoint.post');
+			    // Route::post('add', 'Transport\BoardingPointController@store')->name('admin.boardingPoint.post');
 			    Route::get('delete/{id}', 'Transport\BoardingPointController@destroy')->name('admin.boardingPoint.delete');
-			      Route::get('edit/{id}', 'Transport\BoardingPointController@edit')->name('admin.boardingPoint.edit');
-			       Route::post('update/{id}', 'Transport\BoardingPointController@update')->name('admin.boardingPoint.update'); 
+			      Route::get('edit/{id?}', 'Transport\BoardingPointController@edit')->name('admin.boardingPoint.edit');
+			       Route::post('update/{id?}', 'Transport\BoardingPointController@update')->name('admin.boardingPoint.update'); 
 			 });
 			   //------------------------- Helper ---------------------------------
 			Route::group(['prefix' => 'route-details'], function() {
@@ -1068,6 +1068,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('add-form', 'Library\BooksController@addForm')->name('admin.library.book.details.addform');
 			    Route::post('store', 'Library\BooksController@store')->name('admin.library.book.details.store');
 			    Route::get('table-show', 'Library\BooksController@tableShow')->name('admin.library.book.details.table.show');
+			    Route::get('book-img/{image}', 'Library\BooksController@bookImageShow')->name('admin.library.book.image.show');
 			    Route::get('delete/{id}', 'Library\BooksController@destroy')->name('admin.library.book.details.delete');
 			    Route::get('edit/{id}', 'Library\BooksController@edit')->name('admin.library.book.details.edit');
 			    Route::post('update/{id}', 'Library\BooksController@update')->name('admin.library.book.details.update');

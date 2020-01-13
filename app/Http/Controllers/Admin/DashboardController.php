@@ -142,7 +142,7 @@ class DashboardController extends Controller
         $admins = Auth::guard('admin')->user();
          $rules=[
           
-            'profile_photo' => 'required|mimes:jpeg,bmp,png|max:500',
+            'profile_photo' => 'required|mimes:jpeg,jpg,png,gif|max:5000'
 
           
             

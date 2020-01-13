@@ -34,43 +34,43 @@ class DriverController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-    	$rules=[
-    	'name' => 'required|max:30', 
-            'mobile' => 'required|digits:10', 
-            'contact_no' => 'required|digits:10', 
-            'license_number' => 'required', 
-            'dob' => 'required', 
-            'vehicle_id' => 'required', 
-            'address' => 'required|string|max:200', 
+    // public function store(Request $request)
+    // {
+    // 	$rules=[
+    // 	'name' => 'required|max:30', 
+    //         'mobile' => 'required|digits:10', 
+    //         'contact_no' => 'required|digits:10', 
+    //         'license_number' => 'required', 
+    //         'dob' => 'required', 
+    //         'vehicle_id' => 'required', 
+    //         'address' => 'required|string|max:200', 
             
        
-    	];
+    // 	];
 
-    	$validator = Validator::make($request->all(),$rules);
-    	if ($validator->fails()) {
-    	    $errors = $validator->errors()->all();
-    	    $response=array();
-    	    $response["status"]=0;
-    	    $response["msg"]=$errors[0];
-    	    return response()->json($response);// response as json
-    	}
-         else {
-            $Driver = new Driver();            
-            $Driver->name = $request->name;
-            $Driver->mobile = $request->mobile;
-            $Driver->contact_no = $request->contact_no;         
-            $Driver->license_number = $request->license_number;            
-            $Driver->address = $request->address;
-            $Driver->p_address = $request->p_address;
-            $Driver->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
-            $Driver->vehicle_id = $request->vehicle_id;
-            $Driver->save();
-             $response=['status'=>1,'msg'=>'Created Successfully'];
-            return response()->json($response); 
-        }
-    }
+    // 	$validator = Validator::make($request->all(),$rules);
+    // 	if ($validator->fails()) {
+    // 	    $errors = $validator->errors()->all();
+    // 	    $response=array();
+    // 	    $response["status"]=0;
+    // 	    $response["msg"]=$errors[0];
+    // 	    return response()->json($response);// response as json
+    // 	}
+    //      else {
+    //         $Driver = new Driver();            
+    //         $Driver->name = $request->name;
+    //         $Driver->mobile = $request->mobile;
+    //         $Driver->contact_no = $request->contact_no;         
+    //         $Driver->license_number = $request->license_number;            
+    //         $Driver->address = $request->address;
+    //         $Driver->p_address = $request->p_address;
+    //         $Driver->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
+    //         $Driver->vehicle_id = $request->vehicle_id;
+    //         $Driver->save();
+    //          $response=['status'=>1,'msg'=>'Created Successfully'];
+    //         return response()->json($response); 
+    //     }
+    // }
 
     /**
      * Display the specified resource.
@@ -89,9 +89,15 @@ class DriverController extends Controller
      * @param  \App\Model\Driver  $Driver
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id=null)
     {    $vehicles = array_pluck(Vehicle::get(['id','registration_no'])->toArray(),'registration_no', 'id');
-         $driver = Driver::findOrFail(Crypt::decrypt($id));
+    if ($id==null) {
+      $driver = '';  
+    }
+    if ($id!=null) {
+     $driver = Driver::findOrFail(Crypt::decrypt($id));   
+    }
+         
          
         return view('admin.transport.driveredit',compact('driver','vehicles'));
     }
@@ -103,7 +109,7 @@ class DriverController extends Controller
      * @param  \App\Model\Driver  $Driver
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request,$id=null)
     {
         $rules=[
         'name' => 'required|max:30', 
@@ -126,7 +132,7 @@ class DriverController extends Controller
             return response()->json($response);// response as json
         }
          else {
-            $Driver = Driver::find($id);            
+            $Driver = Driver::firstOrNew(['id'=>$id]);            
             $Driver->name = $request->name;
             $Driver->mobile = $request->mobile;
             $Driver->contact_no = $request->contact_no;         
@@ -136,7 +142,7 @@ class DriverController extends Controller
             $Driver->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
             $Driver->vehicle_id = $request->vehicle_id;
             $Driver->save();
-             $response=['status'=>1,'msg'=>'Created Successfully'];
+             $response=['status'=>1,'msg'=>'Submit Successfully'];
             return response()->json($response); 
         }
     }

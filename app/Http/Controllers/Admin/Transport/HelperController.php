@@ -34,43 +34,43 @@ class HelperController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-    	$rules=[
-    	'name' => 'required|max:30', 
-            'mobile' => 'required|digits:10', 
-            'contact_no' => 'required|digits:10', 
-            'license_number' => 'required|string', 
-            'dob' => 'required|date', 
-            'vehicle_id' => 'required', 
-            'address' => 'required|string', 
+    // public function store(Request $request)
+    // {
+    // 	$rules=[
+    // 	'name' => 'required|max:30', 
+    //         'mobile' => 'required|digits:10', 
+    //         'contact_no' => 'required|digits:10', 
+    //         'license_number' => 'required|string', 
+    //         'dob' => 'required|date', 
+    //         'vehicle_id' => 'required', 
+    //         'address' => 'required|string', 
             
        
-    	];
+    // 	];
 
-    	$validator = Validator::make($request->all(),$rules);
-    	if ($validator->fails()) {
-    	    $errors = $validator->errors()->all();
-    	    $response=array();
-    	    $response["status"]=0;
-    	    $response["msg"]=$errors[0];
-    	    return response()->json($response);// response as json
-    	}
-         else {
-            $Helper = new DriverHelper();            
-            $Helper->name = $request->name;
-            $Helper->mobile = $request->mobile;
-            $Helper->contact_no = $request->contact_no;         
-            $Helper->license_number = $request->license_number;            
-            $Helper->address = $request->address;
-            $Helper->p_address = $request->p_address;
-            $Helper->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
-            $Helper->vehicle_id = $request->vehicle_id;
-            $Helper->save();
-             $response=['status'=>1,'msg'=>'Created Successfully'];
-            return response()->json($response); 
-        }
-    }
+    // 	$validator = Validator::make($request->all(),$rules);
+    // 	if ($validator->fails()) {
+    // 	    $errors = $validator->errors()->all();
+    // 	    $response=array();
+    // 	    $response["status"]=0;
+    // 	    $response["msg"]=$errors[0];
+    // 	    return response()->json($response);// response as json
+    // 	}
+    //      else {
+    //         $Helper = new DriverHelper();            
+    //         $Helper->name = $request->name;
+    //         $Helper->mobile = $request->mobile;
+    //         $Helper->contact_no = $request->contact_no;         
+    //         $Helper->license_number = $request->license_number;            
+    //         $Helper->address = $request->address;
+    //         $Helper->p_address = $request->p_address;
+    //         $Helper->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
+    //         $Helper->vehicle_id = $request->vehicle_id;
+    //         $Helper->save();
+    //          $response=['status'=>1,'msg'=>'Created Successfully'];
+    //         return response()->json($response); 
+    //     }
+    // }
 
     /**
      * Display the specified resource.
@@ -89,10 +89,16 @@ class HelperController extends Controller
      * @param  \App\Model\Helper  $Helper
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id=null)
     {   
         $vehicles = array_pluck(Vehicle::get(['id','registration_no'])->toArray(),'registration_no', 'id');
-        $driverHelper = DriverHelper::findOrFail(Crypt::decrypt($id));
+        if ($id==null) {
+         $driverHelper = '';   
+        }
+        if ($id!=null) {
+          $driverHelper = DriverHelper::findOrFail(Crypt::decrypt($id));  
+        }
+        
         return view('admin.transport.helperedit',compact('driverHelper','vehicles'));
          
             
@@ -105,7 +111,7 @@ class HelperController extends Controller
      * @param  \App\Model\Helper  $Helper
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request,$id=null)
     {
         $rules=[
         'name' => 'required|max:30', 
@@ -127,7 +133,7 @@ class HelperController extends Controller
             return response()->json($response);// response as json
         }
          else {
-            $Helper =DriverHelper::find($id);           
+            $Helper =DriverHelper::firstOrNew(['id'=>$id]);           
             $Helper->name = $request->name;
             $Helper->mobile = $request->mobile;
             $Helper->contact_no = $request->contact_no;         
@@ -137,7 +143,7 @@ class HelperController extends Controller
             $Helper->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
             $Helper->vehicle_id = $request->vehicle_id;
             $Helper->save();
-             $response=['status'=>1,'msg'=>'Updated Successfully'];
+             $response=['status'=>1,'msg'=>'Submit Successfully'];
             return response()->json($response); 
         }
     }

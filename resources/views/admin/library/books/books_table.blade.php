@@ -34,7 +34,10 @@
                             <td>{{ $booktype->author->name or ''}}</td>
                             <td>{{ $booktype->feature or ''}}</td>
                             <td> 
-                              <img src="{{ url('storage/student/bookimage/'.$booktype->image) }}"  title="" width="50" height="50" /> 
+                             @php
+                             $bookImage = route('admin.library.book.image.show',$booktype->image); 
+                            @endphp
+                                 <img  src="{{ ($booktype->image)? $bookImage : asset('profile-img/user.png') }}" class="profile-user-img img-responsive img-circle">
                             </td>
 
                             <td> 
