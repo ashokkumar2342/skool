@@ -1,137 +1,11 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Transport </h1>
-      
-        
-      
+  <button onclick="callPopupLarge(this,'{{ route('admin.transport.edit') }}')" class="btn_edit btn btn-info btn-sm pull-right">Add Transport</button>
+    <h1>Transport </h1> 
 </section>
-    <section class="content">
-        <div class="box">             
-            <!-- /.box-header -->
-            <div class="box-body">             
-                <div class="col-md-12"> 
-	                <form class="add_form" content-refresh="transport_table" action="{{ route('admin.transport.post') }}" method="post">              
-                  {{ csrf_field() }}                                       
-	                   <div class="col-lg-2">                                             
-	                       <div class="form-group">
-                          <label>Name</label>
-                          <span class="fa fa-asterisk"></span>
-	                         {{ Form::text('name','',['class'=>'form-control','id'=>'name', 'placeholder'=>' Enter Name','maxlength'=>'50']) }}
-	                         <p class="errorCode text-center alert alert-danger hidden"></p>
-	                       </div>                                         
-	                    </div>
-	                     <div class="col-lg-2">                                             
-                         <div class="form-group">
-                          <label>Mobile Number</label>
-                          <span class="fa fa-asterisk"></span>
-                           {{ Form::text('mobile','',['class'=>'form-control','id'=>'mobile','rows'=>4, 'placeholder'=>' Enter mobile No','maxlength'=>'10','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
-                           <p class="errorName text-center alert alert-danger hidden"></p>
-                         </div>                                         
-                      </div> 
-                      <div class="col-lg-2">                 
-                         <div class="form-group">
-                          <label>Contact Number</label>
-                          <span class="fa fa-asterisk"></span> 
-                           {{ Form::text('contact_no','',['class'=>'form-control','id'=>'contact_no','rows'=>4, 'placeholder'=>'Enter Contact No','maxlength'=>'10','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
-                           <p class="errorName text-center alert alert-danger hidden"></p>
-                         </div>                                         
-                      </div> 
-                      <div class="col-lg-2">                                             
-                         <div class="form-group">
-                          <label>Email</label>
-                          <span class="fa fa-asterisk"></span>
-                           {{ Form::email('email','',['class'=>'form-control','id'=>'email','rows'=>4, 'placeholder'=>'Enter Email','maxlength'=>'50']) }}
-                           <p class="errorName text-center alert alert-danger hidden"></p>
-                         </div>                                         
-                      </div> 
-                      <div class="col-lg-2">                                             
-                         <div class="form-group">
-                          <label>GST Number</label>
-                          <span class="fa fa-asterisk"></span>
-                           {{ Form::text('gst_no','',['class'=>'form-control','id'=>'gst_no','rows'=>4, 'placeholder'=>'Enter GST No','maxlength'=>'50']) }}
-                           <p class="errorName text-center alert alert-danger hidden"></p>
-                         </div>                                         
-                      </div>
-                      <div class="col-lg-2">
-                      <label>IFSC Code</label>
-                      <span class="fa fa-asterisk"></span>                                             
-                         <div class="form-group">
-                           {{ Form::text('ifsc_code','',['class'=>'form-control','id'=>'ifsc_code','rows'=>4, 'placeholder'=>'Enter IFSC Code','maxlength'=>'50']) }}
-                           <p class="errorName text-center alert alert-danger hidden"></p>
-                         </div>                                         
-                      </div>
-                      <div class="col-lg-2">                                             
-                         <div class="form-group">
-                          <label>Account number</label>
-                          <span class="fa fa-asterisk"></span>
-                           {{ Form::text('account_no','',['class'=>'form-control','id'=>'account_no','rows'=>4, 'placeholder'=>'Enter Account No','maxlength'=>'50']) }}
-                           <p class="errorName text-center alert alert-danger hidden"></p>
-                         </div>                                         
-                      </div> 
-                      <div class="col-lg-2">                                             
-                         <div class="form-group">
-                          <label>Branch Code</label>
-                          <span class="fa fa-asterisk"></span>
-                           {{ Form::text('branch_code','',['class'=>'form-control','id'=>'branch_code','rows'=>4, 'placeholder'=>'Enter Branch Code','maxlength'=>'50']) }}
-                           <p class="errorName text-center alert alert-danger hidden"></p>
-                         </div>                                         
-                      </div>
-                      <div class="col-lg-2">                                             
-                         <div class="form-group">
-                          <label>Branch Name</label>
-                          <span class="fa fa-asterisk"></span>
-                           {{ Form::text('branch_name','',['class'=>'form-control','id'=>'branch_name','rows'=>4, 'placeholder'=>'Enter Branch Name','maxlength'=>'50']) }}
-                           <p class="errorName text-center alert alert-danger hidden"></p>
-                         </div>                                         
-                      </div>
-                      <div class="col-lg-4">                                             
-                         <div class="form-group">
-                          <label>Account Holder Name</label>
-                          <span class="fa fa-asterisk"></span>
-                           {{ Form::text('account_holder_name','',['class'=>'form-control','id'=>'account_holder_name','rows'=>4, 'placeholder'=>'Enter Account Holder Name','maxlength'=>'50']) }}
-                           <p class="errorName text-center alert alert-danger hidden"></p>
-                         </div>                                         
-                      </div>
-                      <div class="col-lg-2">                                             
-	                       <div class="form-group">
-                          <label>Pincode</label>
-                          <span class="fa fa-asterisk"></span>
-	                         {{ Form::text('pincode','',['class'=>'form-control','id'=>'pincode','rows'=>4, 'placeholder'=>'Enter Pincode','maxlength'=>'6','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
-	                         <p class="errorName text-center alert alert-danger hidden"></p>
-	                       </div>                                         
-	                    </div>                     
-	                    <div class="col-lg-5">                         
-                          <div class="form-group">
-                            <label>Permanent Address</label>
-                            <span class="fa fa-asterisk"></span>
-                            {{ Form::textarea('address','',['class'=>'form-control','id'=>'p_address','rows'=>1, 'placeholder'=>'Enter Permanent Address','maxlength'=>'250']) }}
-                            <p class="errorDescription text-center alert alert-danger hidden"></p>
-                          </div>
-                      </div>
-                       <div class="form-group col-lg-1">
-                         <input type="checkbox" id="addressCheck" name="addressCheck" style="margin-top: 30px">
-                         <label>Same As</label> 
-                       </div>
-                    <div class="col-lg-6">                         
-	                        <div class="form-group">
-                            <label>Correspondence Address</label>
-
-	                          {{ Form::textarea('address','',['class'=>'form-control','id'=>'c_address','rows'=>1, 'placeholder'=>'Enter Correspondence Address','maxlength'=>'250']) }}
-	                          <p class="errorDescription text-center alert alert-danger hidden"></p>
-	                        </div>
-	                    </div>
-	                     <div class="col-lg-12 text-center">                                             
-	                     <button class="btn btn-success" type="submit" id="btn_fee_account_create">Create</button> 
-	                    </div>                     
-	                </form> 
-                </div> 
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-
-            <div class="box">             
+    <section class="content"> 
+             <div class="box">             
               <!-- /.box-header -->
                 <div class="box-body">
                   <div class="row">
@@ -176,7 +50,7 @@
                             <td>{{ $transport->pincode }}</td>
                             <td class="text-nowrap"> 
                                 @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
-                              <button onclick="callPopupLarge(this,'{{ route('admin.transport.edit',Crypt::encrypt($transport->id)) }}')" class="btn_edit btn btn-warning btn-xs"><i class="fa fa-edit"></i></button>
+                              <button onclick="callPopupLarge(this,'{{ route('admin.transport.edit',Crypt::encrypt($transport->id)) }}')" class="btn_edit btn btn-info btn-xs"><i class="fa fa-edit"></i></button>
                               @endif
 
                                @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 

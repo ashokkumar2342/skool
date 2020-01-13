@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vehicle extends Model
 {
+	protected $fillable=['id',];
     public function transport(){
         return $this->hasOne(Transport::class,'id','transport_id');
     }

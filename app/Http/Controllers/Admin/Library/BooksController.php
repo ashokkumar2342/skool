@@ -8,6 +8,7 @@ use App\Model\Library\Booktype;
 use App\Model\Library\Publisher;
 use App\Model\SubjectType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class BooksController extends Controller
@@ -44,6 +45,7 @@ class BooksController extends Controller
             'subject' => 'required', 
             'publisher' => 'required', 
             'author' => 'required', 
+             'image' => 'mimes:jpeg,jpg,png,gif|max:5000'
             
         ];
 
@@ -60,7 +62,7 @@ class BooksController extends Controller
             if ($request->hasFile('image')) { 
                 $image=$request->image;
                 $filename='book'.date('d-m-Y').time().'.jpg'; 
-                $image->storeAs('public/student/bookimage/',$filename);
+                $image->storeAs('student/library/bookimage/',$filename);
                 $booktype=new Booktype();
                 $booktype->image=$filename;
                 $booktype->code=$request->code;
@@ -105,6 +107,11 @@ class BooksController extends Controller
         $booktypes=Booktype::all();
          return view('admin.library.books.books_table',compact('booktypes'));
     }
+    public function bookImageShow(Request $request,$image)
+     {
+         $bookImage = Storage::disk('student')->get('library/bookimage/'.$image);           
+         return  response($bookImage)->header('Content-Type', 'image/jpg');
+     }
 
     public function edit($id)
     {
@@ -137,6 +144,7 @@ class BooksController extends Controller
             'subject' => 'required', 
             'publisher' => 'required', 
             'author' => 'required', 
+            'image' => 'mimes:jpeg,jpg,png,gif|max:5000'
             
         ];
 
@@ -153,7 +161,7 @@ class BooksController extends Controller
             if ($request->hasFile('image')) { 
                 $image=$request->image;
                 $filename='book'.date('d-m-Y').time().'.jpg'; 
-                $image->storeAs('public/student/bookimage/',$filename);
+                $image->storeAs('student/library/bookimage/',$filename);
                 $booktype= Booktype::find($id);
                 $booktype->image=$filename;
                 $booktype->code=$request->code;

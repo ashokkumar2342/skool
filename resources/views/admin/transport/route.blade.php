@@ -28,7 +28,7 @@
                       </div>
                        
 	                     <div class="col-lg-12 text-center">                                             
-	                     <button class="btn btn-success" type="submit" id="btn_fee_account_create">Create</button> 
+	                     <button class="btn btn-success" type="submit" id="btn_fee_account_create">Submit</button> 
 	                    </div>                     
 	                </form> 
                 </div> 

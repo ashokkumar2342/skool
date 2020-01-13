@@ -42,37 +42,37 @@ class  BoardingPointController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-    	$rules=[
-    	'name' => 'required|max:100', 
-        'address' => 'required|string', 
-        'single_side_fee_amount' => 'required|numeric', 
-        'single_side_fee_amount' => 'required|numeric', 
+    // public function store(Request $request)
+    // {
+    // 	$rules=[
+    // 	'name' => 'required|max:100', 
+    //     'address' => 'required|string', 
+    //     'single_side_fee_amount' => 'required|numeric', 
+    //     'single_side_fee_amount' => 'required|numeric', 
          
           
-    	];
+    // 	];
 
-    	$validator = Validator::make($request->all(),$rules);
-    	if ($validator->fails()) {
-    	    $errors = $validator->errors()->all();
-    	    $response=array();
-    	    $response["status"]=0;
-    	    $response["msg"]=$errors[0];
-    	    return response()->json($response);// response as json
-    	}
-         else {
-            $BoardingPoint = new BoardingPoint(); 
-            $BoardingPoint->name = $request->name;
-            $BoardingPoint->address = $request->address; 
-            $BoardingPoint->single_side_fee_amount = $request->single_side_fee_amount; 
-            $BoardingPoint->both_side_fee_amount = $request->both_side_fee_amount; 
+    // 	$validator = Validator::make($request->all(),$rules);
+    // 	if ($validator->fails()) {
+    // 	    $errors = $validator->errors()->all();
+    // 	    $response=array();
+    // 	    $response["status"]=0;
+    // 	    $response["msg"]=$errors[0];
+    // 	    return response()->json($response);// response as json
+    // 	}
+    //      else {
+    //         $BoardingPoint = new BoardingPoint(); 
+    //         $BoardingPoint->name = $request->name;
+    //         $BoardingPoint->address = $request->address; 
+    //         $BoardingPoint->single_side_fee_amount = $request->single_side_fee_amount; 
+    //         $BoardingPoint->both_side_fee_amount = $request->both_side_fee_amount; 
     
-            $BoardingPoint->save();
-             $response=['status'=>1,'msg'=>'Created Successfully'];
-            return response()->json($response); 
-        }
-    }
+    //         $BoardingPoint->save();
+    //          $response=['status'=>1,'msg'=>'Created Successfully'];
+    //         return response()->json($response); 
+    //     }
+    // }
 
     /**
      * Display the specified resource.
@@ -91,11 +91,15 @@ class  BoardingPointController extends Controller
      * @param  \App\Model\Vehicle  $Vehicle
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) 
-    {
-
-
+    public function edit($id=null) 
+    { 
+        if ($id==null) {
+          $boardingPoint = '';
+        }
+        if ($id!=null) {
           $boardingPoint = BoardingPoint::findOrFail(Crypt::decrypt($id));
+        }
+          
        
          return view('admin.transport.boarding-point-edit',compact('boardingPoint'));
 
@@ -108,7 +112,7 @@ class  BoardingPointController extends Controller
      * @param  \App\Model\Vehicle  $Vehicle
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request ,$id )
+    public function update(Request $request ,$id=null)
     {
         $rules=[
         'name' => 'required|max:100', 
@@ -128,14 +132,14 @@ class  BoardingPointController extends Controller
             return response()->json($response);// response as json
         }
             else {
-               $BoardingPoint =BoardingPoint::find($id);
+               $BoardingPoint =BoardingPoint::firstOrNew(['id'=>$id]);
                $BoardingPoint->name = $request->name;
                $BoardingPoint->address = $request->address; 
                $BoardingPoint->single_side_fee_amount = $request->single_side_fee_amount; 
                $BoardingPoint->both_side_fee_amount = $request->both_side_fee_amount; 
        
                $BoardingPoint->save();
-                $response=['status'=>1,'msg'=>'update Successfully'];
+                $response=['status'=>1,'msg'=>'Submit Successfully'];
                return response()->json($response); 
            }  
     }

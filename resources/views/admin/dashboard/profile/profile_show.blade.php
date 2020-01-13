@@ -15,6 +15,7 @@
                     {{-- <img src="{{ url('storage/public/profile/'.'admin01-08-20191564664767.jpg') }}"  title="" width="50" height="50" /> --}}
                     @php
                       $profile = route('admin.profile.photo.show',$admins->profile_pic);
+                    
                     @endphp
                    <img  src="{{ ($admins->profile_pic)? $profile : asset('profile-img/user.png') }}" class="profile-user-img img-responsive img-circle">
                   
