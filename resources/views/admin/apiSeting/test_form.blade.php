@@ -26,7 +26,7 @@
                       <input type="text" name="mobile" class="form-control" placeholder="Enter Mobile No" maxlength="10">
                       @else
                       <label>Email</label>
-                      <input type="email" name="email" class="form-control" placeholder="Enter Email" maxlength="10"> 
+                      <input type="email" name="email" class="form-control" placeholder="Enter Email" maxlength="50"> 
                       @endif
                       <input type="hidden" name="test" value="{{ $id }}"> 
                     </div> 

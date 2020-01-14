@@ -185,6 +185,7 @@ class ApiSetingController extends Controller
             $up_u=array(); 
             $up_u['medicalInfo']=$message;
             $up_u['subject']=$subject; 
+            $up_u['data']='Test Api Integration Successfully'; 
             $mailHelper =new MailHelper(); 
             $mailHelper->mailsend('emails.message',$up_u,'No-Reply',$subject,$emailto,'noreply@esgekool.com',5); 
          }
