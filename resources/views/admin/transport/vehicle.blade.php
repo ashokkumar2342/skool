@@ -14,10 +14,10 @@
                             <tr>
                                 <th>Sr.no.</th>
                                
-                                <th>registration no </th>
-                                <th>chassis no </th>
-                                <th>model no </th>
-                                <th>engine no </th>
+                                <th>registration no. </th>
+                                <th>chassis no. </th>
+                                <th>model no. </th>
+                                <th>engine no. </th>
                                 <th>seating capacity </th>
                                 <th>average </th>
                                 <th>transport  </th>

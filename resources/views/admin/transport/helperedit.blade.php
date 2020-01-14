@@ -23,7 +23,7 @@
                          <div class="form-group">
                           <label>Name</label>
                           <span class="fa fa-asterisk"></span>
-                           {{ Form::text('name',@$driverHelper->name,['class'=>'form-control','id'=>'name', 'placeholder'=>'Name','maxlenth'=>'50']) }} 
+                           {{ Form::text('name',@$driverHelper->name,['class'=>'form-control','id'=>'name', 'placeholder'=>'Name','maxlength'=>'50']) }} 
                          </div>                                         
                       </div>
                        

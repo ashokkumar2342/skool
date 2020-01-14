@@ -62,9 +62,7 @@
             <li>Religion</li>
             <li>Date Of Birth </li> 
             <li>Mobile No.</li>
-            <li>Aadhaar No.</li>           
-            <li>User Name </li>   
-            <li>Password </li>
+            <li>Aadhaar No.</li>
             <li>Email</li> 
             <li>Gender</b></li>
             <li> House Name </li> 
@@ -72,7 +70,7 @@
             <li>City </li>  
              
            </div>
-           <div class="col-lg-6"> 
+           <div class="col-lg-5"> 
            <li><b> {{ $student->name }}  </b> </li> 
            <li><b>{{ $student->nick_name }}</b></li>
            <li><b>{{ $student->classes->name or '' }}</b></li>
@@ -81,21 +79,19 @@
            <li><b>{{ $student->admission_no }}</b></li>
            <li><b>{{ date('d-m-Y',strtotime($student->date_of_admission))}}</b></li>
            <li><b>{{date('d-m-Y',strtotime($student->date_of_activation ))}}</b></li>
-           <li><b> {{ $student->addressDetails->address->categories->name or ''}} </b> </li>
-           <li><b> {{ $student->addressDetails->address->religions->name or ''}} </b></li>
+           <li><b>{{ $student->addressDetails->address->categories->name or ''}} </b> </li>
+           <li><b>{{ $student->addressDetails->address->religions->name or ''}} </b></li>
            <li><b>{{date('d-m-Y',strtotime($student->dob ))}}</b></li> 
            <li><b>{{ $student->addressDetails->address->primary_mobile  or ''}}</b></li>
            <li><b>{{ $student->adhar_no }}</b></li>
-           <li><b>{{ $student->username }}</b></li>   
-           <li><b>{{ $student->tem_pass }}</b></li>
-           <li><b> {{ $student->addressDetails->address->primary_email or ''}} </b></li>
+           <li><b>{{ $student->addressDetails->address->primary_email or ''}} </b></li>
            <li><b>{{ $student->genders->genders or '' }}</b></li>
            <li><b>{{$student->houses->name or ''}}</b></li>
-           <li><b> {{ $student->addressDetails->address->state or ''}} </b> </li> 
+           <li><b>{{ $student->addressDetails->address->state or ''}} </b> </li> 
            <li><b>{{ $student->addressDetails->address->city or ''}}</b></li>
            
            </div>
-           <div class="col-lg-3" style="margin-right: 10">
+           <div class="col-lg-4" style="margin-right: 10">
              @php
             $routeName= Route::currentRouteName(); 
             $path =storage_path('app/student/profile/'.$student->picture);
@@ -111,9 +107,9 @@
             @endif 
             @if ( $routeName=='admin.student.pdf.generate')
                @if ($path==$paths)
-               <img  src="''" alt="" width="103px" height="103px" style="border:solid 2px Black"> 
+               <img  src="''" alt="" width="150px" height="150px" style="border:solid 2px Black"> 
                @else
-               <img  src="{{ $path }}" alt="" width="103px" height="103px" style="margin-top: 10px; border:solid 2px Black"> 
+               <img  src="{{ $path }}" alt="" width="160px" height="160px" style="margin-top: 10px; border:solid 2px Black"> 
                @endif
             @endif
             @if ( $routeName=='admin.student.preview')
@@ -123,7 +119,7 @@
            </div>
            <div class="row">
             <div class="col-lg-3">
-              <li>Permanent Address</li>  
+            <li>Permanent Address</li>  
             <li>Permanent Pincode</li>  
             <li>Correspondence Address</li>  
             <li>Correspondence Pincode</li> 
@@ -138,7 +134,9 @@
          </div> 
       </div>
     </div> 
-  <div class="page-breck"></div> 
+@if (!empty($student->parents))
+<div class="page-breck"></div> 
+@endif
 @foreach ($student->parents as $parent)
     <div class="panel panel-info">
       <div class="panel-heading">
@@ -181,7 +179,7 @@
                 @if ($routeNames=='admin.student.preview')
                 <img  src="{{ ($parent->parentInfo->id)? $image : asset('profile-img/user.png') }}" width="103px" height="103px" style="float: right; border:solid 2px Black"> 
                  @else  
-                <img  src="{{ $paths }}" alt="" width="103px" height="103px" style="float: right;margin-top: 10px; border:solid 2px Black">  
+                <img  src="{{ $paths }}" alt="" width="123px" height="123px" style="float: right;margin-top: 10px; border:solid 2px Black">  
                 @endif 
                   </div> 
               </div>
@@ -202,15 +200,12 @@
         </div>
       </div>
     </div> 
-  
-@endforeach
-   <div class="page-breck"></div>
-      
+@endforeach 
     @php
       $studentMedicalDetails=App\Model\StudentMedicalInfo::where('student_id',$student->id)->first();
     @endphp
     @if (!empty($studentMedicalDetails))
-      
+      <div class="page-breck"></div>
     <div class="panel panel-info">
     <div class="panel-heading">
       <h4 class="panel-title text-center">
@@ -224,76 +219,109 @@
     @foreach($studentMedicalInfos as $studentMedicalInfo)
           
     <div class="row" > 
-        <div class="col-lg-6"> 
-            <li>On Date:- <b>{{ Carbon\Carbon::parse($studentMedicalInfo->ondate)->format('d-m-Y') }}</b></li>
+        <div class="col-lg-3"> 
+          <li>On Date</li>
+      </div> 
+      <div class="col-lg-3">
+          <li><b>{{ Carbon\Carbon::parse($studentMedicalInfo->ondate)->format('d-m-Y') }}</b></li>
+      </div>
+      <div class="col-lg-3">
+          <li>Blood Group</li>
+      </div>
+      <div class="col-lg-1" style="margin-right: 30px">
+          <li><b>{{ $studentMedicalInfo->bloodgroups->name or ''}} </b></li>
+      </div>
+    </div>
+    <div class="row" > 
+        <div class="col-lg-3"> 
+            <li>HB</li>  
         </div> 
-        <div class="col-lg-6">
-            <li>Blood Group :-<b> {{ $studentMedicalInfo->bloodgroups->name or ''}} </b> </li>
+        <div class="col-lg-3">
+            <li>{{ $studentMedicalInfo->hb }}</li>
+        </div>
+        <div class="col-lg-3">
+            <li>BP</li>
+        </div>
+        <div class="col-lg-1" style="margin-right: 30px">
+            <li>{{ $studentMedicalInfo->bp }}</li>
         </div>
     </div>
     <div class="row" > 
-        <div class="col-lg-6"> 
-            <li>HB :-<b> {{ $studentMedicalInfo->hb }} </b> </li>  
+        <div class="col-lg-3"> 
+            <li>Height</li>  
         </div> 
-        <div class="col-lg-6">
-            <li>BP :-<b> {{ $studentMedicalInfo->bp }}</b> </li>
+        <div class="col-lg-3">
+            <li>{{ $studentMedicalInfo->height }}</li>
+        </div>
+        <div class="col-lg-3">
+            <li>Weight</li>
+        </div>
+        <div class="col-lg-3">
+            <li>{{ $studentMedicalInfo->weight }}</li>
         </div>
     </div>
     <div class="row" > 
-        <div class="col-lg-6"> 
-            <li>Height :-<b> {{ $studentMedicalInfo->height }}</b> </li>  
-        </div> 
-        <div class="col-lg-6">
-            <li>Weight :-<b> {{ $studentMedicalInfo->weight }} </b> </li>
+        <div class="col-lg-3">
+            <li>Complexion</li>
+        </div>
+        <div class="col-lg-3"> 
+            <li>{{ $studentMedicalInfo->complextions->name or '' }}</li>  
+        </div>
+        <div class="col-lg-3"> 
+            <li>Dental</li>  
+        </div>
+        <div class="col-lg-3"> 
+            <li>{{ $studentMedicalInfo->dental }}</li>  
         </div>
     </div> 
     <div class="row" > 
-        <div class="col-lg-6"> 
-            @if ($studentMedicalInfo->physical_handicapped==0)
-
-            <li>Physical Handicapped:-<b>No</b> </li>  
-            @else
-            <li>Physical Handicapped :-<b>Yes</b> </li>  
-            @endif 
+        <div class="col-lg-3"> 
+            <li>Physical Handicapped</li> 
         </div> 
-        <div class="col-lg-6">
-            <li>Narration :-<b> {{ $studentMedicalInfo->narration }}</b> </li>
+        <div class="col-lg-9">
+            <li><b>{{ $studentMedicalInfo->ishandicapped==1?'Yes' :'No' }} &nbsp;&nbsp;&nbsp;{{ $studentMedicalInfo->handi_percent }}% &nbsp;&nbsp;&nbsp;{{ $studentMedicalInfo->physical_handicapped }}</b></li>
         </div>
     </div> 
     <div class="row" > 
-        <div class="col-lg-6"> 
-            @if ($studentMedicalInfo->alergey==0)
-
-            <li>Allergy :-<b>No</b> </li>  
-            @else
-            <li>Allergy :-<b>Yes</b> </li>  
-            @endif 
+        <div class="col-lg-3"> 
+            <li>Allergy</li> 
         </div> 
-        <div class="col-lg-6">
-            <li>Allergy Vacc :-<b> {{ $studentMedicalInfo->alergey_vacc }}</b> </li>
+        <div class="col-lg-9">
+            <li><b>{{ $studentMedicalInfo->isalgeric==1?'Yes' :'No' }} &nbsp;&nbsp;&nbsp;{{ $studentMedicalInfo->alergey }} &nbsp;&nbsp;&nbsp;{{ $studentMedicalInfo->alergey_vacc }}</b></li> 
         </div>
     </div> 
     <div class="row" > 
-        <div class="col-lg-6"> 
-            <li>ID Mark 1 :-<b> {{ $studentMedicalInfo->id_marks1 }}</b> </li>  
+        <div class="col-lg-3"> 
+            <li>ID Mark 1</li>  
         </div> 
-        <div class="col-lg-6">
-            <li>ID Marks 2 :-<b> {{ $studentMedicalInfo->id_marks2 }}</b> </li>
+        <div class="col-lg-9">
+            <li>{{ $studentMedicalInfo->id_marks1 }}</b> </li>
         </div>
     </div>
     <div class="row" > 
-        <div class="col-lg-6"> 
-            <li>Dental :-<b> {{ $studentMedicalInfo->dental }}</b> </li>  
+        <div class="col-lg-3"> 
+            <li>ID Mark 2</li>  
         </div> 
-        <div class="col-lg-6">
-            <li>Vision :-<b> {{ $studentMedicalInfo->vision }}</b> </li>
+        <div class="col-lg-9">
+            <li><b>{{ $studentMedicalInfo->id_marks2 }}</b></li>
+        </div>
+    </div>
+    <div class="row" > 
+        <div class="col-lg-3">
+            <li>Vision</li>
+        </div>
+        <div class="col-lg-9">
+            <li>{{ $studentMedicalInfo->vision }}</li>
         </div>
     </div> 
     <div class="row" > 
-        <div class="col-lg-6">
-            <li>Complexion :-<b> {{ $studentMedicalInfo->complextion }}</b> </li>
+        <div class="col-lg-3">
+            <li>Narration</li>
         </div>
-    </div>
+        <div class="col-lg-9">
+            <li><b>{{ $studentMedicalInfo->narration }}</li>
+        </div>
+    </div> 
      <hr>
      
   
@@ -302,7 +330,8 @@
     </div>
   </div>
   @endif
-    @if (!empty($studentSiblingInfos)) 
+    @if (!empty($studentSiblingInfos))
+    <div class="page-breck"></div> 
     <div class="panel panel-info">
     <div class="panel-heading">
       <h4 class="panel-title text-center">
@@ -336,12 +365,13 @@
     </div>
   </div> 
     @endif
+    @if (empty($studentSiblingInfos))
+      <div class="page-breck"></div>
+    @endif
    @php
       $studentSubjectDetails=App\Model\StudentSubject::where('student_id',$student->id)->first();
     @endphp
-    @if (!empty($studentSubjectDetails))
-        
-   
+    @if (!empty($studentSubjectDetails)) 
     <div class="panel panel-info">
     <div class="panel-heading">
       <h4 class="panel-title text-center">

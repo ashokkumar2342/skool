@@ -23,15 +23,15 @@
                  <div class="form-group">
                   <label>Name</label>
                   <span class="fa fa-asterisk"></span>
-                   {{ Form::text('name',@$transport->name,['class'=>'form-control','id'=>'name', 'placeholder'=>'  Name']) }}
+                   {{ Form::text('name',@$transport->name,['class'=>'form-control','id'=>'name', 'placeholder'=>'Enter Name', 'maxlength'=>'50']) }}
                    <p class="errorCode text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div>
                <div class="col-lg-3">                                             
                  <div class="form-group">
-                  <label>mobile Number</label>
+                  <label>Mobile No.</label>
                   <span class="fa fa-asterisk"></span>
-                   {{ Form::text('mobile',@$transport->mobile,['class'=>'form-control','id'=>'mobile','rows'=>4, 'placeholder'=>'  mobile','maxlength'=>'10','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
+                   {{ Form::text('mobile',@$transport->mobile,['class'=>'form-control','id'=>'mobile','rows'=>4, 'placeholder'=>'Enter Mobile No.','maxlength'=>'10','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div> 
@@ -39,7 +39,7 @@
                  <div class="form-group">
                   <label>Contact Number</label>
                   <span class="fa fa-asterisk"></span>
-                   {{ Form::text('contact_no',@$transport->contact_no,['class'=>'form-control','id'=>'contact_no','rows'=>4, 'placeholder'=>' Contact No']) }}
+                   {{ Form::text('contact_no',@$transport->contact_no,['class'=>'form-control','id'=>'contact_no','rows'=>4, 'placeholder'=>'Enter Contact No.' ,'maxlength'=>'10','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div> 
@@ -47,15 +47,15 @@
                  <div class="form-group">
                   <label>Email</label>
                   <span class="fa fa-asterisk"></span>
-                   {{ Form::text('email',@$transport->email,['class'=>'form-control','id'=>'email','rows'=>4, 'placeholder'=>' Email']) }}
+                   {{ Form::text('email',@$transport->email,['class'=>'form-control','id'=>'email','rows'=>4, 'placeholder'=>'Enter Email','maxlength'=>'100']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div> 
               <div class="col-lg-3">                                             
                  <div class="form-group">
-                  <label>GST No</label>
+                  <label>GST No.</label>
                   <span class="fa fa-asterisk"></span>
-                   {{ Form::text('gst_no',@$transport->gst_no,['class'=>'form-control','id'=>'gst_no','rows'=>4, 'placeholder'=>' GST No']) }}
+                   {{ Form::text('gst_no',@$transport->gst_no,['class'=>'form-control','id'=>'gst_no','rows'=>4, 'placeholder'=>'Enter GST No.','maxlength'=>'15']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div>
@@ -63,15 +63,15 @@
                  <div class="form-group">
                   <label>IFSC Code</label>
                   <span class="fa fa-asterisk"></span>
-                   {{ Form::text('ifsc_code',@$transport->ifsc_code,['class'=>'form-control','id'=>'ifsc_code','rows'=>4, 'placeholder'=>' IFSC Code']) }}
+                   {{ Form::text('ifsc_code',@$transport->ifsc_code,['class'=>'form-control','id'=>'ifsc_code','rows'=>4, 'placeholder'=>'Enter IFSC Code','maxlength'=>'10']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div>
               <div class="col-lg-3">                                             
                  <div class="form-group">
-                   <label>Account Number</label>
+                   <label>Account No.</label>
                    <span class="fa fa-asterisk"></span>
-                   {{ Form::text('account_no',@$transport->account_no,['class'=>'form-control','id'=>'account_no','rows'=>4, 'placeholder'=>' Account No']) }}
+                   {{ Form::text('account_no',@$transport->account_no,['class'=>'form-control','id'=>'account_no','rows'=>4, 'placeholder'=>'Enter Account No.','maxlength'=>'20']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div> 
@@ -79,7 +79,7 @@
                  <div class="form-group">
                   <label>Branch Code</label>
                   <span class="fa fa-asterisk"></span>
-                   {{ Form::text('branch_code',@$transport->branch_code,['class'=>'form-control','id'=>'branch_code','rows'=>4, 'placeholder'=>' Branch Code']) }}
+                   {{ Form::text('branch_code',@$transport->branch_code,['class'=>'form-control','id'=>'branch_code','rows'=>4, 'placeholder'=>'Enter Branch Code','maxlength'=>'10']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div>
@@ -87,7 +87,7 @@
                  <div class="form-group">
                    <label>Branch Name</label>
                    <span class="fa fa-asterisk"></span>
-                   {{ Form::text('branch_name',@$transport->name,['class'=>'form-control','id'=>'branch_name','rows'=>4, 'placeholder'=>' Branch Name']) }}
+                   {{ Form::text('branch_name',@$transport->name,['class'=>'form-control','id'=>'branch_name','rows'=>4, 'placeholder'=>'Enter Branch Name','maxlength'=>'50']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div>
@@ -95,7 +95,7 @@
                  <div class="form-group">
                    <label>Account Holder Name</label>
                    <span class="fa fa-asterisk"></span>
-                   {{ Form::text('account_holder_name',@$transport->account_holder_name,['class'=>'form-control','id'=>'account_holder_name','rows'=>4, 'placeholder'=>' Account holder Name']) }}
+                   {{ Form::text('account_holder_name',@$transport->account_holder_name,['class'=>'form-control','id'=>'account_holder_name','rows'=>4, 'placeholder'=>'Enter Account holder Name','maxlength'=>'50']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div>               
@@ -103,7 +103,7 @@
                   <div class="form-group">
                     <label>Permanent Address</label>
                     <span class="fa fa-asterisk"></span>
-                    {{ Form::textarea('address',@$transport->address,['class'=>'form-control','id'=>'Permanent_address','rows'=>1, 'placeholder'=>'Permanent Address']) }}
+                    {{ Form::textarea('address',@$transport->address,['class'=>'form-control','id'=>'Permanent_address','rows'=>1, 'placeholder'=>'Permanent Address','maxlength'=>'200']) }}
                     <p class="errorDescription text-center alert alert-danger hidden"></p>
                   </div>
               </div>
@@ -115,7 +115,7 @@
                   <div class="form-group">
                      <label>Correspondence Address</label>
 
-                    {{ Form::textarea('address',@$transport->address,['class'=>'form-control','id'=>'Correspondence_address','rows'=>1, 'placeholder'=>'Correspondence Address']) }}
+                    {{ Form::textarea('address',@$transport->address,['class'=>'form-control','id'=>'Correspondence_address','rows'=>1, 'placeholder'=>'Correspondence Address','maxlength'=>'200']) }}
                     <p class="errorDescription text-center alert alert-danger hidden"></p>
                   </div>
               </div>
@@ -123,7 +123,7 @@
                  <div class="form-group">
                   <label>Pincode</label>
                   <span class="fa fa-asterisk"></span>
-                   {{ Form::text('pincode',@$transport->pincode,['class'=>'form-control','id'=>'pincode','rows'=>4, 'placeholder'=>' Pincode']) }}
+                   {{ Form::text('pincode',@$transport->pincode,['class'=>'form-control','id'=>'pincode','rows'=>4, 'placeholder'=>'Enter Pincode','maxlength'=>'6','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }}
                    <p class="errorName text-center alert alert-danger hidden"></p>
                  </div>                                         
               </div>
