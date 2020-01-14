@@ -25,24 +25,27 @@ class MailConfigServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // if (\Schema::hasTable('email_apis')) {
-        //     $mail = DB::table('email_apis')->where('status',1)->first();
-        //     if ($mail) //checking if table is not empty
-        //     {
-        //         $config = array(
+        if (\Schema::hasTable('email_apis')) {
+            $mail = DB::table('email_apis')->where('status',1)->first();
+            if ($mail) //checking if table is not empty
+            {
+                $config = array(
 
-        //             'driver'     => 'smtp',
-        //             'host'       => $mail->host,
-        //             'port'       => $mail->port,
-        //             'from'       => array('address' => $mail->mail_from, 'name' => 'no-reply'),
-        //             'encryption' => null,
-        //             'username'   => $mail->username,
-        //             'password'   => $mail->password,
+                    'driver'     => 'smtp',
+                    'host'       => $mail->host,
+                    'port'       => $mail->port,
+                    'from'       => array('address' => $mail->mail_from, 'name' => 'no-reply'),
+                    'encryption' => null,
+                    // 'encryption' => $mail->encryption,
+                    'username'   => $mail->username,
+                    'password'   => $mail->password,
+                    'sendmail'   => '/usr/sbin/sendmail -bs',
+                    'pretend'    => false,
                    
-        //         );
-        //         Config::set('mail', $config);
+                );
+                Config::set('mail', $config);
                 
-        //     }
-        // }
+            }
+        }
     }
 }
