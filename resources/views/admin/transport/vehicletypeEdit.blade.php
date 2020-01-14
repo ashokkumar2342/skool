@@ -23,7 +23,7 @@
                      <div class="col-lg-4">                                             
                          <div class="form-group">
                           <label>Vehicle Type</label>
-                           {{ Form::text('vehicle_type',@$vehicleTypes->vehicle_type,['class'=>'form-control','id'=>'vehicle_type', 'placeholder'=>'  Vehicle Type']) }}
+                           {{ Form::text('vehicle_type',@$vehicleTypes->vehicle_type,['class'=>'form-control','id'=>'vehicle_type', 'placeholder'=>'  Vehicle Type','maxlength'=>'50']) }}
                           
                          </div>                                         
                       </div>
@@ -31,7 +31,7 @@
                       <div class="col-lg-8">                                             
                          <div class="form-group">
                           <label>Description</label>
-                           {{ Form::text('description',@$vehicleTypes->description,['class'=>'form-control','id'=>'description','rows'=>4, 'placeholder'=>' Description']) }}
+                           {{ Form::text('description',@$vehicleTypes->description,['class'=>'form-control','id'=>'description','rows'=>4, 'placeholder'=>' Description','maxlength'=>'200']) }}
                           
                          </div>                                         
                       </div>
