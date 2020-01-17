@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\PaymentMode;
+use Illuminate\Http\Request;
 
 class OtherReceiptController extends Controller
 {
     public function index()
     {
-    	return view('admin.finance.otherreceipt.index');
+    	$paymentModes=PaymentMode::all();
+    	return view('admin.finance.otherreceipt.index',compact('paymentModes'));
     }
     public function addForm($id=null)
     {
-    	return view('admin.finance.otherreceipt.add_form');
+    	$paymentModes=PaymentMode::all();
+    	return view('admin.finance.otherreceipt.add_form',compact('paymentModes'));
     }
 }

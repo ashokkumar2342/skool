@@ -31,6 +31,46 @@
                             <textarea  name="description" class="form-control" placeholder="" maxlength="200"></textarea>
                             
                           </div> 
+                          <div class="col-md-12">
+                                  <table class="table table-striped" style="font-size: 100%;margin-bottom:0px;">
+                                  
+                                     <tr id="id1" class="tr_clone">
+                                         <td style="width: 200px;">
+                                           <label class="control-label mb-2 text-left">Payment Mode <span style="color:red;">*</span></label> 
+                                             <select name="payment_mode[]" class="form-control" id="payment_mode">
+                                              @foreach ($paymentModes as $mode)
+                                                <option value="{{ $mode->id }}"{{ @$feedefaultvalue->payment_mode==$mode->id?'selected' : '' }}>{{ $mode->name }}</option> 
+                                              @endforeach 
+                                            </select>  
+                                         </td>
+                                         {{-- <td style="width: 200px;">
+                                           <label class="control-label mb-2 text-left">Amount <span style="color:red;">*</span></label> 
+                                             <input type="text"  name="amount[]" onkeyup="feeSum()" value="" class="form-control fee_sum">    
+                                         </td style="width: 250px;"> --}}
+                                         <td><label class="control-label mb-2 text-left">Transaction / Cheque No </label> 
+                                          <input type="text"  name="cheeque_no[]" class="form-control"></td>
+                                         <td><label class="control-label mb-2 text-left">Bank Name </label> 
+                                             <input type="text"  name="bank_name[]" class="form-control"></td>
+                                         <td><label class="control-label mb-2 text-left">Remarks </label> 
+                                             <textarea type="text" name="remarks[]" class="form-control"></textarea></td>
+                                         <td> <br><br> 
+                                          
+                                      </td> 
+                                     </tr>
+                                     {{-- <tr>
+                                      <td>Amount Deposit</td>
+                                      <td>
+                                              
+                                        <input type="text" id="amount_deposit" readonly  name="amount_deposit[]"  class="form-control">
+                                        
+                                      </td>
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                     </tr> --}}
+                                   
+                                  </table>
                          </div>
                          <div class="row">
                           <div class="col-lg-12 text-center" style="padding-top: 10px">
