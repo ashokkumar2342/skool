@@ -177,7 +177,7 @@ class FeeCollectionController extends Controller
            
         }
 
-        $response['data']= view('admin.finance.feecollection.receipt_print_1',compact('r_arr_id','is_print','feedefaultvalue'))->render();
+        $response['data']= view('admin.finance.feecollection.print_1',compact('r_arr_id','is_print','feedefaultvalue'))->render();
         
         
        return $response;
