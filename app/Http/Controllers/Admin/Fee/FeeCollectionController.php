@@ -148,8 +148,12 @@ class FeeCollectionController extends Controller
         if (!empty($request->cheeque_no[1])) {
             $cheeque_no2 = $request->cheeque_no[1];  
         } 
-       $temp_id= $request->template;
        $feedefaultvalue= DefaultFeeValue::where('userid',$user_id)->first();
+       if (empty($feedefaultvalue)) {
+           $temp_id= $feedefaultvalue->rec_template_id; 
+       }else{
+        $temp_id=1; 
+       }
         $receipt_id =array();
         foreach ($students as $key => $student_id) { 
           $deposit = $amount_deposits[$key];     
