@@ -102,7 +102,7 @@ class FeeCollectionController extends Controller
     }
 
     // store fee collection form
-    public function store(Request $request){ return $request;
+    public function store(Request $request){ 
       if ($request->has('is_print')) {
         $is_print = 1;
       }else{
