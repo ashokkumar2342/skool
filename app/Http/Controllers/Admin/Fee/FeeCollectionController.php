@@ -176,7 +176,7 @@ class FeeCollectionController extends Controller
          ->loadView('admin.finance.feecollection.pdf_'.$temp_id.'',compact('feeDetails','student','payment_mode','cheeque_no','bank_name','feedefaultvalue'))->save($path.$r_id.'.pdf'); 
            
         }
-        dd('ddd');
+        
         $response['data']= view('admin.finance.feecollection.print_1',compact('r_arr_id','is_print','feedefaultvalue'))->render();
         
         
