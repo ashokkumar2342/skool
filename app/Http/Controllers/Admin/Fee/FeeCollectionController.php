@@ -173,11 +173,11 @@ class FeeCollectionController extends Controller
              'logOutputFile' => storage_path('logs/log.htm'),
              'tempDir' => storage_path('logs/')
          ])
-         ->loadView('admin.finance.feecollection.1',compact('feeDetails','student','payment_mode','cheeque_no','bank_name','feedefaultvalue'))->save($path.$r_id.'.pdf'); 
+         ->loadView('admin.finance.feecollection.pdf_'.$temp_id.'',compact('feeDetails','student','payment_mode','cheeque_no','bank_name','feedefaultvalue'))->save($path.$r_id.'.pdf'); 
            
         }
 
-        $response['data']= view('admin.finance.feecollection.1',compact('r_arr_id','is_print','feedefaultvalue'))->render();
+        $response['data']= view('admin.finance.feecollection.receipt_print_1',compact('r_arr_id','is_print','feedefaultvalue'))->render();
         
         
        return $response;
