@@ -102,7 +102,7 @@ class FeeCollectionController extends Controller
     }
 
     // store fee collection form
-    public function store(Request $request){ 
+    public function store(Request $request){ return $request;
       if ($request->has('is_print')) {
         $is_print = 1;
       }else{
@@ -148,12 +148,8 @@ class FeeCollectionController extends Controller
         if (!empty($request->cheeque_no[1])) {
             $cheeque_no2 = $request->cheeque_no[1];  
         } 
+       $temp_id= $request->template;
        $feedefaultvalue= DefaultFeeValue::where('userid',$user_id)->first();
-       if (!empty($feedefaultvalue)) {
-           $temp_id= $feedefaultvalue->rec_template_id; 
-       }else{
-        $temp_id=1; 
-       }
         $receipt_id =array();
         foreach ($students as $key => $student_id) { 
           $deposit = $amount_deposits[$key];     
@@ -177,7 +173,7 @@ class FeeCollectionController extends Controller
              'logOutputFile' => storage_path('logs/log.htm'),
              'tempDir' => storage_path('logs/')
          ])
-         ->loadView('admin.finance.feecollection.receipt_pdf_1',compact('feeDetails','student','payment_mode','cheeque_no','bank_name','feedefaultvalue'))->save($path.$r_id.'.pdf'); 
+         ->loadView('admin.finance.feecollection.receipt_pdf_'.$temp_id.'',compact('feeDetails','student','payment_mode','cheeque_no','bank_name','feedefaultvalue'))->save($path.$r_id.'.pdf'); 
            
         }
 
