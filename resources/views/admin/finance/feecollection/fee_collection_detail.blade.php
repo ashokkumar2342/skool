@@ -25,6 +25,6 @@
 		</tr>
 	</tbody>
 </table>
-@include('admin.finance.Feecollection.fee_detail_show')
+@include('admin.finance.feecollection.fee_detail_show')
  
  
