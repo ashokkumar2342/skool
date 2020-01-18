@@ -96,25 +96,24 @@
             $routeName= Route::currentRouteName(); 
             $path =storage_path('app/student/profile/'.$student->picture);
             $paths =storage_path('app/student/profile/'.''); 
-            $profile = route('admin.student.image',$student->picture);
+            // $profile = route('admin.student.image',$student->picture);
             @endphp 
-            @if ( $routeName=='admin.student.registration.final.submit')
                @if ($path==$paths)
                <img  src="''" alt="" width="103px" height="103px" style="border:solid 2px Black"> 
                @else
                <img  src="{{ $path }}" alt="" width="103px" height="103px" style="margin-top: 10px; border:solid 2px Black"> 
                @endif 
-            @endif 
-            @if ( $routeName=='admin.student.pdf.generate')
+            
+            {{-- @if ( $routeName=='admin.student.pdf.generate')
                @if ($path==$paths)
                <img  src="''" alt="" width="150px" height="150px" style="border:solid 2px Black"> 
                @else
                <img  src="{{ $path }}" alt="" width="160px" height="160px" style="margin-top: 10px; border:solid 2px Black"> 
                @endif
-            @endif
-            @if ( $routeName=='admin.student.preview')
+            @endif --}}
+            {{-- @if ( $routeName=='admin.student.preview')
             <img  src="{{ ($student->picture)? $profile : asset('profile-img/user.png') }}" width="120px" height="120px" style="border:solid 2px Black">
-            @endif 
+            @endif  --}}
            </div>
            </div>
            <div class="row">
@@ -172,15 +171,14 @@
               <div class="col-lg-2" style="float: right;">
                  @php
                 $routeNames= Route::currentRouteName();
-                $paths =storage_path('app/'.$parent->parentInfo->photo); 
-                $image = route('admin.parents.image.show',$parent->parentInfo->id); 
-                @endphp
-                
-                @if ($routeNames=='admin.student.preview')
-                <img  src="{{ ($parent->parentInfo->id)? $image : asset('profile-img/user.png') }}" width="103px" height="103px" style="float: right; border:solid 2px Black"> 
-                 @else  
-                <img  src="{{ $paths }}" alt="" width="123px" height="123px" style="float: right;margin-top: 10px; border:solid 2px Black">  
-                @endif 
+                $data =storage_path('app/'.$parent->parentInfo->photo);
+                $datas =storage_path('app/'.'');  
+                @endphp 
+                 @if ($data==$datas)
+                 <img  src="''" alt="" width="123px" height="123px" style="float: right;margin-top: 10px; border:solid 2px Black"> 
+                 @else 
+                  <img  src="{{ $paths }}" alt="" width="123px" height="123px" style="float: right;margin-top: 10px; border:solid 2px Black">  
+                 @endif 
                   </div> 
               </div>
               <div class="row">

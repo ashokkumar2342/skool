@@ -284,7 +284,7 @@ b{
 <div class="col-lg-4 text-center">
 @if (!empty($admissionApplication)) 
   @if ($admissionApplication->status==2)
-    
+   
     @else
     <a href="{{ route('admin.student.registration.final.submit',$student->id) }}" title="Final Submit" class="btn btn-primary">Final Submit</a>
   @endif
