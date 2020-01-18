@@ -187,7 +187,7 @@ class ApiSetingController extends Controller
             $up_u['subject']=$subject; 
             $up_u['data']='Test Api Integration Successfully'; 
             $mailHelper =new MailHelper(); 
-            $mailHelper->mailsend('emails.message',$up_u,'No-Reply',$subject,$emailto,'ashokkumar2342@gmail.com',5); 
+            $mailHelper->mailsend('emails.message',$up_u,'No-Reply',$subject,$emailto,'info@eageskool.com',5); 
          }
          $response=['status'=>1,'msg'=>'send Successfully'];
               return response()->json($response); 
