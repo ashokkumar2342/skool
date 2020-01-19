@@ -39,8 +39,8 @@ class MailConfigServiceProvider extends ServiceProvider
                     // 'encryption' => $mail->encryption,
                     'username'   => $mail->username,
                     'password'   => $mail->password,
-                    'sendmail'   => '/usr/sbin/sendmail -bs',
-                    'pretend'    => false,
+                    // 'sendmail'   => '/usr/sbin/sendmail -bs',
+                    // 'pretend'    => false,
                    
                 );
                 Config::set('mail', $config);
