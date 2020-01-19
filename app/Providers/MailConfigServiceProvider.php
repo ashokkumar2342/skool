@@ -31,14 +31,14 @@ class MailConfigServiceProvider extends ServiceProvider
             {
                 $config = array(
 
-                    'driver'     => 'smtp',
-                    'host'       => $mail->host,
-                    'port'       => $mail->port,
-                    'from'       => array('address' => $mail->mail_from, 'name' => 'no-reply'),
-                    // 'encryption' => 'tls',
-                    // 'encryption' => $mail->encryption,
-                    'username'   => $mail->username,
-                    'password'   => $mail->password,
+                    // 'driver'     => 'smtp',
+                    // 'host'       => $mail->host,
+                    // 'port'       => $mail->port,
+                    // 'from'       => array('address' => $mail->mail_from, 'name' => 'no-reply'),
+                    // // 'encryption' => 'tls',
+                    // // 'encryption' => $mail->encryption,
+                    // 'username'   => $mail->username,
+                    // 'password'   => $mail->password,
                     // 'sendmail'   => '/usr/sbin/sendmail -bs',
                     // 'pretend'    => false,
                    
