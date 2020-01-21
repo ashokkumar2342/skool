@@ -98,75 +98,76 @@ b{
                                        <span style="margin-left: 10px">Application No. <b>{{ $admissionApplication->id }}</b></span>
                                      @endif  
                                     @endif  
-                                      <div  class="col-lg-6 form-group">
-                                        <label>Name</label><span class="fa fa-asterisk"></span>
-                                        <input type="text" value="{{ $student->name }}" maxlength="50" name="student_name" style="width: 290px;height: 28px" class="form-control">
+                                      <div  class="col-lg-6">
+                                       <li class="list-group-item" style="width:350px"><label>Name</label><span class="fa fa-asterisk"></span>
+                                        <input type="text" value="{{ $student->name }}" maxlength="50" name="student_name" style="width: 290px;height: 28px" class="form-control"></li>
                                       </div>
-                                      <div  class="col-lg-6 form-group">
-                                        <label>Nick Name</label><span class="fa fa-asterisk"></span>
-                                        <input type="" name="" class="form-control" style="width: 290px;height: 28px"> 
+                                      <div  class="col-lg-6">
+                                        <li class="list-group-item" style="width:350px"><label>Nick Name</label><span class="fa fa-asterisk"></span>
+                                        <input type="text" name="nick_name" value="{{$student->nick_name}}"  class="form-control" style="width: 290px;height: 28px"></li> 
                                       </div>
-                                      <div  class="col-lg-6 form-group">
-                                        <label>Class</label><span class="fa fa-asterisk"></span>
+                                      <div  class="col-lg-6">
+                                        <li class="list-group-item" style="width:350px"><label>Class</label><span class="fa fa-asterisk"></span>
                                         <select class="form-control" name="class" style="width: 290px;height: 28px"onchange="callAjax(this,'{{ route('admin.student.final.report.class.wise.section') }}','section_div')">
                                           @foreach ($classes as $id=>$value)
                                            <option value="{{ $id }}"{{ $student->class_id==$id? 'selected' : ''}}>{{ $value }}</option> 
                                           @endforeach 
-                                        </select> 
+                                        </select>
+                                        </li> 
                                       </div>
-                                      <div  class="col-lg-6 form-group">
-                                        <label>Section</label><span class="fa fa-asterisk"></span>
+                                      <div  class="col-lg-6">
+                                        <li class="list-group-item" style="width:350px"><label>Section</label><span class="fa fa-asterisk"></span>
                                         <select class="form-control" name="section" id="section_div" style="width: 290px;height: 28px" {{ $disabled }}>
                                         @foreach ($sections as $section)
                                           <option  value="{{ $section->id }}"{{ $student->section_id==$section->id? 'selected' : '' }}>{{ $section->name }}</option> 
                                             
                                          @endforeach 
-                                        </select> 
+                                        </select></li> 
                                       </div>
-                                      <div  class="col-lg-6 form-group">
-                                        <label>Registration No.</label><span class="fa fa-asterisk"></span>
-                                        <input type="text" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->registration_no or ''}}" name="registration_no" id="registration_no" maxlength="{{ $schoolinfo->reg_length }}" class="form-control" min="{{ $schoolinfo->reg_length }}"> 
+                                      <div  class="col-lg-6">
+                                        <li class="list-group-item" style="width:350px"><label>Registration No.</label><span class="fa fa-asterisk"></span>
+                                        <input type="text" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->registration_no or ''}}" name="registration_no" id="registration_no" maxlength="{{ $schoolinfo->reg_length }}" class="form-control" min="{{ $schoolinfo->reg_length }}"></li> 
                                        </div>
-                                       <div  class="col-lg-6 form-group">
-                                        <label>Admission No.</label><span class="fa fa-asterisk"></span>
-                                        <input type="text" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->admission_no }}" name="admission_no" class="form-control">
+                                       <div  class="col-lg-6">
+                                        <li class="list-group-item" style="width:350px"><label>Admission No.</label><span class="fa fa-asterisk"></span>
+                                        <input type="text" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->admission_no }}" name="admission_no" class="form-control"></li>
                                        </div>
-                                       <div  class="col-lg-6 form-group">
-                                        <label>Roll No.</label><span class="fa fa-asterisk"></span>
-                                        <input type="text"maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="width: 290px;height: 28px" value="{{ $student->roll_no or ''}}" {{ $disabled }} name="roll_no" class="form-control">
+                                       <div  class="col-lg-6">
+                                        <li class="list-group-item" style="width:350px"><label>Roll No.</label><span class="fa fa-asterisk"></span>
+                                        <input type="text"maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="width: 290px;height: 28px" value="{{ $student->roll_no or ''}}" {{ $disabled }} name="roll_no" class="form-control"></li>
                                        </div>
-                                       <div  class="col-lg-6 form-group">
-                                        <label>Date of Birth</label><span class="fa fa-asterisk"></span>
-                                        <input type="text" maxlength="10" style="width: 290px;height: 28px" value="{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}" name="date_of_birth" class="form-control">
+                                       <div  class="col-lg-6">
+                                        <li class="list-group-item" style="width:350px"><label>Date of Birth</label><span class="fa fa-asterisk"></span>
+                                        <input type="text" maxlength="10" style="width: 290px;height: 28px" value="{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}" name="date_of_birth" class="form-control"></li>
                                        </div>
-                                       <div  class="col-lg-6 form-group">
-                                        <label>Date of Admission</label><span class="fa fa-asterisk"></span>
-                                        <input type="date" {{ $disabled }} style="width: 290px;height: 28px" value="{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}" name="date_of_admission" class="form-control">
+                                       <div  class="col-lg-6">
+                                        <li class="list-group-item" style="width:350px"><label>Date of Admission</label><span class="fa fa-asterisk"></span>
+                                        <input type="date" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->date_of_admission }}" name="date_of_admission" class="form-control"></li>
                                        </div>
-                                       <div  class="col-lg-6 form-group">
-                                        <label>Date of Activation</label><span class="fa fa-asterisk"></span>
-                                         <input type="date" {{ $disabled }}  style="width: 290px;height: 28px" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation" class="form-control"> 
+                                       <div  class="col-lg-6">
+                                        <li class="list-group-item" style="width:350px"><label>Date of Activation</label><span class="fa fa-asterisk"></span>
+                                         <input type="date" {{ $disabled }}  style="width: 290px;height: 28px" value="{{$student->date_of_activation}}" name="date_of_activation" class="form-control"></li> 
                                        </div>
-                                       <div  class="col-lg-6 form-group">
-                                        <label>Aadhaar No.</label><span class="fa fa-asterisk"></span>
-                                         <input type="text" maxlength="12" style="width: 290px;height: 28px" value="{{ $student->adhar_no}}" name="aadhaar_no" class="form-control"> 
+                                       <div  class="col-lg-6">
+                                        <li class="list-group-item" style="width:350px"><label>Aadhaar No.</label><span class="fa fa-asterisk"></span>
+                                         <input type="text" maxlength="12" style="width: 290px;height: 28px" value="{{ $student->adhar_no}}" name="aadhaar_no" class="form-control"></li> 
                                        </div>
-                                       <div  class="col-lg-6 form-group">
-                                        <label>Gender</label><span class="fa fa-asterisk"></span>
+                                       <div  class="col-lg-6">
+                                        <li class="list-group-item" style="width:350px"><label>Gender</label><span class="fa fa-asterisk"></span>
                                          <select name="gender" class="form-control" style="width: 290px;height: 28px">
                                             @foreach ($genders as $gender)
                                                <option value="{{ $gender->id }}"{{ $gender->id==$student->gender_id?'selected' : '' }}>{{ $gender->genders }}</option> 
                                             @endforeach 
-                                          </select> 
+                                          </select></li> 
                                        </div>
-                                       <div  class="col-lg-12 form-group">
-                                        <label>House Name</label><span class="fa fa-asterisk"></span>
-                                         <select name="house" class="form-control" {{ $disabled }} style="width: 85%;height: 28px">
+                                       <div  class="col-lg-12">
+                                        <li class="list-group-item" style="width: 92%"><label>House Name</label><span class="fa fa-asterisk"></span>
+                                         <select name="house" class="form-control" {{ $disabled }}>
                                             @foreach ($houses as $house)
                                               <option  value="{{ $house->id }}"{{ $student->house_no==$house->id? 'selected' : '' }}>{{ $house->name }}</option> 
                                               
                                             @endforeach
-                                          </select> 
+                                          </select></li> 
                                        </div>
 
                                 </div> 
