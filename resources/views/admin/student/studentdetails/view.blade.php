@@ -92,81 +92,83 @@ b{
                                    }
                                  }
                                   @endphp
-                                <div class="col-md-6 border_bottom">
-                                    <ul class="list-group">
+                                
                                    @if(!empty($admissionApplication))     
                                     @if ($userId->role_id==12) 
                                        <span style="margin-left: 10px">Application No. <b>{{ $admissionApplication->id }}</b></span>
                                      @endif  
                                     @endif  
-                                      <li class="list-group-item" style="margin-top: 10px">Name <span class="fa fa-asterisk"></span><span class="fs"><input type="text" value="{{ $student->name }}" maxlength="50" name="student_name" style="width: 290px;height: 28px"> </span></li>
-                                       
-                                      <li class="list-group-item">Class <span class="fa fa-asterisk"></span><span class="fs"> 
-                                        {{-- <input type="text" maxlength="50"  value="{{ $student->classes->name or ''}}" name="nick_name"> --}}
-                                        <select name="class" style="width: 290px;height: 28px"onchange="callAjax(this,'{{ route('admin.student.final.report.class.wise.section') }}','section_div')">
+                                      <div  class="col-lg-6 form-group">
+                                        <label>Name</label><span class="fa fa-asterisk"></span>
+                                        <input type="text" value="{{ $student->name }}" maxlength="50" name="student_name" style="width: 290px;height: 28px" class="form-control">
+                                      </div>
+                                      <div  class="col-lg-6 form-group">
+                                        <label>Nick Name</label><span class="fa fa-asterisk"></span>
+                                        <input type="" name="" class="form-control" style="width: 290px;height: 28px"> 
+                                      </div>
+                                      <div  class="col-lg-6 form-group">
+                                        <label>Class</label><span class="fa fa-asterisk"></span>
+                                        <select class="form-control" name="class" style="width: 290px;height: 28px"onchange="callAjax(this,'{{ route('admin.student.final.report.class.wise.section') }}','section_div')">
                                           @foreach ($classes as $id=>$value)
                                            <option value="{{ $id }}"{{ $student->class_id==$id? 'selected' : ''}}>{{ $value }}</option> 
                                           @endforeach 
                                         </select> 
-                                      </span></li>
-                                      <li class="list-group-item">Section <span class="fa fa-asterisk"></span><span class="fs">{{-- <input type="text" maxlength="50"  style="width: 290px;height: 28px" value="{{ $student->sectionTypes->name or ''}}" >  --}}
-                                        <select name="section" id="section_div" style="width: 290px;height: 28px" {{ $disabled }}>
+                                      </div>
+                                      <div  class="col-lg-6 form-group">
+                                        <label>Section</label><span class="fa fa-asterisk"></span>
+                                        <select class="form-control" name="section" id="section_div" style="width: 290px;height: 28px" {{ $disabled }}>
                                         @foreach ($sections as $section)
                                           <option  value="{{ $section->id }}"{{ $student->section_id==$section->id? 'selected' : '' }}>{{ $section->name }}</option> 
                                             
                                          @endforeach 
-                                        </select>
-                                      </span></li>
-                                     
-                                      <li class="list-group-item">Registration No. <span class="fa fa-asterisk"></span><span class="fs">
-                                        <input type="text" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->registration_no or ''}}" name="registration_no" id="registration_no" maxlength="{{ $schoolinfo->reg_length }}" min="{{ $schoolinfo->reg_length }}"> </span></li>
-                                      
-                                      <li class="list-group-item">Roll No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text"maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="width: 290px;height: 28px" value="{{ $student->roll_no or ''}}" {{ $disabled }} name="roll_no"> </span></li>
-                                      <li class="list-group-item">Admission No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->admission_no }}" name="admission_no"> </span></li>
-                                      
-                                     
-                                      
-                                      
-                                     
-                                       
-                                      
-
-                                      
-                                      
-                                    </ul>
-                                    
-                                </div>
-
-                                <div class="col-md-6 border_bottom">
-                                    <ul class="list-group">
-                                      @if(!empty($admissionApplication))     
-                                    @if ($userId->role_id==12) 
-                                       <span style="">Status &nbsp;<b> {{ $status}}</b></span>
-                                     @endif  
-                                    @endif
-                                     
-                                      <li class="list-group-item" style="margin-top: 10px">Date of Admission <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="50" {{ $disabled }} style="width: 290px;height: 28px" value="{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}" name="date_of_admission"> </span></li>
-                                      <li class="list-group-item">Date of Activation <span class="fa fa-asterisk"></span><span class="fs"><input type="text" {{ $disabled }} maxlength="50" style="width: 290px;height: 28px" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation"> </span></li>
-                                      <li class="list-group-item">Date of Birth <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="10" style="width: 290px;height: 28px" value="{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}" name="date_of_birth"> </span></li> 
-                                        <li class="list-group-item">Gender <span class="fa fa-asterisk"></span><span class="fs">
-                                          <select name="gender" style="width: 290px;height: 28px">
+                                        </select> 
+                                      </div>
+                                      <div  class="col-lg-6 form-group">
+                                        <label>Registration No.</label><span class="fa fa-asterisk"></span>
+                                        <input type="text" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->registration_no or ''}}" name="registration_no" id="registration_no" maxlength="{{ $schoolinfo->reg_length }}" class="form-control" min="{{ $schoolinfo->reg_length }}"> 
+                                       </div>
+                                       <div  class="col-lg-6 form-group">
+                                        <label>Admission No.</label><span class="fa fa-asterisk"></span>
+                                        <input type="text" {{ $disabled }} style="width: 290px;height: 28px" value="{{ $student->admission_no }}" name="admission_no" class="form-control">
+                                       </div>
+                                       <div  class="col-lg-6 form-group">
+                                        <label>Roll No.</label><span class="fa fa-asterisk"></span>
+                                        <input type="text"maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="width: 290px;height: 28px" value="{{ $student->roll_no or ''}}" {{ $disabled }} name="roll_no" class="form-control">
+                                       </div>
+                                       <div  class="col-lg-6 form-group">
+                                        <label>Date of Birth</label><span class="fa fa-asterisk"></span>
+                                        <input type="text" maxlength="10" style="width: 290px;height: 28px" value="{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}" name="date_of_birth" class="form-control">
+                                       </div>
+                                       <div  class="col-lg-6 form-group">
+                                        <label>Date of Admission</label><span class="fa fa-asterisk"></span>
+                                        <input type="date" {{ $disabled }} style="width: 290px;height: 28px" value="{{Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y') }}" name="date_of_admission" class="form-control">
+                                       </div>
+                                       <div  class="col-lg-6 form-group">
+                                        <label>Date of Activation</label><span class="fa fa-asterisk"></span>
+                                         <input type="date" {{ $disabled }}  style="width: 290px;height: 28px" value="{{ Carbon\Carbon::parse($student->date_of_activation)->format('d-m-Y') }}" name="date_of_activation" class="form-control"> 
+                                       </div>
+                                       <div  class="col-lg-6 form-group">
+                                        <label>Aadhaar No.</label><span class="fa fa-asterisk"></span>
+                                         <input type="text" maxlength="12" style="width: 290px;height: 28px" value="{{ $student->adhar_no}}" name="aadhaar_no" class="form-control"> 
+                                       </div>
+                                       <div  class="col-lg-6 form-group">
+                                        <label>Gender</label><span class="fa fa-asterisk"></span>
+                                         <select name="gender" class="form-control" style="width: 290px;height: 28px">
                                             @foreach ($genders as $gender)
                                                <option value="{{ $gender->id }}"{{ $gender->id==$student->gender_id?'selected' : '' }}>{{ $gender->genders }}</option> 
                                             @endforeach 
-                                          </select>
-                                          </span>
-                                          </li> 
-                                        <li class="list-group-item">Aadhaar No. <span class="fa fa-asterisk"></span><span class="fs"><input type="text" maxlength="12" style="width: 290px;height: 28px" value="{{ $student->adhar_no}}" name="aadhaar_no"> </span></li>
-                                        <li class="list-group-item">House Name <span class="fa fa-asterisk"></span><span class="fs">
-                                          <select name="house" {{ $disabled }} style="width: 290px;height: 28px" >
+                                          </select> 
+                                       </div>
+                                       <div  class="col-lg-12 form-group">
+                                        <label>House Name</label><span class="fa fa-asterisk"></span>
+                                         <select name="house" class="form-control" {{ $disabled }} style="width: 85%;height: 28px">
                                             @foreach ($houses as $house)
                                               <option  value="{{ $house->id }}"{{ $student->house_no==$house->id? 'selected' : '' }}>{{ $house->name }}</option> 
                                               
                                             @endforeach
-                                          </select>
-                                         {{--  <input type="text" value="{{ $student->houses->name or ''}}"  name="house"> --}} </span></li> 
-                                    </ul>
-                                    
+                                          </select> 
+                                       </div>
+
                                 </div> 
                                 <div class="text-center" style="margin :20px">
                                 <input type="submit" class="btn btn-success btn-sm"  value="Update"> 
@@ -174,7 +176,7 @@ b{
                                 </div>
                               </form>
                             </div>
-                        </div>
+                        
                         <div class="col-md-3" style="margin-top: 40px">
                              @php
                              $profile = route('admin.student.image',$student->picture);

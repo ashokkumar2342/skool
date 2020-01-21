@@ -203,7 +203,7 @@ $paths =storage_path('app/student/profile/'.'');
  if(!empty($admissionApplication)){
    $Application =storage_path('app/student/barcode/application/'.$admissionApplication->id.'.'.'png'); 
  }else{
-    $Application =storage_path('app/student/barcode/application/'.'png'); 
+    $Application =storage_path('app/student/barcode/application/'.'1000010'.'.'.'png'); 
  }
  $Regisration =storage_path('app/student/barcode/'.$student->registration_no.'.'.'png');
  @endphp 
