@@ -104,9 +104,9 @@ $paths =storage_path('app/student/profile/'.'');
  <div class="row"> 
      <div class="col-lg-3" style="float: right;">
            @if ($path==$paths)
-           <img  src="''" alt="" alt="" width="153px" height="153px" style="margin-top: -135px"> 
+           <img  src="''" alt="" alt="" width="153px" height="153px" style="margin-top: -20%; border:solid 1px Black"> 
            @else
-           <img  src="{{ $path }}" alt="" width="153px" height="153px" style="margin-top: -135px"> 
+           <img  src="{{ $path }}" alt="" width="153px" height="153px" style="margin-top: -20%; border:solid 1px Black"> 
            @endif
      </div>
 </div> 
@@ -292,9 +292,9 @@ $paths =storage_path('app/student/profile/'.'');
  <div class="row"> 
      <div class="col-lg-3" style="float: right;">
            @if ($data==$datas)
-           <img  src="''" alt="" alt="" width="153px" height="153px" style="margin-top: -135px"> 
+           <img  src="''" alt="" alt="" width="153px" height="153px" style="margin-top: -15%; border:solid 1px Black"> 
            @else
-           <img  src="{{ $data }}" alt="" width="153px" height="153px" style="margin-top: -135px"> 
+           <img  src="{{ $data }}" alt="" width="153px" height="153px" style="margin-top: -15%; border:solid 1px Black"> 
            @endif
      </div>
 </div> 
