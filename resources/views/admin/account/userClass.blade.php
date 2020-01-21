@@ -16,12 +16,13 @@
 
             <!-- /.box-header -->
             <div class="box-body">
-               {!! Form::open(['route'=>'admin.userClass.add','class'=>"form-horizontal add_form" ]) !!}
+               <form action="{{ route('admin.userClass.add') }}" no-reset="true" method="post" class="add_form" select-triger="user_id">
+               {{ csrf_field() }} 
               <div class="col-md-4"> 
                
                  
                   {{ Form::label('User','Users',['class'=>' control-label']) }}
-                  <select class="form-control"  multiselect-form="true" data-table-with-pagination="class_section_list" name="user" id="user_id"  onchange="callAjax(this,'{{route('admin.account.classAllSelect')}}'+'?id='+this.value,'class_all')" > 
+                  <select class="form-control"  multiselect-form="true" data-table="class_section_list" name="user" id="user_id"  onchange="callAjax(this,'{{route('admin.account.classAllSelect')}}'+'?id='+this.value,'class_all')" > 
                    <option value="" disabled selected>Select User</option>
                   @foreach ($users as $user)
                        <option value="{{ $user->id }}">{{ $user->email }} &nbsp;&nbsp;&nbsp;&nbsp;( {{ $user->first_name }} )</option> 

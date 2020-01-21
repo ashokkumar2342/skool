@@ -163,26 +163,7 @@ class StudentController extends Controller
 
          $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 
           $documents = Document::where('student_id',$id)->get(); 
-          $studentSubjects=StudentSubject::where('student_id',$id)->get();
-         //application barcode ///
-                     if ($student->student_status_id!=1) {
-                     $admissionApplication=AdmissionApplication::where('student_id',$student->id)->first();
-                     $value=$admissionApplication->id; 
-                     $barcode = new BarcodeGenerator();
-                     $barcode->setText($value);
-                     $barcode->setType(BarcodeGenerator::Code128);
-                     $barcode->setScale(2);
-                     $barcode->setThickness(25);
-                     $barcode->setFontSize(10);
-                     $code = $barcode->generate();
-                     $data = base64_decode($code);
-                  }
-                  if ($student->student_status_id==1) {
-                      
-                     $data = '';
-                  }     
-           //application barcode end///
-
+          $studentSubjects=StudentSubject::where('student_id',$id)->get(); 
          return view('admin.student.studentdetails.preview',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address','data'));
     }
     public function pdfGenerate($id){
@@ -206,8 +187,9 @@ class StudentController extends Controller
          } 
          //end sibling detaild///
          //application barcode ///
-                 if ($student->student_status_id!=1) {
+                   
                      $admissionApplication=AdmissionApplication::where('student_id',$student->id)->first();
+                     if (!empty($admissionApplication)) { 
                      $value=$admissionApplication->id; 
                      $barcode = new BarcodeGenerator();
                      $barcode->setText($value);
@@ -217,11 +199,29 @@ class StudentController extends Controller
                      $barcode->setFontSize(10);
                      $code = $barcode->generate();
                      $data = base64_decode($code);
-                  }
-                  if ($student->student_status_id==1) {
-                      
-                     $data = '';
-                  }     
+                     $image_name= $value.'.png';     
+                     $path = Storage_path() . "/app/student/barcode/application/";
+                     $paths = Storage_path() . "/app/student/barcode/application/" . $image_name;
+                     @mkdir($path, 0755, true); 
+                     file_put_contents($paths, $data); 
+                     }
+                     elseif (!empty($student->registration_no)) { 
+                     $value=$student->registration_no; 
+                     $barcode = new BarcodeGenerator();
+                     $barcode->setText($value);
+                     $barcode->setType(BarcodeGenerator::Code128);
+                     $barcode->setScale(2);
+                     $barcode->setThickness(25);
+                     $barcode->setFontSize(10);
+                     $code = $barcode->generate();
+                     $data = base64_decode($code);
+                     $image_name= $value.'.png';     
+                     $path = Storage_path() . "/app/student/barcode/";
+                     $paths = Storage_path() . "/app/student/barcode/" . $image_name;
+                     @mkdir($path, 0755, true); 
+                     file_put_contents($paths, $data); 
+                     }
+                   
            //application barcode end///          
           $studentMedicalInfos = StudentMedicalInfo::where('student_id',$id)->get(); 
           $documents = Document::where('student_id',$id)->get(); 
@@ -233,7 +233,7 @@ class StudentController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.student.studentdetails.pdf_generate',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address','data'))->save($profilePdfUrl);
+        ->loadView('admin.student.studentdetails.pdf_generate',compact('student','fatherDetail','motherDetail','documents','studentMedicalInfos','studentSiblingInfos','studentSubjects','address','data','admissionApplication'))->save($profilePdfUrl);
         $docs=$documents; 
                    $pdfMerge = new Fpdi();
                    $dt =array();

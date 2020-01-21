@@ -1,455 +1,528 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
-</head>
-<style type="text/css" media="screen">
+  <title>
+
+  </title>
+  <style type="text/css" media="screen">
     @page{
-        margin:0px
-    }
-    li:before {
-       /* vertical-align: sub ;*/
-        content:' * ';
-        font-size: 18px;
-        font:center;
-        
-
-    }
-    li{
-        list-style: none;
-
-    }
-    .panel{
-       margin-right: 10px
+        margin:20px
     }
     .page-breck{
       page-break-before:always; 
+    } 
+    li{
+        font-size: 15px; 
+        margin-left: 20px; 
     }
-      
-    @include('admin.include.boostrap')
+    span{
+       font-size: 16px; 
+    }
 
 </style>
-<body>
-  @if ($student->student_status_id!=1)
-  @php
-   $routeName= Route::currentRouteName();
-   $applicationNo=App\Model\AdmissionApplication::where('student_id',$student->id)->first(); 
-   $data =storage_path('app/student/barcode/application/'.$applicationNo->id.'.'.'png');
-  @endphp 
-      <div style="margin:20px">Application No. <img src="{{$data}}" width="20%" height="20%"> </div> 
-  @endif
-    <div class="panel panel-info">
-    <div class="panel-heading">
-      <h4 class="panel-title text-center">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-      Student Details</a>
-      </h4>
+</head>
+ @include('admin.include.boostrap')
+@php
+$routeName= Route::currentRouteName(); 
+$path =storage_path('app/student/profile/'.$student->picture);
+$paths =storage_path('app/student/profile/'.''); 
+// $profile = route('admin.student.image',$student->picture);
+@endphp
+<div class="small-box bg-primary text-center" style="font-size: 15.5px"><h3>Student's Details</h3></div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Name</li>
     </div>
-    <div id="collapse1" class="panel-collapse collapse in">
-      <div class="panel-body">
-         <div class="row"> 
-           <div class="col-lg-3"> 
-            <li>Name           
-            <li>Nick Name           
-            <li>Class  </li>
-            <li>Section</li>
-            <li>Registration No. </li>
-            <li>Admission No </li>           
-            <li>Date Of Admission </li>
-            <li>Date Of Activation </li>
-            <li>Category</li> 
-            <li>Religion</li>
-            <li>Date Of Birth </li> 
-            <li>Mobile No.</li>
-            <li>Aadhaar No.</li>
-            <li>Email</li> 
-            <li>Gender</b></li>
-            <li> House Name </li> 
-            <li>State</li>
-            <li>City </li>  
-             
-           </div>
-           <div class="col-lg-5"> 
-           <li><b> {{ $student->name }}  </b> </li> 
-           <li><b>{{ $student->nick_name }}</b></li>
-           <li><b>{{ $student->classes->name or '' }}</b></li>
-           <li><b>{{ $student->sectionTypes->name or '' }}</b></li>
-           <li><b>{{ $student->registration_no }}</b></li>
-           <li><b>{{ $student->admission_no }}</b></li>
-           <li><b>{{ date('d-m-Y',strtotime($student->date_of_admission))}}</b></li>
-           <li><b>{{date('d-m-Y',strtotime($student->date_of_activation ))}}</b></li>
-           <li><b>{{ $student->addressDetails->address->categories->name or ''}} </b> </li>
-           <li><b>{{ $student->addressDetails->address->religions->name or ''}} </b></li>
-           <li><b>{{date('d-m-Y',strtotime($student->dob ))}}</b></li> 
-           <li><b>{{ $student->addressDetails->address->primary_mobile  or ''}}</b></li>
-           <li><b>{{ $student->adhar_no }}</b></li>
-           <li><b>{{ $student->addressDetails->address->primary_email or ''}} </b></li>
-           <li><b>{{ $student->genders->genders or '' }}</b></li>
-           <li><b>{{$student->houses->name or ''}}</b></li>
-           <li><b>{{ $student->addressDetails->address->state or ''}} </b> </li> 
-           <li><b>{{ $student->addressDetails->address->city or ''}}</b></li>
-           
-           </div>
-           <div class="col-lg-4" style="margin-right: 10">
-             @php
-            $routeName= Route::currentRouteName(); 
-            $path =storage_path('app/student/profile/'.$student->picture);
-            $paths =storage_path('app/student/profile/'.''); 
-            // $profile = route('admin.student.image',$student->picture);
-            @endphp 
-               @if ($path==$paths)
-               <img  src="''" alt="" width="103px" height="103px" style="border:solid 2px Black"> 
-               @else
-               <img  src="{{ $path }}" alt="" width="103px" height="103px" style="margin-top: 10px; border:solid 2px Black"> 
-               @endif 
-            
-            {{-- @if ( $routeName=='admin.student.pdf.generate')
-               @if ($path==$paths)
-               <img  src="''" alt="" width="150px" height="150px" style="border:solid 2px Black"> 
-               @else
-               <img  src="{{ $path }}" alt="" width="160px" height="160px" style="margin-top: 10px; border:solid 2px Black"> 
-               @endif
-            @endif --}}
-            {{-- @if ( $routeName=='admin.student.preview')
-            <img  src="{{ ($student->picture)? $profile : asset('profile-img/user.png') }}" width="120px" height="120px" style="border:solid 2px Black">
-            @endif  --}}
-           </div>
-           </div>
-           <div class="row">
-            <div class="col-lg-3">
-            <li>Permanent Address</li>  
-            <li>Permanent Pincode</li>  
-            <li>Correspondence Address</li>  
-            <li>Correspondence Pincode</li> 
-            </div> 
-            <div class="col-lg-9">
-               <li><b>{{ $student->addressDetails->address->p_address or ''}}</b></li>
-            <li><b>{{ $student->addressDetails->address->p_pincode or ''}}</b></li>
-            <li><b>{{ $student->addressDetails->address->c_address or ''}}</b></li>
-            <li><b>{{ $student->addressDetails->address->c_pincode or ''}}</b></li>
-            </div> 
-           </div>  
-         </div> 
-      </div>
+    <div class="col-lg-5">
+       <span><b>{{ $student->name }}</b></span>
     </div> 
-@if (!empty($student->parents))
-<div class="page-breck"></div> 
-@endif
-@foreach ($student->parents as $parent)
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h4 class="panel-title text-center">
-          <a data-toggle="collapse" data-parent="#accordion" href="#parent1{{ $parent->relation->id or ''}}">
-           {{ $parent->relation->name or ''}}'s Details</a>
-        </h4>
-      </div>
-      <div id="parent1{{ $parent->relation->id or ''}}" class="panel-collapse collapse in">
-        <div class="panel-body">
-            <div class="row">
-              <div class="col-lg-3">
-                <li>Name</li> 
-                <li>Mobile No. </li>
-                <li>Education</li>
-                <li>Date of Birth</li>
-                <li>Date Of Anniversary</li>
-                <li>Annual Income</li> 
-                <li>Profession </li> 
-                <li>Alive</li> 
-              </div>
-              <div class="col-lg-7">
-                <li><b>{{ $parent->parentInfo->name  or ''}}</b></li>
-                 <li><b> {{ $parent->parentInfo->mobile or ''}} </b></li>
-                <li><b> {{ $parent->parentInfo->education or ''}} </b></li> 
-                 <li><b>{{ date('d-m-Y', strtotime($parent->parentInfo->dob or ''))}}</b></li>
-                 <li><b>{{ date('d-m-Y', strtotime($parent->parentInfo->doa or ''))}}</b></li>
-                <li><b> {{ $parent->parentInfo->incomes->range or ''}} </b></li> 
-                 <li><b> {{ $parent->parentInfo->profetions->name or ''}} </b></li>  
-                <li><b>{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</b></li>
-                 
-              </div> 
-              <div class="col-lg-2" style="float: right;">
-                 @php
-                $routeNames= Route::currentRouteName();
-                $data =storage_path('app/'.$parent->parentInfo->photo);
-                $datas =storage_path('app/'.'');  
-                @endphp 
-                 @if ($data==$datas)
-                 <img  src="''" alt="" width="123px" height="123px" style="float: right;margin-top: 10px; border:solid 2px Black"> 
-                 @else 
-                  <img  src="{{ $paths }}" alt="" width="123px" height="123px" style="float: right;margin-top: 10px; border:solid 2px Black">  
-                 @endif 
-                  </div> 
-              </div>
-              <div class="row">
-                <div class="col-lg-3">
-                 <li>Office Address</li>   
-                 <li>Organization Name</li>  
-                 <li>Designation</li>  
-               </div>
-               <div class="col-lg-9">
-                 <li><b> {{ $parent->parentInfo->office_address or ''}} </b></li>
-                 <li><b> {{ $parent->parentInfo->organization_address or ''}} </b></li>
-                 <li><b> {{ $parent->parentInfo->f_designation or ''}} </b></li> 
-               </div>
-                
-             </div>
-      
-        </div>
-      </div>
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Nick Name</li>
+    </div>
+    <div class="col-lg-5">
+       <span><b>{{ $student->nick_name }}</b></span>
     </div> 
-@endforeach 
-    @php
-      $studentMedicalDetails=App\Model\StudentMedicalInfo::where('student_id',$student->id)->first();
-    @endphp
-    @if (!empty($studentMedicalDetails))
-      <div class="page-breck"></div>
-    <div class="panel panel-info">
-    <div class="panel-heading">
-      <h4 class="panel-title text-center">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
-        Medical Details</a>
-      </h4>
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Class</li>
     </div>
-    <div id="collapse5" class="panel-collapse collapse in">
-      <div class="panel-body">
-  
-    @foreach($studentMedicalInfos as $studentMedicalInfo)
-          
-    <div class="row" > 
-        <div class="col-lg-3"> 
-          <li>On Date</li>
-      </div> 
-      <div class="col-lg-3">
-          <li><b>{{ Carbon\Carbon::parse($studentMedicalInfo->ondate)->format('d-m-Y') }}</b></li>
-      </div>
-      <div class="col-lg-3">
-          <li>Blood Group</li>
-      </div>
-      <div class="col-lg-1" style="margin-right: 30px">
-          <li><b>{{ $studentMedicalInfo->bloodgroups->name or ''}} </b></li>
-      </div>
-    </div>
-    <div class="row" > 
-        <div class="col-lg-3"> 
-            <li>HB</li>  
-        </div> 
-        <div class="col-lg-3">
-            <li>{{ $studentMedicalInfo->hb }}</li>
-        </div>
-        <div class="col-lg-3">
-            <li>BP</li>
-        </div>
-        <div class="col-lg-1" style="margin-right: 30px">
-            <li>{{ $studentMedicalInfo->bp }}</li>
-        </div>
-    </div>
-    <div class="row" > 
-        <div class="col-lg-3"> 
-            <li>Height</li>  
-        </div> 
-        <div class="col-lg-3">
-            <li>{{ $studentMedicalInfo->height }}</li>
-        </div>
-        <div class="col-lg-3">
-            <li>Weight</li>
-        </div>
-        <div class="col-lg-3">
-            <li>{{ $studentMedicalInfo->weight }}</li>
-        </div>
-    </div>
-    <div class="row" > 
-        <div class="col-lg-3">
-            <li>Complexion</li>
-        </div>
-        <div class="col-lg-3"> 
-            <li>{{ $studentMedicalInfo->complextions->name or '' }}</li>  
-        </div>
-        <div class="col-lg-3"> 
-            <li>Dental</li>  
-        </div>
-        <div class="col-lg-3"> 
-            <li>{{ $studentMedicalInfo->dental }}</li>  
-        </div>
+    <div class="col-lg-5">
+        <span><b>{{ $student->classes->name or '' }}</b></span>
     </div> 
-    <div class="row" > 
-        <div class="col-lg-3"> 
-            <li>Physical Handicapped</li> 
-        </div> 
-        <div class="col-lg-9">
-            <li><b>{{ $studentMedicalInfo->ishandicapped==1?'Yes' :'No' }} &nbsp;&nbsp;&nbsp;{{ $studentMedicalInfo->handi_percent }}% &nbsp;&nbsp;&nbsp;{{ $studentMedicalInfo->physical_handicapped }}</b></li>
-        </div>
-    </div> 
-    <div class="row" > 
-        <div class="col-lg-3"> 
-            <li>Allergy</li> 
-        </div> 
-        <div class="col-lg-9">
-            <li><b>{{ $studentMedicalInfo->isalgeric==1?'Yes' :'No' }} &nbsp;&nbsp;&nbsp;{{ $studentMedicalInfo->alergey }} &nbsp;&nbsp;&nbsp;{{ $studentMedicalInfo->alergey_vacc }}</b></li> 
-        </div>
-    </div> 
-    <div class="row" > 
-        <div class="col-lg-3"> 
-            <li>ID Mark 1</li>  
-        </div> 
-        <div class="col-lg-9">
-            <li>{{ $studentMedicalInfo->id_marks1 }}</b> </li>
-        </div>
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Section</li>
     </div>
-    <div class="row" > 
-        <div class="col-lg-3"> 
-            <li>ID Mark 2</li>  
-        </div> 
-        <div class="col-lg-9">
-            <li><b>{{ $studentMedicalInfo->id_marks2 }}</b></li>
-        </div>
-    </div>
-    <div class="row" > 
-        <div class="col-lg-3">
-            <li>Vision</li>
-        </div>
-        <div class="col-lg-9">
-            <li>{{ $studentMedicalInfo->vision }}</li>
-        </div>
+    <div class="col-lg-5">
+        <span><b>{{ $student->sectionTypes->name or '' }}</b></span>
     </div> 
-    <div class="row" > 
-        <div class="col-lg-3">
-            <li>Narration</li>
-        </div>
-        <div class="col-lg-9">
-            <li><b>{{ $studentMedicalInfo->narration }}</li>
-        </div>
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Registration No.</li>
+    </div>
+    <div class="col-lg-5">
+        <span><b>{{ $student->registration_no}}</b></span>
     </div> 
-     <hr>
-     
-  
-    @endforeach
-      </div>
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Admission No.</li>
     </div>
-  </div>
-  @endif
-    @if (!empty($studentSiblingInfos))
-    <div class="page-breck"></div> 
-    <div class="panel panel-info">
-    <div class="panel-heading">
-      <h4 class="panel-title text-center">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
-        Sibling Details</a>
-      </h4>
+    <div class="col-lg-5">
+        <span><b>{{ $student->admission_no}}</b></span>
+    </div> 
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Roll No.</li>
     </div>
-    <div id="collapse6" class="panel-collapse collapse in">
-      <div class="panel-body">
-          
-    @foreach ($studentSiblingInfos as $studentSiblingInfo)
+    <div class="col-lg-5">
+        <span><b>{{ $student->roll_no}}</b></span>
+    </div> 
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Date Of Admission</li>
+    </div>
+    <div class="col-lg-5">
+        <span><b>{{ date('d-m-Y',strtotime($student->date_of_admission))}}</b></span>
+    </div> 
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Date Of Activation</li>
+    </div>
+    <div class="col-lg-5">
+        <span><b>{{ date('d-m-Y',strtotime($student->date_of_activation))}}</b></span>
+    </div> 
+ </div>
+ <div class="row"> 
+     <div class="col-lg-3" style="float: right;">
+           @if ($path==$paths)
+           <img  src="''" alt="" alt="" width="153px" height="153px" style="margin-top: -135px"> 
+           @else
+           <img  src="{{ $path }}" alt="" width="153px" height="153px" style="margin-top: -135px"> 
+           @endif
+     </div>
+</div> 
+ <div class="row" style="margin-top: -18px">
+    <div class="col-lg-3">
+        <li>Email</li>
+    </div>
+    <div class="col-lg-3">
+        <span><b>{{ $student->addressDetails->address->primary_email or ''}}</b></span>
+    </div>
+    <div class="col-lg-2">
+        <li>Date of Birth</li>
+    </div>
+    <div class="col-lg-2">
+        <span><b>{{date('d-M-Y',strtotime($student->dob ))}}</b></span>
+    </div> 
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Aadhaar No.</li>
+    </div>
+    <div class="col-lg-3">
+        <span><b>{{$student->adhar_no}}</b></span>
+    </div>
+    <div class="col-lg-2">
+        <li>Mobile No.</li>
+    </div>
+    <div class="col-lg-2">
+        <span><b>{{ $student->addressDetails->address->primary_mobile or ''}}</b></span>
+    </div> 
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Gender</li>
+    </div>
+    <div class="col-lg-3">
+        <span><b>{{ $student->genders->genders or '' }}</b></span>
+    </div>
+    <div class="col-lg-2">
+        <li>House Name</li>
+    </div>
+    <div class="col-lg-2">
+        <span><b>{{$student->houses->name or ''}}</b></span>
+    </div> 
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>State</li>
+    </div>
+    <div class="col-lg-3">
+        <span><b>{{ $student->addressDetails->address->state or ''}}</b></span>
+    </div>
+    <div class="col-lg-2">
+        <li>City</li>
+    </div>
+    <div class="col-lg-2">
+        <span><b>{{ $student->addressDetails->address->city or ''}}</b></span>
+    </div> 
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Permanent Address</li>
+    </div>
+    <div class="col-lg-9">
+        <span><b>{{ $student->addressDetails->address->p_address or ''}}</b></span>
+    </div> 
+ </div> 
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Permanent Pincode</li>
+    </div>
+    <div class="col-lg-9">
+        <span><b>{{ $student->addressDetails->address->p_pincode or ''}}</b></span>
+    </div> 
+ </div> 
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Correspondence Address</li>
+    </div>
+    <div class="col-lg-9">
+        <span><b>{{ $student->addressDetails->address->c_address or ''}}</b></span>
+    </div> 
+ </div> 
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Correspondence Pincode</li>
+    </div>
+    <div class="col-lg-9">
+        <span><b>{{ $student->addressDetails->address->c_pincode or ''}}</b></span>
+    </div> 
+ </div>
+ @php
+ $admissionApplication=App\Model\AdmissionApplication::where('student_id',$student->id)->first();
+ if(!empty($admissionApplication)){
+   $Application =storage_path('app/student/barcode/application/'.$admissionApplication->id.'.'.'png'); 
+ }else{
+    $Application =storage_path('app/student/barcode/application/'.'png'); 
+ }
+ $Regisration =storage_path('app/student/barcode/'.$student->registration_no.'.'.'png');
+ @endphp 
+ <div class="row" style="margin-top: 100px">
+    <div class="col-lg-6">
+      <div style="margin:20px">Regisration No. <img src="{{$Regisration}}" width="40%" height="40%" style="margin-top: 20px"> </div>          
+    </div>
+    <div class="col-lg-6">
+      <div style="margin:20px">Application No. <img src="{{$Application}}" width="40%" height="40%" style="margin-top: 20px"> </div>          
+    </div> 
+ </div>
 
-    <div class="row" > 
-        <div class="col-lg-6"> 
-            <li>Registration No :-<b> {{ $studentSiblingInfo->studentSiblings->registration_no or ''  }}</b> </li>   
-        </div>
-        <div class="col-lg-6"> 
-            <li>Name :-<b>{{ $studentSiblingInfo->studentSiblings->name  or ''}}</b> </li>  
-        </div>
-    </div>
-    <div class="row" > 
-        <div class="col-lg-6"> 
-            <li>Class:-<b> {{ $studentSiblingInfo->studentSiblings->classes->name  or '' }}</b> </li>  
-        </div>
-        <div class="col-lg-6"> 
-            <li>Section :-<b>{{ $studentSiblingInfo->studentSiblings->sectionTypes->name or ''   }}</b> </li>  
-        </div>
-    </div><hr>{{-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --}}
-    @endforeach
-      </div>
-    </div>
-  </div> 
-    @endif
-    @if (empty($studentSiblingInfos))
-      <div class="page-breck"></div>
-    @endif
-   @php
-      $studentSubjectDetails=App\Model\StudentSubject::where('student_id',$student->id)->first();
-    @endphp
-    @if (!empty($studentSubjectDetails)) 
-    <div class="panel panel-info">
-    <div class="panel-heading">
-      <h4 class="panel-title text-center">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
-        Subjects Details</a>
-      </h4>
-    </div>
-    <div id="collapse7" class="panel-collapse collapse in">
-      <div class="panel-body">
-    <div class="row" > 
-        <div class="col-lg-12">  
-            <table class="table"> 
-                <thead>
-                    <tr>
-                        <th>Subject Name</th>
-                        <th>ISOptional</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($studentSubjects as $studentSubject)
-
-                    <tr>
-                        <td> {{ $studentSubject->SubjectTypes->name or '' }}</td>
-                        <td>{{ $studentSubject->ISOptionals->name or ''}}</td>
-                    </tr>
-                    @endforeach 
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-          
-      </div>
-    </div>
-  </div>
-     
+ @if (!empty($student->parents))
+  <div class="page-breck"></div> 
  @endif
-
-
-
-
-
-{{--  <div class="col-lg-6"> 
-<li>Subject Name:-<b> {{ $studentSubject->SubjectTypes->name }}</b> </li>   
+@foreach ($student->parents as $parent) 
+ @php 
+ $data =storage_path('app/'.$parent->parentInfo->photo);
+ $datas =storage_path('app/'.'');  
+@endphp
+<div class="small-box bg-primary text-center" style="font-size: 15.5px"><h3>{{ $parent->relation->name or ''}}'s Details</h3></div> 
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Name</li>
+    </div>
+    <div class="col-lg-5">
+       <span><b>{{ $parent->parentInfo->name  or ''}}</b></span>
+    </div> 
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Mobile No.</li>
+    </div>
+    <div class="col-lg-5">
+       <span><b>{{ $parent->parentInfo->mobile or ''}}</b></span>
+    </div> 
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Date of Birth</li>
+    </div>
+    <div class="col-lg-5">
+        <span><b>{{ date('d-m-Y', strtotime($parent->parentInfo->dob or ''))}}</b></span>
+    </div> 
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Date of Anniversary</li>
+    </div>
+    <div class="col-lg-5">
+        <span><b>{{ date('d-m-Y', strtotime($parent->parentInfo->doa or ''))}}</b></span>
+    </div> 
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Education</li>
+    </div>
+    <div class="col-lg-5">
+        <span><b>{{ $parent->parentInfo->education or ''}}</b></span>
+    </div> 
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Annual Income</li>
+    </div>
+    <div class="col-lg-5">
+        <span><b>{{ $parent->parentInfo->incomes->range or ''}}</b></span>
+    </div> 
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Profession</li>
+    </div>
+    <div class="col-lg-5">
+        <span><b>{{ $parent->parentInfo->profetions->name or ''}}</b></span>
+    </div> 
+ </div>
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Alive</li>
+    </div>
+    <div class="col-lg-5">
+        <span><b>{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</b></span>
+    </div> 
+ </div> 
+ <div class="row"> 
+     <div class="col-lg-3" style="float: right;">
+           @if ($data==$datas)
+           <img  src="''" alt="" alt="" width="153px" height="153px" style="margin-top: -135px"> 
+           @else
+           <img  src="{{ $data }}" alt="" width="153px" height="153px" style="margin-top: -135px"> 
+           @endif
+     </div>
+</div> 
+ <div class="row" style="margin-top: -20px">
+    <div class="col-lg-3">
+        <li>Office Address</li>
+    </div>
+    <div class="col-lg-9">
+        <span><b>{{ $parent->parentInfo->office_address or ''}}</b></span>
+    </div> 
+ </div> 
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Organization Name</li>
+    </div>
+    <div class="col-lg-9">
+        <span><b>{{ $parent->parentInfo->organization_address or ''}}</b></span>
+    </div> 
+ </div> 
+ <div class="row">
+    <div class="col-lg-3">
+        <li>Designation</li>
+    </div>
+    <div class="col-lg-9">
+        <span><b>{{ $parent->parentInfo->f_designation or ''}}</b></span>
+    </div> 
+ </div> 
+@endforeach
+@if (!empty($student->parents))
+  <div class="page-breck"></div> 
+ @endif
+@php
+$studentMedicalDetails=App\Model\StudentMedicalInfo::where('student_id',$student->id)->first();
+@endphp 
+@foreach($studentMedicalInfos as $studentMedicalInfo)
+<div class="small-box bg-primary text-center" style="font-size: 15.5px"><h3>Medical's Details</h3></div> 
+<div class="row" > 
+    <div class="col-lg-3"> 
+        <li>On Date</li>
+    </div> 
+    <div class="col-lg-3">
+        <span><b>{{ Carbon\Carbon::parse($studentMedicalInfo->ondate)->format('d-m-Y') }}</b></span>
+    </div>
+    <div class="col-lg-3">
+        <li>Blood Group</li>
+    </div>
+    <div class="col-lg-1" style="margin-right: 30px">
+        <span><b>{{ $studentMedicalInfo->bloodgroups->name or ''}}</b></span>
+    </div>
+</div>
+<div class="row" > 
+    <div class="col-lg-3"> 
+        <li>HB</li>  
+    </div> 
+    <div class="col-lg-3">
+        <span><b>{{ $studentMedicalInfo->hb }}</b></span>
+    </div>
+    <div class="col-lg-3">
+        <li>BP</li>
+    </div>
+    <div class="col-lg-1" style="margin-right: 30px">
+        <span><b>{{ $studentMedicalInfo->bp_lower }}/{{ $studentMedicalInfo->bp_uper }}</b></span>
+    </div>
+</div>
+<div class="row" > 
+    <div class="col-lg-3"> 
+        <li>Height</li>  
+    </div> 
+    <div class="col-lg-3">
+        <span><b>{{ $studentMedicalInfo->height }}</b></span>
+    </div>
+    <div class="col-lg-3">
+        <li>Weight</li>
+    </div>
+    <div class="col-lg-3">
+        <span><b>{{ $studentMedicalInfo->weight }}</b></span>
+    </div>
+</div>
+<div class="row" > 
+    <div class="col-lg-3">
+        <li>Complexion</li>
+    </div>
+    <div class="col-lg-9"> 
+        <span><b>{{ $studentMedicalInfo->complextions->name or '' }}</b></span>  
+    </div> 
+</div>
+<div class="row" > 
+    <div class="col-lg-3"> 
+        <li>Dental</li>  
+    </div>
+    <div class="col-lg-9"> 
+        <span><b>{{ $studentMedicalInfo->dental }}</b></span>  
+    </div> 
+</div> 
+<div class="row" > 
+    <div class="col-lg-3"> 
+        <li>Physical Handicapped</li> 
+    </div> 
+    <div class="col-lg-9">
+        <span><b>{{ $studentMedicalInfo->ishandicapped==1?'Yes' :'No' }} &nbsp;&nbsp;&nbsp;{{ $studentMedicalInfo->handi_percent }}% &nbsp;&nbsp;&nbsp;{{ $studentMedicalInfo->physical_handicapped }}</b></span>
+    </div>
+</div> 
+<div class="row" > 
+    <div class="col-lg-3"> 
+        <li>Allergy</li> 
+    </div> 
+    <div class="col-lg-9">
+        <span><b>{{ $studentMedicalInfo->isalgeric==1?'Yes' :'No' }} &nbsp;&nbsp;&nbsp;{{ $studentMedicalInfo->alergey }} &nbsp;&nbsp;&nbsp;{{ $studentMedicalInfo->alergey_vacc }}</b></span> 
+    </div>
+</div> 
+<div class="row" > 
+    <div class="col-lg-3"> 
+        <li>ID Mark 1</li>  
+    </div> 
+    <div class="col-lg-9">
+        <span><b>{{ $studentMedicalInfo->id_marks1 }}</b></span>
+    </div>
+</div>
+<div class="row" > 
+    <div class="col-lg-3"> 
+        <li>ID Mark 2</li>  
+    </div> 
+    <div class="col-lg-9">
+        <span><b>{{ $studentMedicalInfo->id_marks2 }}</b></span>
+    </div>
+</div>
+<div class="row" > 
+    <div class="col-lg-3">
+        <li>Vision</li>
+    </div>
+    <div class="col-lg-9">
+        <span><b>{{ $studentMedicalInfo->vision }}</b></span>
+    </div>
+</div> 
+<div class="row" > 
+    <div class="col-lg-3">
+        <li>Narration</li>
+    </div>
+    <div class="col-lg-8">
+        <span><b>{{ $studentMedicalInfo->narration }}</b></span>
+        </div>
+    </div> 
+    @endforeach
+@if (!empty($studentSiblingInfos))
+<div class="page-breck"></div>
+<div class="small-box bg-primary text-center" style="font-size: 15.5px"><h3>Sibling's Details</h3></div>  
+@foreach ($studentSiblingInfos as $studentSiblingInfo) 
+<div class="row" > 
+<div class="col-lg-6"> 
+<li>Registration No :-<b> {{ $studentSiblingInfo->studentSiblings->registration_no or ''  }}</b> </li>   
 </div>
 <div class="col-lg-6"> 
-<li>ISOptional:-<b>{{ $studentSubject->ISOptionals->name }}</b> </li>  
+<li>Name :-<b>{{ $studentSiblingInfo->studentSiblings->name  or ''}}</b> </li>  
 </div>
-</div>  --}}
-@php
-      $studentDocument=App\Model\Document::where('student_id',$student->id)->first();
-    @endphp
-    @if (!empty($studentDocument))
- <div class="panel panel-info">
-    <div class="panel-heading">
-      <h4 class="panel-title text-center">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">
-        Document Details</a>
-      </h4>
-    </div>
-    <div id="collapse8" class="panel-collapse collapse in">
-      <div class="panel-body">
-    <div class="row" > 
-        <div class="col-lg-12">  
-            <table class="table">
-            <thead>
-                <tr>
-                    <th>Document Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($documents as $document)
-                <tr>
-                    <td>{{ $document->documentTypes->name or ''  }}</td>
-                </tr>
-                 @endforeach
-            </tbody>
-        </table>  
-    </div>
 </div>
+<div class="row" > 
+<div class="col-lg-6"> 
+<li>Class:-<b> {{ $studentSiblingInfo->studentSiblings->classes->name  or '' }}</b> </li>  
+</div>
+<div class="col-lg-6"> 
+<li>Section :-<b>{{ $studentSiblingInfo->studentSiblings->sectionTypes->name or ''   }}</b> </li>  
+</div>
+</div><hr>
+@endforeach
+</div>
+</div>
+</div> 
 @endif
+@if (empty($studentSiblingInfos))
+<div class="page-breck"></div>
+@endif
+@php
+$studentSubjectDetails=App\Model\StudentSubject::where('student_id',$student->id)->first();
+@endphp
+@if (!empty($studentSubjectDetails)) 
+<div class="small-box bg-primary text-center" style="font-size: 15.5px"><h3>Subject's Details</h3></div>  
+<div class="row" > 
+<div class="col-lg-12">  
+<table class="table"> 
+<thead>
+<tr>
+<th>Subject Name</th>
+<th>ISOptional</th>
+</tr>
+</thead>
+<tbody>
+@foreach ($studentSubjects as $studentSubject)
+
+<tr>
+<td> {{ $studentSubject->SubjectTypes->name or '' }}</td>
+<td>{{ $studentSubject->ISOptionals->name or ''}}</td>
+</tr>
+@endforeach 
+
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+@endif 
+@php
+$studentDocument=App\Model\Document::where('student_id',$student->id)->first();
+@endphp
+@if (!empty($studentDocument))
+<div class="small-box bg-primary text-center" style="font-size: 15.5px"><h3>Document's Details</h3></div>  
+<div class="row" > 
+<div class="col-lg-12">  
+<table class="table">
+<thead>
+<tr>
+<th>Document Name</th>
+</tr>
+</thead>
+<tbody>
+@foreach ($documents as $document)
+<tr>
+<td>{{ $document->documentTypes->name or ''  }}</td>
+</tr>
+@endforeach
+</tbody>
+</table>  
+</div>
+</div>
+@endif 
 </body>
 </html>
+ 
