@@ -116,7 +116,7 @@ $profile = route('admin.student.image',$student->picture);
  </div>
  <div class="row"> 
      <div class="text-nowrap col-lg-3" style="float: right;"> 
-           <img  src="{{ $profile }}" alt="" width="153px" height="153px"  style="margin-top: -320px"> 
+           <img  src="{{ $profile }}" alt="" width="153px" height="153px"  style="margin-top: -300px"> 
      </div>
 </div> 
  <div class="row">
@@ -285,7 +285,7 @@ $profile = route('admin.student.image',$student->picture);
      @php
             $image = route('admin.parents.image.show',$parent->parentInfo->id);
       @endphp 
-           <img  src="{{ $image }}" alt="" width="153px" height="153px" style="margin-top: -300px"> 
+           <img  src="{{ $image }}" alt="" width="153px" height="153px" style="margin-top: -260px"> 
      </div>
 </div> 
  <div class="row">
