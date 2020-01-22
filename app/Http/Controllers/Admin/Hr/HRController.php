@@ -29,9 +29,9 @@ class HRController extends Controller
           if ($id==null) {
           	$Employee='';
           }  
-        return view('admin.hr.employee.add_form',compact('admins','Departments','groups','experiences'));
+        return view('admin.hr.employee.add_form',compact('admins','Departments','groups','experiences','Employee'));
     }
-    public function store(Request $request,$id=null){return $request;
+    public function store(Request $request,$id=null){
         $rules=[
             ];
 
@@ -44,22 +44,32 @@ class HRController extends Controller
                 return response()->json($response);// response as json
             }
               else {
-               $employees=Employee::firstOrNew(['id'=>$id]);
-                $employees->user_id=$request->user_name;
+        $employees=Employee::firstOrNew(['id'=>$id]);
+        $employees->user_id=$request->user_name;
 				$employees->qualification=$request->qualification;
 				$employees->date_of_joining=$request->date_of_joining;
 				$employees->date_of_resignation=$request->date_of_resignation;
 				$employees->date_of_confirmation=$request->date_of_confirmation;
-				$employees->group_id=$request->group; 
+				$employees->gender_id=$request->gender_id; 
+        $employees->group_id=$request->group; 
 				$employees->formalities=$request->formalities;
 				$employees->offer_acceptance=$request->offer_acceptance;
 				$employees->probation_period=$request->probation_period;
+        $employees->notice_period=$request->notice_period;
 				$employees->salary=$request->salary;
 				$employees->emergency_number=$request->emergency_no;
 				$employees->pan_number=$request->pan_no;
-				$employees->date_of_birth=$request->dob; 
 				$employees->experience=$request->experience; 
-				$employees->department=$request->department; 
+				$employees->department_id=$request->department; 
+        $employees->account_number=$request->account_number; 
+        $employees->bank_name=$request->bank_name; 
+        $employees->ifsc_code=$request->ifsc_code; 
+        $employees->bank_name=$request->bank_name; 
+        $employees->pf_account_number=$request->pf_account_number; 
+        $employees->un_number=$request->un_number; 
+				$employees->father_name=$request->father_name; 
+        $employees->current_address=$request->current_address; 
+        $employees->permanent_address=$request->permanent_address; 
                 $employees->save();
                 $response=['status'=>1,'msg'=>'Submit Successfully'];
               }     return response()->json($response);
@@ -67,6 +77,12 @@ class HRController extends Controller
     public function tableShow(){ 
     	$employees=Employee::all();
         return view('admin.hr.employee.table',compact('employees'));
+    }
+    public function destroy($id){ 
+      $Employee=Employee::find(Crypt::decrypt($id));
+      $Employee->delete();
+      $response=['status'=>1,'msg'=>'Delete Successfully'];
+     return response()->json($response);
     }
  
 }
