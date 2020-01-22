@@ -1495,6 +1495,32 @@ Route::group(['middleware' => 'admin'], function() {
                	  
                	 
        });
+            Route::group(['prefix' => 'hr-department'], function() {
+               	 Route::get('/', 'Hr\HRMasterController@index')->name('admin.hr.master.department');  
+               	 Route::get('add-form/{id?}', 'Hr\HRMasterController@addForm')->name('admin.hr.master.department.add');  
+               	 Route::post('store/{id?}', 'Hr\HRMasterController@store')->name('admin.hr.master.department.store');  
+               	 Route::get('delete/{id?}', 'Hr\HRMasterController@delete')->name('admin.hr.master.department.delete');
+       });
+            Route::group(['prefix' => 'hr-group'], function() {
+               	 Route::get('group', 'Hr\HRMasterController@group')->name('admin.hr.master.group');  
+               	 Route::get('group-add/{id?}', 'Hr\HRMasterController@groupAddForm')->name('admin.hr.master.group.add');  
+               	 Route::post('group-store/{id?}', 'Hr\HRMasterController@groupStore')->name('admin.hr.master.group.store');  
+               	 Route::get('group-delete/{id?}', 'Hr\HRMasterController@groupDelete')->name('admin.hr.master.group.delete');
+       });
+            Route::group(['prefix' => 'hr-experience'], function() {
+               	 Route::get('experience', 'Hr\HRMasterController@experience')->name('admin.hr.master.experience');  
+               	 Route::get('experience-add/{id?}', 'Hr\HRMasterController@experienceAddForm')->name('admin.hr.master.experience.add');  
+               	 Route::post('experience-store/{id?}', 'Hr\HRMasterController@experienceStore')->name('admin.hr.master.experience.store');  
+               	 Route::get('experience-delete/{id?}', 'Hr\HRMasterController@experienceDelete')->name('admin.hr.master.experience.delete');
+       });
+            Route::group(['prefix' => 'hr-employee'], function() {
+               	 Route::get('/', 'Hr\HRController@index')->name('admin.hr.employee');  
+               	 Route::get('add-form/{id?}', 'Hr\HRController@addForm')->name('admin.hr.employee.addform');  
+               	 Route::post('store/{id?}', 'Hr\HRController@store')->name('admin.hr.employee.store');  
+               	 Route::get('table-show', 'Hr\HRController@tableShow')->name('admin.hr.employee.table.show');  
+               	 Route::get('delete/{id}', 'Hr\HRController@destroy')->name('admin.hr.employee.delete');  
+               	 
+       });
             
            
 
