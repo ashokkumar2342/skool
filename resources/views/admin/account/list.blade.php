@@ -66,7 +66,7 @@
                 
                   @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
 
-                  <a  href="{{ route('admin.account.delete',$account->id) }}" onclick="return confirm('Are you sure to delete this data ?')"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                  <a  href="{{ route('admin.account.delete',Crypt::encrypt($account->id)) }}" onclick="return confirm('Are you sure to delete this data ?')"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
                    
                   @endif
                   </td>

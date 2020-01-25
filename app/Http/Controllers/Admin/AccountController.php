@@ -144,10 +144,12 @@ class AccountController extends Controller
             }
     }
 
-    Public function destroy(Admin $account){
-        if ($account->delete()) {
-           return redirect()->back()->with(['message'=>'accoount deleted','class'=>'success']);
-        }
+    Public function destroy($account){
+         
+      $admins=Admin::find(Crypt::decrypt($account));     
+      $admins->delete();     
+      return redirect()->back()->with(['message'=>'accoount deleted','class'=>'success']);
+      
     }
 
     Public function status(Admin $account){

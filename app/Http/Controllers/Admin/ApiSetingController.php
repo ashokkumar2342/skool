@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Sms\SmsTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Crypt;
 
 class ApiSetingController extends Controller
 {
@@ -20,7 +21,7 @@ class ApiSetingController extends Controller
    public function smsApiAdd($id=null)
    {
    	if ($id!=null) {
-   	 $smsApi=SmsApi::find($id);  	 
+   	 $smsApi=SmsApi::find(Crypt::decrypt($id));
    	}else{
    	 $smsApi='';	
    	}
@@ -71,7 +72,7 @@ class ApiSetingController extends Controller
    }
    public function smsApiDestroy($id)
    {
-   	  $smsApi=SmsApi::find($id);  
+   	  $smsApi=SmsApi::find(Crypt::decrypt($id));
    	  $smsApi->delete();
    	  $response=['status'=>1,'msg'=>'Delete Successfully'];
 	            return response()->json($response); 
@@ -79,7 +80,7 @@ class ApiSetingController extends Controller
    public function emailApiAdd($id=null)
    {
    	if ($id!=null) {
-   	 $emailApi=EmailApi::find($id);  	 
+   	 $emailApi=EmailApi::find(Crypt::decrypt($id));  
    	}else{
    	 $emailApi='';	
    	}
@@ -134,7 +135,7 @@ class ApiSetingController extends Controller
    }
    public function emailApiDestroy($id)
    {
-   	  $smsApi=EmailApi::find($id);  
+   	  $smsApi=EmailApi::find(Crypt::decrypt($id));  
    	  $smsApi->delete();
    	  $response=['status'=>1,'msg'=>'Delete Successfully'];
 	            return response()->json($response); 

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin\Hr;
 
 use App\Http\Controllers\Controller;
+use App\Model\Hr\Bank;
 use App\Model\Hr\Department;
+use App\Model\Hr\Designation;
 use App\Model\Hr\Experience;
 use App\Model\Hr\HrGroup;
+use App\Model\Hr\Payhead;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -105,7 +108,7 @@ class HRMasterController extends Controller
     	return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
 
-    //------------------group----------------------------------------------------------------
+    //------------------experience----------------------------------------------------------------
     public function experience(){
         $experiences=Experience::orderBy('name','ASC')->get();   
     	return view('admin.hr.master.exp',compact('experiences'));
@@ -150,6 +153,145 @@ class HRMasterController extends Controller
     	$experience=Experience::find(Crypt::decrypt($id));
     	$experience->delete();
     	return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+
+    //------------------experience----------------------------------------------------------------
+    public function designation(){
+        $designations=Designation::orderBy('name','ASC')->get();   
+        return view('admin.hr.master.designation',compact('designations'));
+    }
+    public function designationAddForm($id=null){
+
+        if ($id!=null) {
+            $designation=Designation::find(Crypt::decrypt($id));  
+        }
+        if ($id==null) {
+            $designation='';  
+        }
+        return view('admin.hr.master.designation_add',compact('designation'));
+    }
+    public function designationStore(Request $request,$id=null){
+       $rules=[
+              
+                'designation_name' => 'required|unique:designations,name,'.$id, 
+                'designation_code' => 'required|unique:designations,code,'.$id, 
+                
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              else {
+               $designation=Designation::firstOrNew(['id'=>$id]);  
+               $designation->name=$request->designation_name;  
+               $designation->code=$request->designation_code; 
+               $designation->save();
+                $response=['status'=>1,'msg'=>'Submit Successfully'];
+              }     return response()->json($response);
+    }
+    public function designationDelete($id)
+    {
+        $designation=Designation::find(Crypt::decrypt($id));
+        $designation->delete();
+        return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+
+    //------------------payhead----------------------------------------------------------------
+    public function payhead(){
+        $payheads=Payhead::orderBy('name','ASC')->get();   
+        return view('admin.hr.master.pay_head',compact('payheads'));
+    }
+    public function payheadAddForm($id=null){
+
+        if ($id!=null) {
+            $payhead=Payhead::find(Crypt::decrypt($id));  
+        }
+        if ($id==null) {
+            $payhead='';  
+        }
+        return view('admin.hr.master.pay_head_add',compact('payhead'));
+    }
+    public function payheadStore(Request $request,$id=null){
+       $rules=[
+              
+                'Pay_head_type' => 'required|unique:payheads,name,'.$id, 
+                'code' => 'required|unique:payheads,code,'.$id, 
+                
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              else {
+               $designation=Payhead::firstOrNew(['id'=>$id]);  
+               $designation->name=$request->Pay_head_type;  
+               $designation->code=$request->code; 
+               $designation->status=$request->addition_deduction; 
+               $designation->save();
+                $response=['status'=>1,'msg'=>'Submit Successfully'];
+              }     return response()->json($response);
+    }
+    public function payheadDelete($id)
+    {
+        $designation=Payhead::find(Crypt::decrypt($id));
+        $designation->delete();
+        return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+
+    //------------------bank----------------------------------------------------------------
+    public function bank(){
+        $Banks=Bank::orderBy('name','ASC')->get();   
+        return view('admin.hr.master.bank',compact('Banks'));
+    }
+    public function bankAddForm($id=null){
+
+        if ($id!=null) {
+            $Bank=Bank::find(Crypt::decrypt($id));  
+        }
+        if ($id==null) {
+            $Bank='';  
+        }
+        return view('admin.hr.master.bank_add',compact('Bank'));
+    }
+    public function bankStore(Request $request,$id=null){
+       $rules=[
+              
+                'bank_name' => 'required|unique:banks,name,'.$id, 
+                'bank_code' => 'required|unique:banks,code,'.$id, 
+                
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              else {
+               $designation=Bank::firstOrNew(['id'=>$id]);  
+               $designation->name=$request->bank_name;  
+               $designation->code=$request->bank_code; 
+               $designation->save();
+                $response=['status'=>1,'msg'=>'Submit Successfully'];
+              }     return response()->json($response);
+    }
+    public function bankDelete($id)
+    {
+        $designation=Bank::find(Crypt::decrypt($id));
+        $designation->delete();
+        return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
     
 }

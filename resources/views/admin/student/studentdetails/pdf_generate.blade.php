@@ -6,29 +6,31 @@
   </title>
   <style type="text/css" media="screen">
     @page{
-        margin:20px
+        margin:0px
     }
     .page-breck{
       page-break-before:always; 
     } 
     li{
-        font-size: 15px; 
+        font-size: 14px; 
         margin-left: 20px; 
     }
     span{
-       font-size: 16px; 
+       font-size:bold; 
     }
 
 </style>
 </head>
  @include('admin.include.boostrap')
+<body>
+{{--  @include('admin.student.studentdetails.pdf_page_count') --}}
 @php
 $routeName= Route::currentRouteName(); 
 $path =storage_path('app/student/profile/'.$student->picture);
 $paths =storage_path('app/student/profile/'.''); 
 // $profile = route('admin.student.image',$student->picture);
 @endphp
-<div class="small-box bg-primary text-center" style="font-size: 15.5px"><h3>Student's Details</h3></div>
+<div class="small-box bg-primary text-center" style="font-size: 15.5px;margin-top: -20px"><h3>Student's Details</h3></div>
  <div class="row">
     <div class="col-lg-3">
         <li>Name</li>
@@ -219,6 +221,9 @@ $paths =storage_path('app/student/profile/'.'');
  @if (!empty($student->parents))
   <div class="page-breck"></div> 
  @endif
+ @php
+     $withid=1;
+ @endphp
 @foreach ($student->parents as $parent) 
  @php 
  $data =storage_path('app/'.$parent->parentInfo->photo);
@@ -292,13 +297,13 @@ $paths =storage_path('app/student/profile/'.'');
  <div class="row"> 
      <div class="col-lg-3" style="float: right;">
            @if ($data==$datas)
-           <img  src="''" alt="" alt="" width="153px" height="153px" style="margin-top: -15%; border:solid 1px Black"> 
+           <img  src="''" alt="" alt="" width="153px" height="153px" @if ($withid==3)style="margin-top: -40%; border:solid 1px Black" @else style="margin-top: -20%; border:solid 1px Black"@endif> 
            @else
            <img  src="{{ $data }}" alt="" width="153px" height="153px" style="margin-top: -15%; border:solid 1px Black"> 
            @endif
      </div>
 </div> 
- <div class="row" style="margin-top: -20px">
+ <div class="row" style="margin-top: -40px">
     <div class="col-lg-3">
         <li>Office Address</li>
     </div>

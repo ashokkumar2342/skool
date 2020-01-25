@@ -523,9 +523,13 @@ class MyFuncs {
   public static function menuPermission(){ 
     $user_id =Auth::guard('admin')->user()->id;
     $routeName= Route::currentRouteName();
-   $subMenuId =SubMenu::where('url',$routeName)->first()->id; 
-   // $subMenuId =1; 
-    return Minu::where('admin_id',$user_id)->where('status',1)->where('sub_menu_id',$subMenuId)->first();
+    $previousRoute= app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName();
+    $subMenu =SubMenu::where('url',$routeName)->first(); 
+    $previoussubMenu =SubMenu::where('url',$previousRoute)->first(); 
+    if (empty($subMenu)) {
+      return Minu::where('admin_id',$user_id)->where('status',1)->where('sub_menu_id',$previoussubMenu->id)->first();   
+     } 
+    return Minu::where('admin_id',$user_id)->where('status',1)->where('sub_menu_id',$subMenu->id)->first();
               
 
   }

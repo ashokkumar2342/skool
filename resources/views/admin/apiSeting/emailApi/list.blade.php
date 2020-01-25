@@ -28,9 +28,13 @@
 						<button class="btn btn-default btn-xs" style="width:60px" success-popup="true" button-click="btn_homework_table_show" onclick="callAjax(this,'{{ route('admin.api.status',[$smsApi->id,2]) }}')">Inactive</i></button>
 						@endif
                          <a href="#" onclick="callPopupLarge(this,'{{ route('admin.api.test.message',2) }}')" title="Test Message" class="btn btn-warning btn-xs">Test Message</a>
+                        {{-- @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)  --}}
+						<button class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.api.emailApiAdd',Crypt::encrypt($smsApi->id))}}')" title="Edit"><i class="fa fa-edit"></i></button>
+						{{-- @endif --}}
 
-						<button class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.api.emailApiAdd',$smsApi->id) }}')" title="Edit"><i class="fa fa-edit"></i></button>
-						<a success-popup="true" button-click="btn_homework_table_show" onclick="callAjax(this,'{{ route('admin.api.emailApidelete',$smsApi->id) }}')" class="btn btn-xs btn-danger" title="Delete"><i class="fa fa-trash"></i></a>
+						@if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
+                          <a  href="#" success-popup="true" button-click="btn_homework_table_show" onclick="if (confirm('Are you Sure delete')){callAjax(this,'{{ route('admin.api.emailApidelete',Crypt::encrypt($smsApi->id)) }}') } else{console_Log('cancel') }"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a> 
+                         @endif
 					</td>
 				</tr> 
 		@endforeach

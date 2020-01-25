@@ -28,9 +28,12 @@
                            <td>{{ $leaveTypes->leave_code }}</td>
                            <td>{{ $leaveTypes->total_days }}</td>
                            <td>
-                             <button  class="btn btn-info btn-xs" title="Edit" select2="true" onclick="callPopupLarge(this,'{{ route('admin.attendance.leave.addform',$leaveTypes->id) }}')"><i class="fa fa-edit"></i></button>
-
-                              <a href="{{ route('admin.attendance.leave.type.delete',$leaveTypes->id) }}" class="btn btn-xs btn-danger" title="Delete"><i class="fa fa-trash"></i></a>
+                            {{-- @if(App\Helper\MyFuncs::menuPermission()->r_status == 1)  --}}
+                             <button  class="btn btn-info btn-xs" title="Edit" select2="true" onclick="callPopupLarge(this,'{{ route('admin.attendance.leave.addform',Crypt::encrypt($leaveTypes->id)) }}')"><i class="fa fa-edit"></i></button>
+                            {{-- @endif --}}
+                            {{-- @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)  --}}
+                              <a href="{{ route('admin.attendance.leave.type.delete',Crypt::encrypt($leaveTypes->id)) }}" onclick="return confirm('Are you sure to delete this data ?')" class="btn btn-xs btn-danger" title="Delete"><i class="fa fa-trash"></i></a>
+                            {{-- @endif --}}
                            </td>
                          </tr> 
                   @endforeach

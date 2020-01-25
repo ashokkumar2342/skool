@@ -10,6 +10,7 @@ use App\Student;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Crypt;
 
 class StudentLeaveController extends Controller
 {
@@ -106,7 +107,7 @@ class StudentLeaveController extends Controller
    }public function AddForm($id=null)
    {
       if ($id!=null) {
-         $leaveType=LeaveTypeStudent::find($id);
+         $leaveType=LeaveTypeStudent::find(Crypt::decrypt($id));
       }
       if ($id==null) {
          $leaveType='';
@@ -146,7 +147,7 @@ class StudentLeaveController extends Controller
    }
    public function leaveTypeDelete($id)
    {
-       $leaveType=LeaveTypeStudent::find($id);
+       $leaveType=LeaveTypeStudent::find(Crypt::decrypt($id));
        $leaveType->delete();
        return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
    }
