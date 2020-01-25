@@ -1495,62 +1495,74 @@ Route::group(['middleware' => 'admin'], function() {
                	  
                	 
        });
-            Route::group(['prefix' => 'hr-department'], function() {
-               	 Route::get('/', 'Hr\HRMasterController@index')->name('admin.hr.master.department');  
-               	 Route::get('add-form/{id?}', 'Hr\HRMasterController@addForm')->name('admin.hr.master.department.add');  
-               	 Route::post('store/{id?}', 'Hr\HRMasterController@store')->name('admin.hr.master.department.store');  
-               	 Route::get('delete/{id?}', 'Hr\HRMasterController@delete')->name('admin.hr.master.department.delete');
-       });
-            Route::group(['prefix' => 'hr-group'], function() {
-               	 Route::get('group', 'Hr\HRMasterController@group')->name('admin.hr.master.group');  
-               	 Route::get('group-add/{id?}', 'Hr\HRMasterController@groupAddForm')->name('admin.hr.master.group.add');  
-               	 Route::post('group-store/{id?}', 'Hr\HRMasterController@groupStore')->name('admin.hr.master.group.store');  
-               	 Route::get('group-delete/{id?}', 'Hr\HRMasterController@groupDelete')->name('admin.hr.master.group.delete');
-       });
-            Route::group(['prefix' => 'hr-bank'], function() {
-               	 Route::get('bank', 'Hr\HRMasterController@bank')->name('admin.hr.master.bank');  
-               	 Route::get('bank-add/{id?}', 'Hr\HRMasterController@bankAddForm')->name('admin.hr.master.bank.add');  
-               	 Route::post('bank-store/{id?}', 'Hr\HRMasterController@bankStore')->name('admin.hr.master.bank.store');  
-               	 Route::get('bank-delete/{id?}', 'Hr\HRMasterController@bankDelete')->name('admin.hr.master.bank.delete');
-       });
-            Route::group(['prefix' => 'hr-designation'], function() {
-               	 Route::get('designation', 'Hr\HRMasterController@designation')->name('admin.hr.master.designation');  
-               	 Route::get('designation-add/{id?}', 'Hr\HRMasterController@designationAddForm')->name('admin.hr.master.designation.add');  
-               	 Route::post('designation-store/{id?}', 'Hr\HRMasterController@designationStore')->name('admin.hr.master.designation.store');  
-               	 Route::get('designation-delete/{id?}', 'Hr\HRMasterController@designationDelete')->name('admin.hr.master.designation.delete');
-       });
-            Route::group(['prefix' => 'hr-pay-head'], function() {
-               	 Route::get('payhead', 'Hr\HRMasterController@payhead')->name('admin.hr.master.payhead');  
-               	 Route::get('payhead-add/{id?}', 'Hr\HRMasterController@payheadAddForm')->name('admin.hr.master.payhead.add');  
-               	 Route::post('payhead-store/{id?}', 'Hr\HRMasterController@payheadStore')->name('admin.hr.master.payhead.store');  
-               	 Route::get('payhead-delete/{id?}', 'Hr\HRMasterController@payheadDelete')->name('admin.hr.master.payhead.delete');
-       });
-            Route::group(['prefix' => 'hr-experience'], function() {
-               	 Route::get('experience', 'Hr\HRMasterController@experience')->name('admin.hr.master.experience');  
-               	 Route::get('experience-add/{id?}', 'Hr\HRMasterController@experienceAddForm')->name('admin.hr.master.experience.add');  
-               	 Route::post('experience-store/{id?}', 'Hr\HRMasterController@experienceStore')->name('admin.hr.master.experience.store');  
-               	 Route::get('experience-delete/{id?}', 'Hr\HRMasterController@experienceDelete')->name('admin.hr.master.experience.delete');
-       });
-            Route::group(['prefix' => 'hr-employee'], function() {
-               	 Route::get('/', 'Hr\HRController@index')->name('admin.hr.employee');  
-               	 Route::get('add-form/{id?}', 'Hr\HRController@addForm')->name('admin.hr.employee.addform');  
-               	 Route::post('store/{id?}', 'Hr\HRController@store')->name('admin.hr.employee.store');  
-               	 Route::get('table-show', 'Hr\HRController@tableShow')->name('admin.hr.employee.table.show');  
-               	 Route::get('delete/{id}', 'Hr\HRController@destroy')->name('admin.hr.employee.delete');  
-               	 
-       });
-            Route::group(['prefix' => 'hr-salary-settings'], function() {
-               	 Route::get('salary-settings', 'Hr\HRController@salarySettings')->name('admin.hr.master.salary.settings');  
-               	 Route::get('salary-settings-add/{id?}', 'Hr\HRController@salarySettingsAddForm')->name('admin.hr.master.salary.settings.add');  
-               	 Route::post('salary-settings-store/{id?}', 'Hr\HRController@salarySettingsStore')->name('admin.hr.master.salary.settings.store');  
-               	 Route::get('salary-settings-delete/{id?}', 'Hr\HRController@salarySettingsDelete')->name('admin.hr.master.salary.settings.delete');
-       });
-            Route::group(['prefix' => 'hr-employee-salary'], function() {
-               	 Route::get('employee-salary', 'Hr\HRController@employeeSalary')->name('admin.hr.master.employee.salary');  
-               	 Route::get('employee-salary-add/{id?}', 'Hr\HRController@employeeSalaryAddForm')->name('admin.hr.master.employee.salary.add');  
-               	 Route::post('employee-salary-store/{id?}', 'Hr\HRController@employeeSalaryStore')->name('admin.hr.master.employee.salary.store');  
-               	 Route::get('employee-salary-delete/{id?}', 'Hr\HRController@employeeSalaryDelete')->name('admin.hr.master.employee.salary.delete');
-       });
+        Route::group(['prefix' => 'hr-payroll'], function() {
+        	      Route::group(['prefix' => 'department'], function() {
+        	         	 Route::get('/', 'Hr\HRMasterController@index')->name('admin.hr.master.department');  
+        	         	 Route::get('add-form/{id?}', 'Hr\HRMasterController@addForm')->name('admin.hr.master.department.add');  
+        	         	 Route::post('store/{id?}', 'Hr\HRMasterController@store')->name('admin.hr.master.department.store');  
+        	         	 Route::get('delete/{id?}', 'Hr\HRMasterController@delete')->name('admin.hr.master.department.delete');
+        			 });
+        	      Route::group(['prefix' => 'group'], function() {
+        	         	 Route::get('group', 'Hr\HRMasterController@group')->name('admin.hr.master.group');  
+        	         	 Route::get('group-add/{id?}', 'Hr\HRMasterController@groupAddForm')->name('admin.hr.master.group.add');  
+        	         	 Route::post('group-store/{id?}', 'Hr\HRMasterController@groupStore')->name('admin.hr.master.group.store');  
+        	         	 Route::get('group-delete/{id?}', 'Hr\HRMasterController@groupDelete')->name('admin.hr.master.group.delete');
+        	 		});
+        	      Route::group(['prefix' => 'bank'], function() {
+        	         	 Route::get('bank', 'Hr\HRMasterController@bank')->name('admin.hr.master.bank');  
+        	         	 Route::get('bank-add/{id?}', 'Hr\HRMasterController@bankAddForm')->name('admin.hr.master.bank.add');  
+        	         	 Route::post('bank-store/{id?}', 'Hr\HRMasterController@bankStore')->name('admin.hr.master.bank.store');  
+        	         	 Route::get('bank-delete/{id?}', 'Hr\HRMasterController@bankDelete')->name('admin.hr.master.bank.delete');
+        	 		});
+        	      Route::group(['prefix' => 'designation'], function() {
+        	         	 Route::get('designation', 'Hr\HRMasterController@designation')->name('admin.hr.master.designation');  
+        	         	 Route::get('designation-add/{id?}', 'Hr\HRMasterController@designationAddForm')->name('admin.hr.master.designation.add');  
+        	         	 Route::post('designation-store/{id?}', 'Hr\HRMasterController@designationStore')->name('admin.hr.master.designation.store');  
+        	         	 Route::get('designation-delete/{id?}', 'Hr\HRMasterController@designationDelete')->name('admin.hr.master.designation.delete');
+        	 		});
+        	      Route::group(['prefix' => 'pay-head'], function() {
+        	         	 Route::get('payhead', 'Hr\HRMasterController@payhead')->name('admin.hr.master.payhead');  
+        	         	 Route::get('payhead-add/{id?}', 'Hr\HRMasterController@payheadAddForm')->name('admin.hr.master.payhead.add');  
+        	         	 Route::post('payhead-store/{id?}', 'Hr\HRMasterController@payheadStore')->name('admin.hr.master.payhead.store');  
+        	         	 Route::get('payhead-delete/{id?}', 'Hr\HRMasterController@payheadDelete')->name('admin.hr.master.payhead.delete');
+        	 		});
+        	      Route::group(['prefix' => 'experience'], function() {
+        	         	 Route::get('experience', 'Hr\HRMasterController@experience')->name('admin.hr.master.experience');  
+        	         	 Route::get('experience-add/{id?}', 'Hr\HRMasterController@experienceAddForm')->name('admin.hr.master.experience.add');  
+        	         	 Route::post('experience-store/{id?}', 'Hr\HRMasterController@experienceStore')->name('admin.hr.master.experience.store');  
+        	         	 Route::get('experience-delete/{id?}', 'Hr\HRMasterController@experienceDelete')->name('admin.hr.master.experience.delete');
+        	 		});
+        	      Route::group(['prefix' => 'employee'], function() {
+        	         	 Route::get('/', 'Hr\HRController@index')->name('admin.hr.employee');  
+        	         	 Route::get('add-form/{id?}', 'Hr\HRController@addForm')->name('admin.hr.employee.addform');  
+        	         	 Route::post('store/{id?}', 'Hr\HRController@store')->name('admin.hr.employee.store');  
+        	         	 Route::get('table-show', 'Hr\HRController@tableShow')->name('admin.hr.employee.table.show');  
+        	         	 Route::get('delete/{id}', 'Hr\HRController@destroy')->name('admin.hr.employee.delete');  
+        	         	 
+        	 		});
+        	      Route::group(['prefix' => 'employee-bank-details'], function() {
+        	         	 Route::get('employee-bank-details', 'Hr\HRController@employeeBankDetails')->name('admin.hr.employee.bank.details');  
+        	         	 Route::get('bank-details-add/{id?}', 'Hr\HRController@bankDetailsAddForm')->name('admin.hr.employee.bank.details.add');  
+        	         	 Route::get('desi-wise-emp', 'Hr\HRController@designationWiseEmployee')->name('admin.hr.designation.wise.employee');  
+        	         	 Route::post('bank-details-store/{id?}', 'Hr\HRController@bankDetailsStore')->name('admin.hr.bank.details.store');  
+        	         	 Route::post('employee-bank-details-show', 'Hr\HRController@employeeBankDetailsShow')->name('admin.hr.employee.bank.details.show');  
+        	         	
+        	         	 
+        	 		});
+        	      Route::group(['prefix' => 'salary-settings'], function() {
+        	         	 Route::get('salary-settings', 'Hr\HRController@salarySettings')->name('admin.hr.master.salary.settings');  
+        	         	 Route::get('salary-settings-add/{id?}', 'Hr\HRController@salarySettingsAddForm')->name('admin.hr.master.salary.settings.add');  
+        	         	 Route::post('salary-settings-store/{id?}', 'Hr\HRController@salarySettingsStore')->name('admin.hr.master.salary.settings.store');  
+        	         	 Route::get('salary-settings-delete/{id?}', 'Hr\HRController@salarySettingsDelete')->name('admin.hr.master.salary.settings.delete');
+        			 });
+        	      Route::group(['prefix' => 'employee-salary'], function() {
+        	         	 Route::get('employee-salary', 'Hr\HRController@employeeSalary')->name('admin.hr.master.employee.salary');  
+        	         	 Route::get('employee-salary-add/{id?}', 'Hr\HRController@employeeSalaryAddForm')->name('admin.hr.master.employee.salary.add');  
+        	         	 Route::post('employee-salary-store/{id?}', 'Hr\HRController@employeeSalaryStore')->name('admin.hr.master.employee.salary.store');  
+        	         	 Route::get('employee-salary-delete/{id?}', 'Hr\HRController@employeeSalaryDelete')->name('admin.hr.master.employee.salary.delete');
+        	 		});
+        });     
+            
             
            
 

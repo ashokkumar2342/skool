@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Hr;
 use App\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\Gender;
+use App\Model\Hr\Bank;
+use App\Model\Hr\BankDetail;
 use App\Model\Hr\Department;
 use App\Model\Hr\Designation;
 use App\Model\Hr\Employee;
@@ -153,6 +155,77 @@ class HRController extends Controller
             $employeeSalary='';  
           }  
        return view('admin.hr.employee.employee_salary_add',compact('employeeSalary','Designations','Payheads','employees'));  
+    }
+    public function employeeBankDetails($value='')
+    {
+        $Designations=Designation::orderBy('name','ASC')->get(); 
+        return view('admin.hr.employee.bank_details',compact('employeeSalary','Designations','Payheads','employees'));    
+    }
+    public function designationWiseEmployee(Request $request)
+    {
+         $employees=Employee::where('designation_id',$request->id)->get(); 
+        return view('admin.hr.employee.employee_select_box',compact('employeeSalary','Designations','Payheads','employees'));    
+    } 
+    public function bankDetailsAddForm()
+    {
+        $Designations=Designation::orderBy('name','ASC')->get(); 
+        $banks=Bank::orderBy('name','ASC')->get(); 
+        return view('admin.hr.employee.bank_details_add',compact('banks','Designations','Payheads','employees'));    
+    }
+    public function bankDetailsStore(Request $request){
+        $rules=[
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              else {
+                $employees=BankDetail::firstOrNew(['designation_id'=>$request->designation_id,'employee_id'=>$request->employee_id]);
+                $employees->designation_id=$request->designation_id;
+                $employees->employee_id=$request->employee_id;
+                $employees->bank_id=$request->bank_id; 
+                $employees->branch=$request->branch; 
+                $employees->account_no=$request->account_no; 
+                $employees->ifsc_code=$request->ifsc_code; 
+                $employees->bank_address=$request->bank_address; 
+                $employees->dd_payable_address=$request->dd_payable_address; 
+                $employees->save();
+                $response=['status'=>1,'msg'=>'Submit Successfully'];
+              }     return response()->json($response);
+    }
+    public function employeeBankDetailsShow(Request $request)
+    {
+       $rules=[
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              
+            if ($request->designation_id!=0 && $request->employee_id!=null) {
+               $employees=BankDetail::where('designation_id',$request->designation_id)->where('employee_id',$request->employee_id)->get();   
+            } 
+            elseif ($request->designation_id==0) {
+             $employees=BankDetail::all();   
+            }
+            elseif ($request->designation_id!=0 && $request->employee_id==null) {
+             $employees=BankDetail::where('designation_id',$request->designation_id)->get();   
+            }
+            $response=array();
+            $response['status']=1;
+            $response['data']= view('admin.hr.employee.employee_bank_details_list',compact('employees'))->render();
+            return $response; 
+                
     }
  
 }
