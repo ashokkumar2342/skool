@@ -261,6 +261,20 @@ function callPopupLarge(obj,url){
 			if(obj.getAttribute('select2'))
 			{  
 				$(".select2").select2();
+			}
+			if(obj.getAttribute('crop-image'))
+			{  
+				$uploadCrop=$('#upload-demo').croppie({
+				    enableExif: true,
+				    viewport: {
+				        width: 200,
+				        height: 250,         
+				    },
+				    boundary: {
+				        width: 210,
+				        height: 260
+				    }
+				});
 			}	
 				
 			}
@@ -567,7 +581,42 @@ function callchildTable(url,divId,tableId){
     }); 
 } 
 
- 
+ function imageBind(obj) {
+ 	var reader = new FileReader();
+ 	     reader.onload = function (e) {
+ 	       $uploadCrop.croppie('bind', {
+ 	         url: e.target.result
+ 	       }).then(function(){
+ 	         console.log('jQuery bind complete');
+ 	       });
+ 	     }
+ 	     reader.readAsDataURL(obj.files[0]);
+ } 
+ function imageUpload(url,btnId) { 	
+ 	  $uploadCrop.croppie('result', {
+ 	    type: 'canvas',
+ 	    size: 'viewport'
+ 	  }).then(function (resp) {
+ 	    $.ajax({
+ 	      url: url,
+ 	      type: "POST",
+ 	      data: {"image":resp},
+ 	      success: function (data) {        
+ 	       var myStr = btnId;
+           	var strArray = myStr.split(",");
+           
+   	        	for(var i = 0; i < strArray.length; i++){
+   	        		$("#"+strArray[i]).click();
+   	       		 }
+ 	      }
+ 	    });
+ 	  }); 	 
+ }
+ $.ajaxSetup({
+ headers: {
+     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+ }
+ });
 
  
 

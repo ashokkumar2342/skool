@@ -311,9 +311,9 @@ b{
 @push('links')
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/bootstrap-3.min.css">
- <link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/croppie.css">
+ 
  {{-- <link href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet"> --}}
- <meta name="csrf-token" content="{{ csrf_token() }}">
+ 
  <style type="text/css" media="screen">
    #camera {
      width: 100%;
@@ -322,7 +322,7 @@ b{
  </style>
 @endpush
  @push('scripts')
- <script src="http://demo.itsolutionstuff.com/plugin/croppie.js"></script>
+
 <script src="{{ asset('jpeg_camera/jpeg_camera_with_dependencies.min.js') }}" type="text/javascript"></script> 
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
