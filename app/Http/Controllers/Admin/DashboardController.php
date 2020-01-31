@@ -50,11 +50,70 @@ class DashboardController extends Controller
         $feeDues = StudentFeeDetail::where('paid',0)->get()->sum('fee_amount');                      
          $feePaid = StudentFeeDetail::where('paid',1)->get()->sum('fee_amount');
          $classTypes=ClassType::orderBy('id','ASC')->get(); 
-         if ($admins->role_id==12) { 
-            return view('admin/dashboard/student_dashboard');
-         }else{
-          return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','feeDues','feePaid','classTypes','students','admins'));
-         }
+         // if ($admins->role_id==12) { 
+         //    return view('admin/dashboard/student_dashboard');
+         // }else{
+         //  return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','feeDues','feePaid','classTypes','students','admins'));
+         // }
+                if ($admins->role_id==1) {
+                //Administrator
+                    return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','feeDues','feePaid','classTypes','students','admins'));
+                }elseif($admins->role_id==12) {
+                //student    
+                    return view('admin/dashboard/student_dashboard');
+                }elseif($admins->role_id==2) {
+                //Chairman
+                    return view('admin/dashboard/dashboard_'.'2');
+                }elseif($admins->role_id==3) {
+                //Trustee    
+                    return view('admin/dashboard/dashboard_'.'3');
+                }elseif($admins->role_id==4) {
+                //Principal     
+                    return view('admin/dashboard/dashboard_'.'4');
+                }elseif($admins->role_id==5) {
+                //Vice-Principal         
+                    return view('admin/dashboard/dashboard_'.'5');
+                }elseif($admins->role_id==6) {
+                //Teaching Staff    
+                    return view('admin/dashboard/dashboard_'.'6');
+                }elseif($admins->role_id==7) {
+                //Transport Manager    
+                    return view('admin/dashboard/dashboard_'.'7');
+                }elseif($admins->role_id==8) {
+                //Account Officer    
+                    return view('admin/dashboard/dashboard_'.'8');
+                }elseif($admins->role_id==9) {
+                //Accountant    
+                    return view('admin/dashboard/dashboard_'.'9');
+                }elseif($admins->role_id==10) {
+                //Clerk    
+                    return view('admin/dashboard/dashboard_'.'10');
+                }elseif($admins->role_id==11) {
+                //Cashier    
+                    return view('admin/dashboard/dashboard_'.'11');
+                }elseif($admins->role_id==13) {
+                //Library Staff    
+                    return view('admin/dashboard/dashboard_'.'13');
+                }elseif($admins->role_id==14) {
+                //Store Incharge    
+                    return view('admin/dashboard/dashboard_'.'14');
+                }elseif($admins->role_id==15) {
+                //Examination Controller    
+                    return view('admin/dashboard/dashboard_'.'15');
+                }elseif($admins->role_id==16) {
+                //Public Relation Officer    
+                    return view('admin/dashboard/dashboard_'.'16');
+                }elseif($admins->role_id==17) {
+                //Reception Operator    
+                    return view('admin/dashboard/dashboard_'.'17');
+                }elseif($admins->role_id==18) {
+                //Other Staff    
+                    return view('admin/dashboard/dashboard_'.'18');
+                }elseif($admins->role_id==19) {
+                //Timetable Manager    
+                    return view('admin/dashboard/dashboard_'.'19');
+                }
+
         
         
     }  
