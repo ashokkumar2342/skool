@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin\Hr;
 
 use App\Http\Controllers\Controller;
+use App\Model\Hr\Allowance;
 use App\Model\Hr\Bank;
+use App\Model\Hr\Deduction;
 use App\Model\Hr\Department;
 use App\Model\Hr\Designation;
 use App\Model\Hr\Experience;
 use App\Model\Hr\HrGroup;
+use App\Model\Hr\IncomeTaxSlab;
 use App\Model\Hr\Payhead;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -290,6 +293,141 @@ class HRMasterController extends Controller
     public function bankDelete($id)
     {
         $designation=Bank::find(Crypt::decrypt($id));
+        $designation->delete();
+        return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+    //------------------bank----------------------------------------------------------------
+    public function allowance(){
+        $allowances=Allowance::orderBy('allowance','ASC')->get();   
+        return view('admin.hr.master.allowance',compact('allowances'));
+    }
+    public function allowanceAddForm($id=null){
+
+        if ($id!=null) {
+            $allowance=Allowance::find(Crypt::decrypt($id));  
+        }
+        if ($id==null) {
+            $allowance='';  
+        }
+        return view('admin.hr.master.allowance_add',compact('allowance'));
+    }
+    public function allowanceStore(Request $request,$id=null){
+       $rules=[
+              
+                'allowance' => 'required|unique:allowances,allowance,'.$id, 
+               
+                
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              else {
+               $designation=Allowance::firstOrNew(['id'=>$id]);  
+               $designation->allowance=$request->allowance;  
+               $designation->description=$request->description; 
+               $designation->save();
+                $response=['status'=>1,'msg'=>'Submit Successfully'];
+              }     return response()->json($response);
+    }
+    public function allowanceDelete($id)
+    {
+        $designation=Allowance::find(Crypt::decrypt($id));
+        $designation->delete();
+        return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+    //------------------deduction----------------------------------------------------------------
+    public function deduction(){
+        $deductions=Deduction::orderBy('deduction','ASC')->get();   
+        return view('admin.hr.master.deduction',compact('deductions'));
+    }
+    public function deductionAddForm($id=null){
+
+        if ($id!=null) {
+            $deduction=Deduction::find(Crypt::decrypt($id));  
+        }
+        if ($id==null) {
+            $deduction='';  
+        }
+        return view('admin.hr.master.deduction_add',compact('deduction'));
+    }
+    public function deductionStore(Request $request,$id=null){
+       $rules=[
+              
+                'deduction' => 'required|unique:deductions,deduction,'.$id, 
+               
+                
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              else {
+               $designation=Deduction::firstOrNew(['id'=>$id]);  
+               $designation->deduction=$request->deduction;  
+               $designation->description=$request->description; 
+               $designation->save();
+                $response=['status'=>1,'msg'=>'Submit Successfully'];
+              }     return response()->json($response);
+    }
+    public function deductionDelete($id)
+    {
+        $designation=Deduction::find(Crypt::decrypt($id));
+        $designation->delete();
+        return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
+    }
+    //------------------deduction----------------------------------------------------------------
+    public function itSlab(){
+        $IncomeTaxs=IncomeTaxSlab::orderBy('name','ASC')->get();   
+        return view('admin.hr.master.itslab',compact('IncomeTaxs'));
+    }
+    public function itSlabAddForm($id=null){
+
+        if ($id!=null) {
+            $IncomeTax=IncomeTaxSlab::find(Crypt::decrypt($id));  
+        }
+        if ($id==null) {
+            $IncomeTax='';  
+        }
+        return view('admin.hr.master.itslab_add',compact('IncomeTax'));
+    }
+    public function itSlabStore(Request $request,$id=null){
+       $rules=[
+              
+                'income_tax' => 'required|unique:income_tax_slabs,name,'.$id, 
+               
+                
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              else {
+               $designation=IncomeTaxSlab::firstOrNew(['id'=>$id]);  
+               $designation->name=$request->income_tax;  
+               $designation->description=$request->description; 
+               $designation->save();
+                $response=['status'=>1,'msg'=>'Submit Successfully'];
+              }     return response()->json($response);
+    }
+    public function itSlabDelete($id)
+    {
+        $designation=IncomeTaxSlab::find(Crypt::decrypt($id));
         $designation->delete();
         return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }

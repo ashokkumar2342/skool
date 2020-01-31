@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin\Hr;
 use App\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\Gender;
+use App\Model\Hr\Allowance;
 use App\Model\Hr\Bank;
 use App\Model\Hr\BankDetail;
 use App\Model\Hr\Department;
 use App\Model\Hr\Designation;
 use App\Model\Hr\Employee;
+use App\Model\Hr\EmployeeBasicSalary;
 use App\Model\Hr\EmployeeSalary;
+use App\Model\Hr\EmployeeSalaryStructure;
 use App\Model\Hr\Experience;
 use App\Model\Hr\HrGroup;
 use App\Model\Hr\Payhead;
@@ -82,7 +85,8 @@ class HRController extends Controller
                 $employees->permanent_address=$request->permanent_address; 
                 $employees->save();
                 $response=['status'=>1,'msg'=>'Submit Successfully'];
-              }     return response()->json($response);
+                return response()->json($response);
+                }
     }
     public function tableShow(){ 
     	$employees=Employee::all();
@@ -128,7 +132,7 @@ class HRController extends Controller
             }
               else {
                 $employees=SalarySetting::firstOrNew(['id'=>$id]);
-                $employees->designation_id=$request->designation;
+                // $employees->designation_id=$request->designation;
                 $employees->employee_id=$request->employee;
                 $employees->pay_head_type_id=$request->pay_head_type; 
                 $employees->unit=$request->unit; 
@@ -226,6 +230,77 @@ class HRController extends Controller
             $response['data']= view('admin.hr.employee.employee_bank_details_list',compact('employees'))->render();
             return $response; 
                 
+    }
+    public function employeeBasicSalary()
+    {
+        $Employees=Employee::orderBy('code','ASC')->get();
+        $EmployeeBasicSalary=EmployeeBasicSalary::all();
+        return view('admin.hr.basicSalary.view',compact('Employees'));
+    }
+    public function employeeBasicSalaryStore(Request $request)
+    {
+        $rules=[
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+            $EmployeeBasicSalary=EmployeeBasicSalary::firstOrNew(['employee_id'=>$request->employee_id]);
+            $EmployeeBasicSalary->employee_id=$request->employee_id;
+            $EmployeeBasicSalary->basic_salary=$request->basic_salary;
+            $EmployeeBasicSalary->from_date=$request->from_date;
+            $EmployeeBasicSalary->to_date=$request->to_date;
+            $EmployeeBasicSalary->save();
+            $response=['status'=>1,'msg'=>'Submit Successfully'];
+                return response()->json($response);
+    }
+    public function employeeBasicSalaryList(Request $request)
+    {
+        $EmployeeBasicSalarys=EmployeeBasicSalary::where('employee_id',$request->id)->get();
+        return view('admin.hr.basicSalary.list',compact('EmployeeBasicSalarys'));
+    }
+
+    //----------------------employee-salary-structure--------------------------------------------------------------
+
+    public function employeeSalaryStructure()
+    {
+      $Employees=Employee::orderBy('code','ASC')->get();
+      $allowances=Allowance::orderBy('allowance','ASC')->get();
+      return view('admin.hr.salaryStructure.view',compact('Employees','allowances'));  
+    }
+    public function employeeSalaryStructureStore(Request $request)
+    {
+        $rules=[
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+            $employeeSalaryStructure=EmployeeSalaryStructure::firstOrNew(['employee_id'=>$request->employee_id]);
+            $employeeSalaryStructure->employee_id=$request->employee_id;
+            $employeeSalaryStructure->allowance_id=$request->allowance_id;
+            $employeeSalaryStructure->fix_or_percent=$request->fix_percent;
+            $employeeSalaryStructure->amount=$request->amount;
+            $employeeSalaryStructure->from_date=$request->from_date;
+            $employeeSalaryStructure->to_date=$request->to_date;
+            $employeeSalaryStructure->save();
+            $response=['status'=>1,'msg'=>'Submit Successfully'];
+                return response()->json($response);
+    }
+    public function employeeSalaryStructureList(Request $request)
+    {
+        $EmployeeSalaryStructures=EmployeeSalaryStructure::where('employee_id',$request->id)->get();
+        return view('admin.hr.salaryStructure.list',compact('EmployeeSalaryStructures'));
     }
  
 }

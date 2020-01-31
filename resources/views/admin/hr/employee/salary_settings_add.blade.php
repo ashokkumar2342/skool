@@ -8,7 +8,7 @@
       <form action="{{ route('admin.hr.master.salary.settings.store',@$salarySettings->id) }}" method="post" class="add_form" button-click="btn_close" content-refresh="salary_settings_table">
         {{ csrf_field() }} 
           <div class="row">
-            <div class="col-lg-12 form-group">
+            {{-- <div class="col-lg-12 form-group">
              <label>Designation</label>
              <select name="designation" class="form-control">
                  <option selected disabled>Select Department</option> 
@@ -16,13 +16,13 @@
                   <option value="{{ $Designations->id }}"{{ @$salarySettings->designation_id==$Designations->id?'selected':'' }}>{{ $Designations->name }}</option>  
                  @endforeach
               </select> 
-             </div>
+             </div> --}}
              <div class="col-lg-12 form-group">
              <label>Employee Name</label>
              <select name="employee" class="form-control">
                  <option selected disabled>Select Department</option> 
                  @foreach ($employees as $employee)
-                  <option value="{{ $employee->id }}"{{ @$salarySettings->employee_id==$employee->id?'selected':'' }}>{{ $employee->name }}</option>  
+                  <option value="{{ $employee->id }}"{{ @$salarySettings->employee_id==$employee->id?'selected':'' }}>{{ $employee->code }}--{{ $employee->name }}</option>  
                  @endforeach
               </select> 
              </div>

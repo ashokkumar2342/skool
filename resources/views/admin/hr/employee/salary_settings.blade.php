@@ -12,7 +12,7 @@
               <table class="table" id="salary_settings_table">
                 <thead>
                   <tr>
-                    <th>Designation</th>
+                    <th>Employee Code</th>
                     <th>Employee Name</th>
                     <th>Pay Head Type</th>
                     <th>Unit</th>
@@ -23,7 +23,7 @@
                 <tbody>
                   @foreach ($salarySettings as $salarySetting)
                           <tr>
-                            <td>{{ $salarySetting->designations->name or '' }}</td>
+                            <td>{{ $salarySetting->employees->code or ''}}</td>
                             <td>{{ $salarySetting->employees->name or '' }}</td>
                             <td>{{ $salarySetting->unit }}</td>
                             <td>{{ $salarySetting->Payheads->name or '' }}</td>
