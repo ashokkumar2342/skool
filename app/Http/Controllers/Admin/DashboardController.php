@@ -201,9 +201,7 @@ class DashboardController extends Controller
         $admins = Auth::guard('admin')->user();
          $rules=[
           
-            'profile_photo' => 'required|mimes:jpeg,jpg,png,gif|max:5000'
-
-          
+             // 'image' => 'required|mimes:jpeg,jpg,png,gif|max:5000'          
             
         ];
 
@@ -215,17 +213,20 @@ class DashboardController extends Controller
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
         }
-        else { 
-            if ($request->hasFile('profile_photo')) { 
-                $profilePhoto=$request->profile_photo;
-                $filename='admin'.date('d-m-Y').time().'.jpg'; 
-                $profilePhoto->storeAs('student/profile/admin/',$filename); 
-                $admins=Admin::find($admins->id); 
-                $admins->profile_pic=$filename; 
-                $admins->save(); 
-                $response=['status'=>1,'msg'=>'Upload Successfully'];
-                return response()->json($response); 
-            }
+        else {  
+                $data = $request->image; 
+                list($type, $data) = explode(';', $data);
+                list(, $data)      = explode(',', $data);
+                $data = base64_decode($data);
+                $image_name= time().'.jpg';       
+                $path = Storage_path() . "/app/student/profile/admin/" . $image_name; 
+                @mkdir(Storage_path() . "/app/student/profile/admin/", 0755, true);     
+                file_put_contents($path, $data); 
+                $admins->profile_pic = $image_name;
+                $admins->save();
+                return response()->json(['success'=>'done']);
+            
+            
           }
     }
      public function proFilePhotoShow(Request $request,$profile_pic)
