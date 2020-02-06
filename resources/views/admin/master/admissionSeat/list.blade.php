@@ -38,8 +38,12 @@
                          <td>{{ date('d-m-Y',strtotime( $adminssionSeat->result_date))}}</td>
                         <td><a href="{{ route('admin.adminssion.seat.download',$adminssionSeat->syllabus) }}" target="blank" style="margin:10px">{{ $adminssionSeat->syllabus?'Open the Syllabus!' : '' }}</a></td>
                          <td>
-                          <a  onclick="callPopupLarge(this,'{{ route('admin.adminssion.seat.add',$adminssionSeat->id) }}')" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></a>
-                          <a href="{{ route('admin.adminssion.seat.delete',$adminssionSeat->id) }}" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                          @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
+                          <a  onclick="callPopupLarge(this,'{{ route('admin.adminssion.seat.add',Crypt::encrypt($adminssionSeat->id)) }}')" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></a>
+                          @endif
+                          @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
+                          <a href="{{ route('admin.adminssion.seat.delete',Crypt::encrypt($adminssionSeat->id)) }}" title="Delete" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i></a>
+                          @endif
                         </td>
 
                        </tr> 

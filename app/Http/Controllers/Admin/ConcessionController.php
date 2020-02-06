@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\Concession;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class ConcessionController extends Controller
@@ -28,7 +29,7 @@ class ConcessionController extends Controller
     public function addForm($id=null)
     {
         if ($id!=null) {
-        $concessions = Concession::find($id);
+        $concessions = Concession::find(Crypt::decrypt($id));
             
         }if ($id==null) {
         $concessions = '';
@@ -111,7 +112,7 @@ class ConcessionController extends Controller
      */
    public function destroy($id)
    {
-       $concession = Concession::find($id);
+       $concession = Concession::find(Crypt::decrypt($id));
        $concession->delete();
        return  redirect()->back()->with(['message'=>'Concession Delete Successfully','class'=>'success']);
    }

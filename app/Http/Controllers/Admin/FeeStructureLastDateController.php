@@ -13,6 +13,7 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 class FeeStructureLastDateController extends Controller
@@ -117,7 +118,7 @@ class FeeStructureLastDateController extends Controller
      */
     public function edit($id)
     {
-         $feeStructureLastDate = FeeStructureLastDate::find($id);
+         $feeStructureLastDate = FeeStructureLastDate::find(Crypt::decrypt($id));
          $forSessionMonths =ForSessionMonth::all(); 
          $academicYear= new MyFuncs();
          $yearmonths=$academicYear->getMonthYearById($feeStructureLastDate->academic_year_id);
@@ -176,7 +177,7 @@ class FeeStructureLastDateController extends Controller
      */
     public function destroy($id)
     {
-        $feeStructureLastDate = FeeStructureLastDate::find($id);
+        $feeStructureLastDate = FeeStructureLastDate::find(Crypt::decrypt($id));
         $feeStructureLastDate->delete();
        $response=['status'=>1,'msg'=>'Delete Successfully'];
             return response()->json($response);

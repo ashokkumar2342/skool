@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\FinePeriod;
 use App\Model\FineScheme;
-use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Validator;
 
 class FineSchemeController extends Controller
 {
@@ -31,7 +32,7 @@ class FineSchemeController extends Controller
     public function addForm($id=null)
     {
         if ($id!=null) {
-          $fineSchemes = FineScheme::find($id);  
+          $fineSchemes = FineScheme::find(Crypt::decrypt($id));
         }
         if ($id==null) {
           $fineSchemes = '';  
@@ -126,10 +127,10 @@ class FineSchemeController extends Controller
      * @param  \App\Model\FineScheme  $fineScheme
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request,$id)
     {
-        $fineScheme =FineScheme::findOrFail($request->id);
+        $fineScheme =FineScheme::find(Crypt::decrypt($id));
         $fineScheme->delete();
-        return  response()->json([$fineScheme,'message'=>'Fine Scheme Delete Successfully','class'=>'success']);
+        return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
 }

@@ -44,10 +44,10 @@
                             <td>{{ $fineScheme->finePeriods->name }}</td>
                             <td>
                              @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
-                              <button type="button" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.fineScheme.add.form',$fineScheme->id) }}')"><i class="fa fa-edit"></i> </button>
+                              <button type="button" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.fineScheme.add.form',Crypt::encrypt($fineScheme->id)) }}')"><i class="fa fa-edit"></i> </button>
                               @endif
                                @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
-                              <button class="btn_delete btn btn-danger btn-xs"  data-id="{{ $fineScheme->id }}"  ><i class="fa fa-trash"></i></button>
+                              <a href="{{ route('admin.fineScheme.delete',Crypt::encrypt($fineScheme->id)) }}" class="btn_delete btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i></a>
                               @endif
                             </td>
                           </tr>    

@@ -557,7 +557,7 @@ class MasterController extends Controller
           $academicYears=AcademicYear::orderBy('id','ASC')->get();
           $classes=MyFuncs::getClassByHasUser();
           if ($id!=null) {
-            $adminssionSeat=AdmissionSeat::find($id);
+            $adminssionSeat=AdmissionSeat::find(Crypt::decrypt($id));
            }
            if ($id==null) {
             $adminssionSeat=AdmissionSeatDefault::where('user_id',$userId)->first();
@@ -614,7 +614,7 @@ class MasterController extends Controller
         }
         public function adminssionSeatDestroy($id)
         {
-           $adminssionSeat=AdmissionSeat::find($id);  
+           $adminssionSeat=AdmissionSeat::find(Crypt::decrypt($id));
            $adminssionSeat->delete();  
            return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         }

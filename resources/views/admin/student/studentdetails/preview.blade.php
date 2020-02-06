@@ -41,7 +41,7 @@
 $routeName= Route::currentRouteName(); 
 $profile = route('admin.student.image',$student->picture);
 @endphp
-<div class="small-box bg-primary text-center" style="font-size: 15.5px"><h3>Student's Details</h3></div>
+<div class="small-box bg-primary text-center" style="font-size: 25px">Student's Details</div>
  <div class="row">
     <div class="text-nowrap col-lg-3">
         <li>Name</li>
@@ -215,7 +215,7 @@ $profile = route('admin.student.image',$student->picture);
  $data =storage_path('app/'.$parent->parentInfo->photo);
  $datas =storage_path('app/'.'');  
 @endphp
-<div class="small-box bg-primary text-center" style="font-size: 15.5px"><h3>{{ $parent->relation->name or ''}}'s Details</h3></div> 
+<div class="small-box bg-primary text-center" style="font-size: 25px">{{ $parent->relation->name or ''}}'s Details</div> 
  <div class="row">
     <div class="text-nowrap col-lg-3">
         <li>Name</li>
@@ -320,7 +320,7 @@ $profile = route('admin.student.image',$student->picture);
 $studentMedicalDetails=App\Model\StudentMedicalInfo::where('student_id',$student->id)->first();
 @endphp 
 @foreach($studentMedicalInfos as $studentMedicalInfo)
-<div class="small-box bg-primary text-center" style="font-size: 15.5px"><h3>Medical's Details</h3></div> 
+<div class="small-box bg-primary text-center" style="font-size: 25px">Medical's Details</div> 
 <div class="row" > 
     <div class="text-nowrap col-lg-3"> 
         <li>On Date</li>
@@ -430,7 +430,7 @@ $studentMedicalDetails=App\Model\StudentMedicalInfo::where('student_id',$student
     @endforeach
 @if (!empty($studentSiblingInfos))
 
-<div class="small-box bg-primary text-center" style="font-size: 15.5px"><h3>Sibling's Details</h3></div>  
+<div class="small-box bg-primary text-center" style="font-size: 25px">Sibling's Details</div>  
 @foreach ($studentSiblingInfos as $studentSiblingInfo) 
 <div class="row" > 
 <div class="text-nowrap col-lg-6"> 
@@ -457,7 +457,7 @@ $studentMedicalDetails=App\Model\StudentMedicalInfo::where('student_id',$student
 $studentSubjectDetails=App\Model\StudentSubject::where('student_id',$student->id)->first();
 @endphp
 @if (!empty($studentSubjectDetails)) 
-<div class="small-box bg-primary text-center" style="font-size: 15.5px"><h3>Subject's Details</h3></div>  
+<div class="small-box bg-primary text-center" style="font-size: 25px">Subject's Details</div>  
 <div class="row" > 
 <div class="text-nowrap col-lg-12">  
 <table class="table"> 
@@ -487,7 +487,7 @@ $studentSubjectDetails=App\Model\StudentSubject::where('student_id',$student->id
 $studentDocument=App\Model\Document::where('student_id',$student->id)->first();
 @endphp
 @if (!empty($studentDocument))
-<div class="small-box bg-primary text-center" style="font-size: 15.5px"><h3>Document's Details</h3></div>  
+<div class="small-box bg-primary text-center" style="font-size: 25px">Document's Details</div>  
 <div class="row" > 
 <div class="text-nowrap col-lg-12">  
 <table class="table">

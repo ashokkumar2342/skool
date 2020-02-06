@@ -47,8 +47,12 @@
                  
                 <td> {{ $feeStructureLastDste->for_session_month or ''}} </td>
                 <td>
-                <a href="#" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.feeStructureLastDate.edit',$feeStructureLastDste->id) }}')" title="Delete"><i class="fa fa-edit"></i></a>  
-                <a href="#" class="btn btn-danger btn-xs" select-triger="fee_structure_select_box" success-popup="true" onclick="callAjax(this,'{{ route('admin.feeStructureLastDate.delete',$feeStructureLastDste->id) }}')" title="Delete"><i class="fa fa-trash"></i></a>  
+              @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
+                <a href="#" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.feeStructureLastDate.edit',Crypt::encrypt($feeStructureLastDste->id)) }}')" title="Delete"><i class="fa fa-edit"></i></a>
+              @endif    
+              @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)     
+                <a href="#" class="btn btn-danger btn-xs" select-triger="fee_structure_select_box" success-popup="true" onclick="if (confirm('Are you Sure delete')){callAjax(this,'{{ route('admin.feeStructureLastDate.delete',Crypt::encrypt($feeStructureLastDste->id)) }}') } else{console_Log('cancel') }" title="Delete"><i class="fa fa-trash"></i></a>
+              @endif        
                </td>
 </tr>  	 
 @endforeach	

@@ -39,10 +39,10 @@
                             <td>{{ $feeStructure->is_refundable == 1 ?'yes':'No' }}</td>
                             <td>
                              @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
-                              <button type="button" class=" btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.feeStructure.add.form',$feeStructure->id) }}')"><i class="fa fa-edit"></i> </button>
+                              <button type="button" class=" btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.feeStructure.add.form',Crypt::encrypt($feeStructure->id)) }}')"><i class="fa fa-edit"></i> </button>
                               @endif 
                                @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
-                              <a href="{{ route('admin.feeStructure.delete',$feeStructure->id) }}"  class=" btn btn-danger btn-xs" title="Delete"> <i class="fa fa-trash"></i></button></a>
+                              <a href="{{ route('admin.feeStructure.delete',Crypt::encrypt($feeStructure->id)) }}"  class=" btn btn-danger btn-xs" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');"> <i class="fa fa-trash"></i></button></a>
                               @endif
                             </td>
                           </tr>    

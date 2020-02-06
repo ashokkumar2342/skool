@@ -28,8 +28,13 @@
                           <td>{{ $deduction->description }}</td>
                           
                           <td>
-                            <a href="#" title="Edit" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.hr.master.deduction.add',Crypt::encrypt($deduction->id))}}')"><i class="fa fa-edit"></i></a>
-                            <a href="{{ route('admin.hr.master.deduction.delete',Crypt::encrypt($deduction->id)) }}" title="Delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a></td>
+                            @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
+                              <a href="#" title="Edit" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.hr.master.deduction.add',Crypt::encrypt($deduction->id))}}')"><i class="fa fa-edit"></i></a>
+                              @endif
+                              @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
+                              <a href="{{ route('admin.hr.master.deduction.delete',Crypt::encrypt($deduction->id))}}" class="btn btn-danger btn-xs" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i></a>
+                              @endif
+                            
                         </tr> 
                   @endforeach
                 </tbody>

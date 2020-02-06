@@ -28,9 +28,13 @@
                           <td>{{ $designation->name }}</td>
                           <td>{{ $designation->code }}</td> 
                           <td>
-                            <a href="#" title="Edit" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.hr.master.designation.add',Crypt::encrypt($designation->id))}}')"><i class="fa fa-edit"></i></a>
-                            <a href="{{ route('admin.hr.master.designation.delete',Crypt::encrypt($designation->id)) }}" title="Delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a></td>
-                        </tr> 
+                            @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
+                              <a href="#" title="Edit" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.hr.master.designation.add',Crypt::encrypt($designation->id))}}')"><i class="fa fa-edit"></i></a>
+                              @endif
+                              @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
+                              <a href="{{ route('admin.hr.master.designation.delete',Crypt::encrypt($designation->id))}}" class="btn btn-danger btn-xs" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i></a>
+                              @endif
+                            </tr> 
                   @endforeach
                 </tbody>
               </table>

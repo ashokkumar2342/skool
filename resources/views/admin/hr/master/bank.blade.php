@@ -26,10 +26,14 @@
                           <td>{{ $arrayId++ }}</td>
                           <td>{{ $Bank->name }}</td>
                           <td>{{ $Bank->code }}</td>
-                          
                           <td>
-                            <a href="#" title="Edit" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.hr.master.bank.add',Crypt::encrypt($Bank->id))}}')"><i class="fa fa-edit"></i></a>
-                            <a href="{{ route('admin.hr.master.bank.delete',Crypt::encrypt($Bank->id)) }}" title="Delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a></td>
+                            @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
+                              <a href="#" title="Edit" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.hr.master.bank.add',Crypt::encrypt($Bank->id))}}')"><i class="fa fa-edit"></i></a>
+                              @endif
+                              @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
+                              <a href="{{ route('admin.hr.master.bank.delete',Crypt::encrypt($Bank->id))}}" class="btn btn-danger btn-xs" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i></a>
+                              @endif
+                            
                         </tr> 
                   @endforeach
                 </tbody>

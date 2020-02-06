@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\FeeAccount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class FeeAccountController extends Controller
@@ -28,7 +29,7 @@ class FeeAccountController extends Controller
     public function addForm(Request $request,$id=null)
     {
         if ($id!=null) {
-            $feeAccounts=FeeAccount::find($id);
+            $feeAccounts=FeeAccount::find(Crypt::decrypt($id));
         }
         if ($id==null) {
             $feeAccounts='';
@@ -113,7 +114,7 @@ class FeeAccountController extends Controller
     public function destroy($id)
     {
 
-        $feeAccount = FeeAccount::find($id);
+        $feeAccount = FeeAccount::find(Crypt::decrypt($id));
         $feeAccount->delete();
         return  redirect()->back()->with(['message'=>'Fee Account Delete Successfully','class'=>'success']);
     }

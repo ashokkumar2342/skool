@@ -37,11 +37,11 @@
                             <td>{{ $feeAccount->description }}</td>
                             <td> 
                                @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
-                              <button type="button" class="btn_edit btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.feeAcount.add.form',$feeAccount->id) }}')"><i class="fa fa-edit"></i> </button>
+                              <button type="button" class="btn_edit btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.feeAcount.add.form',Crypt::encrypt($feeAccount->id)) }}')"><i class="fa fa-edit"></i> </button>
                               @endif
 
                                @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
-                              <a href="{{ route('admin.feeAcount.delete',$feeAccount->id) }}" class="btn btn-xs btn-danger" title="Delete"><i class="fa fa-trash"></i></a>
+                              <a href="{{ route('admin.feeAcount.delete',Crypt::encrypt($feeAccount->id)) }}" class="btn btn-xs btn-danger" title="Delete"><i class="fa fa-trash"></i></a>
                               @endif
                             </td>
                           </tr>    

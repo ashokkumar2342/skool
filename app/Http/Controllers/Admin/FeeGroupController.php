@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\FeeGroup;
 use App\Model\FeeStructure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class FeeGroupController extends Controller
@@ -29,7 +30,7 @@ class FeeGroupController extends Controller
     public function addForm($id=null)
     {
         if ($id!=null) {
-        $feeGroups = FeeGroup::find($id); 
+        $feeGroups = FeeGroup::find(Crypt::decrypt($id)); 
         }
         if ($id==null) {
         $feeGroups = ''; 
@@ -109,7 +110,7 @@ class FeeGroupController extends Controller
    public function destroy($id)
    {
 
-       $feeGroup = FeeGroup::find($id);
+       $feeGroup = FeeGroup::find(Crypt::decrypt($id)); 
        $feeGroup->delete();
        return  redirect()->back()->with(['message'=>'Fee Group Delete Successfully','class'=>'success']);
    }

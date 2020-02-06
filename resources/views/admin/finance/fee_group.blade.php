@@ -32,15 +32,15 @@
                             <td>{{ $feeGroup->name }}</td>
                             <td>{{ $feeGroup->description }}</td>
                             <td>
-                             @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
+                             
                               <button type="button" class="btn btn-warning btn-xs" onclick="callPopupLarge(this,'{{ route('admin.feeGroup.group',$feeGroup->id) }}')" title="Group"><i class="fa fa-group" style="color:yellow"></i></i> </button>
-                              @endif
+                              
                                @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
-                              <button type="button" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.feeGroup.add.form',$feeGroup->id) }}')"><i class="fa fa-edit"></i> </button>
+                              <button type="button" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.feeGroup.add.form',Crypt::encrypt($feeGroup->id)) }}')"><i class="fa fa-edit"></i> </button>
                               @endif
 
                                @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
-                              <a href="{{ route('admin.feeGroup.delete',$feeGroup->id) }}" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></a>
+                              <a href="{{ route('admin.feeGroup.delete',Crypt::encrypt($feeGroup->id)) }}" class="btn btn-danger btn-xs" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i></a>
                               @endif
                             </td>
                           </tr>    

@@ -7,6 +7,7 @@ use App\Model\FeeAccount;
 use App\Model\FeeStructure;
 use App\Model\FineScheme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class FeeStructureController extends Controller
@@ -27,7 +28,7 @@ class FeeStructureController extends Controller
     public function addForm($id=null)
     { 
         if ($id!=null) {
-          $feeStructures = FeeStructure::find($id);       
+          $feeStructures = FeeStructure::find(Crypt::decrypt($id));       
             
         }if ($id==null) {
           $feeStructures = '';       
@@ -127,7 +128,7 @@ class FeeStructureController extends Controller
      */
     public function destroy($id)
     {
-        $feeStructure = FeeStructure::find($id);
+        $feeStructure = FeeStructure::find(Crypt::decrypt($id));       
         $feeStructure->delete();
         return  redirect()->back()->with(['message'=>'Fee Structure Delete Successfully','class'=>'success']);
     }

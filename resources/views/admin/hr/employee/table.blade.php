@@ -61,14 +61,16 @@
 				<td class="text-nowrap">{{$employee->country==1?'India':'Other Country'}}</td>                 
 				<td class="text-nowrap">{{$employee->state}}</td>                 
 				<td class="text-nowrap">{{$employee->city}}</td>                  
-				<td class="text-nowrap">{{$employee->pincode}}</td>                  
 				<td class="text-nowrap">{{$employee->current_address}}</td>                 
 				<td class="text-nowrap">{{$employee->permanent_address}}</td> 
+				<td class="text-nowrap">{{$employee->pincode}}</td>                  
 				<td class="text-nowrap">
+					@if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
 					<a href="#" title="Edit" class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.hr.employee.addform',Crypt::encrypt($employee->id))}}')"><i class="fa fa-edit"></i></a>
-
-                    <a onclick="callAjax(this,'{{ route('admin.hr.employee.delete',Crypt::encrypt($employee->id)) }}')" button-click="btn_event_type_table_show" success-popup="true" title="Delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
-					
+					@endif
+                    @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
+                    <a onclick="if (confirm('Are you Sure delete')){callAjax(this,'{{ route('admin.hr.employee.delete',Crypt::encrypt($employee->id)) }}') } else{console_Log('cancel') }" button-click="btn_event_type_table_show" success-popup="true" title="Delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+					@endif
 				</td>
 				 
 			 </tr>

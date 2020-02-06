@@ -28,7 +28,7 @@
 						<button class="btn btn-default btn-xs" style="width:60px" success-popup="true" button-click="btn_homework_table_show" onclick="callAjax(this,'{{ route('admin.api.status',[$smsApi->id,2]) }}')">Inactive</i></button>
 						@endif
                          <a href="#" onclick="callPopupLarge(this,'{{ route('admin.api.test.message',2) }}')" title="Test Message" class="btn btn-warning btn-xs">Test Message</a>
-                        @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) 
+                        @if(App\Helper\MyFuncs::menuPermission()->w_status == 1) 
 						<button class="btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.api.emailApiAdd',Crypt::encrypt($smsApi->id))}}')" title="Edit"><i class="fa fa-edit"></i></button>
 						@endif
 

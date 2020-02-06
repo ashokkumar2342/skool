@@ -31,10 +31,10 @@
                           <td>{{ $financeYear->end_date }}</td> 
                           <td>{{ $financeYear->description }}</td> 
                           <td>
-                            @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
+                            @if(App\Helper\MyFuncs::menuPermission()->r_status == 1)
                                <a href="#" class="btn btn-xs btn-info" onclick="callPopupLarge(this,'{{ route('admin.finance.year.add.form',Crypt::encrypt($financeYear->id))}}')"><i class="fa fa-edit"></i></a>
                                 @endif 
-                                @if(App\Helper\MyFuncs::menuPermission()->w_status == 1)
+                                @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
                                <a href="{{ route('admin.finance.year.delete',Crypt::encrypt($financeYear->id))}}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                                 @endif 
                           </td> 

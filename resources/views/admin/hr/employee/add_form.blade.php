@@ -13,15 +13,15 @@
                  <div class="panel-heading" style="font-size: 20px">Employee Details</div>
                    <div class="panel-body">
                      <div class="col-lg-3 form-group">
-                         <label>Employee Code</label>
+                         <label>Employee Code</label><span class="fa fa-asterisk"></span>
                          <input type="text" name="employee_code" class="form-control" maxlength="6" value="{{ @$Employee->code }}"> 
                      </div>
                      <div class="col-lg-3 form-group">
-                         <label>Date of Joining</label>
+                         <label>Date of Joining</label><span class="fa fa-asterisk"></span>
                          <input type="date" name="date_of_joining" class="form-control" value="{{ @$Employee->date_of_joining }}"> 
                      </div>
                      <div class="col-lg-3 form-group">
-                         <label>Department</label>
+                         <label>Department</label><span class="fa fa-asterisk"></span>
                          <select name="department" class="form-control">
                              <option selected disabled>Select Department</option> 
                              @foreach ($Departments as $Department)
@@ -30,7 +30,7 @@
                           </select> 
                      </div>
                      <div class="col-lg-3 form-group">
-                         <label>Designation</label>
+                         <label>Designation</label><span class="fa fa-asterisk"></span>
                          <select name="designation" class="form-control">
                              <option selected disabled>Select Designation</option> 
                              @foreach ($Designations as $Designations)
@@ -39,7 +39,7 @@
                           </select> 
                      </div>
                      <div class="col-lg-3 form-group">
-                         <label>Group</label>
+                         <label>Group</label><span class="fa fa-asterisk"></span>
                          <select name="group" class="form-control">
                              <option selected disabled>Select Group</option> 
                              @foreach ($groups as $group)
@@ -48,11 +48,11 @@
                           </select> 
                      </div>
                      <div class="col-lg-3 form-group">
-                         <label>Qualification</label>
+                         <label>Qualification</label><span class="fa fa-asterisk"></span>
                          <input type="text" name="qualification" class="form-control" maxlength="50" placeholder="Enter Qualification" value="{{ @$Employee->qualification }}"> 
                      </div>
                      <div class="col-lg-3 form-group">
-                         <label>Experience</label>
+                         <label>Experience</label><span class="fa fa-asterisk"></span>
                          <select name="experience" class="form-control">
                              <option selected disabled>Select Experience</option> 
                              @foreach ($experiences as $experience)
@@ -61,7 +61,7 @@
                           </select> 
                      </div>
                      <div class="col-lg-3 form-group">
-                         <label>Role</label>
+                         <label>Role</label><span class="fa fa-asterisk"></span>
                          <select name="role" class="form-control select2">
                              <option selected disabled>Select User</option> 
                              @foreach ($admins as $admin)
@@ -77,19 +77,19 @@
                       <div class="panel-heading" style="font-size: 20px">Personal Details</div>
                          <div class="panel-body">
                             <div class="col-lg-12 form-group">
-                                <label>Name</label>
+                                <label>Name</label><span class="fa fa-asterisk"></span>
                                 <input type="text" name="name" class="form-control" maxlength="50" placeholder="Enter Name" value="{{ @$Employee->name }}"> 
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label>Last Name</label>
+                                <label>Last Name</label><span class="fa fa-asterisk"></span>
                                 <input type="text"  name="Last_name" class="form-control" maxlength="50" placeholder="Enter Last Name" value="{{ @$Employee->Last_name }}"> 
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label>Date of Birth</label>
+                                <label>Date of Birth</label><span class="fa fa-asterisk"></span>
                                 <input type="date"  name="dob" class="form-control" maxlength="50" placeholder="Enter Last Name" value="{{ @$Employee->date_of_birth }}"> 
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label>Gender</label>
+                                <label>Gender</label><span class="fa fa-asterisk"></span>
                                 <select name="gender" class="form-control">
                                     <option selected disabled>Select Gender</option>
                                     @foreach ($genders as $gender)
@@ -98,19 +98,19 @@
                                 </select>
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label>Aadhaar No.</label>
+                                <label>Aadhaar No.</label><span class="fa fa-asterisk"></span>
                                 <input type="text" name="aadhaar_no" class="form-control" maxlength="10" placeholder="Enter Aadhaar No." value="{{ @$Employee->aadhaar_no }}"> 
                             </div>
                             <div class="col-lg-12 form-group">
-                                <label>Pan No.</label>
+                                <label>Pan No.</label><span class="fa fa-asterisk"></span>
                                 <input type="text" name="pan_no" class="form-control"  maxlength="20" placeholder="Enter Pan No." value="{{ @$Employee->pan_number }}"> 
                             </div> 
                             <div class="col-lg-12 form-group">
-                                <label>PF Account No.</label>
+                                <label>PF Account No.</label><span class="fa fa-asterisk"></span>
                                 <input type="text" name="pf_account_no" class="form-control" maxlength="20" placeholder="Enter PF Account No." value="{{ @$Employee->pf_account_number }}"> 
                             </div>
                             <div class="col-lg-12 form-group">
-                                <label>ESI</label>
+                                <label>ESI</label><span class="fa fa-asterisk"></span>
                                 <input type="text" name="esi" class="form-control" maxlength="20" placeholder="Enter ESI" value="{{ @$Employee->esi }}"> 
                             </div>
                          </div>
@@ -121,42 +121,42 @@
                        <div class="panel-heading" style="font-size: 20px">Contact Details</div>
                           <div class="panel-body">
                             <div class="col-lg-6 form-group">
-                                <label>Mobile No.</label>
+                                <label>Mobile No.</label><span class="fa fa-asterisk"></span>
                                 <input type="text" name="mobile_no" class="form-control" placeholder="Enter Mobile No" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="{{ @$Employee->mobile_no }}"> 
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label>Contact No.</label>
+                                <label>Contact No.</label><span class="fa fa-asterisk"></span>
                                 <input type="text" name="contact_no" class="form-control" placeholder="Enter Contact No" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="{{ @$Employee->contact_no }}"> 
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label>Email</label>
+                                <label>Email</label><span class="fa fa-asterisk"></span>
                                 <input type="email" name="email" class="form-control" placeholder="Enter Email" maxlength="100" value="{{ @$Employee->email }}"> 
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label>Country</label>
+                                <label>Country</label><span class="fa fa-asterisk"></span>
                                 <select name="country" class="form-control" placeholder="Enter country">
                                     <option value="1"{{ @$Employee->country==1?'selected': '' }}>India</option>
                                     <option value="0"{{ @$Employee->country==0?'selected': '' }}>Other Country</option> 
                                 </select>
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label>State</label>
+                                <label>State</label><span class="fa fa-asterisk"></span>
                                 <input type="text" name="state" class="form-control" placeholder="Enter State" maxlength="100" value="{{ @$Employee->state }}"> 
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label>City</label>
+                                <label>City</label><span class="fa fa-asterisk"></span>
                                 <input type="text" name="city" class="form-control" placeholder="Enter City" maxlength="100" value="{{ @$Employee->city }}"> 
                             </div>
                             <div class="col-lg-12 form-group">
-                                <label>Current Address</label>
+                                <label>Current Address</label><span class="fa fa-asterisk"></span>
                                 <textarea name="current_address" class="form-control" style="height: 36px" maxlength="200" placeholder="Enter Current Address">{{ @$Employee->current_address }}</textarea>
                             </div>
                             <div class="col-lg-12 form-group">
-                                <label>Permanent Address</label>
+                                <label>Permanent Address</label><span class="fa fa-asterisk"></span>
                                 <textarea name="permanent_address" class="form-control" style="height: 36px" maxlength="200" placeholder="Enter Permanent Address">{{ @$Employee->permanent_address }}</textarea>
                             </div>
                             <div class="col-lg-12 form-group">
-                                <label>Pincode</label>
+                                <label>Pincode</label><span class="fa fa-asterisk"></span>
                                 <input type="text" name="pincode" class="form-control" placeholder="Enter City" maxlength="6" value="{{ @$Employee->pincode }}"> 
                             </div> 
                           </div>

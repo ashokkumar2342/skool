@@ -14,8 +14,7 @@
 			<td>{{ $EmployeeBasicSalary->basic_salary or ''}}</td>
 			<td>{{ date('d-m-Y',strtotime($EmployeeBasicSalary->from_date))}}</td>
 			<td>{{ date('d-m-Y',strtotime($EmployeeBasicSalary->to_date))}}</td>
-		</tr>
-			 
+		</tr> 
 		@endforeach
 	</tbody>
 </table>
