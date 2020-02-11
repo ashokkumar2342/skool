@@ -487,17 +487,6 @@ class StudentController extends Controller
         $student->save();
         return response()->json(['success'=>'done']);
     
-        
-        // $file = $request->file('image');
-
-        // $file->store('student/profile');
-        // $student->picture = $file->hashName();
-        // if($student->save()){  
-        // return response()->json(['success'=>'done']);
-
-        //     return redirect()->route('admin.student.view',$student->id)->with(['class'=>'success','message'=>'student registration success ...']);
-        // }
-        // return redirect()->back()->with(['class'=>'error','message'=>'Whoops ! Look like somthing went wrong ..']);
     }
     /**
      * Show the form for editing the specified resource.
