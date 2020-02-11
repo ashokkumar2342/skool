@@ -112,6 +112,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> 
  <script src={!! asset('admin_asset/dist/js/summernote.js?ver=1') !!}></script>
  <script src={!! asset('admin_asset/dist/js/croppie.js?ver=1') !!}></script>
+ <script src={!! asset('admin_asset/dist/js/loader.js') !!}></script>
    
 {{--     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> --}}
 
