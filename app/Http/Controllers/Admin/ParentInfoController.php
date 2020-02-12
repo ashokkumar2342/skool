@@ -66,11 +66,11 @@ class ParentInfoController extends Controller
           return view('admin.student.studentdetails.include.add_parents_image',compact('parent_id'));
         
     }
-    public function imageStore(Request $request)
-    {
+    public function imageStore(Request $request,$parent_id)
+    { 
        
          $rules=[
-            'image' => 'required|mimes:jpeg,jpg,png|max:200',
+            'image' => 'required',
 
               
         ];
@@ -83,18 +83,31 @@ class ParentInfoController extends Controller
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
         } 
-        if ($request->hasFile('image')) { 
-            $profilePhoto=$request->image;
-            $filename='parent'.date('d-m-Y').time().'.jpg'; 
-            $path ='student/profile/parent/';
-            $profilePhoto->storeAs($path,$filename); 
-            $parentsinfo=ParentsInfo::find($request->parent_id); 
-            $parentsinfo->photo=$path.$filename; 
-            $parentsinfo->save(); 
-            $response=['status'=>1,'msg'=>'Upload Successfully'];
-            return response()->json($response); 
-        }
-           
+       
+            // $profilePhoto=$request->image;
+            // $filename='parent'.date('d-m-Y').time().'.jpg'; 
+            // $path ='student/profile/parent/';
+            // $profilePhoto->storeAs($path,$filename); 
+            // $parentsinfo=ParentsInfo::find($request->parent_id); 
+            // $parentsinfo->photo=$path.$filename; 
+            // $parentsinfo->save(); 
+            // $response=['status'=>1,'msg'=>'Upload Successfully'];
+            // return response()->json($response); 
+
+            $parentsinfo=ParentsInfo::find($parent_id); 
+            $data = $request->image; 
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $data = base64_decode($data);
+            $image_name= time().'.jpg';       
+            $path = Storage_path() . "/app/student/profile/parent/" . $image_name; 
+            $pathSave = "student/profile/parent/" . $image_name; 
+            @mkdir(Storage_path() . "/app/student/profile/parent/", 0755, true);     
+            file_put_contents($path, $data); 
+            $parentsinfo->photo = $pathSave;
+            $parentsinfo->save();
+            return response()->json(['success'=>'done']);
+      
 
         
     }

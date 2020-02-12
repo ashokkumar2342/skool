@@ -61,10 +61,10 @@
                  @php
                   $image = route('admin.parents.image.show',$parent->parentInfo->id); 
                   @endphp 
-                  <img  class="profile-user-img img-responsive img-circle" src="{{ ($image)? $image : asset('profile-img/user.png') }}" alt="{{ $parent->name }}" width="103px" height="103px" style="float: right; border:solid 2px Black" onclick="callPopupLarge(this,'{{ route('admin.parents.image',$parent->parentInfo->id) }}')">
+                  <img  class="profile-user-img img-responsive img-circle" src="{{ ($image)? $image : asset('profile-img/user.png') }}?{{ time() }}" alt="{{ $parent->name }}" width="103px" height="103px" style="float: right; border:solid 2px Black" onclick="callPopupLarge(this,'{{ route('admin.parents.image',$parent->parentInfo->id) }}')">
                   </div> 
                   <div style="margin-top: 100px;">
-                    <button type="button" title="Upload Image" class="btn_parents_image btn btn-info btn-xs" onclick="callPopupLarge(this,'{{ route('admin.parents.image',$parent->parentInfo->id) }}')" style="float: right;margin:14px"><i class="fa fa-image"></i>Image Upload</button>
+                    <button type="button" title="Upload Image" class="btn_parents_image btn btn-info btn-xs" crop-image="parent_image" onclick="callPopupLarge(this,'{{ route('admin.parents.image',$parent->parentInfo->id) }}')" style="float: right;margin:14px"><i class="fa fa-image"></i>Image Upload</button>
                         <a class="btn_web btn btn-default btn-xs" onclick="callPopupMd(this,'{{ route('admin.student.camera',$parent->parentInfo->id) }}')" href="javascript:;" style="float: right;margin-top: 14px"><i class="fa fa-camera"></i></a> 
                   </div> 
               </div>

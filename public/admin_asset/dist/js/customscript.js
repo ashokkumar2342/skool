@@ -264,7 +264,8 @@ function callPopupLarge(obj,url){
 			}
 			if(obj.getAttribute('crop-image'))
 			{  
-				$uploadCrop=$('#upload-demo').croppie({
+				var name = obj.getAttribute('crop-image')
+				$uploadCrop=$('#'+name).croppie({
 				    enableExif: true,
 				    viewport: {
 				        width: 200,
@@ -601,7 +602,8 @@ function callchildTable(url,divId,tableId){
  	      url: url,
  	      type: "POST",
  	      data: {"image":resp},
- 	      success: function (data) {        
+ 	      success: function (data) {   
+ 	      successMsg("Image Save Successfully")     
  	       var myStr = btnId;
            	var strArray = myStr.split(",");
            
