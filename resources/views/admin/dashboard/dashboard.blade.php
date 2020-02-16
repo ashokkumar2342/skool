@@ -585,7 +585,7 @@
           $studentFeePaid=App\Model\StudentFeeDetail::where('paid',1)->where('due_month',date('m',strtotime($uptoMonthYea)))->where('due_year',date('Y',strtotime($uptoMonthYea)))->sum('fee_amount');
           $studentFeeDue=App\Model\StudentFeeDetail::where('paid',0)->where('due_month',date('m',strtotime($uptoMonthYea)))->where('due_year',date('Y',strtotime($uptoMonthYea)))->sum('fee_amount');
         @endphp
-        ['{{ date('M',strtotime($uptoMonthYea))}}-{{ date('Y',strtotime($uptoMonthYea))}}', {{ $studentFeePaid }}, {{ $studentFeeDue }}],
+        ['{{ date('M',strtotime($uptoMonthYea))}}', {{ $studentFeePaid }}, {{ $studentFeeDue }}],
         @endforeach
               
             ]);
