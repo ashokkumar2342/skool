@@ -488,6 +488,7 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::group(['prefix' => 'homework'], function() {
 	    Route::get('/', 'HomeworkController@index')->name('admin.homework.list');	 	
 	    Route::post('add', 'HomeworkController@store')->name('admin.homework.post');
+	    Route::get('form', 'HomeworkController@form')->name('admin.homework.form');	
 	    Route::get('view/{id}', 'HomeworkController@view')->name('admin.homework.view');
 	    Route::get('delete/{id}', 'HomeworkController@destroy')->name('admin.homework.delete');
 	    Route::get('search', 'HomeworkController@search')->name('admin.homework.search');
@@ -678,7 +679,7 @@ Route::group(['middleware' => 'admin'], function() {
     	 //------------------------- Fee Collection --------------------------------- 
     	Route::group(['prefix' => 'fee-collection'], function() {
     	    Route::get('/', 'Fee\FeeCollectionController@index')->name('admin.studentFeeCollection.list');	 	
-    	    // Route::get('/', 'Fee\FeeCollectionController@feePaidUpto')->name('admin.studentFeeCollection.fee_paid_upto');	 	
+    	    Route::get('student-search', 'Fee\FeeCollectionController@studentSearch')->name('admin.studentFeeCollection.student.serch');	 	
     	    Route::post('show', 'Fee\FeeCollectionController@show')->name('admin.studentFeeCollection.show');
     	    Route::get('show-fee-detail', 'Fee\FeeCollectionController@showfeedetail')->name('admin.studentFeeCollection.showFeeDetail');
 

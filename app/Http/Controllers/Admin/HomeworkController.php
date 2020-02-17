@@ -36,6 +36,13 @@ class HomeworkController extends Controller
 
        return view('admin.homework.list',compact('classes','homeworks'));
     }
+    public function form()
+    {
+        $classTypes = MyFuncs::getClassByHasUser();    
+        $homeworks = Homework::where('date',date('Y-m-d'))->paginate(10);
+
+       return view('admin.homework.form',compact('classTypes','homeworks'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -57,6 +64,8 @@ class HomeworkController extends Controller
     { 
           $rules=[
         
+        'class' => 'required',
+        'section_id' => 'required',
         'homework_doc' => 'nullable|mimes:pdf|max:2048',
         ];
 
@@ -70,7 +79,7 @@ class HomeworkController extends Controller
         }  else {
                     $homework = new Homework();
                     $homework->class_id = $request->class;
-                    $homework->section_id = $request->section;
+                    $homework->section_id = $request->section_id;
                     $homework->homework = $request->homework;
                     $homework->date = $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
                      if ($request->file('homework_doc')!=null) {
