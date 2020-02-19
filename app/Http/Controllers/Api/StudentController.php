@@ -172,23 +172,31 @@ class StudentController extends Controller
             
             $admin = Admin::orWhere('email',$request->email)->orWhere('mobile',$request->email)->where('status',1)->first();
 
-              
-                if (Hash::check($request->password, $admin->password)) {
-                    auth()->guard('admin')->loginUsingId($admin->id);
-                    $data=array();
-                    $data['status']=1;
-                    $data['id']=$admin->id; 
-                    $data['role_id']=$admin->role_id; 
-                    return $data;
+             if (!empty($admin)){
+                    if (Hash::check($request->password, $admin->password)) {
+                        auth()->guard('admin')->loginUsingId($admin->id);
+                        $data=array();
+                        $data['status']=1;
+                        $data['id']=$admin->id; 
+                        $data['role_id']=$admin->role_id; 
+                        return $data;
 
-                } else {
+                    } else {
+                    $data=array();
+                    $data['status']=0;
+                    $data['data']='null';
+                    return $data;
+                    }
+                 }
+                 else {
                     $data=array();
                     $data['status']=0;
                     $data['data']='null';
                     return $data;
                 }
-              
-              
+
+             
+             
             // return $student =Student::where('email',$request->email)->first(); 
             
         } catch (Exception $e) {
