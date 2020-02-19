@@ -6,47 +6,14 @@
       </ol>
 </section>
     <section class="content">
-        <div class="box">             
-            <!-- /.box-header -->
-            <div class="box-body">             
-                <div class="col-md-12">    
-                <form action="{{ route('admin.homework.post') }}" class="add_form" no-reset="false" method="post" content-refresh="homework_table">
-                {{ csrf_field() }}                                      
-                   <div class="col-lg-2">                         
-                      <div class="form-group">
-                          {!! Form::select('class',$classes, '', ['class'=>'form-control', 'id'=>'class' ,'placeholder'=>'Select Class','required']) !!}
-                          <p class="text-danger">{{ $errors->first('session') }}</p>
-                      </div>
-                       <div class="form-group">
-                          {!! Form::select('section',[], null, ['class'=>'form-control','id'=>'section','placeholder'=>'Select Section','required']) !!}
-                          <p class="text-danger">{{ $errors->first('section') }}</p>
-                        </div>
-                        <div class="form-group">
-                          {!! Form::text('date', date('d-m-Y')  , ['class'=>'form-control datepicker','id'=>'date','placeholder'=>'Date','required']) !!}
-                          <p class="text-danger">{{ $errors->first('section') }}</p>
-                        </div>
-                        <div class="form-group">
-                          {!! Form::file('homework_doc', ['class'=>'form-control','id'=>'homework_doc','placeholder'=>'homework_doc']) !!}
-                          <p class="text-danger">{{ $errors->first('homework_doc') }}</p>
-                        </div>
-                    </div>                     
-                    <div class="col-lg-10">                         
-                        <div class="form-group">
-                          {{ Form::textarea('homework','',['class'=>'form-control','id'=>'homework','rows'=>4, 'placeholder'=>'Enter Homework']) }}
-                          <p class="text-danger">{{ $errors->first('homework') }}</p>
-                        </div>
-                    </div>
-                </div>  
-            <div class="row">
-                 <div class="col-md-12 text-center">
-                     <button class="btn btn-success" type="submit" id="btn_homework">Create Homework</button>
-                 </div>
-             </div>                     
-           </form>
-            </div>
-            <!-- /.box-body -->
+        <div class="box"> 
+            <div class="box-body">
+              <button type="hidden" class="btn btn-default hidden" id="btn_homework_form" text-editor="summernote" onclick="callAjax(this,'{{ route('admin.homework.form') }}','page_homework_form')">show</button>
           </div>
-          <!-- /.box -->
+          <div id="page_homework_form">
+            
+          </div>
+        </div>
 
             <div class="box">             
               <!-- /.box-header -->
@@ -85,13 +52,13 @@
                                     <input type="text" hidden="" name="class_id[]" value="{{ $homework->class_id }}">
                                     <td>{{ $homework->sectionTypes->name }}</td>
                                     <input type="text" hidden name="section_id[]" value="{{ $homework->section_id }}">
-                                    <td>{{ $homework->homework }}</td>
+                                    <td>{!! $homework->homework !!}</td>
                                     <td>
                                         <a href="{{ url('storage/homework/'.$homework->homework_doc) }}" target="blank" title="Download" class="btn_parents_image btn btn-success btn-xs {{ $homework->homework_doc==null?'disabled':'' }}">
                                            <i class="fa fa-download "></i>
                                         </a> 
 
-                                        <a href="#" onclick="callPopupLarge(this,'{{ route('admin.homework.view',$homework->id) }}')" target="blank" title="View" class="btn_parents_image btn btn-info btn-xs" ><i class="fa fa-eye"></i></button></a>
+                                        <a href="#" onclick="callPopupLarge(this,'{{ route('admin.homework.view',$homework->id) }}')"  title="View" class="btn_parents_image btn btn-info btn-xs" ><i class="fa fa-eye"></i></button></a>
 
                                         {{--  @if(App\Helper\MyFuncs::menuPermission()->r_status == 1)
                                         <button type="button" class="btn_parents_image btn btn-info btn-xs" data-toggle="modal" data-id="{{ $homework->id }}" data-target="#image_parent"><i class="fa fa-eye"></i> </button>
@@ -137,12 +104,11 @@
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
  <script type="text/javascript"> 
-   // $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
-    // $(document).ready( function () {
-    //     $('#homework_table').DataTable();
+   
+     $('#btn_homework_form').click();
        
-    // } )
-    $("#class").change(function(){ 
+ 
+    $("#classes").change(function(){ 
         $('#section').html('<option value="">Searching ...</option>');
         $.ajax({
           method: "get",

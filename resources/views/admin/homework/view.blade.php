@@ -19,7 +19,7 @@
       <div class="modal-body">
 
            
-           <b> {{ $homework->homework }}  </b>   
+           <b> {!! $homework->homework !!}  </b>   
          
         
         
