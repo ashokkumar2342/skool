@@ -554,7 +554,7 @@
 
           function drawChart() {
             var data = google.visualization.arrayToDataTable([
-              ['Month',  'Paid Fee', 'Due Fee'],
+              ['Month',  'Paid Fee ', 'Due Fee '],
         @php
         $academic=new App\Helper\MyFuncs();
         $uptoMonthYear=$academic->getMonthYear();
@@ -590,7 +590,7 @@
 
           function drawChart() {
             var data = google.visualization.arrayToDataTable([
-              ['Classes',  'Present', 'Absent'],
+              ['Classes',  'Present ', 'Absent '],
         @foreach ($classTypes as $classType)
            @php
               $students=App\Student::where('class_id',$classType->id)->pluck('id')->toArray();
