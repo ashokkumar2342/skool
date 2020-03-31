@@ -13,12 +13,12 @@ class StudentSearchController extends Controller
      }
 
     public function search(Request $request){
-     	$search = $request->input('search');
+     	$search = $request->id;
         $st=new Student();
         $students=$st->getStudentsSearchDetilas($search);  
  	     
- 	       $data = view('admin.finance.feecollection.stuentSearchTable',compact('students'))->render();
-           return response()->json($data);
+ 	   return view('admin.finance.feecollection.stuentSearchTable',compact('students'));
+            
   		// return response()->json(['students'=>$students]);
  	    }
       

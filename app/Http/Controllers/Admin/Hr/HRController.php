@@ -72,7 +72,7 @@ class HRController extends Controller
 				$employees->gender_id=$request->gender; 
                 $employees->aadhaar_no=$request->aadhaar_no;
 				$employees->pan_number=$request->pan_no;
-                $employees->pf_account_number=$request->pf_account_number; 
+                $employees->pf_account_number=$request->pf_account_no; 
                 $employees->esi=$request->esi; 
                 $employees->mobile_no=$request->mobile_no; 
                 $employees->contact_no=$request->contact_no; 

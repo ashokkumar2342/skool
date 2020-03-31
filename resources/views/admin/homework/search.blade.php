@@ -18,7 +18,7 @@
                                     <input type="text" hidden="" name="class_id[]" value="{{ $homework->class_id }}">
                                     <td>{{ $homework->sectionTypes->name or ''}}</td>
                                     <input type="text" hidden name="section_id[]" value="{{ $homework->section_id }}">
-                                    <td>{{ $homework->homework }}</td>
+                                    <td>{!! $homework->homework !!}</td>
                                     <td>
                                         <a href="{{ url('storage/homework/'.$homework->homework_doc) }}" target="blank" title=""><button type="button" class="btn_parents_image btn btn-success btn-xs"><i class="fa fa-download"></i> </button></a> 
 

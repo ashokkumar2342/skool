@@ -27,7 +27,7 @@ class Employee extends Model
     }
     public function experiences($value='')
     {
-    	 return $this->hasOne('App\Model\Hr\Experience','id','experience');
+    	 return $this->hasOne('App\Model\Hr\Experience','id','experience_id');
     }
     public function genders($value='')
     {

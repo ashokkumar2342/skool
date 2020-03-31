@@ -656,6 +656,9 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::put('update', 'StudentFeeDetailController@update')->name('admin.studentFeeDetail.update');
     	    Route::get('assign', 'StudentFeeDetailController@feeassignlist')->name('admin.studentFeeAssign.list');
     	    Route::post('assign/show/{menu_id}', 'StudentFeeDetailController@feeassignshow')->name('admin.studentFeeAssign.show');
+    	    Route::get('search', 'StudentFeeDetailController@feeassignSearch')->name('admin.studentFeeAssign.search');
+    	    Route::get('search-list', 'StudentFeeDetailController@feeassignSearchList')->name('admin.studentFeeAssign.search.list');
+    	    Route::get('search-list-select/{menu}', 'StudentFeeDetailController@feeassignSearchListSelect')->name('admin.studentFeeAssign.search.list.select');
     	    Route::post('assign/store', 'StudentFeeDetailController@assignstore')->name('admin.studentFeeAssign.post');
     	    Route::get('show-fee-struture-model/{id}', 'StudentFeeDetailController@showFeeStructureModel')->name('admin.studentFeeStructure.show.model');
     	    Route::get('show-fee-struture-amount', 'StudentFeeDetailController@showFeeStructureAmount')->name('admin.studentFeeStructure.show.amount');
@@ -759,7 +762,7 @@ Route::group(['middleware' => 'admin'], function() {
     	 //------------------------- Student Search --------------------------------- 
     	Route::group(['prefix' => 'search'], function() {
     	    Route::get('/', 'StudentSearchController@index')->name('admin.student.search.form');	 	
-    	    Route::post('data', 'StudentSearchController@search')->name('admin.student.search');	 	
+    	    Route::get('data', 'StudentSearchController@search')->name('admin.student.search');	 	
     	    Route::get('find', 'StudentSearchController@find')->name('admin.student.find');	 	
     	    
     	 });

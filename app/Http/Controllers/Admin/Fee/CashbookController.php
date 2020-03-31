@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Fee;
 
+use App\Admin;
 use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\Account;
@@ -25,7 +26,7 @@ class CashbookController extends Controller
     {
         // $cashbooks = Cashbook::get();
         $classes = MyFuncs::getClasses();
-        $users = array_pluck(User::get(['name','id'])->toArray(),'name', 'name');
+        $users = array_pluck(Admin::get(['first_name','id'])->toArray(),'first_name', 'name');
         $paymentModes = array_pluck(PaymentMode::get(['name','id'])->toArray(),'name', 'name');
         $accounts = array_pluck(Account::get(['name','id'])->toArray(),'name', 'id');
         

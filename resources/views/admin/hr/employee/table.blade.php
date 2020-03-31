@@ -50,7 +50,7 @@
 			 	<td class="text-nowrap">{{$employee->last_name or ''}}</td>                  
 				<td class="text-nowrap">{{$employee->date_of_birth? date('d-M-Y', strtotime($employee->date_of_birth)) : null}}
 				</td>          
-				<td class="text-nowrap">{{$employee->gender_id}}</td>                  
+				<td class="text-nowrap">{{$employee->genders->genders or ''}}</td>                  
 				<td class="text-nowrap">{{$employee->aadhaar_no}}</td>                  
 				<td class="text-nowrap">{{$employee->pan_number}}</td>                  
 				<td class="text-nowrap">{{$employee->pf_account_number}}</td>                  

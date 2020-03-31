@@ -22,7 +22,7 @@
                       <div class="col-md-2">     
                            <div class="form-group"> 
                              <label >Fee Paid Upto:</label>  
-                             <select name="fee_paid_upto" class="form-control">      
+                             <select name="fee_paid_upto" id="fee_paid_upto" class="form-control">      
                                <option disabled selected>Select Fee Paid Upto</option>
                                @foreach ($uptoMonthYears as $uptoMonthYear)
                                 <option value="{{date('d-m-Y',strtotime($uptoMonthYear)) }}"{{date('d-m-Y',strtotime($uptoMonthYear))==@$upto_month_year?'selected' : '' }}> {{date('M-Y',strtotime($uptoMonthYear)) }} </option>
@@ -32,15 +32,15 @@
                            {{-- <button type="button" id="fee_collection_details_btn" class="btn btn-warning" >Show</button> --}} 
                       </div>                                                     
                      <div class="col-md-2" style="padding-top: 20px;"> 
-                     <input class="btn btn-success" type="submit"  style="width: 115px" value="Show"> 
+                     <input class="btn btn-success" type="submit"  style="width: 115px" value="Show" id="btn_fee_collection_show"> 
                     </div>                     
                   </form> 
                     <div class="col-md-6 text-center" style="padding-top: 20px;">
-                         <button class="btn btn-warning" type="button" id="btn_student_registration_show" data-toggle="modal" data-target="#myModal" style="width: 115px">Search</button> 
+                         <a onclick="callPopupLarge(this,'{{ route('admin.studentFeeCollection.student.serch') }}'+'?fee_paid_upto='+$('#fee_paid_upto').val())" class="btn btn-default" success-popup="true" style="width: 115px">Search</a>
                          <a href="{{ route('admin.cashbook.list') }}" id="btn_student_ledger" class="btn btn-info" style="width: 115px">Ledger</a> 
                          <button class="btn btn-primary" type="button" id="btn_student_ledger" style="width: 115px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Previous Reciept</button>  
                          <button class="btn btn-danger" type="button" id="btn_student_ledger" style="width: 115px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Cancel Reciept</button> 
-                         <button class="btn btn-warning"  type="button" id="btn_student_ledger" data-table="previos_receipt_data_table" style="width: 115px;background-color: #1b11b5" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.search') }}'+'?student_id='+$('#student_id').val())">Reciept Print</button> 
+                         <button class="btn btn-warning"  type="button" id="btn_student_ledger" data-table="previos_receipt_data_table" style="width: 115px;" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.search') }}'+'?student_id='+$('#student_id').val())">Reciept Print</button> 
                     </div> 
                  </div>  
             </div>
@@ -68,47 +68,7 @@
             <!-- /.box -->
 
             <!-- Modal -->
-            <div id="myModal" class="modal fade" role="dialog">
-              <div class="modal-dialog"> 
-                <!-- Modal content-->
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Student Search</h4>
-                  </div>
-                  <div class="modal-body">
-                    <form class="form-vertical" id="search_form"> 
-                      <div class="input-group">
-                        <div class="input-group-addon">  
-                          <i class="fa fa-search"></i>
-                        </div>
-                         <input type="text" class="form-control" onkeyup="studentSearch()" name="search" id="search">
-                         {{ csrf_field() }} 
-                      </div>    
-                    </form>
-                  </div>
-                  <div class="modal-footer" >
-                    <table id="student_search_table"  class="display table"> 
-                        <thead>
-                            <tr>
-                                 
-                                <th>Name</th>
-                                <th>Registration No</th> 
-                                <th>Father's Name</th>                               
-                                <th>Mobile No</th>      
-                                <th>Action</th>                                                            
-                            </tr>
-                        </thead>
-                        <tbody id="searchResult">
-                                                           
-                        </tbody>
-                        
-                    </table>
-                  </div>
-                </div>
-
-              </div>
-            </div> 
+           
     </section>
     <!-- /.content -->
 @endsection
@@ -155,64 +115,9 @@
        
     }
 
-    function studentSearch(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $('#searchResult').show()
-        var search = $('#search').val();
-         
-        $.ajax({
-            url: '{{ route('admin.student.search') }}',
-            type: 'post',
-           
-            data: {'search':search},
-        })
-        .done(function(response) {
-             $('#searchResult').html(response); 
-        })
-        .fail(function() {
-            console.log("error");
-        })
-        .always(function() {
-            console.log("complete");
-        });
-    }
-
-    function studentDetail(studentId){
-       $.ajaxSetup({
-                 headers: {
-                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                 }
-             });
-        $.ajax({
-            url: '{{ route('admin.studentFeeCollection.show') }}',
-            type: 'get',       
-            data: {student_id:studentId} ,
-       })
-       .done(function(response) {
-          $('#fee_collection_detail').html(response);
-          $("#myModal").modal("hide");
-          $('#fee_collection_details_btn').focus();
-          $("#searchResult" ).empty();
-          $("#search_form").trigger( "reset" );
-
-          
-
-
-       })
-       .fail(function() {
-         console.log("error");
-       })
-       .always(function() {
-         console.log("complete");
-       });   
-    }
+    
 
     
-    //fee Collection Print
     function feeCollectionPrint(){
         $.ajaxSetup({
                   headers: {

@@ -41,7 +41,6 @@ class StudentFeeDetailController extends Controller
         // $feeStructurLastDate = array_pluck(FeeStructureLastDate::get(['id','last_date'])->toArray(),'last_date', 'id'); 
         return view('admin.finance.student_fee_detail',compact('studentFeeDetails','acardemicYear','feeStructurLastDate','concession','classess'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -138,12 +137,36 @@ class StudentFeeDetailController extends Controller
        return $studentFeeDetails; 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\StudentFeeDetail  $studentFeeDetail
-     * @return \Illuminate\Http\Response
-     */
+    public function feeassignSearch(Request $request)
+    {
+       $academic_year_id= $request->academic_year_id;
+        return view('admin.finance.student_fee_assign_search',compact('academic_year_id'));
+    }
+    public function feeassignSearchList(Request $request)
+    {
+       $search = $request->id;
+        $st=new Student();
+        $students=$st->getStudentsSearchDetilas($search);  
+         
+       return view('admin.finance.student_search_list',compact('students'));
+    }
+    public function feeassignSearchListSelect(Request $request,$menu_id)
+    {
+        $stuents=Student::where('registration_no',$request->registration_no)->first();
+        if (empty($stuents)) {
+          $response = array();
+          $response['status']=0;
+          $response['msg']='Registration No Invalid'; 
+          return $response;  
+        }
+        $st=new Student();
+        $student=$st->getStudentDetailsById($stuents->id);
+        $studentFeeDetails=DB::select(DB::raw("call up_show_student_fee_detail ('$stuents->id','$request->academic_year_id')"));
+        $menuPermission = Minu::find($menu_id);
+        return view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','feeStructurLastDate','concession','student','menuPermission','fatherDetail','motherDetail','address'));
+        
+    }
+
     public function feeassignshow(Request $request,$menu_id)
     {   $stuents=Student::where('registration_no',$request->student_id)->first();
         if (empty($stuents)) {

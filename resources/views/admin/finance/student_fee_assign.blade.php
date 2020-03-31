@@ -14,7 +14,7 @@
                          <div class="col-lg-4">                           
                              <div class="form-group">
                               {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
-                               {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control','required']) }}
+                               {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control','id'=>'academic_year_id','required']) }}
                                <p class="errorAmount1 text-center alert alert-danger hidden"></p>
                              </div>    
                         </div>
@@ -37,7 +37,7 @@
                       </div>                     
                   </form> 
                   <br>
-                   <button class="btn btn-success" type="button" id="btn_student_registration_show" data-toggle="modal" data-target="#myModal" style="width: 130px">Search</button>
+                   <button class="btn btn-success" type="button" id="btn_student_registration_show" onclick="callPopupLarge(this,'{{ route('admin.studentFeeAssign.search') }}'+'?academic_year_id='+$('#academic_year_id').val())" style="width: 130px">Search</button>
                 </div> 
                 <div id="student_fee_assign_show">
                   
@@ -49,47 +49,7 @@
 
           
           <!-- Modal -->
-          <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog"> 
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Student Search</h4>
-                </div>
-                <div class="modal-body">
-                  <form class="form-vertical" id="search_form"> 
-                    <div class="input-group">
-                      <div class="input-group-addon">  
-                        <i class="fa fa-search"></i>
-                      </div>
-                       <input type="text" class="form-control" onkeyup="studentSearch()" name="search" id="search">
-                       {{ csrf_field() }} 
-                    </div>    
-                  </form>
-                </div>
-                <div class="modal-footer" >
-                  <table id="student_search_table"  class="display table"> 
-                      <thead>
-                          <tr>
-                              <th>Sn</th>
-                              <th>Name</th>
-                              <th>Registration No</th> 
-                              <th>Father's Name</th>                               
-                              <th>Mother's Name</th>      
-                              <th>Action</th>                                                            
-                          </tr>
-                      </thead>
-                      <tbody id="searchResult">
-                                                         
-                      </tbody>
-                      
-                  </table>
-                </div>
-              </div>
-
-            </div>
-          </div> 
+         
            
  
     </section>
@@ -114,56 +74,7 @@
  
  </script>
   <script>
-    function studentSearch(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $('#searchResult').show()
-        var search = $('#search').val();
-         
-        $.ajax({
-            url: '{{ route('admin.student.search') }}',
-            type: 'post',
-           
-            data: {'search':search},
-        })
-        .done(function(response) {
-             $('#searchResult').html(response); 
-        })
-        .fail(function() {
-            console.log("error");
-        })
-        .always(function() {
-            console.log("complete");
-        });
-    }
-
-    // function studentDetail(studentId){
-    //    $.ajaxSetup({
-    //              headers: {
-    //              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //              }
-    //          });
-    //     $.ajax({
-    //         url: '',
-    //         type: 'post',       
-    //         data: {student_id:studentId,academic_year_id:$('#academic_year_id').val()} ,
-    //    })
-    //    .done(function(response) {
-
-    //       $('#student_fee_assign_show').html(response.data);
-    //       $("#myModal").modal("hide");
-        
-    //    })
-    //    .fail(function() {
-    //      console.log("error");
-    //    })
-    //    .always(function() {
-    //      console.log("complete");
-    //    });   
-    // }
+    
 
     $('#btn_student_fee_detail_create').click(function(event) {        
       $.ajaxSetup({

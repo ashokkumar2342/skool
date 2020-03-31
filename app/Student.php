@@ -249,7 +249,7 @@ class Student extends Authenticatable
                ->orWhere('students.admission_no', 'like', '%'.$search.'%')
                // ->orWhere('parents_infos.mobile', 'like', '%'.$search.'%')
                // ->orWhere('addresses.primary_mobile', 'like', '%'.$search.'%')
-               ->get();
+               ->take(10)->get();
                // ->take(10)->distinct('students.id')->get();
             
        } catch (Exception $e) {

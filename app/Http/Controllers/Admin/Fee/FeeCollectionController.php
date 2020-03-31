@@ -57,7 +57,7 @@ class FeeCollectionController extends Controller
     }
 
     // show main form show search stuent form
-    public function show(Request $request){  
+    public function show(Request $request){ 
         $rules=[
              'registration_no' => 'required',
              'fee_paid_upto' => 'required',
@@ -96,9 +96,34 @@ class FeeCollectionController extends Controller
 
 
     // show show all fee deatial
-    public function feeDetail(Request $request){     
-     
-    	
+    public function studentSearch(Request $request){ 
+      $fee_paid_upto=$request->fee_paid_upto;
+    	return view('admin.finance.feecollection.student_search',compact('student','fee_paid_upto'));
+    }
+    public function showfeedetail(Request $request){
+        if ($request->fee_paid_upto=='null') {
+          $response =array();
+          $response['status']=0; 
+          $response["msg"] ='The fee Paid Upto field is required';
+          return $response;
+        }
+       $st=new Student();
+       $student=$st->getDetailByRegistrationNo($request->registration_no);
+       if (empty($student)) {
+          $response =array();
+          $response['status']=0; 
+          $response["msg"] ='Invalid Registration No.';
+          return $response; 
+        } 
+      $user_id=Auth::guard('admin')->user()->id;
+      $month =date('m',strtotime($request->fee_paid_upto));
+      $year =date('Y',strtotime($request->fee_paid_upto));
+      $FeeDetails= DB::select(DB::raw("call up_view_stu_fee_detail ('$student->id','$month','$year')"));
+      $siblings= DB::select(DB::raw("call up_view_stu_sibling_fee_detail ('$student->id','$month','$year')"));
+      $paymentModes=PaymentMode::all();
+      $feedefaultvalue= DefaultFeeValue::where('userid',$user_id)->first(); 
+      return view('admin.finance.feecollection.fee_collection_detail',compact('student','FeeDetails','siblings','paymentModes','month','year','feedefaultvalue'));
+      
     }
 
     // store fee collection form

@@ -239,6 +239,7 @@ class DashboardController extends Controller
         $rules=[
           'old_password' => 'required', 
           'password' => 'required|min:6|max:50', 
+          'confirm_password' => 'required|min:6|max:50', 
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -249,7 +250,12 @@ class DashboardController extends Controller
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
         }
-
+        if ($request->confirm_password!=$request->password) {
+            $response =array();
+            $response['status'] =0;
+            $response['msg'] ='Password Not Match';
+            return $response;
+        }
        $admin=Auth::guard('admin')->user();
         if (Hash::check($request->old_password, $admin->password))
         {
