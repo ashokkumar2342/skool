@@ -106,9 +106,9 @@ class DashboardController extends Controller
     {
         //
     }
-    public function homework(Homework $homework)
-    {         
-        return view('student.homework.view',$homework)->render();      
+    public function homework($homework)
+    {   $homeworkList = Homework::find($homework);                  
+        return view('student.homework.view',compact('homeworkList'));
     }
 
     public function image($image){
