@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Event\EventDetails;
 use App\Admin;
 use App\Http\Controllers\Controller;
+use App\Model\AcademicYear;
+use App\Model\Cashbook;
 use App\Model\ClassType;
+use App\Model\Event\EventDetails;
 use App\Model\Exam\ClassTest;
+use App\Model\Homework;
 use App\Model\ParentRegistration;
 use App\Model\StudentAttendance;
 use App\Model\StudentFeeDetail;
+use App\Model\StudentRemark;
+use App\Model\StudentUserMap;
 use App\Student;
 use App\User;
 use Illuminate\Http\Request;
@@ -30,8 +35,10 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {  
-        $admins=Auth::guard('admin')->user();
+    {  $admins=Auth::guard('admin')->user();
+        if ($admins->role_id==1) {
+        //Administrator
+            
         $date = date('Y-m-d');
         $present = StudentAttendance::where('attendance_type_id',1)
                     ->Where('date',$date)
@@ -50,13 +57,70 @@ class DashboardController extends Controller
         $feeDues = StudentFeeDetail::where('paid',0)->get()->sum('fee_amount');                      
          $feePaid = StudentFeeDetail::where('paid',1)->get()->sum('fee_amount');
          $classTypes=ClassType::orderBy('id','ASC')->get(); 
-        
-        if ($admins->role_id==1) {
-        //Administrator
             return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','feeDues','feePaid','classTypes','students','admins'));
         }elseif($admins->role_id==12) {
         //student    
-            return view('admin/dashboard/student_dashboard');
+        $student = Auth::guard('admin')->user();
+        $studentUser = StudentUserMap::where('userid',$student->id)->first();
+        $student_id = $studentUser->student_id;
+        $date = date('Y-m-d');
+        $year = date('Y');
+        $firstDay = date('d')-1;
+   
+        $sessionDate =  AcademicYear::find(1)->start_date;
+        $monthOfFirstDate = date('Y-m-d',strtotime($date ."-".$firstDay." days"));
+        
+        
+     
+         $monthly=date('Y-m-d',strtotime($date ."-30 days"));
+         $weekly=date('Y-m-d',strtotime($date ."-7 days")); 
+
+         $cashbook = new Cashbook(); 
+         $cashbooks = $cashbook->getCashbookFeeByStudentId($student_id,$sessionDate,$date);
+         $lastFee = $cashbook->getLastFeeByStudentId($student_id);
+         $studentFeeDetail = new StudentFeeDetail();
+         // $studentFeeDetails = $studentFeeDetail->getFeeDetailsNextByStudentId($student_id);
+
+
+         $monthlyPresent = StudentAttendance::where('attendance_type_id',1)
+                    ->where('student_id', $student_id)
+                    ->whereBetween('date', [$monthly, $date])
+                    ->OrWhere('attendance_type_id',3)
+                    ->OrWhere('attendance_type_id',4)->count();
+        $monthlyAbsent = StudentAttendance::where('attendance_type_id',2) 
+                    ->where('student_id', $student_id)
+                    ->whereBetween('date', [$monthly, $date])
+                    ->count();
+        $weeklyPresent = StudentAttendance::where('attendance_type_id',1)
+                    ->where('student_id', $student_id)
+                    ->whereBetween('date', [$weekly, $date])
+                    ->OrWhere('attendance_type_id',3)
+                    ->OrWhere('attendance_type_id',4)->count();            
+        $weeklyAbsent = StudentAttendance::where('attendance_type_id',2) 
+                    ->where('student_id', $student_id)
+                    ->whereBetween('date', [$weekly, $date])
+                    ->count();
+       $workingDays = StudentAttendance::where('student_id', $student_id)
+                    ->whereBetween('date', [$monthOfFirstDate, $date])
+                   ->count();
+        $tillPresent = StudentAttendance::where('attendance_type_id',1)
+                            ->where('student_id', $student_id)
+                            ->whereBetween('date', [$sessionDate, $date])
+                            ->OrWhere('attendance_type_id',3)
+                            ->OrWhere('attendance_type_id',4)->count();
+        $tillAbsent = StudentAttendance::where('attendance_type_id',2) 
+                    ->where('student_id', $student_id)
+                    ->whereBetween('date', [$sessionDate, $date])
+                    ->count();
+        $studentclse=Student::find($student_id);          
+        $classTests = ClassTest::where('class_id',$studentclse->class_id)->where('section_id',$studentclse->section_id)->orderBy('created_at','desc')->take(10)->get();              
+       $homeworks = Homework::where('class_id',$studentclse->class_id)->where('section_id',$studentclse->section_id)->orderBy('created_at','desc')->take(10)->get();            
+        
+        // $students = Student::where('status',1)->count();
+         
+         $studentRemarks=StudentRemark::where('student_id',$student->id)->take(10)->get();
+        
+            return view('admin/dashboard/student_dashboard',compact('students','monthlyPresent','monthlyAbsent','weeklyPresent','weeklyAbsent','workingDays','tillPresent','tillAbsent','cashbooks','homeworks','classTests','studentRemarks','lastFee'));
         }elseif($admins->role_id==2) {
         //Chairman
             return view('admin/dashboard/dashboard_'.'2');
@@ -75,7 +139,7 @@ class DashboardController extends Controller
         }elseif($admins->role_id==7) {
         //Transport Manager    
             return view('admin/dashboard/dashboard_'.'7');
-        }elseif($admins->role_id==8) {
+        }elseif($admins->role_id==8){ 
         //Account Officer    
             return view('admin/dashboard/dashboard_'.'8');
         }elseif($admins->role_id==9) {

@@ -16,7 +16,7 @@
       <div class="modal-body">
        <div class="row"> 
         <div class="col-md-12"> 
-          <p>{{ $homework }}</p>
+          <p>{!! $homeworkList->homework !!}</p>
         </div> 
       </div>
     </div>
