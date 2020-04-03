@@ -61,6 +61,43 @@
               <li class="footer"><a href="#">See All Messages</a></li>
             </ul>
           </li>
+          @php
+            $userIdBySibling=new App\Helper\MyFuncs();    
+           $siblings= $userIdBySibling->getSiblingById(); 
+           $students=App\Student::whereIn('id',$siblings)->get();
+          @endphp
+          <li class="dropdown messages-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sibling <i class="fa fa-users"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 4 Student</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                   
+                  @foreach ($students as $student)
+                    @php
+                    $admin=App\Admin::where('id',$notification->user_id)->first();
+                     $profile = route('admin.profile.photo.show',$admin->profile_pic); 
+                   @endphp
+                  <li><!-- start message -->
+                    <a href="{{ $student->link }}">
+                      <div class="pull-left">
+                        <img src="{{ $profile }}" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        {{ $student->name}}
+                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                      </h4>
+                      <p>{{ $student->message }}</p>
+                    </a>
+                  </li>
+                  @endforeach
+                </ul>
+              </li>
+              <li class="footer"><a href="#">See All Messages</a></li>
+            </ul>
+          </li>
             <button type="hidden" class="hidden" id="admin_photo_refrash" onclick="callAjax(this,'{{ route('admin.profile.photo.refrash') }}','photo_refrash')">img Shoe</button>
             <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 

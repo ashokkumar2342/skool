@@ -11,6 +11,7 @@ use App\Model\Section;
 use App\Model\SectionType;
 use App\Model\SubMenu;
 use App\Model\UserClassType;
+use App\Model\StudentUserMap;
 use Illuminate\Support\Facades\Auth;
 use DateTime;
 use DateInterval;
@@ -602,6 +603,13 @@ class MyFuncs {
           $yearmonths[]=$dt->format("d-m-Y");
       }
       return $yearmonths;
+  } 
+   public function getSiblingById()
+  { 
+    $student = Auth::guard('admin')->user();  
+      $userIdBySibling =new StudentUserMap();
+      return $userIdBySibling->userIdBySibling($student->id);
   }
+
 
 }
