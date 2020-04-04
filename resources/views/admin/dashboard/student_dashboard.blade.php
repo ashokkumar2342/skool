@@ -132,10 +132,10 @@ Dashboard
             </div>
         </div>
         <div class="col-lg-6">
-            <div class="box box-danger no-padding" style="max-height: 150px;overflow-y:auto">
+            <div class="box box-danger no-padding">
                 <div class="box-header with-border">
                     <div class="box-title">Homework</div>
-                    <table class="table"> 
+                    <table class="table" id="homework_table"> 
                         <thead>
                             <tr>
                                 <th>Date</th> 
@@ -203,6 +203,7 @@ Dashboard
 <script type="text/javascript">
 $(document).ready(function(){
 $('#class_test_table').DataTable();
+$('#homework_table').DataTable();
 });
 </script>
 @endpush
