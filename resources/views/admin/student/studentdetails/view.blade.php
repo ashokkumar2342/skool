@@ -65,7 +65,7 @@ b{
                                   @php
                                    $disabled='';
                                    if ($userId->role_id==12){ 
-                                    $disabled='hidden'; 
+                                    $disabled='disabled'; 
                                    } 
                                  if(!empty($admissionApplication)){   
                                    $status='';
