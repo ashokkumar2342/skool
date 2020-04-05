@@ -77,9 +77,7 @@ class DashboardController extends Controller
              $monthly=date('Y-m-d',strtotime($date ."-30 days"));
              $weekly=date('Y-m-d',strtotime($date ."-7 days")); 
 
-             $cashbook = new Cashbook(); 
-             $cashbooks = $cashbook->getCashbookFeeByStudentId($student_id,$sessionDate,$date);
-             $lastFee = $cashbook->getLastFeeByStudentId($student_id);
+             
              $studentFeeDetail = new StudentFeeDetail();
              // $studentFeeDetails = $studentFeeDetail->getFeeDetailsNextByStudentId($student_id);
 
@@ -122,7 +120,7 @@ class DashboardController extends Controller
              
              $studentRemarks=StudentRemark::where('student_id',$student->id)->take(10)->get();
             
-                return view('admin/dashboard/student_dashboard',compact('students','monthlyPresent','monthlyAbsent','weeklyPresent','weeklyAbsent','workingDays','tillPresent','tillAbsent','cashbooks','homeworks','classTests','studentRemarks','lastFee'));
+                return view('admin/dashboard/student_dashboard',compact('students','monthlyPresent','monthlyAbsent','weeklyPresent','weeklyAbsent','workingDays','tillPresent','tillAbsent','homeworks','classTests','studentRemarks'));
         }else{
             return view('admin/dashboard/new_student_dashboard');
         }
