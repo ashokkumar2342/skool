@@ -66,7 +66,7 @@
            $siblings= $userIdBySibling->getSiblingById(); 
            $students=App\Student::whereIn('id',$siblings)->get();
           @endphp
-          <li class="dropdown messages-menu">
+         {{--  <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sibling <i class="fa fa-users"></i>
             </a>
             <ul class="dropdown-menu">
@@ -80,7 +80,7 @@
                     $admin=App\Admin::where('id',$notification->user_id)->first();
                      $profile = route('admin.profile.photo.show',$admin->profile_pic); 
                    @endphp
-                  <li><!-- start message -->
+                  <li>start message
                     <a href="{{ $student->link }}">
                       <div class="pull-left">
                         <img src="{{ $profile }}" class="img-circle" alt="User Image">
@@ -97,7 +97,7 @@
               </li>
               <li class="footer"><a href="#">See All Messages</a></li>
             </ul>
-          </li>
+          </li> --}}
             <button type="hidden" class="hidden" id="admin_photo_refrash" onclick="callAjax(this,'{{ route('admin.profile.photo.refrash') }}','photo_refrash')">img Shoe</button>
             <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
