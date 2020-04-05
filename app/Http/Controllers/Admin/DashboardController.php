@@ -59,68 +59,74 @@ class DashboardController extends Controller
          $classTypes=ClassType::orderBy('id','ASC')->get(); 
             return view('admin/dashboard/dashboard',compact('students','studentDOBs','present','absent','feeDues','feePaid','classTypes','students','admins'));
         }elseif($admins->role_id==12) {
+
         //student    
         $student = Auth::guard('admin')->user();
         $studentUser = StudentUserMap::where('userid',$student->id)->first();
-        $student_id = $studentUser->student_id;
-        $date = date('Y-m-d');
-        $year = date('Y');
-        $firstDay = date('d')-1;
-   
-        $sessionDate =  AcademicYear::find(1)->start_date;
-        $monthOfFirstDate = date('Y-m-d',strtotime($date ."-".$firstDay." days"));
-        
-        
-     
-         $monthly=date('Y-m-d',strtotime($date ."-30 days"));
-         $weekly=date('Y-m-d',strtotime($date ."-7 days")); 
+        if (!empty($studentUser)) {
+            $student_id = $studentUser->student_id;
+            $date = date('Y-m-d');
+            $year = date('Y');
+            $firstDay = date('d')-1;
+           
+            $sessionDate =  AcademicYear::find(1)->start_date;
+            $monthOfFirstDate = date('Y-m-d',strtotime($date ."-".$firstDay." days"));
+            
+            
+           
+             $monthly=date('Y-m-d',strtotime($date ."-30 days"));
+             $weekly=date('Y-m-d',strtotime($date ."-7 days")); 
 
-         $cashbook = new Cashbook(); 
-         $cashbooks = $cashbook->getCashbookFeeByStudentId($student_id,$sessionDate,$date);
-         $lastFee = $cashbook->getLastFeeByStudentId($student_id);
-         $studentFeeDetail = new StudentFeeDetail();
-         // $studentFeeDetails = $studentFeeDetail->getFeeDetailsNextByStudentId($student_id);
+             $cashbook = new Cashbook(); 
+             $cashbooks = $cashbook->getCashbookFeeByStudentId($student_id,$sessionDate,$date);
+             $lastFee = $cashbook->getLastFeeByStudentId($student_id);
+             $studentFeeDetail = new StudentFeeDetail();
+             // $studentFeeDetails = $studentFeeDetail->getFeeDetailsNextByStudentId($student_id);
 
 
-         $monthlyPresent = StudentAttendance::where('attendance_type_id',1)
-                    ->where('student_id', $student_id)
-                    ->whereBetween('date', [$monthly, $date])
-                    ->OrWhere('attendance_type_id',3)
-                    ->OrWhere('attendance_type_id',4)->count();
-        $monthlyAbsent = StudentAttendance::where('attendance_type_id',2) 
-                    ->where('student_id', $student_id)
-                    ->whereBetween('date', [$monthly, $date])
-                    ->count();
-        $weeklyPresent = StudentAttendance::where('attendance_type_id',1)
-                    ->where('student_id', $student_id)
-                    ->whereBetween('date', [$weekly, $date])
-                    ->OrWhere('attendance_type_id',3)
-                    ->OrWhere('attendance_type_id',4)->count();            
-        $weeklyAbsent = StudentAttendance::where('attendance_type_id',2) 
-                    ->where('student_id', $student_id)
-                    ->whereBetween('date', [$weekly, $date])
-                    ->count();
-       $workingDays = StudentAttendance::where('student_id', $student_id)
-                    ->whereBetween('date', [$monthOfFirstDate, $date])
-                   ->count();
-        $tillPresent = StudentAttendance::where('attendance_type_id',1)
-                            ->where('student_id', $student_id)
-                            ->whereBetween('date', [$sessionDate, $date])
-                            ->OrWhere('attendance_type_id',3)
-                            ->OrWhere('attendance_type_id',4)->count();
-        $tillAbsent = StudentAttendance::where('attendance_type_id',2) 
-                    ->where('student_id', $student_id)
-                    ->whereBetween('date', [$sessionDate, $date])
-                    ->count();
-        $studentclse=Student::find($student_id);          
-        $classTests = ClassTest::where('class_id',$studentclse->class_id)->where('section_id',$studentclse->section_id)->orderBy('created_at','desc')->take(10)->get();              
-       $homeworks = Homework::where('class_id',$studentclse->class_id)->where('section_id',$studentclse->section_id)->orderBy('created_at','desc')->take(10)->get();            
+             $monthlyPresent = StudentAttendance::where('attendance_type_id',1)
+                        ->where('student_id', $student_id)
+                        ->whereBetween('date', [$monthly, $date])
+                        ->OrWhere('attendance_type_id',3)
+                        ->OrWhere('attendance_type_id',4)->count();
+            $monthlyAbsent = StudentAttendance::where('attendance_type_id',2) 
+                        ->where('student_id', $student_id)
+                        ->whereBetween('date', [$monthly, $date])
+                        ->count();
+            $weeklyPresent = StudentAttendance::where('attendance_type_id',1)
+                        ->where('student_id', $student_id)
+                        ->whereBetween('date', [$weekly, $date])
+                        ->OrWhere('attendance_type_id',3)
+                        ->OrWhere('attendance_type_id',4)->count();            
+            $weeklyAbsent = StudentAttendance::where('attendance_type_id',2) 
+                        ->where('student_id', $student_id)
+                        ->whereBetween('date', [$weekly, $date])
+                        ->count();
+           $workingDays = StudentAttendance::where('student_id', $student_id)
+                        ->whereBetween('date', [$monthOfFirstDate, $date])
+                       ->count();
+            $tillPresent = StudentAttendance::where('attendance_type_id',1)
+                                ->where('student_id', $student_id)
+                                ->whereBetween('date', [$sessionDate, $date])
+                                ->OrWhere('attendance_type_id',3)
+                                ->OrWhere('attendance_type_id',4)->count();
+            $tillAbsent = StudentAttendance::where('attendance_type_id',2) 
+                        ->where('student_id', $student_id)
+                        ->whereBetween('date', [$sessionDate, $date])
+                        ->count();
+            $studentclse=Student::find($student_id);          
+            $classTests = ClassTest::where('class_id',$studentclse->class_id)->where('section_id',$studentclse->section_id)->orderBy('created_at','desc')->take(10)->get();              
+           $homeworks = Homework::where('class_id',$studentclse->class_id)->where('section_id',$studentclse->section_id)->orderBy('created_at','desc')->take(10)->get();            
+            
+            // $students = Student::where('status',1)->count();
+             
+             $studentRemarks=StudentRemark::where('student_id',$student->id)->take(10)->get();
+            
+                return view('admin/dashboard/student_dashboard',compact('students','monthlyPresent','monthlyAbsent','weeklyPresent','weeklyAbsent','workingDays','tillPresent','tillAbsent','cashbooks','homeworks','classTests','studentRemarks','lastFee'));
+        }else{
+            return view('admin/dashboard/new_student_dashboard');
+        }
         
-        // $students = Student::where('status',1)->count();
-         
-         $studentRemarks=StudentRemark::where('student_id',$student->id)->take(10)->get();
-        
-            return view('admin/dashboard/student_dashboard',compact('students','monthlyPresent','monthlyAbsent','weeklyPresent','weeklyAbsent','workingDays','tillPresent','tillAbsent','cashbooks','homeworks','classTests','studentRemarks','lastFee'));
         }elseif($admins->role_id==2) {
         //Chairman
             return view('admin/dashboard/dashboard_'.'2');

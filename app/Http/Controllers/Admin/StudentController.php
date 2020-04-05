@@ -257,7 +257,7 @@ class StudentController extends Controller
                    $file = uniqid().'.pdf';
                    // $pdfMerge->Output('I', 'simple.pdf');
                       $pdf->stream('student_all_report.pdf'); 
-                   dd($pdfMerge->Output('I', 'simple.pdf'));
+                   dd($pdfMerge->Output('I', 'profile_details.pdf'));
       
       return $pdf->stream('student_all_report.pdf');
     }
