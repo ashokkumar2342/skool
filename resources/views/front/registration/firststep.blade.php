@@ -6,7 +6,7 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">New Registration</p>
+    <p class="login-box-msg">New Admission</p>
     {{-- {{ Auth::user()->name }} --}}
     {!! Form::open(['route'=>'student.resitration.firststep.store']) !!}
       <div class="form-group has-feedback">
@@ -47,7 +47,7 @@
         </div>
       <div class="row">
         <div class="col-xs-8">
-          <p><a href="{{ route('parent.login.form') }}" title="">Login</a></p> 
+          <p><a href="{{ route('admin.login') }}" title="">Login</a></p> 
         </div>
         <!-- /.col -->
         <div class="col-xs-4">

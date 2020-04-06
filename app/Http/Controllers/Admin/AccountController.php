@@ -77,7 +77,8 @@ class AccountController extends Controller
     	$accounts->password = bcrypt($request['password']);
     	$accounts->mobile = $request->mobile;
     	$accounts->dob = $request->dob == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
-    	 $accounts->status=1;          
+    	 $accounts->password_plain=$request->password;          
+       $accounts->status=1;          
        $accounts->save();          
       //  $MailHelper = new MailHelper();
       //  $array = array();

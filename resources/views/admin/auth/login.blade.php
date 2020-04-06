@@ -150,11 +150,16 @@
                                                     <div class="row">
                                                        
                                                     <div class="row">
-                                                       
-                                                      <a href="#" onclick="callPopupLarge(this,'{{ route('admin.forget.password') }}')">Forgot Password</a>
-                                                      <div class="col-xs-4" style="margin-left: 35px;margin-top: -10px">
+                                                      <div class="col-xs-6 text-center">
                                                         <button type="submit" class="btn btn-primary btn-rounded">Sign In</button>
                                                       </div>
+                                                       <div class="col-xs-6">
+                                                      <a href="{{ route('student.resitration.firststep') }}">New Admission</a>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                      <a href="#" onclick="callPopupLarge(this,'{{ route('admin.forget.password') }}')">Forgot Password </a>
+                                                    </div>
+                                                      
                                                       <!-- /.col -->
                                                     </div>
                                                   {!! Form::close() !!}

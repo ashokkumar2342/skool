@@ -125,9 +125,8 @@ $default_image =public_path('profile-img/user.png');
             </tr>
             <tr>
             <td style="width: 181px;">City</td>
-            <td style="width: 181px;"class="fontBold">{{ $student->addressDetails->address->city or ''}}</td>
-            <td style="width: 181px;">State</td>
-            <td style="width: 181px;"class="fontBold">{{ $student->addressDetails->address->state or ''}}</td>
+            <td style="width: 181px;"class="fontBold" colspan="3">{{ $student->addressDetails->address->city or ''}}</td>
+           
             </tr>
             <tr>
             <td style="width: 181px;">Permanent Address</td>
