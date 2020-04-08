@@ -23,11 +23,11 @@ b{
          @if ($student->student_status_id==1)
            <button type="button" class="btn btn-xs btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.student.preview',$student->id) }}')" style="margin:5px">Preview</button>
 
-          <a href="{{ route('admin.student.pdf.generate',$student->id) }}" class="btn btn-xs btn-success pull-right" title="Download Profile " target="_blank" style="margin:5px">PDF</a>
+          <a href="{{ route('admin.student.pdf.generate',Crypt::encrypt($student->id)) }}" class="btn btn-xs btn-success pull-right" title="Download Profile " target="_blank" style="margin:5px">PDF</a>
          @endif
          @if (!empty($admissionApplication))  
           @if ($admissionApplication->status>=2) 
-          <a href="{{ route('admin.student.registration.profile.view',$student->id) }}" class="btn btn-xs btn-primary pull-right" title="Download Profile " target="_blank" style="margin:5px">View Details</a> 
+          <a href="{{ route('admin.student.registration.profile.view',Crypt::encrypt($student->id)) }}" class="btn btn-xs btn-primary pull-right" title="Download Profile " target="_blank" style="margin:5px">View Details</a> 
           @endif
         @endif
 
@@ -99,7 +99,7 @@ b{
                                         <input type="text" value="{{ $student->name }}" maxlength="50" name="student_name" style="width: 290px;height: 28px" class="form-control"></li>
                                       </div>
                                       <div  class="col-lg-6">
-                                        <li class="list-group-item" style="width:350px"><label>Nick Name</label><span class="fa fa-asterisk"></span>
+                                        <li class="list-group-item" style="width:350px"><label>Nick Name</label>
                                         <input type="text" name="nick_name" value="{{$student->nick_name}}"  class="form-control" style="width: 290px;height: 28px"></li> 
                                       </div>
                                       <div  class="col-lg-6">

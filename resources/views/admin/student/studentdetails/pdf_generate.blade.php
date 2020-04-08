@@ -181,12 +181,12 @@ $default_image =public_path('profile-img/user.png');
             </tr>
             <tr>
             <td style="width: 181px;">Date of Birth</td>
-            <td style="width: 181px;"class="fontBold">{{ date('d-m-Y', strtotime($parent->parentInfo->dob or ''))}}</td>
+            <td style="width: 181px;"class="fontBold">{{$parent->parentInfo->dob? date('d-m-Y', strtotime($parent->parentInfo->dob)) : null}}</td>
             <td style="width: 181px;">&nbsp;</td>
             </tr>
             <tr>
             <td style="width: 181px;">Date of Anniversary</td>
-            <td style="width: 181px;"class="fontBold">{{ date('d-m-Y', strtotime($parent->parentInfo->doa or ''))}}</td>
+            <td style="width: 181px;"class="fontBold">{{$parent->parentInfo->dob? date('d-m-Y', strtotime($parent->parentInfo->doa)) : null}}</td>
             <td style="width: 181px;">&nbsp;</td>
             </tr>
             <tr>
@@ -206,9 +206,8 @@ $default_image =public_path('profile-img/user.png');
             </tr>
             <tr>
             <td style="width: 181px;">Alive</td>
-            <td style="width: 181px;"class="fontBold">{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</td>
-            <td style="width: 181px;">Date Of Birth</td>
-            <td style="width: 181px;"class="fontBold">{{date('d-M-Y',strtotime($student->dob ))}}</td>
+            <td style="width: 181px;" colspan="3" class="fontBold">{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</td>
+            
             </tr>
             
             <tr>

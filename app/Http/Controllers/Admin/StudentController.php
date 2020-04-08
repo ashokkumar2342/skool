@@ -168,6 +168,7 @@ class StudentController extends Controller
     }
     public function pdfGenerate($id){
       // return 'dddddd';
+      $id=Crypt::decrypt($id);
         $st =new Student();
            $student=$st->getStudentDetailsById($id); 
            //sibling details//
@@ -1485,7 +1486,7 @@ class StudentController extends Controller
       
     }
     public function registrationProfileView($student_id)
-    { 
+    {   $student_id=Crypt::decrypt($student_id);
         $admissionApplication=AdmissionApplication::where('student_id',$student_id)->first();
         $student=Student::find($student_id);
         $profilePdfUrl = Storage_path() . '/app/student/profile/profileDetails/'.$student->registration_no.'_student_all_details.pdf';

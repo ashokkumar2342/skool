@@ -41,7 +41,7 @@
 					<a class="btn btn-default  btn-xs"  title="View" href="{{ route('admin.student.registration.profile.view',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a> 
 			@endif
 			@if($student->student_status_id==1) 
-			<a class="btn btn-default btn-xs" title="View" href="{{ route('admin.student.pdf.generate',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a>
+			<a class="btn btn-default btn-xs" title="View" href="{{ route('admin.student.pdf.generate',Crypt::encrypt($student->id)) }}" target="_blank"><i class="fa fa-eye"></i></a>
 			@endif
 			@if($student->student_status_id==9) 
 			<a class="btn btn-default btn-xs" title="View" href="{{ route('admin.student.registration.profile.view',$student->id) }}" target="_blank"><i class="fa fa-eye"></i></a>

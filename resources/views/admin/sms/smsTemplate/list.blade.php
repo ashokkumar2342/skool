@@ -4,7 +4,7 @@
    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"> 
   <section class="content-header">  
-    <h1>SMS<small>Details</small> </h1> 
+    <h1>SMS Template<small>Details</small> </h1> 
   </section>  
     <section class="content"> 
           <div class="box"> 
