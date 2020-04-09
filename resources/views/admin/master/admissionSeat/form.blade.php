@@ -17,7 +17,7 @@
         <h4 class="modal-title">{{ @$adminssionSeat->id?'Edit' : 'Add' }} Admission Schedule</h4>
       </div>
       <div class="modal-body"> 
-            <form action="{{ route('admin.adminssion.seat.store',@$adminssionSeat->id) }}" method="post" class="add_form" content-refresh="admission_seat_table" button-click="btn_close" enctype="multipart/form-data">
+            <form action="{{ route('admin.adminssion.seat.store',@$adminssionSeatId->id) }}" method="post" class="add_form" content-refresh="admission_seat_table" button-click="btn_close" enctype="multipart/form-data">
               {{ csrf_field() }}
               <div class="row">
                 <div class="col-lg-6 form-group">

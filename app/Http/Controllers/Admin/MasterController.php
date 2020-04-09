@@ -558,15 +558,16 @@ class MasterController extends Controller
           $classes=MyFuncs::getClassByHasUser();
           if ($id!=null) {
             $adminssionSeat=AdmissionSeat::find(Crypt::decrypt($id));
+            $adminssionSeatId=AdmissionSeat::find(Crypt::decrypt($id));
            }
            if ($id==null) {
             $adminssionSeat=AdmissionSeatDefault::where('user_id',$userId)->first();
            } 
-          return view('admin.master.admissionSeat.form',compact('academicYears','classes','adminssionSeat')); 
+          return view('admin.master.admissionSeat.form',compact('academicYears','classes','adminssionSeat','adminssionSeatId')); 
         }
 
         public function adminssionSeatStore(Request $request,$id=null)
-      {  
+      { 
           $rules=[
               
                 'academic_year_id' => 'required', 

@@ -36,16 +36,13 @@ $path =storage_path('app/student/profile/'.$student->picture);
 $paths =storage_path('app/student/profile/'.''); 
 // $profile = route('admin.student.image',$student->picture);
 $admissionApplication=App\Model\AdmissionApplication::where('student_id',$student->id)->first();
-if(!empty($admissionApplication)){
-  $Application =storage_path('app/student/barcode/application/'.$admissionApplication->id.'.'.'png'); 
+if($student->registration_no!=null){
+  $Regisration =storage_path('app/student/barcode/'.$student->registration_no.'.'.'png');
 }else{
-   $Application =storage_path('app/student/barcode/application/'.'1000010'.'.'.'png'); 
+   $Regisration =storage_path('app/student/barcode/application/'.$admissionApplication->id.'.'.'png');
 }
-$Regisration =storage_path('app/student/barcode/'.$student->registration_no.'.'.'png');
 $default_image =public_path('profile-img/user.png');
 @endphp
- 
- 
 <div class="container">
   <img src="{{$Regisration}}" width="20%" height="20%">
   <div class="panel panel-success">
