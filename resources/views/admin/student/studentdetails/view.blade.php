@@ -51,7 +51,7 @@ b{
 
               <li><a data-toggle="tab" data-table="medical_info_table" href="#medical" id="medical_info_tab" onclick="callAjax(this,'{{ route('admin.medical.info.list',$student->id) }}','medical_info_page')"><i class="fa fa-user-md" id="medical_info"></i> Medical Detail</a></li>
               <li><a data-toggle="tab" href="#subjects" id="subject_tab" onclick="callAjax(this,'{{ route('admin.studentSubject.list',$student->id) }}','subject_list')"><i class="fa fa-book" {{-- id="subject_tab" --}}></i>  Subjects</a></li>
-              <li><a data-toggle="tab" href="#sport" id="sport_hobbies_tab" onclick="callAjax(this,'{{ route('admin.hobby.show',$student->id) }}','sport_hobbies_list')"><i class="fa fa-life-ring" id="sport_tab"></i> Sports/Hobbies</a></li>
+              <li><a data-toggle="tab" href="#sport" id="sport_hobbies_tab" data-table="sport_hobby_items" onclick="callAjax(this,'{{ route('admin.hobby.show',$student->id) }}','sport_hobbies_list')"><i class="fa fa-life-ring" id="sport_tab"></i> Sports/Hobbies</a></li>
               <li><a data-toggle="tab" href="#document"><i class="fa fa-file" id="document_tab"></i> Document</a></li>
               <li><a data-toggle="tab" href="#award_list"><i class="fa fa-angellist" id="award_list_tab"></i> Award</a></li>
             </ul>
@@ -169,7 +169,7 @@ b{
                                 </div> 
                                 <div class="text-center" style="margin :20px">
                                 <input type="submit" class="btn btn-success btn-sm"  value="Update"> 
-                                <button type="button" onclick="$('#sibling_info_tab').click()" class="btn btn-success btn-sm">Next</button>
+                                {{-- <button type="button" onclick="$('#sibling_info_tab').click()" class="btn btn-success btn-sm">Next</button> --}}
                                 </div>
                               </form>
                             </div>
@@ -236,8 +236,8 @@ b{
                   <div class="table-responsive" id="subject_list">
                     </div> 
                    <div class="text-center">
-                      <button type="button" onclick="$('#medical_info_tab').click()" class="btn btn-success btn-sm">Previous</button> 
-                      <button type="button" onclick="$('#sport_tab').click()" class="btn btn-success btn-sm">Next</button> 
+                      {{-- <button type="button" onclick="$('#medical_info_tab').click()" class="btn btn-success btn-sm">Previous</button>  --}}
+                      {{-- <button type="button" onclick="$('#sport_tab').click()" class="btn btn-success btn-sm">Next</button> --}} 
                    </div>
                 </div>
                 <div id="sport" class="tab-pane fade">
@@ -246,20 +246,20 @@ b{
                      
                    </div> 
                    <div class="text-center">
-                     <button type="button" onclick="$('#subject_tab').click()" class="btn btn-success btn-sm">Previous</button> 
-                     <button type="button" onclick="$('#document_tab').click()" class="btn btn-success btn-sm">Next</button> 
+                     {{-- <button type="button" onclick="$('#subject_tab').click()" class="btn btn-success btn-sm">Previous</button>  --}}
+                     {{-- <button type="button" onclick="$('#document_tab').click()" class="btn btn-success btn-sm">Next</button>  --}}
                   </div>
                 </div>
 
                 <div id="document" class="tab-pane fade">
                   <button type="button" class="btn btn-info btn-sm" data-toggle="modal" style="margin: 10px" data-target="#add_document">Add Document</button>
-                      <button id="btn_student_document_list" hidden onclick="callAjax(this,'{{ route('admin.document.list',$student->id) }}','student_document_list')"></button>
+                      <button id="btn_student_document_list" hidden data-table="document_items" onclick="callAjax(this,'{{ route('admin.document.list',$student->id) }}','student_document_list')"></button>
                       <div id="student_document_list">
                         
                       </div>
                    <div class="text-center">
-                     <button type="button" onclick="$('#sport_tab').click()" class="btn btn-success btn-sm">Previous</button> 
-                     <button type="button" onclick="$('#award_list_tab').click()" class="btn btn-success btn-sm">Next</button> 
+                     {{-- <button type="button" onclick="$('#sport_tab').click()" class="btn btn-success btn-sm">Previous</button>  --}}
+                     {{-- <button type="button" onclick="$('#award_list_tab').click()" class="btn btn-success btn-sm">Next</button>  --}}
                   </div>
                 </div>
                 <div id="award_list" class="tab-pane fade"> 
@@ -271,8 +271,8 @@ b{
                     
                    <div class="text-center">
 
-                     <button type="button" onclick="$('#document_tab').click()" class="btn btn-success btn-sm">Previous</button> 
-                     <button type="button" onclick="$('#student_tab').click()" class="btn btn-success btn-sm">Student Details</button> 
+                     {{-- <button type="button" onclick="$('#document_tab').click()" class="btn btn-success btn-sm">Previous</button> 
+                     <button type="button" onclick="$('#student_tab').click()" class="btn btn-success btn-sm">Student Details</button>  --}}
                   </div>
                 </div>
             </div>
@@ -282,7 +282,7 @@ b{
                
 <div class="col-lg-4 text-center">
 @if (!empty($admissionApplication)) 
-  @if ($admissionApplication->status==2)
+  @if ($admissionApplication->status>2)
    
     @else
     <a href="{{ route('admin.student.registration.final.submit',$student->id) }}" title="Final Submit" class="btn btn-primary">Final Submit</a>
@@ -340,6 +340,7 @@ function isValid(str) {
         $('#parents_items').DataTable();
         $('#sibling_items').DataTable();
         $('#address_items').DataTable();
+        $('#sport_hobby_items').DataTable();
         $('#btn_event_type_table_show').click();
         $('#btn_student_document_list').click();
         $('#btn_image_refrash').click();

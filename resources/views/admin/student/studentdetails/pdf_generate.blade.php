@@ -96,13 +96,13 @@ $default_image =public_path('profile-img/user.png');
             <tr>
             <td style="width: 181px;">Roll No.</td>
             <td style="width: 181px;"class="fontBold">{{ $student->roll_no }}</td>
-            <td style="width: 181px;">Date Of Birth</td>
+            <td style="width: 181px;">Date of Birth</td>
             <td style="width: 181px;"class="fontBold">{{date('d-M-Y',strtotime($student->dob ))}}</td>
             </tr>
             <tr>
-            <td style="width: 181px;">Date Of Admission</td>
+            <td style="width: 181px;">Date of Admission</td>
             <td style="width: 181px;"class="fontBold">{{ date('d-m-Y',strtotime($student->date_of_admission))}}</td>
-            <td style="width: 181px;">Date Of Activation</td>
+            <td style="width: 181px;">Date of Activation</td>
             <td style="width: 181px;"class="fontBold">{{ date('d-m-Y',strtotime($student->date_of_activation))}}</td>
             </tr>
             <tr>
@@ -130,20 +130,13 @@ $default_image =public_path('profile-img/user.png');
             </tr>
             <tr>
             <td style="width: 181px;">Permanent Address</td>
-            <td style="width: 181px;" colspan="3" class="fontBold">{{ $student->addressDetails->address->p_address or ''}}</td>
-            </tr>
-             <tr>
-            <td style="width: 181px;">Permanent Pincode</td>
-            <td style="width: 181px;" colspan="3" class="fontBold">{{ $student->addressDetails->address->p_pincode or ''}}</td>
+            <td style="width: 181px;" colspan="3" class="fontBold">{{ $student->addressDetails->address->p_address or ''}}-{{ $student->addressDetails->address->p_pincode or ''}}</td>
             </tr>
              <tr>
             <td style="width: 181px;">Correspondence Address</td>
-            <td style="width: 181px;" colspan="3" class="fontBold">{{ $student->addressDetails->address->c_address or ''}}</td>
+            <td style="width: 181px;" colspan="3" class="fontBold">{{ $student->addressDetails->address->c_address or ''}}-{{ $student->addressDetails->address->c_pincode or ''}}</td>
             </tr>
-             <tr>
-            <td style="width: 181px;">Correspondence Pincode</td>
-            <td style="width: 181px;" colspan="3" class="fontBold">{{ $student->addressDetails->address->c_pincode or ''}}</td>
-            </tr>
+             
             </tbody>
             </table>
         </div>
