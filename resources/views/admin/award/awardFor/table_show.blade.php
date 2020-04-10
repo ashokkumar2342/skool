@@ -1,4 +1,4 @@
-<div class="table-responsive">
+
     <table id="event_type_data_table" class="table table-bordered"> 
         <thead>
             <tr> 
@@ -24,4 +24,3 @@
             @endforeach
         </tbody>
     </table>    
-</div>
