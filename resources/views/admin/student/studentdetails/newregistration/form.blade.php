@@ -124,7 +124,10 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>                          
-                            <input type="date" name="dob" class="form-control"> 
+                            @php
+                              $date = date('Y-m-d');
+                         @endphp                 
+                        {{ Form::date('dob','',array('class' => 'form-control','max'=>date('Y-m-d',strtotime($date ."-730 days")),'min'=>date('Y-m-d',strtotime($date ."-7300 days")) )) }} 
                         </div>
                         <p class="text-danger">{{ $errors->first('date_of_birth') }}</p>
                     </div>

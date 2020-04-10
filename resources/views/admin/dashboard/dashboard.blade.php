@@ -224,9 +224,9 @@
                
                <h3 class="box-title">
                  Attendance
-                <a  class="btn btn-danger btn-xs" style="margin-left: 50px"  onclick="callPopupLarge(this,'{{ route('admin.attendance.student.attendance.continue') }}','attendence')" title="">Absent For Last 3 Days</a>
+                <a  class="btn btn-danger btn-xs" onclick="callPopupLarge(this,'{{ route('admin.attendance.student.attendance.continue') }}','attendence')" title="">Absent For Last 3 Days</a>
 
-                 <a  class="btn btn-danger btn-xs" style="margin-left: 10px"  onclick="callPopupLarge(this,'{{ route('admin.attendance.student.attendance.continue') }}','attendence')" title="">Absent 4 Days In Last 7 Dyas</a>
+                 <a  class="btn btn-danger btn-xs" onclick="callPopupLarge(this,'{{ route('admin.attendance.student.attendance.continue') }}','attendence')" title="">Absent 4 Days In Last 7 Dyas</a>
                 
                </h3>
              </div>

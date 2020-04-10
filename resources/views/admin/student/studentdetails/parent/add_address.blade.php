@@ -68,7 +68,7 @@
             </div>
             <div class="form-group col-lg-4" style="margin-left:200px;">
               <label>Pincode</label> <span class="fa fa-asterisk"></span>
-              <input type="number" name="p_pincode" id="p_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200" required="">
+              <input type="number" name="p_pincode" id="p_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200" >
             </div>
               <div class="form-group col-lg-2 text-center">
               <input type="checkbox" id="addressCheck" name="addressCheck" style="margin-top: 30px">

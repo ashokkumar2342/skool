@@ -2,7 +2,7 @@
 $routeName= Route::currentRouteName(); 
 $profile = route('admin.student.image',$student->picture);
 @endphp
-<div class="modal-dialog" style="width:70%">
+<div class="modal-dialog" style="width:90%">
     <div class="modal-content" style="padding:10px;margin-top: -20px">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
         <div class="panel panel-default">
@@ -71,7 +71,7 @@ $profile = route('admin.student.image',$student->picture);
                                 Date of Admission 
                             </div>
                             <div class="col-lg-8">
-                                <b>{{ date('d-m-Y',strtotime($student->date_of_admission))}}</b>
+                                <b>{{$student->date_of_admission? date('d-m-Y', strtotime($student->date_of_admission)) : null}}</b>
                             </div>
                         </div>
                         <div class="row">
@@ -79,7 +79,7 @@ $profile = route('admin.student.image',$student->picture);
                                 Date of Activation 
                             </div>
                             <div class="col-lg-8">
-                                <b>{{ date('d-m-Y',strtotime($student->date_of_activation))}}</b>
+                                <b>{{$student->date_of_activation? date('d-m-Y', strtotime($student->date_of_activation)) : null}}</b>
                             </div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@ $profile = route('admin.student.image',$student->picture);
                         Date of Birth 
                     </div>
                     <div class="col-lg-3">
-                        <b>{{date('d-M-Y',strtotime($student->dob ))}}</b>
+                        <b>{{$student->dob? date('d-m-Y', strtotime($student->dob)) : null}}</b>
                     </div>
                 </div>
                 <div class="row">
@@ -209,7 +209,7 @@ $profile = route('admin.student.image',$student->picture);
                               Date of Birth    
                             </div>
                             <div class="col-lg-8">
-                                <b>{{ date('d-m-Y', strtotime($parent->parentInfo->dob or ''))}}</b>
+                                <b>{{$parent->parentInfo->dob? date('d-m-Y', strtotime($parent->parentInfo->dob)) : null}}</b>
                             </div>
                         </div>
                         <div class="row">
@@ -217,7 +217,7 @@ $profile = route('admin.student.image',$student->picture);
                                 Date of Anniversary  
                             </div>
                             <div class="col-lg-8">
-                                <b>{{ date('d-m-Y', strtotime($parent->parentInfo->doa or ''))}}</b>
+                                <b>{{$parent->parentInfo->doa? date('d-m-Y', strtotime($parent->parentInfo->doa)) : null}}</b>
                             </div>
                         </div>
                         <div class="row">
@@ -403,7 +403,7 @@ $studentMedicalDetails=App\Model\StudentMedicalInfo::where('student_id',$student
       <div class="panel panel-success">
     <div class="panel-heading">Sibling's Details</div>
     <div class="panel-body">
-        <div class="row">
+        <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>

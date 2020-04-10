@@ -67,7 +67,7 @@
                     </div>
                     
                     <div class="form-group col-md-4">
-                        {{ Form::label('vision','vision',['class'=>' control-label ']) }}                         
+                        {{ Form::label('vision','Vision',['class'=>' control-label ']) }}                         
                         {{ Form::text('vision',$medicalInfo->vision,['class'=>'form-control ','maxlength'=>'50']) }}
                          
                     </div>
@@ -162,6 +162,7 @@
                       <label>Narration</label>
                       <input type="text" name="narration" class="form-control" value="{{ $medicalInfo->narration }}">
                       
+                    </div>
                     </div>  
                     <div class="col-lg-12 text-center">
                     

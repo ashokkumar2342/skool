@@ -15,6 +15,8 @@
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title text-center">Add Medical Detail</h4>
+        <div class="table-responsive">
+          
         <table class="table lebel label-warning">
           <thead>
             <tr>
@@ -30,13 +32,14 @@
             <tr>
               <td>{{ $student->name }}</td>
               <td>{{ $student->registration_no }}</td>
-              <td>{{ $student->parents[2]->parentInfo->name or '' }}</td>
               <td>{{ $student->parents[0]->parentInfo->name or '' }}</td>
+              <td>{{ $student->parents[1]->parentInfo->name or '' }}</td>
               <td>{{ $student->addressDetails->address->primary_mobile or '' }}</td>
               <td>{{ $student->addressDetails->address->primary_email or '' }}</td>
             </tr>
           </tbody>
         </table>
+        </div>
       </div>
       <div class="modal-body">
        <div class="row"> 

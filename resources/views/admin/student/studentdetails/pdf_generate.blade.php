@@ -45,6 +45,7 @@ $default_image =public_path('profile-img/user.png');
 @endphp
 <div class="container">
   <img src="{{$Regisration}}" width="20%" height="20%">
+  @if($student->registration_no!=null)
   <div class="panel panel-success">
     <div class="panel-heading">Student's Details</div>
     <div class="panel-body">
@@ -94,13 +95,14 @@ $default_image =public_path('profile-img/user.png');
             <td style="width: 181px;">Roll No.</td>
             <td style="width: 181px;"class="fontBold">{{ $student->roll_no }}</td>
             <td style="width: 181px;">Date of Birth</td>
-            <td style="width: 181px;"class="fontBold">{{date('d-M-Y',strtotime($student->dob ))}}</td>
+            <td style="width: 181px;"class="fontBold">{{$student->dob? date('d-m-Y', strtotime($student->dob)) : null}}
+            </td>
             </tr>
             <tr>
             <td style="width: 181px;">Date of Admission</td>
-            <td style="width: 181px;"class="fontBold">{{ date('d-m-Y',strtotime($student->date_of_admission))}}</td>
+            <td style="width: 181px;"class="fontBold">{{$student->date_of_admission? date('d-m-Y', strtotime($student->date_of_admission)) : null}}</td>
             <td style="width: 181px;">Date of Activation</td>
-            <td style="width: 181px;"class="fontBold">{{ date('d-m-Y',strtotime($student->date_of_activation))}}</td>
+            <td style="width: 181px;"class="fontBold">{{$student->date_of_activation? date('d-m-Y', strtotime($student->date_of_activation)) : null}}</td>
             </tr>
             <tr>
             <td style="width: 181px;">Email</td>
@@ -139,6 +141,83 @@ $default_image =public_path('profile-img/user.png');
         </div>
     </div>
 </div>
+@else
+<div class="panel panel-success">
+    <div class="panel-heading">Student's Details</div>
+    <div class="panel-body">
+        <div class="row">
+            <table style="width: 725px; height: 151px;" class="table-striped table-bordered">
+            <tbody>
+            <tr>
+            <td style="width: 181px;">  Name : </td>
+            <td style="width: 181px;" class="fontBold">{{ $student->name }}</td>
+            <td style="width: 181px;">&nbsp;</td>
+            <td style="width: 181px;" rowspan="6">
+                <div style="margin-top:5px;text-align: center">
+                    @if ($path==$paths)
+                <img  src="{{ $default_image }}" alt=""  width="110px" height="130px" > 
+                @else
+                <img  src="{{ $path }}" align="center" alt="" width="110px" height="130px" style=" border:solid 2px #515452">
+                @endif
+                </div>
+            </td>
+            </tr>
+            <tr>
+            <td style="width: 181px;">Nick Name</td>
+            <td style="width: 181px;"class="fontBold">{{ $student->nick_name }}</td>
+            <td style="width: 181px;"></td>
+            </tr>
+            <tr>
+            <td style="width: 181px;">Class</td>
+            <td style="width: 181px;"class="fontBold">{{ $student->classes->name or '' }}</td>
+            <td style="width: 181px;">&nbsp;</td>
+            </tr>
+            <tr>
+            <td style="width: 181px;">Email</td>
+            <td style="width: 181px;"class="fontBold">{{ $student->addressDetails->address->primary_email or ''}}</td>
+            <td style="width: 181px;">&nbsp;</td>
+            </tr>
+            <tr>
+            <td style="width: 181px;">Mobile No.</td>
+            <td style="width: 181px;"class="fontBold">{{ $student->addressDetails->address->primary_mobile or ''}}</td>
+            <td style="width: 181px;">&nbsp;</td>
+            </tr>
+            <tr>
+            <td style="width: 181px;">Aadhaar No.</td>
+            <td style="width: 181px;"class="fontBold">{{ $student->adhar_no }}</td>
+            <td style="width: 181px;">&nbsp;</td>
+            </tr>
+            <tr>
+            <td style="width: 181px;">Gender</td>
+            <td style="width: 181px;"class="fontBold">{{ $student->genders->genders or '' }}</td>
+            <td style="width: 181px;">&nbsp;</td>
+            </tr>
+            <tr>
+            <td style="width: 181px;">House Name</td>
+            <td style="width: 181px;"class="fontBold">{{$student->houses->name or ''}}</td>
+            <td style="width: 181px;">State</td>
+            <td style="width: 181px;"class="fontBold">{{ $student->addressDetails->address->state or ''}}</td>
+            </tr>
+            <tr>
+            <td style="width: 181px;">City</td>
+            <td style="width: 181px;"class="fontBold" colspan="3">{{ $student->addressDetails->address->city or ''}}</td>
+           
+            </tr>
+            <tr>
+            <td style="width: 181px;">Permanent Address</td>
+            <td style="width: 181px;" colspan="3" class="fontBold">{{ $student->addressDetails->address->p_address or ''}}-{{ $student->addressDetails->address->p_pincode or ''}}</td>
+            </tr>
+             <tr>
+            <td style="width: 181px;">Correspondence Address</td>
+            <td style="width: 181px;" colspan="3" class="fontBold">{{ $student->addressDetails->address->c_address or ''}}-{{ $student->addressDetails->address->c_pincode or ''}}</td>
+            </tr>
+             
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endif
 @foreach ($student->parents as $parent) 
  @php 
  $data =storage_path('app/'.$parent->parentInfo->photo);
@@ -283,6 +362,7 @@ $studentMedicalDetails=App\Model\StudentMedicalInfo::where('student_id',$student
     </div>
 </div>
 @endforeach
+@if ($studentSiblingInfos!=null)
 <div class="panel panel-success">
     <div class="panel-heading">Sibling's Details</div>
     <div class="panel-body">
@@ -311,6 +391,7 @@ $studentMedicalDetails=App\Model\StudentMedicalInfo::where('student_id',$student
         </div>
     </div>
 </div>
+@endif
 @php
 $studentSubjectDetails=App\Model\StudentSubject::where('student_id',$student->id)->first();
 @endphp

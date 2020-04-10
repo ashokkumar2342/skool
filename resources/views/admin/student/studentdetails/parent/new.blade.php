@@ -21,13 +21,13 @@
 </div>
 <div class="form-group col-md-4">
   {{ Form::label('profession','Profession',['class'=>' control-label']) }}
-  
+   <span class="fa fa-asterisk"></span>
   {!! Form::select('profession',$professions, null, ['class'=>'form-control','placeholder'=>'Select Profession','required']) !!} 
 </div> 
 
 <div class="form-group col-md-4">
     {{ Form::label('income','Annual Income',['class'=>' control-label']) }}
-    
+    <span class="fa fa-asterisk"></span>
     {!! Form::select('income',$incomes, null, ['class'=>'form-control','placeholder'=>'Select income','required']) !!}
     
 </div>
@@ -57,7 +57,8 @@
 </div>                  
 <div class="col-lg-4">                         
 <div class="form-group">
-    {{ Form::label('islive','Alive',['class'=>' control-label']) }}
+    {{ Form::label('islive','Alive',['class'=>' control-label']) }} 
+    <span class="fa fa-asterisk"></span>
      <select name="islive" class="form-control" >
        <option value="1" {{ @$default->alive==1? 'selected' :'' }}>Yes</option> 
        <option value="2" {{ @$default->alive==2? 'selected' :'' }}>No</option> 

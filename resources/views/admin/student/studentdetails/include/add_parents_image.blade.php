@@ -9,7 +9,7 @@
    
  </style>
   
-   <div class="modal-dialog" style="width:30%">
+   <div class="modal-dialog" style="width :70%">
 
      <!-- Modal content-->
      <div class="modal-content">

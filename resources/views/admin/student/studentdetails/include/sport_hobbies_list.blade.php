@@ -1,8 +1,8 @@
 <table class="table" id="sport_hobby_items">                         
                        <thead>
                            <tr>
-                               <th>Academic Year</th>
-                               <th>Sports Activity Name</th>
+                               <th class="text-nowrap">Academic Year</th>
+                               <th class="text-nowrap">Sports Activity Name</th>
                                <th>Level</th>
                                <th>Action</th>
                            </tr>
