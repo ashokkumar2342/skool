@@ -184,7 +184,7 @@
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>                          
-                                                    {{ Form::text('date_of_birth','',array('class' => 'form-control datepicker' )) }}
+                                                    {{ Form::date('date_of_birth','',array('class' => 'form-control','min'=>date('Y-m-d',strtotime("+2 years")),'max'=>date('Y-m-d',strtotime("+22 years")) )) }}
                                                     </div>
                                                     <p class="text-danger">{{ $errors->first('date_of_birth') }}</p>
                                                 </div>
@@ -256,10 +256,7 @@ function isValid(str) {
     return !/[~`!@#$%\^&*()+=\-\_[\]\\';,./{}|\\":<>\?]/g.test(str);
 }
     $( ".datepicker" ).datepicker({dateFormat:'dd-mm-yy'});
-    $('#date_of_birth').datepicker({
-     dateFormat: "dd-mm-yy",
-     maxDate: new Date('{{ date('Y')-2 }}')
-    });
+   
     $("#class").change(function(){
         $('#section').html('<option value="">Searching ...</option>');
         $.ajax({
