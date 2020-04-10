@@ -216,7 +216,6 @@ class StudentMedicalInfoController extends Controller
         $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
         $documentTypes = array_pluck(DocumentType::get(['id','name'])->toArray(),'name', 'id');
         $subjectTypes = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
-        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $isoptionals = array_pluck(Isoptional::get(['id','name'])->toArray(),'name', 'id');
         $bloodgroups = array_pluck(BloodGroup::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id');
         $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id');
@@ -304,7 +303,6 @@ class StudentMedicalInfoController extends Controller
         $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
         $documentTypes = array_pluck(DocumentType::get(['id','name'])->toArray(),'name', 'id');
         $subjectTypes = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
-        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $isoptionals = array_pluck(Isoptional::get(['id','name'])->toArray(),'name', 'id');
         $bloodgroups = array_pluck(BloodGroup::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id');
         $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 
@@ -318,7 +316,6 @@ class StudentMedicalInfoController extends Controller
         $incomes = array_pluck(IncomeRange::get(['id','range'])->toArray(),'range', 'id');
         $documentTypes = array_pluck(DocumentType::get(['id','name'])->toArray(),'name', 'id');
         $subjectTypes = array_pluck(SubjectType::get(['id','name'])->toArray(),'name', 'id');
-        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
         $isoptionals = array_pluck(Isoptional::get(['id','name'])->toArray(),'name', 'id');
         $bloodgroups = array_pluck(BloodGroup::get(['id','name'])->toArray(),'name', 'id');
         $professions = array_pluck(Profession::get(['id','name'])->toArray(),'name', 'id'); 

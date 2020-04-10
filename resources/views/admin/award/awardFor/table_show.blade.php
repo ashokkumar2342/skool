@@ -1,4 +1,4 @@
-  <table id="event_type_data_table" class="table table-bordered table-striped table-hover table-responsive"> 
+  <table id="event_type_data_table" class="table table-bordered"> 
                <thead>
                  <tr> 
                    <th class="text-nowrap">Award Name</th> 

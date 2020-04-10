@@ -63,7 +63,7 @@
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Mobile No.</label>
                                   <span class="fa fa-asterisk"></span>
-                                  <input type="text" Name="mobile" class="form-control" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Enter Mobile Number">
+                                  <input type="text" Name="mobile" class="form-control" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Enter Mobile No.">
                                 </div>                                
                             </div>
                             <div class="col-lg-6">

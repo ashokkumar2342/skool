@@ -168,6 +168,7 @@ class StudentController extends Controller
     }
     public function pdfGenerate($id){
       // return 'dddddd';
+      $id=Crypt::decrypt($id);
         $st =new Student();
            $student=$st->getStudentDetailsById($id); 
            //sibling details//
@@ -188,24 +189,24 @@ class StudentController extends Controller
          //end sibling detaild///
          //application barcode ///
                    
-                     $admissionApplication=AdmissionApplication::where('student_id',$student->id)->first();
-                     if (!empty($admissionApplication)) { 
-                     $value=$admissionApplication->id; 
-                     $barcode = new BarcodeGenerator();
-                     $barcode->setText($value);
-                     $barcode->setType(BarcodeGenerator::Code128);
-                     $barcode->setScale(2);
-                     $barcode->setThickness(25);
-                     $barcode->setFontSize(10);
-                     $code = $barcode->generate();
-                     $data = base64_decode($code);
-                     $image_name= $value.'.png';     
-                     $path = Storage_path() . "/app/student/barcode/application/";
-                     $paths = Storage_path() . "/app/student/barcode/application/" . $image_name;
-                     @mkdir($path, 0755, true); 
-                     file_put_contents($paths, $data); 
-                     }
-                     elseif (!empty($student->registration_no)) { 
+                     // $admissionApplication=AdmissionApplication::where('student_id',$student->id)->first();
+                     // if (!empty($admissionApplication)) { 
+                     // $value=$admissionApplication->id; 
+                     // $barcode = new BarcodeGenerator();
+                     // $barcode->setText($value);
+                     // $barcode->setType(BarcodeGenerator::Code128);
+                     // $barcode->setScale(2);
+                     // $barcode->setThickness(25);
+                     // $barcode->setFontSize(10);
+                     // $code = $barcode->generate();
+                     // $data = base64_decode($code);
+                     // $image_name= $value.'.png';     
+                     // $path = Storage_path() . "/app/student/barcode/application/";
+                     // $paths = Storage_path() . "/app/student/barcode/application/" . $image_name;
+                     // @mkdir($path, 0755, true); 
+                     // file_put_contents($paths, $data); 
+                     // }
+                     if (!empty($student->registration_no)) { 
                      $value=$student->registration_no; 
                      $barcode = new BarcodeGenerator();
                      $barcode->setText($value);
@@ -1485,7 +1486,7 @@ class StudentController extends Controller
       
     }
     public function registrationProfileView($student_id)
-    { 
+    {   $student_id=Crypt::decrypt($student_id);
         $admissionApplication=AdmissionApplication::where('student_id',$student_id)->first();
         $student=Student::find($student_id);
         $profilePdfUrl = Storage_path() . '/app/student/profile/profileDetails/'.$student->registration_no.'_student_all_details.pdf';
@@ -1566,6 +1567,7 @@ class StudentController extends Controller
         foreach ($request->marks as $student_id => $mark) { 
            $admissionApplications=AdmissionApplication::firstOrNew(['student_id'=>$student_id]); 
            $admissionApplications->test_marks=$mark; 
+           $admissionApplications->status=6; 
            $admissionApplications->save();
         } 
           $response=array();

@@ -36,16 +36,13 @@ $path =storage_path('app/student/profile/'.$student->picture);
 $paths =storage_path('app/student/profile/'.''); 
 // $profile = route('admin.student.image',$student->picture);
 $admissionApplication=App\Model\AdmissionApplication::where('student_id',$student->id)->first();
-if(!empty($admissionApplication)){
-  $Application =storage_path('app/student/barcode/application/'.$admissionApplication->id.'.'.'png'); 
+if($student->registration_no!=null){
+  $Regisration =storage_path('app/student/barcode/'.$student->registration_no.'.'.'png');
 }else{
-   $Application =storage_path('app/student/barcode/application/'.'1000010'.'.'.'png'); 
+   $Regisration =storage_path('app/student/barcode/application/'.$admissionApplication->id.'.'.'png');
 }
-$Regisration =storage_path('app/student/barcode/'.$student->registration_no.'.'.'png');
 $default_image =public_path('profile-img/user.png');
 @endphp
- 
- 
 <div class="container">
   <img src="{{$Regisration}}" width="20%" height="20%">
   <div class="panel panel-success">
@@ -96,13 +93,13 @@ $default_image =public_path('profile-img/user.png');
             <tr>
             <td style="width: 181px;">Roll No.</td>
             <td style="width: 181px;"class="fontBold">{{ $student->roll_no }}</td>
-            <td style="width: 181px;">Date Of Birth</td>
+            <td style="width: 181px;">Date of Birth</td>
             <td style="width: 181px;"class="fontBold">{{date('d-M-Y',strtotime($student->dob ))}}</td>
             </tr>
             <tr>
-            <td style="width: 181px;">Date Of Admission</td>
+            <td style="width: 181px;">Date of Admission</td>
             <td style="width: 181px;"class="fontBold">{{ date('d-m-Y',strtotime($student->date_of_admission))}}</td>
-            <td style="width: 181px;">Date Of Activation</td>
+            <td style="width: 181px;">Date of Activation</td>
             <td style="width: 181px;"class="fontBold">{{ date('d-m-Y',strtotime($student->date_of_activation))}}</td>
             </tr>
             <tr>
@@ -130,20 +127,13 @@ $default_image =public_path('profile-img/user.png');
             </tr>
             <tr>
             <td style="width: 181px;">Permanent Address</td>
-            <td style="width: 181px;" colspan="3" class="fontBold">{{ $student->addressDetails->address->p_address or ''}}</td>
-            </tr>
-             <tr>
-            <td style="width: 181px;">Permanent Pincode</td>
-            <td style="width: 181px;" colspan="3" class="fontBold">{{ $student->addressDetails->address->p_pincode or ''}}</td>
+            <td style="width: 181px;" colspan="3" class="fontBold">{{ $student->addressDetails->address->p_address or ''}}-{{ $student->addressDetails->address->p_pincode or ''}}</td>
             </tr>
              <tr>
             <td style="width: 181px;">Correspondence Address</td>
-            <td style="width: 181px;" colspan="3" class="fontBold">{{ $student->addressDetails->address->c_address or ''}}</td>
+            <td style="width: 181px;" colspan="3" class="fontBold">{{ $student->addressDetails->address->c_address or ''}}-{{ $student->addressDetails->address->c_pincode or ''}}</td>
             </tr>
-             <tr>
-            <td style="width: 181px;">Correspondence Pincode</td>
-            <td style="width: 181px;" colspan="3" class="fontBold">{{ $student->addressDetails->address->c_pincode or ''}}</td>
-            </tr>
+             
             </tbody>
             </table>
         </div>
@@ -181,12 +171,12 @@ $default_image =public_path('profile-img/user.png');
             </tr>
             <tr>
             <td style="width: 181px;">Date of Birth</td>
-            <td style="width: 181px;"class="fontBold">{{ date('d-m-Y', strtotime($parent->parentInfo->dob or ''))}}</td>
+            <td style="width: 181px;"class="fontBold">{{$parent->parentInfo->dob? date('d-m-Y', strtotime($parent->parentInfo->dob)) : null}}</td>
             <td style="width: 181px;">&nbsp;</td>
             </tr>
             <tr>
             <td style="width: 181px;">Date of Anniversary</td>
-            <td style="width: 181px;"class="fontBold">{{ date('d-m-Y', strtotime($parent->parentInfo->doa or ''))}}</td>
+            <td style="width: 181px;"class="fontBold">{{$parent->parentInfo->dob? date('d-m-Y', strtotime($parent->parentInfo->doa)) : null}}</td>
             <td style="width: 181px;">&nbsp;</td>
             </tr>
             <tr>
@@ -206,9 +196,8 @@ $default_image =public_path('profile-img/user.png');
             </tr>
             <tr>
             <td style="width: 181px;">Alive</td>
-            <td style="width: 181px;"class="fontBold">{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</td>
-            <td style="width: 181px;">Date Of Birth</td>
-            <td style="width: 181px;"class="fontBold">{{date('d-M-Y',strtotime($student->dob ))}}</td>
+            <td style="width: 181px;" colspan="3" class="fontBold">{{ $parent->parentInfo->islive == 1? 'Yes' : 'No' }}</td>
+            
             </tr>
             
             <tr>
