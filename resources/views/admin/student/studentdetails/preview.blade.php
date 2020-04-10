@@ -148,31 +148,16 @@ $profile = route('admin.student.image',$student->picture);
                         Permanent Address 
                     </div>
                     <div class="col-lg-9">
-                        <b>{{ $student->addressDetails->address->p_address or ''}}</b>
+                        <b>{{ $student->addressDetails->address->p_address or ''}}-{{ $student->addressDetails->address->p_pincode or ''}}</b>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-3">
-                        Permanent Pincode 
-                    </div>
-                    <div class="col-lg-9">
-                        <b>{{ $student->addressDetails->address->p_pincode or ''}}</b>
-                    </div>
-                </div>
+                
                 <div class="row">
                     <div class="col-lg-3">
                         Correspond Address 
                     </div>
                     <div class="col-lg-9">
-                        <b>{{ $student->addressDetails->address->c_address or ''}}</b>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3">
-                        Correspond Pincode 
-                    </div>
-                    <div class="col-lg-9">
-                        <b>{{ $student->addressDetails->address->c_pincode or ''}}</b>
+                        <b>{{ $student->addressDetails->address->c_address or ''}}-{{ $student->addressDetails->address->c_pincode or ''}}</b>
                     </div>
                 </div>
             </div>

@@ -51,7 +51,7 @@ b{
 
               <li><a data-toggle="tab" data-table="medical_info_table" href="#medical" id="medical_info_tab" onclick="callAjax(this,'{{ route('admin.medical.info.list',$student->id) }}','medical_info_page')"><i class="fa fa-user-md" id="medical_info"></i> Medical Detail</a></li>
               <li><a data-toggle="tab" href="#subjects" id="subject_tab" onclick="callAjax(this,'{{ route('admin.studentSubject.list',$student->id) }}','subject_list')"><i class="fa fa-book" {{-- id="subject_tab" --}}></i>  Subjects</a></li>
-              <li><a data-toggle="tab" href="#sport" id="sport_hobbies_tab" data-table="sport_hobby_items" onclick="callAjax(this,'{{ route('admin.hobby.show',$student->id) }}','sport_hobbies_list')"><i class="fa fa-life-ring" id="sport_tab"></i> Sports/Hobbies</a></li>
+              <li><a data-toggle="tab" href="#sport" id="sport_hobbies_tab" data-table="sport_hobby_items" onclick="callAjax(this,'{{ route('admin.hobby.show',$student->id) }}','sport_hobbies_list')"><i class="fa fa-life-ring" id="sport_tab"></i> Sports</a></li>
               <li><a data-toggle="tab" href="#document"><i class="fa fa-file" id="document_tab"></i> Document</a></li>
               <li><a data-toggle="tab" href="#award_list"><i class="fa fa-angellist" id="award_list_tab"></i> Award</a></li>
             </ul>

@@ -4,22 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
 </head>
-<style type="text/css" media="screen">
-     
-    li{
-        padding-bottom: 2px;
-        padding-left: 10px;
 
-    }
-
-    .page-breck{
-      page-break-before:always; 
-    }
-  
- 
-    @include('admin.include.boostrap')
-
-</style>
 <body>
    
   @if ($address->count()==0)

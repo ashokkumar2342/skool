@@ -83,11 +83,11 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-xs-3 text-center">
-                        <img  src="{{ $image }}" alt="" width="130px" height="153px" style="border:2px solid #908686;">
+                        <img  src="{{ $image }}" alt="" width="130px" height="153px" style="border:2px solid #908686;"><br>
 
-                        <button type="button" title="Upload Image" class="btn_parents_image btn btn-info btn-xs" crop-image="parent_image" onclick="callPopupLarge(this,'{{ route('admin.parents.image',$parent->parentInfo->id) }}')" ><i class="fa fa-image"></i>Image Upload</button>
+                        <button type="button" title="Upload Image" style="margin-top: 5px" class="btn_parents_image btn btn-info btn-xs" crop-image="parent_image" onclick="callPopupLarge(this,'{{ route('admin.parents.image',$parent->parentInfo->id) }}')" ><i class="fa fa-image"></i>Image Upload</button>
 
-                        <a class="btn_web btn btn-default btn-xs" onclick="callPopupMd(this,'{{ route('admin.student.camera',$parent->parentInfo->id) }}')" href="javascript:;"><i class="fa fa-camera"></i></a> 
+                        <a class="btn_web btn btn-default btn-xs" style="margin-top: 5px" onclick="callPopupMd(this,'{{ route('admin.student.camera',$parent->parentInfo->id) }}')" href="javascript:;"><i class="fa fa-camera"></i></a> 
                     </div>
                 </div>
                
