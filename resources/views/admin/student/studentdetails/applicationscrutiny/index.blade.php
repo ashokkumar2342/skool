@@ -34,15 +34,15 @@
           <div class="col-lg-2">
             <button type="button" id="btn_5" class="btn btn-danger" style="margin-top: 24px" onclick="callAjax(this,'{{ route('admin.submit.application.filter',5) }}'+'?academic_year='+$('#academic_year').val()+'&class='+$('#class').val(),'student_list_filter')">Rejected</button>
           </div>
-          <div class="col-lg-12" style="margin-top: 20px">
+          <div class="table-responsive col-lg-12" style="margin-top: 20px">
              <table class="table" id="room_table"> 
               <thead>
                 <tr>
-                  <th>Sr.No.</th>
-                  <th>Application No.</th>
-                  <th>Student Name</th>
-                  <th>Last School Name</th>
-                  <th>Action</th>
+                  <th class="text-nowrap">Sr.No.</th>
+                  <th class="text-nowrap">Application No.</th>
+                  <th class="text-nowrap">Student Name</th>
+                  <th class="text-nowrap">Last School Name</th>
+                  <th class="text-nowrap">Action</th>
                 </tr>
               </thead>
               <tbody id="student_list_filter">

@@ -10,7 +10,7 @@
              <form action="{{ route('admin.subject.wise.room.store') }}" method="post" class="add_form" content-refresh="room_table">
               {{ csrf_field() }}
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 form-group">
                   <label>SubJect</label>
                   <select name="subject" class="form-control">
                     <option selected disabled>Select Subject</option>
@@ -20,7 +20,7 @@
                   </select>
                   
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 form-group">
                   <label>Room No</label>
                   <select name="room" class="form-control">
                     <option selected disabled>Select Room No</option>
@@ -34,12 +34,13 @@
                 <input type="submit" class="btn btn-success" value="submit" style="margin: 24px">
               </div> 
              </form>
+             <div class="table-responsive">
              <table class="table" id="room_table"> 
               <thead>
                 <tr>
-                  <th>Subject</th>
-                  <th>Room No</th>
-                  <th>Action</th>
+                  <th class="text-nowrap">Subject</th>
+                  <th class="text-nowrap">Room No</th>
+                  <th class="text-nowrap">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -55,6 +56,7 @@
                 @endforeach
               </tbody>
              </table>
+           </div>
               
                          
           

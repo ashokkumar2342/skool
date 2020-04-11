@@ -1,20 +1,11 @@
-  
-  <!-- Main content -->
    
-    <style type="text/css" media="screen">
-  .bd{
-    border-bottom: #eee solid 1px;;
-  }
-  
-</style>
- 
-  <div class="modal-dialog" style="width:60%">
+  <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add SMS API</h4>
+        <h4 class="modal-title">{{ @$smsApi->id? 'Edit' : 'Add' }} Add SMS API</h4>
       </div>
       <div class="modal-body"> 
              <form action="{{ route('admin.api.smsApiStore',@$smsApi->id) }}" method="post" class="add_form" button-click="btn_outhor_table_show,btn_close">

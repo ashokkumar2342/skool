@@ -7,9 +7,6 @@
        
     </section>  
     <section class="content">
-      <div class="row">
-        <div class="col-xs-12">          
-              
           <div class="box"> 
             <div class="box-body"> 
               <form action="{{ route('admin.class.subject.period.store') }}" method="post" class="add_form" content-refresh="class_subject_period_table">
@@ -44,9 +41,11 @@
                 <input type="submit" class="btn btn-success" value="Submit" style="margin-top: 10px">
                 </div> 
               </form>
+            </div>
+       
                
              
-          
+          <div class="table-responsive">
           <table class="table" id="class_subject_period_table"> 
             <thead>
               <tr>
@@ -72,6 +71,7 @@
               @endforeach
             </tbody>
           </table>
+        </div>
         </div>
       </div>
     </section>

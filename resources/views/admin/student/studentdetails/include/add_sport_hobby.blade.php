@@ -1,6 +1,6 @@
 
 
-<div class="modal-dialog" style="width:50%">
+<div class="modal-dialog">
 
   <!-- Modal content-->
   <div class="modal-content">

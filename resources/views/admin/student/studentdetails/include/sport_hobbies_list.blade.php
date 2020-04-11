@@ -1,3 +1,4 @@
+<div class="table-responsive">
 <table class="table" id="sport_hobby_items">                         
                        <thead>
                            <tr>
@@ -21,3 +22,5 @@
                          @endforeach
                        </tbody>
                    </table>
+  
+</div>

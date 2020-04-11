@@ -31,8 +31,7 @@
                     </div> 
                     <div class="form-group   col-lg-4">
                       <label>Student Name</label>
-                      <select name="student_name" class="form-control select2">
-                        <option selected disabled>Select Name</option>
+                      <select name="student_name" class="multiselect" multiple="multiple">
                         @foreach ($students as $student)
                         <option value="{{ $student->id }}"{{ $awardfors->student_id==$student->id? 'selected' : '' }}>{{ $student->name }}</option> 
                         @endforeach 

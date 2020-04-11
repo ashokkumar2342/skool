@@ -8,7 +8,7 @@
 
 </style>
 
-<div class="modal-dialog" style="width:50%">
+<div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -20,6 +20,7 @@
 
             <form action="{{ route('admin.feeGroupDetail.post',@$feeGroups) }}" method="post" class="add_form" button-click="btn_close" content-refresh="fee_group_table">
                 {{ csrf_field() }}
+                <div class="table-responsive">
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -63,7 +64,8 @@
                         </tr>
                         @endforeach
                     </tbody>
-                </table>  
+                </table>
+                </div>  
                 <div class="text-center">
                     <input type="submit" class="btn btn-success" >
 

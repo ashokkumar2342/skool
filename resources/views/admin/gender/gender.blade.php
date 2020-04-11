@@ -9,6 +9,7 @@
     <section class="content">
       <div class="box"> 
         <div class="box-body"> 
+        <div class="table-responsive"> 
            <table class="table" id="gender_table">
              <thead>
                <tr>
@@ -35,6 +36,7 @@
               @endforeach
              </tbody>
            </table>
+         </div>
         </div>
       </div>
     </section>

@@ -19,14 +19,14 @@
                 <div id="home" class="tab-pane fade in active">
                   <button type="button" class="btn btn-primary pull-right" onclick="callPopupLarge(this,'{{ route('admin.api.smsApiAdd')}}')" style="margin:10px">Add SMS API</button>
                 <button id="btn_outhor_table_show" hidden  onclick="callAjax(this,'{{ route('admin.api.smsApilist') }}','othor_details_table_show')">show </button>
-                 <div id="othor_details_table_show">
+                 <div class="table-responsive" id="othor_details_table_show">
                     
                   </div>
                 </div>
                 <div id="menu1" class="tab-pane fade">
                   <button type="button" class="btn btn-primary pull-right" onclick="callPopupLarge(this,'{{ route('admin.api.emailApiAdd')}}')" style="margin:10px">Add Email API</button>
                   <button id="btn_homework_table_show" hidden onclick="callAjax(this,'{{ route('admin.api.emailApilist') }}','homework_details_table_show')">show </button>
-                 <div id="homework_details_table_show">
+                 <div class="table-responsive" id="homework_details_table_show">
                     
                   </div>
                 </div> 

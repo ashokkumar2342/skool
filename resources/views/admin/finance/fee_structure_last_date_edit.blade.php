@@ -8,7 +8,7 @@
 
 </style>
 
-<div class="modal-dialog" style="width:40%">
+<div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">

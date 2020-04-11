@@ -7,14 +7,15 @@
     </section>  
     <section class="content"> 
       <div class="box"> 
-        <div class="box-body"> 
+        <div class="box-body">
+          <div class="table-responsive">
              <table class="table" id="room_table"> 
               <thead>
                 <tr>
-                  <th>Sr.No.</th>
-                  <th>Room Name/No</th>
-                  <th>Room Location</th>
-                  <th>Action</th>
+                  <th class="text-nowrap">Sr.No.</th>
+                  <th class="text-nowrap">Room Name/No</th>
+                  <th class="text-nowrap">Room Location</th>
+                  <th class="text-nowrap">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -29,7 +30,8 @@
                     </tr> 
                 @endforeach
               </tbody>
-             </table> 
+             </table>
+            </div> 
         </div>
       </div>
     </section> 

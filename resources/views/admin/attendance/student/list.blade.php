@@ -47,7 +47,7 @@
               </div>
              <form action="{{ route('admin.attendance.student.save') }}" method="post" button-click="btn_attendance_list_show" class="add_form" no-reset="true">
                 {{ csrf_field() }}
-                <div id="attendance_table">
+                <div class="table-responsive" id="attendance_table">
                   
                 </div> 
              </form>

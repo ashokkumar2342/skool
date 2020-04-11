@@ -1,14 +1,5 @@
-  
-  <!-- Main content -->
-   
-    <style type="text/css" media="screen">
-  .bd{
-    border-bottom: #eee solid 1px;;
-  }
-  
-</style>
- 
-  <div class="modal-dialog" style="width:50%">
+
+  <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -20,11 +11,11 @@
              <form action="{{ route('admin.category.store',@$category->id) }}" method="post" class="add_form" button-click="btn_event_type_table_show,btn_close" content-refresh="category_dataTable">
                    {{ csrf_field() }}
                     <div class="row"> 
-                      <div class="col-lg-6">
+                      <div class="col-lg-6 form-group">
                         <label>Category Name</label>
                         <input type="text" name="name" class="form-control" placeholder="Enter Category Name" value="{{ @$category->name }}" maxlength="50"> 
                       </div>
-                      <div class="col-lg-6">
+                      <div class="col-lg-6 form-group">
                         <label>Category Code</label>
                         <input type="text" name="code" class="form-control" placeholder="Enter Category Code" value="{{ @$category->code }}" maxlength="3"> 
                       </div>  

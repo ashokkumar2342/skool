@@ -42,7 +42,7 @@
                 <form action="{{ route('admin.studentFeeGroupDetail.post') }}" method="post" class="add_form" button-click="btn_student_fee_group_detail" no-reset="true">
                   {{ csrf_field() }}
                   
-                <di id="form_student_fee_group_detail">
+                <div id="form_student_fee_group_detail">
                    
                 </div> 
                   

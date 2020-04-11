@@ -8,6 +8,7 @@
     <section class="content">
         <div class="box"> 
             <div class="box-body">
+            <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover" id="admission_seat_table">
                <thead>
                  <tr>
@@ -49,7 +50,8 @@
                        </tr> 
                 @endforeach
                </tbody>
-             </table> 
+             </table>
+             </div> 
          </div>
        </div>
      

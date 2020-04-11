@@ -9,7 +9,7 @@
     <section class="content">
         <div class="box"> 
             <div class="box-body">             
-                <div class="col-md-12"> 
+                <div class="table-responsive col-md-12"> 
                   
               <table class="table table-responsive" id="table_academic_year"> 
                   <thead>

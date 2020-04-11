@@ -1,14 +1,6 @@
   
-  <!-- Main content -->
-   
-    <style type="text/css" media="screen">
-  .bd{
-    border-bottom: #eee solid 1px;;
-  }
   
-</style>
- 
-  <div class="modal-dialog" style="width:50%">
+  <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -22,11 +14,11 @@
              <form action="{{ route('admin.guardian.update',@$guardianRelationType->id) }}" method="post" class="add_form" content-refresh="guardianRelationTypes" button-click="btn_close">
                    {{ csrf_field() }}
                    <div class="row">
-                    <div class="col-lg-6"> 
+                    <div class="col-lg-6 form-group"> 
                      <label>Guardian Type</label>
                      <input type="text" name="name" class="form-control" value="{{ @$guardianRelationType->name }}" maxlength="50" placeholder="Enter Guardian Type">        
                     </div>
-                    <div class="col-lg-6"> 
+                    <div class="col-lg-6 form-group"> 
                      <label>Code</label>
                      <input type="text" name="code" class="form-control" value="{{ @$guardianRelationType->code }}" maxlength="5" placeholder="Enter Code">        
                     </div> 

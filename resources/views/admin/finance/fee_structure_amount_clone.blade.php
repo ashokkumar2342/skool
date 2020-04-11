@@ -1,4 +1,4 @@
-<div class="modal-dialog" style="width:40%"> 
+<div class="modal-dialog"> 
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>

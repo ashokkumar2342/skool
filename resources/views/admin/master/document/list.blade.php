@@ -15,7 +15,7 @@
 
             <!-- /.box-header -->
             <div class="box-body"> 
-                <div class="col-lg-12" style="margin-top: 20px">
+                <div class="table-responsive col-lg-12" style="margin-top: 20px">
                     <table id="dataTable" class="table table-bordered table-striped">
                       <thead>
                       <tr>

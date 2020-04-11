@@ -13,7 +13,10 @@
           
           <button id="btn_event_type_table_show" hidden data-table="event_type_data_table" onclick="callAjax(this,'{{ route('admin.award.level.list') }}','event_type_table_show_div')">show </button>
           <div class="box"> 
-            <div class="box-body" id="event_type_table_show_div">
+            <div class="box-body">
+              <div class="table-responsive" id="event_type_table_show_div">
+                
+              </div>
            
             </div>
           </div>

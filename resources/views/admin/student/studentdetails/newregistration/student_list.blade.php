@@ -6,17 +6,19 @@
     </section>  
     <section class="content"> 
       <div class="box"> 
-        <div class="box-body"> 
+        <div class="box-body">
+        <div class="row">
           <div class="col-lg-4">
-            <button type="button" class="btn btn-warning" data-table="student_list_filter_table" onclick="callAjax(this,'{{ route('admin.student.registration.list.filter',1) }}','student_list_filter')"> New Student</button>
+            <button type="button" style="width: 100%" class="btn btn-warning" data-table="student_list_filter_table" onclick="callAjax(this,'{{ route('admin.student.registration.list.filter',1) }}','student_list_filter')"> New Student</button>
           </div>
           <div class="col-lg-4">
-            <button type="button" class="btn btn-success" data-table="student_list_filter_table" onclick="callAjax(this,'{{ route('admin.student.registration.list.filter',2) }}','student_list_filter')"> Present Student</button>
+            <button type="button" style="width: 100%" class="btn btn-success" data-table="student_list_filter_table" onclick="callAjax(this,'{{ route('admin.student.registration.list.filter',2) }}','student_list_filter')"> Present Student</button>
           </div>
           <div class="col-lg-4">
-            <button type="button" class="btn btn-danger" data-table="student_list_filter_table" onclick="callAjax(this,'{{ route('admin.student.registration.list.filter',3) }}','student_list_filter')"> Pass Out Student</button>
+            <button type="button" style="width: 100%" class="btn btn-danger" data-table="student_list_filter_table" onclick="callAjax(this,'{{ route('admin.student.registration.list.filter',3) }}','student_list_filter')"> Pass Out Student</button>
           </div>
-          <div class="col-lg-12" style="margin-top: 20px">
+        </div>
+          <div class="table-responsive col-lg-12" style="margin-top: 20px">
              
               <table class="table" id="student_list_filter">
                 <thead>

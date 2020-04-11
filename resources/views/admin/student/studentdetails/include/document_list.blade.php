@@ -1,7 +1,9 @@
+<div class="table-responsive">
+  
 <table class="table" id="document_items">                         
                       <thead>
                           <tr>
-                              <th>Document Type Name</th>
+                              <th class="text-nowrap">Document Type Name</th>
                               <th>Doc Name</th>
                               <th>Action</th>
                           </tr>
@@ -19,3 +21,4 @@
                          @endforeach
                       </tbody>
                   </table>
+</div>

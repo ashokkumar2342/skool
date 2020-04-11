@@ -12,12 +12,12 @@
             </div> 
             <!-- /.box-header -->
             <div class="box-body"> 
-                <div class="col-lg-12" style="margin-top: 20px">
+                <div class="table-responsive col-lg-12" style="margin-top: 20px">
                     <table id="category_dataTable" class="table table-bordered table-striped">
                       <thead>
                       <tr>
-                        <th>SR.No.</th> 
-                        <th>Status Name</th> 
+                        <th class="text-nowrap">SR.No.</th> 
+                        <th class="text-nowrap">Status Name</th> 
                         <th>Code</th> 
                         <th>Action</th>
                          </tr>

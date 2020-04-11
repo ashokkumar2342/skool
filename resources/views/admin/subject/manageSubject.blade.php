@@ -30,7 +30,7 @@
                       </select>                      
                        
                     </div> 
-                    <div class="col-md-12">
+                    <div class="table-responsive col-md-12">
                     <form id="saveSubject" action="javascript:;">
                     {{ csrf_field() }}
                       <table class="table table-bordered">
@@ -63,7 +63,7 @@
                 </div> 
             </div>
            
-            <div class="col-md-7 pull-right">
+            <div class="table-responsive col-md-7 pull-right">
                <a href="{{ route('admin.manageSubject.pdf.generate') }}" class="btn btn-primary btn-sm" title="Download PDF" target="blank" style="float: right;margin-top: -40px;margin-right:10px">PDF</a>
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>

@@ -15,6 +15,7 @@
             </div>
             
             <div class="box-body">
+             <div class="table-responsive">
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
@@ -52,6 +53,7 @@
                 </tbody>
                  
               </table>
+            </div>
             </div>
             <!-- /.box-body -->
           </div>

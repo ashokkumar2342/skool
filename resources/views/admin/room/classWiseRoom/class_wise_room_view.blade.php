@@ -35,6 +35,7 @@
             </div>
                 
              </form>
+             <div class="table-responsive">
              <table class="table" id="class_wise_room_table"> 
                <thead>
                  <tr>
@@ -57,6 +58,7 @@
                 @endforeach
                </tbody>
              </table>
+           </div>
              
               
                          

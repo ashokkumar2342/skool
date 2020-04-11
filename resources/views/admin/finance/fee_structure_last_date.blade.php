@@ -1,10 +1,10 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Fee Structure Last Date </h1>
-      <ol class="breadcrumb">
-        <a href="#" onclick="callPopupLarge(this,'{{ route('admin.feeStructureAmount.clone','feestruturelassdate_clone') }}')" class="btn btn-primary btn-sm pull-right" title="">Clone</a>
-      </ol>
+        <a href="#" onclick="callPopupLarge(this,'{{ route('admin.feeStructureAmount.clone','feestruturelassdate_clone') }}')" class="btn btn-info btn-sm pull-right" title="">Clone</a>
+    <h1>Fee Structure Last Date</h1> 
+     
+     
 </section>
     <section class="content">
         <div class="box">             
@@ -33,7 +33,7 @@
                               </select>  
                              </div>    
                         </div> 
-                        <div id="form_fee_structure_last_date_table"> 
+                        <div class="" id="form_fee_structure_last_date_table"> 
                         </div>    
 	                                      
 	                </form> 

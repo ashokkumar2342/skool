@@ -47,7 +47,7 @@
               </div>
              <form action="{{ route('admin.attendance.student.verify.store') }}" method="post" class="add_form" button-click="btn_virify_show">
                 {{ csrf_field() }}
-                <div id="attendance_table">
+                <div class="table-responsive" id="attendance_table">
                   
                 </div> 
              </form>

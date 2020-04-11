@@ -1,20 +1,11 @@
   
   <!-- Main content -->
    
-    <style type="text/css" media="screen">
-  .bd{
-    border-bottom: #eee solid 1px;;
-  }
-  
-</style>
- 
-  <div class="modal-dialog" style="width:60%">
-
-    <!-- Modal content-->
+<div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{ @$adminssionSeat->id?'Edit' : 'Add' }} Admission Schedule</h4>
+        <h4 class="modal-title">{{ @$adminssionSeatId->id?'Edit' : 'Add' }} Admission Schedule</h4>
       </div>
       <div class="modal-body"> 
             <form action="{{ route('admin.adminssion.seat.store',@$adminssionSeatId->id) }}" method="post" class="add_form" content-refresh="admission_seat_table" button-click="btn_close" enctype="multipart/form-data">

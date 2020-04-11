@@ -32,7 +32,8 @@
                 <div class="box-body">
                      <form id="saveClassFeeStructure" action="javascript:;">
                         {{ csrf_field() }}
-                         <table class="table table-bordered">
+                         <div class="table-responsive">
+                         <table class="table table-bordered table-responsive">
                             <thead>                             
                             <tr> 
                                 <th> <input  class="checked_all" type="checkbox" style="display:none"> </th>
@@ -61,6 +62,7 @@
                             
                           </tbody>
                       </table>
+                    </div>
                     {{ Form::close() }}
                 </div>
             </div> 

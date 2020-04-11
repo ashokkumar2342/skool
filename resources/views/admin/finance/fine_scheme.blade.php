@@ -15,19 +15,20 @@
         <div class="box">             
             <!-- /.box-header -->
             <div class="box-body">             
+            <div class="table-responsive">             
              <table id="fine_scheme_table" class="display table table-bordered">                     
                         <thead>
                             <tr>
-                                <th>Sr.No.</th>
-                                <th>Code</th>
-                                <th>Name</th>
-                                <th>Amount 1</th>
-                                <th>Amount 2</th>
-                                <th>Amount 3</th>
-                                <th>Days After 1</th>
-                                <th>Days After 2</th>
-                                <th>Fine Period</th> 
-                                <th>Action</th>                                                            
+                                <th class="text-nowrap">Sr.No.</th>
+                                <th class="text-nowrap">Code</th>
+                                <th class="text-nowrap">Name</th>
+                                <th class="text-nowrap">Amount 1</th>
+                                <th class="text-nowrap">Amount 2</th>
+                                <th class="text-nowrap">Amount 3</th>
+                                <th class="text-nowrap">Days After 1</th>
+                                <th class="text-nowrap">Days After 2</th>
+                                <th class="text-nowrap">Fine Period</th> 
+                                <th class="text-nowrap">Action</th>                                                            
                             </tr>
                         </thead>
                         <tbody>
@@ -57,6 +58,7 @@
                              
 
                     </table>
+                  </div>
             </div>
          </div>
  

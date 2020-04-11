@@ -1,14 +1,5 @@
-  
-  <!-- Main content -->
-   
-    <style type="text/css" media="screen">
-  .bd{
-    border-bottom: #eee solid 1px;;
-  }
-  
-</style>
- 
-  <div class="modal-dialog" style="width:40%">
+
+  <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -22,11 +13,11 @@
               <form action="{{ route('admin.room.details.update',@$roomTypes->id) }}" method="post" class="add_form" button-click="btn_close" content-refresh="room_table" >
               {{ csrf_field() }}
               <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6 form-group">
                   <label>Room Name/No</label>
                   <input type="text" name="room_name" class="form-control" value="{{ @$roomTypes->name }}" maxlength="50" placeholder="Enter Room Name/No"> 
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-6 form-group">
                   <label>Room Location</label>
                   <input type="text" name="location" class="form-control" placeholder="Enter Room Location " maxlength="100" value="{{ @$roomTypes->location }}"  > 
                 </div>

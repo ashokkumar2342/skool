@@ -13,6 +13,8 @@
             <form action="{{ route('admin.account.list.user.generate') }}" method="post" target="blank">
             {{ csrf_field() }} 
             <button type="submit" class="btn btn-primary btn-sm pull-right" title="" style="margin:5px">PDF Generate</button>
+              <div class="col-lg-12">
+              <div class="table-responsive">
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
@@ -72,7 +74,10 @@
                   </td>
                 </tr> 
                 @endforeach
+                </tbody>
               </table>
+            </div>
+            </div>
             </div>
             </form>
           </div>

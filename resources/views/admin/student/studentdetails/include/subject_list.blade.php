@@ -15,11 +15,12 @@
         <div id="parent" class="panel-collapse collapse in">
             <div class="panel-body">
                 <div class="row">
+                    <div class="table-responsive">
                     <table class="table" id="subject_items">                         
                         <thead>
                             <tr>
-                                <th>Subject Name</th>
-                                <th>Is Optional</th>
+                                <th class="text-nowrap">Subject Name</th>
+                                <th class="text-nowrap">Is Optional</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -35,6 +36,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>

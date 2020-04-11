@@ -35,7 +35,7 @@
         </div>
         <div class="box"> 
           <div class="box-body">
-          <div id="select_class_wise_section">
+          <div class="table-responsive" id="select_class_wise_section">
        </div> 
          
       </div>

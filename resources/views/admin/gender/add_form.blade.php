@@ -1,14 +1,5 @@
   
-  <!-- Main content -->
-   
-    <style type="text/css" media="screen">
-  .bd{
-    border-bottom: #eee solid 1px;;
-  }
-  
-</style>
- 
-  <div class="modal-dialog" style="width:50%">
+   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -22,11 +13,11 @@
              <form action="{{ route('admin.gender.store',@$genders->id) }}" method="post" class="add_form" button-click="btn_close" content-refresh="gender_table">
                    {{ csrf_field() }}
                    <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 form-group">
                       <label>Gender Name</label>
                       <input type="text" name="gender_name" class="form-control" placeholder="Enter House Name" maxlength="20" value="{{ @$genders->genders }}"> 
                     </div> 
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 form-group">
                       <label>Code</label>
                       <input type="text" name="code" class="form-control" placeholder="Enter House Code" maxlength="2" value="{{ @$genders->code }}"> 
                     </div> 

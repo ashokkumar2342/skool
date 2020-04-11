@@ -2,7 +2,7 @@
    <form action="{{ route('admin.account.menu.permission.check') }}" method="post" no-reset="true" class="add_form">
                 {{ csrf_field() }} 
     <section class="content">
-      <div class="modal-dialog" style="width:90%">
+      <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -16,6 +16,7 @@
                    
            
             <div class="box-body">
+            <div class="table-responsive">
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
@@ -57,6 +58,7 @@
                 </tbody>
               </table>
             </div>
+          </div>
             <div class="row">
               <div class="col-lg-12 text-center">
                 <input type="submit" class="btn btn-success" value="Submit" >

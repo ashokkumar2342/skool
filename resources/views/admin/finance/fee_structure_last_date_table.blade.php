@@ -22,17 +22,17 @@
 
     
 </div>
-<div class="col-lg-12"> 
+<div class="col-lg-12 table-responsive"> 
     <table id="fee_structure_last_date_table" class="display table" style="margin-top: 10px">                     
         <thead>
             <tr>
-                <th>Sr.No.</th>
-                <th>Fee Structure</th> 
-                <th>Academic Year</th>
-                <th>Amount</th>
-                <th>Due Month/Year</th>                                   
-                <th>For Session/Month</th>                                                            
-                <th>Action</th>                                                            
+                <th class="text-nowrap">Sr.No.</th>
+                <th class="text-nowrap">Fee Structure</th> 
+                <th class="text-nowrap">Academic Year</th>
+                <th class="text-nowrap">Amount</th>
+                <th class="text-nowrap">Due Month/Year</th>                                   
+                <th class="text-nowrap">For Session/Month</th>                                                            
+                <th class="text-nowrap">Action</th>                                                            
             </tr>
         </thead>
         <tbody>

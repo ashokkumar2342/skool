@@ -30,6 +30,7 @@
                 <div class="box-body">
                      <form id="saveClassFeeStructure" action="javascript:;">
                         {{ csrf_field() }}
+                        <div class="table-responsive">
                          <table class="table table-bordered">
                             <thead>                             
                             <tr>
@@ -40,7 +41,6 @@
                             </tr>
                             </thead>
                             <tbody id="searchResult">
-                              
                             </tbody>
                            <tfoot>
                              <tr>
@@ -54,10 +54,9 @@
                                 </td>
                             </tr>
                            </tfoot>
-                            
-                            
                           </tbody>
                       </table>
+                    </div>
                     {{ Form::close() }}
                 </div>
             </div> 

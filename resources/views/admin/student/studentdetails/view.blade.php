@@ -263,7 +263,7 @@ b{
                   </div>
                 </div>
                 <div id="award_list" class="tab-pane fade"> 
-                    <button type="button" class="btn btn-info pull-left" multi-select="true" onclick="callPopupLarge(this,'{{ route('admin.award.for.addform')}}')" style="margin:10px">Add</button> 
+                    <button type="button" class="btn btn-info btn-sm" multi-select="true" onclick="callPopupLarge(this,'{{ route('admin.award.for.addform')}}')" style="margin:10px">Add Award</button> 
                             <button id="btn_event_type_table_show" hidden data-table="event_type_data_table" onclick="callAjax(this,'{{ route('admin.award.for.table.show',$student->id) }}','event_type_table_show_div')">show </button> 
                               <div class="" id="event_type_table_show_div"> 
                               </div>

@@ -41,7 +41,7 @@
         </div>
         <div class="box"> 
           <div class="box-body">
-            <div id="subject_show">
+            <div class="table-responsive" id="subject_show">
               
             </div>
           </div>

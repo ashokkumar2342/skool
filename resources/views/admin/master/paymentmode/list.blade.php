@@ -1,18 +1,17 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Payment Mode List</h1>
-      <ol class="breadcrumb">
          <?php $url = route('admin.paymentMode.edit') ?>
          <a class="btn btn-info btn-sm pull-right"  onclick="callPopupMd(this,'{{$url}}')">Add Payment Mode</a>
          <a href="{{ route('admin.paymentMode.pdf.generate') }}" class="btn btn-sm btn-success pull-right" target="blank"  title="Download PDF" style="margin-right: 10px">PDF</a>
-      </ol>
+    <h1>Payment Mode List</h1>
+     
 </section>
     <section class="content"> 
             <div class="box"> 
                 <div class="box-body">
                   <div class="row">
-                  <div class="col-lg-12"> 
+                  <div class="table-responsive col-lg-12"> 
                     <table class="table" id="table_payment_mode">
                          
                         <thead>

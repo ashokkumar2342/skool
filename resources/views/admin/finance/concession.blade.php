@@ -15,6 +15,7 @@
         <div class="box">             
             <!-- /.box-header -->
             <div class="box-body">             
+            <div class="table-responsive">             
              <table id="concession_table" class="display table">                     
                         <thead>
                             <tr>
@@ -46,7 +47,8 @@
                         </tbody>
                              
 
-                    </table>    
+                    </table>
+                    </div>    
             </div>
          </div>
  

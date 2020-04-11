@@ -1,3 +1,4 @@
+<div class="table-responsive">
 <table class="table table-hover table-striped table-bordered">
 	<thead>
 		<tr>
@@ -21,6 +22,7 @@
 		 
 	</tbody>
 </table>
+</div>
 <div class="col-lg-4">
 	<label>Fee</label>
 	<input type="text" name="fee" readonly="" class="form-control" value="{{ $AdmissionSeat->form_fee }}">
