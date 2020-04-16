@@ -109,10 +109,10 @@
 
                             <div class="table-cell vertical-align-middle auth-form-wrap">
                                 <div class="text-center">
-                                  <a href="#"><img src="{{asset('front_asset/images/logo.png')}}" alt="" style=" padding-top:150px;padding-right: 70px"></a>
+                                  <a href="#"><img src="{{asset('front_asset/images/logo.png')}}" alt="" style=" padding-top:100px;padding-right: 70px"></a>
                                     
                                 </div>
-                                <div class="auth-form  ml-auto mr-auto no-float">
+                                <div class="ml-auto mr-auto no-float" style="margin: 30px">
                                     <div class="row well well-sm">
                                         <div class="col-sm-12 col-xs-12">               
                                             <div class="form-wrap">
@@ -144,20 +144,22 @@
                                                         <div class="form-group has-feedback">
                                                            <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha"> 
                                                             <p class="text-danger">{{ $errors->first('captcha') }}</p>
+                                                        </div>                  
+                                                    <div class="row">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                          <div class="col-lg-8 text-center">
+                                                            <button type="submit" style="width: 155px" class="btn btn-primary btn-rounded">Sign In</button>
+                                                          </div>
                                                         </div>
-                                                    
-                                                    </div> 
-                                                    <div class="row">
-                                                       
-                                                    <div class="row">
-                                                      <div class="col-xs-6 text-center">
-                                                        <button type="submit" class="btn btn-primary btn-rounded">Sign In</button>
-                                                      </div>
-                                                       <div class="col-xs-6">
-                                                      <a href="{{ route('student.resitration.firststep') }}">New Admission</a>
-                                                    </div>
-                                                    <div class="col-xs-6">
-                                                      <a href="#" onclick="callPopupLarge(this,'{{ route('admin.forget.password') }}')">Forgot Password </a>
+                                                        <div class="col-lg-6">
+                                                           <div class="col-lg-6">
+                                                             <a href="{{ route('student.resitration.firststep') }}">New Admission</a>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                           <a href="#" onclick="callPopupLarge(this,'{{ route('admin.forget.password') }}')">Forgot Password </a>
+                                                        </div>
+                                                        </div>
                                                     </div>
                                                       
                                                       <!-- /.col -->

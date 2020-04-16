@@ -83,7 +83,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-xs-3 text-center">
-                        <img  src="{{ $image }}" alt="" width="130px" height="153px" style="border:2px solid #908686;"><br>
+                        <img  src="{{ ($image)? $image : asset('profile-img/user.png') }}?{{ time() }}" alt="" width="130px" height="153px" style="border:2px solid #908686;"><br>
 
                         <button type="button" title="Upload Image" style="margin-top: 5px" class="btn_parents_image btn btn-info btn-xs" crop-image="parent_image" onclick="callPopupLarge(this,'{{ route('admin.parents.image',$parent->parentInfo->id) }}')" ><i class="fa fa-image"></i>Image Upload</button>
 
