@@ -1453,6 +1453,7 @@ class StudentController extends Controller
          //end sibling detaild///
          //application barcode ///
                      $admissionApplication=AdmissionApplication::where('student_id',$student->id)->first();
+                     if ($student->registration_no==null) {
                      $value=$admissionApplication->id;     
                      $barcode = new BarcodeGenerator();
                      $barcode->setText($value);
@@ -1465,7 +1466,23 @@ class StudentController extends Controller
                      $image_name= $value.'.png';     
                      $path = Storage_path() . "/app/student/barcode/application/" . $image_name;
                      @mkdir(Storage_path() . "/app/student/barcode/application/", 0755, true); 
-                     file_put_contents($path, $data);  
+                     file_put_contents($path, $data); 
+                     }else{
+                     $value=$student->registration_no;     
+                     $barcode = new BarcodeGenerator();
+                     $barcode->setText($value);
+                     $barcode->setType(BarcodeGenerator::Code128);
+                     $barcode->setScale(2);
+                     $barcode->setThickness(25);
+                     $barcode->setFontSize(10);
+                     $code = $barcode->generate();
+                     $data = base64_decode($code);
+                     $image_name= $value.'.png';     
+                     $path = Storage_path() . "/app/student/barcode/";
+                     $paths = Storage_path() . "/app/student/barcode/" . $image_name;
+                     @mkdir($path, 0755, true); 
+                     file_put_contents($paths, $data);
+                     }
            //application barcode end///          
           $studentMedicalInfos = StudentMedicalInfo::where('student_id',$student_id)->get(); 
           $documents = Document::where('student_id',$student_id)->get(); 
