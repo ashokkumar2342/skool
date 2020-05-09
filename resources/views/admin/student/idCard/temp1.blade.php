@@ -67,9 +67,9 @@
 			  		$data =storage_path('app/student/barcode/'.$student->registration_no.'.'.'png');
 			  	@endphp
 			  	@if ($path==$paths)
-			  	<img  src="''" alt="" width="103px" height="103px" style="border:solid 2px Black"> 
+			  	<img  src="''" alt="" width="103px" height="103px" style="border:solid 2px Black;margin-top: 10px"> 
 				  @else
-				  <img  src="{{ $path }}" alt="" width="103px" height="103px" style="border:solid 2px Black"> 
+				  <img  src="{{ $path }}" alt="" width="103px" height="103px" style="border:solid 2px Black;margin-top: 10px"> 
 
 			  	@endif
 
@@ -79,13 +79,13 @@
 				  <img  src="{{ $data }}" width="130px" height="45px" style="float:left;">
 			</span> 
 			 </div>
-			 <div  style="font-size: 17px;text-align:center"><b>{{ $student->name }} {{ $student->last_name }}</b></div> 
-			  <div  style="font-size: 17px;text-align:center">Parent's Name</div> 
-			  <div  style="font-size: 17px;text-align:center"><b>{{ $student->parents[0]->parentInfo->name or ''}}</b></div> 
-			  <div  style="font-size: 17px;text-align:center">Date Of Birth : <b>{{  $student->dob!=null?date('d-m-Y', strtotime($student->dob)):'' }}</b></div>  
-			  <div  style="font-size: 17px;text-align:center">Contact No : <b>{{ $student->addressDetails->address->primary_mobile or ''}}</b></div> 
-			  <div  style="font-size: 17px;text-align:center">Address</div> 
-			  <div  style="font-size: 17px;text-align:center;"><b>{{ $student->addressDetails->address->p_address or ''}}</b></div> 
+			 <div  style="font-size: 15px;text-align:center"><b>{{ $student->name }} {{ $student->last_name }}</b></div> 
+			  <div  style="font-size: 15px;text-align:center">Parent's Name</div> 
+			  <div  style="font-size: 15px;text-align:center"><b>{{ $student->parents[0]->parentInfo->name or ''}}</b></div> 
+			  <div  style="font-size: 15px;text-align:center">Date Of Birth : <b>{{  $student->dob!=null?date('d-m-Y', strtotime($student->dob)):'' }}</b></div>  
+			  <div  style="font-size: 15px;text-align:center">Contact No : <b>{{ $student->addressDetails->address->primary_mobile or ''}}</b></div> 
+			  <div  style="font-size: 15px;text-align:center">Address</div> 
+			  <div  style="font-size: 15px;text-align:center;"><b>{{ $student->addressDetails->address->p_address or ''}}</b></div> 
 		</div>
 			@if ($student->gender_id==1)
 			  <div id="footer" style="background-color:red">
