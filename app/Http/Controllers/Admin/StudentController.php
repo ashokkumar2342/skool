@@ -395,7 +395,7 @@ class StudentController extends Controller
         }else{
             $showHide='hidden';
         } 
-         return $student->student_status_id;
+         
         return view('admin.student.studentdetails.view',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','awardLevels','subjectTypes','bloodgroups','professions','classes','sections','houses','genders','userId','schoolinfo','showHide'));
     }
     public function excelData(){
