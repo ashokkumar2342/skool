@@ -18,7 +18,7 @@
       <div id="parent{{ $medicalInfo->id }}" class="panel-collapse collapse in">
         <div class="panel-body">
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-3 pt-5">
                         On Date 
                     </div>
                     <div class="col-lg-3">
