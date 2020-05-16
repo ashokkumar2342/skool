@@ -28,7 +28,7 @@
                                 <td>{{ $SchoolBankDetail->Banks->name or '' }}</td>
                                 <td>{{ $SchoolBankDetail->ifsc_code }}</td>
                                 <td>{{ $SchoolBankDetail->account_no }}</td>
-                                <td>{{ $SchoolBankDetail->account_nane }}</td>
+                                <td>{{ $SchoolBankDetail->account_name }}</td>
                                 <td>{{ $SchoolBankDetail->contact_no }}</td>
                                 <td>{{ $SchoolBankDetail->email }}</td>
                                 <td>{{ $SchoolBankDetail->contact_person_name }}</td>

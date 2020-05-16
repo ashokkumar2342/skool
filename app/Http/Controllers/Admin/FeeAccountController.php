@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\FeeAccount;
 use App\Model\Hr\Bank;
+use App\Model\MappingBankAccount;
 use App\Model\SchoolBankDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -133,6 +134,13 @@ class FeeAccountController extends Controller
     }
     public function bankDetailsStore(Request $request,$id=null){
         $rules=[
+            'bank_id' => 'required',
+            'ifsc_code' => 'required',
+            'account_no' => 'required',
+            'account_name' => 'required',
+            'contact_no' => 'required',
+            'email' => 'required',
+            'contact_person_name' => 'required',
             ];
 
             $validator = Validator::make($request->all(),$rules);
@@ -164,5 +172,28 @@ class FeeAccountController extends Controller
         $feeAccounts=FeeAccount::orderBy('name','ASC')->get();
         $SchoolBankDetail=SchoolBankDetail::orderBy('account_name','ASC')->get();
         return view('admin.finance.bankDetails.mapping',compact('feeAccounts','SchoolBankDetail'));
+    }
+    public function mappingBankAccountStore(Request $request ,$id=null)
+    {
+       $rules=[
+        'fee_account' => 'required',
+        'bank_account' => 'required',
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              else {
+                $SchoolBankDetail=MappingBankAccount::firstOrNew(['id'=>$id]);
+                $SchoolBankDetail->fee_account_id=$request->fee_account;
+                $SchoolBankDetail->school_bank_details_id=$request->bank_account; 
+                $SchoolBankDetail->save();
+                return $response=['status'=>1,'msg'=>'Submit Successfully'];
+              }
     }
 }

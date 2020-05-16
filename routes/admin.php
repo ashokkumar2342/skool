@@ -578,8 +578,7 @@ Route::group(['middleware' => 'admin'], function() {
 		 });
 		Route::group(['prefix' => 'mapping'], function() {
 		    Route::get('bank-account', 'FeeAccountController@mappingBankAccount')->name('admin.finance.mapping.bank.account');
-		    Route::get('add-form/{id?}', 'FeeAccountController@bankDetailsAddForm')->name('admin.finance.bank.detail.add.form');
-		    Route::post('store/{id?}', 'FeeAccountController@bankDetailsStore')->name('admin.finance.bank.detail.store');
+		    Route::post('bank-account-store/{id?}', 'FeeAccountController@mappingBankAccountStore')->name('admin.finance.mapping.store');
 		 });
 		Route::group(['prefix' => 'fee-account'], function() {
 		    Route::get('/', 'FeeAccountController@index')->name('admin.feeAcount.list');	 	

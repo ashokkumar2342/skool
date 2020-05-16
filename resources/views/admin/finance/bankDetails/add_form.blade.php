@@ -5,11 +5,12 @@
 <h4 class="modal-title">{{ @$Employee->id?'Edit':'Add' }} Bank Details</h4>
 </div>
 <div class="modal-body">
-<form action="{{ route('admin.finance.bank.detail.store') }}" method="post" class="add_form">
+<form action="{{ route('admin.finance.bank.detail.store') }}" method="post" class="add_form" content-refresh="school_bank_detail_data_table" button-click="btn_close">
 {{ csrf_field() }}
 <div class="row">
 <div class="col-lg-6 form-group">
 <label>Bank Name</label>
+<span class="fa fa-asterisk"></span>
 <select name="bank_id" class="form-control">
 <option selected disabled>Select Bank</option>
 @foreach ($banks as $bank)
@@ -19,22 +20,27 @@
 </div>
 <div class="col-lg-6 form-group">
 <label>IFSC Code</label>
-<input type="text" name="ifsc_code" class="form-control" maxlength="20"> 
+<span class="fa fa-asterisk"></span>
+<input type="text" name="ifsc_code" class="form-control" maxlength="12"> 
 </div>
 <div class="col-lg-6 form-group">
 <label>Account No.</label>
-<input type="text" name="account_no" class="form-control" maxlength="20"> 
+<span class="fa fa-asterisk"></span>
+<input type="text" name="account_no" class="form-control" maxlength="20" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
 </div>
 <div class="col-lg-6 form-group">
 <label>Account Name</label>
+<span class="fa fa-asterisk"></span>
 <input type="text" name="account_name" class="form-control" maxlength="100"> 
 </div>
 <div class="col-lg-6 form-group">
 <label>Contact No.</label>
-<input type="text" name="contact_no" class="form-control" maxlength="10"> 
+<span class="fa fa-asterisk"></span>
+<input type="text" name="contact_no" class="form-control" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
 </div>
 <div class="col-lg-6 form-group">
 <label>Email</label>
+<span class="fa fa-asterisk"></span>
 <input type="email" name="email" class="form-control" maxlength="100"> 
 </div>
 <div class="col-lg-6 form-group">
