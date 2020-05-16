@@ -571,6 +571,16 @@ Route::group(['middleware' => 'admin'], function() {
 	//------------------------- Finance ---------------------------------
 	Route::group(['prefix' => 'finance'], function() {
 		//------------------------- fee acoout ---------------------------------
+		Route::group(['prefix' => 'bank'], function() {
+		    Route::get('details', 'FeeAccountController@bankDetails')->name('admin.finance.bank.detail');
+		    Route::get('add-form/{id?}', 'FeeAccountController@bankDetailsAddForm')->name('admin.finance.bank.detail.add.form');
+		    Route::post('store/{id?}', 'FeeAccountController@bankDetailsStore')->name('admin.finance.bank.detail.store');
+		 });
+		Route::group(['prefix' => 'mapping'], function() {
+		    Route::get('bank-account', 'FeeAccountController@mappingBankAccount')->name('admin.finance.mapping.bank.account');
+		    Route::get('add-form/{id?}', 'FeeAccountController@bankDetailsAddForm')->name('admin.finance.bank.detail.add.form');
+		    Route::post('store/{id?}', 'FeeAccountController@bankDetailsStore')->name('admin.finance.bank.detail.store');
+		 });
 		Route::group(['prefix' => 'fee-account'], function() {
 		    Route::get('/', 'FeeAccountController@index')->name('admin.feeAcount.list');	 	
 		    Route::get('add/{id?}', 'FeeAccountController@addForm')->name('admin.feeAcount.add.form');
