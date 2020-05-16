@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\FeeAccount;
+use App\Model\Hr\Bank;
+use App\Model\SchoolBankDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
@@ -117,5 +119,50 @@ class FeeAccountController extends Controller
         $feeAccount = FeeAccount::find(Crypt::decrypt($id));
         $feeAccount->delete();
         return  redirect()->back()->with(['message'=>'Fee Account Delete Successfully','class'=>'success']);
+    }
+
+    public function bankDetails()
+    {
+        $SchoolBankDetails=SchoolBankDetail::orderBy('id','ASC')->get();
+        return view('admin.finance.bankDetails.index',compact('SchoolBankDetails'));
+    }
+    public function bankDetailsAddForm()
+    {
+        $banks=Bank::orderBy('name','ASC')->get();
+        return view('admin.finance.bankDetails.add_form',compact('banks'));
+    }
+    public function bankDetailsStore(Request $request,$id=null){
+        $rules=[
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+              else {
+                $SchoolBankDetail=SchoolBankDetail::firstOrNew(['id'=>$id]);
+                $SchoolBankDetail->bank_id=$request->bank_id; 
+                $SchoolBankDetail->ifsc_code=$request->ifsc_code; 
+                $SchoolBankDetail->account_no=$request->account_no; 
+                $SchoolBankDetail->account_name=$request->account_name; 
+                $SchoolBankDetail->contact_no=$request->contact_no; 
+                $SchoolBankDetail->email=$request->email; 
+                $SchoolBankDetail->branch=$request->branch; 
+                $SchoolBankDetail->bank_address=$request->bank_address; 
+                $SchoolBankDetail->contact_person_name=$request->contact_person_name; 
+                $SchoolBankDetail->save();
+                $response=['status'=>1,'msg'=>'Submit Successfully'];
+              }     return response()->json($response);
+    }
+
+    public function mappingBankAccount($value='')
+    {
+        $feeAccounts=FeeAccount::orderBy('name','ASC')->get();
+        $SchoolBankDetail=SchoolBankDetail::orderBy('account_name','ASC')->get();
+        return view('admin.finance.bankDetails.mapping',compact('feeAccounts','SchoolBankDetail'));
     }
 }
