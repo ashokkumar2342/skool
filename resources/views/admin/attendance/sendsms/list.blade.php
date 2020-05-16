@@ -30,7 +30,7 @@
               <form action="{{ route('admin.attendance.sms.send.final') }}" method="post"  no-reset="true" select-triger="date_dav" button-click="btn_show" class="add_form">
                 {{ csrf_field() }} 
 
-              <div id="div_send_sms_table">
+              <div class="table-responsive" id="div_send_sms_table">
                 
               </div>
               </form>

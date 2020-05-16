@@ -27,8 +27,10 @@ class TicketController extends Controller
 	       $code = $barcode->generate();
 	       $data = base64_decode($code);
 	       $image_name= $value.'.png';     
-	       $path = Storage_path() . "/app/student/library/" . $image_name;       
-	       file_put_contents($path, $data);  
+	       $path = Storage_path() . "/app/student/library/";       
+         $paths = Storage_path() . "/app/student/library/" . $image_name;
+         @mkdir($path, 0755, true);        
+	       file_put_contents($paths, $data);  
 	       $imgs[$value]=$code; 
 	       $memberTicketDetails=MemberTicketDetails::where('ticket_no',$value)->first();
 	       $memberTicketDetails->barcode=$image_name;

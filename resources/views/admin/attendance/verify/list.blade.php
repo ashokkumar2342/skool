@@ -7,7 +7,7 @@
 </section>
     <section class="content">
         <div class="box">  
-            <div class="box-body">
+            <div class="table-responsive box-body">
               <table class="table table-striped table-responsive table-bordered" id="leave_record_table">
                 <thead>
                   <tr>

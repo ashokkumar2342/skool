@@ -1601,7 +1601,15 @@ Route::group(['middleware' => 'admin'], function() {
         	         	 Route::post('employee-salary-structure-store', 'Hr\HRController@employeeSalaryStructureStore')->name('admin.hr.master.employee.salary.structure.store');  
         	         	 Route::get('employee-salary-structure-list', 'Hr\HRController@employeeSalaryStructureList')->name('admin.hr.master.employee.salary.structure.list');
         	 		});
-        });     
+        });  
+        Route::group(['prefix' => 'video-and-pdf'], function() {
+        	         Route::get('/', 'VideoAndPdfController@index')->name('admin.video.and.pdf');
+        	         Route::get('pfd', 'VideoAndPdfController@pdf')->name('admin.video.and.pdf.onclick');
+        	         Route::post('upload', 'VideoAndPdfController@upload')->name('admin.video.and.pdf.upload');
+        	         Route::get('play/{path}', 'VideoAndPdfController@play')->name('admin.video.and.pdf.play');
+        	         Route::get('delete/{id}', 'VideoAndPdfController@destroy')->name('admin.video.and.pdf.destroy');
+        	         	 
+        	 		});   
             
             
            

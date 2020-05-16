@@ -46,7 +46,7 @@
     <ul class="navbar-nav ml-auto">
        
       <li class="nav-item">
-        <a class="nav-link"  href="{{ route('student.logout.get') }}">
+        <a class="nav-link"  href="{{ route('admin.logout.get') }}">
           <i class="fa fa fa-sign-out"></i>
         </a>
       </li>
@@ -59,18 +59,19 @@
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
       @php
-        $picture=Auth::guard('student')->user()->picture;
+        $admin=Auth::guard('admin')->user();
+        $student=App\Model\StudentUserMap::where('userid',$admin->id)->first();
+        $picture=App\Student::where('id',$student->student_id)->first();
       @endphp
-      <img src="{{ route('student.image',$picture) }}"
+      <img src="{{ route('student.image',@$picture->picture) }}"
            
            class="brand-image img-circle elevation-3"
            style="opacity: .8;width:34px">
-      <span class="brand-text font-weight-light">{{ Auth::guard('student')->user()->name }}</span>
+      <span class="brand-text font-weight-light">{{ @$picture->first_name }}</span>
     </a>
 
-   @include('student.sidebar.sidebar')
+   @include('student.sidebar.sidebar')   
   </aside>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     @yield('contant')

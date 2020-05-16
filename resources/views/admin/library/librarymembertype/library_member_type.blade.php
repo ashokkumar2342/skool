@@ -6,7 +6,7 @@
     <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.library.library.member.type.addform')}}')" style="margin:10px">Add Form</button>
     
     <h1>Library Member Type <small>Details</small> </h1>
-        @includeIf('admin.include.hot_menu', ['menu_type_id' =>17])
+        
     </section>  
     <section class="content">
       <div class="row">

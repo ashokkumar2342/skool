@@ -40,10 +40,10 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                   <div class="inner"> 
-                     <h3>{{ $cashbooks->sum('receipt_amount') }} <sup style="font-size: 20px">Fee Paid Upto</sup></small></h3> 
+                     {{-- <h3>{{ $cashbooks->sum('receipt_amount') }} <sup style="font-size: 20px">Fee Paid Upto</sup></small></h3> 
                     <span>Last Date : {{$lastFee['receipt_date']==null?'': date('d-m-Y',strtotime($lastFee['receipt_date'])) }}</span><br>
                     <span>Receipt No. : {{ $lastFee['receipt_no'] }}</span><br>
-                    <span>Amount. : {{ $lastFee['receipt_amount'] }}</span>
+                    <span>Amount. : {{ $lastFee['receipt_amount'] }}</span> --}}
                     
                   </div>
                   <div class="icon">
@@ -77,7 +77,7 @@
                 <div class="small-box bg-warning" style="font-size: 15.5px">
                   <div class="inner">
 
-                     <span>Working Days : <b>{{ $workingDays }}</b></span>
+                     <span>Working Days : <b>{{-- {{ $workingDays }} --}}</b></span>
 
                     <table class="table" style="font-size:14px;">
                      
@@ -89,18 +89,18 @@
                         </tr>
                          <tr>
                           <td>Till Date</td>
-                          <td><small class="badge badge-success"> {{ $tillPresent }}</small></td>
-                          <td><small class="badge badge-danger"> {{ $tillAbsent }}</small></td>
+                          <td><small class="badge badge-success"> {{-- {{ $tillPresent }} --}}</small></td>
+                          <td><small class="badge badge-danger"> {{-- {{ $tillAbsent }} --}}</small></td>
                         </tr>
                          <tr>
                           <td>Current Month</td>
-                          <td><small class="badge badge-success"> {{$monthlyPresent }}</small></td>
-                          <td><small class="badge badge-danger"> {{ $monthlyAbsent }}</small></td>
+                          <td><small class="badge badge-success"> {{-- {{$monthlyPresent }} --}}</small></td>
+                          <td><small class="badge badge-danger"> {{-- {{ $monthlyAbsent }} --}}</small></td>
                         </tr>
                          <tr>
                           <td>Current Week</td>
-                         <td><small class="badge badge-success"> {{ $weeklyPresent }}</small></td>
-                          <td><small class="badge badge-danger"> {{ $weeklyAbsent }}</small></td>
+                         <td><small class="badge badge-success"> {{-- {{ $weeklyPresent }} --}}</small></td>
+                          <td><small class="badge badge-danger"> {{-- {{ $weeklyAbsent }} --}}</small></td>
                         </tr>
                       </tbody>
                     </table>
@@ -140,14 +140,14 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach ($classTests as $classTest) 
+                       {{--  @foreach ($classTests as $classTest) 
                         <tr> 
                           <td>{{ $classTest->subjects->name or '' }}</td>
                           <td>{{ $classTest->max_marks }}</td>
                           <td>{{ date('d-m-Y',strtotime($classTest->test_date)) }}</td>
                           <td>{{ $classTest->discription }}</td> 
                         </tr>
-                        @endforeach
+                        @endforeach --}}
                       </tbody>
                     </table>
                   </div>
@@ -196,7 +196,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                         @foreach ($homeworks as $homework)   
+                         {{-- @foreach ($homeworks as $homework)   
                         <tr>
                           <td>{{ date('d-m-Y',strtotime($homework->date)) }}</td>
                           <td>{{ mb_strimwidth($homework->homework, 0, 40, "...") }}  </td>
@@ -206,7 +206,7 @@
                           </td>
                            
                         </tr>
-                        @endforeach
+                        @endforeach --}}
                        
                         </tbody>
                       </table>
@@ -242,7 +242,7 @@
                          </tr>
                        </thead>
                        <tbody>
-                        @foreach ($studentRemarks as $studentRemark) 
+                        {{-- @foreach ($studentRemarks as $studentRemark) 
                          <tr>
                            <td>{{ $studentRemark->admin->first_name }}</td>
                            <td>{{ mb_strimwidth($studentRemark->remark, 0, 40, "...") }}</td>
@@ -252,7 +252,7 @@
                               <button type="button" class="btn btn-success btn-sm" title="View" onclick="callPopupLarge(this,'{{ route('student.remarks.details.view',$studentRemark->id) }}')"><i class="fa fa-eye"></i></button> 
                            </td>
                          </tr>
-                        @endforeach
+                        @endforeach --}}
                        </tbody>
                      </table>
                      

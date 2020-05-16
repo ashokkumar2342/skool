@@ -145,7 +145,7 @@
             </div>
             </form> 
                
-               <div id="attendance_report_result">
+               <div class="table-responsive" id="attendance_report_result">
                   
                 </div> 
             </div> 

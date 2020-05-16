@@ -45,35 +45,39 @@
 				</tr>
 		@endforeach
 				    
-					<div class="row">
-						<div class="col-lg-2" style="margin-top: 12px">
-						 Total Class : <b>{{ $classId++-1 }}</b>
-						</div> 
-						<div class="col-lg-2"> 
-						 Attendance Mark : <b>{{ $atteMark }}</b> 
-						</div> 
-						<div class="col-lg-2">
-						 Attendance Verified : <b>{{ $atteVerified}}</b>
-						</div> 
-						<div class="col-lg-2">
-						 SMS Send : <b>{{ $attesend }}</b>
-						</div>
-					</div>
-					<div class="row" style="margin-bottom:  10px">
-						<div class="col-lg-2">
-						 <input type="hidden" name="">
-						</div> 
-						<div class="col-lg-2"> 
-						 Attendance Not Mark : <b>{{$classId++-1- $atteMark-1 }}</b> 
-						</div> 
-						<div class="col-lg-2">
-						 Attendance Not Verified : <b>{{$classId++-1- $atteVerified-2  }}</b>
-						</div> 
-						<div class="col-lg-2">
-						 SMS Not Send : <b>{{$classId++-1- $attesend-3 }}</b>
-						</div>  
-					</div> 
-		         
-	</tbody>
+				<div class="panel panel-success">
+				<div class="panel-heading">Send's Details</div>
+				<div class="panel-body">
+				    <div class="row">
+				    <div class="col-lg-3" style="margin-top: 12px">
+				    Total Class : <b>{{ $classId++-1 }}</b>
+				    </div> 
+				    <div class="col-lg-3"> 
+				    Attendance Mark : <b>{{ $atteMark }}</b> 
+				    </div> 
+				    <div class="col-lg-3">
+				    Attendance Verified : <b>{{ $atteVerified}}</b>
+				    </div> 
+				    <div class="col-lg-3">
+				    SMS Send : <b>{{ $attesend }}</b>
+				    </div>
+				    </div>
+				    <div class="row" style="margin-bottom:  10px">
+				    <div class="col-lg-3">
+				    <input type="hidden" name="">
+				    </div> 
+				    <div class="col-lg-3"> 
+				    Attendance Not Mark : <b>{{$classId++-1- $atteMark-1 }}</b> 
+				    </div> 
+				    <div class="col-lg-3">
+				    Attendance Not Verified : <b>{{$classId++-1- $atteVerified-2  }}</b>
+				    </div> 
+				    <div class="col-lg-3">
+				    SMS Not Send : <b>{{$classId++-1- $attesend-3 }}</b>
+				    </div>  
+				    </div> 
+				</div>
+				</div>
+</tbody>
 </table> 
  

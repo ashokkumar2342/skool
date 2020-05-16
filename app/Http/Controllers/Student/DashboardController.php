@@ -13,6 +13,7 @@ use App\Model\Library\Book_Reserve;
 use App\Model\Library\Booktype; 
 use App\Model\Library\MemberShipDetails;
 use App\Model\StudentAttendance;
+use App\Model\StudentUserMap;
 use App\Model\StudentFeeDetail;
 use App\Model\StudentRemark;
 use App\Model\StudentReplyRemark;
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Helper\MyFuncs;
 
 class DashboardController extends Controller
 {
@@ -36,7 +38,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $student = Auth::guard('student')->user();
+        $student = MyFuncs::getStudent();
         $student_id = $student->id;
         $date = date('Y-m-d');
         $year = date('Y');
@@ -118,34 +120,38 @@ class DashboardController extends Controller
 
     public function profile(){
 
-        $students = Auth::guard('student')->user();
+        $students = MyFuncs::getStudent();
         $st=new Student();
         $student=$st->getStudentDetailsById($students->id); 
         return view('student.profile.view',compact('student'));
     }
     public function homeworkList(){
-        $student = Auth::guard('student')->user();
-        $homeworks =Homework::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->paginate(10);
+        $admin = Auth::guard('admin')->user();
+        $student=StudentUserMap::where('userid',$admin->id)->first();
+        $classid=Student::where('id',$student->student_id)->first();
+        $homeworks =Homework::where('class_id',$classid->class_id)->where('section_id',$classid->section_id)->orderBy('created_at','desc')->get();
         return view('student.homework.list',compact('homeworks'));
     }
     public function attendance(){
-        $student = Auth::guard('student')->user();
-       $attendances = StudentAttendance::where('student_id',$student->id)->get();
+        $admin = Auth::guard('admin')->user();
+        $student=StudentUserMap::where('userid',$admin->id)->first();
+       $attendances = StudentAttendance::where('student_id',$student->student_id)->get();
             return view('student.attendance.list',compact('attendances'));
     }
     public function feeDetails(){ 
-        $student = Auth::guard('student')->user(); 
+        $student = MyFuncs::getStudent(); 
        $cashbook = new Cashbook();
        $fees = $cashbook->getFeeByStudentId($student->id);
             return view('student.fee.list',compact('fees'));
      }
      public function classTest(){ 
-        $student = Auth::guard('student')->user(); 
+        
+        $student =  MyFuncs::getStudent(); 
         $classTests = ClassTest::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->paginate(10); 
             return view('student.classtest.list',compact('classTests'));
      }
      public function event(){
-        // $student = Auth::guard('student')->user();
+        // $student = MyFuncs::getStudent();
         $events = EventDetails::all();
             return view('student.event.list',compact('events'));
     }
@@ -175,9 +181,9 @@ class DashboardController extends Controller
     }
     public function library()
     {
-       $student = Auth::guard('student')->user();
+       $student = MyFuncs::getStudent();
        $memberShipDetails=MemberShipDetails::where('member_ship_registration_no',$student->registration_no)->first(); 
-       $bookReserves = Book_Reserve::where('member_ship_no_id',$memberShipDetails->id or '')->get(); 
+       $bookReserves = Book_Reserve::where('member_ship_no_id',@$memberShipDetails->id or '')->get(); 
          return view('student.library.list',compact('bookReserves'));
            
     }
@@ -215,7 +221,7 @@ class DashboardController extends Controller
              
             $bookAccession=BookAccession::where('book_id',$request->book_name)->where('status',1)->first();
     
-              $student = Auth::guard('student')->user(); 
+              $student = MyFuncs::getStudent(); 
              $memberShipDetails=MemberShipDetails::where('member_ship_no',$student->id)->first();
              
               if ($bookAccession!=null) { 
@@ -277,7 +283,7 @@ class DashboardController extends Controller
             return response()->json($response);// response as json
         }
 
-       $student=Auth::guard('student')->user();
+       $student=MyFuncs::getStudent();
         if (Hash::check($request->old_password, $student->password))
         {
            $newPasswrod = Hash::make($request->password);

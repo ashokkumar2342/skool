@@ -77,7 +77,7 @@
                        <input type="submit" class="btn btn-success">   
                      </div>  
                   </div>
-              <div  id="student_history_blade" style="margin-top: 10px"> 
+              <div class="table-responsive" id="student_history_blade" style="margin-top: 10px"> 
               </div> 
              </form> 
           </div>

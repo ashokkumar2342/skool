@@ -8,14 +8,15 @@
   
 </style>
  
-  <div class="modal-dialog" style="width:90%">
+  <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
 
       <div class="modal-header">
-        <h4>Book Reserve</h4>
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
+        <h4>Book Reserve</h4>
+        
        
       </div>
       <div class="modal-body"> 

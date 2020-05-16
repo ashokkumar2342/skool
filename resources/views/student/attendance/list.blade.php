@@ -1,5 +1,5 @@
-@extends('student.layouts.app')
-@section('contant')
+@extends('admin.layout.base')
+@section('body')
 @push('links')
 <link rel="stylesheet" href="{{ asset('student_assets/plugins/fullcalendar/fullcalendar.min.css') }}">
 <link rel="stylesheet" href="{{ asset('student_assets/plugins/fullcalendar/fullcalendar.print.css') }}" media="print">

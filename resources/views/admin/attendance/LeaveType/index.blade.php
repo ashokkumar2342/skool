@@ -2,11 +2,12 @@
 @section('body') 
 <section class="content-header">
   <button type="button" class="btn btn-info btn-sm pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.attendance.leave.addform') }}')">Add Leave Type</button>
-<h1> Leave Type List</h1> 
+<h1> Leave Type Lists</h1> 
 </section>
     <section class="content">
         <div class="box">  
             <div class="box-body">
+              <div class="table-responsive">
                <table class="table table-striped table-bordered" id="leave_type_student">
                  <thead>
                    <tr>
@@ -39,6 +40,7 @@
                   @endforeach
                  </tbody>
                </table>
+             </div>
                              
                       
             </div> 

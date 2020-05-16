@@ -4,7 +4,7 @@
   <section class="content-header">
      
     <h1>Ticket Card <small></small> </h1>
-       @includeIf('admin.include.hot_menu', ['menu_type_id' => 17])   
+        
     </section>  
     <section class="content">
           <div class="box"> 
@@ -13,7 +13,7 @@
               {{ csrf_field() }} 
               <div class="row">
                 <div class="col-lg-4">
-                  <label>Ticket No</label>
+                  <label>Ticket No</label></br>
                   <select name="ticket_no[]" class="form-control multiselect" multiple="multiple">
                      
                     @foreach ($memberTicketDetails as $memberTicketDetail)
@@ -21,7 +21,7 @@
                     @endforeach
                   </select>
                 </div> 
-                <div class="col-lg-2 text-center" style="padding-top: 25px">
+                <div class="col-lg-1 text-center" style="padding-top: 25px">
                   <input type="submit" value="Generate" class="btn btn-success">
                 </div>
 
