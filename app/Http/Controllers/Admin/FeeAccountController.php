@@ -171,7 +171,8 @@ class FeeAccountController extends Controller
     {
         $feeAccounts=FeeAccount::orderBy('name','ASC')->get();
         $SchoolBankDetail=SchoolBankDetail::orderBy('account_name','ASC')->get();
-        return view('admin.finance.bankDetails.mapping',compact('feeAccounts','SchoolBankDetail'));
+        $MappingBankAccounts=MappingBankAccount::orderBy('id','ASC')->get();
+        return view('admin.finance.bankDetails.mapping',compact('feeAccounts','SchoolBankDetail','MappingBankAccounts'));
     }
     public function mappingBankAccountStore(Request $request ,$id=null)
     {
@@ -188,8 +189,8 @@ class FeeAccountController extends Controller
                 $response["msg"]=$errors[0];
                 return response()->json($response);// response as json
             }
-              else {
-                $SchoolBankDetail=MappingBankAccount::firstOrNew(['id'=>$id]);
+            else {
+                $SchoolBankDetail=MappingBankAccount::firstOrNew(['fee_account_id'=>$request->fee_account,'school_bank_details_id'=>$request->bank_account]);
                 $SchoolBankDetail->fee_account_id=$request->fee_account;
                 $SchoolBankDetail->school_bank_details_id=$request->bank_account; 
                 $SchoolBankDetail->save();

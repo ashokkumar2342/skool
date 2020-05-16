@@ -6,7 +6,7 @@
 <section class="content">
     <div class="box">             
         <div class="box-body">
-        <form action="{{ route('admin.finance.mapping.store') }}" method="post" class="add_form">
+        <form action="{{ route('admin.finance.mapping.store') }}" method="post" class="add_form" content-refresh="mapping_table_list">
             {{csrf_field()}}
             <div class="row">
                 <div class="col-lg-4 form-group">
@@ -30,6 +30,25 @@
                 </div>
             </div>
         </form>
+        <div class="table-responsive">
+            <table class="table" id="mapping_table_list">
+                <thead>
+                    <tr>
+                        <th>Fee Account</th>
+                        <th>Bank Account</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($MappingBankAccounts as $MappingBankAccount)
+                    <tr>
+                        <td>{{$MappingBankAccount->FeeAccount->name or ''}}</td>
+                        <td>{{$MappingBankAccount->SchoolBankDetail->account_name or ''}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            
+        </div>
         </div>
     </div>
 </section>
