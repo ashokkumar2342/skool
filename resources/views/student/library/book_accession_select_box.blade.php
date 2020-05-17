@@ -34,10 +34,10 @@
 		@foreach ($bookReserveHis as $bookReserveHi) 
 			<tr>
 				 
-				<td>{{  $bookReserveHi->memberShipDetails->member_ship_registration_no }}</td>
+				<td>{{  $bookReserveHi->memberShipDetails->member_ship_registration_no or ''}}</td>
 				<td>{{date('d-m-Y',strtotime( $bookReserveHi->request_date)) }}</td>
 				<td>{{ $bookReserveHi->reserve_date==null? '' : date('d-m-Y',strtotime($bookReserveHi->reserve_date)) }}</td>
-				<td> <span class="{{ $bookReserveHi->bookReserveStatus->color or ''  }}">{{ $bookReserveHi->bookReserveStatus->name }}</span></td>
+				<td> <span class="{{ $bookReserveHi->bookReserveStatus->color or ''  }}">{{ $bookReserveHi->bookReserveStatus->name or ''}}</span></td>
 			</tr>
 		@endforeach
 	</tbody>

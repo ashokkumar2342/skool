@@ -1,9 +1,8 @@
 @extends('admin.layout.base')
 @section('body')
   <!-- Main content -->
-  <section class="content-header"> 
-      <button class="btn btn-info btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.room.details.edit')}}')">Add Room</button> 
-    <h1>Rooms<small>Details</small></h1>
+  <section class="content-header">
+    <h1>Homework<small>List</small></h1>
     </section>  
     <section class="content"> 
       <div class="box"> 
@@ -23,8 +22,8 @@
                          <td>{{ date('d-m-Y',strtotime($homework->date)) }}</td>
                          <td> {{ $homework->homework }} </td>
                          <td>
-                             <button type="homework" onclick="callPopupLarge(this,'{{ route('student.homework.view',$homework->id) }}')" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
-                              <a href="{{ url('storage/homework/'.$homework->homework_doc) }}" class="btn btn-success btn-sm {{ $homework->homework_doc!=null?'':'disabled' }} " target="_blank" title=""><i class="fa fa-download"></i></a>
+                             <button type="homework" onclick="callPopupLarge(this,'{{ route('student.homework.view',$homework->id) }}')" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button>
+                              <a href="{{ url('storage/homework/'.$homework->homework_doc) }}" class="btn btn-success btn-xs {{ $homework->homework_doc!=null?'':'disabled' }} " target="_blank" title=""><i class="fa fa-download"></i></a>
                          </td>
                           
                        </tr>

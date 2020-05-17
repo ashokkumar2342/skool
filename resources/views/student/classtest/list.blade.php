@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-xs-12">          
             <!-- /.box-header -->            
-          <div class="box">
+          <div class="box table-responsive">
             <table class="table" id="class_test_data_table"> 
               <thead>
                <tr>
@@ -19,14 +19,14 @@
                </tr>
              </thead>
              <tbody>
-               <tr>
                  @foreach ($classTests as $classTest) 
+               <tr>
                    <td>{{ $classTest->subjects->name or '' }}</td>
                    <td>{{ $classTest->max_marks }}</td>
                    <td>{{ date('d-m-Y',strtotime($classTest->test_date)) }}</td>
                    <td>{{ $classTest->discription or '' }}</td>
-                 @endforeach
                </tr>
+                 @endforeach
                 
               </tbody>
             </table>
@@ -39,15 +39,16 @@
 @endsection
 @push('links')
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-
 @endpush
 @push('scripts')
-    <script type="text/javascript">
-     $(document).ready(function(){
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+ <script type="text/javascript">
+    $(document).ready(function(){
         $('#class_test_data_table').DataTable();
-    }); 
-  </script>
-@endpush
+    });
+ </script>
+  @endpush
      
  
  

@@ -21,7 +21,7 @@
                   </ul> 
                   <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
-                       <form action="{{ route('admin.student.list',$menuPermission->id) }}" success-content-id="student_search_list" method="post" class="add_form" no-reset="true" data-table="student_list_table"> 
+                       <form action="{{ route('admin.student.list',$menuPermission->id) }}" success-content-id="student_result_list" method="post" class="add_form" no-reset="true" data-table="student_list_table" > 
                         {{ csrf_field() }}                            
                              <div class="row" style="margin-top: 20px">                            
                                  <div class="col-lg-3">                         
@@ -52,7 +52,7 @@
                          </div>  
                     </div>
                     <div id="menu1" class="tab-pane fade">
-                        <form action="{{ route('admin.student.list',$menuPermission->id) }}" success-content-id="student_search_list" method="post" class="add_form" no-reset="true" data-table="student_list_table"> 
+                        <form action="{{ route('admin.student.list',$menuPermission->id) }}" success-content-id="student_list" method="post" class="add_form" no-reset="true" data-table="student_list_table"> 
                         {{ csrf_field() }}                            
                              <div class="row" style="margin-top: 20px">                            
                                  <div class="col-lg-4">                         
@@ -64,7 +64,7 @@
                                 </div> 
                                  <div class="col-lg-3" style="padding-top: 24px;">                         
                                     <div class="form-group">
-                                      <button id="btn_student_details_show" class="btn btn-success">Show</button>
+                                      <button id="btn_student_details" class="btn btn-success">Show</button>
                                         
                                     </div>
                                 </div>    
@@ -81,23 +81,17 @@
                                  <div class="col-lg-4">                         
                                     <div class="form-group">
                                         <label>Searsch</label>
-                                         <input type="text" class="form-control" name="search_id" id="search_id"placeholder="Enter Registration No/Name/DOB/Admission No" onkeyup="callAjax(this,'{{ route('admin.student.view.search',$menuPermission->id) }}','student_search_list')">
-                                         <button id="btn_search_box" class="hidden" onclick="callAjax(this,'{{ route('admin.student.view.search',$menuPermission->id) }}'+'?search_id='+$('#search_id').val(),'student_search_list')">Show</button>
+                                         <input type="text" class="form-control" name="search_id" id="search_id" placeholder="Enter Registration No/Name/DOB/Admission No" onkeyup="callAjax(this,'{{ route('admin.student.view.search',$menuPermission->id) }}','student_search_list')">
                                     </div>
                                 </div> 
-
                               </div> 
                         
-                          {{-- <div class="row">
+                          <div class="row">
                            <div class="col-lg-12"  id="student_search_list"> 
                             </div> 
-                         </div>  --}}
+                         </div> 
                     </div> 
                 </div>
-              </div> 
-               <div class="row">
-                <div class="col-lg-12"  id="student_search_list"> 
-                 </div> 
               </div> 
 
 </div>

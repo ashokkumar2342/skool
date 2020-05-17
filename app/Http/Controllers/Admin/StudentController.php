@@ -54,11 +54,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use PDF;
+use Response;
 use Storage;
 use setasign\Fpdi\Fpdi;
-use Response;
 
 class StudentController extends Controller
 {
@@ -89,18 +90,34 @@ class StudentController extends Controller
 
         }
         $menuPermision= Minu::find($menuPermissionId); 
+
+        $previousRoute= app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName();        
+         
+
         $response = array(); 
+        if ($previousRoute=='admin.student.image.upload') {
+           $response['data']= view('admin.student.studentdetails.student_list_table',compact('students','menuPermision','fatherDetail'))->render(); 
+             $response['status'] = 1;
+             return $response;
+         }
         $response['data']= view('admin.student.studentdetails.list',compact('students','menuPermision','fatherDetail'))->render();
             $response['status'] = 1;
             return $response;
     }
     public function studentSearch(Request $request,$menuPermissionId)
-    {
-       
+    { 
         $search = $request->input('id');
+        if ($request->has('search_id')) {
+          $search = $request->input('search_id');
+        }
         $st=new Student();
         $students=$st->getStudentsSearchDetilas($search); 
         $menuPermision= Minu::find($menuPermissionId); 
+
+       $previousRoute= app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName();        
+        if ($previousRoute=='admin.student.image.upload') {
+          return  view('admin.student.studentdetails.student_list_table',compact('students','menuPermision','fatherDetail')); 
+        }
        return  view('admin.student.studentdetails.list',compact('students','menuPermision','fatherDetail')); 
             
     }
@@ -489,12 +506,48 @@ class StudentController extends Controller
         return response()->json(['success'=>'done']);
     
     }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\StudentDetails  $studentDetails
-     * @return \Illuminate\Http\Response
-     */
+    public function studentImageUpload(Request $request)
+    {
+      $classes = MyFuncs::getClasses();
+        $st= new Student();
+        $students=$st->getAllStudents();    
+        $sessions = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
+        $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
+        $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
+        $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
+        $default = StudentDefaultValue::find(1); 
+        $menuPermission= MyFuncs::menuPermission(); 
+        return view('admin.student.studentdetails.showForm',compact('classes','sessions','default','genders','religions','categories','menuPermission','students'));
+    }  
+    public function studentImageUploadStore(Request $request,$id)
+    {   $id =Crypt::decrypt($id);
+          
+         $rules=[
+           "file" => "required|mimes:jpg,jpeg,png|max:10000",
+            
+         ];
+
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         } 
+        if ($request->hasFile('file')) { 
+                $file=$request->file;
+                $filename='img'.date('d-m-Y').time();
+                $file->storeAs('student/profile/',$filename);
+                $student=Student::find($id);
+                $student->picture=$filename; 
+                $student->save();
+                $response=array();
+                 $response["status"]=1;
+                 $response["msg"]="Upload Successfully";
+                 return $response;
+         }  
+    }
     public function edit(Student $student)
     {   $houses=House::orderBy('id','ASC')->get();      
        $classes = MyFuncs::getClasses();    
