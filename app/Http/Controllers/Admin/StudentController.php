@@ -81,7 +81,7 @@ class StudentController extends Controller
             $response["status"]=0;
             $response["msg"]='Registration No Not Exist';
             return response()->json($response);
-          }
+          }  
           $st =new Student();           
           $students =$st->getStudentDetailsByArrId([$student->id]);
         }elseif($request->search_id!=null){

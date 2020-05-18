@@ -60,7 +60,7 @@
                         <option required="" value="{{ $subject->id  }}">{{ $subject->name  }}</option>
                         @endforeach 
                       </select> 
-                    </div> 
+                    </div>
                     <div class="form-group col-lg-4">
                       <label>Publisher</label>
                       <select name="publisher" class="form-control select2" required="">
@@ -76,6 +76,15 @@
                         <option selected disabled>Select Author</option> 
                         @foreach ($authors as $author) 
                         <option value="{{ $author->id  }}">{{ $author->name  }}</option>
+                        @endforeach 
+                      </select> 
+                    </div> 
+                    <div class="form-group col-lg-4">
+                      <label>Category</label>
+                      <select name="category" class="form-control " required="" >
+                        <option selected disabled>Select Category</option> 
+                        @foreach ($BookCategorys as $BookCategory) 
+                        <option required="" value="{{ $BookCategory->id  }}">{{ $BookCategory->name  }}</option>
                         @endforeach 
                       </select> 
                     </div> 

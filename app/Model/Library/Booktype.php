@@ -15,6 +15,10 @@ class Booktype extends Model
     {
     	return $this->hasOne('App\Model\Library\Author','id','author_id');
     }
+    public function bookCategory()
+    {
+        return $this->hasOne('App\Model\Library\BookCategory','id','category_id');
+    }
 
      public function publisher()
     {

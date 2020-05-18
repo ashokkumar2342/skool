@@ -1095,6 +1095,13 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('edit/{id}', 'Library\BooksController@edit')->name('admin.library.book.details.edit');
 			    Route::post('update/{id}', 'Library\BooksController@update')->name('admin.library.book.details.update');
 			    
+			});Route::group(['prefix' => 'book'], function() {
+			    Route::get('category', 'Library\BooksController@bookCategory')->name('admin.library.book.category');
+			    Route::get('category-add/{id?}', 'Library\BooksController@bookCategoryAddForm')->name('admin.library.book.category.add.form');
+			    Route::post('category-store/{id?}', 'Library\BooksController@bookCategoryStore')->name('admin.library.book.category.store');
+			    Route::get('category-delete/{id?}', 'Library\BooksController@bookCategoryDelete')->name('admin.library.book.category.delete');
+			    
+			    
 			});
 			Route::group(['prefix' => 'book-purchase-bill'], function() {
 			    Route::get('/', 'Library\BookPurchaseBillController@index')->name('admin.library.book.book.purchase.bill');

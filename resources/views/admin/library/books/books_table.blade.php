@@ -13,6 +13,7 @@
                   <th class="text-nowrap">Subject</th>
                   <th class="text-nowrap">Publisher</th>
                   <th class="text-nowrap">Author</th>
+                  <th class="text-nowrap">Category</th>
                   <th class="text-nowrap">Book Feature</th>
                   <th class="text-nowrap">Book Image</th>
                   <th class="text-nowrap">Action</th>
@@ -32,6 +33,7 @@
                             <td>{{ $booktype->subjectType->name or ''}}</td>
                             <td>{{ $booktype->publisher->name or ''}}</td>
                             <td>{{ $booktype->author->name or ''}}</td>
+                            <td>{{ $booktype->bookCategory->name or ''}}</td>
                             <td>{{ $booktype->feature or ''}}</td>
                             <td> 
                              @php

@@ -52,7 +52,7 @@
                          </div>  
                     </div>
                     <div id="menu1" class="tab-pane fade">
-                        <form action="{{ route('admin.student.list',$menuPermission->id) }}" success-content-id="student_search_list" method="post" class="add_form" no-reset="true" data-table="student_list_table"> 
+                        <form action="{{ route('admin.student.list',$menuPermission->id) }}" success-content-id="student_search_list" method="post" class="add_form" no-reset="true" data-table="student_list_table" call-jquery-default="true"> 
                         {{ csrf_field() }}                            
                              <div class="row" style="margin-top: 20px">                            
                                  <div class="col-lg-4">                         

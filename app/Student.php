@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Helper\MyFuncs;
 use App\Model\StudentAddressDetail;
 use App\Model\StudentPerentDetail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -120,7 +121,8 @@ class Student extends Authenticatable
     public function getStudentDetailsByArrId($arr_id)
     {
         try {
-          return $student =Student::whereIn('id',$arr_id)->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])->get();  
+          $class_id =MyFuncs::getClassByHasUser()->pluck('id')->toArray(); 
+          return $student =Student::whereIn('id',$arr_id)->whereIn('class_id',$class_id)->with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])->get();  
         } catch (Exception $e) {
             return $e;
         }
@@ -223,34 +225,17 @@ class Student extends Authenticatable
     public function getStudentsSearchDetilas($search)
     {
        try {
-
-       return $student =Student::
-            // ->leftJoin('student_perent_details', 'students.id', '=', 'student_perent_details.student_id') 
-                    
-            // ->leftJoin('parents_infos','parents_infos.id','=','student_perent_details.perent_info_id')
-            // ->leftJoin('guardian_relation_types','guardian_relation_types.id','=','student_perent_details.relation_id')
-            // ->leftJoin('student_address_details','student_address_details.student_id','=','student_perent_details.student_id')
-            // ->leftJoin('addresses','addresses.id','=','student_address_details.student_address_details_id')
-            // ->select(
-            //   'students.*',
-            //   'addresses.primary_mobile',
-            //   'addresses.p_address',
-            //   'parents_infos.name as f_name' ,
-            //   'parents_infos.mobile as f_mobile' ,
-            //   'student_perent_details.relation_id'
-            // )    
-                
+            $class_id =MyFuncs::getClassByHasUser()->pluck('id')->toArray();           
+       return $student =Student::                   
                  with(['classes','academicYear','sectionTypes','genders','studentStatus','addressDetails.address.religions','addressDetails.address.categories','parents','parents.relation','parents.parentInfo'])
-               ->where('students.name', 'like','%'.$search.'%')
-               // ->orWhere('parents_infos.name', 'like', '%'.$search.'%') 
-               
-               ->orWhere('students.registration_no', 'like', '%'.$search.'%') 
-               ->orWhere('students.dob', 'like', '%'.$search.'%')
-               ->orWhere('students.admission_no', 'like', '%'.$search.'%')
-               // ->orWhere('parents_infos.mobile', 'like', '%'.$search.'%')
-               // ->orWhere('addresses.primary_mobile', 'like', '%'.$search.'%')
-               ->take(10)->get();
-               // ->take(10)->distinct('students.id')->get();
+               ->whereIn('students.class_id',$class_id)
+               ->where(function($query) use($search){
+                $query->orWhere('students.name', 'like','%'.$search.'%'); 
+                $query->orWhere('students.registration_no', 'like', '%'.$search.'%'); 
+                $query->orWhere('students.dob', 'like', '%'.$search.'%');
+                $query->orWhere('students.admission_no', 'like', '%'.$search.'%');
+               }) 
+               ->take(10)->get(); 
             
        } catch (Exception $e) {
            
@@ -284,7 +269,8 @@ class Student extends Authenticatable
 
     public function getDetailByRegistrationNo($registration_no){
     try {
-    return $this->where("registration_no",$registration_no)
+      $class_id =MyFuncs::getClassByHasUser()->pluck('id')->toArray(); 
+    return $this->where("registration_no",$registration_no)->whereIn("class_id",$class_id)
     ->first();
     } catch (QueryException $e) {
     return $e; 

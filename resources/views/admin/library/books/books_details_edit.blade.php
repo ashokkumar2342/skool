@@ -79,7 +79,16 @@
                         
                         @endforeach 
                       </select> 
-                    </div> 
+                    </div>
+                    <div class="form-group col-lg-4">
+                      <label>Category</label>
+                      <select name="category" class="form-control " required="" >
+                        <option selected disabled>Select Category</option> 
+                        @foreach ($BookCategorys as $BookCategory) 
+                        <option required="" value="{{ $BookCategory->id  }}"{{ $booktypes->category_id==$BookCategory->id? 'selected="selected"' : ''  }}>{{ $BookCategory->name  }}</option>
+                        @endforeach 
+                      </select> 
+                    </div>  
                     <div class="form-group col-lg-4">
                       <label>Book feature</label>
                       <input type="text" name="feature" class="form-control" placeholder="" maxlength="200" value="{{ $booktypes->feature}}"> 

@@ -37,9 +37,14 @@
    
 </table>
  </div> 
-@if (Route::currentRouteName() != 'admin.student.view.search')
+ 
+@if (Route::currentRouteName() == 'admin.student.list')
    <script type="text/javascript">
     callJqueryDefault('body_id')
   </script>
+ @elseif(Route::currentRouteName() == 'admin.student.list'))
+  <script type="text/javascript">
+   callJqueryDefault('body_id')
+ </script>
 @endif
   
