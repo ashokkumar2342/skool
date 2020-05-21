@@ -555,12 +555,12 @@ class StudentController extends Controller
 
                 $filename=$file->hashName();
                 $destinationPath = storage_path('app/student/profile/');
-                $thumb_img = Image::make($file->getRealPath())->resize(132, 170);
+                $thumb_img = Image::make($file->getRealPath())->resize(220, 300);
                 if (!file_exists($destinationPath)) {
                            mkdir($destinationPath, 666, true);
                        }
                 
-                $thumb_img->save($destinationPath.'/'.$filename,80);
+                $thumb_img->save($destinationPath.'/'.$filename,100);
 
                 // $file->storeAs('student/profile/',$filename);
                 $student=Student::find($id);
