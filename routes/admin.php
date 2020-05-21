@@ -194,6 +194,7 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('student-image-upload', 'StudentController@studentImageUpload')->name('admin.student.image.upload');
 	     Route::get('student-image-upload-list/{id?}', 'StudentController@studentImageUploadList')->name('admin.student.image.upload.list');
 	     Route::post('student-image-upload-store/{id}', 'StudentController@studentImageUploadStore')->name('admin.student.image.upload.store');
+	     Route::get('student-document-verify', 'StudentController@studentDocumentVerify')->name('admin.student.document.verify');
 	    
 	     Route::get('{student}/password-reset', 'StudentController@passwordReset')->name('admin.student.passwordreset'); 
 	     Route::get('image/{image}', 'StudentController@image')->name('admin.student.image');

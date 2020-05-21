@@ -320,7 +320,7 @@ class AccountController extends Controller
     Public function accessStore(Request $request){
  
             $rules=[
-            'sub_menu' => 'required|max:199',             
+            'sub_menu' => 'required|max:1000',             
             'user' => 'required|max:199',  
             ]; 
             $validator = Validator::make($request->all(),$rules);
