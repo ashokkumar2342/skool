@@ -1,26 +1,28 @@
 <table id="homework_table" class="display table">                     
                         <thead>
                             <tr>
-                                <th>Sr.no.</th>
-                                <th>Date</th>
-                                <th>Class</th>
-                                <th>Section</th>
-                                <th>Homework</th>
-                                <th>Action</th>                             
+                                <th class="text-nowrap">Sr.no.</th>
+                                <th class="text-nowrap">Date</th>
+                                <th class="text-nowrap">Class</th>
+                                <th class="text-nowrap">Section</th>
+                                <th class="text-nowrap">Homework</th>
+                                <th class="text-nowrap">Action</th>                             
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($homeworks as $homework)
                                 <tr>
-                                    <td>{{ ++$loop->index}}</td>
-                                    <td>{{ date('d-m-Y',strtotime($homework->created_at)) }}</td>
-                                    <td>{{ $homework->classes->name or ''}}</td>
+                                    <td class="text-nowrap">{{ ++$loop->index}}</td>
+                                    <td class="text-nowrap">{{ date('d-m-Y',strtotime($homework->created_at)) }}</td>
+                                    <td class="text-nowrap">{{ $homework->classes->name or ''}}</td>
                                     <input type="text" hidden="" name="class_id[]" value="{{ $homework->class_id }}">
-                                    <td>{{ $homework->sectionTypes->name or ''}}</td>
+                                    <td class="text-nowrap">{{ $homework->sectionTypes->name or ''}}</td>
                                     <input type="text" hidden name="section_id[]" value="{{ $homework->section_id }}">
                                     <td>{!! $homework->homework !!}</td>
-                                    <td>
-                                        <a href="{{ url('storage/homework/'.$homework->homework_doc) }}" target="blank" title=""><button type="button" class="btn_parents_image btn btn-success btn-xs"><i class="fa fa-download"></i> </button></a> 
+                                    <td class="text-nowrap">
+                                        <a href="{{ route('admin.homework.download',$homework->homework_doc) }}" target="blank" title="Download" class="btn_parents_image btn btn-success btn-xs {{ $homework->homework_doc==null?'disabled':'' }}">
+                                           <i class="fa fa-download "></i>
+                                        </a> 
 
                                         <a href="#" onclick="callPopupLarge(this,'{{ route('admin.homework.view',$homework->id) }}')" target="blank" title="View" class="btn_parents_image btn btn-info btn-xs" ><i class="fa fa-eye"></i></button></a>
 

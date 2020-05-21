@@ -7,31 +7,20 @@
     <section class="content"> 
       <div class="box"> 
         <div class="box-body">
-          <div class="table-responsive">
-                     <table class="table m-0" id="class_homework_data_table">
-                       <thead>
-                       <tr>
-                         <th>Date</th> 
-                         <th>Homework</th>
-                         <th>Action</th> 
-                       </tr>
-                       </thead>
-                       <tbody>
-                        @foreach ($homeworks as $homework)   
-                       <tr>
-                         <td>{{ date('d-m-Y',strtotime($homework->date)) }}</td>
-                         <td> {{ $homework->homework }} </td>
-                         <td>
-                             <button type="homework" onclick="callPopupLarge(this,'{{ route('student.homework.view',$homework->id) }}')" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button>
-                              <a href="{{ url('storage/homework/'.$homework->homework_doc) }}" class="btn btn-success btn-xs {{ $homework->homework_doc!=null?'':'disabled' }} " target="_blank" title=""><i class="fa fa-download"></i></a>
-                         </td>
-                          
-                       </tr>
-                       @endforeach
-                      
-                       </tbody>
-                     </table>
-                   </div> 
+          <form action="{{ route('student.homewok.list.show') }}" method="post" class="add_form" success-content-id="homewok_list" no-reset="true">
+            <div class="row">
+              <div class="col-lg-4">
+                <label>Date</label>
+                        {!! Form::text('date', date('d-m-Y')  , ['class'=>'form-control datepicker','id'=>'date','placeholder'=>'Date','max'=>date('Y-m-d')]) !!}
+              </div>
+              <div class="col-lg-4">
+                <input type="submit" value="Homework Show" class="form-control btn btn-success" style="margin-top: 24px">
+              </div>
+            </div>
+          </form>
+          <div class="table-responsive" id="homewok_list" style="margin-top: 30px">
+            
+          </div>
         </div>
       </div>
     </section> 

@@ -52,6 +52,15 @@ function callAjax(obj,url,divId,callback){
 	        		$("#"+strArray[i]).click();
 	       		 }
 			}
+			if(obj.getAttribute('button-click-by-class'))
+			{	
+			var myStr = obj.getAttribute('button-click-by-class');
+        	var strArray = myStr.split(",");
+        
+	        	for(var i = 0; i < strArray.length; i++){
+	        		$("."+strArray[i]).click();
+	       		 }
+			}
 			if(obj.getAttribute('success-popup')){
 				var response=data.msg; 
 				if (response!=null) {

@@ -5,11 +5,11 @@
          <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
                      <h4 class="modal-title"> Add</h4>
                  </div>
                  <div class="modal-body">
-                   <form action="{{ route('admin.document.add') }}" content-refresh="document_items" class="add_form" id="document-form" button-click="btn_student_document_list" method="post" enctype="multipart/form-data">
+                   <form action="{{ route('admin.document.add') }}" content-refresh="document_items" class="add_form" id="document-form" button-click="btn_close,btn_student_document_list" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                          {{ Form::label('document_type_id','Document Type',['class'=>' control-label']) }}

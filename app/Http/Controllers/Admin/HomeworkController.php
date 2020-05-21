@@ -82,11 +82,11 @@ class HomeworkController extends Controller
                     $homework->section_id = $request->section_id;
                     $homework->homework = $request->homework;
                     $homework->date = $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
-                     if ($request->file('homework_doc')!=null) {
-                         $file = $request->file('homework_doc');
-                         $file->store('public/homework');
-                         $fileName = $file->hashName();
-                        $homework->homework_doc=$fileName;
+                    if ($request->hasFile('homework_doc')) { 
+                        $homework_doc=$request->homework_doc;
+                        $filename='homework'.date('d-m-Y').time().'.pdf'; 
+                        $homework_doc->storeAs('student/homework/',$filename);
+                        $homework->homework_doc=$filename; 
                     }
                     $homework->save();
                     $response = array();
@@ -114,9 +114,11 @@ class HomeworkController extends Controller
      * @param  \App\Model\Homework  $homework
      * @return \Illuminate\Http\Response
      */
-    public function edit(Homework $homework)
+    public function download($homework_doc)
     {
-        //
+        $documentUrl = Storage_path() . '/app/student/homework';
+        return response()->file($documentUrl.'/'.$homework_doc);
+             
     }
 
     /**

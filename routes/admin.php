@@ -192,6 +192,7 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::post('list/{menuPermission}', 'StudentController@index')->name('admin.student.list'); 
 	     Route::get('show-form', 'StudentController@showForm')->name('admin.student.show');
 	     Route::get('student-image-upload', 'StudentController@studentImageUpload')->name('admin.student.image.upload');
+	     Route::get('student-image-upload-list/{id?}', 'StudentController@studentImageUploadList')->name('admin.student.image.upload.list');
 	     Route::post('student-image-upload-store/{id}', 'StudentController@studentImageUploadStore')->name('admin.student.image.upload.store');
 	    
 	     Route::get('{student}/password-reset', 'StudentController@passwordReset')->name('admin.student.passwordreset'); 
@@ -494,6 +495,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('view/{id}', 'HomeworkController@view')->name('admin.homework.view');
 	    Route::get('delete/{id}', 'HomeworkController@destroy')->name('admin.homework.delete');
 	    Route::get('search', 'HomeworkController@search')->name('admin.homework.search');
+	    Route::get('download/{homework_doc}', 'HomeworkController@download')->name('admin.homework.download');
 	    Route::post('send-homework', 'HomeworkController@sendHomework')->name('admin.homework.send.homework');
 	    Route::get('homework-send/{id}', 'HomeworkController@HomeworkSend')->name('admin.homework.homework.send');
 	 });
@@ -883,6 +885,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('delete/{id}', 'Exam\ClassTestController@destroy')->name('admin.exam.classtest.delete');
 			    Route::get('send-sms/{class_id}/{section_id}/{id}', 'Exam\ClassTestController@sendSms')->name('admin.exam.classtest.send.sms');	 	
 			    Route::get('send-email/{class_id}/{section_id}/{id}', 'Exam\ClassTestController@sendEmail')->name('admin.exam.classtest.send.email');	 	
+			    Route::get('download-syllabus/{path}', 'Exam\ClassTestController@downloadSyllabus')->name('admin.exam.classtest.download.syllabus');	 	
 			    
 			 });
 			   //------------------------- Exam Test Details ---------------------------------

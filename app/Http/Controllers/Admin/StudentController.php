@@ -104,6 +104,18 @@ class StudentController extends Controller
             $response['status'] = 1;
             return $response;
     }
+    public function studentImageUploadList($conditionId)
+    {
+      if($conditionId==1){
+        $students=Student::orderBy('id','ASC')->where('picture_status',0)->get();
+      }elseif($conditionId==2){
+        $students=Student::orderBy('id','ASC')->where('picture_status',1)->get();
+      }elseif($conditionId==3){
+        $students=Student::orderBy('id','ASC')->get();
+      }
+        
+      return view('admin.student.studentdetails.student_list_table',compact('students','conditionId')); 
+    }
     public function studentSearch(Request $request,$menuPermissionId)
     { 
         $search = $request->input('id');
@@ -517,10 +529,11 @@ class StudentController extends Controller
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
         $default = StudentDefaultValue::find(1); 
         $menuPermission= MyFuncs::menuPermission(); 
-        return view('admin.student.studentdetails.showForm',compact('classes','sessions','default','genders','religions','categories','menuPermission','students'));
+        return view('admin.student.studentdetails.image_upload',compact('classes','sessions','default','genders','religions','categories','menuPermission','students'));
     }  
     public function studentImageUploadStore(Request $request,$id)
-    {   $id =Crypt::decrypt($id);
+    { 
+      $id =Crypt::decrypt($id);
           
          $rules=[
            "file" => "required|mimes:jpg,jpeg,png|max:10000",
@@ -541,6 +554,7 @@ class StudentController extends Controller
                 $file->storeAs('student/profile/',$filename);
                 $student=Student::find($id);
                 $student->picture=$filename; 
+                $student->picture_status=1; 
                 $student->save();
                 $response=array();
                  $response["status"]=1;

@@ -58,9 +58,12 @@ class ClassTestController extends Controller
     {
         $user_id=Auth::guard('admin')->user()->id; 
         $rules=[
-        'class' => 'required|max:30', 
-        'section' => 'required|max:30', 
-        'test_date' => 'required|max:30',  
+        'academic_year_id' => 'required', 
+        'class' => 'required', 
+        'section' => 'required', 
+        'subject' => 'required',  
+        'test_date' => 'required',  
+        'max_marks' => 'required',  
         'sylabus' => 'nullable|mimes:pdf|max:2048',
               
           
@@ -74,29 +77,23 @@ class ClassTestController extends Controller
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
         }
-
-        $file = $request->file('sylabus'); 
-        if (!$file==null) {
-           $file->store('public/class_test'); 
-        }
-        
-  
         $classTest = new ClassTest();
         $classTest->academic_year_id = $request->academic_year_id;
         $classTest->class_id = $request->class;
         $classTest->section_id = $request->section;
         $classTest->test_date = $request->test_date;
-         
         $classTest->max_marks = $request->max_marks;
         $classTest->subject_id = $request->subject;
         $classTest->discription = $request->discription;
-         
         $classTest->is_include_term_exam = 1;
-        if (!$file==null) {
-           $classTest->sylabus = $file->hashName();
+        if ($request->hasFile('sylabus')) { 
+                $sylabus=$request->sylabus;
+                $filename='sylabus'.date('d-m-Y').time().'.pdf'; 
+                $sylabus->storeAs('student/classtest/',$filename);
+                $classTest->sylabus=$filename; 
         }
         
-        // $classTest->save();
+        $classTest->save();
         $st=new Student();
          $studentclassTestSendSms=$st->getStudentByClassSection($request->class,$request->section);
         
@@ -212,9 +209,11 @@ class ClassTestController extends Controller
      * @param  \App\Model\Exam\ClassTest  $classTest
      * @return \Illuminate\Http\Response
      */
-    public function edit(ClassTest $classTest)
+    public function downloadSyllabus($path)
     {
-        //
+        $documentUrl = Storage_path() . '/app/student/classtest';
+        return response()->file($documentUrl.'/'.$path);
+           
     }
 
     /**

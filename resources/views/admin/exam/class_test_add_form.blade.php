@@ -54,7 +54,7 @@
                   <div class="col-lg-3">                         
                       <div class="form-group">
                           {{ Form::label('subject','Subject',['class'=>' control-label']) }}
-                          {!! Form::select('subject',$subjects, null, ['class'=>'form-control','placeholder'=>'Select Section','required']) !!}
+                          {!! Form::select('subject',$subjects, null, ['class'=>'form-control','placeholder'=>'Select Section']) !!}
                            
                       </div>
                   </div>                  
@@ -67,13 +67,13 @@
                       <div class="col-lg-3">                                             
                          <div class="form-group">
                           {{ Form::label('max_marks','Max Marks',['class'=>' control-label']) }}
-                           {{ Form::text('max_marks','',['class'=>'form-control', 'placeholder'=>'  Max Marks','maxlength'=>'4','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57','required']) }} 
+                           {{ Form::text('max_marks','',['class'=>'form-control', 'placeholder'=>'  Max Marks','maxlength'=>'4','onkeypress'=>'return event.charCode >= 48 && event.charCode <= 57']) }} 
                          </div>                                         
                       </div> 
                       <div class="col-lg-6">                                             
                          <div class="form-group">
                           {{ Form::label('discription','Discription',['class'=>' control-label']) }}
-                           {{ Form::textarea('discription','',['class'=>'form-control', 'placeholder'=>' Discription','rows'=>1,'required']) }} 
+                           {{ Form::textarea('discription','',['class'=>'form-control', 'placeholder'=>' Discription','rows'=>1]) }} 
                          </div>                                         
                       </div> 
                        <div class="col-lg-3">                                             

@@ -407,8 +407,15 @@ class CertificateIssueDetailController extends Controller
             $student=$st->getStudentDetailsById($request->registration_no);
            if ($request->report_wise==2) { 
                 if ($request->report_for==1) {
-                $pdf = PDF::loadView('admin.certificate.tuitionfee.print',compact('student')); 
-                return $pdf->stream('invoice.pdf'); 
+                $documentUrl = Storage_path() . '/app/student/document/certificate/fee_certificate/'.'/'.$student->classes->name.'/'.$student->sectionTypes->name;   
+               @mkdir($documentUrl, 0755, true); 
+                $pdf = PDF::setOptions([
+                'logOutputFile' => storage_path('logs/log.htm'),
+                'tempDir' => storage_path('logs/')
+                ])
+                ->loadView('admin.certificate.tuitionfee.print',compact('student'))->save($documentUrl.'/'.$student->registration_no.'_fee_certificate.pdf');
+                return $pdf->stream('fee_certificate.pdf'); 
+                
                  }  
              }  
           

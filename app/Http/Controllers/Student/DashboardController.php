@@ -2,28 +2,35 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\Cashbook;
+use App\Model\DocumentType;
 use App\Model\Event\EventDetails;
 use App\Model\Exam\ClassTest;
+use App\Model\Exam\ExamSchedule;
 use App\Model\Homework;
+use App\Model\LeaveRecord;
 use App\Model\Library\BookAccession;
 use App\Model\Library\Book_Reserve;
-use App\Model\Library\Booktype; 
+use App\Model\Library\Booktype;
 use App\Model\Library\MemberShipDetails;
+use App\Model\ReceiptDetail;
+use App\Model\Schoolinfo;
 use App\Model\StudentAttendance;
-use App\Model\StudentUserMap;
 use App\Model\StudentFeeDetail;
+use App\Model\StudentFeePaidUpTo;
 use App\Model\StudentRemark;
 use App\Model\StudentReplyRemark;
+use App\Model\StudentUserMap;
+use App\Model\leaveTypeStudent;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use App\Helper\MyFuncs;
 
 class DashboardController extends Controller
 {
@@ -112,6 +119,16 @@ class DashboardController extends Controller
     {   $homeworkList = Homework::find($homework);                  
         return view('student.homework.view',compact('homeworkList'));
     }
+    public function homeworkListShow(Request $request)
+    { 
+
+     $homeworks= Homework::
+     where('date',date('Y-m-d',strtotime($request->date)))->get();   
+     $response = array();
+     $response['status']=1;
+     $response['data']=view('student.homework.table',compact('homeworks'))->render();
+     return $response; 
+    }
 
     public function image($image){
         $img = Storage::disk('student')->get('profile/'.$image);
@@ -145,10 +162,29 @@ class DashboardController extends Controller
             return view('student.fee.list',compact('fees'));
      }
      public function classTest(){ 
+        $academicYears = AcademicYear::orderBy('start_date','DESC')->get();
+            return view('student.classtest.list',compact('academicYears'));
+     }
+     public function classTestShow(Request $request){ 
+      $classtests=ClassTest::where('academic_year_id',$request->academic_year_id)->get();
+      $response = array();
+      $response['status']=1;
+      $response['data']=view('student.classtest.table',compact('classtests'))->render();
+      return $response; 
+      
+     }
+     public function examSchedule(){ 
         
-        $student =  MyFuncs::getStudent(); 
-        $classTests = ClassTest::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->paginate(10); 
-            return view('student.classtest.list',compact('classTests'));
+        $academicYears = AcademicYear::orderBy('start_date','DESC')->get();
+        return view('student.examschedule.index',compact('academicYears'));
+     }
+     public function examScheduleShow(Request $request){ 
+      $examSchedules=ExamSchedule::where('academic_year_id',$request->academic_year_id)->get();
+      $response = array();
+      $response['status']=1;
+      $response['data']=view('student.examschedule.table',compact('examSchedules'))->render();
+      return $response; 
+      
      }
      public function event(){
         // $student = MyFuncs::getStudent();
@@ -302,4 +338,103 @@ class DashboardController extends Controller
         }
 
     }
+    public function leaveApply(){
+        $admin = Auth::guard('admin')->user();
+        $student =new StudentUserMap();
+        $students=$student->userIdBySibling($admin->id);
+        $leaveRecords=LeaveRecord::whereIn('student_id',$students)->orderBy('apply_date','ASC')->get();
+     return view('student.leave.list',compact('leaveRecords'));  
+    }
+    public function leaveApplyForm($value='')
+    {
+        $academicYears=AcademicYear::orderBy('id','ASC')->get();
+       $leaveTypes=LeaveTypeStudent::orderBy('name','ASC')->get();
+     return view('student.leave.apply_form',compact('students','leaveTypes','academicYears','leaveRecord'));
+    }
+    public function leaveApplyStore(Request $request ,$id=null)
+   {    
+        
+       $rules=[
+        
+             
+            'year_id' => 'required', 
+            'leave_id' => 'required', 
+            'apply_date' => 'required', 
+            'from_date' => 'required', 
+            'to_date' => 'required', 
+           
+       
+      ];
+
+      $validator = Validator::make($request->all(),$rules);
+      if ($validator->fails()) {
+          $errors = $validator->errors()->all();
+          $response=array();
+          $response["status"]=0;
+          $response["msg"]=$errors[0];
+          return response()->json($response);// response as json
+      }
+        else {
+       $leaveType= LeaveRecord::firstOrNew(['id'=>$id]);
+       $leaveType->year_id=$request->year_id;
+       $leaveType->leave_id=$request->leave_id;
+       $leaveType->student_id=$request->student_id;
+       $leaveType->apply_date=date('Y-m-d',strtotime($request->apply_date));
+       $leaveType->from_date=$request->from_date;
+       $leaveType->to_date=$request->to_date;
+       $leaveType->remark=$request->remark;
+       $leaveType->status=0;
+       if ($request->hasFile('attachment')) { 
+                $attachment=$request->attachment;
+                $filename=$student->id.'attech'.date('d-m-Y').time().'.pdf'; 
+                $attachment->storeAs('student/leave/',$filename);
+                $leaveType->attachment=$filename; 
+                $leaveType->save();
+                $response=['status'=>1,'msg'=>'Created Successfully'];
+                return response()->json($response);
+        } 
+
+      }
+      $leaveType->save();
+                $response=['status'=>1,'msg'=>'Created Successfully'];
+                return response()->json($response);
+   }
+
+   public function uploadDocument($value='')
+   {
+       $student =  MyFuncs::getStudent();
+       $documentTypes = array_pluck(DocumentType::get(['id','name'])->toArray(),'name', 'id');
+       return view('student.document.list',compact('student','documentTypes'));
+   }
+   public function feeReceipt($value='')
+   {  
+       $academicYears = AcademicYear::orderBy('start_date','DESC')->get();
+       return view('student.feereceipt.index',compact('academicYears','schoolinfo'));
+   }
+   public function feeReceiptShow(Request $request)
+   {  
+     return $academicYears = AcademicYear::find($request->academic_year_id);
+      $StudentFeePaidUpTo=StudentFeePaidUpTo::where('student_id',$request->student_id)->get();
+       $receiptDetails=ReceiptDetail::where('student_id',$student->id)->get();
+       return view('student.feereceipt.index',compact('uptoMonthYears','schoolinfo'));
+   }
+   public function feePay($value='')
+   {
+       return view('student.feepay.index');
+   }
+   public function viewSyllabus($value='')
+   {
+       return view('student.syllabus.index');
+   }
+   public function feeCertificate($value='')
+   {
+       return view('student.feeCertificate.index');
+   }
+   public function feeCertificateDownload($student_id)
+   {
+       $student =Student::find($student_id);
+       $documentUrl = Storage_path() . '/app/student/document/certificate/fee_certificate/'.'/'.$student->classes->name.'/'.$student->sectionTypes->name;
+        return response()->file($documentUrl.'/'.$student->registration_no.'_fee_certificate.pdf');
+   }
+
 }
