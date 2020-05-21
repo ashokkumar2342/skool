@@ -56,6 +56,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 use PDF;
 use Response;
 use Storage;
@@ -549,9 +550,19 @@ class StudentController extends Controller
              return response()->json($response);// response as json
          } 
         if ($request->hasFile('file')) { 
-                $file=$request->file;
-                $filename='img'.date('d-m-Y').time();
-                $file->storeAs('student/profile/',$filename);
+
+                $file=$request->file; 
+
+                $filename=$file->hashName();
+                $destinationPath = storage_path('app/student/profile/');
+                $thumb_img = Image::make($file->getRealPath())->resize(132, 170);
+                if (!file_exists($destinationPath)) {
+                           mkdir($destinationPath, 666, true);
+                       }
+                
+                $thumb_img->save($destinationPath.'/'.$filename,80);
+
+                // $file->storeAs('student/profile/',$filename);
                 $student=Student::find($id);
                 $student->picture=$filename; 
                 $student->picture_status=1; 
