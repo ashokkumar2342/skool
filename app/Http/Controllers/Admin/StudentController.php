@@ -54,6 +54,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use PDF;
@@ -562,6 +563,37 @@ class StudentController extends Controller
                  return $response;
          }  
     }
+    public function studentDocumentVerify(Request $request)
+    {
+       return view('admin.student.studentdetails.documentverify.index');   
+    }
+    public function studentDocumentVerifyList(Student $student,$conditionId)
+    {
+        $st= new Student();
+        $students=$st->getAllStudents(); 
+        $menuPermision= MyFuncs::menuPermission();
+        return view('admin.student.studentdetails.documentverify.student_list',compact('students','menuPermision'));    
+    }
+    public function studentDocumentVerifyView(Request $request,$student_id)
+    {
+       $documents=Document::where('student_id',$student_id)->get();
+       return view('admin.student.studentdetails.documentverify.view',compact('documents'));   
+    }
+    public function studentDocumentVerifyPrint($id)
+    {
+      $documents=Document::find($id);
+      $storagePath = storage_path('/app/'.$documents->document_url);
+            $mimeType = mime_content_type($storagePath);
+            if( ! \File::exists($storagePath)){
+              return 'file not found';
+            }
+            $headers = array(
+              'Content-Type' => $mimeType,
+              'Content-Disposition' => 'inline; filename="'.$storagePath.'"'
+            );
+            return Response::make(file_get_contents($storagePath), 200, $headers);
+      }
+
     public function edit(Student $student)
     {   $houses=House::orderBy('id','ASC')->get();      
        $classes = MyFuncs::getClasses();    
@@ -572,16 +604,6 @@ class StudentController extends Controller
        $default = StudentDefaultValue::find(1); 
           
        return view('admin.student.studentdetails.edit',compact('student','classes','sessions','default','genders','religions','categories','houses'));
-    }
-
-     public function profileedit(Student $student)
-    {
-         
-    }
-
-      public function totalfeeedit(Student $student)
-    {
-        
     }
 
     /**

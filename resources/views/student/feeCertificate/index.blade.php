@@ -7,6 +7,16 @@
       <section class="content">
         <div class="box"> 
              <div class="box-body"> 
+                    
+                      <div class="col-lg-3">
+                                  <label>Academic Year</label>
+                                   <select name="academic_year_id" id="academic_year_id" class="form-control">
+                                    @foreach ($academicYears as $academicYear)
+                                    <option value="{{$academicYear->id}}"{{$academicYear->status==1?'selected':''}}>{{$academicYear->name}}</option>
+                                    @endforeach
+                                   </select> 
+                                  </div>
+                    
                 <div class="row">
                   <div class="col-xs-12">
                   @php
@@ -15,7 +25,7 @@
                    $students=App\Student::whereIn('id',$siblings)->get();
                   @endphp
                   @foreach ($students as $student)
-                  <div class="panel panel-danger">
+                  <div class="panel panel-danger" style="margin-top: 20px">
                        <div class="panel-body">
                           <div class="row">
                               <div class="col-lg-3">

@@ -11,12 +11,19 @@
                         <form action="{{ route('admin.student.certificateIssu.report.certificate.generate') }}" method="post"  button-click="btn_report_request_show" target="blank">
                         {{ csrf_field() }} 
                               <div class="row">
-                                 <div class="col-lg-3">
+                                 <div class="col-lg-3 hidden">
                                   <label>Report For</label>
                                    <select name="report_for" class="form-control">
-                                    <option selected disabled>Select Option</option>
                                     <option value="1">Fee Certificate</option>
                                      
+                                   </select> 
+                                  </div>
+                                  <div class="col-lg-3">
+                                  <label>Academic Year</label>
+                                   <select name="academic_year_id" class="form-control">
+                                    @foreach ($academicYears as $academicYear)
+                                    <option value="{{$academicYear->id}}"{{$academicYear->status==1?'selected':''}}>{{$academicYear->name}}</option>
+                                    @endforeach
                                    </select> 
                                   </div>
                                  <div class="col-lg-3">

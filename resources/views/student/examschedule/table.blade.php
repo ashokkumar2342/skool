@@ -26,7 +26,7 @@
         <tr>
             <th>Sr.No.</th>                               
             <th>Academic Year</th> 
-            <th>Exam Term</th> 
+            <th class="text-center">Exam Term</th> 
             <th>Class</th>  
             <th>Subject</th>                                                            
             <th>On Date</th>                                                            
@@ -41,10 +41,10 @@
         <tr>
             <td>{{ ++$loop->index }}</td>
             <td>{{ $examSchedule->academicYear->name or ''}}</td>
-            <td>{{ $examSchedule->examTerms->from_date or ''}}</td>
+            <td>{{ date('d-m-Y',strtotime($examSchedule->examTerms->from_date))}}-To-{{ date('d-m-Y',strtotime($examSchedule->examTerms->to_date))}}</td>
             <td>{{ $examSchedule->classes->name or ''}}</td> 
             <td>{{ $examSchedule->subjects->name }}</td>
-            <td>{{ $examSchedule->on_date }}</td>
+            <td>{{ date('d-m-Y',strtotime($examSchedule->on_date))}}</td>
             <td>{{ $examSchedule->max_marks }}</td> 
             <td>{{ $examSchedule->pass_marks }}</td> 
             <td>{{ $examSchedule->fail_marks }}</td> 

@@ -47,7 +47,7 @@
         <td class="text-nowrap">{{ $classTest->classes->name or ''}}</td>
         <td class="text-nowrap">{{ $classTest->sectionTypes->name or '' }}</td>
         <td class="text-nowrap">{{ $classTest->subjects->name or '' }}</td>
-        <td class="text-nowrap">{{ $classTest->test_date }}</td>
+        <td class="text-nowrap">{{ date('d-m-Y',strtotime($classTest->test_date)) }}</td>
         <td class="text-nowrap">{{ $classTest->max_marks }}</td> 
         <td class="text-nowrap">{{ $classTest->highest_marks }}</td> 
         <td class="text-nowrap">{{ $classTest->avg_marks }}</td> 

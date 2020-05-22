@@ -195,6 +195,9 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('student-image-upload-list/{id?}', 'StudentController@studentImageUploadList')->name('admin.student.image.upload.list');
 	     Route::post('student-image-upload-store/{id}', 'StudentController@studentImageUploadStore')->name('admin.student.image.upload.store');
 	     Route::get('student-document-verify', 'StudentController@studentDocumentVerify')->name('admin.student.document.verify');
+	     Route::get('student-document-verify-list/{id}', 'StudentController@studentDocumentVerifyList')->name('admin.student.document.verify.list');
+	     Route::get('student-document-verify-view/{id}', 'StudentController@studentDocumentVerifyView')->name('admin.student.document.verify.view');
+	     Route::get('student-document-verify-print/{id}', 'StudentController@studentDocumentVerifyPrint')->name('admin.student.document.verify.print');
 	    
 	     Route::get('{student}/password-reset', 'StudentController@passwordReset')->name('admin.student.passwordreset'); 
 	     Route::get('image/{image}', 'StudentController@image')->name('admin.student.image');
@@ -894,6 +897,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('/', 'Exam\ClassTestDetailController@index')->name('admin.exam.test.details');	 	
 			    Route::post('store', 'Exam\ClassTestDetailController@store')->name('admin.exam.classdetail.store');	
 			    Route::get('delete/{id}', 'Exam\ClassTestDetailController@destroy')->name('admin.exam.classdetail.delete');	 	
+			    Route::get('academic-year', 'Exam\ClassTestDetailController@academicYearWiseClassTest')->name('admin.academic.wise.class.test');
 			    Route::get('search', 'Exam\ClassTestDetailController@searchStudent')->name('admin.classdetail.studentSearch');
 			    Route::get('compile/{id}', 'Exam\ClassTestDetailController@compile')->name('admin.exam.classtest.compile');	 	
 			    Route::get('todays-class-test', 'Exam\ClassTestDetailController@todayClassTest')->name('admin.exam.today.class.test');	 	
@@ -967,6 +971,16 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('edit/{id?}', 'MasterController@incomeSlabEdit')->name('admin.incomeSlab.edit');
 			    Route::post('update/{id?}', 'MasterController@incomeSlabUpdate')->name('admin.incomeSlab.update');
 			    Route::get('delete/{id}', 'MasterController@incomeSlabDestroy')->name('admin.incomeSlab.delete');
+
+			});
+			 Route::group(['prefix' => 'syllabus'], function() {
+			    Route::get('syllabus', 'MasterController@syllabus')->name('admin.master.syllabus');	 	
+			    Route::get('add-form', 'MasterController@syllabusAddForm')->name('admin.master.syllabus.add.form');
+			    Route::get('class-subject', 'MasterController@syllabusClassSubject')->name('admin.master.syllabus.class.subject');	 	
+			    Route::post('store', 'MasterController@syllabusStore')->name('admin.master.syllabus.store');
+			    Route::post('show', 'MasterController@syllabusShow')->name('admin.master.syllabus.show');	 	
+			    Route::get('view/{id}', 'MasterController@syllabusView')->name('admin.master.syllabus.view');	 	
+			    
 
 			}); 
 		    Route::group(['prefix' => 'guardian'], function() {

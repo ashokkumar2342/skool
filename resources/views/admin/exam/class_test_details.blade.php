@@ -10,17 +10,20 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12">
-                    
-                   <div class="col-lg-4">                         
+                  <div class="col-lg-3">                         
                       <div class="form-group">
-                          {{ Form::label('class','Class Test',['class'=>' control-label']) }}
-                           <select name="classTest" class="form-control" onchange="callAjax(this,'{{ route('admin.classdetail.studentSearch') }}','student_details_Result')">
-                             <option value="" selected disabled>Select Class Test</option>
-                             @foreach ($classTests as $classTest)
-                                <option value="{{ $classTest->id }}">Class: {{ $classTest->classes->name }}, &nbsp;&nbsp;&nbsp;Section : {{ $classTest->sectionTypes->name }},&nbsp;&nbsp;&nbsp; Subject: {{ $classTest->subjects->name }}</option>
+                        <label>Academic Year</label>
+                           <select name="academic_year_id" id="academic_year_id" class="form-control" onchange="callAjax(this,'{{ route('admin.academic.wise.class.test') }}'+'?academic_year_id='+$('#academic_year_id').val(),'class_test_value')">
+                             <option selected disabled>Select Academic Year</option>
+                             @foreach ($academicYears as $academicYear)
+                                <option value="{{ $academicYear->id }}">{{ $academicYear->name }}</option> 
                              @endforeach 
                            </select>
                       </div>
+                  </div>    
+                    
+                   <div class="col-lg-4" id="class_test_value">                         
+                      
                   </div>
                    
 	                </form> 

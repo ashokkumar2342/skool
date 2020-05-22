@@ -6,6 +6,7 @@ use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\AdmissionSeat;
+use App\Model\AdmissionSeatDefault;
 use App\Model\BloodGroup;
 use App\Model\Category;
 use App\Model\Complextion;
@@ -14,7 +15,8 @@ use App\Model\IncomeRange;
 use App\Model\Profession;
 use App\Model\Religion;
 use App\Model\StudentStatus;
-use App\Model\AdmissionSeatDefault;
+use App\Model\Subject;
+use App\Model\Syllabus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -22,11 +24,74 @@ use Illuminate\Support\Facades\Validator;
 
 class MasterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   public function syllabus()
+   {
+     $academicYears=AcademicYear::orderBy('id','ASC')->get();
+     $classTypes=MyFuncs::getClassByHasUser();
+     return view('admin.master.syllabus.index',compact('academicYears','classTypes'));
+   }
+   public function syllabusAddForm(Request $request)
+   {
+     $classTypes=MyFuncs::getClassByHasUser();
+     $academicYears=AcademicYear::orderBy('id','ASC')->get();
+     $subjects=Subject::where('classType_id',$request->id)->get();
+     return view('admin.master.syllabus.add_form',compact('classTypes','academicYears','subjects'));
+   }
+   public function syllabusClassSubject(Request $request)
+   {
+     $subjects=Subject::where('classType_id',$request->id)->get();
+     return view('admin.master.syllabus.subject',compact('subjects'));
+   }
+   public function syllabusStore(Request $request)
+   {
+       $rules=[
+            'academic_year_id' => 'required', 
+            'class_id' => 'required', 
+            'subject_id' => 'required', 
+            'syllabus' => 'required', 
+      ];
+
+      $validator = Validator::make($request->all(),$rules);
+      if ($validator->fails()) {
+          $errors = $validator->errors()->all();
+          $response=array();
+          $response["status"]=0;
+          $response["msg"]=$errors[0];
+          return response()->json($response);// response as json
+      }
+      else {
+       $Syllabuss= Syllabus::firstOrNew(['academic_year_id'=>$request->academic_year_id,'class_id'=>$request->class_id,'subject_id'=>$request->subject_id,]);
+       $Syllabuss->academic_year_id=$request->academic_year_id;
+       $Syllabuss->class_id=$request->class_id;
+       $Syllabuss->subject_id=$request->subject_id;
+       if ($request->hasFile('syllabus')) { 
+                $syllabus=$request->syllabus;
+                $filename='syllabus'.$request->academic_year_id.'_'.$request->class_id.'_'.$request->subject_id.'.pdf'; 
+                $syllabus->storeAs('student/syllabus/',$filename);
+                $Syllabuss->syllabus=$filename;
+      }
+      $Syllabuss->save();
+      $response=['status'=>1,'msg'=>'Submit Successfully'];
+      return response()->json($response);
+   }
+ }
+    public function syllabusShow(Request $request)
+    {
+          $Syllabuss= Syllabus::where('academic_year_id',$request->academic_year_id)
+                                ->where('class_id',$request->class_id)
+                                ->get();
+          $response=array();
+          $response["status"]=1;
+          $response["data"]=view('admin.master.syllabus.syllabus_list',compact('Syllabuss'))->render();
+          return $response;
+      
+    }
+    public function syllabusView($id)
+  {
+        $documentUrl = Storage_path() . '/app/student/syllabus/'.$id; 
+        return response()->file($documentUrl); 
+  }
+
     public function incomeSlab()
     {
         $incomeSlabs = IncomeRange::orderBy('code','ASC')->get();

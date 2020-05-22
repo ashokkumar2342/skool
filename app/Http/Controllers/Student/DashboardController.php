@@ -165,8 +165,14 @@ class DashboardController extends Controller
         $academicYears = AcademicYear::orderBy('start_date','DESC')->get();
             return view('student.classtest.list',compact('academicYears'));
      }
-     public function classTestShow(Request $request){ 
-      $classtests=ClassTest::where('academic_year_id',$request->academic_year_id)->get();
+     public function classTestShow(Request $request){
+     if ($request->test_for==1) {
+        $classtests=ClassTest::where('academic_year_id',$request->academic_year_id)->where('test_date','>',date('Y-m-d'))->orderBy('test_date','ASC')->take($request->record)->get();  
+      } 
+      elseif ($request->test_for==2) {
+        $classtests=ClassTest::where('academic_year_id',$request->academic_year_id)->orderBy('test_date','ASC')->take($request->record)->get();
+      } 
+      
       $response = array();
       $response['status']=1;
       $response['data']=view('student.classtest.table',compact('classtests'))->render();
@@ -178,8 +184,8 @@ class DashboardController extends Controller
         $academicYears = AcademicYear::orderBy('start_date','DESC')->get();
         return view('student.examschedule.index',compact('academicYears'));
      }
-     public function examScheduleShow(Request $request){ 
-      $examSchedules=ExamSchedule::where('academic_year_id',$request->academic_year_id)->get();
+     public function examScheduleShow(Request $request){
+      $examSchedules=ExamSchedule::where('academic_year_id',$request->academic_year_id)->where('exam_term_id',$request->exam_term)->get();
       $response = array();
       $response['status']=1;
       $response['data']=view('student.examschedule.table',compact('examSchedules'))->render();
@@ -413,10 +419,13 @@ class DashboardController extends Controller
    }
    public function feeReceiptShow(Request $request)
    {  
-     return $academicYears = AcademicYear::find($request->academic_year_id);
-      $StudentFeePaidUpTo=StudentFeePaidUpTo::where('student_id',$request->student_id)->get();
-       $receiptDetails=ReceiptDetail::where('student_id',$student->id)->get();
-       return view('student.feereceipt.index',compact('uptoMonthYears','schoolinfo'));
+      
+       $receiptDetails=ReceiptDetail::where('student_id',$request->student_id)->get();
+       $response=array();
+       $response['status']=1;
+       $response['data']=view('student.feereceipt.list',compact('receiptDetails','schoolinfo'))->render();
+       return $response;
+      
    }
    public function feePay($value='')
    {
@@ -428,13 +437,14 @@ class DashboardController extends Controller
    }
    public function feeCertificate($value='')
    {
-       return view('student.feeCertificate.index');
+       $academicYears=AcademicYear::orderBy('id','ASC')->get();
+       return view('student.feeCertificate.index',compact('academicYears'));
    }
-   public function feeCertificateDownload($student_id)
-   {
+   public function feeCertificateDownload( Request $request,$student_id)
+   { 
        $student =Student::find($student_id);
        $documentUrl = Storage_path() . '/app/student/document/certificate/fee_certificate/'.'/'.$student->classes->name.'/'.$student->sectionTypes->name;
-        return response()->file($documentUrl.'/'.$student->registration_no.'_fee_certificate.pdf');
+        return response()->file($documentUrl.'/'.'2year'.'_'.$student->registration_no.'_fee_certificate.pdf');
    }
 
 }

@@ -21,6 +21,22 @@
                 </div>
               </div>
               <div class="col-lg-4">
+                <div class="form-group"> 
+                  <label >Test For</label>  
+                  <select name="test_for" id="fee_paid_upto" class="form-control">
+                    <option disabled selected>Select Academic Year</option>
+                     <option value="1">Upcoming</option>
+                     <option value="2">Archive</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-2">
+                <div class="form-group"> 
+                  <label >Record For</label>  
+                  <input type="text" name="record" class="form-control" value="2" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                </div>
+              </div>
+              <div class="col-lg-2">
                 <input type="submit" value="Show Class test" class="form-control btn btn-success" style="margin-top: 24px">
               </div>
             </div>

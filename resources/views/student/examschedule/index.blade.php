@@ -9,17 +9,28 @@
         <div class="box-body">
           <form action="{{ route('student.exam.schedule.show') }}" method="post" class="add_form" success-content-id="class_test_show" no-reset="true">
             <div class="row">
-              <div class="col-lg-4">
-                <div class="form-group"> 
-                  <label >Academic Year</label>  
-                  <select name="academic_year_id" id="fee_paid_upto" class="form-control">
-                    <option disabled selected>Select Academic Year</option>
-                    @foreach ($academicYears as $academicYear)
-                     <option value="{{$academicYear->id}}">{{$academicYear->name}}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
+              <div class="col-lg-4">                         
+                      <div class="form-group">
+                        <label>Academic Year</label>
+                           <select name="academic_year_id" id="academic_year_id" class="form-control" onchange="callAjax(this,'{{ route('admin.mark.detail.studentSearch') }}'+'?academic_year_id='+$('#academic_year_id').val(),'exam_term_id')">
+                             <option selected disabled>Select Academic Year</option>
+                             @foreach ($academicYears as $academicYear)
+                                <option value="{{ $academicYear->id }}">{{ $academicYear->name }}</option> 
+                             @endforeach 
+                           </select>
+                      </div>
+                  </div>                   
+                   <div class="col-lg-4" >                         
+                      <div class="form-group">
+                          {{ Form::label('class','Exam Term',['class'=>' control-label']) }}
+                           <select name="exam_term" class="form-control" id="exam_term_id">
+                            {{-- <option value="" selected  disabled>Select Exam Term</option> 
+                            @foreach ($examTerms as $examTerm)
+                              <option value="{{ $examTerm->id }}">From Date:{{ date('d-m-Y', strtotime($examTerm->from_date)) }} &nbsp; To Date: {{ date('d-m-Y', strtotime($examTerm->to_date)) }}</option>
+                            @endforeach --}} 
+                           </select> 
+                      </div>
+                  </div>
               <div class="col-lg-4">
                 <input type="submit" value="Show Class test" class="form-control btn btn-success" style="margin-top: 24px">
               </div>

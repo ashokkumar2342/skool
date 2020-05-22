@@ -33,11 +33,12 @@ class ClassTestDetailController extends Controller
         return view('admin.exam.class_test_details',compact('classTestDetails','students','classTests','academicYears'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function academicYearWiseClassTest(Request $request)
+    {
+      
+      $classTests = CLassTest::where('academic_year_id',$request->academic_year_id)->get();
+      return view('admin.exam.class_test_value',compact('classTests','academicYears'));
+    }
     public function searchStudent(Request $request)
     { 
          $classTest = CLassTest::find($request->id);

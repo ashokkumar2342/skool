@@ -354,8 +354,9 @@ class CertificateIssueDetailController extends Controller
     //Tution fee certificate
     public function tuitionFeeShowForm()
     { 
+        $academicYears=AcademicYear::orderBy('id','ASC')->get();
         $students = array_pluck(Student::get(['id','registration_no'])->toArray(), 'registration_no', 'id');
-         return view('admin.certificate.tuitionfee.form',compact('students'));
+         return view('admin.certificate.tuitionfee.form',compact('students','academicYears'));
     }
 
     //show result
@@ -413,7 +414,7 @@ class CertificateIssueDetailController extends Controller
                 'logOutputFile' => storage_path('logs/log.htm'),
                 'tempDir' => storage_path('logs/')
                 ])
-                ->loadView('admin.certificate.tuitionfee.print',compact('student'))->save($documentUrl.'/'.$student->registration_no.'_fee_certificate.pdf');
+                ->loadView('admin.certificate.tuitionfee.print',compact('student'))->save($documentUrl.'/'.$request->academic_year_id.'year'.'_'.$student->registration_no.'_fee_certificate.pdf');
                 return $pdf->stream('fee_certificate.pdf'); 
                 
                  }  

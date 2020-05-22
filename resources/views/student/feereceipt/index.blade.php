@@ -7,7 +7,7 @@
       <section class="content">
         <div class="box"> 
              <div class="box-body">
-             <form  action="{{ route('student.fee.receipt,show') }}" class="add_form" no-reset="true" method="post" success-content-id="fee_collection_detail"> 
+             <form  action="{{ route('student.fee.receipt,show') }}" class="add_form" no-reset="true" method="post" success-content-id="fee_receipt_download_list"> 
                    {{ csrf_field() }}
                    @php
                     $userIdBySibling=new App\Helper\MyFuncs();    
@@ -27,12 +27,10 @@
                       </div>
                       <div class="col-lg-4">     
                            <div class="form-group"> 
-                             <label >Academic Year</label>  
-                             <select name="academic_year_id" id="fee_paid_upto" class="form-control">      
-                               <option disabled selected>Select Academic Year</option>
-                               @foreach ($academicYears as $academicYear)
-                                <option value="{{$academicYear->id}}">{{$academicYear->name}}</option>
-                               @endforeach
+                             <label >Show For</label>  
+                             <select name="show_for" id="fee_paid_upto" class="form-control">
+                                <option value="1">All</option>
+                                <option value="2">Month Wise</option>
                              </select>
                            </div> 
                            {{-- <button type="button" id="fee_collection_details_btn" class="btn btn-warning" >Show</button> --}} 
@@ -40,9 +38,10 @@
                      <div class="col-lg-4 form-group"> 
                      <input class="btn btn-success form-control" type="submit" style="margin-top: 24px" value="Show Receipt"> 
                     </div>                     
-                  </form>  
-                
-
+                  </form>
+                  <div id="fee_receipt_download_list">
+                    
+                  </div>
              </div>
         </div>    
       </section>
