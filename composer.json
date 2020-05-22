@@ -10,6 +10,7 @@
         "codeitnowin/barcode": "^3.0",
         "daltcore/lara-pdf-merger": "^2.0",
         "fideloper/proxy": "~3.3",
+        "intervention/image": "^2.5",
         "laravel/framework": "5.5.*",
         "laravel/passport": "^4.0",
         "laravel/tinker": "~1.0",
