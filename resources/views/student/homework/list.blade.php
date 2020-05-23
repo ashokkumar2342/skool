@@ -13,8 +13,12 @@
                 <label>Date</label>
                         {!! Form::text('date', date('d-m-Y')  , ['class'=>'form-control datepicker','id'=>'date','placeholder'=>'Date','max'=>date('Y-m-d')]) !!}
               </div>
+              <input type="hidden" name="print" value="0" id="btn_print">
               <div class="col-lg-4">
-                <input type="submit" value="Homework Show" class="form-control btn btn-success" style="margin-top: 24px">
+                <input type="submit" value="Homework Show" onclick="$('#btn_print').val(0)" class="form-control btn btn-success" style="margin-top: 24px">
+              </div>
+              <div class="col-lg-4">
+                <input type="submit" value="Print" onclick="$('#btn_print').val(1)"  class="form-control btn btn-default" style="margin-top: 24px">
               </div>
             </div>
           </form>

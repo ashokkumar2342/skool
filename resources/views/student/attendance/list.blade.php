@@ -4,114 +4,70 @@
 <link rel="stylesheet" href="{{ asset('student_assets/plugins/fullcalendar/fullcalendar.min.css') }}">
 <link rel="stylesheet" href="{{ asset('student_assets/plugins/fullcalendar/fullcalendar.print.css') }}" media="print">
 <style>
-  .table td, .table th {
-      padding: .0rem; 
-      vertical-align: top;
-      border-top: 1px solid #dee2e6;
-  }
-  .border_bottom{
-    border-bottom: solid 1px #eee; 
-  }  
-  b{
-    color:#275064;
-    align-items: right;
-  }
-  .fs{
-      float: right; font-weight:800;padding-right: 10px;
-  }
-  .fc-time{
-   display : none;
-}
-.fc-title{
-  font-size:18px;
-}
+    .table td, .table th {
+        padding: .0rem; 
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+    .border_bottom{
+        border-bottom: solid 1px #eee; 
+    }  
+    b{
+        color:#275064;
+        align-items: right;
+    }
+    .fs{
+        float: right; font-weight:800;padding-right: 10px;
+    }
+    .fc-time{
+        display : none;
+    }
+    .fc-title{
+        font-size:18px;
+    }
 </style>
 @endpush
-
- <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Attendance</h1>
-          </div>
-          
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) --> 
-         <div class="row">
-         
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header p-2">
-                  <ul class="nav nav-pills">
-                    <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Calender View</a></li>
-                     
-                    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Table View</a></li>
-                  </ul>
-                </div><!-- /.card-header -->
-                <div class="card-body">
-                  <div class="tab-content">
-                    <div class="active tab-pane" id="activity"> 
-                     <div class="col-md-12">
-                       <div class="card card-primary">
-                         <div class="card-body p-0">
-                           <!-- THE CALENDAR -->
-                           <div id="calendar"></div>
-                         </div>
-                         <!-- /.card-body -->
-                       </div>
-                       <!-- /. box -->
-                     </div>
-                     
-            
+<section class="content-header">     
+    <h1>Attendance<small>List</small> </h1>       
+</section>  
+<section class="content">
+    <div class="box">
+        <div class="box-body">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Calender</a></li>
+                <li><a data-toggle="tab" href="#menu1">Table</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <div class="box box-primary">
+                        <div class="box-body no-padding">
+                            <div id="calendar"></div>
+                        </div>
                     </div>
-                    <!-- /.tab-pane -->
-                   
-                    <!-- /.tab-pane -->
+                </div>
+                <div id="menu1" class="tab-pane fade">
 
-                    <div class="tab-pane" id="settings">
-                      <table class="table">
+                    <table class="table">
                         <thead>
-                          <tr>
-                            <th>Date</th>
-                            <th>Present/Absent</th>
-                          </tr>
+                            <tr>
+                                <th>Date</th>
+                                <th>Present/Absent</th>
+                            </tr>
                         </thead>
                         <tbody>
-                          @foreach ($attendances as $key=>$attendance)
-                          <tr>
-                            <td>{{ date('d-m-Y', strtotime( $attendance->date)) }}</td>
-                            <td>{{ $attendance->attendance->name or '' }}</td>
-                          </tr>
-                          @endforeach
+                            @foreach ($attendances as $key=>$attendance)
+                            <tr>
+                                <td>{{ date('d-m-Y', strtotime( $attendance->date)) }}</td>
+                                <td>{{ $attendance->attendance->name or '' }}</td>
+                            </tr>
+                            @endforeach
                         </tbody>
-                      </table>
-                    </div>
-                    <!-- /.tab-pane -->
-                  </div>
-                  <!-- /.tab-content -->
-                </div><!-- /.card-body -->
-              </div>
-              <!-- /.nav-tabs-custom -->
+                    </table>
+                </div>
             </div>
-         </div>
-         <!-- /.card-body --> 
-         <div class="card-footer"> 
-             
-         </div>
-              
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-
-
+        </div>
+    </div>
+</section>
 @endsection
 @push('scripts')
 <!-- jQuery -->
@@ -121,141 +77,141 @@
 <script src="{{ asset('student_assets/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <!-- Page specific script -->
 <script>
-  $(function () {
+    $(function () {
 
-    /* initialize the external events
-     -----------------------------------------------------------------*/
-    function ini_events(ele) {
-      ele.each(function () {
+/* initialize the external events
+-----------------------------------------------------------------*/
+function ini_events(ele) {
+    ele.each(function () {
 
-        // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-        // it doesn't need to have a start or end
-        var eventObject = {
-          title: $.trim($(this).text()) // use the element's text as the event title
-        }
+// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+// it doesn't need to have a start or end
+var eventObject = {
+title: $.trim($(this).text()) // use the element's text as the event title
+}
 
-        // store the Event Object in the DOM element so we can get to it later
-        $(this).data('eventObject', eventObject)
+// store the Event Object in the DOM element so we can get to it later
+$(this).data('eventObject', eventObject)
 
-        // make the event draggable using jQuery UI
-        $(this).draggable({
-          zIndex        : 1070,
-          revert        : true, // will cause the event to go back to its
-          revertDuration: 0  //  original position after the drag
-        })
+// make the event draggable using jQuery UI
+$(this).draggable({
+    zIndex        : 1070,
+revert        : true, // will cause the event to go back to its
+revertDuration: 0  //  original position after the drag
+})
 
-      })
-    }
+})
+}
 
-    ini_events($('#external-events div.external-event'))
+ini_events($('#external-events div.external-event'))
 
-    /* initialize the calendar
-     -----------------------------------------------------------------*/
-    //Date for the calendar events (dummy data)
-    var date = new Date()
-    var d    = date.getDate(),
-        m    = date.getMonth(),
-        y    = date.getFullYear()
-    $('#calendar').fullCalendar({
-      header    : {
+/* initialize the calendar
+-----------------------------------------------------------------*/
+//Date for the calendar events (dummy data)
+var date = new Date()
+var d    = date.getDate(),
+m    = date.getMonth(),
+y    = date.getFullYear()
+$('#calendar').fullCalendar({
+    header    : {
         left  : 'prev,next today',
         center: 'title',
         right : 'month'
-      },
-      buttonText: {
+    },
+    buttonText: {
         today: 'today',
         month: 'month',
-         
-      },
-      //Random default events
-      events    : [
-      @foreach ($attendances as $key=>$attendance)
 
-         {
-          title          : '{{ $attendance->attendance_type_id==2?'Absent':'Present' }}',
-          start          : '{{ $attendance->date }}',
-          @if ($attendance->attendance_type_id==2)
-            backgroundColor: '#f56954', //red
-            borderColor    : '#f56954', //red
-             textColor: '#FFF'
-          @else
-           backgroundColor: '#008000', //red
-            borderColor    : '#008000', //red
-            textColor: '#FFF'
-          @endif
-          
-        },
-      @endforeach 
-       
-      ],
-      allDay: false,
-      editable  : false,
-      droppable : false, // this allows things to be dropped onto the calendar !!!
-      drop      : function (date, allDay) { // this function is called when something is dropped
+    },
+//Random default events
+events    : [
+@foreach ($attendances as $key=>$attendance)
 
-        // retrieve the dropped element's stored Event Object
-        var originalEventObject = $(this).data('eventObject')
+{
+    title          : '{{ $attendance->attendance_type_id==2?'Absent':'Present' }}',
+    start          : '{{ $attendance->date }}',
+    @if ($attendance->attendance_type_id==2)
+backgroundColor: '#f56954', //red
+borderColor    : '#f56954', //red
+textColor: '#FFF'
+@else
+backgroundColor: '#008000', //red
+borderColor    : '#008000', //red
+textColor: '#FFF'
+@endif
 
-        // we need to copy it, so that multiple events don't have a reference to the same object
-        var copiedEventObject = $.extend({}, originalEventObject)
+},
+@endforeach 
 
-        // assign it the date that was reported
-        copiedEventObject.start           = date
-        copiedEventObject.allDay          = allDay
-        copiedEventObject.backgroundColor = $(this).css('background-color')
-        copiedEventObject.borderColor     = $(this).css('border-color')
+],
+allDay: false,
+editable  : false,
+droppable : false, // this allows things to be dropped onto the calendar !!!
+drop      : function (date, allDay) { // this function is called when something is dropped
 
-        // render the event on the calendar
-        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
+// retrieve the dropped element's stored Event Object
+var originalEventObject = $(this).data('eventObject')
 
-        // is the "remove after drop" checkbox checked?
-        if ($('#drop-remove').is(':checked')) {
-          // if so, remove the element from the "Draggable Events" list
-          $(this).remove()
-        }
+// we need to copy it, so that multiple events don't have a reference to the same object
+var copiedEventObject = $.extend({}, originalEventObject)
 
-      }
-    })
+// assign it the date that was reported
+copiedEventObject.start           = date
+copiedEventObject.allDay          = allDay
+copiedEventObject.backgroundColor = $(this).css('background-color')
+copiedEventObject.borderColor     = $(this).css('border-color')
 
-    /* ADDING EVENTS */
-    var currColor = '#3c8dbc' //Red by default
-    //Color chooser button
-    var colorChooser = $('#color-chooser-btn')
-    $('#color-chooser > li > a').click(function (e) {
-      e.preventDefault()
-      //Save color
-      currColor = $(this).css('color')
-      //Add color effect to button
-      $('#add-new-event').css({
-        'background-color': currColor,
-        'border-color'    : currColor
-      })
-    })
-    $('#add-new-event').click(function (e) {
-      e.preventDefault()
-      //Get value and make sure it is not null
-      var val = $('#new-event').val()
-      if (val.length == 0) {
-        return
-      }
+// render the event on the calendar
+// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+$('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
 
-      //Create events
-      var event = $('<div />')
-      event.css({
-        'background-color': currColor,
-        'border-color'    : currColor,
-        'color'           : '#fff'
-      }).addClass('external-event')
-      event.html(val)
-      $('#external-events').prepend(event)
+// is the "remove after drop" checkbox checked?
+if ($('#drop-remove').is(':checked')) {
+// if so, remove the element from the "Draggable Events" list
+$(this).remove()
+}
 
-      //Add draggable funtionality
-      ini_events(event)
+}
+})
 
-      //Remove event from text input
-      $('#new-event').val('') 
-    })
-  })
+/* ADDING EVENTS */
+var currColor = '#3c8dbc' //Red by default
+//Color chooser button
+var colorChooser = $('#color-chooser-btn')
+$('#color-chooser > li > a').click(function (e) {
+    e.preventDefault()
+//Save color
+currColor = $(this).css('color')
+//Add color effect to button
+$('#add-new-event').css({
+    'background-color': currColor,
+    'border-color'    : currColor
+})
+})
+$('#add-new-event').click(function (e) {
+    e.preventDefault()
+//Get value and make sure it is not null
+var val = $('#new-event').val()
+if (val.length == 0) {
+    return
+}
+
+//Create events
+var event = $('<div />')
+event.css({
+    'background-color': currColor,
+    'border-color'    : currColor,
+    'color'           : '#fff'
+}).addClass('external-event')
+event.html(val)
+$('#external-events').prepend(event)
+
+//Add draggable funtionality
+ini_events(event)
+
+//Remove event from text input
+$('#new-event').val('') 
+})
+})
 </script>
 @endpush

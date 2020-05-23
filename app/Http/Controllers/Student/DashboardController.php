@@ -121,13 +121,20 @@ class DashboardController extends Controller
     }
     public function homeworkListShow(Request $request)
     { 
-
-     $homeworks= Homework::
-     where('date',date('Y-m-d',strtotime($request->date)))->get();   
-     $response = array();
-     $response['status']=1;
-     $response['data']=view('student.homework.table',compact('homeworks'))->render();
-     return $response; 
+       $homeworks= Homework::
+       where('date',date('Y-m-d',strtotime($request->date)))->get();   
+      if ($request->print==0) {
+       $response = array();
+       $response['status']=1;
+       $response['data']=view('student.homework.table',compact('homeworks'))->render();
+       return $response;
+    }elseif ($request->print==1) {
+      $response = array();
+      $response['status']=1;
+      $response['data']=view('student.homework.print',compact('homeworks'))->render();
+      return $response;
+  
+    }
     }
 
     public function image($image){
@@ -150,10 +157,52 @@ class DashboardController extends Controller
         return view('student.homework.list',compact('homeworks'));
     }
     public function attendance(){
-        $admin = Auth::guard('admin')->user();
-        $student=StudentUserMap::where('userid',$admin->id)->first();
-       $attendances = StudentAttendance::where('student_id',$student->student_id)->get();
-            return view('student.attendance.list',compact('attendances'));
+        $student = MyFuncs::getStudent();
+       //  $student_id = $student->id;
+       //  $date = date('Y-m-d');
+       //  $year = date('Y');
+       //  $firstDay = date('d')-1;
+       //  $monthOfFirstDate = date('Y-m-d',strtotime($date ."-".$firstDay." days"));
+       //  $monthly=date('Y-m-d',strtotime($date ."-30 days"));
+       //  $weekly=date('Y-m-d',strtotime($date ."-7 days"));
+       //  $monthlyPresent = StudentAttendance::where('attendance_type_id',1)
+       //              ->where('student_id', $student_id)
+       //              ->whereBetween('date', [$monthly, $date])
+       //              ->OrWhere('attendance_type_id',3)
+       //              ->OrWhere('attendance_type_id',4)->count();
+       //  $monthlyAbsent = StudentAttendance::where('attendance_type_id',2) 
+       //              ->where('student_id', $student_id)
+       //              ->whereBetween('date', [$monthly, $date])
+       //              ->count();
+       //  $weeklyPresent = StudentAttendance::where('attendance_type_id',1)
+       //              ->where('student_id', $student_id)
+       //              ->whereBetween('date', [$weekly, $date])
+       //              ->OrWhere('attendance_type_id',3)
+       //              ->OrWhere('attendance_type_id',4)->count();            
+       //  $weeklyAbsent = StudentAttendance::where('attendance_type_id',2) 
+       //              ->where('student_id', $student_id)
+       //              ->whereBetween('date', [$weekly, $date])
+       //              ->count();
+       // $workingDays = StudentAttendance::where('student_id', $student_id)
+       //              ->whereBetween('date', [$monthOfFirstDate, $date])
+       //             ->count();
+       //  $tillPresent = StudentAttendance::where('attendance_type_id',1)
+       //                      ->where('student_id', $student_id)
+       //                      ->whereBetween('date', [$sessionDate, $date])
+       //                      ->OrWhere('attendance_type_id',3)
+       //                      ->OrWhere('attendance_type_id',4)->count();
+       //  $tillAbsent = StudentAttendance::where('attendance_type_id',2) 
+       //              ->where('student_id', $student_id)
+       //              ->whereBetween('date', [$sessionDate, $date])
+       //              ->count(); 
+       //  $classTests = ClassTest::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->take(10)->get();              
+       // $homeworks = Homework::where('class_id',$student->class_id)->where('section_id',$student->section_id)->orderBy('created_at','desc')->take(10)->get();            
+        
+       //  $students = Student::where('status',1)->count();
+         
+       //   $studentRemarks=StudentRemark::where('student_id',$student->id)->take(10)->get(); 
+       $attendances = StudentAttendance::where('student_id',$student->id)->get();
+       return view('student.attendance.list',compact('attendances'));
     }
     public function feeDetails(){ 
         $student = MyFuncs::getStudent(); 
