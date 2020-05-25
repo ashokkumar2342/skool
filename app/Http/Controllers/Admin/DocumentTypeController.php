@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class DocumentTypeController extends Controller
 {
@@ -118,9 +119,15 @@ class DocumentTypeController extends Controller
      * @param  \App\Model\AcademicYear  $academicYear
      * @return \Illuminate\Http\Response
      */
-    public function show(AcademicYear $academicYear)
+    public function report($value='')
     {
-        //
+        $documentTypes = DocumentType::orderBy('name','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.master.document.pdf',compact('documentTypes'));
+        return $pdf->stream('room.pdf');
     }
 
     /**

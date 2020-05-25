@@ -46,16 +46,22 @@
   </table> 
   </div> 
  </div>
-   <div class="col-lg-2" style="float: right;"><h4>
+ <div class="row" style="margin-left: 10px">
+   <div class="col-lg-4"> 
   Total Record :
-   <span style="margin-top: 20px"><b>{{ $arrayId ++ -1 }}</b></span><br>
-  Total Pages :
-   <b><span class="pagenum" style="margin-top: 20px"></span></b><br> 
+   <span style="margin-top: 20px"><b>{{ $arrayId ++ -1 }}</b></span>
+ 
+ </div><div class="col-lg-4"> 
+ Total Pages :
+   <b><span class="pagenum" style="margin-top: 20px"></span></b>
+ 
+ </div>
+ <div class="col-lg-4"> 
+  End of Report
+ 
+ </div>
+</div>
   
-  End of Reports
-   <span></span> 
-   
- </h4></div>
 </body>
  
 </html>

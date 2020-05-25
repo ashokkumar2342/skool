@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class MasterController extends Controller
 {
@@ -187,6 +188,16 @@ class MasterController extends Controller
          return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
 
+   public function incomeSlabReport($value='')
+    {
+        $incomeSlabs = IncomeRange::orderBy('code','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.master.income_slab.pdf',compact('incomeSlabs'));
+        return $pdf->stream('room.pdf');
+    }
 
 
     public function profession()
@@ -280,6 +291,16 @@ class MasterController extends Controller
              return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         }
 
+       public function professionReport($value='')
+    {
+        $professions = Profession::orderBy('name','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.master.profession.pdf',compact('professions'));
+        return $pdf->stream('room.pdf');
+    }
 
 
 
@@ -354,7 +375,16 @@ class MasterController extends Controller
             return response()->json($response);
           }  
         }
-
+        public function guardianReport($value='')
+       {
+        $guardianRelationTypes= GuardianRelationType::orderBy('name','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.master.guardian.pdf',compact('guardianRelationTypes'));
+        return $pdf->stream('room.pdf');
+        }
         //------------------------religion-----------------------------------------//
        public function religion($id='')
        {
@@ -402,6 +432,16 @@ class MasterController extends Controller
             $Category->delete();
              return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         }
+        public function religionReport($value='')
+    {
+       $religions=Religion::orderBy('name','ASC')->get(); 
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.master.religion.pdf',compact('religions'));
+        return $pdf->stream('room.pdf');
+    }
 
        //-------------category-----------------------//
        public function category($id='')
@@ -452,7 +492,16 @@ class MasterController extends Controller
              return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         }
 
-
+       public function categoryReport($value='')
+       {
+        $categorys=Category::orderBy('name','ASC')->get(); 
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.master.category.pdf',compact('categorys'));
+        return $pdf->stream('room.pdf');
+       }
 
 
         //--------------complextion---------------------------------------//
@@ -504,7 +553,16 @@ class MasterController extends Controller
              return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         } 
 
-
+         public function complextionReport($value='')
+        {
+        $completions=Complextion::orderBy('name','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.master.studentStatus.pdf',compact('completions'));
+        return $pdf->stream('room.pdf');
+       }
 
 
         //--------------blood-group---------------------------------------//
@@ -555,6 +613,17 @@ class MasterController extends Controller
             $Category->delete();
              return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         } 
+         public function bloodgroupReport($value='')
+        {
+        $completions=BloodGroup::orderBy('name','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.master.bloodGroup.pdf',compact('completions'));
+        return $pdf->stream('room.pdf');
+       }
+
 
          //--------------student-status---------------------------------------//
         public function studentStatus($value='')
@@ -607,7 +676,16 @@ class MasterController extends Controller
              return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
         } 
 
-
+         public function studentStatusReport($value='')
+        {
+        $completions=StudentStatus::orderBy('name','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.master.studentStatus.pdf',compact('completions'));
+        return $pdf->stream('room.pdf');
+       }
 
         //-----------admission seat-----------------------------
 

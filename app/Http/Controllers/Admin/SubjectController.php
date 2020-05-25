@@ -64,7 +64,7 @@ class SubjectController extends Controller
     public function search(Request $request)
     {
 
-        $subjectTypes = SubjectType::all(); 
+        $subjectTypes = SubjectType::orderBy('name','ASC')->get(); 
       $class = $request->id; 
 
      
@@ -117,14 +117,14 @@ class SubjectController extends Controller
          $subject->delete();
           return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
-    public function classSubjectPDF($value='')
+    public function classSubjectPDF($id)
     {
         $manageSubjects=Subject::orderBy('classType_id','ASC')->get();
          $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.subject.class_subject_pdf',compact('manageSubjects'));
+        ->loadView('admin.subject.class_subject_pdf',compact('manageSubjects','id'));
         return $pdf->stream('section.pdf');
     }
 }

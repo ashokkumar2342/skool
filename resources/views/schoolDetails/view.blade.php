@@ -2,7 +2,8 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.school.details.addForm')}}')" text-editor="summernote" style="margin:10px">Add Form</button>
+    <button type="button" class="btn btn-info btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.school.details.addForm')}}')" text-editor="summernote" >Add Form</button>
+    <a href="{{ route('admin.school.details.report.check') }}" style="float: right;margin-right: 10px" class="btn btn-primary btn-sm" title="Download PDF" target="blank">PDF Check</a>
     <h1>School Details<small>List</small> </h1>
        
     </section>  

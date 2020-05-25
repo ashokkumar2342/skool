@@ -8,6 +8,7 @@
           <div class="box">
             <div class="box-header">
                <button type="button" class="btn btn-info btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.religion.add') }}')">Add Religion</button>
+                <a href="{{ route('admin.religion.report') }}" title="" target="blank" class="btn btn-sm btn-primary pull-right" style="margin-right: 5px">PDF</a>
               <h3 class="box-title">Religions List</h3>
             </div>
               

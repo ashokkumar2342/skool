@@ -124,7 +124,11 @@
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel' 
-        ]
+        ],
+        aLengthMenu: [
+        
+        [200, "All"]
+    ]
     } );
 } );
      @if(@$subjectType || $errors->first())

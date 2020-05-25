@@ -2,7 +2,8 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.award.level.add')}}')" style="margin:10px">Add Award Level</button>
+    <button type="button" class="btn btn-info pull-right btn-sm" select2="true" onclick="callPopupLarge(this,'{{ route('admin.award.level.add')}}')">Add Award Level</button>
+    <a href="{{ route('admin.award.level.report') }}" title="" target="blank" class="btn btn-sm btn-primary pull-right" style="margin-right: 5px">PDF</a>
     <h1>Award Level<small>List</small> </h1>
        
     </section>  

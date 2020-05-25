@@ -3,6 +3,7 @@
   <!-- Main content -->
   <section class="content-header"> 
       <button class="btn btn-info btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.room.details.edit')}}')">Add Room</button> 
+      <a class="btn btn-primary btn-sm pull-right" target="blank" href="{{ route('admin.room.details.report') }}" style="margin-right: 5px">PDF</a> 
     <h1>Rooms<small>Details</small></h1>
     </section>  
     <section class="content"> 

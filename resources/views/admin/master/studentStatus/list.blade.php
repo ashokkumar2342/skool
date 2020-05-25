@@ -8,11 +8,12 @@
           <div class="box">
             <div class="box-header">
                <button type="button" class="btn btn-info btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.studentStatus.add') }}')">Add Student Status</button>
+               <a href="{{ route('admin.studentStatus.report') }}" style="float: right;margin-right: 10px" class="btn btn-primary btn-sm" title="Download PDF" target="blank">PDF</a>
               <h3 class="box-title">Student Status List</h3>
             </div> 
             <!-- /.box-header -->
             <div class="box-body"> 
-                <div class="table-responsive col-lg-12" style="margin-top: 20px">
+                <div class="table-responsive col-lg-12">
                     <table id="category_dataTable" class="table table-bordered table-striped">
                       <thead>
                       <tr>

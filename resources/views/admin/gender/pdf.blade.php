@@ -19,31 +19,32 @@
 @include('schoolDetails.logo_header')
  <div class="row">
  <div class="col-lg-10" style="margin-left: 60px">
-  	
- <table id="dataTable" class="table table-bordered table-striped table-hover">
-                <thead>
-                <tr> 
-                  <th>SR.No</th>
-                  <th>Subject Name</th>
-                  <th>Subject Code</th> 
-                </tr>
-                </thead>
-                <tbody>
-                  @php
-                     
+ 	
+ <table class="table table-striped table-responsive table-condensed table-bordered">
+                         
+      <thead>
+               <tr>
+                 <th>Sr.No.</th>
+                 <th>Gender Name</th>
+                 <th>Code</th>
                  
-                  $arrayId=1
-                  @endphp
-                @foreach($subjects as $subject)
-                <tr> 
-                  <td>{{ $arrayId++ }}</td>
-                  <td>{{ $subject->name }}</td>
-                  <td>{{ $subject->code }}</td> 
-                </tr> 
-                @endforeach
-                </tbody> 
-              </table>
-     </div> 
+               </tr>
+             </thead>
+             <tbody>
+              @php
+                $arrayId=1;
+              @endphp
+              @foreach ($genders as $gender)
+                       <tr>
+                         <td>{{ $arrayId++ }}</td>
+                         <td>{{ $gender->genders }}</td>
+                         <td>{{ $gender->code }}</td>
+                         
+                       </tr> 
+              @endforeach
+             </tbody>
+  </table>
+  </div> 
  </div>
  <div class="row" style="margin-left: 10px">
    <div class="col-lg-4"> 

@@ -17,16 +17,21 @@
 
               <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
-                  <button type="button" class="btn btn-primary pull-right" onclick="callPopupLarge(this,'{{ route('admin.api.smsApiAdd')}}')" style="margin:10px">Add SMS API</button>
+                  <div class="col-lg-12" style="margin-top: 5px">
+                  <button type="button" class="btn btn-primary btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.api.smsApiAdd')}}')">Add SMS API</button>
                 <button id="btn_outhor_table_show" hidden  onclick="callAjax(this,'{{ route('admin.api.smsApilist') }}','othor_details_table_show')">show </button>
-                 <div class="table-responsive" id="othor_details_table_show">
+                    
+                  </div>
+                 <div class="col-lg-12" id="othor_details_table_show">
                     
                   </div>
                 </div>
                 <div id="menu1" class="tab-pane fade">
-                  <button type="button" class="btn btn-primary pull-right" onclick="callPopupLarge(this,'{{ route('admin.api.emailApiAdd')}}')" style="margin:10px">Add Email API</button>
+                  <div class="col-lg-12" style="margin-top: 5px">
+                  <button type="button" class="btn btn-primary btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.api.emailApiAdd')}}')" >Add Email API</button>
                   <button id="btn_homework_table_show" hidden onclick="callAjax(this,'{{ route('admin.api.emailApilist') }}','homework_details_table_show')">show </button>
-                 <div class="table-responsive" id="homework_details_table_show">
+                </div>
+                 <div  class="table-responsive col-lg-12" id="homework_details_table_show">
                     
                   </div>
                 </div> 

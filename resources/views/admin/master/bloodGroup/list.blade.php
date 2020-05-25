@@ -8,6 +8,7 @@
           <div class="box">
             <div class="box-header">
                <button type="button" class="btn btn-info btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.bloodgroup.add') }}')">Add Blood Group</button>
+               <a href="{{ route('admin.bloodgroup.report') }}" style="float: right;margin-right: 10px" class="btn btn-primary btn-sm" title="Download PDF" target="blank">PDF</a>
               <h3 class="box-title">Blood Groups List</h3>
             </div>
               

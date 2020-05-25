@@ -2,7 +2,8 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.house.add.form')}}')" style="margin:10px">Add House</button>
+    <button type="button" class="btn btn-info btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.house.add.form')}}')" >Add House</button>
+    <a href="{{ route('admin.house.report') }}" title="" target="blank" class="btn btn-sm btn-primary pull-right" style="margin-right: 5px">PDF</a>
     <h1>Houses<small>List</small> </h1>
        
     </section>  

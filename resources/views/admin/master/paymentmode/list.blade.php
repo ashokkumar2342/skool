@@ -3,7 +3,7 @@
 <section class="content-header">
          <?php $url = route('admin.paymentMode.edit') ?>
          <a class="btn btn-info btn-sm pull-right"  onclick="callPopupMd(this,'{{$url}}')">Add Payment Mode</a>
-         <a href="{{ route('admin.paymentMode.pdf.generate') }}" class="btn btn-sm btn-success pull-right" target="blank"  title="Download PDF" style="margin-right: 10px">PDF</a>
+         <a href="{{ route('admin.paymentMode.pdf.generate') }}" class="btn btn-sm btn-primary pull-right" target="blank"  title="Download PDF" style="margin-right: 10px">PDF</a>
     <h1>Payment Mode List</h1>
      
 </section>

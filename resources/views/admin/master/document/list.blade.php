@@ -9,6 +9,7 @@
             <div class="box-header">
               <?php $url = route('admin.document.type.edit') ?>
               <a class="btn btn-info btn-sm pull-right"  onclick="callPopupMd(this,'{{$url}}')">Add Document</a>
+              <a href="{{ route('admin.document.type.report') }}" target="blank" class="btn btn-primary pull-right btn-sm" style="margin-right: 5px" title="">PDF</a>
               <h3 class="box-title">Document Type List</h3>
             </div>
               

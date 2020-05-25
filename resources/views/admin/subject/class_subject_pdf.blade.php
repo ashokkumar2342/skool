@@ -2,19 +2,17 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html/jpg/png; charset=utf-8"/>
 <head>
-	<style>
-		 @page { margin:0px; }
-     .GFG{ 
-         height: 120px; 
-         width: 50%; 
-         border: 5px solid black; 
-         font-size:42px; 
-         font-weight:bold; 
-         color:green; 
-         margin-left:50px; 
-         margin-top:50px; 
-         } 
-	</style>
+   <style>
+     @page { margin:0px; }
+     
+   .pagenum:before {
+        content: counter(page);
+    }
+    .page_break{
+      page-break-before:always; 
+    }
+
+  </style>
  @include('admin.include.boostrap')
 </head>
     
@@ -23,9 +21,8 @@
 <body style="background-color:#fff">
 @include('schoolDetails.logo_header')
  <div class="row">
- <div class="col-lg-8" style="margin-left: 100px">
-  	
- <table id="dataTable" class="table table-bordered table-striped table-hover">
+ <div class="col-lg-10" style="margin-left: 60px">
+  <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
                       
@@ -39,24 +36,48 @@
                 <tbody>
                   @php
                      
-                  $subjectId=1;
+                  $arrayId=1;
+                  $temproryId=0;
                   @endphp
-                @foreach($manageSubjects as $manageSubject)
+                @foreach($manageSubjects as $key => $manageSubject)
+                
                 <tr>
-                   
-                  <td>{{ $subjectId++}}</td>                 
+                  <td>{{ $arrayId++}}</td>                 
                   <td>{{ $manageSubject->classTypes->name or ''}}</td>                 
                   <td>{{ $manageSubject->subjectTypes->name or ''}}</td>                 
-                  <td>{{ $manageSubject->isoptional->name or ''}}</td>                 
-                               
+                  <td>{{ $manageSubject->isoptional->name or ''}}</td>
                 </tr>
+                @if ($manageSubject->classType_id!=$temproryId)
+                @if ($key!=0)
+                 <div class="page_break"></div>
+                @endif
+                 @php
+                  $temproryId=$manageSubject->classType_id;
+                @endphp
+                @endif
                 @endforeach
+
                 </tbody>
                  
               </table>
-  </div> 
+            </div> 
  </div>
-   
+ <div class="row" style="margin-left: 10px">
+   <div class="col-lg-4"> 
+  Total Record :
+   <span style="margin-top: 20px"><b>{{ $arrayId ++ -1 }}</b></span>
+ 
+ </div><div class="col-lg-4"> 
+ Total Pages :
+   <b><span class="pagenum" style="margin-top: 20px"></span></b>
+ 
+ </div>
+ <div class="col-lg-4"> 
+  End of Report
+ 
+ </div>
+</div>
+  
 </body>
  
 </html>

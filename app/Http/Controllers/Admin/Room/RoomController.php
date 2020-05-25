@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class RoomController extends Controller
 {
@@ -86,5 +87,15 @@ class RoomController extends Controller
          $response=['status'=>1,'msg'=>'Submit Successfully'];
             return response()->json($response);
         } 
+    }
+    public function report($value='')
+    {
+        $roomTypes=RoomType::orderBy('id','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.room.room_pdf',compact('roomTypes'));
+        return $pdf->stream('room.pdf');
     }
 }

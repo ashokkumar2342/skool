@@ -31,12 +31,12 @@
     </thead>
     <tbody>
       @php 
-       $sectionId=1;
+       $arrayId=1;
       @endphp
     @foreach($sections as $section)
     <tr>
        
-      <td>{{ $sectionId++ }}</td>                 
+      <td>{{ $arrayId++ }}</td>                 
       <td>{{ $section->name }}</td>                 
       <td>{{ $section->code }}</td>                 
               
@@ -46,17 +46,23 @@
      
   </table>
   </div> 
- </div>
-  <div class="col-lg-2" style="float: right;"><h4>
-  Total Record :
-   <span style="margin-top: 20px"><b>{{ $sectionId ++ -1 }}</b></span><br>
-  Total Pages :
-   <b><span class="pagenum" style="margin-top: 20px"></span></b><br> 
-  
-  End of Reports
-   <span></span> 
+   </div>
+   <div class="row" style="margin-left: 10px">
+     <div class="col-lg-4"> 
+    Total Record :
+     <span style="margin-top: 20px"><b>{{ $arrayId ++ -1 }}</b></span>
    
- </h4></div> 
-</body>
- 
-</html>
+   </div><div class="col-lg-4"> 
+   Total Pages :
+     <b><span class="pagenum" style="margin-top: 20px"></span></b>
+   
+   </div>
+   <div class="col-lg-4"> 
+    End of Report
+   
+   </div>
+  </div>
+    
+  </body>
+   
+  </html>

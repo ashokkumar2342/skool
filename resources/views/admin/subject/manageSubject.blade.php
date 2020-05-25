@@ -13,6 +13,8 @@
             <!-- /.box-header -->            
           <div class="box">
             <div class="box-header">
+             <a class="btn btn-primary btn-sm pull-right" title="Download PDF" target="blank" href="{{ route('admin.manageSubject.pdf.generate',1) }}">All PDF</a>
+             <a class="btn btn-primary btn-sm pull-right" title="Download PDF" target="blank" style="margin-right: 5px" href="{{ route('admin.manageSubject.pdf.generate',2) }}">Class Wise PDF</a>
               <h3 class="box-title">Class  Subject</h3>
             </div>             
 
@@ -30,7 +32,7 @@
                       </select>                      
                        
                     </div> 
-                    <div class="table-responsive col-md-12">
+                    
                     <form id="saveSubject" action="javascript:;">
                     {{ csrf_field() }}
                       <table class="table table-bordered">
@@ -60,11 +62,10 @@
                    </table>
                  {{ Form::close() }}
                  
-                </div> 
+                
             </div>
            
             <div class="table-responsive col-md-7 pull-right">
-               <a href="{{ route('admin.manageSubject.pdf.generate') }}" class="btn btn-primary btn-sm" title="Download PDF" target="blank" style="float: right;margin-top: -40px;margin-right:10px">PDF</a>
               <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>

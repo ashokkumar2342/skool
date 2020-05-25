@@ -1,4 +1,4 @@
- <label>Room No</label>
+ <label>Room Name</label>
                   <select name="room_name" class="form-control">
                     <option selected disabled>Select Room Name</option>
                      @foreach ($roomTypes as $roomType)

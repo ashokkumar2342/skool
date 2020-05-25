@@ -23,24 +23,29 @@
  <table class="table table-striped table-responsive table-condensed table-bordered">
                          
       <thead>
-          <tr>
-              <th>Sr.No.</th>
-              <th>Payment Mode</th>
-              <th>Sorting Order No</th> 
-          </tr>
-      </thead>
-      <tbody>
-        @php
-          $arrayId=1;
-        @endphp
-          @foreach ($PaymentMode as $PaymentMode) 
-              <tr> 
-                  <td>{{ $arrayId ++ }}</td>
-                  <td>{{ $PaymentMode->name }}</td> 
-                  <td>{{ $PaymentMode->sorting_order_id }}</td> 
-              </tr>
-           @endforeach
-      </tbody>
+                      <tr>
+                        <th>SR.No.</th>
+                         
+                        <th>Document Type   Name</th>
+                        <th>Document code</th>
+                         </tr>
+                      </thead>
+                      <tbody>
+                        @php
+                           
+                        $arrayId=1;
+                        @endphp
+                      @foreach($documentTypes as $document)
+                      <tr>
+                        <td>{{ $arrayId++ }}</td>
+                        
+                        <td>{{ $document->name }} </td>
+                        <td>{{ $document->code }} </td>
+                       
+                       
+                      </tr> 
+                      @endforeach
+                    </tbody>
   </table>
   </div> 
  </div>

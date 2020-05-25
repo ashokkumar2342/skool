@@ -98,6 +98,7 @@ Route::group(['middleware' => 'admin'], function() {
 		    Route::get('document-edit/{id?}', 'DocumentTypeController@edit')->name('admin.document.type.edit');
 		    Route::post('document-update/{id?}', 'DocumentTypeController@update')->name('admin.document.type.update');
 		    Route::get('document-delete/{id}', 'DocumentTypeController@destroy')->name('admin.document.type.delete');
+		    Route::get('report', 'DocumentTypeController@report')->name('admin.document.type.report');
 		     
 		});
 		Route::prefix('payment-mode')->group(function () {
@@ -374,6 +375,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::post('store/{id?}', 'AwardLevelController@store')->name('admin.award.level.store');
 	    Route::get('list', 'AwardLevelController@list')->name('admin.award.level.list');
 	    Route::get('delete/{id}', 'AwardLevelController@destroy')->name('admin.award.level.destroy');
+	    Route::get('report', 'AwardLevelController@report')->name('admin.award.level.report');
 	    
 	 });
 	      	// ---------------student Document----------------------------------------
@@ -412,7 +414,7 @@ Route::group(['middleware' => 'admin'], function() {
 	 	    Route::get('{manageSubjectEdit}/edit', 'SubjectController@edit')->name('admin.manageSubject.edit');
 	 	    Route::post('{manageSubject}/update', 'SubjectController@update')->name('admin.manageSubject.update');
 	 	    Route::get('{manageSubject}/delete', 'SubjectController@destroy')->name('admin.manageSubject.delete');        
-	 	    Route::get('class-subject-pdf', 'SubjectController@classSubjectPDF')->name('admin.manageSubject.pdf.generate');        
+	 	    Route::get('class-subject-pdf/{id}', 'SubjectController@classSubjectPDF')->name('admin.manageSubject.pdf.generate');        
 	 	});
 	 // ---------------Signature-stamp---------------------------------------
 	 Route::group(['prefix' => 'Signature-stamp'], function() {
@@ -974,6 +976,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('edit/{id?}', 'MasterController@incomeSlabEdit')->name('admin.incomeSlab.edit');
 			    Route::post('update/{id?}', 'MasterController@incomeSlabUpdate')->name('admin.incomeSlab.update');
 			    Route::get('delete/{id}', 'MasterController@incomeSlabDestroy')->name('admin.incomeSlab.delete');
+			    Route::get('report', 'MasterController@incomeSlabReport')->name('admin.incomeSlab.report');
 
 			});
 			 Route::group(['prefix' => 'syllabus'], function() {
@@ -992,6 +995,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('guardian-edit/{id?}', 'MasterController@guardianEdit')->name('admin.guardian.edit');	 	
 			    Route::get('guardian-delete/{id}', 'MasterController@guardianDelete')->name('admin.guardian.delete');	 	
 			    Route::post('guardian-update/{id?}', 'MasterController@guardianUpdate')->name('admin.guardian.update');	 	
+			    Route::get('guardian-update-report', 'MasterController@guardianReport')->name('admin.guardian.report');	 	
 			    	 	
 			    
 
@@ -1002,12 +1006,14 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('edit/{id?}', 'MasterController@professionEdit')->name('admin.profession.edit');
 			    Route::post('update/{id?}', 'MasterController@professionUpdate')->name('admin.profession.update');
 			    Route::get('delete/{id}', 'MasterController@professionDestroy')->name('admin.profession.delete');
+			    Route::get('report', 'MasterController@professionReport')->name('admin.profession.report');
 
 			});Route::group(['prefix' => 'religion'], function() {
 			    Route::get('religion', 'MasterController@religion')->name('admin.religion.list');	 	
 			    Route::get('add/{id?}', 'MasterController@addForm')->name('admin.religion.add');	 	
 			    Route::post('store/{id?}', 'MasterController@religionStore')->name('admin.religion.store'); 
 			   Route::get('delete/{id?}', 'MasterController@religionDestroy')->name('admin.religion.delete');	 	
+			   Route::get('report', 'MasterController@religionReport')->name('admin.religion.report');	 	
 			    
 
 			});
@@ -1016,6 +1022,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('add/{id?}', 'MasterController@addCategory')->name('admin.category.add');	 	
 			    Route::post('store/{id?}', 'MasterController@categoryStore')->name('admin.category.store'); 
 			    Route::get('delete/{id}', 'MasterController@categoryDestroy')->name('admin.category.delete');	 	
+			    Route::get('report', 'MasterController@categoryReport')->name('admin.category.report');	 	
 			    
 
 			});
@@ -1024,18 +1031,21 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('add/{id?}', 'MasterController@addComplextion')->name('admin.complextion.add');	 	
 			    Route::post('store/{id?}', 'MasterController@complextionStore')->name('admin.complextion.store'); 
 			    Route::get('delete/{id}', 'MasterController@complextionDestroy')->name('admin.complextion.delete'); 
+			    Route::get('report', 'MasterController@complextionReport')->name('admin.complextion.report'); 
 			});
 			Route::group(['prefix' => 'blood-group'], function() {
 			    Route::get('bloodgroup', 'MasterController@bloodgroup')->name('admin.bloodgroup.list');	 	
 			    Route::get('add/{id?}', 'MasterController@addbloodgroup')->name('admin.bloodgroup.add');	 	
 			    Route::post('store/{id?}', 'MasterController@bloodgroupStore')->name('admin.bloodgroup.store'); 
 			    Route::get('delete/{id}', 'MasterController@bloodgroupDestroy')->name('admin.bloodgroup.delete'); 
+			    Route::get('report', 'MasterController@bloodgroupReport')->name('admin.bloodgroup.report'); 
 			});	
 			Route::group(['prefix' => 'student-status'], function() {
 			    Route::get('studentStatus', 'MasterController@studentStatus')->name('admin.studentStatus.list'); 
 			    Route::get('add/{id?}', 'MasterController@addstudentStatus')->name('admin.studentStatus.add');	 	
 			    Route::post('store/{id?}', 'MasterController@studentStatusStore')->name('admin.studentStatus.store'); 
 			    Route::get('delete/{id}', 'MasterController@studentStatusDestroy')->name('admin.studentStatus.delete'); 
+			    Route::get('report', 'MasterController@studentStatusReport')->name('admin.studentStatus.report'); 
 			});
 			Route::group(['prefix' => 'adminssion-seat'], function() {
 			    Route::get('admission-seat', 'MasterController@adminssionSeat')->name('admin.adminssion.seat'); 
@@ -1253,6 +1263,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('store', 'SchoolDetails\SchoolDetailsController@store')->name('admin.school.details.store');
 			    Route::get('table-show', 'SchoolDetails\SchoolDetailsController@tableShow')->name('admin.school.details.table.show');
 			    Route::get('logo/{image}', 'SchoolDetails\SchoolDetailsController@logoImage')->name('admin.student.logo.image');
+			    Route::get('report-check', 'SchoolDetails\SchoolDetailsController@reportCheck')->name('admin.school.details.report.check');
 
           });
            Route::group(['prefix' => 'school-dominos'], function() {
@@ -1392,6 +1403,7 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('edit/{id?}', 'Room\RoomController@edit')->name('admin.room.details.edit');
                	 Route::get('delete/{id}', 'Room\RoomController@destroy')->name('admin.room.details.delete');
                	 Route::post('update/{id?}', 'Room\RoomController@update')->name('admin.room.details.update');
+               	 Route::get('report', 'Room\RoomController@report')->name('admin.room.details.report');
           });
            Route::group(['prefix' => 'class-wise-room'], function() {
                	 Route::get('/', 'Room\ClassRoomController@index')->name('admin.class.wise.room.details');
@@ -1400,6 +1412,7 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('edit/{id}', 'Room\ClassRoomController@edit')->name('admin.class.wise.room.details.edit');
                	 Route::get('delete/{id}', 'Room\ClassRoomController@destroy')->name('admin.class.wise.room.details.delete');
                	 Route::post('update/{id}', 'Room\ClassRoomController@update')->name('admin.class.wise.room.details.update');
+               	 Route::get('report', 'Room\ClassRoomController@report')->name('admin.class.wise.room.details.report');
           });
            Route::group(['prefix' => 'subject-wise-room'], function() {
                	 Route::get('subject-room', 'Room\ClassRoomController@subjectWiseRoom')->name('admin.subject.wise.room');
@@ -1515,6 +1528,7 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('edit/{id}', 'HouseController@edit')->name('admin.house.edit'); 
                	 Route::get('delete/{id}', 'HouseController@destroy')->name('admin.house.delete'); 
                	 Route::post('update/{id}', 'HouseController@update')->name('admin.house.update'); 
+               	 Route::get('report', 'HouseController@report')->name('admin.house.report'); 
                	  
                	 
        });
@@ -1525,6 +1539,7 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('add/{id?}', 'GenderController@addForm')->name('admin.gender.addform'); 
                	 Route::post('store/{id?}', 'GenderController@Store')->name('admin.gender.store'); 
                	 Route::get('delete/{id}', 'GenderController@destroy')->name('admin.gender.delete'); 
+               	 Route::get('report', 'GenderController@report')->name('admin.gender.report'); 
                	  
                	 
        });

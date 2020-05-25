@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Storage;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class SchoolDetailsController extends Controller
 {
@@ -176,6 +177,16 @@ class SchoolDetailsController extends Controller
     {
          $img = Storage::disk('public')->get('school/'.$image);
         return response($img);
+    }
+    public function reportCheck($value='')
+    {
+       
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('schoolDetails.logo_header');
+        return $pdf->stream('ckeck.pdf');
     }
 }
 

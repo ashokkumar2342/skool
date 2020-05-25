@@ -22,26 +22,30 @@
   	
  <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
-                <tr> 
-                  <th>SR.No</th>
-                  <th>Subject Name</th>
-                  <th>Subject Code</th> 
-                </tr>
-                </thead>
-                <tbody>
-                  @php
-                     
-                 
-                  $arrayId=1
-                  @endphp
-                @foreach($subjects as $subject)
-                <tr> 
-                  <td>{{ $arrayId++ }}</td>
-                  <td>{{ $subject->name }}</td>
-                  <td>{{ $subject->code }}</td> 
-                </tr> 
+                 <tr>
+                   <th>Sr.No.</th>
+                   <th>Class</th>
+                   <th>Section </th>
+                   <th>Room No</th>
+                   
+                 </tr>
+               </thead>
+               <tbody>
+                @php
+                  $arrayId=1;
+                @endphp
+                @foreach ($classWiseRooms as $classWiseRoom)
+                           <tr>
+                             <td>{{ $arrayId++ }}</td>
+                             <td>{{ $classWiseRoom->classType->name or '' }}</td>
+                             <td>{{ $classWiseRoom->sectionTypes->name or ''}}</td>
+                             <td>{{ $classWiseRoom->roomType->name or ''}}</td>
+                            
+
+                        
+                           </tr> 
                 @endforeach
-                </tbody> 
+               </tbody>
               </table>
      </div> 
  </div>

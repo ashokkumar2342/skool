@@ -7,6 +7,7 @@ use App\Model\AwardLevel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class AwardLevelController extends Controller
 {
@@ -63,4 +64,14 @@ class AwardLevelController extends Controller
     $awardLevel->delete();
     return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
    }
+   public function report($value='')
+    {
+         $awardLevels= AwardLevel::orderBy('id','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.award.awardLevel.pdf',compact('awardLevels'));
+        return $pdf->stream('room.pdf');
+    }
 }

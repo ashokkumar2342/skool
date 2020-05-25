@@ -7,6 +7,7 @@ use App\Model\House;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class HouseController extends Controller
 {
@@ -100,6 +101,16 @@ class HouseController extends Controller
         } 
     }
 
-    
+    public function report($value='')
+    {
+      $houses= House::orderBy('name','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.house.pdf',compact('houses'));
+        return $pdf->stream('room.pdf');
+
+    }
 
 }

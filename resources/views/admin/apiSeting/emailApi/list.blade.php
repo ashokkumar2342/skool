@@ -1,27 +1,32 @@
 <table class="table" id="sms_list">
 	<thead>
 		<tr>
-			<th>Host</th>
-			<th>Port</th>
-			<th>Username</th>
-			<th>Password</th>
-			<th>Encryption</th>
-			<th>From</th>
-			<th>Enable Auto Send</th>
-			<th>Action</th>
+			<th class="text-nowrap">Sr.No.</th>
+			<th class="text-nowrap">Host</th>
+			<th class="text-nowrap">Port</th>
+			<th class="text-nowrap">Username</th>
+			<th class="text-nowrap">Password</th>
+			<th class="text-nowrap">Encryption</th>
+			<th class="text-nowrap">From</th>
+			<th class="text-nowrap">Enable Auto Send</th>
+			<th class="text-nowrap text-center">Action</th>
 		</tr>
 	</thead>
 	<tbody>
+		@php
+			$arrayId=1;
+		@endphp
 		@foreach ($smsApis as $smsApi)
 				<tr style="{{ $smsApi->status==1?'background-color: #95e49b':'' }}">
-					<td>{{ $smsApi->host }}</td>
-					<td>{{ $smsApi->port }}</td>
-					<td>{{ $smsApi->username }}</td>
-					<td>{{ $smsApi->password }}</td>
-					<td>{{ $smsApi->encryption }}</td>
-					<td>{{ $smsApi->mail_from }}</td>
-					<td>{{ $smsApi->enableautosend==1?'Yes' : 'No'}}</td>
-					<td>
+					<td  class="text-nowrap">{{ $arrayId++ }}</td>
+					<td  class="text-nowrap">{{ $smsApi->host }}</td>
+					<td  class="text-nowrap">{{ $smsApi->port }}</td>
+					<td  class="text-nowrap">{{ $smsApi->username }}</td>
+					<td  class="text-nowrap">{{ $smsApi->password }}</td>
+					<td  class="text-nowrap">{{ $smsApi->encryption }}</td>
+					<td  class="text-nowrap">{{ $smsApi->mail_from }}</td>
+					<td  class="text-nowrap">{{ $smsApi->enableautosend==1?'Yes' : 'No'}}</td>
+					<td  class="text-nowrap">
 						@if ($smsApi->status==1 )
 						<button class="btn btn-success btn-xs" style="width:60px" success-popup="true" button-click="btn_homework_table_show" onclick="callAjax(this,'{{ route('admin.api.status',[$smsApi->id,2]) }}')">Active</i></button>
 						@else	 

@@ -6,6 +6,7 @@
             <div class="box-header">
               <?php $url = route('admin.incomeSlab.edit') ?>
               <a class="btn btn-info btn-sm pull-right"  onclick="callPopupMd(this,'{{$url}}')"></i>Add Income Slab</a>
+              <a href="{{ route('admin.incomeSlab.report') }}" title="" target="blank" class="btn btn-sm btn-primary pull-right" style="margin-right: 5px">PDF</a>
               <h3 class="box-title">Income Slab</h3>
             </div> 
             <div class="box-body">

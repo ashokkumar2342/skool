@@ -22,26 +22,26 @@
   	
  <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
-                <tr> 
-                  <th>SR.No</th>
-                  <th>Subject Name</th>
-                  <th>Subject Code</th> 
+                <tr>
+                  <th class="text-nowrap">Sr.No.</th>
+                  <th class="text-nowrap">Room Name/No</th>
+                  <th class="text-nowrap">Room Location</th>
+                  
                 </tr>
-                </thead>
-                <tbody>
-                  @php
-                     
-                 
-                  $arrayId=1
-                  @endphp
-                @foreach($subjects as $subject)
-                <tr> 
-                  <td>{{ $arrayId++ }}</td>
-                  <td>{{ $subject->name }}</td>
-                  <td>{{ $subject->code }}</td> 
-                </tr> 
+              </thead>
+              <tbody>
+                @php
+                  $arrayId=1;
+                @endphp
+                @foreach ($roomTypes as $roomType)
+                    <tr>
+                      <td>{{ $arrayId++ }}</td>
+                      <td>{{ $roomType->name }}</td>
+                      <td>{{ $roomType->location }}</td>
+                      
+                    </tr> 
                 @endforeach
-                </tbody> 
+              </tbody>
               </table>
      </div> 
  </div>

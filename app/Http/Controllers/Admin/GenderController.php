@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Gender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class GenderController extends Controller
 {
@@ -57,4 +58,14 @@ class GenderController extends Controller
     	$genders->delete();
     	return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
+    public function report($value='')
+       {
+        $genders=Gender::orderBy('genders','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.gender.pdf',compact('genders'));
+        return $pdf->stream('room.pdf');
+        }
 }

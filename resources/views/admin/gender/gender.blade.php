@@ -3,6 +3,7 @@
   <!-- Main content -->
   <section class="content-header">
     <button type="button" class="btn btn-info btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.gender.addform') }}')">Add Gender</button>
+    <a href="{{ route('admin.gender.report') }}" title="" target="blank" class="btn btn-sm btn-primary pull-right" style="margin-right: 5px">PDF</a>
     <h1>Genders </h1>
        
     </section>  

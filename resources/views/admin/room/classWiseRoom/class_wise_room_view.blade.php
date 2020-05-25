@@ -1,7 +1,8 @@
 @extends('admin.layout.base')
 @section('body')
   <!-- Main content -->
-  <section class="content-header"> 
+  <section class="content-header">
+    <a href="{{ route('admin.class.wise.room.details.report') }}" target="blank" class="btn btn-primary btn-sm pull-right" title="">PDF</a> 
     <h1>Assign Class Rooms<small>Details</small> </h1> 
     </section>  
     <section class="content"> 
@@ -31,11 +32,11 @@
                 </div> 
               </div>
                <div class="col-lg-12 text-center">
-                <input type="submit" class="btn btn-success" style="margin: 24px"> 
+                <input type="submit" class="btn btn-success"> 
             </div>
                 
              </form>
-             <div class="table-responsive">
+             <div class="table-responsive col-lg-12">
              <table class="table" id="class_wise_room_table"> 
                <thead>
                  <tr>

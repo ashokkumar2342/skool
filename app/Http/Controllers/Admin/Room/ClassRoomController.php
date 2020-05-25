@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator; 
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class ClassRoomController extends Controller
 {
@@ -117,7 +118,16 @@ class ClassRoomController extends Controller
         } 
     }
 
-
+     public function report($value='')
+    {
+        $classWiseRooms=ClassWiseRoom::orderBy('class_id','ASC')->orderBy('section_id','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.room.classWiseRoom.class_wise_room_pdf',compact('classWiseRooms'));
+        return $pdf->stream('class_wise_room.pdf');
+    }
 
     //---------------Sublect-Wisw-Room----------------------------------------------------------------------------------
 

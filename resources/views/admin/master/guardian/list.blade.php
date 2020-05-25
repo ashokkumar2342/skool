@@ -3,6 +3,7 @@
   <!-- Main content -->
   <section class="content-header">
     <button class="btn btn-info btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.guardian.edit') }}')">Add Guardian</button>
+    <a href="{{ route('admin.guardian.report') }}" title="" target="blank" class="btn btn-sm btn-primary pull-right" style="margin-right: 5px">PDF</a>
     <h1>Guardians<small>List</small> </h1> 
     </section>  
     <section class="content"> 
