@@ -5,7 +5,7 @@
 <h4 class="modal-title">{{ @$Employee->id?'Edit':'Add' }} Bank Details</h4>
 </div>
 <div class="modal-body">
-<form action="{{ route('admin.finance.bank.detail.store') }}" method="post" class="add_form" content-refresh="school_bank_detail_data_table" button-click="btn_close">
+<form action="{{ route('admin.finance.bank.detail.store') }}" method="post" class="add_form" content-refresh="school_bank_detail_data_table" button-click="btn_close,btn_bank_details_show">
 {{ csrf_field() }}
 <div class="row">
 <div class="col-lg-6 form-group">

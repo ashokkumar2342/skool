@@ -1,32 +1,31 @@
-<div class="text-right">    
-  <button type="button" class="btn btn-success" onclick="callPopupLarge(this,'{{ route('admin.studentFeeStructure.show.model',$student->id) }}'+'?academic_year_id='+$('#academic_year_id').val())">Add FEE STRUCTURE</button>
-</div>          
-            
-<hr style="border:1px solid #eee">
-<div class="col-lg-4">
-<h4>Name : <b>{{ $student->name }}</b></h4>
-</div>
-<div class="col-lg-4">
-<h4>Father's Name : <b>{{ $student->parents[0]->parentInfo->name or ''}}</b></h4>
-</div>
-<div class="col-lg-4">
-<h4>Mother's Name : <b>{{ $student->parents[1]->parentInfo->name or '' }}</b></h4>
-</div>
-<div class="col-lg-4">
-<h4>Mobile : <b>{{ $student->addressDetails->address->primary_mobile or ''}}</b></h4>
-</div>
-<div class="col-lg-4">
-<h4>E-mail : <b>{{ $student->addressDetails->address->primary_email or ''}}</b></h4>
-</div>
-<div class="col-lg-4">
-<h4>Address : <b>{{ $student->addressDetails->address->p_address or ''}} </b></h4>
-</div>
 
-<hr style="border:1px solid #eee">  
+<div class="panel panel-default">
+ <div class="panel-heading text-right"><button type="button" class="btn btn-info" onclick="callPopupLarge(this,'{{ route('admin.studentFeeStructure.show.model',$student->id) }}'+'?academic_year_id='+$('#academic_year_id').val())">Add FEE STRUCTURE</button></div>
+   <div class="panel-body">
+<div class="col-lg-4">
+<h5>Name : <b>{{ $student->name }}</b></h5>
+</div>
+<div class="col-lg-4">
+<h5>Father's Name : <b>{{ $student->parents[0]->parentInfo->name or ''}}</b></h5>
+</div>
+<div class="col-lg-4">
+<h5>Mother's Name : <b>{{ $student->parents[1]->parentInfo->name or '' }}</b></h5>
+</div>
+<div class="col-lg-4">
+<h5>Mobile : <b>{{ $student->addressDetails->address->primary_mobile or ''}}</b></h5>
+</div>
+<div class="col-lg-4">
+<h5>E-mail : <b>{{ $student->addressDetails->address->primary_email or ''}}</b></h5>
+</div>
+<div class="col-lg-4">
+<h5>Address : <b>{{ $student->addressDetails->address->p_address or ''}} </b></h5>
+</div>
+</div>
+</div>
  <table class="table table-responsive" id="student_fee_assign_show_table"> 
      <thead>
          <tr>
-             <th>id</th> 
+             <th>Sr.No.</th> 
              <th>Fee Structure name</th> 
              <th>Fee Amount</th>
              

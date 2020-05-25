@@ -14,7 +14,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title text-center"> Add Fee Group</h4>
+            <h4 class="modal-title text-center"> {{ $feeGroupName->name }}</h4>
         </div>
         <div class="modal-body">
 

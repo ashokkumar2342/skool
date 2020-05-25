@@ -9,6 +9,7 @@ use App\Model\FineScheme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class FeeStructureController extends Controller
 {
@@ -95,9 +96,15 @@ class FeeStructureController extends Controller
      * @param  \App\Model\FeeStructure  $feeStructure
      * @return \Illuminate\Http\Response
      */
-    public function show(FeeStructure $feeStructure)
+    public function report(FeeStructure $feeStructure)
     {
-        //
+        $feeStructures = FeeStructure::orderBy('name','ASC')->get();  
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.finance.fee_structure_pdf',compact('feeStructures'));
+        return $pdf->stream('academicYear.pdf');
     }
 
     /**

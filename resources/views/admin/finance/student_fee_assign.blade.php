@@ -9,15 +9,19 @@
             <!-- /.box-header -->
             <div class="box-body">             
                 <div class="col-md-12"> 
-                  <form class="form-vertical add_form" success-content-id="student_fee_assign_show" no-reset="true" action="{{ route('admin.studentFeeAssign.show',App\Helper\MyFuncs::menuPermission()->id) }}" method="post">
+                  <form class="form-vertical add_form" success-content-id="student_fee_assign_show" no-reset="true" action="{{ route('admin.studentFeeAssign.show',App\Helper\MyFuncs::menuPermission()->id) }}" method="post" data-table="student_fee_assign_show_table">
                     {{ csrf_field() }}
                          <div class="col-lg-4">                           
                              <div class="form-group">
-                              {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
-                               {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control','id'=>'academic_year_id','required']) }}
-                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
+                              <label>Academic Year</label>
+                              <select name="academic_year_id" id="academic_year_id" class="form-control">
+                                <option selected disabled>Select Academic Year</option>
+                                @foreach ($acardemicYears as $acardemicYear)
+                                      <option value="{{ $acardemicYear->id }}"{{ $acardemicYear->status==1?'selected':'' }}>{{ $acardemicYear->name }}</option> 
+                                @endforeach
+                              </select> 
                              </div>    
-                        </div>
+                        </div> 
                        {{--   <div class="col-lg-2">                           
                              <div class="form-group">
                               {{ Form::label('class_id','Class',['class'=>' control-label']) }}
@@ -31,18 +35,18 @@
                                <input type="text" name="student_id" class="form-control">
                              </div>    
                         </div>                                                             
-                       <div class="col-lg-2" style="padding-top: 20px;">
+                       <div class="col-lg-2" style="padding-top: 24px;">
                        <input type="submit" class="btn btn-success" id="btn_student_fee_assign_show"  value="Show" style="width: 130px">                                             
                        {{-- <button class="btn btn-success" type="button" id="btn_student_fee_detail_create">Show</button>  --}}
                       </div>                     
                   </form> 
                   <br>
-                   <button class="btn btn-success" type="button" id="btn_student_registration_show" onclick="callPopupLarge(this,'{{ route('admin.studentFeeAssign.search') }}'+'?academic_year_id='+$('#academic_year_id').val())" style="width: 130px">Search</button>
+                   <button class="btn btn-success form-control" type="button" id="btn_student_registration_show" onclick="callPopupLarge(this,'{{ route('admin.studentFeeAssign.search') }}'+'?academic_year_id='+$('#academic_year_id').val())" style="width: 130px;margin-top: 4px">Search</button>
                 </div> 
+            </div>
                 <div id="student_fee_assign_show">
                   
                 </div>
-            </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
@@ -56,7 +60,7 @@
     <!-- /.content -->
 @endsection
 @push('links')
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"> 
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"> <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
    {{-- <link rel="stylesheet" href="{{ asset('admin_asset/plugins/select2/select2.min.css') }}"> --}}
  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
@@ -65,12 +69,13 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush 
  @push('scripts')
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  {{-- <script src="{{ asset('admin_asset/plugins/select2/select2.full.min.js') }}"></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
  <script> 
-    $( ".datepicker").datepicker();   
+     
  
  </script>
   <script>

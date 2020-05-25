@@ -9,7 +9,9 @@
 
 <section class="content-header">
      <button type="button" class="pull-right btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.feeStructure.add.form') }}')">Add Fee Structure</button>
-    <h1>Fee Structures <small>List</small> </h1>
+     <a href="{{ route('admin.feeStructure.report') }}" class="pull-right btn btn-default btn-sm" title="Download PDF" style="margin-right: 10px" target="blank">Report</a>
+    <h1>Fee Accounts <small>List</small> </h1>
+    
 </section>
     <section class="content">
         <div class="box">             

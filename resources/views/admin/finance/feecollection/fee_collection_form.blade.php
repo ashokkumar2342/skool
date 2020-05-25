@@ -8,10 +8,11 @@
         <div class="box">             
             <!-- /.box-header -->
             <div class="box-body"> 
-                <div class="row">  
+                <div class="row"> 
                   <form  action="{{ route('admin.studentFeeCollection.show') }}" class="add_form" no-reset="true" method="post" success-content-id="fee_collection_detail" @if (@$feedefaultvalue->sibiling_detail==1) button-click="siblig_chk" @endif> 
                    {{ csrf_field() }}
-                      <div class="col-md-2">                           
+                   <div class="col-lg-12">
+                      <div class="col-lg-4">                           
                            <div class="form-group">
                             {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
                             <input type="text" name="registration_no" class="form-control" maxlength="{{ $schoolinfo->reg_length }}">
@@ -19,29 +20,33 @@
                              <p class="errorAmount1 text-center alert alert-danger hidden"></p> --}}
                            </div>    
                       </div>
-                      <div class="col-md-2">     
+                      <div class="col-lg-4">     
                            <div class="form-group"> 
                              <label >Fee Paid Upto:</label>  
                              <select name="fee_paid_upto" id="fee_paid_upto" class="form-control">      
-                               <option disabled selected>Select Fee Paid Upto</option>
+                               <option disabled selected>-Select-</option>
                                @foreach ($uptoMonthYears as $uptoMonthYear)
                                 <option value="{{date('d-m-Y',strtotime($uptoMonthYear)) }}"{{date('d-m-Y',strtotime($uptoMonthYear))==@$upto_month_year?'selected' : '' }}> {{date('M-Y',strtotime($uptoMonthYear)) }} </option>
                                @endforeach
                              </select>
                            </div> 
-                           {{-- <button type="button" id="fee_collection_details_btn" class="btn btn-warning" >Show</button> --}} 
                       </div>                                                     
-                     <div class="col-md-2" style="padding-top: 20px;"> 
-                     <input class="btn btn-success" type="submit"  style="width: 115px" value="Show" id="btn_fee_collection_show"> 
+                     <div class="col-lg-4 form-group" style="padding-top: 24px;"> 
+                     <input class="btn btn-success form-control" type="submit"  value="Show" id="btn_fee_collection_show"> 
                     </div>                     
-                  </form> 
-                    <div class="col-md-6 text-center" style="padding-top: 20px;">
-                         <a onclick="callPopupLarge(this,'{{ route('admin.studentFeeCollection.student.serch') }}'+'?fee_paid_upto='+$('#fee_paid_upto').val())" class="btn btn-default" success-popup="true" style="width: 115px">Search</a>
-                         <a href="{{ route('admin.cashbook.list') }}" id="btn_student_ledger" class="btn btn-info" style="width: 115px">Ledger</a> 
-                         <button class="btn btn-primary" type="button" id="btn_student_ledger" style="width: 115px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Previous Reciept</button>  
-                         <button class="btn btn-danger" type="button" id="btn_student_ledger" style="width: 115px" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Cancel Reciept</button> 
-                         <button class="btn btn-warning"  type="button" id="btn_student_ledger" data-table="previos_receipt_data_table" style="width: 115px;" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.search') }}'+'?student_id='+$('#student_id').val())">Reciept Print</button> 
-                    </div> 
+                  </div>
+                    <div class="col-lg-12 text-center">
+                      <div class="btn-group">
+                      <button style="width:128px" type="button" class="btn btn-default" success-popup="true" onclick="callPopupLarge(this,'{{ route('admin.studentFeeCollection.student.serch') }}'+'?fee_paid_upto='+$('#fee_paid_upto').val())"><i class="fa fa-search"></i> Search</button>
+                      <a style="width:128px"  href="{{ route('admin.cashbook.list') }}" id="btn_student_ledger" class="btn btn-info">Ledger</a>
+                      <button style="width:128px" type="button" class="btn btn-primary" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())">Previous Receipt</button>
+                      <button style="width:128px" type="button" class="btn btn-danger"onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.show.model') }}'+'?student_id='+$('#student_id').val())"><i class="fa fa-close"></i> Cancel Receipt</button>
+                      <button style="width:128px" type="button" class="btn btn-success" data-table="previos_receipt_data_table" onclick="callPopupLarge(this,'{{ route('admin.privious.reciept.search') }}'+'?student_id='+$('#student_id').val())"><i class="fa fa-print"></i> Print Receipt</button>
+                      <button style="width:128px" type="button" class="btn btn-warning" data-table="previos_receipt_data_table" onclick="callPopupLarge(this,'{{ route('admin.studentFeeCollection.previous.receipts') }}')">History Receipt</button>
+                      <button style="width:128px" type="button" class="btn btn-danger" success-popup="true" onclick="callAjax(this,'{{ route('admin.studentFeeCollection.previous.receipts.remove') }}')"><i class="fa fa-trash"></i> History Clear</button>
+                      </div>
+                    </div>
+                    </form>  
                  </div>  
             </div>
             <!-- /.box-body -->

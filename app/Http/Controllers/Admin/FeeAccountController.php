@@ -10,6 +10,7 @@ use App\Model\SchoolBankDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class FeeAccountController extends Controller
 {
@@ -83,9 +84,15 @@ class FeeAccountController extends Controller
      * @param  \App\Model\FeeAccount  $feeAccount
      * @return \Illuminate\Http\Response
      */
-    public function show(FeeAccount $feeAccount)
+    public function report(FeeAccount $feeAccount)
     {
-        //
+       $feeAccounts = FeeAccount::orderBy('sorting_order_no','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.finance.fee_account_pdf',compact('feeAccounts'));
+        return $pdf->stream('academicYear.pdf');
     }
 
     /**
@@ -126,6 +133,11 @@ class FeeAccountController extends Controller
     {
         $SchoolBankDetails=SchoolBankDetail::orderBy('id','ASC')->get();
         return view('admin.finance.bankDetails.index',compact('SchoolBankDetails'));
+    }
+    public function bankDetailsShow($value='')
+    {
+        $SchoolBankDetails=SchoolBankDetail::orderBy('id','ASC')->get();
+        return view('admin.finance.bankDetails.table',compact('SchoolBankDetails'));
     }
     public function bankDetailsAddForm()
     {

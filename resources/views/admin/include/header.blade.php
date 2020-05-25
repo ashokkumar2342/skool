@@ -101,16 +101,16 @@
             <button type="hidden" class="hidden" id="admin_photo_refrash" onclick="callAjax(this,'{{ route('admin.profile.photo.refrash') }}','photo_refrash')">img Shoe</button>
             <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
-              <div id="photo_refrash">
-                
-              </div>
+              @php
+              $admins=Auth::guard('admin')->user();
+              $profile = route('admin.profile.photo.show',$admins->profile_pic);
+              @endphp
+               
+              <img  src="{{ ($admins->profile_pic)? $profile : asset('profile-img/user.png') }}" class="user-image">
+              <span class="hidden-xs">{{ Auth::guard('admin')->user()->first_name }}</span>
              
             </a>
             <ul class="dropdown-menu">
-              @php
-                $admins=Auth::guard('admin')->user();
-                $profile = route('admin.profile.photo.show',$admins->profile_pic);
-                @endphp
               <li class="user-header">
                  <img  src="{{ ($admins->profile_pic)? $profile : asset('profile-img/user.png') }}" class="profile-user-img img-responsive img-circle">
                 <p>

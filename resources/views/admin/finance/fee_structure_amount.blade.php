@@ -24,7 +24,7 @@
                               <select name="academic_year_id" id="academic_year_select_box" class="form-control" onchange="callAjax(this,'{{ route('admin.feeStructureAmount.onchange') }}','fee_structure_amount_table_page')">
                                 <option selected disabled>Select Academic Year</option>
                                 @foreach ($acardemicYears as $acardemicYear)
-                                      <option value="{{ $acardemicYear->id }}">{{ $acardemicYear->name }}</option> 
+                                      <option value="{{ $acardemicYear->id }}"{{ $acardemicYear->status==1?'selected':'' }}>{{ $acardemicYear->name }}</option> 
                                 @endforeach
                               </select> 
                              </div>    

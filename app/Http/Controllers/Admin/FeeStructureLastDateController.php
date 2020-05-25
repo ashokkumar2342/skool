@@ -25,10 +25,10 @@ class FeeStructureLastDateController extends Controller
      */
     public function index()    {
          
-        $acardemicYear = array_pluck(AcademicYear::get(['id','name'])->toArray(), 'name', 'id');
+        $academicYears = AcademicYear::orderBy('start_date','DESC')->get();
         $feeStructur =FeeStructure::orderBy('name','ASC')->get();
         $forSessionMonth = array_pluck(ForSessionMonth::get(['id','name'])->toArray(),'name', 'id');
-        return view('admin.finance.fee_structure_last_date',compact('feeStructureLastDstes','acardemicYear','feeStructur','forSessionMonth'));
+        return view('admin.finance.fee_structure_last_date',compact('feeStructureLastDstes','academicYears','feeStructur','forSessionMonth'));
     }
 
     /**

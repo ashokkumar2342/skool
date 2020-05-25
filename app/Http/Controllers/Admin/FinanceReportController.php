@@ -217,7 +217,7 @@ class FinanceReportController extends Controller
    //--------------class-fee-structure-report-----------------------------------------
    public function classFeeStructureReport($condition_id)
    {
-      $academicYears=AcademicYear::all();
+      $academicYears = AcademicYear::orderBy('start_date','DESC')->get();
       return  view('admin.financeReport.classFeeStructure.index' ,compact('academicYears','condition_id')); 
    }
    public function classFeeStructureReportShow(Request $request,$condition_id)

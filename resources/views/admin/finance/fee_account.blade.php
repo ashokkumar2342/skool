@@ -9,6 +9,7 @@
 
 <section class="content-header">
      <button type="button" class="pull-right btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.feeAcount.add.form') }}')">Add Fee Account</button>
+     <a href="{{ route('admin.feeAcount.report') }}" class="pull-right btn btn-default btn-sm" title="Download PDF" style="margin-right: 10px" target="blank">Report</a>
     <h1>Fee Accounts <small>List</small> </h1>
 </section>
     <section class="content">

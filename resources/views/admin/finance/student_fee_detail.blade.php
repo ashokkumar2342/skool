@@ -13,12 +13,15 @@
                     {{ csrf_field() }}
                          <div class="col-lg-2">                           
                              <div class="form-group">
-                              {{ Form::label('academic_year_id','Academic Year',['class'=>' control-label']) }}
-                              <span class="fa fa-asterisk"></span>
-                               {{ Form::select('academic_year_id',$acardemicYear,null,['class'=>'form-control','placeholder'=>"Select Academic Year"]) }}
-                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
+                              <label>Academic Year</label>
+                              <select name="academic_year_id" class="form-control">
+                                <option selected disabled>Select Academic Year</option>
+                                @foreach ($acardemicYears as $acardemicYear)
+                                      <option value="{{ $acardemicYear->id }}"{{ $acardemicYear->status==1?'selected':'' }}>{{ $acardemicYear->name }}</option> 
+                                @endforeach
+                              </select> 
                              </div>    
-                        </div>
+                        </div> 
                          <div class="col-lg-3">                           
                              <div class="form-group">
                               <label> Class</label>

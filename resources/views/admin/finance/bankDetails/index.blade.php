@@ -7,41 +7,12 @@
 <section class="content">
     <div class="box">             
         <div class="box-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="school_bank_detail_data_table">
-                    <thead>
-                        <tr>
-                            <th class="text-nowrap">Bank Name</th>
-                            <th class="text-nowrap">Ifsc Code</th>
-                            <th class="text-nowrap">Account No.</th>
-                            <th class="text-nowrap">Account Name</th>
-                            <th class="text-nowrap">Contact No.</th>
-                            <th class="text-nowrap">Email</th>
-                            <th class="text-nowrap">Contact Person Name</th>
-                            <th class="text-nowrap">Branch</th>
-                            <th class="text-nowrap">Branch Address</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($SchoolBankDetails as $SchoolBankDetail)
-                            <tr>
-                                <td>{{ $SchoolBankDetail->Banks->name or '' }}</td>
-                                <td>{{ $SchoolBankDetail->ifsc_code }}</td>
-                                <td>{{ $SchoolBankDetail->account_no }}</td>
-                                <td>{{ $SchoolBankDetail->account_name }}</td>
-                                <td>{{ $SchoolBankDetail->contact_no }}</td>
-                                <td>{{ $SchoolBankDetail->email }}</td>
-                                <td>{{ $SchoolBankDetail->contact_person_name }}</td>
-                                <td>{{ $SchoolBankDetail->branch }}</td>
-                                <td>{{ $SchoolBankDetail->bank_address }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                
-            </div>
-        </div>
+            <button type="button" class="hidden" id="btn_bank_details_show" onclick="callAjax(this,'{{ route('admin.finance.bank.detail.show') }}','bank_details_show')"></button>
+       <div id="bank_details_show">
+       </div>         
+                 
     </div>
+</div>
 </section>
 @endsection
 @push('links')
@@ -53,5 +24,6 @@
      $(document).ready(function(){
         $('#school_bank_detail_data_table').DataTable();
     });
+     $('#btn_bank_details_show').click();
   </script>
   @endpush

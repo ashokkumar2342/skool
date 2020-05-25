@@ -13,8 +13,7 @@
   	            Fee Details
   	         </div>
   	        <div class="panel-title pull-right">
-  	        	<span class="btn btn-xs btn-success" id="btn_previous_receipts" onclick="callPopupLarge(this,'{{ route('admin.studentFeeCollection.previous.receipts') }}')">Previous Receipts</span>
-  	        	<span class="btn btn-xs btn-danger" success-popup="true" id="btn_previous_receipts" onclick="callAjax(this,'{{ route('admin.studentFeeCollection.previous.receipts.remove') }}')">Clear Record</span></div>
+  	        	</div>
   	        <div class="clearfix"></div>
   	
   	
@@ -109,7 +108,7 @@
  			       	<input type="text"  name="cheeque_no[]" class="form-control"></td>
  			       <td><label class="control-label mb-2 text-left">Bank Name <span style="color:red;">*</span></label> 
  			           <input type="text"  name="bank_name[]" class="form-control"></td>
- 			       <td><label class="control-label mb-2 text-left">Remarks <span style="color:red;">*</span></label> 
+ 			       <td><label class="control-label mb-2 text-left">Remarks </label> 
  			           <textarea type="text" name="remarks[]" class="form-control"></textarea></td>
  			       <td> <br><br> 
  			        <img src="{!! asset('img/details_open.png') !!}" class="tr_clone_add">   

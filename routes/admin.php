@@ -583,6 +583,7 @@ Route::group(['middleware' => 'admin'], function() {
 		    Route::get('details', 'FeeAccountController@bankDetails')->name('admin.finance.bank.detail');
 		    Route::get('add-form/{id?}', 'FeeAccountController@bankDetailsAddForm')->name('admin.finance.bank.detail.add.form');
 		    Route::post('store/{id?}', 'FeeAccountController@bankDetailsStore')->name('admin.finance.bank.detail.store');
+		    Route::get('show', 'FeeAccountController@bankDetailsShow')->name('admin.finance.bank.detail.show');
 		 });
 		Route::group(['prefix' => 'mapping'], function() {
 		    Route::get('bank-account', 'FeeAccountController@mappingBankAccount')->name('admin.finance.mapping.bank.account');
@@ -593,6 +594,7 @@ Route::group(['middleware' => 'admin'], function() {
 		    Route::get('add/{id?}', 'FeeAccountController@addForm')->name('admin.feeAcount.add.form');
 		    Route::post('store/{id?}', 'FeeAccountController@store')->name('admin.feeAcount.post');
 		    Route::get('delete/{id}', 'FeeAccountController@destroy')->name('admin.feeAcount.delete');
+		    Route::get('report', 'FeeAccountController@report')->name('admin.feeAcount.report');
 		 });
 		//------------------------- Fine scheme ---------------------------------
 		Route::group(['prefix' => 'fine-scheme'], function() {
@@ -607,6 +609,7 @@ Route::group(['middleware' => 'admin'], function() {
 		    Route::get('add/{id?}', 'FeeStructureController@addForm')->name('admin.feeStructure.add.form');
 		    Route::post('store/{id?}', 'FeeStructureController@store')->name('admin.feeStructure.post');
 		    Route::get('delete/{id}', 'FeeStructureController@destroy')->name('admin.feeStructure.delete');
+		    Route::get('report', 'FeeStructureController@report')->name('admin.feeStructure.report');
 		 });
 		//------------------------- fee structure amount ---------------------------------
 		Route::group(['prefix' => 'fee-structure-amount'], function() {

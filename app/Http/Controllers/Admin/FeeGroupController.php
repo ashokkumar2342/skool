@@ -77,9 +77,10 @@ class FeeGroupController extends Controller
      */
     public function group($id)
     {
-         $feeGroups=$id;
+         $feeGroupName = FeeGroup::find($id); 
+         $feeGroups = $id; 
          $feeStructures = FeeStructure::orderBy('name','ASC')->get();  
-         return view('admin.finance.fee_group_collection',compact('feeGroups','feeStructures'));   
+         return view('admin.finance.fee_group_collection',compact('feeGroups','feeStructures','feeGroupName'));   
     }
 
     /**
