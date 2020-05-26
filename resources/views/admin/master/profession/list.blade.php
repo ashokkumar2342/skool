@@ -76,6 +76,10 @@
    
    $(document).ready(function() {
        $('#dataTable').DataTable( {
+        aLengthMenu: [
+        
+        [200, "All"]
+    ],
             
        } );
    } );  

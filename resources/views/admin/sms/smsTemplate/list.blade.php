@@ -20,7 +20,7 @@
                   </select> 
                 </div> 
               </div>
-              <div class="table-responsive" id="sms_history_table">
+              <div class="table-responsive col-lg-12" id="sms_history_table">
                  
                </div> 
             </div>

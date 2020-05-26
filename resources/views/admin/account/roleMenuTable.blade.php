@@ -1,4 +1,4 @@
-<div class="col-lg-6"> 
+<div class="col-lg-3"> 
  {{ Form::label('sub_menu','Menu',['class'=>' control-label']) }} <br>
 <select class="multiselect" multiple="multiple"  name="sub_menu[]" id="role_id"> 
   @foreach ($menus as $menu) 
@@ -18,11 +18,15 @@
   <button type="submit"  class="btn btn-success">Save</button> 
   
    
- </div>  <div class="col-md-1" style="margin-top: 24px"> 
-  
-  <a href="{{ route('admin.account.default.user.role.report.generate',$id) }}" class="btn btn-primary" target="blank" title="">PDF</a>
-  
-   
+ </div>  
+ <div class="col-md-4" style="margin-top: 12px;">
+ <div class="panel panel-default">
+  <div class="panel-body">
+    <label class="radio-inline"><input type="radio" name="optradio" value="selected">Only Selected</label>
+    <label class="radio-inline"><input type="radio" name="optradio" checked value="all">All</label>
+   <a href="{{ route('admin.account.default.user.role.report.generate',Crypt::encrypt($id)) }}'+'?time_table_type_id='+$('#optradio').val()" class="btn btn-primary pull-right" target="blank" title="">PDF</a>
+  </div>
+</div>  
  </div> 
  
  

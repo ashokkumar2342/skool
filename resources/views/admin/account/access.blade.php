@@ -14,7 +14,7 @@
                 <div class="form-group col-md-12">
                   {{ Form::label('User','User',['class'=>' control-label']) }}                         
                   <div class="form-group">  
-                         <select class="form-control" id="user_select_box"  multiselect-form="true"  name="user"  onchange="callAjax(this,'{{route('admin.account.menuTable')}}'+'?id='+this.value,'menu_list')" > 
+                         <select class="form-control select2" id="user_select_box"  multiselect-form="true"  name="user"  onchange="callAjax(this,'{{route('admin.account.menuTable')}}'+'?id='+this.value,'menu_list')" > 
                           <option value="" disabled selected>Select User</option>
                          @foreach ($users as $user)
                               <option value="{{ $user->id }}">{{ $user->email }} &nbsp;&nbsp;&nbsp;&nbsp;( {{ $user->first_name }} )</option> 

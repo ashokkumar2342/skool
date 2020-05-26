@@ -20,7 +20,7 @@
    
  </div>  <div class="col-md-1" style="margin-top: 24px"> 
   
-  <a href="{{ route('admin.account.user.menu.assign.report',$id) }}" class="btn btn-primary" target="blank" title="">PDF</a>
+  <a href="{{ route('admin.account.user.menu.assign.report',Crypt::encrypt($id)) }}" class="btn btn-primary" target="blank" title="">PDF</a>
   
    
  </div> 

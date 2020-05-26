@@ -560,7 +560,7 @@ class MasterController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.master.studentStatus.pdf',compact('completions'));
+        ->loadView('admin.master.complextion.pdf',compact('completions'));
         return $pdf->stream('room.pdf');
        }
 

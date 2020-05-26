@@ -5,7 +5,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add Template</h4>
+        <h4 class="modal-title">{{ $messagePurposes->name }}</h4>
       </div>
       <div class="modal-body"> 
              <form action="{{ route('admin.sms.template.store') }}" method="post" class="add_form" select-triger="message_purpose_box" button-click="btn_close">

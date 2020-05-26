@@ -2,14 +2,18 @@
   <button type="button" class="btn btn-sm btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.sms.template.add',$message_purpose_id) }}')" style="margin :5px">Add New Template</button>
    
  </div>
- <table id="author_table" class="table table-bordered table-striped table-hover table-responsive"> 
+ <div class="col-lg-12 form-group">
+                   <label>Hints : &nbsp;</label> 
+                   {{ $messagePurposes->Variables_Description }}
+                   </div>
+ <table id="author_table" class="table  table-striped table-hover table-responsive"> 
                <thead>
                  <tr>
-                   <th>Sr.No.</th> 
-                   <th>Name</th>
-                   <th>Massage</th>
-                   <th>Description</th>
-                   <th>Action</th> 
+                   <th class="text-nowrap">Sr.No.</th> 
+                   <th class="text-nowrap">Name</th>
+                   <th class="text-nowrap">Massage</th>
+                   <th class="text-nowrap">Description</th>
+                   <th class="text-nowrap text-center">Action</th> 
                  </tr>
                </thead>
                <tbody>
@@ -19,11 +23,11 @@
                 @foreach ($smsTemplates as $smsTemplates) 
                  <tr style="{{ $smsTemplates->status==1?'background-color: #95e49b':'' }}">
                    <td>{{  $sectionId++ }}</td>
-                   <td>{{ $smsTemplates->name or '' }}</td> 
-                   <td>{{ mb_strimwidth($smsTemplates->message, 0, 90, "............") }}</td>
+                   <td class="text-nowrap">{{ $smsTemplates->name or '' }}</td> 
+                   <td class="text-nowrap">{{ mb_strimwidth($smsTemplates->message, 0, 90, "............") }}</td>
                    <td>{{ mb_strimwidth($smsTemplates->discription, 0, 90, "............") }}</td>
                    
-                   <td>
+                   <td class="text-nowrap">
                     @if ($smsTemplates->status==1)
                       <a href="#" onclick="callAjax(this,'{{ route('admin.sms.template.status',$smsTemplates->id) }}')" title="" class="btn btn-success btn-xs">Default</a>
                      <button class="btn btn-info btn-xs" title="View" select-triger="message_purpose_box" onclick="callPopupLarge(this,'{{ route('admin.sms.template.view',$smsTemplates->id) }}')"><i class="fa fa-eye"></i></button>

@@ -240,7 +240,7 @@ class AccountController extends Controller
     }
     public function defaultUserMenuAssignReport($id)
     {
-
+      $id=Crypt::decrypt($id);
      $usersmenus = array_pluck(Minu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id'])->toArray(), 'sub_menu_id'); 
      $menus = MinuType::all();
      $subMenus = SubMenu::all(); 
@@ -487,7 +487,8 @@ class AccountController extends Controller
 
   } 
   public function defaultUserRolrReportGenerate($id)
-  {   
+  {  
+    $id=Crypt::decrypt($id); 
      $datas  = DefaultRoleMenu::where('role_id',$id)->where('status',1)->pluck('sub_menu_id')->toArray(); 
      $menus = MinuType::all();
      $subMenus = SubMenu::all();

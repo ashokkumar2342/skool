@@ -1,11 +1,13 @@
- 
+  @php
+    $message_purpose_name=App\Model\Sms\MessagePurpose::find($smsTemplates->message_purpose_id);
+  @endphp 
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Edit Template</h4>
+        <h4 class="modal-title">{{ $message_purpose_name->name }}</h4>
       </div>
       <div class="modal-body"> 
              <form action="{{ route('admin.sms.template.update',$smsTemplates->id) }}" method="post" class="add_form" select-triger="message_purpose_box" button-click="btn_close">

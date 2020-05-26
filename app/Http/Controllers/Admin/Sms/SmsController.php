@@ -173,7 +173,8 @@ class SmsController extends Controller
     public function smsTemplateOnchange(Request $request){
         $message_purpose_id=$request->id;
         $smsTemplates=SmsTemplate::where('message_purpose_id',$request->id)->get();
-         return view('admin.sms.smsTemplate.table',compact('smsTemplates','message_purpose_id'));
+        $messagePurposes=MessagePurpose::find($message_purpose_id); 
+         return view('admin.sms.smsTemplate.table',compact('smsTemplates','message_purpose_id','messagePurposes'));
     }
     public function smsTemplateAdd($id){
         $messagePurposes=MessagePurpose::find($id); 
@@ -271,7 +272,8 @@ class SmsController extends Controller
     public function emailTemplateOnchange(Request $request){
         $message_purpose_id=$request->id;
         $emailTemplates=EmailTemplate::where('message_purpose_id',$request->id)->get();
-         return view('admin.sms.emailTemplate.table',compact('emailTemplates','message_purpose_id'));
+         $messagePurposes=MessagePurpose::find($message_purpose_id); 
+         return view('admin.sms.emailTemplate.table',compact('emailTemplates','message_purpose_id','messagePurposes'));
     }
     public function emailTemplateAddForm($id){
 
@@ -284,6 +286,7 @@ class SmsController extends Controller
         $rules=[
           
            
+            'name' => 'required', 
             'message' => 'required', 
             'subject' => 'required', 
             
@@ -310,6 +313,7 @@ class SmsController extends Controller
         $smsTemplate->message_purpose_id=$id;
         $smsTemplate->message=$request->message;
         $smsTemplate->subject=$request->subject;
+        $smsTemplate->name=$request->name;
          
         $smsTemplate->save();
         $response=['status'=>1,'msg'=>'Create Successfully'];
@@ -333,6 +337,7 @@ class SmsController extends Controller
         $rules=[
           
             
+            'name' => 'required', 
             'message' => 'required', 
             'subject' => 'required', 
             
@@ -352,6 +357,7 @@ class SmsController extends Controller
         $smsTemplate->message_purpose_id=$message_purpose_id;
         $smsTemplate->message=$request->message;
         $smsTemplate->subject=$request->subject;
+        $smsTemplate->name=$request->name;
          
         $smsTemplate->save();
         $response=['status'=>1,'msg'=>'Update Successfully'];

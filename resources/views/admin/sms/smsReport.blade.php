@@ -89,7 +89,7 @@
                   </div> 
                 </div>
         </form>  
-               <div id="sms_history_table" style="margin-top: 20px"> 
+               <div class="table-responsive col-lg-12" id="sms_history_table"> 
               </div> 
             </div> 
         </div> 

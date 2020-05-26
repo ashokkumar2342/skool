@@ -221,6 +221,9 @@
           $("#role_select_box" ).trigger("change");
 
         }
+        function f1(objButton){  
+    alert(objButton.value);
+}
  </script>
  
 <script type="text/javascript">

@@ -20,7 +20,7 @@
                       <thead>
                       <tr>
                         <th>SR.No.</th> 
-                        <th>Name</th>
+                        <th>Blood Group</th>
                        
                         <th>Action</th>
                          </tr>
