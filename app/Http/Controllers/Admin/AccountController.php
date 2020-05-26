@@ -381,7 +381,7 @@ class AccountController extends Controller
         return response($data);
     }
 
-    public function roleMenuStore(Request $request){  
+    public function roleMenuStore(Request $request){
            $rules=[
            'sub_menu' => 'required|max:199',             
            'role' => 'required|max:199',  
@@ -486,12 +486,36 @@ class AccountController extends Controller
      return view('admin.account.sub_menu_ordering',compact('submenus'));
 
   } 
-  public function defaultUserRolrReportGenerate($id)
-  {  
-    $id=Crypt::decrypt($id); 
-     $datas  = DefaultRoleMenu::where('role_id',$id)->where('status',1)->pluck('sub_menu_id')->toArray(); 
-     $menus = MinuType::all();
-     $subMenus = SubMenu::all();
+  public function defaultUserRolrReportGenerate(Request $request,$id)
+  {
+     $id=Crypt::decrypt($id);  
+     $previousRoute= app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName();
+     if ($previousRoute=='admin.account.role') {
+         $datas  = DefaultRoleMenu::where('role_id',$id)->where('status',1)->pluck('sub_menu_id')->toArray();
+         if ($request->optradio=='selected') {
+         $subMenus = SubMenu::whereIn('id',$datas)->get();
+         $menuTypeArrId = SubMenu::whereIn('id',$datas)->pluck('menu_type_id')->toArray();
+         $menus = MinuType::whereIn('id',$menuTypeArrId)->get();  
+         }elseif($request->optradio=='all'){
+          $menus = MinuType::all();
+          $subMenus = SubMenu::all();      
+         }
+     }elseif($previousRoute=='admin.roleAccess.quick.view'){
+             $datas  = DefaultRoleQuickMenu::where('role_id',$id)->where('status',1)->pluck('sub_menu_id')->toArray();
+             if ($request->optradio=='selected') {
+             $subMenus = SubMenu::whereIn('id',$datas)->get();
+             $menuTypeArrId = SubMenu::whereIn('id',$datas)->pluck('menu_type_id')->toArray();
+             $menus = MinuType::whereIn('id',$menuTypeArrId)->get();  
+             }elseif($request->optradio=='all'){
+              $subMenuArrId  = DefaultRoleMenu::where('role_id',$id)->where('status',1)->pluck('sub_menu_id')->toArray();
+              $menuTypeArrId = Minu::whereIn('sub_menu_id',$subMenuArrId)->pluck('minu_id')->toArray();
+              $subMenus = SubMenu::whereIn('id',$subMenuArrId)->get();
+              $menus = MinuType::whereIn('id',$menuTypeArrId)->get();
+
+             // $menus = MinuType::all();
+             // $subMenus = SubMenu::all();      
+             }
+     }
      $roles = Role::find($id);
      $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
