@@ -17,7 +17,7 @@
                   <div class="col-md-12">
                      <div class="form-group">
                       <label>Name</label>
-                     <input type="text" name="name" class="form-control" maxlength="100" placeholder="Enter Name" value="{{ $EmailTemplates->subject }}">
+                     <input type="text" name="name" class="form-control" maxlength="100" placeholder="Enter Name" value="{{ $EmailTemplates->name }}">
                       
                     </div>
                   </div>

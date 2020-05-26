@@ -289,7 +289,7 @@ class AccountController extends Controller
         $rules=[
          'section' => 'required|max:199',             
          'class_id' => 'required|max:199',             
-         'user' => 'required|max:199',  
+         'user' => 'required|max:1000',  
         ]; 
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()) {
@@ -321,7 +321,7 @@ class AccountController extends Controller
  
             $rules=[
             'sub_menu' => 'required|max:1000',             
-            'user' => 'required|max:199',  
+            'user' => 'required|max:1000',  
             ]; 
             $validator = Validator::make($request->all(),$rules);
             if ($validator->fails()) {
@@ -344,7 +344,7 @@ class AccountController extends Controller
     Public function accessHotMenuStore(Request $request){
 
             $rules=[
-            'sub_menu' => 'required|max:199',             
+            'sub_menu' => 'required|max:1000',             
             'user' => 'required|max:199',  
             ]; 
             $validator = Validator::make($request->all(),$rules);
@@ -383,7 +383,7 @@ class AccountController extends Controller
 
     public function roleMenuStore(Request $request){
            $rules=[
-           'sub_menu' => 'required|max:199',             
+           'sub_menu' => 'required|max:1000',             
            'role' => 'required|max:199',  
            ]; 
            $validator = Validator::make($request->all(),$rules);
@@ -546,7 +546,7 @@ class AccountController extends Controller
   }
   public function defaultRoleQuickStore(Request $request){  
          $rules=[
-         'sub_menu' => 'required|max:199',             
+         'sub_menu' => 'required|max:1000',             
          'role' => 'required|max:199',  
          ]; 
          $validator = Validator::make($request->all(),$rules);
