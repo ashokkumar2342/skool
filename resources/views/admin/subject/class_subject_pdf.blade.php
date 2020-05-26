@@ -36,30 +36,30 @@
                 <tbody>
                   @php
                      
-                  $arrayId=1;
-                  $temproryId=0;
+                  $arrayId=1; 
                   @endphp
-                @foreach($manageSubjects as $key => $manageSubject)
-                
+                @foreach($manageSubjects as $key => $manage)
+                  @foreach ($manage as $manageSubject)
+                    <tr>
+                      <td>{{ $arrayId++}}</td>                 
+                      <td>{{ $manageSubject->classTypes->name or ''}}</td>                 
+                      <td>{{ $manageSubject->subjectTypes->name or ''}}</td>                 
+                      <td>{{ $manageSubject->isoptional->name or ''}}</td>
+                    </tr>
+                  @endforeach 
                 <tr>
-                  <td>{{ $arrayId++}}</td>                 
-                  <td>{{ $manageSubject->classTypes->name or ''}}</td>                 
-                  <td>{{ $manageSubject->subjectTypes->name or ''}}</td>                 
-                  <td>{{ $manageSubject->isoptional->name or ''}}</td>
+                  <td colspan="4">
+                     <div class="page_break"></div>
+                  </td>
                 </tr>
-                @if ($manageSubject->classType_id!=$temproryId)
-                @if ($key!=0)
-                 <div class="page_break"></div>
-                @endif
-                 @php
-                  $temproryId=$manageSubject->classType_id;
-                @endphp
-                @endif
+                 
                 @endforeach
 
                 </tbody>
                  
               </table>
+
+             
             </div> 
  </div>
  <div class="row" style="margin-left: 10px">

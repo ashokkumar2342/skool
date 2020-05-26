@@ -119,7 +119,8 @@ class SubjectController extends Controller
     }
     public function classSubjectPDF($id)
     {
-        $manageSubjects=Subject::orderBy('classType_id','ASC')->get();
+        $manageSubjects=Subject::orderBy('classType_id','ASC')->get()->groupBy('classType_id');
+
          $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
