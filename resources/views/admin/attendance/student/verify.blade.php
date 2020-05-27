@@ -13,7 +13,7 @@
                 <div class="col-lg-3">
                   <div class="form-group">
                     <label>Class</label>
-                    <select name="class_id" id="class_id" class="form-control"  onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section.addForm') }}','section_id')">
+                    <select name="class_id" id="class_id" class="form-control" button-click="btn_virify_show"  onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section.addForm') }}','section_id')">
                       <option selected disabled>Select Class</option>}
                       option
                       @foreach ($classes as $class)
@@ -25,20 +25,22 @@
                 <div class="col-lg-3">
                   <div class="form-group">
                     <label>Section</label>
-                    <select name="section_id" class="form-control" id="section_id"> 
+                    <select name="section_id" class="form-control" id="section_id" onchange="$('#btn_virify_show').click()"> 
                     </select> 
                   </div> 
                 </div> 
+                @php
+                  $date=date('Y-m-d');
+                @endphp
                 <div class="col-lg-3">                         
                   <div class="form-group">
                     <label>Date</label>
-                     {!! Form::text('date', date('d-m-Y')  , ['class'=>'form-control datepicker','id'=>'date','placeholder'=>'Date'              ,'max'=>date('Y-m-d')]) !!}
-                    
+                    <input type="date" name="date" value="{{ $date }}" class="form-control" onchange="$('#btn_virify_show').click()">
                   </div>
                 </div>
               <div class="col-lg-3">
                 <div class="form-group">
-                  <input type="submit" value="Show" id="btn_virify_show" class="btn btn-success" style="margin-top: 24px">
+                  <input type="submit" value="Show" id="btn_virify_show" class="btn btn-success form-control" style="margin-top: 24px">
                   
                 </div>
             </form> 
