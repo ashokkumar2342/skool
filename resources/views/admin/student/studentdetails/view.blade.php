@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @push('links')
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<style type="text/css" media="screen">
+{{-- <style type="text/css" media="screen">
 .border_bottom{
   border-bottom: solid 1px #eee; 
 }  
@@ -12,7 +12,7 @@ b{
 .fs{
     float: right; font-weight:750;padding-right: 10px;
 }
-</style>
+</style> --}}
 @endpush
 @section('body')
     <section class="content">
@@ -20,11 +20,7 @@ b{
         @php
            $admissionApplication=App\Model\AdmissionApplication::where('student_id',$student->id)->first();
          @endphp 
-         @if ($student->student_status_id==1)
-           <button type="button" class="btn btn-xs btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.student.preview',$student->id) }}')" style="margin:5px">Preview</button>
-
-          <a href="{{ route('admin.student.pdf.generate',Crypt::encrypt($student->id)) }}" class="btn btn-xs btn-success pull-right" title="Download Profile " target="_blank" style="margin:5px">PDF</a>
-         @endif
+        
          @if (!empty($admissionApplication))  
           @if ($admissionApplication->status>=2) 
           <a href="{{ route('admin.student.registration.profile.view',Crypt::encrypt($student->id)) }}" class="btn btn-xs btn-primary pull-right" title="Download Profile " target="_blank" style="margin:5px">View Details</a> 
@@ -43,25 +39,25 @@ b{
            
           
           <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-user"></i> Student Details</a></li>
-              <li><a data-toggle="tab" data-table="sibling_items" class="{{ $hidden }}" href="#sibling" id="sibling_info_tab"  onclick="callAjax(this,'{{ route('admin.sibling.table.show',$student->id) }}','sibling_info_list')"><i class="fa fa-users" id="sibling_info"></i> Sibling Detail</a></li>
-              <li><a data-toggle="tab" data-table="parents_items" href="#parent" id="parent_info_tab" class="{{ $showHide }}" onclick="callAjax(this,'{{ route('admin.parents.list',$student->id) }}','parent_info_list')"><i class="fa fa-user-circle"></i> Parent Detail</a></li>
+              <li class="active"><a data-toggle="tab" href="#home" id="student_tab"><i class="fa fa-user"></i> Student</a></li>
+              <li><a data-toggle="tab" data-table="sibling_items" class="{{ $hidden }}" href="#sibling" id="sibling_info_tab"  onclick="callAjax(this,'{{ route('admin.sibling.table.show',$student->id) }}','sibling_info_list')"><i class="fa fa-users" id="sibling_info"></i> Sibling</a></li>
+              <li><a data-toggle="tab" data-table="parents_items" href="#parent" id="parent_info_tab" class="{{ $showHide }}" onclick="callAjax(this,'{{ route('admin.parents.list',$student->id) }}','parent_info_list')"><i class="fa fa-user-circle"></i> Parent</a></li>
 
               <li><a data-toggle="tab" href="#address" data-table="address_info_table" id="address_info"class="{{ $showHide }}" onclick="callAjax(this,'{{ route('admin.parents.address',$student->id) }}','address_list')"><i class="fa fa-home"></i> Address</a></li>
 
-              <li><a data-toggle="tab" data-table="medical_info_table" href="#medical" id="medical_info_tab" onclick="callAjax(this,'{{ route('admin.medical.info.list',$student->id) }}','medical_info_page')"><i class="fa fa-user-md" id="medical_info"></i> Medical Detail</a></li>
+              <li><a data-toggle="tab" data-table="medical_info_table" href="#medical" id="medical_info_tab" onclick="callAjax(this,'{{ route('admin.medical.info.list',$student->id) }}','medical_info_page')"><i class="fa fa-user-md" id="medical_info"></i> Medical</a></li>
               <li><a data-toggle="tab" href="#subjects" id="subject_tab" onclick="callAjax(this,'{{ route('admin.studentSubject.list',$student->id) }}','subject_list')"><i class="fa fa-book" {{-- id="subject_tab" --}}></i>  Subjects</a></li>
               <li><a data-toggle="tab" href="#sport" id="sport_hobbies_tab" data-table="sport_hobby_items" onclick="callAjax(this,'{{ route('admin.hobby.show',$student->id) }}','sport_hobbies_list')"><i class="fa fa-life-ring" id="sport_tab"></i> Sports</a></li>
               <li><a data-toggle="tab" href="#document"><i class="fa fa-file" id="document_tab"></i> Document</a></li>
               <li><a data-toggle="tab" href="#award_list"><i class="fa fa-angellist" id="award_list_tab"></i> Award</a></li>
+           <button type="button" class="btn btn-xs btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.student.preview',$student->id) }}')" style="margin:5px">Preview</button>
+
+          <a href="{{ route('admin.student.pdf.generate',Crypt::encrypt($student->id)) }}" class="btn btn-xs btn-success pull-right" title="Download Profile " target="_blank" style="margin:5px">PDF</a>
             </ul>
-            <div class="tab-content"  style="padding-left: 10px">
-                <div id="home" class="tab-pane fade in active">
-                    <div class="row">
-                        <div class="col-md-9">
-                             <div class="row" style="padding-top: 20px">
-                               <form action="{{ route('admin.student.view-update',$student->id) }}" method="post" accept-charset="utf-8" class="add_form" no-reset="true"> 
-                               {{ csrf_field() }}
+            @if ($student->student_status_id==1)
+         @endif
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active"> 
                                   @php
                                  if(!empty($admissionApplication)){   
                                    $status='';
@@ -93,117 +89,127 @@ b{
                                     @if ($userId->role_id==12) 
                                        <span style="margin-left: 10px">Application No. <b>{{ $admissionApplication->id }}</b></span>
                                      @endif  
-                                    @endif  
-                                      <div  class="col-lg-6">
-                                       <li class="list-group-item" style="width:350px"><label>Name</label><span class="fa fa-asterisk"></span>
-                                        <input type="text" value="{{ $student->name }}" maxlength="50" name="student_name" style="width: 290px;height: 28px" class="form-control"></li>
-                                      </div>
-                                      <div  class="col-lg-6">
-                                        <li class="list-group-item" style="width:350px"><label>Nick Name</label>
-                                        <input type="text" name="nick_name" value="{{$student->nick_name}}"  class="form-control" style="width: 290px;height: 28px"></li> 
-                                      </div>
-                                      <div  class="col-lg-6">
-                                        <li class="list-group-item" style="width:350px"><label>Class</label><span class="fa fa-asterisk"></span>
-                                        <select class="form-control" name="class" style="width: 290px;height: 28px"onchange="callAjax(this,'{{ route('admin.student.final.report.class.wise.section') }}','section_div')">
-                                          @foreach ($classes as $id=>$value)
-                                           <option value="{{ $id }}"{{ $student->class_id==$id? 'selected' : ''}}>{{ $value }}</option> 
-                                          @endforeach 
+                                    @endif
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading" style="height: 20px;"></div>
+                                       <div class="panel-body">
+                                       <div class="row"> 
+                                        <div class="col-lg-9">
+                                          <form action="{{ route('admin.student.view-update',$student->id) }}" method="post" accept-charset="utf-8" class="add_form" no-reset="true"> 
+                                            {{ csrf_field() }}
+                                        <div  class="col-lg-6 form-group">
+                                        <label>Name</label> <span class="fa fa-asterisk"></span>
+                                        <input type="text" value="{{ $student->name }}" maxlength="50" name="student_name"  class="form-control">
+                                        </div>
+                                        <div  class="col-lg-6 form-group">
+                                        <label>Nick Name</label>
+                                        <input type="text" name="nick_name" value="{{$student->nick_name}}"  class="form-control" > 
+                                        </div>
+                                        <div  class="col-lg-6 form-group">
+                                        <label>Class</label> <span class="fa fa-asterisk"></span>
+                                        <select class="form-control" name="class" onchange="callAjax(this,'{{ route('admin.student.final.report.class.wise.section') }}','section_div')">
+                                        @foreach ($classes as $id=>$value)
+                                        <option value="{{ $id }}"{{ $student->class_id==$id? 'selected' : ''}}>{{ $value }}</option> 
+                                        @endforeach 
                                         </select>
-                                        </li> 
-                                      </div>
-                                      <div  class="col-lg-6">
-                                        <li class="list-group-item {{ $hidden }}" style="width:350px"><label>Section</label><span class="fa fa-asterisk"></span>
-                                        <select class="form-control" name="section" id="section_div" style="width: 290px;height: 28px">
+                                         
+                                        </div>
+                                        <div  class="col-lg-6 form-group {{ $hidden }}">
+                                        <label>Section</label> <span class="fa fa-asterisk"></span>
+                                        <select class="form-control" name="section" id="section_div" >
                                         @foreach ($sections as $section)
-                                          <option  value="{{ $section->id }}"{{ $student->section_id==$section->id? 'selected' : '' }}>{{ $section->name }}</option> 
-                                            
-                                         @endforeach 
-                                        </select></li> 
-                                      </div>
-                                      <div  class="col-lg-6">
-                                        <li class="list-group-item {{ $hidden }}" style="width:350px"><label>Registration No.</label><span class="fa fa-asterisk"></span>
-                                        <input type="text"style="width: 290px;height: 28px" value="{{ $student->registration_no or ''}}" name="registration_no" id="registration_no" maxlength="{{ $schoolinfo->reg_length }}" class="form-control" min="{{ $schoolinfo->reg_length }}"></li> 
-                                       </div>
-                                       <div  class="col-lg-6">
-                                        <li class="list-group-item {{ $hidden }}" style="width:350px"><label>Admission No.</label><span class="fa fa-asterisk"></span>
-                                        <input type="text" style="width: 290px;height: 28px" value="{{ $student->admission_no }}" name="admission_no" class="form-control"></li>
-                                       </div>
-                                       <div  class="col-lg-6">
-                                        <li class="list-group-item {{ $hidden }}" style="width:350px"><label>Roll No.</label><span class="fa fa-asterisk"></span>
-                                        <input type="text"maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="width: 290px;height: 28px" value="{{ $student->roll_no or ''}}" name="roll_no" class="form-control"></li>
-                                       </div>
-                                       <div  class="col-lg-6">
-                                        <li class="list-group-item" style="width:350px"><label>Date of Birth</label><span class="fa fa-asterisk"></span>
-                                        <input type="text" maxlength="10" style="width: 290px;height: 28px" value="{{ Carbon\Carbon::parse($student->dob)->format('d-m-Y')  }}" name="date_of_birth" class="form-control"></li>
-                                       </div>
-                                       <div  class="col-lg-6">
-                                        <li class="list-group-item {{ $hidden }}" style="width:350px"><label>Date of Admission</label><span class="fa fa-asterisk"></span>
-                                        <input type="date" style="width: 290px;height: 28px" value="{{ $student->date_of_admission }}" name="date_of_admission" class="form-control"></li>
-                                       </div>
-                                       <div  class="col-lg-6">
-                                        <li class="list-group-item {{ $hidden }}" style="width:350px"><label>Date of Activation</label><span class="fa fa-asterisk"></span>
-                                         <input type="date" style="width: 290px;height: 28px" value="{{$student->date_of_activation}}" name="date_of_activation" class="form-control"></li> 
-                                       </div>
-                                       <div  class="col-lg-6">
-                                        <li class="list-group-item" style="width:350px"><label>Aadhaar No.</label><span class="fa fa-asterisk"></span>
-                                         <input type="text" maxlength="12" style="width: 290px;height: 28px" value="{{ $student->adhar_no}}" name="aadhaar_no" class="form-control"></li> 
-                                       </div>
-                                       <div  class="col-lg-6">
-                                        <li class="list-group-item" style="width:350px"><label>Gender</label><span class="fa fa-asterisk"></span>
-                                         <select name="gender" class="form-control" style="width: 290px;height: 28px">
-                                            @foreach ($genders as $gender)
-                                               <option value="{{ $gender->id }}"{{ $gender->id==$student->gender_id?'selected' : '' }}>{{ $gender->genders }}</option> 
-                                            @endforeach 
-                                          </select></li> 
-                                       </div>
-                                       <div  class="col-lg-12">
-                                        <li class="list-group-item {{ $hidden }}" style="width: 92%"><label>House Name</label><span class="fa fa-asterisk"></span>
-                                         <select name="house" class="form-control" >
-                                            @foreach ($houses as $house)
-                                              <option  value="{{ $house->id }}"{{ $student->house_no==$house->id? 'selected' : '' }}>{{ $house->name }}</option> 
-                                              
-                                            @endforeach
-                                          </select></li> 
-                                       </div>
+                                        <option  value="{{ $section->id }}"{{ $student->section_id==$section->id? 'selected' : '' }}>{{ $section->name }}</option> 
 
-                                </div> 
-                                <div class="text-center" style="margin :20px">
-                                <input type="submit" class="btn btn-success btn-sm"  value="Update"> 
-                                {{-- <button type="button" onclick="$('#sibling_info_tab').click()" class="btn btn-success btn-sm">Next</button> --}}
-                                </div>
-                              </form>
-                            </div>
-                        
-                        <div class="col-md-3" style="margin-top: 40px">
-                             @php
-                             $profile = route('admin.student.image',$student->picture);
-                             @endphp
-                             <div class="col-md-12 center-block">
-                                <div id="showImg">
-                                     <div style="width: 150px; height: 180px;  background-color: #eee; border: 2px solid #d1f7ec">
-                                       <img  src="{{ ($student->picture)? $profile : asset('profile-img/user.png') }}" style="width: 150px; height: 180px;  border: 2px solid #d1f7ec">
-                                     </div>
-                                    <div style="padding-left: 15px; padding-top: 5px; padding-bottom: 15px">
-                                       <a class="btn_change_image btn btn-success btn-xs" href="javascript:;">Upload Image </a>                              
-                                       <a class="btn_web btn btn-default btn-xs" onclick="callPopupMd(this,'{{ route('admin.student.camera',$student->id) }}')" href="javascript:;"><i class="fa fa-camera" style="margin: 10px"></i></a>                              
-                                    </div>
-                                </div>                                  
-                            </div>
-                            <div id="crop-show" > 
-                                <div id="upload-demo"></div> 
-                                <div>
-                                    <strong>Select Image:</strong>
-                                    <br/>
-                                    <input type="file" id="upload" accept="image/x-png,image/jpeg">
-                                    <br/>
-                                    <button class="btn btn-success upload-result">Upload Image</button>
-                                    <button class="btn btn-danger" id="crop-hide">Hide</button>
-                                </div>    
-                            </div>
-                           <div id="camera_div">
-                              @include('admin.student.studentdetails.include.webcam')
-                            </div> 
-                        </div>                        
+                                        @endforeach 
+                                        </select> 
+                                        </div>
+                                        <div  class="col-lg-6 form-group {{ $hidden }}">
+                                        <label>Registration No.</label> <span class="fa fa-asterisk"></span>
+                                        <input type="text" value="{{ $student->registration_no or ''}}" name="registration_no" id="registration_no" maxlength="{{ $schoolinfo->reg_length }}" class="form-control" min="{{ $schoolinfo->reg_length }}"> 
+                                        </div>
+                                        <div  class="col-lg-6 form-group {{ $hidden }}">
+                                        <label>Admission No.</label> <span class="fa fa-asterisk"></span>
+                                        <input type="text"  value="{{ $student->admission_no }}" name="admission_no" class="form-control">
+                                        </div>
+                                        <div  class="col-lg-6 form-group {{ $hidden }}">
+                                        <label>Roll No.</label> <span class="fa fa-asterisk"></span>
+                                        <input type="text"maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57'  value="{{ $student->roll_no or ''}}" name="roll_no" class="form-control">
+                                        </div>
+                                        @php
+                                        $date = date('Y-m-d');
+                                        @endphp 
+                                        <div  class="col-lg-6 form-group">
+                                        <label>Date of Birth</label> <span class="fa fa-asterisk"></span>
+                                        <input type="date" maxlength="10" value="{{ $student->dob }}" name="date_of_birth" class="form-control" max="{{ date('Y-m-d',strtotime($date .'-730 days')) }}" min="{{ date('Y-m-d',strtotime($date .'-7300 days')) }}" >
+                                        </div>
+                                        <div  class="col-lg-6 form-group {{ $hidden }}">
+                                        <label>Date of Admission</label> <span class="fa fa-asterisk"></span>
+                                        <input type="date"  value="{{ $student->date_of_admission }}" name="date_of_admission" class="form-control">
+                                        </div>
+                                        <div  class="col-lg-6 form-group {{ $hidden }}">
+                                        <label>Date of Activation</label> <span class="fa fa-asterisk"></span>
+                                        <input type="date"  value="{{$student->date_of_activation}}" name="date_of_activation" class="form-control"> 
+                                        </div>
+                                        <div  class="col-lg-6 form-group">
+                                        <label>Aadhaar No.</label> <span class="fa fa-asterisk"></span>
+                                        <input type="text" maxlength="12"  value="{{ $student->adhar_no}}" name="aadhaar_no" class="form-control"> 
+                                        </div>
+                                        <div  class="col-lg-6 form-group">
+                                        <label>Gender</label> <span class="fa fa-asterisk"></span>
+                                        <select name="gender" class="form-control" >
+                                        @foreach ($genders as $gender)
+                                        <option value="{{ $gender->id }}"{{ $gender->id==$student->gender_id?'selected' : '' }}>{{ $gender->genders }}</option> 
+                                        @endforeach 
+                                        </select> 
+                                        </div>
+                                        <div  class="col-lg-12 form-group {{ $hidden }}">
+                                        <label>House Name</label> <span class="fa fa-asterisk"></span>
+                                        <select name="house" class="form-control" >
+                                        @foreach ($houses as $house)
+                                        <option  value="{{ $house->id }}"{{ $student->house_no==$house->id? 'selected' : '' }}>{{ $house->name }}</option> 
+
+                                        @endforeach
+                                        </select> 
+                                        </div>
+                                        <div class="col-lg-12 form-group text-center">
+                                          <input type="submit" class="btn btn-success" name="">
+                                          
+                                        </div>
+                                      </form>
+                                        </div>
+                                        <div class="col-md-3" style="margin-top: 20px">
+                                          @php
+                                          $profile = route('admin.student.image',$student->picture);
+                                          @endphp
+                                          <div class="col-md-12 center-block">
+                                            <div id="showImg">
+                                              <div style="width: 210px; height: 260px;  background-color: #eee; border: 2px solid #d1f7ec">
+                                                <img  src="{{ ($student->picture)? $profile : asset('profile-img/user.png') }}" style="width: 210px; height: 260px;  border: 2px solid #d1f7ec">
+                                              </div>
+                                              <div style="padding-left:20px; padding-top: 5px; padding-bottom: 15px">
+                                                <a class="btn_change_image btn btn-success btn-xs" href="javascript:;"><i class="fa fa-image"></i>Upload Image </a>                              
+                                                <a class="btn_web btn btn-default btn-xs" onclick="callPopupMd(this,'{{ route('admin.student.camera',$student->id) }}')" href="javascript:;"><i class="fa fa-camera" style="margin: 10px"></i></a>                              
+                                              </div>
+                                            </div>                                  
+                                          </div>
+                                          <div id="crop-show" > 
+                                            <div id="upload-demo"></div> 
+                                            <div>
+                                              <strong>Select Image:</strong>
+                                              <br/>
+                                              <input type="file" id="upload" accept="image/x-png,image/jpeg">
+                                              <br/>
+                                              <button class="btn btn-success upload-result">Upload Image</button>
+                                              <button class="btn btn-danger" id="crop-hide">Hide</button>
+                                            </div>    
+                                          </div>
+                                          <div id="camera_div">
+                                            @include('admin.student.studentdetails.include.webcam')
+                                          </div> 
+                                        </div>                        
+                                       </div>
+                                      </div> 
+                            
                     </div>
                 </div>
                 <div id="parent" class="tab-pane fade"> 
@@ -262,11 +268,10 @@ b{
                      {{-- <button type="button" onclick="$('#award_list_tab').click()" class="btn btn-success btn-sm">Next</button>  --}}
                   </div>
                 </div>
-                <div id="award_list" class="tab-pane fade"> 
-                    <button type="button" class="btn btn-info btn-sm" multi-select="true" onclick="callPopupLarge(this,'{{ route('admin.award.for.addform')}}')" style="margin:10px">Add Award</button> 
-                            <button id="btn_event_type_table_show" hidden data-table="event_type_data_table" onclick="callAjax(this,'{{ route('admin.award.for.table.show',$student->id) }}','event_type_table_show_div')">show </button> 
-                              <div class="" id="event_type_table_show_div"> 
-                              </div>
+                <div id="award_list" class="tab-pane fade">
+                <button id="btn_event_type_table_show" hidden data-table="event_type_data_table" onclick="callAjax(this,'{{ route('admin.award.for.table.show',$student->id) }}','event_type_table_show_div')">show </button> 
+                    <div class="" id="event_type_table_show_div"> 
+                    </div>
                       
                     
                    <div class="text-center">

@@ -1,20 +1,20 @@
 <table class="table table-bordered  table-striped" id="sms_history_datatable">
 	<thead>
 		<tr>
-			<th class="text-nowrap">Purpose</th> 
+			<th >Purpose</th> 
 			@if ($conditionId==1)
-			<th class="text-nowrap">Student Name</th> 
+			<th >Student Name</th> 
 			@endif
 			@if ($conditionId==3) 
-			 <th class="text-nowrap">User Name</th> 
+			 <th>User Name</th> 
 			@endif
-			<th class="text-nowrap">Send Form</th>
-			<th class="text-nowrap">Mobile No.</th>
-			<th class="text-nowrap">SMS Count</th>
-			<th class="text-nowrap">Date</th>
-			<th class="text-nowrap">Schedule Date</th>
-			<th class="text-nowrap">SMS Text</th>
-			<th class="text-nowrap">Status</th>
+			<th>Sender</th>
+			<th>Mobile</th>
+			<th>Count</th>
+			<th>Submit Date</th>
+			<th>Schedule Date</th>
+			<th>SMS Text</th>
+			<th>Status</th>
 		</tr>
 	</thead>
 	<tbody>

@@ -13,8 +13,18 @@
             <!-- /.box-header -->            
           <div class="box">
             <div class="box-header">
-             <a class="btn btn-primary btn-sm pull-right" title="Download PDF" target="blank" href="{{ route('admin.manageSubject.pdf.generate',1) }}">All PDF</a>
-             <a class="btn btn-primary btn-sm pull-right" title="Download PDF" target="blank" style="margin-right: 5px" href="{{ route('admin.manageSubject.pdf.generate',2) }}">Class Wise PDF</a>
+               <form action="{{ route('admin.manageSubject.pdf.generate') }}" method="post" target="blank">
+                {{ csrf_field() }}
+               <div class="col-md-4 pull-right">
+               <div class="panel panel-default">
+                <div class="panel-body" style="height: 50px">
+                  <label class="radio-inline"><input type="radio" name="optradio" value="class_wise">Class Wise</label>
+                  <label class="radio-inline"><input type="radio" name="optradio" checked value="all">All</label>
+                 <input type="submit" value="PDF" class="btn btn-primary pull-right">
+                </div>
+              </div>  
+               </div> 
+                 </form>
               <h3 class="box-title">Class  Subject</h3>
             </div>             
 

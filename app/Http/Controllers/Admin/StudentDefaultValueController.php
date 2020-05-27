@@ -18,7 +18,6 @@ use App\Model\Isoptional;
 use App\Model\ParentsInfo;
 use App\Model\PaymentType;
 use App\Model\Religion;
-use App\Model\SessionDate;
 use App\Model\Sms\EmailTemplate;
 use App\Model\Sms\SmsTemplate;
 use App\Model\Sms\TemplateType;
@@ -48,8 +47,7 @@ class StudentDefaultValueController extends Controller
     public function index()
     {
         $user_id=Auth::guard('admin')->user()->id;
-        $classes = MyFuncs::getClasses();    
-        $sessions = array_pluck(SessionDate::get(['id','date'])->toArray(),'date', 'id');
+        $classes = MyFuncs::getClasses();
         $academicYears = array_pluck(AcademicYear::get(['id','name'])->toArray(),'name', 'id');
         $genders = array_pluck(Gender::get(['id','genders'])->toArray(),'genders', 'id');
         $religions = array_pluck(Religion::get(['id','name'])->toArray(),'name', 'id');
@@ -58,7 +56,7 @@ class StudentDefaultValueController extends Controller
         $default = StudentDefaultValue::where('user_id',$user_id)->first();
         $birthdaytemplates=BirthdayTemplate::orderBy('id','ASC')->get();
 
-        return view('admin.student.studentdetails.default',compact('classes','sessions','default','genders','religions','categories','default','academicYears','houses','birthdaytemplates'));
+        return view('admin.student.studentdetails.default',compact('classes','default','genders','religions','categories','default','academicYears','houses','birthdaytemplates'));
     }
 
     /**

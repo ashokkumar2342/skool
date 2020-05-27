@@ -132,7 +132,7 @@
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>                          
-                                                    {{ Form::date('date_of_admission', @$default->admission_date,array('class' => 'form-control datepicker' )) }}
+                                                    {{ Form::text('date_of_admission', @$default->admission_date,array('class' => 'form-control datepicker' )) }}
                                                     </div>
                                                     <p class="text-danger">{{ $errors->first('date_of_admission') }}</p>
                                                 </div>
@@ -146,7 +146,7 @@
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>                          
-                                                    {{ Form::date('date_of_activation',@$default->activation_date ,array('class' => 'form-control datepicker' )) }}
+                                                    {{ Form::text('date_of_activation',@$default->activation_date ,array('class' => 'form-control datepicker' )) }}
                                                     </div>
                                                     <p class="text-danger">{{ $errors->first('date_of_activation') }}</p>
                                                 </div>
@@ -187,7 +187,7 @@
                                                       @php
                                                           $date = date('Y-m-d');
                                                      @endphp                 
-                                                    {{ Form::date('date_of_birth','',array('class' => 'form-control','max'=>date('Y-m-d',strtotime($date ."-730 days")),'min'=>date('Y-m-d',strtotime($date ."-7300 days")) )) }}
+                                                    {{ Form::text('date_of_birth','',array('class' => 'form-control datepicker','max'=>date('Y-m-d',strtotime($date ."-730 days")),'min'=>date('Y-m-d',strtotime($date ."-7300 days")) )) }}
                                                     </div>
                                                     <p class="text-danger">{{ $errors->first('date_of_birth') }}</p>
                                                 </div>

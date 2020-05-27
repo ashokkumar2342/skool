@@ -220,12 +220,12 @@ class AccountController extends Controller
     } 
     Public function accessHotMenuShow(Request $request){  
       $id = $request->id;    
-      $usersmenus = Minu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id']);
+      $usersmenusType= Minu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id']);
       $menusType = Minu::where('admin_id',$id)->where('status',1)->get(['minu_id']);
       $menus = MinuType::whereIn('id',$menusType)->get();  
-      $subMenus = SubMenu::whereIn('id',$usersmenus)->where('status',1)->get();
-      $usersHotMenus = array_pluck(HotMenu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id'])->toArray(), 'sub_menu_id'); 
-      $data= view('admin.account.hotmenuTable',compact('menus','subMenus','usersmenus','id','usersHotMenus'))->render(); 
+      $subMenus = SubMenu::whereIn('id',$usersmenusType)->where('status',1)->get();
+      $usersmenus = array_pluck(HotMenu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id'])->toArray(), 'sub_menu_id'); 
+      $data= view('admin.account.hotmenuTable',compact('menus','subMenus','id','usersmenus'))->render(); 
       return response($data);
     }  
 
@@ -240,10 +240,20 @@ class AccountController extends Controller
     }
     public function defaultUserMenuAssignReport($id)
     {
-      $id=Crypt::decrypt($id);
-     $usersmenus = array_pluck(Minu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id'])->toArray(), 'sub_menu_id'); 
-     $menus = MinuType::all();
-     $subMenus = SubMenu::all(); 
+     $id=Crypt::decrypt($id); 
+     $previousRoute= app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName();
+     if ($previousRoute=='admin.account.access') {
+         $usersmenus = array_pluck(Minu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id'])->toArray(), 'sub_menu_id'); 
+         $menus = MinuType::all();
+         $subMenus = SubMenu::all(); 
+     }elseif ($previousRoute=='admin.account.access.hotmenu'){ 
+      $usersmenusType= Minu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id']);
+      $menusType = Minu::where('admin_id',$id)->where('status',1)->get(['minu_id']);
+      $menus = MinuType::whereIn('id',$menusType)->get();  
+      $subMenus = SubMenu::whereIn('id',$usersmenusType)->where('status',1)->get();
+      $usersmenus = array_pluck(HotMenu::where('admin_id',$id)->where('status',1)->get(['sub_menu_id'])->toArray(), 'sub_menu_id');
+     }
+      
      $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
@@ -484,6 +494,20 @@ class AccountController extends Controller
      
     $submenus=SubMenu::where('menu_type_id',$id)->orderBy('sorting_id', 'ASC')->get();
      return view('admin.account.sub_menu_ordering',compact('submenus'));
+
+  } 
+  public function menuReport(Request $request)
+  {
+     $optradio=$request->optradio;
+     $menus = MinuType::all();
+     $subMenus=SubMenu::all();
+     $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.account.report.menu_order_report',compact('menus','subMenus','optradio'));
+        return $pdf->stream('menu_report.pdf');
+    
 
   } 
   public function defaultUserRolrReportGenerate(Request $request,$id)

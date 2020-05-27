@@ -1,7 +1,8 @@
 <div class="table-responsive">
-<table class="table" id="sport_hobby_items">                         
+<table class="table table-striped table-bordered" id="sport_hobby_items">                         
                        <thead>
                            <tr>
+                               <th class="text-nowrap">Sr.No.</th>
                                <th class="text-nowrap">Academic Year</th>
                                <th class="text-nowrap">Sports Activity Name</th>
                                <th>Level</th>
@@ -9,8 +10,12 @@
                            </tr>
                        </thead>
                        <tbody>
+                        @php
+                          $arrayId=1;
+                        @endphp
                         @foreach ( $sportHobbies as $sportHobby) 
                            <tr>
+                               <td>{{ $arrayId++ }}</td>
                                <td>{{$sportHobby->sessions->name or ''  }}</td>
                                <td>{{ $sportHobby->sports_activity_name }}</td>
                                <td>{{ $sportHobby->awardLevel->name or '' }}</td>

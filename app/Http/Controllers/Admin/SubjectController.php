@@ -117,15 +117,20 @@ class SubjectController extends Controller
          $subject->delete();
           return  redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
-    public function classSubjectPDF($id)
+    public function classSubjectPDF(Request $request)
     {
-        $manageSubjects=Subject::orderBy('classType_id','ASC')->get()->groupBy('classType_id');
-
+        $conditionVal=$request->optradio;
+        if ($request->optradio=='class_wise') {
+          $manageSubjects=Subject::orderBy('classType_id','ASC')->get()->groupBy('classType_id'); 
+        }
+        elseif ($request->optradio=='all') { 
+        $manageSubjects=Subject::orderBy('classType_id','ASC')->get();
+        }
          $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.subject.class_subject_pdf',compact('manageSubjects','id'));
+        ->loadView('admin.subject.class_subject_pdf',compact('manageSubjects','conditionVal'));
         return $pdf->stream('section.pdf');
     }
 }

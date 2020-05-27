@@ -1,18 +1,23 @@
- <table class="table" id="sibling_items">                         
+ <table class="table table-striped table-bordered" id="sibling_items">                         
                       <thead>
                           <tr>
 
-                              <th><span class="text-nowrap">Sibling Registration No</span></th>
-                              <th><span class="text-nowrap">Name</span></th>
-                              <th><span class="text-nowrap">Class</span></th>
-                              <th><span class="text-nowrap">Section</span></th>
-                              <th><span class="text-nowrap">Action</span></th>
+                              <th>Sr.No.</th>
+                              <th>Sibling Registration No.</th>
+                              <th>Name</th>
+                              <th>Class</th>
+                              <th>Section</th>
+                              <th>Action</th>
                           </tr>
                       </thead>
+                      @php
+                        $arrayId=1;
+                      @endphp
                       <tbody> 
                          @foreach($studentSiblingIdFind as $studentSiblingIdFind)   
                              
                           <tr> 
+                              <td>{{ $arrayId++ }}</td>
                               <td>{{ $studentSiblingIdFind->studentSiblings->registration_no or '' }}</td>
                               <td>{{ $studentSiblingIdFind->studentSiblings->name  or ''}}</td>
                               <td>{{ $studentSiblingIdFind->studentSiblings->classes->name  or '' }}</td>

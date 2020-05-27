@@ -70,6 +70,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('menu-ordering-store', 'AccountController@menuOrderingStore')->name('admin.account.menu.ordering.store'); 
 		Route::get('submenu-ordering-store', 'AccountController@subMenuOrderingStore')->name('admin.account.submenu.ordering.store'); 
 		Route::get('menu-filter/{id}', 'AccountController@menuFilter')->name('admin.account.menu.filte'); 
+		Route::post('menu-report', 'AccountController@menuReport')->name('admin.account.menu.report'); 
 		Route::get('user-menu-assign-report/{id}', 'AccountController@defaultUserMenuAssignReport')->name('admin.account.user.menu.assign.report'); 
 		Route::post('default-user-role-report-generate/{id}', 'AccountController@defaultUserRolrReportGenerate')->name('admin.account.default.user.role.report.generate'); 
 		
@@ -414,7 +415,7 @@ Route::group(['middleware' => 'admin'], function() {
 	 	    Route::get('{manageSubjectEdit}/edit', 'SubjectController@edit')->name('admin.manageSubject.edit');
 	 	    Route::post('{manageSubject}/update', 'SubjectController@update')->name('admin.manageSubject.update');
 	 	    Route::get('{manageSubject}/delete', 'SubjectController@destroy')->name('admin.manageSubject.delete');        
-	 	    Route::get('class-subject-pdf/{id}', 'SubjectController@classSubjectPDF')->name('admin.manageSubject.pdf.generate');        
+	 	    Route::post('class-subject-pdf', 'SubjectController@classSubjectPDF')->name('admin.manageSubject.pdf.generate');        
 	 	});
 	 // ---------------Signature-stamp---------------------------------------
 	 Route::group(['prefix' => 'Signature-stamp'], function() {

@@ -39,6 +39,15 @@
                   $arrayId=1; 
                   @endphp
                 @foreach($manageSubjects as $key => $manage)
+                  @if ($conditionVal=='all')
+                    <tr>
+                      <td>{{ $arrayId++}}</td>                 
+                      <td>{{ $manage->classTypes->name or ''}}</td>                 
+                      <td>{{ $manage->subjectTypes->name or ''}}</td>                 
+                      <td>{{ $manage->isoptional->name or ''}}</td>
+                    </tr>
+                  @endif
+                  @if ($conditionVal=='class_wise')  
                   @foreach ($manage as $manageSubject)
                     <tr>
                       <td>{{ $arrayId++}}</td>                 
@@ -52,7 +61,7 @@
                      <div class="page_break"></div>
                   </td>
                 </tr>
-                 
+                @endif
                 @endforeach
 
                 </tbody>

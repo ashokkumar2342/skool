@@ -1,16 +1,21 @@
 <div class="table-responsive">
   
-<table class="table" id="document_items">                         
+<table class="table table-striped table-bordered" id="document_items">                         
                       <thead>
                           <tr>
+                              <th class="text-nowrap">Sr.No.</th>
                               <th class="text-nowrap">Document Type Name</th>
                               <th>Doc Name</th>
                               <th>Action</th>
                           </tr>
                       </thead>
                       <tbody>
+                        @php
+                          $arrayId=1;
+                        @endphp
                         @foreach ($documents as $document) 
                           <tr>
+                              <td>{{ $arrayId++}}</td>
                               <td>{{ $document->documentTypes->name or ''}}</td>
                               <td>{{ $document->name }}</td>                             
                               <td> 
