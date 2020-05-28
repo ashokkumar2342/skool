@@ -1,5 +1,5 @@
 
- 
+ {{-- 
   @foreach($students as $student)
   <div class="panel-group">
     <div class="panel panel-default">
@@ -11,16 +11,22 @@
        
       <div id="collapse{{ $student->id }}" class="panel-collapse collapse">
         
-        
+        <ul class="list-group">
+          <li class="list-group-item">
+            <iframe src="https://docs.google.com/gview?url=http://eageskool.com/admin/student/student-document-verify-print/23&embedded=true" style="width:100%; height:1000px;" frameborder="0"></iframe>
+          </li>
+          <li class="list-group-item">Two</li>
+          <li class="list-group-item">Three</li>
+        </ul>
        
-        
+        <div class="panel-footer">Footer</div>
       </div>
       
     </div>
   </div>
-  @endforeach
+  @endforeach --}}
 
-{{-- <div class="table-responsive">
+<div class="table-responsive">
    
 <table  class="table table-bordered table-striped table-hover">
   <thead>
@@ -37,7 +43,7 @@
   @foreach($students as $student)
  
   <tr onclick="callPopupLarge(this,'{{ route('admin.student.document.verify.view',$student->id) }}')">
-    <td>{{ $student->registration_no }}</td>
+    <td><a target="_blank" href="{{ route('admin.student.document.verify.view',$student->id) }}" title="">{{ $student->registration_no }}</a></td>
     <td>{{ $student->name }}</td>
     <td>{{ $student->classes->name or '' }}</td>
     <td>{{ $student->sectionTypes->name or '' }}</td>
@@ -48,6 +54,6 @@
   @endforeach
   </tbody>
    
-</table> --}}
+</table>
  </div> 
              

@@ -600,7 +600,7 @@ class StudentController extends Controller
             }
             $headers = array(
               'Content-Type' => $mimeType,
-              'Content-Disposition' => 'inline; filename="'.$storagePath.'"'
+              'Content-Disposition' => 'inline; filename="'.$documents->name.'"'
             );
             return Response::make(file_get_contents($storagePath), 200, $headers);
       }
