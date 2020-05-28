@@ -592,18 +592,23 @@ class StudentController extends Controller
     }
     public function studentDocumentVerifyPrint($id)
     {
-      $documents=Document::find($id);
-      $storagePath = storage_path('/app/'.$documents->document_url);
-            $mimeType = mime_content_type($storagePath);
-            if( ! \File::exists($storagePath)){
-              return 'file not found';
-            }
-            $headers = array(
-              'Content-Type' => $mimeType,
-              'Content-Disposition' => 'inline; filename="'.$documents->name.'"'
-            );
-            return Response::make(file_get_contents($storagePath), 200, $headers);
+      try {
+        $documents=Document::find($id);
+        $storagePath = storage_path('/app/'.$documents->document_url);
+        $mimeType = mime_content_type($storagePath);
+        if( ! \File::exists($storagePath)){
+          return 'file not found';
+        }
+        $headers = array(
+          'Content-Type' => $mimeType,
+          'Content-Disposition' => 'inline; filename="'.$documents->name.'"'
+        );
+        return Response::make(file_get_contents($storagePath), 200, $headers);
+      } catch (Exception $e) {
+        Log::error('StudentController-studentDocumentVerifyPrint: '.$e->getMessage()); 
+        return view('error.home');
       }
+    }
 
     public function edit(Student $student)
     {   $houses=House::orderBy('id','ASC')->get();      

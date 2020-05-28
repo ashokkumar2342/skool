@@ -42,8 +42,9 @@
   <tbody>
   @foreach($students as $student)
  
-  <tr onclick="callPopupLarge(this,'{{ route('admin.student.document.verify.view',$student->id) }}')">
-    <td><a target="_blank" href="{{ route('admin.student.document.verify.view',$student->id) }}" title="">{{ $student->registration_no }}</a></td>
+  <tr>
+    <td>
+      <span onclick="callPopupLarge(this,'{{ route('admin.student.document.verify.view',$student->id) }}')" class="cursor">{{ $student->registration_no }}</span></td>
     <td>{{ $student->name }}</td>
     <td>{{ $student->classes->name or '' }}</td>
     <td>{{ $student->sectionTypes->name or '' }}</td>
