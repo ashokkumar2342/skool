@@ -2,10 +2,13 @@
   $SchoolDetail=App\School_details::first();  
    
 @endphp
-<table style="height: 150px;" width="619">
+<header style="border: 2px solid #5f0202;">
+	
+<table>
 <tbody>
 <tr>
-<td style="width: 100%;">{!! $SchoolDetail->report_header !!}</td>
+<td class="text-nowrap">{!! $SchoolDetail->report_header !!}</td>
 </tr>
 </tbody>
 </table>
+</header>

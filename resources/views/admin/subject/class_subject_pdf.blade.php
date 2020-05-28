@@ -29,7 +29,8 @@
                   <th>Sr.No.</th>                   
                   <th>Class Name</th>                   
                   <th>Subject Name</th>                   
-                  <th>IsOptinal</th>                   
+                  <th>Subject Code</th>                   
+                  <th>Compulsory/Elective</th>                   
                    
                 </tr>
                 </thead>
@@ -44,6 +45,7 @@
                       <td>{{ $arrayId++}}</td>                 
                       <td>{{ $manage->classTypes->name or ''}}</td>                 
                       <td>{{ $manage->subjectTypes->name or ''}}</td>                 
+                      <td>{{ $manage->subjectTypes->code or ''}}</td>                 
                       <td>{{ $manage->isoptional->name or ''}}</td>
                     </tr>
                   @endif

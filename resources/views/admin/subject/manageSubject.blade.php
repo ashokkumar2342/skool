@@ -51,8 +51,8 @@
                              <th style="width: 10px">Code</th>
                              <th> <input  class="checked_all" type="checkbox"></th>
                             <td><b>Subject</b></td>                         
-                             <th><button type="button" data-click="compulsory" class="btn btn-success btn-xs"><i class="fa fa-check"></i> compulsory</button> </th>
-                             <th ><button type="button" data-click="optional" class="btn btn-warning btn-xs"><i class="fa fa-check"></i> Optinal</button>  </th>   
+                             <th><button type="button" data-click="compulsory" class="btn btn-success btn-xs"><i class="fa fa-check"></i> Compulsory</button> </th>
+                             <th ><button type="button" data-click="optional" class="btn btn-warning btn-xs"><i class="fa fa-check"></i> Elective</button>  </th>   
                          </tr>
                          </thead>
                          <tbody id="searchResult">                      
@@ -82,7 +82,7 @@
                   <th>Sr.No.</th>                
                   <th>class Name</th>                   
                   <th>Subject Name</th>                   
-                  <th>Is Optional</th>                   
+                  <th>Compulsory/Elective</th>                   
                   <th width="80px">Action</th>
                 </tr>
                 </thead>
