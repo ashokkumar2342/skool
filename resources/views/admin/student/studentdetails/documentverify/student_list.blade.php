@@ -1,4 +1,26 @@
-<div class="table-responsive">
+
+ 
+  @foreach($students as $student)
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" onclick="callAjax(this,'{{ route('admin.student.document.verify.view',$student->id) }}','collapse{{ $student->id }}')" href="#collapse{{ $student->id }}">{{ $student->registration_no }}</a>
+        </h4>
+      </div>
+       
+      <div id="collapse{{ $student->id }}" class="panel-collapse collapse">
+        
+        
+       
+        
+      </div>
+      
+    </div>
+  </div>
+  @endforeach
+
+{{-- <div class="table-responsive">
    
 <table  class="table table-bordered table-striped table-hover">
   <thead>
@@ -26,6 +48,6 @@
   @endforeach
   </tbody>
    
-</table>
+</table> --}}
  </div> 
              

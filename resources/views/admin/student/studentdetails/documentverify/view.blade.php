@@ -1,4 +1,4 @@
-<div class="modal-dialog">
+{{-- <div class="modal-dialog">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
@@ -28,5 +28,16 @@
 	</table>
 </div>
 </div>
-</div>
+</div> --}}
+<ul class="list-group">
+	@foreach ($documents as $document)
+		@php
+			$paths=route('admin.student.document.verify.print',$document->id);
+		@endphp
+	  <li class="list-group-item">
+	  	<iframe src="https://docs.google.com/gview?url={{$paths}}&embedded=true" style="width:100%; height:1000px;" frameborder="0"></iframe>
+	  </li>
+	   
+  @endforeach
+</ul>
 
