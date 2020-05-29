@@ -51,6 +51,16 @@
      font-size:7px; 
      vertical-align: super;
    }
+   .cursor:hover{
+    cursor: pointer !important; 
+    color:#2d4e94 !important;
+    text-decoration: underline !important;
+   }
+   .cursor{
+    cursor: pointer !important; 
+    color:#2d4e94 !important;
+    text-decoration: underline !important;
+   }
 
   </style>
 
@@ -77,7 +87,7 @@
             <div class="pull-right hidden-xs">
            
             </div>
-            <strong>Copyright &copy; 2018-2019 <a href="http://www.innovusine.com"></a>.</strong> All rights reserved.
+            <strong>Copyright &copy; {{ date('Y') }} <a href="http://www.innovusine.com"></a>.</strong> All rights reserved.
         </footer>
 
         <!-- Add the sidebar's background. This div must be placed

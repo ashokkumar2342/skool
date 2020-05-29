@@ -5,12 +5,8 @@
 <h4 class="modal-title"></h4>
 </div>
 <div class="modal-body">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Document</th>
-			</tr>
-		</thead>
+	<table class="table table-bordered table-striped table-hover">
+		 
 		<tbody>
 			@foreach ($documents as $document)
 			@php
@@ -19,7 +15,15 @@
 			<tr>
 				
 				<td>
-					<iframe src="https://docs.google.com/gview?url={{$paths}}&embedded=true" style="width:100%; height:1000px;" frameborder="0"></iframe>
+					<div class="col-lg-4">
+						<input type="checkbox" name="verify_{{ $document->id}}" >
+						<label>Verify</label>
+					</div>
+					<div class="col-lg-4">
+						<span class="btb btn-danger btn-sm">Reject</span>
+					</div>
+					<iframe src="{{$paths}}" style="width:100%; height:500px;" frameborder="0"></iframe>
+
 				
 				</td>
 			</tr>
@@ -29,4 +33,17 @@
 </div>
 </div>
 </div>
+{{-- <ul class="list-group">
+	@foreach ($documents as $document)
+		@php
+			$paths=route('admin.student.document.verify.print',$document->id);
+		@endphp
+	  <li class="list-group-item">
+	  	<iframe src="https://docs.google.com/gview?url=http://eageskool.com/admin/student/student-document-verify-print/23&embedded=true" style="width:100%; height:1000px;" frameborder="0"></iframe>
+	  </li>
+	   
+  @endforeach
+</ul> --}}
 
+
+ 
