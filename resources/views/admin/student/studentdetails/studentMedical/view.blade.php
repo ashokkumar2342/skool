@@ -7,44 +7,47 @@
 
     <section class="content">
         <div class="box"> 
-          <div class="box-body">
-             <form action="{{ route('admin.medical.student.show') }}" method="post" class="add_form" success-content-id="student_list" no-reset="true" button-click="btn_medical_form">
-               {{ csrf_field() }}
-
-                <div class="col-lg-4 form-group">
-                  <label>Registration No</label>
-                  <select name="student_id" class="form-control select2">
-                    <option selected disabled>Select Registration No</option>
-                    @foreach ($students as $student)
-                      <option value="{{ $student->id }}">{{ $student->registration_no }}</option> 
-                     @endforeach 
-                  </select> 
-                 </div>
-                 <div class="col-lg-3">
-                  <input type="submit" class="btn btn-success" value="Show" style="margin-top: 24px"> 
+          <div class="box-body"> 
+                <div class="row">
+                  <div class="col-lg-4" style="margin-left: 20px">
+                     <label>Registration No</label>
+                       <input type="text" class="form-control"  autocomplete="off" name="registration_no" id="registration_no" autofocus onkeyup="Medical(this)" > 
+                        </div>
+                  </div>
+                  <form  action="{{ route('admin.medical.add') }}"  method="post" button-click="btn_close,medical_info_tab" class="add_form">
+                  {{ csrf_field() }} 
+                  <div id="dd_div_show" style="margin-top: 40px">
                   </div> 
-             </form>
-             <div id="student_list">
-                 
-               </div>  
+                </form>
+            </div> 
           </div>
         </div>
            
 
 
     </section>
-    <!-- /.content -->
 @endsection
 @push('links')
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 @endpush
  @push('scripts')
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
- <script type="text/javascript">
-     $(document).ready(function(){
-        $('#dataTable').DataTable();
-        
-    });
-     
+ 
+<script type="text/javascript">
+  function Medical(obj) { 
+   
+    if (obj.value.length=={{ $schoolinfo }}) {  
+        callAjax(this,'{{ route('admin.medical.student.show') }}'+'?registration_no='+$('#registration_no').val(),'dd_div_show'); 
+        document.getElementById("registration_no").value= '';
+    }
+
+
+  }
+   // $('#btn_save_attendance_barcode').click();  
+   // $('#btn_click_form_blade').click();  
  </script>
+
+ 
+ 
+  
 @endpush

@@ -340,7 +340,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('send-email/{id}', 'StudentMedicalInfoController@medicalSendEmail')->name('admin.medical.send.email');
 	    Route::get('template-view/{id}', 'StudentMedicalInfoController@templateView')->name('admin.medical.template.view');
 	    Route::get('medical-add', 'StudentMedicalInfoController@studentMedicalAdd')->name('admin.medical.student.medical.add');
-	    Route::post('student-show', 'StudentMedicalInfoController@studentShow')->name('admin.medical.student.show');
+	    Route::get('student-show', 'StudentMedicalInfoController@studentShow')->name('admin.medical.student.show');
 	 }); 
 	   	// ---------------Sibling Info----------------------------------------
 	 Route::group(['prefix' => 'sibling-info'], function() {
@@ -420,8 +420,8 @@ Route::group(['middleware' => 'admin'], function() {
 	 // ---------------Signature-stamp---------------------------------------
 	 Route::group(['prefix' => 'Signature-stamp'], function() {
 	     Route::get('/', 'SignatureStampController@index')->name('admin.signature.stamp');
-	     Route::get('add-form', 'SignatureStampController@addForm')->name('admin.signature.stamp.add.form');
-	     Route::post('store', 'SignatureStampController@store')->name('admin.signature.stamp.store');
+	     Route::get('add-form/{id?}', 'SignatureStampController@addForm')->name('admin.signature.stamp.add.form');
+	     Route::post('store/{id?}', 'SignatureStampController@store')->name('admin.signature.stamp.store');
 	     Route::get('table-show', 'SignatureStampController@tableShow')->name('admin.signature.stamp.table.show');
 	     
 	      
@@ -1059,6 +1059,7 @@ Route::group(['middleware' => 'admin'], function() {
 			//------------------------- SMS ---------------------------------
 			Route::group(['prefix' => 'sms'], function() {
 			    Route::get('/', 'Sms\SmsController@index')->name('admin.sms.form');	 	
+			    Route::get('form/{id}', 'Sms\SmsController@sendform')->name('admin.sms.send.form');	 	
 			    Route::post('send', 'Sms\SmsController@smsSend')->name('admin.sms.sendSms'); 
 			    Route::post('quick-sms', 'Sms\SmsController@quickSms')->name('admin.quick.sms'); 
 			    Route::get('sms-report', 'Sms\SmsController@smsReport')->name('admin.sms.smsReport'); 

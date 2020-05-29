@@ -8,6 +8,7 @@ use App\Model\CertificateType;
 use App\Model\IssueAthortiType;
 use App\Model\SignatureStamp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class SignatureStampController extends Controller
@@ -16,28 +17,31 @@ class SignatureStampController extends Controller
     {
     	return view('admin.master.signature.view'); 
     }
-    public function addForm($value='')
+    public function addForm($id=null)
     {
+        if ($id==null) {
+            $signatureStamps='';
+        }elseif ($id!=null) {
+        $signatureStamps=SignatureStamp::find(Crypt::decrypt($id));
+        }
     	$admins=Admin::orderBy('id','ASC')->get();
         $CertificateTypes=CertificateType::orderBy('name','ASC')->get();
         $IssueAthortiTypes=IssueAthortiType::orderBy('name','ASC')->get();
-    	return view('admin.master.signature.add_form',compact('admins','CertificateTypes','IssueAthortiTypes')); 
+    	return view('admin.master.signature.add_form',compact('admins','CertificateTypes','IssueAthortiTypes','signatureStamps')); 
     }
     public function tableShow()
     {
     	$signatureStamps=SignatureStamp::orderBy('id','ASC')->get();
     	return view('admin.master.signature.table_show',compact('signatureStamps'));  
     }
-     public function store(Request $request)
+     public function store(Request $request,$id=null)
     {  
     	 $rules=[
           
-            'certificate_type_id' => 'required', 
             'user_id' => 'required', 
-            'stamp_type' => 'required', 
-            'signature' => 'required', 
-            'stamp' => 'required', 
+            'certificate_type_id' => 'required', 
             'destination' => 'required', 
+            'issue_user_type' => 'required', 
             'from_date' => 'required', 
              
             
@@ -63,14 +67,14 @@ class SignatureStampController extends Controller
                 $stamp=$request->stamp;
                 $stampname='stamp'.date('d-m-Y').time().'.jpg'; 
                 $stamp->storeAs('public/stamp/',$stampname); 
-                $signatureStamp=new SignatureStamp();
+                $signatureStamp=  SignatureStamp::firstOrNew(['id'=>$id]);
                 $signatureStamp->certificate_type_id=$request->certificate_type_id;
                 $signatureStamp->user_id=$request->user_id; 
                 $signatureStamp->signature=$signaturename;
                 $signatureStamp->stamp=$stampname;
                 $signatureStamp->from_date=$request->from_date;
                 $signatureStamp->to_date=$request->to_date;
-                $signatureStamp->stamp_type=$request->stamp_type;
+                $signatureStamp->stamp_type=$request->issue_user_type;
                 $signatureStamp->destination=$request->destination;
                 $signatureStamp->status=1;
                 $signatureStamp->save();
@@ -80,12 +84,13 @@ class SignatureStampController extends Controller
             }
            }
             else{
-               $signatureStamp= new SignatureStamp(); 
+               $signatureStamp=   SignatureStamp::firstOrNew(['id'=>$id]);
                $signatureStamp->certificate_type_id=$request->certificate_type_id;
                 $signatureStamp->user_id=$request->user_id; 
                 $signatureStamp->from_date=$request->from_date;
                 $signatureStamp->to_date=$request->to_date;
-                $signatureStamp->stamp_type=$request->stamp_type;
+                $signatureStamp->stamp_type=$request->issue_user_type;
+                $signatureStamp->destination=$request->destination;
                 $signatureStamp->status=1;
                $signatureStamp->save();
                $response=['status'=>1,'msg'=>'Created Successfully'];

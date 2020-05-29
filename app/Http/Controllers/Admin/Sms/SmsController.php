@@ -23,7 +23,13 @@ class SmsController extends Controller
 {
     public function index(){
         $classes = MyFuncs::getClasses(); 
-    	return view('admin.sms.smsForm',compact('classes'));
+    	return view('admin.sms.index',compact('classes'));
+    }
+    public function sendform($conditionId)
+    {
+        $messagePurposes=MessagePurpose::orderBy('name','ASC')->get();
+        $classTypes=MyFuncs::getClassByHasUser();
+        return view('admin.sms.send_form',compact('classTypes','messagePurposes','conditionId'));
     }
     //send SMS
     public function smsSend(Request $request){  

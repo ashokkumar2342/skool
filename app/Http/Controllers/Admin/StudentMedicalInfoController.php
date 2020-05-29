@@ -22,6 +22,7 @@ use App\Model\ParentsInfo;
 use App\Model\PaymentType;
 use App\Model\Profession;
 use App\Model\Religion;
+use App\Model\Schoolinfo;
 use App\Model\SessionDate;
 use App\Model\Sms\EmailTemplate;
 use App\Model\Sms\SmsTemplate;
@@ -354,17 +355,21 @@ class StudentMedicalInfoController extends Controller
     public function studentMedicalAdd($value='')
     {
         $st= new Student();
-        $students=$st->getAllStudents();
-       return view('admin.student.studentdetails.studentMedical.view',compact('students'));  
+        $student=$st->getAllStudents();
+        $schoolinfo=Schoolinfo::first()->reg_length;
+       return view('admin.student.studentdetails.studentMedical.view',compact('student','schoolinfo'));  
     }
     public function studentShow(Request $request)
-    { 
+    {  
+        $user_id=Auth::guard('admin')->user()->id;
         $st= new Student();
-        $student=$st->getStudentDetailsById($request->student_id);
+        $student=$st->getDetailByRegistrationNo($request->registration_no);
+        $student_id=$request->id; 
+        $default = StudentDefaultValue::where('user_id',$user_id)->first(); 
+        $bloodgroups = array_pluck(BloodGroup::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id'); 
+        $complextions=Complextion::orderBy('name','ASC')->get();
         
-        $response = array();
-        $response['status'] = 1;
-        $response['data']=view('admin.student.studentdetails.studentMedical.student_list',compact('student'))->render(); 
-       return $response; 
+       
+       return view('admin.student.studentdetails.studentMedical.student_list',compact('student','bloodgroups','default','complextions'));
     }
 }
