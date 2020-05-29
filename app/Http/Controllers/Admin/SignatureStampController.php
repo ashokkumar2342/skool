@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Admin;
 use App\Http\Controllers\Controller;
+use App\Model\CertificateType;
+use App\Model\IssueAthortiType;
 use App\Model\SignatureStamp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,7 +19,9 @@ class SignatureStampController extends Controller
     public function addForm($value='')
     {
     	$admins=Admin::orderBy('id','ASC')->get();
-    	return view('admin.master.signature.add_form',compact('admins')); 
+        $CertificateTypes=CertificateType::orderBy('name','ASC')->get();
+        $IssueAthortiTypes=IssueAthortiType::orderBy('name','ASC')->get();
+    	return view('admin.master.signature.add_form',compact('admins','CertificateTypes','IssueAthortiTypes')); 
     }
     public function tableShow()
     {
@@ -31,8 +35,11 @@ class SignatureStampController extends Controller
             'certificate_type_id' => 'required', 
             'user_id' => 'required', 
             'stamp_type' => 'required', 
+            'signature' => 'required', 
+            'stamp' => 'required', 
+            'destination' => 'required', 
             'from_date' => 'required', 
-            'to_date' => 'required', 
+             
             
             
             
@@ -64,6 +71,7 @@ class SignatureStampController extends Controller
                 $signatureStamp->from_date=$request->from_date;
                 $signatureStamp->to_date=$request->to_date;
                 $signatureStamp->stamp_type=$request->stamp_type;
+                $signatureStamp->destination=$request->destination;
                 $signatureStamp->status=1;
                 $signatureStamp->save();
                $response=['status'=>1,'msg'=>'Created Successfully'];

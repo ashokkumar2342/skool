@@ -8,8 +8,13 @@ use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
 use App\Model\Library\TeacherFaculty;
+use App\Model\Role;
 use App\Model\Section;
 use App\Model\Sms\SmsTemplate;
+use App\Model\Staff\DesignationStaff;
+use App\Model\Staff\RelationStaff;
+use App\Model\Staff\StaffDetails;
+use App\Model\Staff\StatusStaff;
 use App\Model\Subject;
 use App\Model\SubjectType;
 use App\Model\TimeTable\ClassPeriodSchedule;
@@ -24,6 +29,7 @@ use App\Model\TimeTable\TeacherSubjectClass;
 use App\Model\TimeTable\TeacherWorkingDays;
 use App\Model\TimeTable\TimeTableType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
@@ -34,27 +40,31 @@ class TeacherController extends Controller
     	return view('admin.teacher.teacherDetails.view',compact('teacherFacultys'));
     }
     public function addForm(){
-      $classTypes=MyFuncs::getClassByHasUser();
-      return view('admin.teacher.teacherDetails.add_form',compact('classTypes'));
+      // $classTypes=MyFuncs::getClassByHasUser();
+      $RelationStaffs=RelationStaff::orderBy('name','ASC')->get();
+      $DesignationStaffs=DesignationStaff::orderBy('name','ASC')->get();
+      $roles = Role::orderBy('name','ASC')->get();
+      $StatusStaffs = StatusStaff::orderBy('name','ASC')->get();
+      return view('admin.teacher.teacherDetails.add_form',compact('RelationStaffs','DesignationStaffs','roles','StatusStaffs'));
     }
      public function addClassWiseSection(Request $request){
-      $sections=Section::where('class_id',$request->id)->get();
+      $sections = MyFuncs::getSections($request->id);
       return view('admin.teacher.teacherDetails.section',compact('sections'));
     }
-     public function store(Request $request){
-      // return $request;
+     public function store(Request $request){ 
       $rules=[
         
+           'code' => 'required|max:20|unique:staff_detail',
            'name' => 'required', 
-            'mobile' => 'required|digits:10', 
-            'email' => "required|max:50", 
-            'code' => "required|max:20", 
-            'father' => "required", 
-            'relation' => "required", 
-            'joining_date' => "required", 
-            'dob' => "required", 
-             
-       
+           'father_husband' => "required", 
+           'relation' => "required", 
+           'mobile_no' => 'required|digits:10', 
+           'email' => 'required|email|unique:admins',
+           'date_of_birth' => "required", 
+           'role_id' => "required", 
+           'designation' => "required", 
+           'status' => "required", 
+           'address' => "required",  
       ];
 
       $validator = Validator::make($request->all(),$rules);
@@ -64,35 +74,36 @@ class TeacherController extends Controller
           $response["status"]=0;
           $response["msg"]=$errors[0];
           return response()->json($response);// response as json
-      }
-        $classSaveIdCheck=TeacherFaculty::where('class_id',$request->class_id)->where('section_id',$request->section_id)->first();
-        if (!empty($classSaveIdCheck)) {
-          $response=['status'=>0,'msg'=>'Class Already Created'];
-            return response()->json($response);
-        }
+      } 
         else {
-         $teacherfaculties= new TeacherFaculty();
-          $teacherfaculties->registration_no=$request->code;
+          $admins=Auth::guard('admin')->user();
+          $days=date('d',strtotime($request->date_of_birth));
+          $maoths=date('m',strtotime($request->date_of_birth));
+          $years=date('Y',strtotime($request->date_of_birth));
+         $teacherfaculties= new StaffDetails();
+          $teacherfaculties->code=$request->code;
           $teacherfaculties->name=$request->name;
-          $teacherfaculties->father_name=$request->father;
-          $teacherfaculties->relation_name=$request->relation;
-          $teacherfaculties->father_mobile=$request->mobile;
-          $teacherfaculties->dob=$request->dob;
-          $teacherfaculties->class_id=$request->class_id;
-          $teacherfaculties->section_id=$request->section_id;
-          $teacherfaculties->joining_date=$request->joining_date;
-          $teacherfaculties->email=$request->email;
-          $teacherfaculties->c_address=$request->address;
-          $teacherfaculties->status=1;
+          $teacherfaculties->father_name=$request->father_husband;
+          $teacherfaculties->relation_id=$request->relation;
+          $teacherfaculties->primary_mobile=$request->mobile_no;
+          $teacherfaculties->primary_email=$request->email;
+          $teacherfaculties->birth_date=$request->date_of_birth;
+          $teacherfaculties->user_role_id=$request->role_id;
+          $teacherfaculties->designation=$request->designation; 
+          $teacherfaculties->p_address=$request->address;
+          $teacherfaculties->status=$request->status;
+          $teacherfaculties->dpassword=$days.$maoths.$years;
+          $teacherfaculties->dpassword_encript=bcrypt($days.$maoths.$years);
+          $teacherfaculties->last_updated_by=$admins->id;
           $teacherfaculties->save();
-         $response=['status'=>1,'msg'=>'Created Successfully'];
+         $response=['status'=>1,'msg'=>'Submit Successfully'];
             return response()->json($response);
         } 
     }
      
 
     public function tableShow(){
-       $teacherFacultys=TeacherFaculty::all();
+       $teacherFacultys=StaffDetails::all();
       return view('admin.teacher.teacherDetails.table_show',compact('teacherFacultys'));
     }
      public function edit($id){

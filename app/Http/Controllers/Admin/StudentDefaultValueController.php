@@ -27,7 +27,6 @@ use App\Model\StudentFee;
 use App\Model\StudentSubject;
 use App\Model\Subject;
 use App\Model\SubjectType;
-use App\Model\Template\BirthdayTemplate;
 use App\Student;
 use Auth;
 use Carbon;
@@ -54,7 +53,7 @@ class StudentDefaultValueController extends Controller
         $categories = array_pluck(Category::get(['id','name'])->toArray(),'name', 'id');
         $houses = array_pluck(House::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id');
         $default = StudentDefaultValue::where('user_id',$user_id)->first();
-        $birthdaytemplates=BirthdayTemplate::orderBy('id','ASC')->get();
+        
 
         return view('admin.student.studentdetails.default',compact('classes','default','genders','religions','categories','default','academicYears','houses','birthdaytemplates'));
     }

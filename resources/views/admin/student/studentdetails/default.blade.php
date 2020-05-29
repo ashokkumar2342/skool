@@ -168,20 +168,6 @@
                                                     <p class="text-danger">{{ $errors->first('m_height') }}</p>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-2">                         
-                                                <div class="form-group">
-                                                    {{ Form::label('birthday_template_id','Birthday Template',['class'=>' control-label']) }}
-                                                    <select name="birthday_template_id" class="form-control">
-                                                           <option selected disabled> Select Templet</option> 
-                                                        @foreach ($birthdaytemplates as $birthdaytemplate)
-                                                           
-                                                           <option value="{{ $birthdaytemplate->id }}"{{ @$default->birthday_template_id==$birthdaytemplate->id? 'selected' : '' }}>{{ $birthdaytemplate->name }}</option> 
-                                                        @endforeach
-                                                         
-                                                     </select>                         
-                                                    
-                                                </div>
-                                            </div>
                                           </div>
                                         </div>
                                       </div>

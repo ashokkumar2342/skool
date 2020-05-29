@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\LeaveRecord;
@@ -9,8 +10,9 @@ use App\Model\leaveTypeStudent;
 use App\Student;
 use Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class StudentLeaveController extends Controller
 {
@@ -25,8 +27,14 @@ class StudentLeaveController extends Controller
    } 
    public function show(Request $request)
    {   
-     $leaveRecords=LeaveRecord::where('student_id',$request->id)->orderBy('apply_date','ASC')->get();
-   	 return view('admin.attendance.leave.list',compact('leaveRecords'));
+     $leaveRecords=LeaveRecord::where('year_id',$request->academic_year_id)->where('student_id',$request->student_id)->orderBy('apply_date','ASC')->get();
+     $studentSumrys=DB::select(DB::raw("call up_view_leave_summery_student ($request->student_id, '$request->academic_year_id')")); 
+     
+   	 return view('admin.attendance.leave.list',compact('leaveRecords','studentSumrys'));
+   }
+   public function date(Request $request)
+   { $date=$request->id;
+     return view('admin.attendance.leave.date',compact('date'));
    }
    public function leaveApply($id=null)
    {
@@ -43,7 +51,12 @@ class StudentLeaveController extends Controller
    	 return view('admin.attendance.leave.apply_form',compact('students','leaveTypes','academicYears','leaveRecord'));
    }
    public function store(Request $request ,$id=null)
-   {
+   { 
+      $startTimeStamp = strtotime($request->from_date);
+      $endTimeStamp = strtotime($request->to_date); 
+      $timeDiff = abs($endTimeStamp - $startTimeStamp); 
+      $numberDays = $timeDiff/86400; 
+      $numberDays = intval($numberDays);
        $rules=[
         
              
@@ -65,7 +78,7 @@ class StudentLeaveController extends Controller
           $response["msg"]=$errors[0];
           return response()->json($response);// response as json
       }
-        else {
+        else { 
        $leaveType= LeaveRecord::firstOrNew(['id'=>$id]);
        $leaveType->year_id=$request->year_id;
        $leaveType->leave_id=$request->leave_id;
@@ -73,6 +86,7 @@ class StudentLeaveController extends Controller
        $leaveType->apply_date=date('Y-m-d',strtotime($request->apply_date));
        $leaveType->from_date=$request->from_date;
        $leaveType->to_date=$request->to_date;
+       $leaveType->total_days=$numberDays;
        $leaveType->remark=$request->remark;
        $leaveType->status=0;
        if ($request->hasFile('attachment')) { 
@@ -157,30 +171,37 @@ class StudentLeaveController extends Controller
 
    public function verify($value='')
    {
-      $leaveRecords=LeaveRecord::where('status',0)->orderBy('apply_date','ASC')->get();
+      $class_id=MyFuncs::getClassByHasUser();
+      $students=Student::whereIn('class_id',$class_id)->pluck('id')->toArray();
+      $leaveRecords=LeaveRecord::whereIn('student_id',$students)->where('status',0)->orderBy('apply_date','ASC')->get();
       return view('admin.attendance.verify.list',compact('leaveRecords'));
    }
     
-   public function verifyForm($id=null)
+   public function verifyForm($id)
    {
      $user_id=Auth::guard('admin')->user()->id; 
-      $leaveRecord=LeaveRecord::find($id);
-      $leaveRecord->status=1;
-      $leaveRecord->action_by=$user_id;
-      $leaveRecord->action_date=date('Y-m-d');
-      $leaveRecord->save();
-       return redirect()->back()->with(['message'=>'Approval Successfully','class'=>'success']);
+     $leaveRecord=LeaveRecord::find($id);
+     $st=new Student();
+     $student=$st->getStudentDetailsById($leaveRecord->student_id); 
+     return view('admin.attendance.verify.verify_form',compact('leaveRecord','student'));
     
      
    }
 
-   public function LeaveverifyStore($id=null){
-     $user_id=Auth::guard('admin')->user()->id; 
+   public function LeaveverifyStore(Request $request,$id){
+      $user_id=Auth::guard('admin')->user()->id; 
       $leaveRecord=LeaveRecord::find($id);
-      $leaveRecord->status=2;
+      $leaveRecord->status=$request->action;
       $leaveRecord->action_by=$user_id;
       $leaveRecord->action_date=date('Y-m-d');
+      $leaveRecord->remark=$request->remark;
       $leaveRecord->save();
-       return redirect()->back()->with(['message'=>'Reject Successfully','class'=>'success']);
+      if ($request->action==1) {
+       return redirect()->back()->with(['message'=>'Approval Successfully','class'=>'success']);  
+      }
+      elseif ($request->action==2) {
+       return redirect()->back()->with(['message'=>'Rejected Successfully','class'=>'success']);  
+      }
+       
    }
 }

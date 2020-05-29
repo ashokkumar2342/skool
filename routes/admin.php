@@ -550,7 +550,8 @@ Route::group(['middleware' => 'admin'], function() {
 	    });
 	    Route::group(['prefix' => 'student-leave'], function() { 
 	        Route::get('/', 'StudentLeaveController@index')->name('admin.attendance.leave');
-	        Route::get('list', 'StudentLeaveController@show')->name('admin.attendance.lest');
+	        Route::get('list', 'StudentLeaveController@show')->name('admin.attendance.list');
+	        Route::get('date', 'StudentLeaveController@date')->name('admin.attendance.date');
 	        Route::get('leave-apply/{id?}', 'StudentLeaveController@leaveApply')->name('admin.attendance.leave.apply');
 	        Route::post('store/{id?}', 'StudentLeaveController@store')->name('admin.attendance.leave.store');
 	        Route::get('delete/{id?}', 'StudentLeaveController@destroy')->name('admin.attendance.leave.delete'); 
@@ -558,7 +559,7 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::group(['prefix' => 'leave-verify'], function() { 
 	        Route::get('verify', 'StudentLeaveController@verify')->name('admin.attendance.leave.verify');
 	        Route::get('approval/{id?}', 'StudentLeaveController@verifyForm')->name('admin.attendance.leave.verify.form');
-	        Route::get('reject/{id?}', 'StudentLeaveController@LeaveverifyStore')->name('admin.attendance.leave.verify.store');
+	        Route::post('reject/{id?}', 'StudentLeaveController@LeaveverifyStore')->name('admin.attendance.leave.verify.store');
 	       
 	    });
 	    //------------------------- attendance-report ---------------------------------
@@ -1349,12 +1350,12 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::post('subject-store', 'TimeTable\ClassSubjectPeriodController@subjectMoveStore')->name('admin.option.subject.move.store');
           });
                //------------------teacher-details-------------------------------------------------------------------
-               Route::group(['prefix' => 'teacher-details'], function() {
-               	 Route::get('/', 'TimeTable\TeacherController@index')->name('admin.teacher.details');
-               	 Route::get('add-form', 'TimeTable\TeacherController@addForm')->name('admin.teacher.details.add.form');
+               Route::group(['prefix' => 'staff'], function() {
+               	 Route::get('list', 'TimeTable\TeacherController@index')->name('admin.staff.details');
+               	 Route::get('add-form', 'TimeTable\TeacherController@addForm')->name('admin.staff.details.add.form');
                	 Route::get('class-section', 'TimeTable\TeacherController@addclassWiseSection')->name('admin.teacher.class.wise.section.addForm');
-               	 Route::get('table-show', 'TimeTable\TeacherController@tableShow')->name('admin.teacher.details.table.show'); 
-               	 Route::post('store', 'TimeTable\TeacherController@store')->name('admin.teacher.details.store');
+               	 Route::get('table-show', 'TimeTable\TeacherController@tableShow')->name('admin.staff.details.table.show'); 
+               	 Route::post('store', 'TimeTable\TeacherController@store')->name('admin.staff.details.store');
                	 Route::get('edit/{id}', 'TimeTable\TeacherController@edit')->name('admin.teacher.details.edit');
                	 Route::get('delete/{id}', 'TimeTable\TeacherController@destroy')->name('admin.teacher.details.delete');
                	 Route::post('update/{id}', 'TimeTable\TeacherController@update')->name('admin.teacher.details.update');

@@ -10,7 +10,7 @@
             <form action="{{ route('admin.attendance.student.search',1) }}" method="post" class="add_form" success-content-id="attendance_table" no-reset="true">
               {{ csrf_field() }} 
               <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                   <div class="form-group">
                     <label>Class</label>
                     <select name="class_id" id="class_id" class="form-control" button-click="btn_attendance_list_show" onchange="callAjax(this,'{{ route('admin.teacher.class.wise.section.addForm') }}','section_id')">
@@ -22,7 +22,7 @@
                     </select> 
                   </div> 
                 </div> 
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                   <div class="form-group">
                     <label>Section</label>
                     <select name="section_id" class="form-control" id="section_id" onchange="$('#btn_attendance_list_show').click()"> 
@@ -32,15 +32,15 @@
                 @php
                   $date=date('Y-m-d');
                 @endphp
-                <div class="col-lg-3">                         
+                <div class="col-lg-4">                         
                   <div class="form-group">
                     <label>Date</label>
                     <input type="date" name="date" value="{{ $date }}" class="form-control" onchange="$('#btn_attendance_list_show').click()">
                   </div>
                 </div>
-              <div class="col-lg-3">
+              <div class="col-lg-4">
                 <div class="form-group">
-                  <input type="submit" id="btn_attendance_list_show" value="Show" class="btn btn-success form-control" style="margin-top: 24px">
+                  <input type="submit" id="btn_attendance_list_show" value="Show" class="btn btn-success form-control hidden" style="margin-top: 24px">
                   
                 </div>
             </form> 

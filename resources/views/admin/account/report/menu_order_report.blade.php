@@ -3,20 +3,28 @@
 <meta http-equiv="Content-Type" content="text/html/jpg/png; charset=utf-8"/>
 <head>
    <style>
-     @page { margin:0px; }
+    
      
    .pagenum:before {
         content: counter(page);
     }
     .page_break{
       page-break-before: always;
-    }
 
+    }
+@page { margin-top:50px; }
+    body { border: 2px solid red; }
+    /*.header { position: fixed; height: 65px; top: -70px; background-color: purple; }
+    .break-before { page-break-before: always; }
+    .section { margin-top: 200px; }*/
   </style>
  @include('admin.include.boostrap')
 </head>
-<body style="background-color:#fff">
-@include('schoolDetails.logo_header')
+<body >
+ 
+  @include('schoolDetails.logo_header')
+    
+ 
  <div class="row">
  <div class="col-lg-10" style="margin-left: 60px">
  	
@@ -36,7 +44,7 @@
     <tbody>
         @foreach ($menus as $menu)
       <tr style="background-color: #15c43e">
-        <td>{{ $arrayId++ }}</td>
+        <td><h3>{{ $arrayId++ }}</h3></td>
         <td><h3>{{ $menu->name }}</h3></td>
        
        

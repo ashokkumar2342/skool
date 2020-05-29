@@ -65,6 +65,13 @@ class MyFuncs {
        return SectionType::whereIn('id',$userSections)->get();
        
     }
+    public static function getSectionsClaasArrayId($class_id){
+        $user = MyFuncs::getUser();
+        $userClass = UserClassType::where('admin_id',$user->id)->distinct()->get(['class_id']);
+        $userSections = UserClassType::where('admin_id',$user->id)->whereIn('class_id',$class_id)->get(['section_id']);  
+       return SectionType::whereIn('id',$userSections)->get();
+       
+    }
     public static function getStudentSections($class_id){
         $user = MyFuncs::getUser();
         $userClass = UserClassType::where('admin_id',$user->id)->distinct()->get(['class_id']);

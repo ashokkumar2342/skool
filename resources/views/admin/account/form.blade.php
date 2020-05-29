@@ -13,7 +13,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <form action="{{ route('admin.account.post') }}" method="post" class="add_form" no-reset="true">
+                <form action="{{ route('admin.account.post') }}" method="post" class="add_form" >
                 {{ csrf_field() }}
                     <div class="box-body">
                         <div class="row">

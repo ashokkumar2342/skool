@@ -2,7 +2,7 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" onclick="callPopupLarge(this,'{{ route('admin.signature.stamp.add.form')}}')" style="margin:10px">Add Signature Stamp</button>
+    <button type="button" class="btn btn-info pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.signature.stamp.add.form')}}')" style="margin:10px">Add Signature Stamp</button>
     <h1>Signature Stamp<small>List</small> </h1>
        
     </section>  

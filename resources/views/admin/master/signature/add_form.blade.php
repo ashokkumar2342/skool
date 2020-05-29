@@ -1,14 +1,5 @@
   
-  <!-- Main content -->
-   
-    <style type="text/css" media="screen">
-  .bd{
-    border-bottom: #eee solid 1px;;
-  }
-  
-</style>
- 
-  <div class="modal-dialog" style="width:90%">
+  <div class="modal-dialog" >
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -21,21 +12,23 @@
                    {{ csrf_field() }}
                     <div class="row"> 
                       <div class="form-group col-lg-6">
-                        <label>Certificate Type</label>
-                        <select name="certificate_type_id" class="form-control">
-                          <option  selected disabled>Select Certificate</option> 
-                          <option value="2">School Leaving Certificate</option> 
-                          <option value="3">Character Certificate</option> 
-                          <option value="4">Date of Birth Certificate</option> 
+                        <label>User Name</label>
+                        <select name="user_id" class="form-control select2">
+                          <option selected disabled>Select User</option>
+                          @foreach ($admins as $admin)
+                          @if ($admin->role_id!=12) 
+                            <option value="{{ $admin->id }}">{{ $admin->first_name }}</option>
+                          @endif
+                           @endforeach 
                         </select> 
                       </div>
                       <div class="form-group col-lg-6">
-                        <label>User Name</label>
-                        <select name="user_id" class="form-control">
-                          <option selected disabled>Select User</option>
-                          @foreach ($admins as $admin)
-                            <option value="{{ $admin->id }}">{{ $admin->first_name }}</option>
-                           @endforeach 
+                        <label>Certificate Type</label>
+                        <select name="certificate_type_id" class="form-control">
+                          <option  selected disabled>Select Certificate</option>
+                          @foreach ($CertificateTypes as $CertificateType)
+                             <option value="{{ $CertificateType->id }}">{{ $CertificateType->name}}</option>   
+                          @endforeach  
                         </select> 
                       </div>
                       <div class="form-group col-lg-6">
@@ -45,20 +38,25 @@
                       <div class="form-group col-lg-6">
                         <label>Stamp</label>
                         <input type="file" name="stamp" class="form-control"> 
+                      </div>
+                      <div class="form-group col-lg-6">
+                        <label>Destination</label>
+                        <input type="text" name="destination" class="form-control" maxlength="50"> 
                       </div> 
-                     <div class="form-group col-lg-4">
-                        <label>Stamp Type</label>
+                     <div class="form-group col-lg-6">
+                        <label>Issue User Type</label>
                         <select name="stamp_type" class="form-control">
                           <option selected disabled>Select Option</option> 
-                            <option value="1">Approval</option>
-                            <option value="2">Virify</option> 
+                            @foreach ($IssueAthortiTypes as $IssueAthortiType)
+                             <option value="{{ $IssueAthortiType->id }}">{{ $IssueAthortiType->name}}</option>   
+                          @endforeach  
                         </select> 
                       </div>
-                       <div class="form-group col-lg-4">
+                       <div class="form-group col-lg-6">
                         <label>From Date</label>
                         <input type="date" name="from_date" class="form-control"> 
                       </div> 
-                      <div class="form-group col-lg-4">
+                      <div class="form-group col-lg-6">
                         <label>To Date</label>
                         <input type="date" name="to_date" class="form-control"> 
                       </div> 

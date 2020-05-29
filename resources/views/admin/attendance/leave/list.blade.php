@@ -44,5 +44,26 @@
 			 
 		</tr>
 		@endforeach
+		<div class="panel panel-success">
+        <div class="panel-heading">Student Summery</div>
+        <div class="panel-body">
+        	@foreach ($studentSumrys as $studentSumry) 
+            <div class="row">
+            <div class="col-lg-3">
+            Leave Type : <b>{{ $studentSumry->name }}</b>
+            </div> 
+            <div class="col-lg-3"> 
+            Total Days  : <b>{{ $studentSumry->total_days }}</b> 
+            </div> 
+            <div class="col-lg-3">
+            Already Apply   : <b>{{ $studentSumry->Already_Apply}}</b>
+            </div> 
+            <div class="col-lg-3">
+            Balance Days  : <b>{{ $studentSumry->balance_days }}</b>
+            </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
 	</tbody>
 </table>
