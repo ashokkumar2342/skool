@@ -99,7 +99,7 @@ class StudentDefaultValueController extends Controller
         $default->m_bp_u = $request->m_bp_u;
         $default->m_weight = $request->m_weight;
         $default->m_height = $request->m_height; 
-        $default->birthday_template_id = $request->birthday_template_id; 
+         
  
         
         // $default->birthday_message_id = $request->birthday_message_id;
