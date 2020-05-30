@@ -2,26 +2,22 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html/jpg/png; charset=utf-8"/>
 <head>
-   <style>
-     @page { margin:0px; }
-     
+   <style> 
    .pagenum:before {
         content: counter(page);
     }
     .page_break{
       page-break-before:always; 
+      
     }
-
+     
   </style>
  @include('admin.include.boostrap')
-</head>
-    
- 
-  
-<body style="background-color:#fff">
-@include('schoolDetails.logo_header')
- <div class="row">
- <div class="col-lg-10" style="margin-left: 60px">
+</head> 
+<body > 
+    @include('schoolDetails.logo_header') 
+ <div class="row" style="margin-top: -30px">
+ <div class="col-lg-12">
   <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
@@ -54,15 +50,18 @@
                     <tr>
                       <td>{{ $arrayId++}}</td>                 
                       <td>{{ $manageSubject->classTypes->name or ''}}</td>                 
-                      <td>{{ $manageSubject->subjectTypes->name or ''}}</td>                 
+                      <td>{{ $manageSubject->subjectTypes->name or ''}}</td>
+                      <td>{{ $manageSubject->subjectTypes->code or ''}}</td>                  
                       <td>{{ $manageSubject->isoptional->name or ''}}</td>
                     </tr>
-                  @endforeach 
+                  @endforeach
+
                 <tr>
-                  <td colspan="4">
+                  <td colspan="5">
                      <div class="page_break"></div>
                   </td>
                 </tr>
+                     
                 @endif
                 @endforeach
 

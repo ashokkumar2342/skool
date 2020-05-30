@@ -292,17 +292,23 @@ function callPopupLarge(obj,url){
 				$('.'+obj.getAttribute('text-editor')).summernote({
 					toolbar: [
 					     
-					     ['font', ['bold', 'italic', 'underline']], 
-					     ['fontsize', ['fontsize']],
+					     ['style', ['style']],
+					     ['font', ['bold', 'underline', 'clear']],
+					     ['fontname', ['fontname']],
+					     ['fontsize', ['fontsize']], 
+					     ['height', ['height']], 
 					     ['color', ['color']],
 					     ['para', ['ul', 'ol', 'paragraph']],
-					     ['height', ['height']], 		      
-					     ['insert', ['link', 'picture','video']],
+					     ['table', ['table']],
+					     ['insert', ['link', 'picture', 'video']],
+					     ['view', ['fullscreen', 'codeview', 'help']] 
+
 					  
 					   ],
 
 					 placeholder: 'write here...',
-					 height: 100
+					 height: 100,
+					  fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24','28','30','32', '36', '48' , '64', '82', '150']
 				}); 
 							
 			}

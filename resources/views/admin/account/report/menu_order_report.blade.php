@@ -3,30 +3,24 @@
 <meta http-equiv="Content-Type" content="text/html/jpg/png; charset=utf-8"/>
 <head>
    <style>
-    
+     
      
    .pagenum:before {
         content: counter(page);
     }
     .page_break{
-      page-break-before: always;
-
+      page-break-before:always; 
+      
     }
-@page { margin-top:50px; }
-    body { border: 2px solid red; }
-    /*.header { position: fixed; height: 65px; top: -70px; background-color: purple; }
-    .break-before { page-break-before: always; }
-    .section { margin-top: 200px; }*/
+   
   </style>
  @include('admin.include.boostrap')
-</head>
-<body >
+</head> 
+<body>  
+    @include('schoolDetails.logo_header')
  
-  @include('schoolDetails.logo_header')
-    
- 
- <div class="row">
- <div class="col-lg-10" style="margin-left: 60px">
+ <div class="row" style="margin-top: -30px">
+ <div class="col-lg-12">
  	
  <table class="table table-condensed table-bordered table-striped"id="menu_role_table" style="width: 100%">
     <thead>

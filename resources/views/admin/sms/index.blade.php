@@ -12,9 +12,12 @@
             <a href="#" class="btn btn-primary" multiselect-form="true" onclick="callAjax(this,'{{ route('admin.sms.send.form',2) }}','send_form')">Class Wise</a>
             <a href="#" class="btn btn-primary"  multiselect-form="true" onclick="callAjax(this,'{{ route('admin.sms.send.form',3) }}','send_form')">Class With Section</a>
           </div>
+          <form class="add_form" action="{{ route('admin.sms.sendSms') }}" method="post">
+          {{ csrf_field() }}
           <div id="send_form" style="margin-top: 24px">
              
-           </div> 
+           </div>
+          </form> 
         </div>
       </div>
     </section> 
@@ -25,16 +28,16 @@
 <script type="text/javascript">
   $('#btn_1').click();
     $(document).ready(function() {
-    var text_max = 0;
-    $('#textarea_feedback').html(text_max + ' characters ');
+      var text_max = 0;
+      $('#textarea_feedback').html(text_max + ' characters ');
 
-    $('#textarea').keyup(function() {
-        var text_length = $('#textarea').val().length;
-         
+      $('#textarea').keyup(function() {
+          var text_length = $('#textarea').val().length;
+           
 
-        $('#textarea_feedback').html(text_length + ' characters');
-    });
-}); 
+          $('#textarea_feedback').html(text_length + ' characters');
+      });
+    }); 
     function classWise(){
       
       if($('#class_wise').is(":checked")) {

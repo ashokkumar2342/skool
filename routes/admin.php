@@ -1060,6 +1060,7 @@ Route::group(['middleware' => 'admin'], function() {
 			Route::group(['prefix' => 'sms'], function() {
 			    Route::get('/', 'Sms\SmsController@index')->name('admin.sms.form');	 	
 			    Route::get('form/{id}', 'Sms\SmsController@sendform')->name('admin.sms.send.form');	 	
+			    Route::get('section', 'Sms\SmsController@sectionMultiple')->name('admin.sms.section.multiple');	 	
 			    Route::post('send', 'Sms\SmsController@smsSend')->name('admin.sms.sendSms'); 
 			    Route::post('quick-sms', 'Sms\SmsController@quickSms')->name('admin.quick.sms'); 
 			    Route::get('sms-report', 'Sms\SmsController@smsReport')->name('admin.sms.smsReport'); 
@@ -1357,6 +1358,8 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('class-section', 'TimeTable\TeacherController@addclassWiseSection')->name('admin.teacher.class.wise.section.addForm');
                	 Route::get('table-show', 'TimeTable\TeacherController@tableShow')->name('admin.staff.details.table.show'); 
                	 Route::post('store', 'TimeTable\TeacherController@store')->name('admin.staff.details.store');
+               	 Route::get('teacher-mapping', 'TimeTable\TeacherController@teacherMapping')->name('admin.staff.teacher.mapping');
+               	 Route::post('teacher-mapping-store', 'TimeTable\TeacherController@teacherMappingStore')->name('admin.staff.teacher.mapping.store');
                	 Route::get('edit/{id}', 'TimeTable\TeacherController@edit')->name('admin.teacher.details.edit');
                	 Route::get('delete/{id}', 'TimeTable\TeacherController@destroy')->name('admin.teacher.details.delete');
                	 Route::post('update/{id}', 'TimeTable\TeacherController@update')->name('admin.teacher.details.update');
