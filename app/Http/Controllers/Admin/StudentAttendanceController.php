@@ -118,7 +118,7 @@ class StudentAttendanceController extends Controller
         $studentAttendanceClass->last_updated_by = $user_id; 
         $studentAttendanceClass->attendance =1; 
         $studentAttendanceClass->verified =0;
-        $studentAttendanceClass->verified =0;
+        $studentAttendanceClass->sms_sent =0;
         $studentAttendanceClass->save(); 
          $response=['status'=>1,'msg'=>'Save successfully'];
             return response()->json($response); 
