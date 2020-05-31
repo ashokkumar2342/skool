@@ -24,6 +24,7 @@
                 <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <li><a href="#" title="">{{ date('d-M-Y') }}</a></li>
+ 
             <li class="dropdown alert-drp">
             <a href="#" class="dropdown-toggle" onclick="fetchNotifications()"  data-toggle="dropdown"><i class="zmdi zmdi-notifications top-nav-icon"></i><span id="notification_counter" class="top-nav-icon-badge">{{ countNotificationCenter() }}</span></a>
             <ul  class="dropdown-menu alert-dropdown not-hide-alert-box" data-dropdown-in="bounceIn" data-dropdown-out="bounceOut">
@@ -52,8 +53,8 @@
             <div class="clearfix"></div>
             </div>
             </li>
-            </ul>
-            </li>
+ 
+            
           @php
             $userIdBySibling=new App\Helper\MyFuncs();    
            $siblings= $userIdBySibling->getSiblingById(); 

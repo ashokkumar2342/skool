@@ -1663,13 +1663,21 @@ Route::group(['middleware' => 'admin'], function() {
         	 		});
         });  
         Route::group(['prefix' => 'video-and-pdf'], function() {
-        	         Route::get('/', 'VideoAndPdfController@index')->name('admin.video.and.pdf');
-        	         Route::get('pfd', 'VideoAndPdfController@pdf')->name('admin.video.and.pdf.onclick');
-        	         Route::post('upload', 'VideoAndPdfController@upload')->name('admin.video.and.pdf.upload');
-        	         Route::get('play/{path}', 'VideoAndPdfController@play')->name('admin.video.and.pdf.play');
-        	         Route::get('delete/{id}', 'VideoAndPdfController@destroy')->name('admin.video.and.pdf.destroy');
-        	         	 
-        	 		});   
+         Route::get('/', 'VideoAndPdfController@index')->name('admin.video.and.pdf');
+         Route::get('pfd', 'VideoAndPdfController@pdf')->name('admin.video.and.pdf.onclick');
+         Route::post('upload', 'VideoAndPdfController@upload')->name('admin.video.and.pdf.upload');
+         Route::get('play/{path}', 'VideoAndPdfController@play')->name('admin.video.and.pdf.play');
+         Route::get('delete/{id}', 'VideoAndPdfController@destroy')->name('admin.video.and.pdf.destroy');
+         	 
+ 		});
+ 		 Route::group(['prefix' => 'notification'], function() {       
+         	Route::get('next-page','NotificationController@nextPage')->name('notification.next.page'); 
+         	Route::get('show-notification','NotificationController@showNotification')->name('notification.show.notification'); 
+         	Route::get('mark-all','NotificationController@markAll')->name('notification.mark.all'); 
+         	Route::get('clear-all','NotificationController@clearAll')->name('notification.clear.all'); 
+         	Route::get('clear/{id}','NotificationController@noficationClear')->name('notification.clear'); 
+         	Route::get('read/{id}','NotificationController@readStatus')->name('notification.read.status'); 	 
+ 		});   
             
             
            
