@@ -31,18 +31,28 @@ class SmsController extends Controller
         $classTypes=MyFuncs::getClassByHasUser();
         return view('admin.sms.send_form',compact('classTypes','messagePurposes','conditionId'));
     }
-    //send SMS
-    public function smsSend(Request $request){  
-    $rules=[
-    	'message' => 'required|max:1000', 
-    ]; 
-    if (empty($request->mobile) && empty($request->class)) {
-      $rules['mobile'] ='required';  
+    public function sectionMultiple(Request $request)
+    {
+        $sections = MyFuncs::getSections($request->id);
+        return view('admin.sms.section_select_box',compact('sections'));
     }
-    if (empty($request->class) && empty($request->mobile)) {
-      $rules['class'] ='required';  
-    } 
-    
+    //send SMS
+    public function smsSend(Request $request){    
+    $rules=[
+         'message_purpose' => 'required', 
+    	'message' => 'required|max:1000', 
+        'date_time' => 'required', 
+       
+    ]; 
+    if ($request->conditionId==1) {
+      $rules['mobile'] ='required';  
+    }elseif ($request->conditionId==2) {
+        $rules['class_id'] ='required';  
+    }elseif ($request->conditionId==3) {
+        $rules['class_id'] ='required';  
+        $rules['section_id'] ='required';  
+    }
+     
     $validator = Validator::make($request->all(),$rules);
     if ($validator->fails()) {
         $errors = $validator->errors()->all();
@@ -53,26 +63,7 @@ class SmsController extends Controller
     } 
     
     
-    if (!empty($request->class) && empty($request->section)) {
-        $students = Student::where('class_id',$request->class)->get();
-        foreach ($students as $student) {
-           $message = $request->message;         
-        event(new smsEvent($student->father_mobile,$message)); 
-        }
-    }
-    if (!empty($request->class) && !empty($request->section)) {
-        $students = Student::where('class_id',$request->class)->where('section_id',$request->section)->get();
-        foreach ($students as $student) {
-           $message = $request->message;         
-        event(new smsEvent($student->father_mobile,$message)); 
-        }
-    }
-    if (!empty($request->mobile)) {
-        $message = $request->message;         
-        $mobile = $request->mobile;         
-        event(new smsEvent($mobile,$message));
-    }
-     
+    
         
         $response = array();
         $response['status'] = 1;

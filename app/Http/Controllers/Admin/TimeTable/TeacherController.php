@@ -25,6 +25,7 @@ use App\Model\TimeTable\PeriodTiming;
 use App\Model\TimeTable\PeriodType;
 use App\Model\TimeTable\TeacherAbsent;
 use App\Model\TimeTable\TeacherAdjustment;
+use App\Model\TimeTable\TeacherClassAssign;
 use App\Model\TimeTable\TeacherSubjectClass;
 use App\Model\TimeTable\TeacherWorkingDays;
 use App\Model\TimeTable\TimeTableType;
@@ -163,6 +164,41 @@ class TeacherController extends Controller
     }
 
 
+    //--------------teacher-class-mapping-----------------------------------------------//
+
+    public function teacherMapping($value='')
+    {
+       $StaffDetails=StaffDetails::orderBy('name','ASC')->get();
+       $sections=Section::orderBy('class_id','ASC')->get();
+       $TeacherClassAssignSaveId=TeacherClassAssign::pluck('section_id')->toArray();
+       return view('admin.teacher.teacherClassMapping.index',compact('StaffDetails','sections','TeacherClassAssignSaveId'));
+    }
+    public function teacherMappingStore(Request $request)
+    {
+       $rules=[ 
+            'teacher' => 'required', 
+            'class' => 'required', 
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        else {
+            $TeacherClassAssign=new TeacherClassAssign(); 
+            $TeacherClassAssign->teacher_id=$request->teacher;
+            $TeacherClassAssign->section_id=$request->class;
+            $TeacherClassAssign->status=1;
+            $TeacherClassAssign->save();
+            $response=['status'=>1,'msg'=>'Save Successfully'];
+            return response()->json($response);
+        
+        } 
+    }
     //--------------teacher-working-days----------------------------------------------//
 
      public function workDays(){

@@ -1,3 +1,28 @@
+<div class="panel panel-success">
+        <div class="panel-heading">Student Summery</div>
+        <div class="panel-body">
+        	 <table class="table" style="font-size: 12px">
+        	 	<thead>
+        	 		<tr>
+        	 			<th>Leave Type</th>
+        	 			<th>Total Days</th>
+        	 			<th>Already Apply</th>
+        	 			<th>Balance Days</th>
+        	 		</tr>
+        	 	</thead>
+        	 	<tbody>
+        	 		@foreach ($studentSumrys as $studentSumry) 
+        	 		<tr>
+        	 			<td>{{ $studentSumry->name }}</td>
+        	 			<td>{{ $studentSumry->total_days }}</td>
+        	 			<td>{{ $studentSumry->Already_Apply}}</td>
+        	 			<td>{{ $studentSumry->balance_days }}</td>
+        	 		</tr>
+        	 		@endforeach
+        	 	</tbody>
+        	 </table>
+        </div>
+    </div>
 <table class="table table-striped table-responsive table-bordered" id="leave_record_table">
 	<thead>
 		<tr>
@@ -34,36 +59,8 @@
 			 @endif
 			 @if ($leaveRecord->status==2)
 			 	<td >Reject </td> 
-			 @endif
-			{{-- <td>
-				<button type="button" class="btn btn-info btn-xs" select2="true" onclick="callPopupLarge(this,'{{ route('admin.attendance.leave.apply',$leaveRecord->id) }}')"><i class="fa fa-edit"></i></button>
-				<a href="#"  onclick="callPopupLarge(this,'{{ route('admin.attendance.leave.delete',$leaveRecord->id) }}')" title="View" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
-			</td> --}}
-			 
-			 
-			 
+			 @endif 
 		</tr>
-		@endforeach
-		<div class="panel panel-success">
-        <div class="panel-heading">Student Summery</div>
-        <div class="panel-body">
-        	@foreach ($studentSumrys as $studentSumry) 
-            <div class="row">
-            <div class="col-lg-3">
-            Leave Type : <b>{{ $studentSumry->name }}</b>
-            </div> 
-            <div class="col-lg-3"> 
-            Total Days  : <b>{{ $studentSumry->total_days }}</b> 
-            </div> 
-            <div class="col-lg-3">
-            Already Apply   : <b>{{ $studentSumry->Already_Apply}}</b>
-            </div> 
-            <div class="col-lg-3">
-            Balance Days  : <b>{{ $studentSumry->balance_days }}</b>
-            </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
+		@endforeach 
 	</tbody>
 </table>

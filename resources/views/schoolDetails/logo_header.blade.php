@@ -1,9 +1,14 @@
 @php
   $SchoolDetail=App\School_details::first();  
    
-@endphp
-<header style="border: 2px solid #5f0202;">
-	
+@endphp 
+<style> 
+ span{
+ 	text-align:middle;display:inline-block;
+ 	padding-top: 10px;
+ }
+ 
+</style>
 <table>
 <tbody>
 <tr>
@@ -11,4 +16,4 @@
 </tr>
 </tbody>
 </table>
-</header>
+ 

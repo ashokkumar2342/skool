@@ -116,9 +116,9 @@ class StudentAttendanceController extends Controller
         $studentAttendanceClass->class_id=$request->class_id;
         $studentAttendanceClass->section_id=$request->section_id;
         $studentAttendanceClass->last_updated_by = $user_id; 
-        $studentAttendanceClass->attendance =0; 
+        $studentAttendanceClass->attendance =1; 
         $studentAttendanceClass->verified =0;
-        $studentAttendanceClass->verified =0;
+        $studentAttendanceClass->sms_sent =0;
         $studentAttendanceClass->save(); 
          $response=['status'=>1,'msg'=>'Save successfully'];
             return response()->json($response); 
@@ -152,7 +152,7 @@ class StudentAttendanceController extends Controller
            $studentAttendance->save(); 
         }
         $studentAttendanceClass=StudentAttendanceClass::firstOrNew(['date'=>date('Y-m-d',strtotime($date)),'class_id'=>$request->class_id,'section_id'=>$request->section_id]); 
-        $studentAttendanceClass->attendance =1; 
+        
         $studentAttendanceClass->verified =1;
         $studentAttendanceClass->verified_by =$user_id;
         $studentAttendanceClass->save(); 
