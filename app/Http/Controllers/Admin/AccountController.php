@@ -616,16 +616,7 @@ class AccountController extends Controller
         $accounts->status =2; 
      
         if ($accounts->save())
-         { 
-
-            // event(new SmsEvent($accounts->mobile,$accounts->mobile_otp));
-            // $data = array( 'email' => $accounts->email, 'otp' => $accounts->email_otp, 'from' => 'school@iskool.com', 'from_name' => 'school' );
-
-            // Mail::send( 'mail', $data, function( $message ) use ($data)
-            // {
-            //     $message->to( $data['email'] )->from( $data['from'], $data['otp'] )->subject( 'Otp Verification!' );
-            // });
-          \Artisan::call('send:sms');
+         {   
           return redirect()->route('student.resitration.verification',Crypt::encrypt($accounts->id))->with(['message'=>'Account created Successfully.','class'=>'success']);        
         }
         else{

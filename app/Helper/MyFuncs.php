@@ -7,15 +7,16 @@ use App\Model\ClassType;
 use App\Model\HotMenu;
 use App\Model\Minu;
 use App\Model\MinuType;
+use App\Model\Notification;
 use App\Model\Section;
 use App\Model\SectionType;
+use App\Model\StudentUserMap;
 use App\Model\SubMenu;
 use App\Model\UserClassType;
-use App\Model\StudentUserMap;
-use Illuminate\Support\Facades\Auth;
-use DateTime;
 use DateInterval;
 use DatePeriod;
+use DateTime;
+use Illuminate\Support\Facades\Auth;
 use Route;
 
 class MyFuncs {
@@ -202,6 +203,43 @@ class MyFuncs {
         return $e;
     }
     
+  }
+
+  // notification save send function
+  public static function notificationCenter($to_user_id,$from_user_id,$class_id,$reference_id,$message,$notification_type_id=NULL){
+      try {
+          $notifications = new Notification();
+           $insArray = array();   
+              
+               $insArray['user_id'] = $to_user_id;    
+               $insArray['from_user_id'] = $from_user_id;
+               $insArray['role_id'] = $role_id;
+               $insArray['reference_id'] = $reference_id;
+               $insArray['message'] = $message;
+               $insArray['notification_type_id'] = $legal_type_id; 
+               $insArray['status'] = 1;   
+               $insArray['read_status'] = 1;  
+               $notifications->insNotificationCenter($insArray); 
+           
+          
+      } catch (Exception $e) {
+          Log::error('Gereral-Helper-notificationCenter: '.$e->getMessage()); // making log in file
+          return $e;  
+      }
+      
+       
+  } 
+
+ public static function countNotificationCenter(){  
+      try {
+          $NotificationCenter = new Notification(); 
+          $id =getUserId();
+          return $notifications = $NotificationCenter->countNotificationCenter($id); 
+      } catch (Exception $e) {
+          Log::error('Gereral-Helper-countNotificationCenter: '.$e->getMessage()); // making log in file
+          return $e;  
+      }
+      
   }
 
 

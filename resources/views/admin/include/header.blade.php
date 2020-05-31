@@ -29,7 +29,7 @@
               <i class="fa fa-envelope-o"></i>
               
                @foreach ($notifications as $notification)
-                 <span class="label label-success">{{ $notification->count('id') }}</span> 
+                 <span class="label label-success">{{ $notification->count('id') }} </span> 
                @endforeach
             </a>
             <ul class="dropdown-menu">
