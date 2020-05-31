@@ -229,10 +229,11 @@ class FinanceReportController extends Controller
       }
       if ($condition_id=='fee_group') {
        $datas=DB::select(DB::raw("call up_report_feegroup_detail ('$request->academic_year_id')"));
+       $classFeeStructureReports= collect($datas)->groupBy('fee_group_id');
       }else{
        $datas=DB::select(DB::raw("call up_report_class_feestructure ('$request->academic_year_id')")); 
-     } 
       $classFeeStructureReports= collect($datas)->groupBy('class_id');
+     } 
       $pdf=PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')

@@ -36,7 +36,7 @@
                 <input type="checkbox" name="checked" value="page-break" > 
                </div>
                <div class="col-lg-2" style="margin-top: 24px" style="margin-left: 10px">
-                <input type="submit" class="btn btn-success" value="Show"> 
+                <input type="submit" class="btn btn-primary" value="PDF Generate"> 
                </div> 
             </div> 
            </form> 

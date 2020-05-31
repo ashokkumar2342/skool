@@ -9,7 +9,7 @@
 
 <section class="content-header">
     {{--  <button type="button" class="pull-right btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.feeAcount.add.form') }}')">Add Fee Account</button> --}}
-    <h1>Fee Structure Amount<small>List</small> </h1>
+    <h1>Fee Amount<small>List</small> </h1>
 </section>
     <section class="content">
         <div class="box">             
@@ -29,9 +29,10 @@
                               </select> 
                              </div>    
                         </div> 
-                      </div>
+                      
                       <div class="col-lg-12" id="fee_structure_amount_table_page">
                           
+                        </div>
                         </div>
                     </form>       
             </div>
@@ -47,7 +48,7 @@
  <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
  <script type="text/javascript">
       $(window).load(function(){
-   $('#academic_year_select_box').val('{{ $acardemicYearsSet->id }}').trigger('change');
+   $('#academic_year_select_box').trigger('change');
 });   
   </script>
   @endpush 

@@ -11,6 +11,7 @@ use App\Model\ForSessionMonth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class FeeStructureAmountController extends Controller
 {
@@ -21,9 +22,8 @@ class FeeStructureAmountController extends Controller
      */
     public function index()
     {
-        $feeStructureAmounts = FeeStructureAmount::OrderBy('created_at')->paginate(20);         
-        $acardemicYears = AcademicYear::all();
-        $acardemicYearsSet = AcademicYear::where('status',1)->first();
+        $feeStructureAmounts = FeeStructureAmount::OrderBy('created_at')->paginate(20); 
+       $acardemicYears = AcademicYear::orderBy('start_date','DESC')->get();
         $feeStructur = array_pluck(FeeStructure::get(['id','name'])->toArray(),'name', 'id'); 
         return view('admin.finance.fee_structure_amount',compact('feeStructureAmounts','acardemicYears','feeStructur','acardemicYearsSet'));
     }
@@ -181,5 +181,17 @@ class FeeStructureAmountController extends Controller
         }
          $response=['status'=>1,'msg'=>'Cloning Successfully'];
          return response()->json($response);
-   }      
+   }
+   public function pdfReport($academic_year_id){
+    $FeeStructureAmount = FeeStructureAmount::where('academic_year_id',$academic_year_id)->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.finance.pdf.fee_structure_amount',compact('FeeStructureAmount'));
+        return $pdf->stream('academicYear.pdf');  
+      
+   }
+         
+       
 }

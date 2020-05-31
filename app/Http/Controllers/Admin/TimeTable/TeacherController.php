@@ -7,6 +7,7 @@ use App\Helper\MyFuncs;
 use App\Helpers\MailHelper;
 use App\Http\Controllers\Controller;
 use App\Model\ClassType;
+use App\Model\Hr\Employee;
 use App\Model\Library\TeacherFaculty;
 use App\Model\Role;
 use App\Model\Section;
@@ -168,7 +169,7 @@ class TeacherController extends Controller
 
     public function teacherMapping($value='')
     {
-       $StaffDetails=StaffDetails::orderBy('name','ASC')->get();
+       $StaffDetails=Employee::orderBy('name','ASC')->get();
        $sections=Section::orderBy('class_id','ASC')->get();
        $TeacherClassAssignSaveId=TeacherClassAssign::pluck('section_id')->toArray();
        return view('admin.teacher.teacherClassMapping.index',compact('StaffDetails','sections','TeacherClassAssignSaveId'));
@@ -176,7 +177,7 @@ class TeacherController extends Controller
     public function teacherMappingStore(Request $request)
     {
        $rules=[ 
-            'teacher' => 'required', 
+            'staff' => 'required', 
             'class' => 'required', 
         ];
 
@@ -189,10 +190,11 @@ class TeacherController extends Controller
             return response()->json($response);// response as json
         }
         else {
+            $admin=Auth::guard('admin')->user();
             $TeacherClassAssign=new TeacherClassAssign(); 
-            $TeacherClassAssign->teacher_id=$request->teacher;
+            $TeacherClassAssign->staff_id=$request->staff;
             $TeacherClassAssign->section_id=$request->class;
-            $TeacherClassAssign->status=1;
+            $TeacherClassAssign->last_updated_by=$admin->id;
             $TeacherClassAssign->save();
             $response=['status'=>1,'msg'=>'Save Successfully'];
             return response()->json($response);

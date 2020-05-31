@@ -606,6 +606,7 @@ Route::group(['middleware' => 'admin'], function() {
 		    Route::get('add/{id?}', 'FineSchemeController@AddForm')->name('admin.fineScheme.add.form');
 		    Route::post('store/{id?}', 'FineSchemeController@store')->name('admin.fineScheme.post');
 		    Route::get('delete/{id?}', 'FineSchemeController@destroy')->name('admin.fineScheme.delete');
+		    Route::get('pdf-report', 'FineSchemeController@pdfReport')->name('admin.fineScheme.pdf.report');
 		 });
 		//------------------------- fee structure ---------------------------------
 		Route::group(['prefix' => 'fee-structure'], function() {
@@ -625,6 +626,7 @@ Route::group(['middleware' => 'admin'], function() {
 		    Route::put('update', 'FeeStructureAmountController@update')->name('admin.feeStructureAmount.update');
 		    Route::get('clone/{condition_id}', 'FeeStructureAmountController@clone')->name('admin.feeStructureAmount.clone');
 		    Route::post('clone-store/{condition_id}', 'FeeStructureAmountController@cloneStore')->name('admin.feeStructureAmount.clone.store');
+		    Route::get('pdf-report/{id}', 'FeeStructureAmountController@pdfReport')->name('admin.feeStructureAmount.pdf.report');
 		 });//------------------------- fee structure amount ---------------------------------
 	    Route::group(['prefix' => 'fee-structure-last-date'], function() {
 	        Route::get('/', 'FeeStructureLastDateController@index')->name('admin.feeStructureLastDate.list');	 	

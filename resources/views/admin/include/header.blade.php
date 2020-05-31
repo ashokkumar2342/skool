@@ -25,34 +25,41 @@
             <ul class="nav navbar-nav">
               <li><a href="#" title="">{{ date('d-M-Y') }}</a></li>
  
-            <li class="dropdown alert-drp">
-            <a href="#" class="dropdown-toggle" onclick="fetchNotifications()"  data-toggle="dropdown"><i class="zmdi zmdi-notifications top-nav-icon"></i><span id="notification_counter" class="top-nav-icon-badge">{{ countNotificationCenter() }}</span></a>
-            <ul  class="dropdown-menu alert-dropdown not-hide-alert-box" data-dropdown-in="bounceIn" data-dropdown-out="bounceOut">
-            <li>
-            <div class="notification-box-head-wrap">
-            <span class="notification-box-head pull-left inline-block" id="notification_icon">notifications</span>
-            <a class="txt-danger pull-right clear-notifications inline-block" href="javascript:void(0)" replace-value="top-nav-icon-badge" remove-class="bg-success" success-popup="true"  onclick="callAjax(this,'{{ route('notification.mark.all') }}')"> {{ countNotificationCenter()!==0?'Mark all as Read':'' }}  </a>
-            <div class="clearfix"></div>
-            <hr class="light-grey-hr ma-0"/>
-            </div>
-            </li>
-            <li>
-            <div class="streamline message-nicescroll-bar notifications endless-pagination" id="notification_list" onscroll="fetchNotifications()"  data-next-page="{{ route('notification.next.page') }}">
-
-
-            </div>
-            </li>
-            <li id="notification_wait" style="display: none">
-            <img class="center-block" width="30px" src="{{ asset('img/loading.gif')}}" >
-            </li>
-            <li>
-            <div class="notification-box-bottom-wrap">
-            <hr class="light-grey-hr ma-0"/>
-
-            <a class="block text-center read-all" id="read-all_btn" href="{{ route('notification.show.notification') }}"> view all </a>
-            <div class="clearfix"></div>
-            </div>
-            </li>
+            <li class="dropdown messages-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-envelope-o"></i>
+              
+               
+                 <span class="label label-success">{{ App\Helper\MyFuncs::countNotificationCenter() }}</span> 
+               
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 4 messages</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                   
+                  @foreach ($notifications as $notification)
+                    @php
+                    $admin=App\Admin::where('id',$notification->user_id)->first();
+                     $profile = route('admin.profile.photo.show',$admin->profile_pic); 
+                   @endphp
+                  <li><!-- start message -->
+                    <a href="{{ $notification->link }}a"><p>{{ $notification->message }}</p>
+                      
+                      <h4>
+                        
+                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                      </h4>
+                      
+                    </a>
+                  </li>
+                  @endforeach
+                </ul>
+              </li>
+              <li class="footer"><a href="#">See All Messages</a></li>
+            </ul>
+          </li>
  
             
           @php

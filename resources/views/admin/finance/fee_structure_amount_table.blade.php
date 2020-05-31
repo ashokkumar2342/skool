@@ -9,7 +9,9 @@
 }
      </style> 
 <div class="panel panel-default">
-  <div class="panel-heading text-right"><a href="#" onclick="callPopupLarge(this,'{{ route('admin.feeStructureAmount.clone','feestrutureAmount_clone') }}')" class="btn btn-primary btn-sm" title="">Clone</a></div>
+  <div class="panel-heading text-right">
+  	<a href="{{ route('admin.feeStructureAmount.pdf.report',$academic_year_id) }}" class="pull-right btn btn-primary btn-sm" target="blank">PDF Report</button>
+  	<a href="#" onclick="callPopupLarge(this,'{{ route('admin.feeStructureAmount.clone','feestrutureAmount_clone') }}')" style="margin-right: 5px" class="btn btn-warning btn-sm" title="">Clone</a></div>
   <div class="panel-body">
   	<table class="table table-bordered table-striped table-hover"> 
 	<thead>

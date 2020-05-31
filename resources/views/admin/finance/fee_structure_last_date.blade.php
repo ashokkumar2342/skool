@@ -2,7 +2,7 @@
 @section('body')
 <section class="content-header">
         <a href="#" onclick="callPopupLarge(this,'{{ route('admin.feeStructureAmount.clone','feestruturelassdate_clone') }}')" class="btn btn-info btn-sm pull-right" title="">Clone</a>
-    <h1>Fee Structure Last Date</h1> 
+    <h1>Fee Last Date</h1> 
      
      
 </section>

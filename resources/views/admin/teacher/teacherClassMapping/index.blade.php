@@ -12,7 +12,7 @@
             <div class="row">
               <div class="col-lg-4 form-group">
                 <label>Teacher</label>
-                <select name="teacher" class="form-control select2">
+                <select name="staff" class="form-control select2">
                   <option selected disabled>Select Teacher</option> 
                   @foreach ($StaffDetails as $StaffDetail)
                   <option value="{{ $StaffDetail->id }}">{{ $StaffDetail->name }}--{{ $StaffDetail->code }}</option>  

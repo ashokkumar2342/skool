@@ -8,7 +8,7 @@ use App\Model\FineScheme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Validator;
-
+use PDF;
 class FineSchemeController extends Controller
 {
     /**
@@ -19,7 +19,7 @@ class FineSchemeController extends Controller
     public function index()
     {
           
-        $fineSchemes = FineScheme::latest('created_at')->paginate(20);
+        $fineSchemes = FineScheme::orderBy('code','ASC')->get();
         $finePeriod = array_pluck(FinePeriod::get(['id','name'])->toArray(),'name', 'id');
         return view('admin.finance.fine_scheme',compact('fineSchemes','finePeriod'));
     }
@@ -96,9 +96,15 @@ class FineSchemeController extends Controller
      * @param  \App\Model\FineScheme  $fineScheme
      * @return \Illuminate\Http\Response
      */
-    public function show(FineScheme $fineScheme)
+    public function pdfReport(FineScheme $fineScheme)
     {
-        //
+        $fineSchemes = FineScheme::orderBy('code','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.finance.pdf.fine_schemes',compact('fineSchemes'));
+        return $pdf->stream('academicYear.pdf');
     }
 
     /**

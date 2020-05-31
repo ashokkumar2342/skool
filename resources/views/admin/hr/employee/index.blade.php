@@ -2,7 +2,7 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header">
-    <button type="button" class="btn btn-info pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.hr.employee.addform')}}')" style="margin:10px">Add Employee Details</button>
+    <button type="button" class="btn btn-sm btn-info pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.hr.employee.addform')}}')" style="margin:10px">Add Employee Details</button>
     <h1>Empolyee Details<small>List</small> </h1>
        
     </section>  

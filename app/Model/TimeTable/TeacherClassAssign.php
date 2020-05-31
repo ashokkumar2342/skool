@@ -9,7 +9,8 @@ class TeacherClassAssign extends Model
     protected $fillable = [
 	    'class_id','id','teacher_id',
 	];
-	public $timestamps=false;
+	protected $table='class_teacher';
+	 
 
 	 Public function subjectType(){
      	return $this->hasOne('App\Model\SubjectType','id','subject_id');

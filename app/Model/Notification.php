@@ -73,7 +73,7 @@ class Notification extends Model
     // get All notification
    public function countNotificationCenter($id){
       return $this->where('user_id',$id)
-      				->where('read_status',1)
+      			 
       				->where('status',1)->count(); 
    }
 }

@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <meta http-equiv="Content-Type" content="text/html/jpg/png; charset=utf-8"/>
 <head>
@@ -17,30 +17,26 @@
 <div class="row" style="margin-top: -20px"> 
     <table id="fine_scheme_table" class="display table table-bordered"> 
         <thead>
-<tr>
-<th class="text-nowrap">SR.No.</th>
-<th class="text-nowrap">Fee Structure Code</th>
-<th class="text-nowrap">Fee Structure Name</th>
-<th class="text-nowrap">Fee Account Name</th>
-<th class="text-nowrap">Fine Scheme</th>
-<th class="text-nowrap">Refundable</th>  
-</tr>
-</thead>
-<tbody>
-@php
-$arrayId=1;
-@endphp
-@foreach ($feeStructures as $feeStructure)
-<tr>
-<td>{{ $arrayId++ }}</td>
-<td>{{ $feeStructure->code }}</td>
-<td>{{ $feeStructure->name }}</td>
-<td>{{ $feeStructure->feeAccounts->name or '' }}</td>
-<td>{{ $feeStructure->fineSchemes->name or '' }}</td>
-<td>{{ $feeStructure->is_refundable == 1 ?'yes':'No' }}</td> 
-</tr>    
-@endforeach
-</tbody> 
+            <tr>
+                <th class="text-nowrap">Sr.No.</th>
+                <th class="text-nowrap">Fee Structures</th>
+                <th class="text-nowrap">Amount</th>
+                 
+            </tr>
+        </thead> 
+        <tbody>
+            @php
+            $arrayId=1;
+            @endphp
+            @foreach ($FeeStructureAmount as $FeeStructureAmoun)
+            <tr>
+                <td>{{ $arrayId++ }}</td>
+                <td>{{ $FeeStructureAmoun->feeStructures->name or '' }}</td>
+                <td>{{ $FeeStructureAmoun->amount }}</td>
+                 
+            </tr>    
+            @endforeach  
+        </tbody> 
     </table>
 </div> 
     <div class="row">

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
    protected $fillable=['id',];
+   protected $table='employees';
    
 
     public function admins($value='')

@@ -10,8 +10,10 @@
 </head>
 @include('admin.include.boostrap')
 <body>
-  
- @foreach ($classFeeStructureReports as $key=>$values) 
+  @include('schoolDetails.logo_header')
+ @foreach ($classFeeStructureReports as $key=>$values)
+  <div class="panel panel-default"> 
+    <div class="panel-body"> 
    <div class="row" style="margin-right: 18px"> 
    	<div class="col-lg-1" style="margin-left: 8px">
     @if ($condition_id=='fee_group')
@@ -36,10 +38,11 @@
    	</div> 
    	<div class="col-lg-2">
    	 <b>{{ $values[0]->year_name }} </b>
-   	</div>
-   	 
+   	</div> 
+   </div>
+   </div>
    </div> 
-    <table class="table" style="margin-top: 10px">
+    <table class="table table-striped table-bordered" style="margin-top: 10px">
     	<thead>
     		<tr>
     			<th class="text-nowrap">Fee  Name </th>

@@ -233,7 +233,7 @@ class MyFuncs {
  public static function countNotificationCenter(){  
       try {
           $NotificationCenter = new Notification(); 
-          $id =getUserId();
+          $id =MyFuncs::getUser(); 
           return $notifications = $NotificationCenter->countNotificationCenter($id); 
       } catch (Exception $e) {
           Log::error('Gereral-Helper-countNotificationCenter: '.$e->getMessage()); // making log in file
