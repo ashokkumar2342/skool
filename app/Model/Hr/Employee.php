@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
    protected $fillable=['id',];
-    public $timestamps=false;
+   
 
     public function admins($value='')
     {

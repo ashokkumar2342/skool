@@ -57,6 +57,7 @@ class HRController extends Controller
                 return response()->json($response);// response as json
             }
               else {
+                $char = substr( str_shuffle("0123456789"), 0, 6 ); 
                 $employees=Employee::firstOrNew(['id'=>$id]);
                 $employees->code=$request->employee_code;
 				$employees->date_of_joining=$request->date_of_joining;
@@ -82,7 +83,11 @@ class HRController extends Controller
                 $employees->city=$request->city; 
                 $employees->pincode=$request->pincode; 
                 $employees->current_address=$request->current_address; 
-                $employees->permanent_address=$request->permanent_address; 
+                $employees->permanent_address=$request->permanent_address;
+                if ($id==null) { 
+                $employees->dpassword_encript = bcrypt($char);
+                $employees->dpassword =$char; 
+                }
                 $employees->save();
                 $response=['status'=>1,'msg'=>'Submit Successfully'];
                 return response()->json($response);
