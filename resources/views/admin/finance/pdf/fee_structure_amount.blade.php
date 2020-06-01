@@ -14,7 +14,10 @@
 </head> 
 <body > 
 @include('schoolDetails.logo_header')
-<div class="row" style="margin-top: -20px"> 
+<div class="row" style="margin-top: -30px">
+<div class="panel panel-default">
+  <div class="panel-heading text-center">Fee Amount Report</div>
+  </div> 
     <table id="fine_scheme_table" class="display table table-bordered"> 
         <thead>
             <tr>

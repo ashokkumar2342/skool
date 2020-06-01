@@ -12,7 +12,10 @@ class TeacherClassAssign extends Model
 	protected $table='class_teacher';
 	 
 
-	 Public function subjectType(){
-     	return $this->hasOne('App\Model\SubjectType','id','subject_id');
+	 Public function sections(){
+     	return $this->hasOne('App\Model\Section','id','section_id');
+     }
+     Public function employees(){
+     	return $this->hasOne('App\Model\Hr\Employee','id','staff_id');
      }
 }

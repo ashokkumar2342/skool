@@ -14,7 +14,7 @@
                    <div class="panel-body">
                      <div class="col-lg-3 form-group">
                          <label>Employee Code</label><span class="fa fa-asterisk"></span>
-                         <input type="text" name="employee_code" class="form-control" maxlength="6" value="{{ @$Employee->code }}"> 
+                         <input type="text" name="code" class="form-control" maxlength="6" value="{{ @$Employee->code }}"> 
                      </div>
                      <div class="col-lg-3 form-group">
                          <label>Date of Joining</label><span class="fa fa-asterisk"></span>
@@ -99,15 +99,15 @@
                             </div>
                             <div class="col-lg-6 form-group">
                                 <label>Aadhaar No.</label><span class="fa fa-asterisk"></span>
-                                <input type="text" name="aadhaar_no" class="form-control" maxlength="10" placeholder="Enter Aadhaar No." value="{{ @$Employee->aadhaar_no }}"> 
+                                <input type="text" name="aadhaar_no" class="form-control" maxlength="12" placeholder="Enter Aadhaar No." value="{{ @$Employee->aadhaar_no }}"> 
                             </div>
                             <div class="col-lg-12 form-group">
                                 <label>Pan No.</label><span class="fa fa-asterisk"></span>
-                                <input type="text" name="pan_no" class="form-control"  maxlength="20" placeholder="Enter Pan No." value="{{ @$Employee->pan_number }}"> 
+                                <input type="text" name="pan_number" class="form-control"  maxlength="20" placeholder="Enter Pan No." value="{{ @$Employee->pan_number }}"> 
                             </div> 
                             <div class="col-lg-12 form-group">
                                 <label>PF Account No.</label><span class="fa fa-asterisk"></span>
-                                <input type="text" name="pf_account_no" class="form-control" maxlength="20" placeholder="Enter PF Account No." value="{{ @$Employee->pf_account_number }}"> 
+                                <input type="text" name="pf_account_number" class="form-control" maxlength="20" placeholder="Enter PF Account No." value="{{ @$Employee->pf_account_number }}"> 
                             </div>
                             <div class="col-lg-12 form-group">
                                 <label>ESI</label><span class="fa fa-asterisk"></span>
@@ -122,7 +122,7 @@
                           <div class="panel-body">
                             <div class="col-lg-6 form-group">
                                 <label>Mobile No.</label><span class="fa fa-asterisk"></span>
-                                <input type="text" name="mobile_no" class="form-control" placeholder="Enter Mobile No" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="{{ @$Employee->mobile_no }}"> 
+                                <input type="text" name="mobile" class="form-control" placeholder="Enter Mobile No" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="{{ @$Employee->mobile_no }}"> 
                             </div>
                             <div class="col-lg-6 form-group">
                                 <label>Contact No.</label><span class="fa fa-asterisk"></span>

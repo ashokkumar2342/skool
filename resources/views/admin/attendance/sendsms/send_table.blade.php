@@ -1,5 +1,5 @@
 	 
-	<button type="button" class="btn btn-sm btn-primary pull-right" style="margin:5px">Reminder</button>
+	<a class="btn btn-sm btn-primary pull-right" style="margin:5px" success-popup="true" onclick="callAjax(this,'{{ route('admin.attendance.sms.send.reminder') }}'+'?date='+$('#date_dav').val())">Reminder</a>
 	<button type="submit" class="btn btn-sm btn-info pull-right" style="margin:5px">Send Sms</button>
 
 <table class="table table-striped table-bordered table-condensed table-responsive table-hover" id="send_sms_table">

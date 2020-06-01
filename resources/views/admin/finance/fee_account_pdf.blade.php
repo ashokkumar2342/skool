@@ -14,14 +14,16 @@
  </head> 
  <body > 
  @include('schoolDetails.logo_header')
- <div class="row" style="margin-top: -20px"> 
+ <div class="row" style="margin-top: -30px">
+ <div class="panel panel-default">
+  <div class="panel-heading text-center">Fee Account Report</div>
+  </div>  
      <table id="fine_scheme_table" class="display table table-bordered table-striped"> 
        <thead>
          <tr>
-           <th class="text-nowrap">Sr.No.</th>
-           <th class="text-nowrap">Fee Account Code</th>
-           <th class="text-nowrap">Fee Account Name</th>
-           <th class="text-nowrap">Sorting Order No.</th>
+           <th class="text-nowrap" style="width: 61px">Sr.No.</th>
+           <th class="text-nowrap" style="width: 80px">Code</th>
+           <th class="text-nowrap">Name</th> 
            <th class="text-nowrap">Description</th> 
          </tr>
        </thead>
@@ -33,8 +35,7 @@
          <tr>
            <td>{{ $arrayId++ }}</td>
            <td>{{ $feeAccount->code }}</td>
-           <td>{{ $feeAccount->name }}</td>
-           <td>{{ $feeAccount->sorting_order_no }}</td>
+           <td>{{ $feeAccount->name }}</td> 
            <td>{{ $feeAccount->description }}</td> 
          </tr>    
          @endforeach

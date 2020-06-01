@@ -166,19 +166,25 @@ class TeacherController extends Controller
 
 
     //--------------teacher-class-mapping-----------------------------------------------//
-
-    public function teacherMapping($value='')
+    public function mapping($value='')
     {
        $StaffDetails=Employee::orderBy('name','ASC')->get();
        $sections=Section::orderBy('class_id','ASC')->get();
-       $TeacherClassAssignSaveId=TeacherClassAssign::pluck('section_id')->toArray();
-       return view('admin.teacher.teacherClassMapping.index',compact('StaffDetails','sections','TeacherClassAssignSaveId'));
+       $TeacherClassAssignsectionId=TeacherClassAssign::pluck('section_id')->toArray();
+       $TeacherClassAssignstaffId=TeacherClassAssign::pluck('staff_id')->toArray();
+       $TeacherClassAssigns=TeacherClassAssign::orderBy('created_at','ASC')->get();
+       return view('admin.teacher.teacherClassMapping.form',compact('StaffDetails','sections','TeacherClassAssignsectionId','TeacherClassAssignstaffId','TeacherClassAssigns'));
+    }
+    public function teacherMapping($value='')
+    {
+        
+       return view('admin.teacher.teacherClassMapping.index',compact('StaffDetails','sections','TeacherClassAssignsectionId','TeacherClassAssignstaffId'));
     }
     public function teacherMappingStore(Request $request)
     {
        $rules=[ 
-            'staff' => 'required', 
             'class' => 'required', 
+            'staff' => 'required', 
         ];
 
         $validator = Validator::make($request->all(),$rules);

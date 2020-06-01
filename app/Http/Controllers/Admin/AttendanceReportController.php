@@ -11,6 +11,7 @@ use App\Model\StudentAttendanceClass;
 use App\Student;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AttendanceReportController extends Controller
 {
@@ -98,5 +99,12 @@ class AttendanceReportController extends Controller
          $response=['status'=>1,'msg'=>'Send successfully'];
             return response()->json($response); 
 
+    }
+    public function reminder(Request $request)
+    {
+
+      DB::select(DB::raw("call up_send_reminder_sms_stu_att_markVerify ('$request->date')")); 
+      $response=['status'=>1,'msg'=>'Send successfully'];
+            return response()->json($response);  
     }
 }

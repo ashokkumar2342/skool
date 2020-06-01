@@ -2,17 +2,18 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header"> 
-    <h1>Sms<small></small></h1>
+    <h1>Send Sms<small></small></h1>
     </section>  
     <section class="content"> 
       <div class="box"> 
         <div class="box-body">
           <div class="btn-group btn-group-justified">
-            <a href="#" class="btn btn-primary" id="btn_1" onclick="callAjax(this,'{{ route('admin.sms.send.form',1) }}','send_form')">Mobile No.</a>
-            <a href="#" class="btn btn-primary" multiselect-form="true" onclick="callAjax(this,'{{ route('admin.sms.send.form',2) }}','send_form')">Class Wise</a>
-            <a href="#" class="btn btn-primary"  multiselect-form="true" onclick="callAjax(this,'{{ route('admin.sms.send.form',3) }}','send_form')">Class With Section</a>
+            {{-- <a href="#" class="btn btn-primary" id="btn_1" onclick="callAjax(this,'{{ route('admin.sms.send.form',1) }}','send_form')">Mobile No.</a> --}}
+            <a href="#" class="btn btn-primary" id="btn_1" multiselect-form="true" onclick="callAjax(this,'{{ route('admin.sms.send.form',1) }}','send_form')">Class Wise</a>
+            <a href="#" class="btn btn-primary"  multiselect-form="true" onclick="callAjax(this,'{{ route('admin.sms.send.form',2) }}','send_form')">Class With Section</a>
+            <a href="#" class="btn btn-primary" select2="true" multiselect-form="true" onclick="callAjax(this,'{{ route('admin.sms.send.form',3) }}','send_form')">Student Wise</a>
           </div>
-          <form class="add_form" action="{{ route('admin.sms.sendSms') }}" method="post">
+          <form class="add_form" action="{{ route('admin.sms.sendSms') }}" method="post" button-click="btn_1">
           {{ csrf_field() }}
           <div id="send_form" style="margin-top: 24px">
              

@@ -17,7 +17,7 @@
             <h4 class="modal-title">Edit</h4>
         </div>
         <div class="modal-body">
-            <form action="{{ route('admin.feeStructureLastDate.update',$feeStructureLastDate->id) }}" method="post" class="add_form" select-triger="fee_structure_select_box" button-click="btn_close">
+            <form action="{{ route('admin.feeStructureLastDate.update',$feeStructureLastDate->id) }}" method="post" class="add_form" select-triger="fee_structure_id" button-click="btn_close">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-lg-12 form-group">

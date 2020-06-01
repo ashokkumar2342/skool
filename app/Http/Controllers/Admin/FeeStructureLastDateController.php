@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 class FeeStructureLastDateController extends Controller
 {
     /**
@@ -181,5 +182,21 @@ class FeeStructureLastDateController extends Controller
         $feeStructureLastDate->delete();
        $response=['status'=>1,'msg'=>'Delete Successfully'];
             return response()->json($response);
+    }
+    public function report($value='')
+    {
+         $academicYears = AcademicYear::orderBy('start_date','DESC')->get();
+      return  view('admin.finance.pdf.fee_structure_last_date_popup' ,compact('academicYears','condition_id'));
+    }
+    public function reportGenerate(Request $request)
+    {
+       $FeeStructureLastDate=FeeStructureLastDate::where('academic_year_id',$request->academic_year_id)->get();
+       $classFeeStructureReports= collect($FeeStructureLastDate)->groupBy('fee_structure_id');
+       $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.finance.pdf.fee_structure_last_date_pdf' ,compact('classFeeStructureReports','pagebreak','condition_id'));
+        return $pdf->stream('class_fee_structure.pdf');  
     }
 }

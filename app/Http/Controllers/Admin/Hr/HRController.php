@@ -46,6 +46,15 @@ class HRController extends Controller
     }
     public function store(Request $request,$id=null){
         $rules=[
+            'code' => 'required|string|max:20|unique:employees,code,'.$id, 
+            'role' => 'required',
+            'name' => 'required',
+            'mobile' => 'required|unique:admins',
+            'email' => 'required|email|unique:admins',
+            'aadhaar_no' => 'required|unique:employees,aadhaar_no,'.$id, 
+            'pan_number' => 'nullable|unique:employees,pan_number,'.$id, 
+            'pf_account_number' => 'nullable|unique:employees,pf_account_number,'.$id, 
+            'esi' => 'nullable|unique:employees,esi,'.$id, 
             ];
 
             $validator = Validator::make($request->all(),$rules);
@@ -59,7 +68,7 @@ class HRController extends Controller
               else {
                 $char = substr( str_shuffle("0123456789"), 0, 6 ); 
                 $employees=Employee::firstOrNew(['id'=>$id]);
-                $employees->code=$request->employee_code;
+                $employees->code=$request->code;
 				$employees->date_of_joining=$request->date_of_joining;
 				$employees->department_id=$request->department; 
                 $employees->designation_id=$request->designation; 
@@ -72,10 +81,10 @@ class HRController extends Controller
                 $employees->date_of_birth=$request->dob;
 				$employees->gender_id=$request->gender; 
                 $employees->aadhaar_no=$request->aadhaar_no;
-				$employees->pan_number=$request->pan_no;
-                $employees->pf_account_number=$request->pf_account_no; 
+				$employees->pan_number=$request->pan_number;
+                $employees->pf_account_number=$request->pf_account_number; 
                 $employees->esi=$request->esi; 
-                $employees->mobile_no=$request->mobile_no; 
+                $employees->mobile_no=$request->mobile; 
                 $employees->contact_no=$request->contact_no; 
                 $employees->email=$request->email; 
                 $employees->country=$request->country; 

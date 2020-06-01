@@ -422,7 +422,10 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('/', 'SignatureStampController@index')->name('admin.signature.stamp');
 	     Route::get('add-form/{id?}', 'SignatureStampController@addForm')->name('admin.signature.stamp.add.form');
 	     Route::post('store/{id?}', 'SignatureStampController@store')->name('admin.signature.stamp.store');
-	     Route::get('table-show', 'SignatureStampController@tableShow')->name('admin.signature.stamp.table.show');
+	     Route::post('table-show', 'SignatureStampController@tableShow')->name('admin.signature.stamp.table.show');
+	     Route::get('status/{id}', 'SignatureStampController@status')->name('admin.signature.stamp.status');
+	     Route::get('report', 'SignatureStampController@report')->name('admin.signature.stamp.report');
+	     Route::post('report-generate', 'SignatureStampController@reportGenerate')->name('admin.signature.stamp.report.generate');
 	     
 	      
          
@@ -578,6 +581,7 @@ Route::group(['middleware' => 'admin'], function() {
 	        Route::get('sms-send', 'AttendanceReportController@smsSend')->name('admin.attendance.sms.send');
 	        Route::post('show', 'AttendanceReportController@SmsSendshow')->name('admin.attendance.sms.send.show');
 	        Route::post('sent', 'AttendanceReportController@SmsSendFinal')->name('admin.attendance.sms.send.final');
+	        Route::get('reminder', 'AttendanceReportController@reminder')->name('admin.attendance.sms.send.reminder');
 	        
 	    });
 	//------------------------- Finance ---------------------------------
@@ -634,6 +638,8 @@ Route::group(['middleware' => 'admin'], function() {
 	        Route::get('edit/{id}', 'FeeStructureLastDateController@edit')->name('admin.feeStructureLastDate.edit');
 	        Route::post('update/{id?}', 'FeeStructureLastDateController@update')->name('admin.feeStructureLastDate.update');
 	        Route::get('delete/{id?}', 'FeeStructureLastDateController@destroy')->name('admin.feeStructureLastDate.delete');
+	        Route::get('report', 'FeeStructureLastDateController@report')->name('admin.feeStructureLastDate.report');
+	        Route::post('report-generate', 'FeeStructureLastDateController@reportGenerate')->name('admin.feeStructureLastDate.report.generate');
 	     });
 	    //------------------------- class-fee-structure ---------------------------------
 	    Route::group(['prefix' => 'class-fee-structure'], function() {
@@ -1360,6 +1366,7 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('class-section', 'TimeTable\TeacherController@addclassWiseSection')->name('admin.teacher.class.wise.section.addForm');
                	 Route::get('table-show', 'TimeTable\TeacherController@tableShow')->name('admin.staff.details.table.show'); 
                	 Route::post('store', 'TimeTable\TeacherController@store')->name('admin.staff.details.store');
+               	 Route::get('mapping', 'TimeTable\TeacherController@mapping')->name('admin.staff.mapping');
                	 Route::get('teacher-mapping', 'TimeTable\TeacherController@teacherMapping')->name('admin.staff.teacher.mapping');
                	 Route::post('teacher-mapping-store', 'TimeTable\TeacherController@teacherMappingStore')->name('admin.staff.teacher.mapping.store');
                	 Route::get('edit/{id}', 'TimeTable\TeacherController@edit')->name('admin.teacher.details.edit');

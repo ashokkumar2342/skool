@@ -34,7 +34,7 @@
                 <input type="submit" class="btn btn-success" value="submit" style="margin: 24px">
               </div> 
              </form>
-             <div class="table-responsive">
+             
              <table class="table" id="room_table"> 
               <thead>
                 <tr>
@@ -56,7 +56,7 @@
                 @endforeach
               </tbody>
              </table>
-           </div>
+            
               
                          
           

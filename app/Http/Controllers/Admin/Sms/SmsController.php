@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 class SmsController extends Controller
 {
@@ -29,7 +30,9 @@ class SmsController extends Controller
     {
         $messagePurposes=MessagePurpose::orderBy('name','ASC')->get();
         $classTypes=MyFuncs::getClassByHasUser();
-        return view('admin.sms.send_form',compact('classTypes','messagePurposes','conditionId'));
+        $st=new Student();
+        $students=$st->getAllStudents();
+        return view('admin.sms.send_form',compact('classTypes','messagePurposes','students','conditionId'));
     }
     public function sectionMultiple(Request $request)
     {
@@ -37,22 +40,27 @@ class SmsController extends Controller
         return view('admin.sms.section_select_box',compact('sections'));
     }
     //send SMS
-    public function smsSend(Request $request){    
+    public function smsSend(Request $request){
     $rules=[
-         'message_purpose' => 'required', 
+        'message_purpose' => 'required', 
     	'message' => 'required|max:1000', 
         'date_time' => 'required', 
        
     ]; 
     if ($request->conditionId==1) {
-      $rules['mobile'] ='required';  
+        $rules['class_id'] ='required';
+        $class_id= implode(',',$request->class_id);
+        $section_id='';    
     }elseif ($request->conditionId==2) {
         $rules['class_id'] ='required';  
+        $rules['section_id'] ='required';
+        $class_id=$request->class_id; 
+        $section_id= implode(',',$request->section_id);  
     }elseif ($request->conditionId==3) {
-        $rules['class_id'] ='required';  
-        $rules['section_id'] ='required';  
-    }
-     
+        $rules['student'] ='required';  
+        $section_id='';
+        $class_id='';
+    } 
     $validator = Validator::make($request->all(),$rules);
     if ($validator->fails()) {
         $errors = $validator->errors()->all();
@@ -60,15 +68,13 @@ class SmsController extends Controller
         $response["status"]=0;
         $response["msg"]=$errors[0];
         return response()->json($response);// response as json
-    } 
-    
-    
-    
-        
-        $response = array();
-        $response['status'] = 1;
-        $response['msg'] = 'Message Sent successfully';
-    
+    }
+    $admin=Auth::guard('admin')->user();
+    $date_time=date("Y-m-d h:i:s",strtotime($request->date_time)); 
+     DB::select(DB::raw("call up_sendsms_general_student ('$request->conditionId','$class_id','$section_id','$request->student','$request->message_purpose','$request->message','$date_time','$admin->id')"));  
+    $response = array();
+    $response['status'] = 1;
+    $response['msg'] = 'Message Sent successfully'; 
     return $response;
     } 
 	//quickSms

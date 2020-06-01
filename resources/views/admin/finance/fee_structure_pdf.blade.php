@@ -14,16 +14,19 @@
 </head> 
 <body > 
 @include('schoolDetails.logo_header')
-<div class="row" style="margin-top: -20px"> 
+<div class="row" style="margin-top: -20px">
+<div class="panel panel-default">
+  <div class="panel-heading text-center">Fee Structure Report</div>
+  </div>  
     <table id="fine_scheme_table" class="display table table-bordered"> 
         <thead>
 <tr>
-<th class="text-nowrap">SR.No.</th>
-<th class="text-nowrap">Fee Structure Code</th>
-<th class="text-nowrap">Fee Structure Name</th>
+<th class="text-nowrap" style="width: 40px">SR.No.</th>
+<th class="text-nowrap" style="width: 40px">Code</th>
+<th class="text-nowrap" style="width: 150px">Name</th>
 <th class="text-nowrap">Fee Account Name</th>
 <th class="text-nowrap">Fine Scheme</th>
-<th class="text-nowrap">Refundable</th>  
+<th class="text-nowrap" style="width: 60px">Is Refundable</th>  
 </tr>
 </thead>
 <tbody>
