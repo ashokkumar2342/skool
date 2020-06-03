@@ -12,7 +12,7 @@ class Notification extends Model
    }
 
     // save notification
-   public function insNotificationCenter($insArr){
+   public function insNotification($insArr){
    	try {
    		return $this->insertGetId($insArr);
    	} catch (QueryException $e) {
@@ -21,18 +21,18 @@ class Notification extends Model
    }
 
     // get notification
-   public function getNotificationCenter($id){
+   public function getNotification($id){
       return $this->where('user_id',$id)
       				->orderBy('id', 'desc') 
-      				->where('status',1)	   				
+      				->where('status',0)	   				
       				->paginate(10); 
    }
 
     // all get notification 
-   public function getAllNotificationCenter($id){
+   public function getAllNotification($id){
       return $this->where('user_id',$id)
       				->orderBy('id', 'desc') 	   				
-      				->where('status',1)
+      				->where('status',0)
       				->paginate(15); 
    }
     //  notification read status change
@@ -71,9 +71,9 @@ class Notification extends Model
    }
 
     // get All notification
-   public function countNotificationCenter($id){
+   public function countNotification($id){
       return $this->where('user_id',$id)
       			 
-      				->where('status',1)->count(); 
+      				->where('status',0)->count(); 
    }
 }
