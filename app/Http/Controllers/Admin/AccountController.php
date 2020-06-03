@@ -266,7 +266,7 @@ class AccountController extends Controller
     Public function userClass(){
         $classes = ClassType::all();
         $userClass = UserClassType::all();
-        $users = Admin::get(['id','first_name','email']);     
+        $users = Admin::get(['id','first_name','email','role_id']);     
 
         return view('admin.account.userClass',compact('users','classes','userClass'));
        

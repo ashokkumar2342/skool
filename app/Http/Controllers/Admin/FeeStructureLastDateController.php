@@ -183,15 +183,17 @@ class FeeStructureLastDateController extends Controller
        $response=['status'=>1,'msg'=>'Delete Successfully'];
             return response()->json($response);
     }
-    public function report($value='')
+    public function report()
     {
+         $FeeStructures=FeeStructure::orderBy('name','ASC')->get();
          $academicYears = AcademicYear::orderBy('start_date','DESC')->get();
-      return  view('admin.finance.pdf.fee_structure_last_date_popup' ,compact('academicYears','condition_id'));
+      return  view('admin.finance.pdf.fee_structure_last_date_popup' ,compact('academicYears','FeeStructures'));
     }
     public function reportGenerate(Request $request)
-    {
-       $FeeStructureLastDate=FeeStructureLastDate::where('academic_year_id',$request->academic_year_id)->get();
-       $classFeeStructureReports= collect($FeeStructureLastDate)->groupBy('fee_structure_id');
+    { 
+        
+        $classFeeStructureReports=DB::select(DB::raw("call up_show_fsld_report ('$request->academic_year_id')"));
+
        $pdf=PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')

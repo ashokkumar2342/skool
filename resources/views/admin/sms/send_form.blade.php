@@ -47,9 +47,9 @@
 @endif
 @if ($conditionId==3)
 <div class="form-group col-lg-6">
-  <label>Student</label>
-  <select name="student" class="form-control select2" required="">
-    <option selected disabled>Select Student</option>
+  <label>Student</label></br>
+  <select name="student[]" class="form-control multiselect" multiple="multiple"  required="">
+     
     @foreach($students as $student)
     <option value="{{ $student->id }}">{{ $student->name }}--{{ $student->registration_no }}</option>
     @endforeach

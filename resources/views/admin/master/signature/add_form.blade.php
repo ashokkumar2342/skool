@@ -12,8 +12,8 @@
                    {{ csrf_field() }}
                     <div class="row"> 
                       <div class="form-group col-lg-6">
-                        <label>Employee</label>
-                        <select name="employee" class="form-control select2">
+                        <label>Employee</label><br>
+                        <select name="employee" class="form-control select2" {{ @$signatureStamps->id?'disabled':'' }}>
                           <option selected disabled>Select User</option>
                           @foreach ($Employees as $Employee)
                           @if ($Employee->role_id!=12) 
@@ -28,7 +28,7 @@
                       </div>
                       <div class="form-group col-lg-6">
                         <label>Certificate Type</label>
-                        <select name="certificate_type" class="form-control">
+                        <select name="certificate_type" class="form-control" {{ @$signatureStamps->id?'disabled':'' }}>
                           <option  selected disabled>Select Certificate</option>
                           @foreach ($CertificateTypes as $CertificateType)
                              <option value="{{ $CertificateType->id }}"{{ @$signatureStamps->certificate_type_id==$CertificateType->id?'selected':'' }}>{{ $CertificateType->name}}</option>   
@@ -37,7 +37,7 @@
                       </div>
                       <div class="form-group col-lg-6">
                         <label>Authority Type</label>
-                        <select name="authority_type" class="form-control">
+                        <select name="authority_type" class="form-control" {{ @$signatureStamps->id?'disabled':'' }}>
                           <option selected disabled>Select Option</option> 
                             @foreach ($IssueAthortiTypes as $IssueAthortiType)
                              <option value="{{ $IssueAthortiType->id }}"{{ @$signatureStamps->authority_type_id==$IssueAthortiType->id?'selected':'' }}>{{ $IssueAthortiType->name}}</option>   
@@ -52,10 +52,9 @@
                         <label>Stamp</label>
                         <input type="file" name="stamp" class="form-control"> 
                       </div> 
-                     
                        <div class="form-group col-lg-6">
                         <label>From Date</label>
-                        <input type="date" name="from_date" class="form-control" value="{{ @$signatureStamps->from_date}}"> 
+                        <input type="date" name="from_date" class="form-control" value="{{ @$signatureStamps->from_date}}" {{ @$signatureStamps->id?'disabled':'' }}> 
                       </div> 
                       <div class="form-group col-lg-6">
                         <label>To Date</label>

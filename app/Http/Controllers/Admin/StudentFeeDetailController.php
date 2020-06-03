@@ -151,7 +151,7 @@ class StudentFeeDetailController extends Controller
        return view('admin.finance.student_search_list',compact('students'));
     }
     public function feeassignSearchListSelect(Request $request,$menu_id)
-    {
+    {  
         $stuents=Student::where('registration_no',$request->registration_no)->first();
         if (empty($stuents)) {
           $response = array();
@@ -161,14 +161,16 @@ class StudentFeeDetailController extends Controller
         }
         $st=new Student();
         $student=$st->getStudentDetailsById($stuents->id);
+        $studentFeeStructures=DB::select(DB::raw("call up_show_student_feeassign_report ('$stuents->id','$request->academic_year_id')"));
         $studentFeeDetails=DB::select(DB::raw("call up_show_student_fee_detail ('$stuents->id','$request->academic_year_id')"));
         $menuPermission = Minu::find($menu_id);
-        return view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','feeStructurLastDate','concession','student','menuPermission','fatherDetail','motherDetail','address'));
+        return view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','FeeStructures','student','menuPermission','studentFeeStructures'));
         
     }
 
     public function feeassignshow(Request $request,$menu_id)
     {   
+        $FeeStructures=FeeStructure::orderBy('name','ASC')->get();
         $stuents=Student::where('registration_no',$request->student_id)->first();
         if (empty($stuents)) {
           $response = array();
@@ -178,10 +180,11 @@ class StudentFeeDetailController extends Controller
         }
         $st=new Student();
         $student=$st->getStudentDetailsById($stuents->id);
+         $studentFeeStructures=DB::select(DB::raw("call up_show_student_feeassign_report ('$stuents->id','$request->academic_year_id')"));
         $studentFeeDetails=DB::select(DB::raw("call up_show_student_fee_detail ('$stuents->id','$request->academic_year_id')"));
         $menuPermission = Minu::find($menu_id);
         $response = array();
-        $response['data'] = view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','feeStructurLastDate','concession','student','menuPermission','fatherDetail','motherDetail','address'))->render();
+        $response['data'] = view('admin.finance.student_fee_assign_show',compact('studentFeeDetails','feeStructurLastDate','concession','student','menuPermission','fatherDetail','motherDetail','address','FeeStructures','studentFeeStructures'))->render();
         $response['status']=1;
         return $response;   
     }
@@ -192,9 +195,12 @@ class StudentFeeDetailController extends Controller
      * @param  \App\Model\StudentFeeDetail  $studentFeeDetail
      * @return \Illuminate\Http\Response
      */
-    public function edit(StudentFeeDetail $studentFeeDetail)
-    {
-        //
+    public function studentFeeAssignStructureDelete(Request $request,$student_id,$fee_structure_id)
+    { 
+    $datas=DB::select(DB::raw("call up_delete_student_feeassign_feedetail ($student_id,'$request->academic_year_id','$fee_structure_id')"));    
+     $response['status'] =1;
+     $response['msg'] ='Delete Successfully'; 
+     return $response; 
     }
     public function assignstore(Request $request,StudentFeeDetail $studentFeeDetail)
     {
@@ -240,7 +246,8 @@ class StudentFeeDetailController extends Controller
     public function showFeeStructureAmount(Request $request)
     {
         $FeeStructureAmount=FeeStructureAmount::where('fee_structure_id',$request->id)->first();
-        return view('admin.finance.include.student_fee_struture_amount',compact('FeeStructureAmount'));
+        $concessions = Concession::orderBy('name','ASC')->get();
+        return view('admin.finance.include.student_fee_struture_amount',compact('FeeStructureAmount','concessions'));
     }
 
     //fee st details store
@@ -250,8 +257,8 @@ class StudentFeeDetailController extends Controller
             'academic_year_id' => 'required',  
             'fee_structure' => 'required',  
             'amount' => 'required', 
-            'to_date' => 'required', 
             'from_date' => 'required', 
+            'to_date' => 'required', 
           ];
 
          $validator = Validator::make($request->all(),$rules);
@@ -262,9 +269,13 @@ class StudentFeeDetailController extends Controller
              $response["msg"]=$errors[0];
              return response()->json($response);// response as json
          }
-        else { 
-
-                 $datas=DB::select(DB::raw("call up_assign_fee_student_fee_structure ('$request->academic_year_id','$student_id','$request->fee_structure','$request->from_date','$request->to_date','$request->concession','$request->concession_amount')"));  
+        else {  
+            if ($request->concession!=0) {
+             $concession_amount= $request->concession_amount;  
+            }else{
+              $concession_amount='0';  
+            }
+               $datas=DB::select(DB::raw("call up_assign_fee_student_fee_structure ('$request->academic_year_id','$student_id','$request->fee_structure','$request->from_date','$request->to_date','$request->concession','$concession_amount')"));  
                 $response['status'] =1;
                 $response['msg'] ='Fee  Details Add Successfully'; 
                 return $response;
@@ -273,9 +284,11 @@ class StudentFeeDetailController extends Controller
 
     public function showFeeDetailConcessionModel(Request $request,$id)
     {     
-        $studentFeeDetail =StudentFeeDetail::find($id);   
-         $concession = array_pluck(Concession::get(['id','name'])->toArray(), 'name', 'id');
-        return view('admin.finance.include.student_fee_concession_edit_model',compact('studentFeeDetail','concession'));
+         $studentFeeDetail =StudentFeeDetail::find($id);   
+         $feeStructurLastDate =FeeStructureLastDate::find($studentFeeDetail->fee_structure_last_date_id);
+         $feeStructureAmounts = FeeStructureAmount::where('fee_structure_id',$feeStructurLastDate->fee_structure_id)->first();   
+         $concessions = Concession::orderBy('name','ASC')->get();
+        return view('admin.finance.include.student_fee_concession_edit_model',compact('studentFeeDetail','concessions','feeStructureAmounts'));
     } 
     // fee concession store
      public function feeconcessioneStore(Request $request,$studentFeeDetail_id){

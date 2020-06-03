@@ -61,7 +61,7 @@
                           </select> 
                      </div>
                      <div class="col-lg-3 form-group">
-                         <label>Role</label><span class="fa fa-asterisk"></span>
+                         <label>Role</label><span class="fa fa-asterisk"></span></br>
                          <select name="role" class="form-control select2">
                              <option selected disabled>Select User</option> 
                              @foreach ($admins as $admin)

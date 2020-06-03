@@ -1,28 +1,69 @@
+<div class="col-lg-12">
+<div class="panel panel-info">
+<div class="panel-heading">Person Details</div>
+<div class="panel-body"> 
+<table class="table table-striped table-bordered">
+<tbody>
+<tr>
+<td style="width: 94px;">Name</td>
+<td style="width: 94px;">Father's Name</td>
+<td style="width: 96px;">Mother's Name </td>
+<td style="width: 96px;">Mobile</td>
+<td style="width: 96px;">Email</td>
+<td style="width: 97px;">Address</td>
+</tr>
+<tr>
+<td style="width: 94px;">{{ $student->name }}</td>
+<td style="width: 94px;">{{ $student->parents[0]->parentInfo->name or ''}}</td>
+<td style="width: 96px;">{{ $student->parents[1]->parentInfo->name or '' }}</td>
+<td style="width: 96px;">{{ $student->addressDetails->address->primary_mobile or ''}}</td>
+<td style="width: 96px;">{{ $student->addressDetails->address->primary_email or ''}}</td>
+<td style="width: 97px;">{{ $student->addressDetails->address->p_address or ''}}</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div> 
+<div class="col-lg-12">
+<div class="panel panel-danger">
+<div class="panel-heading">Fee Details</div>
+<div class="panel-body"> 
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Sr.No.</th>
+      <th>Fee Name</th>
+      <th>Amount</th>
+      <th>Due in Month Year</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+   <tbody>
+   @php
+      $arrayId=1;
+    @endphp 
+   @foreach ($studentFeeStructures as $studentFeeStructure) 
+  <tr >
+     <td>{{ $arrayId++ }}</td> 
+     <td>{{ $studentFeeStructure->name }}</td> 
+     <td>{{ $studentFeeStructure->amount }}</td> 
+     <td>{{ $studentFeeStructure->DueMonthYear }}</td> 
+     <td>
+      <a class="btn btn-xs btn-danger"  onclick="if (confirm('Are you Sure delete')){callAjax(this,'{{ route('admin.student.fee.assign.structure.delete',[$student->id,$studentFeeStructure->id]) }}'+'?academic_year_id='+$('#academic_year_id').val())} else{console_Log('cancel') }"   success-popup="true" button-click="btn_student_fee_assign_show"><i class="fa fa-trash"></i></a></td> 
+  </tr>
+   @endforeach
+  </tbody>
+</table> 
+</div>
+</div>
+</div>
 
-<div class="panel panel-default">
- <div class="panel-heading text-right"><button type="button" class="btn btn-info" onclick="callPopupLarge(this,'{{ route('admin.studentFeeStructure.show.model',$student->id) }}'+'?academic_year_id='+$('#academic_year_id').val())">Add FEE STRUCTURE</button></div>
-   <div class="panel-body">
-<div class="col-lg-4">
-<h5>Name : <b>{{ $student->name }}</b></h5>
-</div>
-<div class="col-lg-4">
-<h5>Father's Name : <b>{{ $student->parents[0]->parentInfo->name or ''}}</b></h5>
-</div>
-<div class="col-lg-4">
-<h5>Mother's Name : <b>{{ $student->parents[1]->parentInfo->name or '' }}</b></h5>
-</div>
-<div class="col-lg-4">
-<h5>Mobile : <b>{{ $student->addressDetails->address->primary_mobile or ''}}</b></h5>
-</div>
-<div class="col-lg-4">
-<h5>E-mail : <b>{{ $student->addressDetails->address->primary_email or ''}}</b></h5>
-</div>
-<div class="col-lg-4">
-<h5>Address : <b>{{ $student->addressDetails->address->p_address or ''}} </b></h5>
-</div>
-</div>
-</div>
- <table class="table table-responsive" id="student_fee_assign_show_table"> 
+<div class="col-lg-4 pull-right">
+  <button type="button" class="btn btn-sm btn-info form-control pull-right" onclick="callPopupLarge(this,'{{ route('admin.studentFeeStructure.show.model',$student->id) }}'+'?academic_year_id='+$('#academic_year_id').val())" style="margin:5px">Add FEE STRUCTURE</button>  
+</div> 
+<div class="col-lg-12 table-responsive" style="margin-top: 5px"> 
+ <table class="table" id="student_fee_assign_show_table"> 
      <thead>
          <tr>
              <th>Sr.No.</th> 
@@ -73,6 +114,7 @@
          @endforeach 
      </tbody>
  </table>
+</div>
  {{-- <div class="row"> 
   
      <div class="col-lg-3"> 

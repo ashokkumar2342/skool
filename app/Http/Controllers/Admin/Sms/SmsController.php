@@ -51,13 +51,16 @@ class SmsController extends Controller
         $rules['class_id'] ='required';
         $class_id= implode(',',$request->class_id);
         $section_id='';    
+        $student='';    
     }elseif ($request->conditionId==2) {
         $rules['class_id'] ='required';  
         $rules['section_id'] ='required';
         $class_id=$request->class_id; 
-        $section_id= implode(',',$request->section_id);  
+        $section_id= implode(',',$request->section_id);
+        $student='';    
     }elseif ($request->conditionId==3) {
-        $rules['student'] ='required';  
+        $rules['student'] ='required';
+        $student= implode(',',$request->student);  
         $section_id='';
         $class_id='';
     } 
@@ -71,7 +74,7 @@ class SmsController extends Controller
     }
     $admin=Auth::guard('admin')->user();
     $date_time=date("Y-m-d h:i:s",strtotime($request->date_time)); 
-     DB::select(DB::raw("call up_sendsms_general_student ('$request->conditionId','$class_id','$section_id','$request->student','$request->message_purpose','$request->message','$date_time','$admin->id')"));  
+     DB::select(DB::raw("call up_sendsms_general_student ('$request->conditionId','$class_id','$section_id','$student','$request->message_purpose','$request->message','$date_time','$admin->id')"));  
     $response = array();
     $response['status'] = 1;
     $response['msg'] = 'Message Sent successfully'; 

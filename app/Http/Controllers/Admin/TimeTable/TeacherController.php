@@ -33,7 +33,9 @@ use App\Model\TimeTable\TimeTableType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class TeacherController extends Controller
 {
@@ -168,8 +170,9 @@ class TeacherController extends Controller
     //--------------teacher-class-mapping-----------------------------------------------//
     public function mapping($value='')
     {
-       $StaffDetails=Employee::orderBy('name','ASC')->get();
-       $sections=Section::orderBy('class_id','ASC')->get();
+       $employee=new Employee();
+       $StaffDetails=$employee->employeeAllDetails();
+       $sections=Section::orderBy('class_id','ASC')->orderBy('section_id','ASC')->get();
        $TeacherClassAssignsectionId=TeacherClassAssign::pluck('section_id')->toArray();
        $TeacherClassAssignstaffId=TeacherClassAssign::pluck('staff_id')->toArray();
        $TeacherClassAssigns=TeacherClassAssign::orderBy('created_at','ASC')->get();
@@ -206,6 +209,21 @@ class TeacherController extends Controller
             return response()->json($response);
         
         } 
+    }
+    public function teacherMappingreport($value='')
+    { 
+      return view('admin.teacher.teacherClassMapping.popup',compact('StaffDetails','sections','TeacherClassAssignsectionId','TeacherClassAssignstaffId'));
+    }
+    public function teacherMappingreportGenerate(Request $request)
+    {   
+        $reportType=$request->report_type;
+        $teacherClassMappings= DB::select(DB::raw("call up_view_classteacher_report ('$request->report_type')")); 
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.teacher.teacherClassMapping.report_pdf',compact('teacherClassMappings','reportType'));
+        return $pdf->stream('teacher_class_report.pdf');
     }
     //--------------teacher-working-days----------------------------------------------//
 

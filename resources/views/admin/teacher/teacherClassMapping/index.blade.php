@@ -1,13 +1,14 @@
 @extends('admin.layout.base')
 @section('body')
   <!-- Main content -->
-  <section class="content-header"> 
+  <section class="content-header">
+  <a onclick="callPopupLarge(this,'{{ route('admin.staff.teacher.mapping.report') }}')" class="btn btn-sm btn-primary pull-right">PDF Report</a> 
     <h1>Class => Class Teacher<small></small></h1>
     </section>  
     <section class="content"> 
       <div class="box"> 
         <div class="box-body">
-          <button type="hidden" class="hidden" id="btn_mapping_show" data-table="mapping_table" onclick="callAjax(this,'{{ route('admin.staff.mapping') }}','mapping_form')"></button>
+          <button type="hidden" class="hidden" id="btn_mapping_show" select2="true" data-table="mapping_table" onclick="callAjax(this,'{{ route('admin.staff.mapping') }}','mapping_form')"></button>
           <div id="mapping_form">
             
           </div>

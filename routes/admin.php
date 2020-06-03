@@ -672,6 +672,7 @@ Route::group(['middleware' => 'admin'], function() {
     	    Route::post('store/{id?}', 'ConcessionController@store')->name('admin.concession.post');
     	    Route::get('delete/{id?}', 'ConcessionController@destroy')->name('admin.concession.delete');
     	    Route::get('search', 'ConcessionController@search')->name('admin.concession.search');
+    	    Route::get('report', 'ConcessionController@report')->name('admin.concession.report');
     	 });//------------------------- finance-year ---------------------------------
         Route::group(['prefix' => 'finance-finance'], function() {
     	    Route::get('/', 'FinanceYearController@index')->name('admin.finance.year');	 	
@@ -701,6 +702,7 @@ Route::group(['middleware' => 'admin'], function() {
     	      Route::get('previous-reciept-search', 'StudentFeeDetailController@previousRecieptSearch')->name('admin.privious.reciept.search');
     	      Route::get('previous-reciept-show', 'StudentFeeDetailController@previousRecieptShow')->name('admin.privious.reciept.show');
     	      Route::get('previous-reciept-download/{id}', 'StudentFeeDetailController@previousRecieptDownload')->name('admin.privious.reciept.download');
+    	      Route::get('student-fee-assign-delete/{student_id}/{fee_structure_id}', 'StudentFeeDetailController@studentFeeAssignStructureDelete')->name('admin.student.fee.assign.structure.delete');
     	 });
     	 //------------------------- StudentFeeGroupDetail --------------------------------- 
     	Route::group(['prefix' => 'fee-group-wise'], function() {
@@ -1369,6 +1371,9 @@ Route::group(['middleware' => 'admin'], function() {
                	 Route::get('mapping', 'TimeTable\TeacherController@mapping')->name('admin.staff.mapping');
                	 Route::get('teacher-mapping', 'TimeTable\TeacherController@teacherMapping')->name('admin.staff.teacher.mapping');
                	 Route::post('teacher-mapping-store', 'TimeTable\TeacherController@teacherMappingStore')->name('admin.staff.teacher.mapping.store');
+               	 Route::get('teacher-mapping-report', 'TimeTable\TeacherController@teacherMappingreport')->name('admin.staff.teacher.mapping.report');
+               	 Route::post('teacher-mapping-report-generate', 'TimeTable\TeacherController@teacherMappingreportGenerate')->name('admin.staff.teacher.mapping.report.generate');
+
                	 Route::get('edit/{id}', 'TimeTable\TeacherController@edit')->name('admin.teacher.details.edit');
                	 Route::get('delete/{id}', 'TimeTable\TeacherController@destroy')->name('admin.teacher.details.delete');
                	 Route::post('update/{id}', 'TimeTable\TeacherController@update')->name('admin.teacher.details.update');

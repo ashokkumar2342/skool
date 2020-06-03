@@ -16,20 +16,21 @@
         <div class="col-md-12"> 
           <form class=" add_form" button-click="btn_close,btn_student_fee_assign_show"    action="{{ route('admin.studentFee.details.concession.store',$studentFeeDetail->id) }}" method="post">              
           {{ csrf_field() }} 
-        
-             {{ Form::label('concession','Concession',['class'=>' control-label']) }}
-           <select name="concession" id="concession" class="form-control form-group" onchange="concessitonAmount($('#concession').val())" required>
-                  <option value="" selected="" disabled="">Select Concession</option> 
-                  @foreach ($concession as $key=>$value)
-                     <option value="{{ $key }}" {{ $key==$studentFeeDetail->concession_id?'selected':'' }}>{{ $value }}</option>
-                  @endforeach
-                  
-                </select>
-             {{ Form::label('concession_amount','Concession Amount',['class'=>' control-label']) }}
-
-            {!! Form::text('concession_amount',$studentFeeDetail->concession_amount, ['class'=>'form-control form-group concession','placeholder'=>'Concession Amount','required','id'=>'concession_amount']) !!}
-        
-          <br> 
+  
+  <input type="hidden" name="academic_year_id" id="academic_year_id" value="{{ $feeStructureAmounts->academic_year_id }}">      
+  <input type="hidden" name="fee_structure" id="fee_structure" value="{{ $feeStructureAmounts->fee_structure_id }}">      
+<div class="col-lg-12 form-group">
+<label>Concession</label>
+<select name="concession" class="form-control" onchange="callAjax(this,'{{ route('admin.concession.search') }}'+'?fee_structure='+$('#fee_structure').val()+'&academic_year_id='+$('#academic_year_id').val(),'concession_amount')">
+  <option value="0">No concession</option>
+  @foreach ($concessions as $concession)
+     <option value="{{ $concession->id }}">{{ $concession->name }}</option>
+  @endforeach
+</select> 
+</div>
+<div id="concession_amount">
+ 
+</div>
           <div class="text-center">
              <input type="submit" value="Update" class="btn btn-success">
           </div>

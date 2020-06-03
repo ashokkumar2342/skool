@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\Concession;
+use App\Model\FeeStructure;
+use App\Model\FeeStructureAmount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class ConcessionController extends Controller
 {
@@ -17,7 +20,7 @@ class ConcessionController extends Controller
      */
     public function index()
     {
-        $concessions = Concession::latest('created_at')->paginate(20);
+        $concessions = Concession::orderBy('name','ASC')->get();
         return view('admin.finance.concession',compact('concessions'));
     }
 
@@ -79,10 +82,13 @@ class ConcessionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function search(Request $request)
-    {
-        $concession = Concession::find($request->concession);
-         
-        return response()->json($concession);
+    { 
+        $feeStructureAmounts = FeeStructureAmount::where('fee_structure_id',$request->fee_structure)->where('academic_year_id',$request->academic_year_id)->first(); 
+        $concession = Concession::find($request->id);
+        if (!empty($concession)) { 
+        $concession_amount =($concession->percentage / 100) * $feeStructureAmounts->amount;
+         } 
+        return view('admin.finance.include.student_fee_concession_amount',compact('concession_amount'));
     }
 
     /**
@@ -115,5 +121,15 @@ class ConcessionController extends Controller
        $concession = Concession::find(Crypt::decrypt($id));
        $concession->delete();
        return  redirect()->back()->with(['message'=>'Concession Delete Successfully','class'=>'success']);
+   }
+   public function report($value='')
+   {
+        $concessions = Concession::orderBy('name','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.finance.pdf.concession_pdf',compact('concessions'));
+        return $pdf->stream('academicYear.pdf');
    }
 }

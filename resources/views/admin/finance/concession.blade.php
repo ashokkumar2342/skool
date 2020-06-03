@@ -9,6 +9,7 @@
 
 <section class="content-header">
      <button type="button" class="pull-right btn btn-info btn-sm" onclick="callPopupLarge(this,'{{ route('admin.concession.add.form') }}')">Add Concession</button>
+     <a href="{{ route('admin.concession.report') }}" class="btn btn-sm btn-primary pull-right" style="margin-right: 5px" target="blank">PDF Report</a>
     <h1>Concessions List </h1>
 </section>
     <section class="content">

@@ -92,6 +92,12 @@ function callJqueryDefault(divId){
 					'iDisplayLength': 10,
 				});
 				}
+				if(formObj.getAttribute('data-table-all-record'))
+				{
+				$("#"+formObj.getAttribute('data-table-all-record')).DataTable({
+					'iDisplayLength': 100,
+				});
+				}
 				else if(formObj.getAttribute('data-table-without-pagination'))
 				{
 				$("#"+formObj.getAttribute('data-table-without-pagination')).DataTable({

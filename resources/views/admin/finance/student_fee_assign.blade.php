@@ -5,11 +5,9 @@
       
 </section>
     <section class="content">
-        <div class="box">             
-            <!-- /.box-header -->
-            <div class="box-body">             
-                <div class="col-md-12"> 
-                  <form class="form-vertical add_form" success-content-id="student_fee_assign_show" no-reset="true" action="{{ route('admin.studentFeeAssign.show',App\Helper\MyFuncs::menuPermission()->id) }}" method="post" data-table="student_fee_assign_show_table">
+        <div class="box">    
+            <div class="box-body">  
+                  <form class="form-vertical add_form" success-content-id="student_fee_assign_show" no-reset="true" action="{{ route('admin.studentFeeAssign.show',App\Helper\MyFuncs::menuPermission()->id) }}" method="post" data-table-all-record="student_fee_assign_show_table">
                     {{ csrf_field() }}
                          <div class="col-lg-4">                           
                              <div class="form-group">
@@ -21,41 +19,26 @@
                                 @endforeach
                               </select> 
                              </div>    
-                        </div> 
-                       {{--   <div class="col-lg-2">                           
-                             <div class="form-group">
-                              {{ Form::label('class_id','Class',['class'=>' control-label']) }}
-                               {{ Form::select('class_id',$classess,null,['class'=>'form-control','placeholder'=>"Select Class"]) }}
-                               <p class="errorAmount1 text-center alert alert-danger hidden"></p>
-                             </div>    
-                        </div> --}}
+                        </div>  
                         <div class="col-lg-4">                           
                              <div class="form-group">
                               {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
                                <input type="text" name="student_id" class="form-control">
                              </div>    
                         </div>                                                             
-                       <div class="col-lg-2" style="padding-top: 24px;">
-                       <input type="submit" class="btn btn-success" id="btn_student_fee_assign_show"  value="Show" style="width: 130px">                                             
-                       {{-- <button class="btn btn-success" type="button" id="btn_student_fee_detail_create">Show</button>  --}}
-                      </div>                     
-                  </form> 
-                  <br>
-                   <button class="btn btn-success form-control" type="button" id="btn_student_registration_show" onclick="callPopupLarge(this,'{{ route('admin.studentFeeAssign.search') }}'+'?academic_year_id='+$('#academic_year_id').val())" style="width: 130px;margin-top: 4px">Search</button>
-                </div> 
-            </div>
-                <div id="student_fee_assign_show">
+                       <div class="col-lg-2">
+                       <input type="submit" class="btn btn-success form-control" id="btn_student_fee_assign_show"  value="Show" style="margin-top: 24px">  
+                      </div>
+                      <div class="col-lg-2"> 
+                        <button class="btn btn-default form-control" type="button" id="btn_student_registration_show" onclick="callPopupLarge(this,'{{ route('admin.studentFeeAssign.search') }}'+'?academic_year_id='+$('#academic_year_id').val())" style="margin-top: 24px"><i class="fa fa-search"> Search</i></button>
+                      </div>  
+                 </form>
+                <div  id="student_fee_assign_show">
                   
                 </div>
-            <!-- /.box-body -->
+            </div> 
           </div>
-          <!-- /.box -->
-
           
-          <!-- Modal -->
-         
-           
- 
     </section>
     <!-- /.content -->
 @endsection

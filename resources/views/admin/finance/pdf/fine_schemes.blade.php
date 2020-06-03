@@ -27,8 +27,8 @@
                 <th class="text-nowrap">Amt 1</th>
                 <th class="text-nowrap">Amt 2</th>
                 <th class="text-nowrap">Amt 3</th>
-                <th class="text-nowrap">Days After 1</th>
-                <th class="text-nowrap">Days After 2</th>
+                <th >Amt 2 Applicable After Days</th>
+                <th >Amt 3 Applicable After Days</th>
                 <th class="text-nowrap">Fine Period</th> 
             </tr>
         </thead> 

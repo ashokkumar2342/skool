@@ -2,7 +2,7 @@
             {{ csrf_field() }}
             <div class="row">
               <div class="col-lg-4 form-group">
-                <label>Class</label>
+                <label>Class</label></br>
                 <select name="class" class="form-control select2">
                   <option selected disabled>Select Class</option>
                   @foreach ($sections as $section)
@@ -14,7 +14,7 @@
                 </select> 
               </div>
               <div class="col-lg-4 form-group">
-                <label>Teacher</label>
+                <label>Teacher</label></br>
                 <select name="staff" class="form-control select2">
                   <option selected disabled>Select Teacher</option> 
                   @foreach ($StaffDetails as $StaffDetail)

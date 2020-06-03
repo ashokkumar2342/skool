@@ -44,14 +44,23 @@ class SignatureStampController extends Controller
     }
      public function store(Request $request,$id=null)
     {  
-    	 $rules=[
-          
+
+      if ($id==null) {
+       $rules=[ 
             'employee' => 'required', 
             'designation' => 'required', 
             'certificate_type' => 'required', 
             'authority_type' => 'required', 
-            'from_date' => 'required', 
+            'from_date' => 'required',  
+            
         ];
+      }else{
+       $rules=[  
+            'designation' => 'required', 
+           
+        ]; 
+      }
+    	 
 
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()) {
@@ -62,48 +71,32 @@ class SignatureStampController extends Controller
             return response()->json($response);// response as json
         }
         else {
-
-            if ($request->hasFile('signature')) { 
-                $signature=$request->signature;
-                $signaturename='signature'.date('d-m-Y').time().'.jpg'; 
-                $signature->storeAs('public/signature/',$signaturename);
-            if ($request->hasFile('stamp')) { 
-                $stamp=$request->stamp;
-                $stampname='stamp'.date('d-m-Y').time().'.jpg'; 
-                $stamp->storeAs('public/stamp/',$stampname); 
-                $signatureStamp=  SignatureStamp::firstOrNew(['id'=>$id]);
+                $signatureStamp=  SignatureStamp::firstOrNew(['id'=>$id]);  
+                $signatureStamp->to_date=$request->to_date;
+                $signatureStamp->Designation=$request->designation;
+                if ($id==null) {
                 $signatureStamp->certificate_type_id=$request->certificate_type;
                 $signatureStamp->emp_id=$request->employee; 
-                $signatureStamp->signature=$signaturename;
-                $signatureStamp->stamp=$stampname;
-                $signatureStamp->from_date=$request->from_date;
-                $signatureStamp->to_date=$request->to_date;
                 $signatureStamp->authority_type_id=$request->authority_type;
-                $signatureStamp->Designation=$request->designation;
-                if ($id==null) {
+                $signatureStamp->from_date=$request->from_date;
                 $signatureStamp->status=0; 
                 }
-                $signatureStamp->save();
-               $response=['status'=>1,'msg'=>'Submit Successfully'];
-                return response()->json($response);
-             
-            }
-           }
-            else{
-               $signatureStamp=   SignatureStamp::firstOrNew(['id'=>$id]);
-              $signatureStamp->certificate_type_id=$request->certificate_type;
-                $signatureStamp->emp_id=$request->employee; 
-                $signatureStamp->from_date=$request->from_date;
-                $signatureStamp->to_date=$request->to_date;
-                $signatureStamp->authority_type_id=$request->authority_type;
-                $signatureStamp->Designation=$request->designation;
-                if ($id==null) {
-                $signatureStamp->status=0; 
-                }
+          if ($request->hasFile('signature')) { 
+                $signature=$request->signature;
+                $filename=$request->student_id.'signature'.date('d-m-Y').time(); 
+                $signature->storeAs('student/signaturestamp/',$filename);
+                $signatureStamp->signature=$filename; 
+          }
+          if ($request->hasFile('stamp')) { 
+                $stamp=$request->stamp;
+                $filename=$request->student_id.'stamp'.date('d-m-Y').time(); 
+                $stamp->storeAs('student/signaturestamp/',$filename);
+                $signatureStamp->stamp=$filename; 
+          } 
                $signatureStamp->save();
                $response=['status'=>1,'msg'=>'Submit Successfully'];
-               return response()->json($response);  
-            }
+               return response()->json($response);   
+            
          }
     }
     public function status($id)

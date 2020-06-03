@@ -3,7 +3,7 @@
 <!-- Main content -->
 <section class="content-header">
     <button type="button" class="btn btn-sm btn-info pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.signature.stamp.add.form')}}')">Add Signature Stamp</button>
-    <button type="button" class="btn btn-sm btn-primary pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.signature.stamp.report')}}')" style="margin-right: 5px;width: 100px">Report</button>
+    <button type="button" class="btn btn-sm btn-primary pull-right" select2="true" onclick="callPopupLarge(this,'{{ route('admin.signature.stamp.report')}}')" style="margin-right: 5px;width: 100px">PDF Report</button>
     <h1>Signature Stamp<small>List</small> </h1> 
 </section>  
 <section class="content"> 

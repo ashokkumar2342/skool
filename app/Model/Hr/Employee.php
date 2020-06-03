@@ -9,7 +9,15 @@ class Employee extends Model
    protected $fillable=['id',];
    protected $table='employees';
    
+    public function employeeAllDetails()
+    {
+        try {
+           return $this->where('status',1)->orderBy('name','ASC')->get();
+        } catch (Exception $e) {
+            return $e;
+        }
 
+    }
     public function admins($value='')
     {
     	 return $this->hasOne('App\Model\Role','id','role_id');
