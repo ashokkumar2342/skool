@@ -1692,12 +1692,12 @@ Route::group(['middleware' => 'admin'], function() {
          	 
  		});
  		 Route::group(['prefix' => 'notification'], function() {       
-         	Route::get('next-page','NotificationController@nextPage')->name('notification.next.page'); 
-         	Route::get('show-notification','NotificationController@showNotification')->name('notification.show.notification'); 
-         	Route::get('mark-all','NotificationController@markAll')->name('notification.mark.all'); 
-         	Route::get('clear-all','NotificationController@clearAll')->name('notification.clear.all'); 
-         	Route::get('clear/{id}','NotificationController@noficationClear')->name('notification.clear'); 
-         	Route::get('read/{id}','NotificationController@readStatus')->name('notification.read.status'); 	 
+         	Route::get('next-page','Notification\NotificationController@nextPage')->name('notification.next.page'); 
+         	Route::get('show-notification','Notification\NotificationController@showNotification')->name('notification.show.notification'); 
+         	Route::get('mark-all','Notification\NotificationController@markAll')->name('notification.mark.all'); 
+         	Route::get('clear-all','Notification\NotificationController@clearAll')->name('notification.clear.all'); 
+         	Route::get('clear/{id}','Notification\NotificationController@noficationClear')->name('notification.clear'); 
+         	Route::get('read/{id}','Notification\NotificationController@readStatus')->name('notification.read.status'); 	 
  		});   
             
             

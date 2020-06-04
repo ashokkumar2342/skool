@@ -206,7 +206,7 @@ class MyFuncs {
   }
 
   // notification save send function
-  public static function notificationCenter($to_user_id,$from_user_id,$class_id,$reference_id,$message,$notification_type_id=NULL){
+  public static function notification($to_user_id,$from_user_id,$class_id,$reference_id,$message,$notification_type_id=NULL){
       try {
           $notifications = new Notification();
            $insArray = array();   
@@ -219,7 +219,7 @@ class MyFuncs {
                $insArray['notification_type_id'] = $legal_type_id; 
                $insArray['status'] = 1;   
                $insArray['read_status'] = 1;  
-               $notifications->insNotificationCenter($insArray); 
+               $notifications->insNotification($insArray); 
            
           
       } catch (Exception $e) {
@@ -230,11 +230,11 @@ class MyFuncs {
        
   } 
 
- public static function countNotificationCenter(){  
+ public static function countNotification(){  
       try {
           $NotificationCenter = new Notification(); 
-          $id =MyFuncs::getUser(); 
-          return $notifications = $NotificationCenter->countNotificationCenter($id); 
+          $id =MyFuncs::getUser()->id; 
+          return $notifications = $NotificationCenter->countNotification($id); 
       } catch (Exception $e) {
           Log::error('Gereral-Helper-countNotificationCenter: '.$e->getMessage()); // making log in file
           return $e;  

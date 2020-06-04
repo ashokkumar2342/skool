@@ -26,35 +26,27 @@
               <li><a href="#" title="">{{ date('d-M-Y') }}</a></li>
  
             <li class="dropdown messages-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="fetchNotifications()">
               <i class="fa fa-envelope-o"></i>
               
                
-                 <span class="label label-success">{{ App\Helper\MyFuncs::countNotificationCenter() }}</span> 
+                 <span class="label label-success" >{{ App\Helper\MyFuncs::countNotification() }}</span> 
                
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
+              <li class="header">You have {{ App\Helper\MyFuncs::countNotification() }} messages</li>
               <li>
                 <!-- inner menu: contains the actual data -->
-                <ul class="menu">
+                <ul class="menu notifications endless-pagination" id="notification_list"   onscroll="fetchNotifications()"  data-next-page="{{ route('notification.next.page') }}">
                    
-                  @foreach ($notifications as $notification)
-                    @php
-                    $admin=App\Admin::where('id',$notification->user_id)->first();
-                     $profile = route('admin.profile.photo.show',$admin->profile_pic); 
-                   @endphp
-                  <li><!-- start message -->
-                    <a href="{{ $notification->link }}a"><p>{{ $notification->message }}</p>
-                      
-                      <h4>
-                        
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                      </h4>
-                      
+                 {{--  @foreach ($notifications as $notification) --}}
+                   
+                  <li ><!-- start message -->
+                    <a href="#"><p></p> 
                     </a>
                   </li>
-                  @endforeach
+                  <li id="notification_wait" style="display: none"> </li>
+                  {{-- @endforeach --}}
                 </ul>
               </li>
               <li class="footer"><a href="#">See All Messages</a></li>
