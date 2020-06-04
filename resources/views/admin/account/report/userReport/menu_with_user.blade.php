@@ -1,77 +1,63 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <meta http-equiv="Content-Type" content="text/html/jpg/png; charset=utf-8"/>
 <head>
-    <style>
-        @page { margin:0px; }
-
+    <style> 
         .pagenum:before {
             content: counter(page);
         }
-        .page-break{
-          page-break-after: always;
-        }
-
+        .page_break{
+            page-break-before:always;  
+        } 
     </style>
     @include('admin.include.boostrap')
 </head> 
-<body>
+<body > 
     @include('schoolDetails.logo_header')
-    <div class="row">
-        <div class="col-lg-11 text-center" style="margin-left: 20px">
-             <table id="dataTable" class="table table-bordered table-striped table-hover">
-                <thead>
-                <tr>
-                  <th>user Name</th> 
-                  <th>Menu</th> 
-                  <th>Sub Menu</th>
-                  <td>R &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;W&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; D</td>
-                  <td>Status</td> 
+    <div class="row" style="margin-top: -20px">
+        <div class="panel panel-default">
+            <div class="panel-heading"> User : <b style="color:#d02ee7">{{ $userName->first_name }}--{{ $userName->email }}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Menu Report</div>
+        </div>
+        <table id="dataTable" class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr> 
+                    <th style="width: 10px">Sr.No</th> 
+                    <th>Main Menu</th> 
+                    <th>Sub Menu</th>
+                    <td style="width: 30px">R Status</td> 
+                    <td style="width: 30px">W Status</td> 
+                    <td style="width: 30px">D Status</td> 
                 </tr>
-                </thead>
-                <tbody>
-                  @php
-                  $arrayId=1; 
-                  @endphp
-              @foreach($usersmenus as $usersmenu) 
-                     <tr style="{{ $usersmenu->status==1?'background-color: #95e49b':'background-color: #ec2020' }}">
-                      
-                      <td>{{ $usersmenu->admin_id}}</td> 
-                      <td>{{ $usersmenu->minutypes->name }}</td> 
-                      <td>{{ $usersmenu->subMenuTypes->name }}</td>
-                      
-                      <td>
-                        @if ($usersmenu->r_status==1) Yes @else No @endif&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        @if ($usersmenu->w_status==1) Yes @else No @endif&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        @if ($usersmenu->d_status==1) Yes @else No @endif 
-                      </td>
-                      <td>@if ( $usersmenu->status==1) Yes @else  No @endif  </td>
-                       <td></td>  
-              @endforeach
-              </table>
+            </thead>
+            <tbody>
+                @php
+                $arrayId=1; 
+                @endphp
+                @foreach($admins as $admin) 
+                <tr>
 
+                    <td>{{ $arrayId++}}</td> 
+                    <td>{{ $admin->Main_menu}}</td> 
+                    <td>{{ $admin->Sub_Menu }}</td> 
+                    <td>{{ $admin->r_status==1?'Yes':'No' }}</td>
+                    <td>{{ $admin->w_status==1?'Yes':'No' }}</td>
+                    <td>{{ $admin->d_status==1?'Yes':'No' }}</td>
+                </tr> 
+                @endforeach
+            </tbody>
+        </table>
             </div> 
-        </div> 
-        <div class="col-lg-4">
-          <h5>
-            Total Record :
-            <span style="margin-top: 20px"><b>{{ $arrayId ++ -1 }}</b></span> 
-          </h5>
-        </div> 
-        <div class="col-lg-4">
-          <h5>
-            Total Pages :
-            <b><span class="pagenum" style="margin-top: 20px"></span></b> 
-          </h5>
-        </div>
-        <div class="col-lg-4">
-          <h5>
-            End of Reports/Pages :
-             
-          </h5>
-        </div>
-       
-             
-    </body>
-
-    </html>
+            <div class="row">
+                <div class="col-lg-4"> 
+                    Total Record :<b>{{ $arrayId ++ -1 }}</b> 
+                </div>
+                <div class="col-lg-4"> 
+                    Total Pages :
+                    <b class="pagenum"></b> 
+                </div>
+                <div class="col-lg-4"> 
+                    End of Report 
+                </div>
+            </div>  
+        </body> 
+        </html>

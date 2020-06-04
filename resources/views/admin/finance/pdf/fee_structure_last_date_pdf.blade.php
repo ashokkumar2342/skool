@@ -13,7 +13,7 @@
   @include('schoolDetails.logo_header')
   <div class="row" style="margin-top: -20px">
 <div class="panel panel-default">
-  <div class="panel-heading text-center">Fee Structure Last Date Report</div>
+  <div class="panel-heading">Academic Year : <b>{{ $academicYear->name }}</b>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fee Due Report</div>
   </div>  
     <table class="table table-striped table-bordered" style="margin-top: 10px">
     	<thead>
@@ -34,7 +34,7 @@
    	  @foreach ($classFeeStructureReports as $classFeeStructureReport) 
     		<tr>
     			<td class="text-nowrap">{{ $arrayId++ }}</td>
-          <td class="text-nowrap">{{ $classFeeStructureReport->name }}</td>
+          <td >{{ $classFeeStructureReport->name }}</td>
     			<td align="right" class="text-nowrap">{{ $classFeeStructureReport->amount }}</td> 
           <td >{{ $classFeeStructureReport->SessionMonth }}</td> 
           <td >{{ $classFeeStructureReport->DueMonthYear }}</td> 

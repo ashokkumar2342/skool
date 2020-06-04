@@ -1,4 +1,4 @@
-<div class="modal-dialog">
+<div class="modal-dialog" style="width: 80%">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" id="btn_close" class="close" data-dismiss="modal">&times;</button>
@@ -16,11 +16,11 @@
 				
 				<td>
 					<div class="col-lg-4">
-						<input type="checkbox" name="verify_{{ $document->id}}" >
+						<input type="checkbox" name="verify_{{ $document->id}}" success-popup="true" onclick="callAjax(this,'{{ route('admin.document.verify',$document->id) }}')">
 						<label>Verify</label>
 					</div>
 					<div class="col-lg-4">
-						<span class="btb btn-danger btn-sm">Reject</span>
+						<a class="btb btn-danger btn-sm" href="#" onclick="callPopupLevel2(this,'{{ route('admin.document.reject',$document->id) }}')">Reject</a>
 					</div>
 					<iframe src="{{$paths}}" style="width:100%; height:500px;" frameborder="0"></iframe>
 

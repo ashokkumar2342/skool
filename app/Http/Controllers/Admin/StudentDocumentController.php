@@ -88,9 +88,13 @@ class StudentDocumentController extends Controller
      * @param  \App\Model\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function edit(Document $document)
+    public function verify($document_id)
     {
-        //
+        $document=Document::find($document_id);
+        $document->status=1;
+        $document->save();
+        $response=['status'=>1,'msg'=>'Verified Successfully'];
+        return response()->json($response);
     }
 
     /**
@@ -100,9 +104,18 @@ class StudentDocumentController extends Controller
      * @param  \App\Model\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Document $document)
+    public function reject($document_id)
     {
-        //
+        return view('admin.student.studentdetails.documentverify.reject',compact('document_id'));
+    }
+    public function rejectStore(Request $request)
+    {
+        $document=Document::find($request->document_id);
+        $document->remark=$request->remark;
+        $document->status=0;
+        $document->save();
+        $response=['status'=>1,'msg'=>'Reject Successfully'];
+        return response()->json($response);
     }
 
     /**

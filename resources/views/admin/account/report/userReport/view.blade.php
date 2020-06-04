@@ -42,7 +42,7 @@
                       <div class="row">
                         <div class="col-lg-4" style="margin-left: 12px"> 
                         <div class="form-check">
-                          <input type="radio" name="user_status" value="all">
+                          <input type="radio" name="user_status" value="2">
                           <label class="form-check-label" for="materialGroupExample1">All</label>
                         </div>
 

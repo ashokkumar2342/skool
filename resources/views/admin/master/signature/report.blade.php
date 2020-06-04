@@ -35,21 +35,14 @@
                         </select> 
                       </div>
                       <div class="form-group col-lg-12">
-                        <label>Status</label>
-                        <select name="authority_type" class="form-control">
-                          <option selected disabled>Select Option</option>
-                          <option value="0">All</option>
-                          <option value="1">Active</option>
+                        <label>Report Type</label>
+                        <select name="report_type" class="form-control">
+                          <option selected disabled>Select Option</option> 
+                          <option value="1">For Active Authority</option>
+                          <option value="2">For Active Authority With Ex-Authority</option>
+                          <option value="3">Authority Not Mapped</option>
                         </select> 
-                      </div>
-                      <div class="form-group col-lg-12">
-                        <label>Authority Not Assign</label>
-                        <select name="authority_type" class="form-control">
-                          <option selected disabled>Select Option</option>
-                          <option value="0">Yes</option>
-                          <option value="1">No</option>
-                        </select> 
-                      </div>
+                      </div> 
                     <div class="col-lg-12 text-center" style="padding-top: 10px">
                       <input type="submit" value="Report Generate" class="btn btn-primary">
                     </div> 

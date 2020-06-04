@@ -10,6 +10,7 @@ use App\Model\IssueAuthortyType;
 use App\Model\SignatureStamp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 
@@ -121,19 +122,8 @@ class SignatureStampController extends Controller
         return view('admin.master.signature.report',compact('CertificateTypes','IssueAthortiTypes')); 
     }
     public function reportGenerate(Request $request)
-    {
-      if ($request->certificate_type!=null && $request->authority_type!=null) {
-         $signatureStamps =SignatureStamp::
-                           where('certificate_type_id',$request->certificate_type)
-                          ->where('authority_type_id',$request->authority_type)
-                          ->get(); 
-      }elseif ($request->certificate_type!=null) {
-         $signatureStamps =SignatureStamp::
-                          where('certificate_type_id',$request->certificate_type)
-                          ->get();
-      }
-        
-        
+    {   
+        $signatureStamps= DB::select(DB::raw("call up_report_certificateAuthority ('$request->report_type','$request->certificate_type','$request->authority_type')")); 
         $pdf=PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')

@@ -191,14 +191,14 @@ class FeeStructureLastDateController extends Controller
     }
     public function reportGenerate(Request $request)
     { 
-        
-        $classFeeStructureReports=DB::select(DB::raw("call up_show_fsld_report ('$request->academic_year_id')"));
+       $academicYear=AcademicYear::find($request->academic_year_id);
+       $classFeeStructureReports=DB::select(DB::raw("call up_show_fsld_report ('$request->academic_year_id')"));
 
        $pdf=PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.finance.pdf.fee_structure_last_date_pdf' ,compact('classFeeStructureReports','pagebreak','condition_id'));
+        ->loadView('admin.finance.pdf.fee_structure_last_date_pdf' ,compact('classFeeStructureReports','pagebreak','academicYear'));
         return $pdf->stream('class_fee_structure.pdf');  
     }
 }

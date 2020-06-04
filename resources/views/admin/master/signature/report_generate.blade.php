@@ -22,10 +22,12 @@
 <thead>
    <tr>
      <th style="width: 40px">Sr.No.</th> 
-     <th>Employee</th>
-     <th>Certificate Type</th> 
+     <th>Employee Name</th>
      <th>Designation</th>
+     <th>Certificate Type</th> 
      <th>Authority Type</th>
+     <th>From Date</th>
+     <th>To Date</th>
      
    </tr>
  </thead>
@@ -35,12 +37,14 @@
       $arrayId=1;
       @endphp
   @foreach ($signatureStamps as $signatureStamp) 
-   <tr style="{{ $signatureStamp->status==1?'background-color: #95e49b':'' }}">
+   <tr>
      <td>{{ $arrayId++ }}</td>  
-     <td>{{ $signatureStamp->employee->name or ''}}</td>  
-     <td>{{ $signatureStamp->CertificateType->name or '' }}</td>  
+     <td>{{ $signatureStamp->empName or ''}}</td>  
      <td>{{ $signatureStamp->Designation }}</td>  
-     <td>{{ $signatureStamp->IssueAthortiType->name or '' }}</td> 
+     <td>{{ $signatureStamp->certificateName or '' }}</td>  
+     <td>{{ $signatureStamp->issunigAuthority or '' }}</td> 
+     <td>{{ $signatureStamp->from_date or '' }}</td> 
+     <td>{{ $signatureStamp->to_date or '' }}</td> 
    </tr>
   @endforeach
  </tbody>

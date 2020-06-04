@@ -387,6 +387,9 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::get('edit', 'StudentDocumentController@edit')->name('admin.document.edit');
 	    Route::get('update', 'StudentDocumentController@edit')->name('admin.document.update');
 	    Route::get('download/{document}', 'StudentDocumentController@download')->name('admin.document.download');
+	    Route::get('verify/{document_id}', 'StudentDocumentController@verify')->name('admin.document.verify');
+	    Route::get('reject/{document_id}', 'StudentDocumentController@reject')->name('admin.document.reject');
+	    Route::get('reject-store', 'StudentDocumentController@rejectStore')->name('admin.document.reject.store');
 	 });
 	 // ---------------Document-report---------------------------------------
 	 Route::group(['prefix' => 'document-report'], function() {
@@ -786,7 +789,11 @@ Route::group(['middleware' => 'admin'], function() {
     	Route::group(['prefix' => 'fee-default-value'], function() {
     	  Route::get('/', 'FeeDefaultValueController@index')->name('admin.finance.fee.default.value'); 
     	  Route::get('form', 'FeeDefaultValueController@btnClickByForm')->name('admin.finance.fee.default.value.form'); 
-    	  Route::post('store', 'FeeDefaultValueController@store')->name('admin.finance.fee.default.value.store'); 
+    	  Route::post('store', 'FeeDefaultValueController@store')->name('admin.finance.fee.default.value.store');
+
+    	  Route::get('admin', 'FeeDefaultValueController@admin')->name('admin.finance.fee.default.admin'); 
+    	  Route::get('admin-form', 'FeeDefaultValueController@adminBtnClickByForm')->name('admin.finance.fee.default.admin.form'); 
+    	  Route::post('admin-store', 'FeeDefaultValueController@adminStore')->name('admin.finance.fee.default.admin.store'); 
     	  
     	    
     	    

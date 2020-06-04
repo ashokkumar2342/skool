@@ -1,9 +1,11 @@
 @if ($reportType==1)
 <label>Role</label> 
 <select name="role_id" class="form-control form-group">
-	<option value="all">All</option>
+	<option value="0">All</option>
 	@foreach ($datas as $data)
-	   <option value="{{ $data->id }}">{{ $data->name }}</option> 
+  @if ($data->id!=12)
+	   <option value="{{ $data->id }}">{{ $data->name }}</option>
+  @endif 
 	@endforeach 
 </select> 
 @endif
@@ -11,7 +13,10 @@
 <label>Users</label> 
 <select name="user_id" class="form-control form-group select2"> 
 	@foreach ($datas as $data)
+   @if ($data->role_id!=12)
+      
 	   <option value="{{ $data->id }}">{{ $data->email }}&nbsp;&nbsp;&nbsp;&nbsp; ({{ $data->first_name }})</option> 
+   @endif
 	@endforeach 
 </select> 
 @endif

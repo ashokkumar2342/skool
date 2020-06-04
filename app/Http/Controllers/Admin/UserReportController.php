@@ -9,6 +9,7 @@ use App\Model\MinuType;
 use App\Model\Role;
 use App\Model\SubMenu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PDF;
 
 class UserReportController extends Controller
@@ -32,67 +33,52 @@ class UserReportController extends Controller
     	} 
     	 return view('admin.account.report.userReport.report_type_page',compact('datas','menus','subMenus','reportType'));
     }
-    public function filter(Request $request)
-    {     if ($request->user_status=='all') {
-             $arrayStatusId=[0,1];
-          }else{
-            $arrayStatusId=[$request->user_status];
-          }
-    	   
-          $admin=new Admin();
-             if ($request->report_type==1) {
-                  if ($request->role_id=='all') {
-                       $arrayRoleId=[1,2,3,4,5];
-                    }else{
-                      $arrayRoleId=[$request->role_id];
-                    }
-                    $admins=$admin->getUserDetailsByRoleId($arrayRoleId,$arrayStatusId);
-                    $adminArrayId=$admin->getRoleDetailsByAdminArrayId($arrayRoleId); 
-                    $usersmenus =Minu::whereIn('admin_id',$adminArrayId)
-                                     ->where('status',1)
-                                     ->with(['subMenuTypes'])
-                                     ->get();
-             } 
-             if ($request->report_type==2) { 
-                     $admins=$admin->getUserDetailsByUserId($request->user_id,$arrayStatusId); 
-                     $adminAId=$admin->getDetailsAdminId($request->user_id,$arrayStatusId);
-                     $usersmenus =Minu::where('admin_id',$request->user_id)
-                                        ->where('status',1)
-                                        ->with(['subMenuTypes'])
-                                        ->get();
-                  
-             }
-             if ($request->report_type==3) { 
-                      $usersmenus =Minu::where('sub_menu_id',$request->sub_menu_id)
-                                        ->where('status',1)
-                                        ->with(['subMenuTypes'])
-                                        ->get();
-                                         $admins=array();   
-                 $pdf = PDF::setOptions([
-                'logOutputFile' => storage_path('logs/log.htm'),
-                'tempDir' => storage_path('logs/')
-                 ])
-                 ->loadView('admin.account.report.userReport.menu_with_user',compact('usersmenus','admins')); 
-                  return $pdf->stream('section.pdf');
-
-                  
-             } 
-            if ($request->report_details==1) {  
-            	$pdf = PDF::setOptions([
-                'logOutputFile' => storage_path('logs/log.htm'),
-                'tempDir' => storage_path('logs/')
-            ])
-            ->loadView('admin.account.report.userReport.only_user_list',compact('usersmenus','admins')); 
-        	   return $pdf->stream('section.pdf');
-        	  }
-    	     elseif ($request->report_details==2) {  
-        	   $pdf = PDF::setOptions([
+    public function filter(Request $request){
+    if ($request->report_type==1) {  
+        if ($request->role_id==0) { 
+           $datas=Admin::where('role_id','!=',12)->get(); 
+            foreach ($datas as $key => $value) {
+            $admins[]=DB::select(DB::raw("call up_report_role_users ('$value->role_id','$request->user_status')"));
+            } 
+            if ($request->report_details==2) {
+              $menus= array();
+              foreach ($admins as $key => $values) {
+                foreach ($values as $key => $value) { 
+                $menus[]= DB::select(DB::raw("call up_report_user_menu_access ('$value->id')"));
+                }  
+              }
+            }  
+        }elseif ($request->role_id!=0) {
+            $datas=Admin::where('role_id',$request->role_id)->get();
+            foreach ($datas as $key => $value) {
+            return $admins=DB::select(DB::raw("call up_report_user_menu_access ('$value->id')"));    
+            }  
+        } 
+        $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
-           ])
-           ->loadView('admin.account.report.userReport.role_list_with_menu',compact('admins','usersmenus','id')); 
-    	     return $pdf->stream('section.pdf');
-    	}
-    	 
+        ])
+        ->loadView('admin.account.report.userReport.role_list_with_menu',compact('menus','admins')); 
+           return $pdf->stream('section.pdf');
+    }elseif($request->report_type==2)  { 
+       $userName=Admin::find($request->user_id);   
+       $admins= DB::select(DB::raw("call up_report_user_menu_access ('$request->user_id')"));
+       $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.account.report.userReport.menu_with_user',compact('admins','userName')); 
+           return $pdf->stream('user_report.pdf');  
     }
+    elseif($request->report_type==3)  {  
+       $SunMenuName=SubMenu::find($request->sub_menu_id);   
+       $admins= DB::select(DB::raw("call up_report_menu_users ('$request->sub_menu_id',$request->user_status)"));
+       $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.account.report.userReport.only_user_list',compact('admins','SunMenuName')); 
+           return $pdf->stream('user_report.pdf');  
+    }
+  }     
 }
