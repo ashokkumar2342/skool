@@ -12,10 +12,10 @@
   <a href="#">
      
     <h4 style="margin-left:0px">
-      {{ $notification->message }}
+      AdminLTE Design Team
       <small><i class="fa fa-clock-o"></i> {{ $notification->created_at->diffForHumans() }}</small>
     </h4>
     {{-- <p>{{ $notification->message }}</p> --}}
   </a>
 </li>
-@endforeach                
+@endforeach  
