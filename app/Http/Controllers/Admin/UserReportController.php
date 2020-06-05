@@ -34,31 +34,19 @@ class UserReportController extends Controller
     	 return view('admin.account.report.userReport.report_type_page',compact('datas','menus','subMenus','reportType'));
     }
     public function filter(Request $request){
-    if ($request->report_type==1) {  
+    if ($request->report_type==1) {
+        $status=$request->user_status;  
+        $report_details=$request->report_details;  
         if ($request->role_id==0) { 
-           $datas=Admin::where('role_id','!=',12)->get(); 
-            foreach ($datas as $key => $value) {
-            $admins[]=DB::select(DB::raw("call up_report_role_users ('$value->role_id','$request->user_status')"));
-            } 
-            if ($request->report_details==2) {
-              $menus= array();
-              foreach ($admins as $key => $values) {
-                foreach ($values as $key => $value) { 
-                $menus[]= DB::select(DB::raw("call up_report_user_menu_access ('$value->id')"));
-                }  
-              }
-            }  
-        }elseif ($request->role_id!=0) {
-            $datas=Admin::where('role_id',$request->role_id)->get();
-            foreach ($datas as $key => $value) {
-            return $admins=DB::select(DB::raw("call up_report_user_menu_access ('$value->id')"));    
-            }  
+           $roles=Role::where('id','!=',12)->get(); 
+        }else{
+          $roles=Role::where('id',$request->role_id)->get(); 
         } 
         $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.account.report.userReport.role_list_with_menu',compact('menus','admins')); 
+        ->loadView('admin.account.report.userReport.role_list_with_menu',compact('roles','status','report_details')); 
            return $pdf->stream('section.pdf');
     }elseif($request->report_type==2)  { 
        $userName=Admin::find($request->user_id);   

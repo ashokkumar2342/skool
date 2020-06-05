@@ -46,13 +46,10 @@ class FeeDefaultValueController extends Controller
     	$feedefaultvalue= DefaultFeeValue::firstOrNew(['userid'=>$user_id]);
     	$feedefaultvalue->userid=$user_id;
     	$feedefaultvalue->upto_month=$upto_month;
-    	$feedefaultvalue->upto_year=$upto_year;
-    	$feedefaultvalue->rec_template_id=$request->receipt_template_id;
+    	$feedefaultvalue->upto_year=$upto_year; 
     	$feedefaultvalue->payment_mode=$request->payment_mode;
     	$feedefaultvalue->sibiling_detail=$request->sibiling_detail;
-    	$feedefaultvalue->print_receipt=$request->print_receipt;
-        $feedefaultvalue->rec_header=$request->rec_header;
-        $feedefaultvalue->rec_note=$request->rec_note;
+    	$feedefaultvalue->print_receipt=$request->print_receipt; 
     	$feedefaultvalue->save();
     	$response=['status'=>1,'msg'=>'Submit Successfully'];
             return response()->json($response);
@@ -98,10 +95,9 @@ class FeeDefaultValueController extends Controller
         $feedefaultvalue->upto_year=$upto_year; 
         $feedefaultvalue->payment_mode=$request->payment_mode;
         $feedefaultvalue->sibiling_detail=$request->sibiling_detail;
-        $feedefaultvalue->print_receipt=$request->print_receipt;
-        $feedefaultvalue->rec_header=$request->rec_header;
-        $feedefaultvalue->rec_note=$request->rec_note;
+        $feedefaultvalue->print_receipt=$request->print_receipt; 
         $feedefaultvalue->save();
+        $appSetting=AppSetting::firstOrNew(['userid'=>$user_id]);
         $response=['status'=>1,'msg'=>'Submit Successfully'];
             return response()->json($response);
     }

@@ -122,13 +122,26 @@ class SignatureStampController extends Controller
         return view('admin.master.signature.report',compact('CertificateTypes','IssueAthortiTypes')); 
     }
     public function reportGenerate(Request $request)
-    {   
+    {    $rules=[ 
+            'certificate_type' => 'required', 
+            'authority_type' => 'required', 
+            'report_type' => 'required',  
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        $report_type=$request->report_type;
         $signatureStamps= DB::select(DB::raw("call up_report_certificateAuthority ('$request->report_type','$request->certificate_type','$request->authority_type')")); 
         $pdf=PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.master.signature.report_generate',compact('signatureStamps'));
+        ->loadView('admin.master.signature.report_generate',compact('signatureStamps','report_type'));
         return $pdf->stream('signature_stamps.pdf');
         
     }

@@ -22,13 +22,14 @@
 <thead>
    <tr>
      <th style="width: 40px">Sr.No.</th> 
-     <th>Employee Name</th>
-     <th>Designation</th>
      <th>Certificate Type</th> 
      <th>Authority Type</th>
+     @if ($report_type!=3) 
+     <th>Employee Name</th>
+     <th>Designation</th>
      <th>From Date</th>
      <th>To Date</th>
-     
+     @endif
    </tr>
  </thead>
  <tbody>
@@ -39,12 +40,14 @@
   @foreach ($signatureStamps as $signatureStamp) 
    <tr>
      <td>{{ $arrayId++ }}</td>  
-     <td>{{ $signatureStamp->empName or ''}}</td>  
-     <td>{{ $signatureStamp->Designation }}</td>  
      <td>{{ $signatureStamp->certificateName or '' }}</td>  
      <td>{{ $signatureStamp->issunigAuthority or '' }}</td> 
+      @if ($report_type!=3)   
+     <td>{{ $signatureStamp->empName or ''}}</td>
+     <td>{{ $signatureStamp->Designation }}</td>  
      <td>{{ $signatureStamp->from_date or '' }}</td> 
-     <td>{{ $signatureStamp->to_date or '' }}</td> 
+     <td>{{ $signatureStamp->to_date or '' }}</td>
+     @endif 
    </tr>
   @endforeach
  </tbody>
