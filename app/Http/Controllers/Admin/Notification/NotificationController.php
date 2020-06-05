@@ -37,11 +37,11 @@ class NotificationController extends Controller
            
            if($request->ajax()) {
                return [
-                   'notifications' => view('Admin.notification.notificationOnScroll')->with(compact('notifications'))->render(),
+                   'notifications' => view('admin.notification.notificationOnScroll')->with(compact('notifications'))->render(),
                    'next_page' => $notifications->nextPageUrl()
                ];
            }
-           return view('Admin.notification.notificationAll')->with(compact('notifications')); 
+           return view('admin.notification.notificationAll')->with(compact('notifications')); 
         } catch (Exception $e) {
           Log::error('NotificationController-showNotification: '.$e->getMessage());      // making log in file
           return view('error.home');    
