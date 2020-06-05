@@ -24,7 +24,11 @@ class Notification extends Model
    public function getNotification($id){
       return $this->where('user_id',$id)
       				->orderBy('id', 'desc') 
-      				->where('status',0)	   				
+      				->where(function($query){
+                $query->orWhere('status', 1);
+                $query->orWhere('status', 0);
+              })   				
+                    
       				->paginate(10); 
    }
 
@@ -32,16 +36,18 @@ class Notification extends Model
    public function getAllNotification($id){
       return $this->where('user_id',$id)
       				->orderBy('id', 'desc') 	   				
-      				->where('status',0)
+			        ->where(function($query){
+                $query->orWhere('status', 1);
+                $query->orWhere('status', 0);
+              }) 
       				->paginate(15); 
    }
     //  notification read status change
    public function readStatusChange($id){
    	try {
-   	    return $this->where('id',$id)
-   	    		->where('read_status',1)
-      				->where('status',1)
-   	    ->update(['read_status'=>2]);
+   	    return $this->where('id',$id) 
+      				->where('status',0)
+   	    ->update(['status'=>1]);
    	} catch (QueryException $e) {
    	    return $e; 
    	}
@@ -51,7 +57,7 @@ class Notification extends Model
    public function noficationRemove($id){
    	try {
    	    return $this->where('id',$id) 
-   	    ->update(['status'=>0]);
+   	    ->update(['status'=>2]);
    	} catch (QueryException $e) {
    	    return $e; 
    	}
@@ -61,9 +67,8 @@ class Notification extends Model
    public function readStatusChangeAll($id){
    	try {
    	    return $this->where('user_id',$id)
-   	    		->where('read_status',1)
-      				->where('status',1)
-   	    ->update(['read_status'=>2]);
+   	    		->where('status',0) 
+   	    ->update(['status'=>1]);
    	} catch (QueryException $e) {
    	    return $e; 
    	}

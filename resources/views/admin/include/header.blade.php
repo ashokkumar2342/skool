@@ -34,22 +34,19 @@
                
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have {{ App\Helper\MyFuncs::countNotification() }} messages</li>
+              <li class="header text-right cursor" success-popup="true" redirect-to="{{ url()->current() }}" onclick="callAjax(this,'{{ route('notification.mark.all') }}')"> {{ App\Helper\MyFuncs::countNotification()!==0?'Mark all as Read':'' }}</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu notifications endless-pagination" id="notification_list"   onscroll="fetchNotifications()"  data-next-page="{{ route('notification.next.page') }}">
                    
-                 {{--  @foreach ($notifications as $notification) --}}
+                  
                    
-                  <li ><!-- start message -->
-                    <a href="#"><p></p> 
-                    </a>
-                  </li>
+                  
                   <li id="notification_wait" style="display: none"> </li>
-                  {{-- @endforeach --}}
+                   
                 </ul>
               </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
+              <li class="footer"><a href="{{ route('notification.show.notification') }}">See All Messages</a></li>
             </ul>
           </li>
  

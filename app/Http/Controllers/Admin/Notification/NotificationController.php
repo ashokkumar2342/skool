@@ -5,6 +5,7 @@ use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Model\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class NotificationController extends Controller
 {
@@ -36,11 +37,11 @@ class NotificationController extends Controller
            
            if($request->ajax()) {
                return [
-                   'notifications' => view('Notification::notificationOnScroll')->with(compact('notifications'))->render(),
+                   'notifications' => view('Admin.notification.notificationOnScroll')->with(compact('notifications'))->render(),
                    'next_page' => $notifications->nextPageUrl()
                ];
            }
-           return view('Notification::notificationAll')->with(compact('notifications')); 
+           return view('Admin.notification.notificationAll')->with(compact('notifications')); 
         } catch (Exception $e) {
           Log::error('NotificationController-showNotification: '.$e->getMessage());      // making log in file
           return view('error.home');    
@@ -72,7 +73,7 @@ class NotificationController extends Controller
               $response = array();
               $response['status'] = 1;        
               $response['msg'] = 'Remove Successful';        
-              return $response; 
+              return redirect()->back()->with(['message'=>'Remove Successful','class'=>'success']);
         } catch (Exception $e) {
           Log::error('NotificationController-noficationClear: '.$e->getMessage());      // making log in file
           return view('error.home');    
