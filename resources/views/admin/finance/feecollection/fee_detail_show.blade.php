@@ -71,11 +71,14 @@
 		 	 			$sr=1; 
 		 	 			$sib =0;
 		 	 			@endphp		 	 			
-		 	 			@foreach ($siblings as $sibling)  		 	 			
+		 	 			@foreach ($siblings as $sibling)  
+			 	 			@php
+			 	 				$sib+=$sibling->total_dues;
+			 	 			@endphp		 	 			
 		 	 				<tr> 
 		 	 				<td>
-		 	 				<input type="checkbox" {{ 	@$feedefaultvalue->sibiling_detail==1?'checked':'' }}  class="checkbox" name="student_id[]" value="{{ $sibling->id }}"> 
-		 	 				<input type="hidden"   name="amount_deposit[]" value="{{ $sibling->total_dues }}"> 
+		 	 				<input type="checkbox" {{ 	@$feedefaultvalue->sibiling_detail==1?'checked':'' }}  class="checkbox" name="student_id[]" id="st_{{ $sibling->id }}" value="{{ $sibling->id }}" onclick="grandTotalSum('{{ $sibling->id }}')"> 
+		 	 				<input type="hidden"   name="amount_deposit[]"  id="sib_{{ $sibling->id }}" value="{{ $sibling->total_dues }}"> 
 		 	 				</td>
 		 	 				<td> {{ $sr++ }} </td>
 		 	 				<td> {{ $sibling->name }} </td>
@@ -85,7 +88,7 @@
 		 	 			@endforeach
 		 	 		</tbody>
 		 	 	</table>
-		 	 	{{-- <h4>Grand Total : {{ $net_amount + $sib }}</h4> --}}
+		 	 	<b>Grand Total  <input type="button" class="btn btn-default btn-sm" id="grand_total" value="{{ $net_amount + $sib }}"></b>
 			 </div> 
  		</div> 
  		<div class="col-md-12">
@@ -104,10 +107,10 @@
  			         <label class="control-label mb-2 text-left">Amount <span style="color:red;">*</span></label> 
  			           <input type="text"  name="amount[]" onkeyup="feeSum()" value="{{ $net_amount }}" class="form-control fee_sum">    
  			       </td style="width: 250px;">
- 			       <td><label class="control-label mb-2 text-left">Transaction / Cheque No <span style="color:red;">*</span></label> 
- 			       	<input type="text"  name="cheeque_no[]" class="form-control"></td>
- 			       <td><label class="control-label mb-2 text-left">Bank Name <span style="color:red;">*</span></label> 
- 			           <input type="text"  name="bank_name[]" class="form-control"></td>
+ 			       <td><label class="control-label mb-2 text-left">Transaction / Cheque No</label> 
+ 			       	<input type="text"  name="cheeque_no[]" class="form-control cheeque_no"></td>
+ 			       <td><label class="control-label mb-2 text-left">Bank Name </label> 
+ 			           <input type="text"  name="bank_name[]" class="form-control bank_name"></td>
  			       <td><label class="control-label mb-2 text-left">Remarks </label> 
  			           <textarea type="text" name="remarks[]" class="form-control"></textarea></td>
  			       <td> <br><br> 
@@ -153,6 +156,18 @@
 
  
  <script>
+function grandTotalSum(id) { 
+	if($('#st_'+id).prop("checked") == true){
+		var grand_total= $('#grand_total').val()
+		var sibvalue= $('#sib_'+id).val()
+		 $('#grand_total').val(parseInt(grand_total) + parseInt(sibvalue))
+	}else{
+		 var grand_total= $('#grand_total').val()
+		 var sibvalue= $('#sib_'+id).val()
+		  $('#grand_total').val(parseInt(grand_total) - parseInt(sibvalue))
+	}
+	
+}
  feeSum();
  function feeSum() { 
  	var fee_sum = parseFloat(0);
