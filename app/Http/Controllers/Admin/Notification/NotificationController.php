@@ -16,7 +16,7 @@ class NotificationController extends Controller
          $user_id =MyFuncs::getUser()->id;
          $notifications = $notification->getNotification($user_id);
          return [
-                 'notifications' => view('Admin.notification.list')->with(compact('notifications'))->render(),
+                 'notifications' => view('admin.notification.list')->with(compact('notifications'))->render(),
                  'next_page' => $notifications->nextPageUrl()
                   
              ];    
