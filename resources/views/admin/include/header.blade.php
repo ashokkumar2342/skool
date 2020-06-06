@@ -34,7 +34,7 @@
                
             </a>
             <ul class="dropdown-menu">
-              <li class="header text-right cursor" success-popup="true" redirect-to="{{ url()->current() }}" onclick="callAjax(this,'{{ route('notification.mark.all') }}')"> {{ App\Helper\MyFuncs::countNotification()!==0?'Mark all as Read':'' }}</li>
+              <li class="header text-right cursor" success-popup="true" redirect-to="{{ url()->current() }}" onclick="callAjax(this,'{{ route('notification.mark.all') }}')"> {{ App\Helper\MyFuncs::countNotification()!==0?'Mark all as Read':'You have 0 messages' }}</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu notifications endless-pagination" id="notification_list"   onscroll="fetchNotifications()"  data-next-page="{{ route('notification.next.page') }}">
