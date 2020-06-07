@@ -32,7 +32,7 @@
                           @endif
                           <tr style="{{ $style }}">
                             <td>  <a onclick="callAjax(this,'{{ route('notification.read.status',Crypt::encrypt($notification->id)) }}')" href="{{ $notification->link!=null?route(''.$notification->link):'' }}">{{ $notification->message }}</a></td>
-                            <td> <small><i class="fa fa-clock-o"></i> </small>{{ $notification->created_at->diffForHumans() }}</td>
+                            <td> <small><i class="fa fa-clock-o"></i> </small>{{ $notification->created_at != null?$notification->created_at->diffForHumans():'' }}</td>
                             <td>
                               <a href="{{ route('notification.clear',Crypt::encrypt($notification->id)) }}" title="" onclick="return confirm('are you sure do you want to delete ?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                             </td>
