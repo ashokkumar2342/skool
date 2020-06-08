@@ -1,7 +1,7 @@
 <form action="{{ route('admin.finance.fee.default.value.store') }}" method="post" class="add_form" no-reset="true">
                 {{ csrf_field() }}
                 <div class="row">
-                  <div class="col-lg-2 form-group">
+                  <div class="col-lg-3 form-group">
                     <label>Upto Month/Year</label>
                     <select name="upto_month_year" class="form-control">
                       <option selected disabled>Select Upto Month/Year</option> 
@@ -10,7 +10,7 @@
                       @endforeach
                     </select> 
                   </div>
-                  <div class="col-lg-2 form-group">
+                  <div class="col-lg-3 form-group">
                     <label>Payment Mode</label>
                     <select name="payment_mode" class="form-control">
                       <option selected disabled>Select Payment Mode</option> 
@@ -19,7 +19,7 @@
                       @endforeach
                     </select> 
                   </div> 
-                  <div class="col-lg-2 form-group">
+                  <div class="col-lg-3 form-group">
                     <label>Sibling Details</label>
                     <select name="sibiling_detail" class="form-control">
                       <option selected disabled>Select Receipt Template</option> 
@@ -27,7 +27,7 @@
                        <option value="0" {{ @$feedefaultvalue->sibiling_detail==0? 'selected' :'' }}>No</option>
                     </select> 
                   </div>
-                  <div class="col-lg-2 form-group">
+                  <div class="col-lg-3 form-group">
                     <label>Receipt Print</label>
                     <select name="print_receipt" class="form-control">
                       <option selected disabled>Select Receipt Print</option> 

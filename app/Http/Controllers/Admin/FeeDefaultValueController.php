@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
+use App\Model\AppSetting;
 use App\Model\DefaultFeeValue;
 use App\Model\PaymentMode;
 use Auth;
@@ -33,8 +34,7 @@ class FeeDefaultValueController extends Controller
         $upto_year=date('Y',strtotime($request->upto_month_year));
     	$rules=[
     	   
-    	];
-
+    	]; 
     	$validator = Validator::make($request->all(),$rules);
     	if ($validator->fails()) {
     	    $errors = $validator->errors()->all();
@@ -68,13 +68,15 @@ class FeeDefaultValueController extends Controller
         $uptoMonthYear=$academic->getMonthYear();
         $paymentModes=PaymentMode::orderBy('name','ASC')->get();
         $feedefaultvalue= DefaultFeeValue::where('userid',$user_id)->first();
+        $AppSetting= AppSetting::first();
         $manth=@$feedefaultvalue->upto_month;
         $year=@$feedefaultvalue->upto_year;
         $upto_month_year='01'.'-'.'0'.$manth.'-'.$year;
-        return view('admin.finance.feedefaultvalue.admin_form',compact('uptoMonthYear','paymentModes','feedefaultvalue','upto_month_year'));  
+        return view('admin.finance.feedefaultvalue.admin_form',compact('uptoMonthYear','paymentModes','feedefaultvalue','upto_month_year','AppSetting'));  
     }
     public function adminStore(Request $request)
-    {   $user_id=Auth::guard('admin')->user()->id;
+    {    
+        $user_id=Auth::guard('admin')->user()->id;
         $upto_month=date('m',strtotime($request->upto_month_year));
         $upto_year=date('Y',strtotime($request->upto_month_year));
         $rules=[
@@ -97,7 +99,10 @@ class FeeDefaultValueController extends Controller
         $feedefaultvalue->sibiling_detail=$request->sibiling_detail;
         $feedefaultvalue->print_receipt=$request->print_receipt; 
         $feedefaultvalue->save();
-        $appSetting=AppSetting::firstOrNew(['userid'=>$user_id]);
+        $appSetting=AppSetting::firstOrNew(['id'=>$request->app_setting_id]);
+        $appSetting->Fee_Receipt_Header=$request->rec_header;
+        $appSetting->Fee_Receipt_Footer=$request->rec_note;
+        $appSetting->save();
         $response=['status'=>1,'msg'=>'Submit Successfully'];
             return response()->json($response);
     }

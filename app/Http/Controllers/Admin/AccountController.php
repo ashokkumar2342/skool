@@ -202,7 +202,7 @@ class AccountController extends Controller
 
     Public function minu(Request $request, Admin $account){
         $roles = Role::all();
-        $minus = Admin::find($account->id)->minus;  
+        $minus = Minu::where('admin_id',$account->id)->get();  
         return view('admin.account.minu',compact('account','roles','minus')); 
     }
 
@@ -324,6 +324,17 @@ class AccountController extends Controller
         $response['msg'] = 'Save Successfully';
         $response['status'] = 1;
         return response()->json($response);  
+    }
+    public function ClassUserAssignReportGenerate($user_id)
+    {
+       $usersName = Admin::find($user_id);
+       $userClassTypes = UserClassType::where('admin_id',$user_id)->where('status',1)->orderBy('class_id','ASC')->orderBy('section_id','ASC')->get();
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.account.report.class_assign_pdf',compact('userClassTypes','usersName'));
+        return $pdf->stream('academicYear.pdf');
     }
 
     // User access Store

@@ -11,8 +11,8 @@
  <div class="col-md-4" id="class_list"> 
 </div>
 <br>
- 
-<table class="table table-responsive table-hover table-bordered" id="class_section_list">
+  <a href="{{ route('admin.account.class.user.assign.report.generate',$user_id) }}" class="btn btn-primary btn-sm pull-right" style="margin: 10px" target="blank">PDF Report</a>
+<table class="table  table-bordered table-striped" id="class_section_list">
 	<thead>
 		<tr>
 			<th>Class</th>

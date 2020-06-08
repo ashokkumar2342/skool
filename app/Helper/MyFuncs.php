@@ -10,6 +10,7 @@ use App\Model\MinuType;
 use App\Model\Notification;
 use App\Model\Section;
 use App\Model\SectionType;
+use App\Model\StudentDefaultValue;
 use App\Model\StudentUserMap;
 use App\Model\SubMenu;
 use App\Model\UserClassType;
@@ -241,6 +242,12 @@ class MyFuncs {
       }
       
   }
+  public static function UserWiseStudentDefaultValue(){
+        $user = MyFuncs::getUser();
+       return $StudentDefaultValue = StudentDefaultValue::where('user_id',$user->id)->first();
+          
+    }
+   
 
 
 }

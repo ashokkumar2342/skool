@@ -86,8 +86,12 @@ class ConcessionController extends Controller
         $feeStructureAmounts = FeeStructureAmount::where('fee_structure_id',$request->fee_structure)->where('academic_year_id',$request->academic_year_id)->first(); 
         $concession = Concession::find($request->id);
         if (!empty($concession)) { 
-        $concession_amount =($concession->percentage / 100) * $feeStructureAmounts->amount;
-         } 
+            if ($concession->amount==0) { 
+              $concession_amount =($concession->percentage / 100) * $feeStructureAmounts->amount;   
+            }elseif($concession->amount!=0){ 
+              $concession_amount =$concession->amount;  
+            } 
+        } 
         return view('admin.finance.include.student_fee_concession_amount',compact('concession_amount'));
     }
 

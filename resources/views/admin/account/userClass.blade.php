@@ -22,7 +22,7 @@
                
                  
                   {{ Form::label('User','Users',['class'=>' control-label']) }}
-                  <select class="form-control select2"  multiselect-form="true" data-table="class_section_list" name="user" id="user_id"  onchange="callAjax(this,'{{route('admin.account.classAllSelect')}}'+'?id='+this.value,'class_all')" > 
+                  <select class="form-control select2"  multiselect-form="true" data-table-all-record="class_section_list" name="user" id="user_id"  onchange="callAjax(this,'{{route('admin.account.classAllSelect')}}'+'?id='+this.value,'class_all')" > 
                    <option value="" disabled selected>Select User</option>
                   @foreach ($users as $user)
                   @if ($user->role_id!=12) 

@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Admin\Exam;
 
 use App\Http\Controllers\Controller;
-use App\Model\Exam\ExamSchedule;
-use App\Model\Exam\MarkDetail;
-use App\Model\Exam\ExamTerm;
 use App\Model\AcademicYear;
+use App\Model\Exam\ClassTest;
+use App\Model\Exam\ClassTestDetail;
+use App\Model\Exam\ExamSchedule;
+use App\Model\Exam\ExamTerm;
+use App\Model\Exam\MarkDetail;
 use App\Student;
+use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Log;
 
@@ -57,17 +61,12 @@ class MarkDetailController extends Controller
          return view('admin.exam.student_marks_details',compact('students','examSchedule','marksDetails'))->render();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {  
+   
+    public function store(Request $request,$class_test_id)
+    {   
         $rules=[ 
-        'student_id' => 'nullable|max:30', 
-        'marksobt' => 'required|max:30',  
+          
+        'marksobt' => 'required',  
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -78,33 +77,65 @@ class MarkDetailController extends Controller
             $response["msg"]=$errors[0];
             return response()->json($response);// response as json
         }
-        $examScheduleMaxmarks = ExamSchedule::find($request->exam_schedule_id)->max_marks;
-        foreach ($request->student_id as $key => $value) {
-         $max =$examScheduleMaxmarks;
-         $marObt =$request->marksobt[$key];
-         $percentile=($marObt/$max)*100; 
-          $maxmimum=max($request->marksobt); 
-          $minmimum=min($request->marksobt); 
-          $average = collect($request->marksobt)->avg(); 
-          $marksDetail = MarkDetail::firstOrNew(['student_id'=>$value,'exam_schedule_id'=>$request->exam_schedule_id]);
-          $marksDetail->exam_schedule_id = $request->exam_schedule_id;
-          $marksDetail->student_id = $value;
-          $marksDetail->marksobt = $request->marksobt[$key];     
-          $marksDetail->percentile = $percentile; 
-          $marksDetail->discription = $request->any_remarks[$key]; 
-          $marksDetail->save();
-        }  
-          $examScheduleMaxmark = ExamSchedule::find($request->exam_schedule_id);      
-          $examScheduleMaxmark->height_marks=$maxmimum;      
-          $examScheduleMaxmark->lowest_marks=$minmimum;      
-          $examScheduleMaxmark->aug_marks=$average;      
-          $examScheduleMaxmark->save();      
-        $this->rankSave($request->student_id,$request->exam_schedule_id);
+        $admin=Auth::guard('admin')->user();
+        foreach ($request->marksobt as $key => $value) { 
+          $ClassTestDetail =ClassTestDetail::firstOrNew(['class_test_id'=>$class_test_id,'student_id'=>$key]); 
+          $ClassTestDetail->marksobt = $value;     
+          $ClassTestDetail->Attendace = $request->attendance[$key]; 
+          $ClassTestDetail->any_remarks = $request->any_remarks[$key]; 
+          $ClassTestDetail->save();
+        }
+        $ClassTest =ClassTest::firstOrNew(['id'=>$class_test_id]);  
+        $ClassTest->attendance_status=1;  
+        $ClassTest->marks_entered_status=1;  
+        $ClassTest->marks_entered_by=$admin->id;  
+        $ClassTest->save();  
         $response = array();
         $response['msg'] = 'Submit Successfully';
         $response['status'] = 1;
         return response()->json($response);
     }
+    public function marksVerifyStore(Request $request,$class_test_id)
+    {   
+        $rules=[ 
+          
+        'marksobt' => 'required',  
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        $admin=Auth::guard('admin')->user();
+        foreach ($request->marksobt as $key => $value) { 
+          $ClassTestDetail =ClassTestDetail::firstOrNew(['class_test_id'=>$class_test_id,'student_id'=>$key]); 
+          $ClassTestDetail->marksobt = $value;     
+          $ClassTestDetail->Attendace = $request->attendance[$key]; 
+          $ClassTestDetail->any_remarks = $request->any_remarks[$key]; 
+          $ClassTestDetail->save();
+        }
+        $ClassTest =ClassTest::firstOrNew(['id'=>$class_test_id]); 
+        $ClassTest->marks_verified_status=1;  
+        $ClassTest->marks_verified_by=$admin->id;  
+        $ClassTest->save();  
+        $response = array();
+        $response['msg'] = 'Submit Successfully';
+        $response['status'] = 1;
+        return response()->json($response);
+    }
+    public function sendSmsMarks($classTest_id)
+     {
+        $user_id=Auth::guard('admin')->user()->id;  
+        $sendSmsTest=DB::select(DB::raw("call up_sms_classTestmarks ('$classTest_id','$user_id','1','1','1')"));
+        $response = array();
+        $response['status'] = 1;
+        $response['msg'] = $importAttendance[0]->Result;
+        return response()->json($response);   
+     } 
 
     public function rankSave($student_id,$exam_schedule_id){
 
@@ -175,9 +206,14 @@ class MarkDetailController extends Controller
      * @param  \App\Model\Exam\MarkDetail  $markDetail
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MarkDetail $markDetail)
+    public function sendSmsMarksFinal()
     {
-        //
+         return view('admin.exam.send_sms_final');
+    }
+    public function sendSmsMarksFilter($condition_id)
+    {
+        $classTests=classTest::all();
+        return view('admin.exam.send_sms_final_filter',compact('classTests'));
     }
 
     /**

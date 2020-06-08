@@ -73,6 +73,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::post('menu-report', 'AccountController@menuReport')->name('admin.account.menu.report'); 
 		Route::get('user-menu-assign-report/{id}', 'AccountController@defaultUserMenuAssignReport')->name('admin.account.user.menu.assign.report'); 
 		Route::post('default-user-role-report-generate/{id}', 'AccountController@defaultUserRolrReportGenerate')->name('admin.account.default.user.role.report.generate'); 
+		Route::get('class-user-assign-report-generate/{user_id}', 'AccountController@ClassUserAssignReportGenerate')->name('admin.account.class.user.assign.report.generate'); 
 		
 						
 		// Route::get('status/{minu}', 'AccountController@minustatus')->name('admin.minu.status'); 
@@ -908,13 +909,27 @@ Route::group(['middleware' => 'admin'], function() {
 			Route::group(['prefix' => 'class-test'], function() {
 			    Route::get('/', 'Exam\ClassTestController@index')->name('admin.exam.test');	 	
 			    Route::get('add-form', 'Exam\ClassTestController@addForm')->name('admin.exam.test.add.form');	 	
-			    Route::post('store', 'Exam\ClassTestController@store')->name('admin.exam.classtest.store');	 	
+			    Route::get('edit-form/{id?}', 'Exam\ClassTestController@editForm')->name('admin.exam.test.edit.form');	 	
+			    Route::post('store/{id?}', 'Exam\ClassTestController@store')->name('admin.exam.classtest.store');	 	
+			    Route::get('class-section-subject', 'Exam\ClassTestController@classSectionSubject')->name('admin.exam.classtest.class.section.subject'); 
 			    Route::post('table-show', 'Exam\ClassTestController@tableShow')->name('admin.exam.classtest.table.show'); 
-			    Route::get('delete/{id}', 'Exam\ClassTestController@destroy')->name('admin.exam.classtest.delete');
-			    Route::get('send-sms/{class_id}/{section_id}/{id}', 'Exam\ClassTestController@sendSms')->name('admin.exam.classtest.send.sms');	 	
-			    Route::get('send-email/{class_id}/{section_id}/{id}', 'Exam\ClassTestController@sendEmail')->name('admin.exam.classtest.send.email');	 	
+			    Route::get('delete/{id}', 'Exam\ClassTestController@destroy')->name('admin.exam.classtest.delete'); 
 			    Route::get('download-syllabus/{path}', 'Exam\ClassTestController@downloadSyllabus')->name('admin.exam.classtest.download.syllabus');	 	
-			    
+			    Route::get('add-marks/{id}', 'Exam\ClassTestController@addMarks')->name('admin.exam.classtest.add.marks'); 
+			    Route::get('attendance-import/{classtest_id}', 'Exam\ClassTestController@attendenceImport')->name('admin.exam.classtest.attendance.import'); 
+			    Route::get('marks-verify/{classtest_id}', 'Exam\ClassTestController@marksVerify')->name('admin.exam.classtest.marks.verify'); 
+			    Route::get('send-sms-test/{classtest_id}', 'Exam\ClassTestController@sendSmsTest')->name('admin.exam.classtest.sens.sms.test'); 
+			 });
+			//------------------------- Exam marks details ---------------------------------
+			Route::group(['prefix' => 'exam-marks-details'], function() {
+			    Route::get('/', 'Exam\MarkDetailController@index')->name('admin.exam.mark.detail');	 	
+			    Route::post('store/{id}', 'Exam\MarkDetailController@store')->name('admin.exam.mark.detail.store');
+			    Route::post('marks-verify-store/{classtest_id}', 'Exam\MarkDetailController@marksVerifyStore')->name('admin.exam.classtest.marks.verify.store');	 	
+			    Route::get('delete/{id}', 'Exam\MarkDetailController@destroy')->name('admin.exam.mark.detail.delete');
+			    Route::get('search', 'Exam\MarkDetailController@searchStudent')->name('admin.mark.detail.studentSearch');
+			    Route::get('send-sms-marks/{classtest_id}', 'Exam\MarkDetailController@sendSmsMarks')->name('admin.mark.detail.send.sms.marks.test'); 
+			    Route::get('send-sms-marks-final', 'Exam\MarkDetailController@sendSmsMarksFinal')->name('admin.mark.detail.send.sms.marks.test.final'); 
+			    Route::get('send-sms-marks-final-filter/{condition_id}', 'Exam\MarkDetailController@sendSmsMarksFilter')->name('admin.mark.detail.send.sms.marks.test.filter'); 
 			 });
 			   //------------------------- Exam Test Details ---------------------------------
 			Route::group(['prefix' => 'class-detail'], function() {
@@ -941,14 +956,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('delete/{id}', 'Exam\ExamScheduleController@destroy')->name('admin.exam.schedule.delete');
 			    Route::get('send-sms/{id}', 'Exam\ExamScheduleController@sendSms')->name('admin.exam.schedule.send.sms');
 			    Route::get('send-email/{id}', 'Exam\ExamScheduleController@SendEmail')->name('admin.exam.schedule.send.email');
-			 });
-			  //------------------------- Exam marks details ---------------------------------
-			Route::group(['prefix' => 'exam-marks-details'], function() {
-			    Route::get('/', 'Exam\MarkDetailController@index')->name('admin.exam.mark.detail');	 	
-			    Route::post('store', 'Exam\MarkDetailController@store')->name('admin.exam.mark.detail.store');	 	
-			    Route::get('delete/{id}', 'Exam\MarkDetailController@destroy')->name('admin.exam.mark.detail.delete');
-			    Route::get('search', 'Exam\MarkDetailController@searchStudent')->name('admin.mark.detail.studentSearch');
-			 });
+			 }); 
 			//-------------------------------Student remark------------------------------------
 			Route::group(['prefix' => 'student-remark'], function() {
 			    Route::get('/', 'StudentRemarkController@index')->name('admin.student.remark.detail');	 	
@@ -1072,6 +1080,12 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('store/{id?}', 'MasterController@adminssionSeatStore')->name('admin.adminssion.seat.store'); 
 			    Route::get('delete/{id}', 'MasterController@adminssionSeatDestroy')->name('admin.adminssion.seat.delete'); 
 			    Route::get('download/{id}', 'MasterController@adminssionSeatDownload')->name('admin.adminssion.seat.download'); 
+			});
+			Route::group(['prefix' => 'report-template'], function() {
+			    Route::get('report-template', 'MasterController@reportTemplate')->name('admin.master.report.template'); 
+			    Route::get('onChange', 'MasterController@reportTemplateOnChange')->name('admin.master.report.template.onchange'); 
+			    Route::get('status/{id}/{reports_type_id}', 'MasterController@reportTemplateStatus')->name('admin.master.report.template.status'); 
+			    
 			});	
 			//------------------------- SMS ---------------------------------
 			Route::group(['prefix' => 'sms'], function() {
