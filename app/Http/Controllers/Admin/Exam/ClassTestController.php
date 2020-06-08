@@ -123,7 +123,7 @@ class ClassTestController extends Controller
     }
     public function tableShow(Request $request)
     {
-        // return $classTestStatus=Illuminate\Support\Facades\DB::select(DB::raw("call up_check_classtest_status ('1')"));
+         
         if ($request->has('academic_year_id') && ($request->has('class_id')&& ($request->has('section_id')&& ($request->has('subject'))))) {
             
           $classTests = ClassTest::where('academic_year_id',$request->academic_year_id)->where('class_id',$request->class_id)->where('section_id',$request->section_id)->where('subject_id',$request->subject)->get(); 
@@ -147,7 +147,7 @@ class ClassTestController extends Controller
     {
       $user_id=Auth::guard('admin')->user()->id;  
       $students=DB::select(DB::raw("call up_show_student_testmarks ('$classTest_id','$user_id')"));
-      sleep(10);   
+      // sleep(10);   
       return view('admin.exam.marks',compact('students'));
     }
     public function attendenceImport($classTest_id)

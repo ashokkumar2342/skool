@@ -135,7 +135,38 @@ class MarkDetailController extends Controller
         $response['status'] = 1;
         $response['msg'] = $importAttendance[0]->Result;
         return response()->json($response);   
-     } 
+     }
+     public function compile($classTest_id)
+      {
+        $user_id=Auth::guard('admin')->user()->id;  
+        $sendSmsTest=DB::select(DB::raw("call up_compile_SectionTestmarks ('$classTest_id','$user_id')")); 
+        $response = array();
+        $response['status'] = 1;
+        $response['msg'] ='Compile Successfully';
+        return response()->json($response);
+      }
+      public function cancelTest($classTest_id)
+       {
+           $classTest=ClassTest::find($classTest_id);
+           $classTest->status=2;
+           $classTest->sms_test_status=0;
+           $classTest->save();
+           $response = array();
+           $response['status'] = 1;
+           $response['msg'] ='Cancel Successfully';
+           return response()->json($response);
+       } 
+       public function reCancelTest($classTest_id)
+       {
+           $classTest=ClassTest::find($classTest_id);
+           $classTest->status=1;
+           $classTest->sms_test_status=1;
+           $classTest->save();
+           $response = array();
+           $response['status'] = 1;
+           $response['msg'] ='Re Cancel Successfully';
+           return response()->json($response);
+       } 
 
     public function rankSave($student_id,$exam_schedule_id){
 

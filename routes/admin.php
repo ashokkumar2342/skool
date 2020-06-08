@@ -929,7 +929,10 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('search', 'Exam\MarkDetailController@searchStudent')->name('admin.mark.detail.studentSearch');
 			    Route::get('send-sms-marks/{classtest_id}', 'Exam\MarkDetailController@sendSmsMarks')->name('admin.mark.detail.send.sms.marks.test'); 
 			    Route::get('send-sms-marks-final', 'Exam\MarkDetailController@sendSmsMarksFinal')->name('admin.mark.detail.send.sms.marks.test.final'); 
-			    Route::get('send-sms-marks-final-filter/{condition_id}', 'Exam\MarkDetailController@sendSmsMarksFilter')->name('admin.mark.detail.send.sms.marks.test.filter'); 
+			    Route::get('send-sms-marks-final-filter/{condition_id}', 'Exam\MarkDetailController@sendSmsMarksFilter')->name('admin.mark.detail.send.sms.marks.test.filter');
+			    Route::get('compile/{classtest_id}', 'Exam\MarkDetailController@compile')->name('admin.mark.detail.compile');	 
+			    Route::get('cancel-test/{classtest_id}', 'Exam\MarkDetailController@cancelTest')->name('admin.mark.detail.cancel.test');	 
+			    Route::get('re-cancel-test/{classtest_id}', 'Exam\MarkDetailController@reCancelTest')->name('admin.mark.detail.re.cancel.test');	 
 			 });
 			   //------------------------- Exam Test Details ---------------------------------
 			Route::group(['prefix' => 'class-detail'], function() {
@@ -938,7 +941,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('delete/{id}', 'Exam\ClassTestDetailController@destroy')->name('admin.exam.classdetail.delete');	 	
 			    Route::get('academic-year', 'Exam\ClassTestDetailController@academicYearWiseClassTest')->name('admin.academic.wise.class.test');
 			    Route::get('search', 'Exam\ClassTestDetailController@searchStudent')->name('admin.classdetail.studentSearch');
-			    Route::get('compile/{id}', 'Exam\ClassTestDetailController@compile')->name('admin.exam.classtest.compile');	 	
+			      	
 			    Route::get('todays-class-test', 'Exam\ClassTestDetailController@todayClassTest')->name('admin.exam.today.class.test');	 	
 			    Route::get('upcoming-class-test', 'Exam\ClassTestDetailController@upcomingClassTest')->name('admin.exam.upcoming.class.test');	 	
 			    

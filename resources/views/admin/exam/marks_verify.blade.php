@@ -13,7 +13,7 @@
         Marks Add By : <b>{{ $classTest->admins->first_name or ''}}</b><br>
         Marks Verify By : <b>{{ $classTest->admins2->first_name or '' }}</b>
         <div class="modal-body">
-            <form class="add_form"  action="{{ route('admin.exam.classtest.marks.verify.store',$classTest->id) }}" no-reset="true" method="post">              
+            <form class="add_form"  action="{{ route('admin.exam.classtest.marks.verify.store',$classTest->id) }}" no-reset="true" method="post" button-click="btn_class_test_show,btn_close">              
                   {{ csrf_field() }}  
             <table id="route_table" class="display table">                     
                 <thead>
