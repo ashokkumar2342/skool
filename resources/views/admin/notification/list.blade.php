@@ -9,7 +9,7 @@
 
 @endif
 <li style="{{ $style }}">
-  <a href="{{ $notification->link }}">
+  <a href="{{ $notification->link!=null?route(''.$notification->link):'' }}">
      
     <h4 style="margin-left:0px" onclick="callAjax(this,'{{ route('notification.read.status',Crypt::encrypt($notification->id)) }}')">
       {{ $notification->message }}
