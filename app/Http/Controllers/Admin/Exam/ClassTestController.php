@@ -169,7 +169,7 @@ class ClassTestController extends Controller
         $sendSmsTest=DB::select(DB::raw("call up_sms_classTestInform ('$classTest_id','$user_id','1','1','1','1')"));
         $response = array();
         $response['status'] = 1;
-        $response['msg'] = $importAttendance[0]->Result;
+        $response['msg'] = 'SMS Send Successfully';
         return response()->json($response);   
      } 
     public function downloadSyllabus($path)
