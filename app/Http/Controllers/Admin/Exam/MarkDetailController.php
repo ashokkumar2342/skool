@@ -64,8 +64,7 @@ class MarkDetailController extends Controller
    
     public function store(Request $request,$class_test_id)
     {   
-        $rules=[ 
-          
+        $rules=[  
         'marksobt' => 'required',  
         ];
 

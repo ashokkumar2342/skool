@@ -3,7 +3,7 @@
         <div class="modal-header">
             <button type="button" id="btn_close" class="close label label-danger" data-dismiss="modal">&times;</button>
             @php
-              $classTest=App\Model\Exam\ClassTest::find($students[0]->classtestid);
+              $classTest=App\Model\Exam\ClassTest::find($classTest_id);
             @endphp
             <div class="row" style="margin-top: -20px">
             <div class="panel panel-warning">
@@ -13,7 +13,7 @@
         Marks Add By : <b>{{ $classTest->admins->first_name or ''}}</b><br>
         Marks Verify By : <b>{{ $classTest->admins2->first_name or '' }}</b>
         <div class="modal-body">
-            <form class="add_form"  action="{{ route('admin.exam.classtest.marks.verify.store',$classTest->id) }}" no-reset="true" method="post" button-click="btn_class_test_show,btn_close">              
+            <form class="add_form"  action="{{ route('admin.exam.classtest.marks.verify.store',$classTest->id) }}" no-reset="true" method="post" button-click="btn_class_test_show,btn_verify_marks{{$classTest->id }}">              
                   {{ csrf_field() }}  
             <table id="route_table" class="display table">                     
                 <thead>
@@ -21,7 +21,7 @@
                         <th>SR.No.</th>  
                         <th>Name</th> 
                         <th>Reg.No.</th>                             
-                        <th><a class="btn btn-warning btn-xs" button-click="btn_verify_marks{{$classTest->id }}" success-popup="true" onclick="callAjax(this,'{{ route('admin.exam.classtest.attendance.import',$classTest->id) }}')">Attendance</a></th> 
+                        <th><a class="btn btn-warning btn-xs" button-click="btn_class_test_show,btn_verify_marks{{$classTest->id }}" success-popup="true" onclick="callAjax(this,'{{ route('admin.exam.classtest.attendance.import',$classTest->id) }}')">Attendance</a></th> 
                         <th>Marks</th>                                               
                         <th>any remarks</th>                                        
                     </tr>
@@ -58,7 +58,7 @@
                             <input type="text" name="marksobt[{{ $student->id }}]" onkeyup="this.value = minmax(this.value,'',{{ $classTest->max_marks }})"/ value="{{ $student->marks }}"> 
                         </td>
                         <td>
-                            <input type="text" name="any_remarks[{{ $student->id }}]" class="form-control" value="" maxlength="100">
+                            <input type="text" name="any_remarks[{{ $student->id }}]" value="" maxlength="100" value="{{$classTest->any_remarks }}">
                         </td> 
                     </tr>    
                     @endforeach 

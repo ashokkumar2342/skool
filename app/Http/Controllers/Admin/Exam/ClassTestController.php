@@ -146,13 +146,12 @@ class ClassTestController extends Controller
     public function addMarks($classTest_id)
     {
       $user_id=Auth::guard('admin')->user()->id;  
-      $students=DB::select(DB::raw("call up_show_student_testmarks ('$classTest_id','$user_id')"));
-      // sleep(10);   
-      return view('admin.exam.marks',compact('students'));
+      $students=DB::select(DB::raw("call up_show_student_testmarks ('$classTest_id','$user_id')")); 
+      return view('admin.exam.marks',compact('students','classTest_id'));
     }
     public function attendenceImport($classTest_id)
     { $user_id=Auth::guard('admin')->user()->id;  
-      $importAttendance=DB::select(DB::raw("call up_importAttendance_Test_ClassAttendance ('$classTest_id','$user_id')"));
+      $importAttendance=DB::select(DB::raw("call up_importAttendance_Test_ClassAttendance ('$classTest_id','$user_id','1')"));
         $response = array();
         $response['status'] = 1;
         $response['msg'] = $importAttendance[0]->Result;
@@ -162,7 +161,7 @@ class ClassTestController extends Controller
     {
       $user_id=Auth::guard('admin')->user()->id;  
       $students=DB::select(DB::raw("call up_show_student_testmarks ('$classTest_id','$user_id')")); 
-      return view('admin.exam.marks_verify',compact('students'));
+      return view('admin.exam.marks_verify',compact('students','classTest_id'));
     }
     public function sendSmsTest($classTest_id)
      {
