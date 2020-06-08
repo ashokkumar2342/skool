@@ -8,11 +8,11 @@
       <div class="box"> 
         <div class="box-body">
           <div class="btn-group btn-group-justified">
-            <a href="#" class="btn btn-primary" onclick="callAjax(this,'{{ route('admin.mark.detail.send.sms.marks.test.filter',1) }}','send_sms_final_filter')">Test Info</a>
-            <a href="#" class="btn btn-primary" onclick="callAjax(this,'{{ route('admin.mark.detail.send.sms.marks.test.filter',2) }}','send_sms_final_filter')">Marks Info</a>
+            <a href="#" class="btn btn-primary" data-table="route_table" onclick="callAjax(this,'{{ route('admin.mark.detail.send.sms.marks.test.filter',1) }}','send_sms_final_filter')">Test Info</a>
+            <a href="#" class="btn btn-primary" data-table="route_table" onclick="callAjax(this,'{{ route('admin.mark.detail.send.sms.marks.test.filter',2) }}','send_sms_final_filter')">Marks Info</a>
              
           </div>
-          <div id="send_sms_final_filter">
+          <div class="table-responsive" id="send_sms_final_filter">
              
            </div> 
         </div>

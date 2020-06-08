@@ -132,7 +132,7 @@ class MarkDetailController extends Controller
         $sendSmsTest=DB::select(DB::raw("call up_sms_classTestmarks ('$classTest_id','$user_id','1','1','1')"));
         $response = array();
         $response['status'] = 1;
-        $response['msg'] = $importAttendance[0]->Result;
+        $response['msg'] ='SMS Send Successfully';
         return response()->json($response);   
      }
      public function compile($classTest_id)
@@ -242,8 +242,17 @@ class MarkDetailController extends Controller
     }
     public function sendSmsMarksFilter($condition_id)
     {
-        $classTests=classTest::all();
-        return view('admin.exam.send_sms_final_filter',compact('classTests'));
+        if ($condition_id==1) {
+         $classTests=classTest::where('sms_test_status',0)->get();  
+        }
+        elseif ($condition_id==2) {
+         $classTests=classTest::where('sms_marks_status',0)->get();  
+        } 
+        return view('admin.exam.send_sms_final_filter',compact('classTests','condition_id'));
+    }
+    public function sendSmsMarksFilterSend(Request $request)
+    {
+       return $request;
     }
 
     /**

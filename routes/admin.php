@@ -930,6 +930,7 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('send-sms-marks/{classtest_id}', 'Exam\MarkDetailController@sendSmsMarks')->name('admin.mark.detail.send.sms.marks.test'); 
 			    Route::get('send-sms-marks-final', 'Exam\MarkDetailController@sendSmsMarksFinal')->name('admin.mark.detail.send.sms.marks.test.final'); 
 			    Route::get('send-sms-marks-final-filter/{condition_id}', 'Exam\MarkDetailController@sendSmsMarksFilter')->name('admin.mark.detail.send.sms.marks.test.filter');
+			    Route::post('send-sms-marks-final-filter-send', 'Exam\MarkDetailController@sendSmsMarksFilterSend')->name('admin.mark.detail.send.sms.marks.test.filter.send');
 			    Route::get('compile/{classtest_id}', 'Exam\MarkDetailController@compile')->name('admin.mark.detail.compile');	 
 			    Route::get('cancel-test/{classtest_id}', 'Exam\MarkDetailController@cancelTest')->name('admin.mark.detail.cancel.test');	 
 			    Route::get('re-cancel-test/{classtest_id}', 'Exam\MarkDetailController@reCancelTest')->name('admin.mark.detail.re.cancel.test');	 
