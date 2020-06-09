@@ -28,6 +28,8 @@ Route::prefix('question')->group(function () {
     Route::get('/', 'QuestionController@questionForm')->name('question.form'); 
     Route::post('form-store', 'QuestionController@questionStore')->name('question.store'); 
     Route::get('report', 'QuestionController@Report1')->name('question.report'); 
+    Route::get('report2', 'QuestionController@Report2')->name('question.report2'); 
+    Route::get('delete/{id}', 'QuestionController@destroy')->name('question.delete'); 
 });
  
 Route::prefix('parent')->group(function () {

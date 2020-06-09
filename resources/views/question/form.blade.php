@@ -88,7 +88,7 @@
                         <h3 class="box-title">Question </h3>
                         <div class="pull-right">
                             <a href="{{ route('question.report') }}" class="btn btn-success" title="" target="_blank">Report 1</a>
-                        <a href="{{ route('question.report') }}" class="btn btn-info" title="" target="_blank">Report 2</a>
+                        <a href="{{ route('question.report2') }}" class="btn btn-info" title="" target="_blank">Report 2</a>
                         </div>
                         
                     </div>
@@ -113,7 +113,31 @@
                      <div>
                         
                 </div>
-               
+               <div class="row">
+                   <div class="col-lg-12">
+                      <table class="table">
+                           <thead>
+                               <tr>
+                                   <th>Id</th>
+                                   <th>Question</th>
+                                   <th>Action</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                            @foreach($datas as $data)
+                               <tr>
+                                   <td>{{ $data->id }}</td>
+                                   <td>{!! $data->question !!}</td>
+                                   <td><a href="{{ route('question.delete',$data->id) }}" class="btn btn-success" title="">Delete</a></td>
+                               </tr>
+                             @endforeach  
+                           </tbody>
+                       </table> 
+                       <div>
+                           {{ $datas->links() }}
+                       </div>
+                   </div>
+               </div>
             </section>
         </div>
         <!-- /.content-wrapper -->

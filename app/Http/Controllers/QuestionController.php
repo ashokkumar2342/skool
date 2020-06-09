@@ -22,30 +22,39 @@ class QuestionController extends Controller
      */
     public function questionForm()
     {
-        $datas=Question::get();
+        $datas=Question::paginate(10);
         return view('question.form',compact('datas'));
+    }
+    public function destroy($id)
+    {
+        $datas=Question::where('id',$id)->delete();
+        return redirect()->back()->with(['message'=>'Delete Successfully','class'=>'success']);
     }
     public function Report1()
     {
-         $data=Question::get();
-         $datas=array();
-         $datas['datas']=$data;
-           // $pdf = PDF::setOptions([
-           //  'isJavascriptEnabled' => true,
-           //     'isHtml5ParserEnabled' => true,
-           //     'defaultMediaType' => 'screen',
-           //     'isPhpEnabled' => true,
-           //     'adminUsername' => 'user',
-           //     'adminPassword' => '123',
-            
-               
-           // ])
-           // ->loadView('admin.master.pdf',$datas);
-           // return $pdf->stream('report.pdf');
-           return view('question.report1',$datas);
-
-      
-    
+       $data=Question::get();
+       $datas=array();
+       $datas['datas']=$data;
+         // $pdf = PDF::setOptions([
+         //  'isJavascriptEnabled' => true,
+         //     'isHtml5ParserEnabled' => true,
+         //     'defaultMediaType' => 'screen',
+         //     'isPhpEnabled' => true,
+         //     'adminUsername' => 'user',
+         //     'adminPassword' => '123',
+          
+             
+         // ])
+         // ->loadView('admin.master.pdf',$datas);
+         // return $pdf->stream('report.pdf');
+         return view('question.report1',$datas); 
+    } 
+    public function Report2()
+    {
+     $data=Question::get();
+     $datas=array();
+     $datas['datas']=$data; 
+     return view('question.report2',$datas); 
           
     }  
     public function questionStore(Request $request)
