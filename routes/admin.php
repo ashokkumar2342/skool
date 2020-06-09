@@ -459,6 +459,12 @@ Route::group(['middleware' => 'admin'], function() {
 	     Route::get('report', 'ReportController@generalReport')->name('admin.student.general.report'); 
 	     Route::get('report-for', 'ReportController@generalReportFor')->name('admin.student.general.report.for'); 
 	     Route::post('report-generate', 'ReportController@reportGenerateBarcode')->name('admin.student.general.report.barcode'); 
+	 }); 
+
+	 Route::group(['prefix' => 'StuCertificate'], function() {
+	     Route::get('Application', 'StudentCertificateController@index')->name('admin.student.CharacterCertificateApplication');
+	     Route::post('showstudentdetail', 'StudentCertificateController@showStudent')->name('admin.student.showStudent'); 
+	     
 	 });
 	   // ---------------Certificate----------------------------------------
 	 Route::group(['prefix' => 'certificate'], function() {
