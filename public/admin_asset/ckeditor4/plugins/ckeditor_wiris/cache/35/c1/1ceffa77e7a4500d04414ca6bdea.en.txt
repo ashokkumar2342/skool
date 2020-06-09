@@ -1,1 +1,0 @@
-{"result":{"text":"a 2 plus b 2 equals c 2"},"status":"ok"}

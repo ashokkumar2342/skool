@@ -1,1 +1,0 @@
-{"result":{"text":"4 space 6 over 6 space plus space space"},"status":"ok"}

@@ -1,1 +1,0 @@
-{"result":{"text":"square root of 1 half plus fraction numerator 2 e over denominator b end fraction equals 2 a b end root"},"status":"ok"}

@@ -1,1 +1,0 @@
-{"result":{"text":"6 6 over 7 plus 7 89 over 6"},"status":"ok"}

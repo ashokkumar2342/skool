@@ -888,6 +888,62 @@ com.wiris.js.JsBrowser.prototype = {
 	,dataBrowser: null
 	,__class__: com.wiris.js.JsBrowser
 }
+com.wiris.js.JsCharacters = $hxClasses["com.wiris.js.JsCharacters"] = function() { }
+com.wiris.js.JsCharacters.__name__ = ["com","wiris","js","JsCharacters"];
+com.wiris.js.JsCharacters.getSafeXMLCharactersEntities = function() {
+	return { tagOpener : "&laquo;", tagCloser : "&raquo;", doubleQuote : "&uml;", realDoubleQuote : "&quot;"};
+}
+com.wiris.js.JsCharacters.getXMLCharacters = function() {
+	return { id : "xmlCharacters", tagOpener : "<", tagCloser : ">", doubleQuote : "\"", ampersand : "&", quote : "'"};
+}
+com.wiris.js.JsCharacters.getSafeXMLCharacters = function() {
+	return { id : "safeXmlCharacters", tagOpener : "«", tagCloser : "»", doubleQuote : "¨", ampersand : "§", quote : "`", realDoubleQuote : "¨"};
+}
+com.wiris.js.JsMathML = $hxClasses["com.wiris.js.JsMathML"] = function() { }
+com.wiris.js.JsMathML.__name__ = ["com","wiris","js","JsMathML"];
+com.wiris.js.JsMathML.decodeSafeMathML = function(input) {
+	var safeXMLCharactersEntities = com.wiris.js.JsCharacters.getSafeXMLCharactersEntities();
+	var xmlCharacters = com.wiris.js.JsCharacters.getXMLCharacters();
+	var safeXMLCharacters = com.wiris.js.JsCharacters.getSafeXMLCharacters();
+	var tagOpenerEntity = safeXMLCharactersEntities.tagOpener;
+	var tagCloserEntity = safeXMLCharactersEntities.tagCloser;
+	var doubleQuoteEntity = safeXMLCharactersEntities.doubleQuote;
+	var realDoubleQuoteEntity = safeXMLCharactersEntities.realDoubleQuote;
+	var inputCopy = input.slice();
+	inputCopy = inputCopy.split(tagOpenerEntity).join(safeXMLCharacters.tagOpener);
+	inputCopy = inputCopy.split(tagCloserEntity).join(safeXMLCharacters.tagCloser);
+	inputCopy = inputCopy.split(doubleQuoteEntity).join(safeXMLCharacters.doubleQuote);
+	inputCopy = inputCopy.split(realDoubleQuoteEntity).join(safeXMLCharacters.realDoubleQuote);
+	var tagOpener = safeXMLCharacters.tagOpener;
+	var tagCloser = safeXMLCharacters.tagCloser;
+	var doubleQuote = safeXMLCharacters.doubleQuote;
+	var realDoubleQuote = safeXMLCharacters.realDoubleQuote;
+	var ampersand = safeXMLCharacters.ampersand;
+	var quote = safeXMLCharacters.quote;
+	inputCopy = inputCopy.split(tagOpener).join(xmlCharacters.tagOpener);
+	inputCopy = inputCopy.split(tagCloser).join(xmlCharacters.tagCloser);
+	inputCopy = inputCopy.split(doubleQuote).join(xmlCharacters.doubleQuote);
+	inputCopy = inputCopy.split(ampersand).join(xmlCharacters.ampersand);
+	inputCopy = inputCopy.split(quote).join(xmlCharacters.quote);
+	var returnValue = "";
+	var currentEntity = null;
+	var i = 0;
+	while(i < inputCopy.length) {
+		var character = inputCopy.charAt(i);
+		if(currentEntity == null) {
+			if(character == "$") currentEntity = ""; else returnValue += character;
+		} else if(character == ";") {
+			returnValue += "&" + currentEntity;
+			currentEntity = null;
+		} else if(character.match(new EReg("([a-zA-Z0-9#._-] | '-')",""))) currentEntity += character; else {
+			returnValue += "$" + "currentEntity";
+			currentEntity = null;
+			i -= 1;
+		}
+		i++;
+	}
+	return returnValue;
+}
 com.wiris.js.JsPluginListener = $hxClasses["com.wiris.js.JsPluginListener"] = function() { }
 com.wiris.js.JsPluginListener.__name__ = ["com","wiris","js","JsPluginListener"];
 com.wiris.js.JsPluginListener.prototype = {
@@ -937,7 +993,7 @@ com.wiris.js.JsPluginTools.prototype = {
 }
 com.wiris.js.JsPluginViewer = $hxClasses["com.wiris.js.JsPluginViewer"] = function() {
 	this._wrs_conf_imageFormat = null;
-	this.javaServicePath = "/pluginwiris_engine/app";
+	this.javaServicePath = "@param.js.java.appcontextpath@";
 	this.wiriseditormathmlattribute = null;
 	this.performanceenabled = null;
 	this.eventListenersArray = [];
@@ -948,6 +1004,7 @@ com.wiris.js.JsPluginViewer = $hxClasses["com.wiris.js.JsPluginViewer"] = functi
 	this.zoom = 1;
 	this.viewer = "";
 	this.lang = "inherit";
+	this.safeXml = false;
 	this.ready = false;
 	this.extension = "@param.configuration.script.extension@";
 	this.localpath = "@param.configuration.script.local.path@";
@@ -1027,8 +1084,8 @@ com.wiris.js.JsPluginViewer.prototype = {
 		data += "&metrics=true&centerbaseline=false&mml=" + StringTools.urlEncode(mml);
 		data += "&lang=" + this.lang;
 		if(this.zoom != 1) data += "&zoom=" + this.zoom;
-		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("Calling: " + url,{ fileName : "JsPluginViewer.hx", lineNumber : 794, className : "com.wiris.js.JsPluginViewer", methodName : "callService"});
-		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("POST:" + data,{ fileName : "JsPluginViewer.hx", lineNumber : 796, className : "com.wiris.js.JsPluginViewer", methodName : "callService"});
+		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("Calling: " + url,{ fileName : "JsPluginViewer.hx", lineNumber : 920, className : "com.wiris.js.JsPluginViewer", methodName : "callService"});
+		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("POST:" + data,{ fileName : "JsPluginViewer.hx", lineNumber : 922, className : "com.wiris.js.JsPluginViewer", methodName : "callService"});
 		con.open("POST",url,false);
 		con.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=utf-8");
 		con.send(data);
@@ -1040,15 +1097,15 @@ com.wiris.js.JsPluginViewer.prototype = {
 		var url = (this.absoluteURL.length > 0?this.absoluteURL:this.baseURL + this.localpath) + "/service" + this.extension;
 		var data = "service=latex2mathml";
 		data += "&latex=" + StringTools.urlEncode(latex);
-		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("Calling: " + url,{ fileName : "JsPluginViewer.hx", lineNumber : 728, className : "com.wiris.js.JsPluginViewer", methodName : "latexToMathml"});
-		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("POST:" + data,{ fileName : "JsPluginViewer.hx", lineNumber : 730, className : "com.wiris.js.JsPluginViewer", methodName : "latexToMathml"});
+		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("Calling: " + url,{ fileName : "JsPluginViewer.hx", lineNumber : 854, className : "com.wiris.js.JsPluginViewer", methodName : "latexToMathml"});
+		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("POST:" + data,{ fileName : "JsPluginViewer.hx", lineNumber : 856, className : "com.wiris.js.JsPluginViewer", methodName : "latexToMathml"});
 		var onloadFunc = function(e) {
 			try {
 				var mathml = haxe.Json.parse(con.responseText).result.text;
 				var newMathml = js.Lib.document.createElement("math");
 				var mathmlSpan = js.Lib.document.createElement("span");
 				mathmlSpan.appendChild(newMathml);
-				e.target.wiris.nodeAfter.parentElement.insertBefore(mathmlSpan,e.target.wiris.nodeAfter);
+				e.target.wiris.nodeAfter.parentElement.insertBefore(mathmlSpan,e.target.wiris.nodeAfter.nextSibling);
 				newMathml.outerHTML = mathml;
 				if(--_g.callsLatexToMathml == 0) {
 					var _g2 = 0, _g1 = _g.eventListenersArray.length;
@@ -1063,7 +1120,7 @@ com.wiris.js.JsPluginViewer.prototype = {
 				e.target.wiris.callbackFunc(mathmlSpan);
 				_g.parseElement(mathmlSpan,asynchronously);
 			} catch( e1 ) {
-				if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("LatexToMathml call failed!",{ fileName : "JsPluginViewer.hx", lineNumber : 756, className : "com.wiris.js.JsPluginViewer", methodName : "latexToMathml"});
+				if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("LatexToMathml call failed!",{ fileName : "JsPluginViewer.hx", lineNumber : 882, className : "com.wiris.js.JsPluginViewer", methodName : "latexToMathml"});
 			}
 		};
 		con.open("POST",url,asynchronously);
@@ -1074,7 +1131,7 @@ com.wiris.js.JsPluginViewer.prototype = {
 		con.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=utf-8");
 		con.onload = onloadFunc;
 		con.onerror = function(e) {
-			if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("LatexToMathml call failed!",{ fileName : "JsPluginViewer.hx", lineNumber : 769, className : "com.wiris.js.JsPluginViewer", methodName : "latexToMathml"});
+			if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("LatexToMathml call failed!",{ fileName : "JsPluginViewer.hx", lineNumber : 895, className : "com.wiris.js.JsPluginViewer", methodName : "latexToMathml"});
 		};
 		con.send(data);
 	}
@@ -1101,8 +1158,8 @@ com.wiris.js.JsPluginViewer.prototype = {
 		url = (this.absoluteURL.length > 0?this.absoluteURL:this.baseURL + this.localpath) + "/showimage" + this.extension;
 		if(new com.wiris.js.JsBrowser().isIE()) data = "?formula=" + md5 + "&lang=" + this.lang + "&useragent=IE"; else data = "?formula=" + md5 + "&lang=" + this.lang;
 		data += "&version=" + com.wiris.js.JsPluginViewer.VERSION;
-		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("Calling: " + url,{ fileName : "JsPluginViewer.hx", lineNumber : 606, className : "com.wiris.js.JsPluginViewer", methodName : "callShowimage"});
-		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("GET:" + data,{ fileName : "JsPluginViewer.hx", lineNumber : 608, className : "com.wiris.js.JsPluginViewer", methodName : "callShowimage"});
+		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("Calling: " + url,{ fileName : "JsPluginViewer.hx", lineNumber : 732, className : "com.wiris.js.JsPluginViewer", methodName : "callShowimage"});
+		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("GET:" + data,{ fileName : "JsPluginViewer.hx", lineNumber : 734, className : "com.wiris.js.JsPluginViewer", methodName : "callShowimage"});
 		con.open("GET",url + data,asynchronously);
 		con.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=utf-8");
 		var onloadFunc = function(e) {
@@ -1122,7 +1179,7 @@ com.wiris.js.JsPluginViewer.prototype = {
 				var scaledWitdh = result.width * scaleDpi | 0;
 				var scaledBaseLine = result.baseline * scaleDpi | 0;
 				if(result.height > 0) {
-					if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace(_g.calculateAlignment(height,baseline),{ fileName : "JsPluginViewer.hx", lineNumber : 632, className : "com.wiris.js.JsPluginViewer", methodName : "callShowimage"});
+					if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace(_g.calculateAlignment(height,baseline),{ fileName : "JsPluginViewer.hx", lineNumber : 758, className : "com.wiris.js.JsPluginViewer", methodName : "callShowimage"});
 					e1.target.wiris.img.style.verticalAlign = "-" + _g.calculateAlignment(scaledHeight,scaledBaseLine) + "px";
 					e1.target.wiris.img.style.height = "" + scaledHeight + "px";
 					e1.target.wiris.img.style.width = "" + scaledWitdh + "px";
@@ -1166,7 +1223,7 @@ com.wiris.js.JsPluginViewer.prototype = {
 				con.wiris.container = container;
 				con.onload = onloadFunc1;
 				con.onerror = function(e1) {
-					if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("ShowImage call failed!",{ fileName : "JsPluginViewer.hx", lineNumber : 696, className : "com.wiris.js.JsPluginViewer", methodName : "callShowimage"});
+					if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("ShowImage call failed!",{ fileName : "JsPluginViewer.hx", lineNumber : 822, className : "com.wiris.js.JsPluginViewer", methodName : "callShowimage"});
 				};
 				con.send(data);
 			} else getResultFunc(e);
@@ -1180,7 +1237,7 @@ com.wiris.js.JsPluginViewer.prototype = {
 		con.wiris.asynchronously = asynchronously;
 		con.onload = onloadFunc;
 		con.onerror = function(e) {
-			if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("ShowImage call failed!",{ fileName : "JsPluginViewer.hx", lineNumber : 716, className : "com.wiris.js.JsPluginViewer", methodName : "callShowimage"});
+			if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("ShowImage call failed!",{ fileName : "JsPluginViewer.hx", lineNumber : 842, className : "com.wiris.js.JsPluginViewer", methodName : "callShowimage"});
 		};
 		con.send(null);
 	}
@@ -1197,8 +1254,8 @@ com.wiris.js.JsPluginViewer.prototype = {
 		data = "metrics=true&centerbaseline=false&mml=" + StringTools.urlEncode(mml);
 		data += "&lang=" + this.lang;
 		if(this.zoom != 1) data += "&zoom=" + this.zoom;
-		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("Calling: " + url,{ fileName : "JsPluginViewer.hx", lineNumber : 535, className : "com.wiris.js.JsPluginViewer", methodName : "callCreateImage"});
-		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("POST:" + data,{ fileName : "JsPluginViewer.hx", lineNumber : 537, className : "com.wiris.js.JsPluginViewer", methodName : "callCreateImage"});
+		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("Calling: " + url,{ fileName : "JsPluginViewer.hx", lineNumber : 661, className : "com.wiris.js.JsPluginViewer", methodName : "callCreateImage"});
+		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("POST:" + data,{ fileName : "JsPluginViewer.hx", lineNumber : 663, className : "com.wiris.js.JsPluginViewer", methodName : "callCreateImage"});
 		con.open("POST",url,false);
 		con.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=utf-8");
 		con.send(data);
@@ -1207,7 +1264,7 @@ com.wiris.js.JsPluginViewer.prototype = {
 		if(i >= 0) {
 			var scaleDpi = 1;
 			var h = this.queryToParams(HxOverrides.substr(s,i + 1,null));
-			if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace(h.get("formula"),{ fileName : "JsPluginViewer.hx", lineNumber : 547, className : "com.wiris.js.JsPluginViewer", methodName : "callCreateImage"});
+			if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace(h.get("formula"),{ fileName : "JsPluginViewer.hx", lineNumber : 673, className : "com.wiris.js.JsPluginViewer", methodName : "callCreateImage"});
 			if(h.exists("dpi")) scaleDpi = this.zoom * (Std.parseInt(h.get("dpi")) / 96);
 			baseline = Std.parseInt(h.get("cb")) / scaleDpi | 0;
 			height = Std.parseInt(h.get("ch")) / scaleDpi | 0;
@@ -1216,7 +1273,7 @@ com.wiris.js.JsPluginViewer.prototype = {
 		}
 		img.src = con.responseText;
 		if(height > 0) {
-			if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace(this.calculateAlignment(height,baseline),{ fileName : "JsPluginViewer.hx", lineNumber : 558, className : "com.wiris.js.JsPluginViewer", methodName : "callCreateImage"});
+			if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace(this.calculateAlignment(height,baseline),{ fileName : "JsPluginViewer.hx", lineNumber : 684, className : "com.wiris.js.JsPluginViewer", methodName : "callCreateImage"});
 			img.style.verticalAlign = "-" + this.calculateAlignment(height,baseline) + "px";
 			img.style.height = "" + height + "px";
 			img.style.width = "" + width + "px";
@@ -1244,12 +1301,12 @@ com.wiris.js.JsPluginViewer.prototype = {
 		} else return com.wiris.js.JsPluginViewer.TECH;
 	}
 	,processMathML: function(mml,container,asynchronously,callbackFunc) {
-		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace(mml,{ fileName : "JsPluginViewer.hx", lineNumber : 480, className : "com.wiris.js.JsPluginViewer", methodName : "processMathML"});
+		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace(mml,{ fileName : "JsPluginViewer.hx", lineNumber : 606, className : "com.wiris.js.JsPluginViewer", methodName : "processMathML"});
 		var img = js.Lib.document.createElement("img");
 		if(this.performanceenabled == null) this.performanceenabled = this.isPerformanceEnabled();
 		if(this.mode == com.wiris.js.JsPluginViewer.USE_CREATE_IMAGE && this.performanceenabled) this.callShowimage(container,mml,img,asynchronously,callbackFunc); else if(this.mode == com.wiris.js.JsPluginViewer.USE_CREATE_IMAGE && !this.performanceenabled) this.callCreateImage(mml,img); else img.src = this.baseURL + this.localpath + "/showimage" + this.extension + "?mml=" + StringTools.urlEncode(mml);
 		container.appendChild(img);
-		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace(img.src,{ fileName : "JsPluginViewer.hx", lineNumber : 494, className : "com.wiris.js.JsPluginViewer", methodName : "processMathML"});
+		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace(img.src,{ fileName : "JsPluginViewer.hx", lineNumber : 620, className : "com.wiris.js.JsPluginViewer", methodName : "processMathML"});
 	}
 	,getMathML_IE7: function(mathNode0) {
 		var mathml = "";
@@ -1285,13 +1342,25 @@ com.wiris.js.JsPluginViewer.prototype = {
 		mathml += "</math>";
 		return mathml;
 	}
+	,removeSemanticsMathml: function(mathml) {
+		var mathTagEnd = "</math>";
+		var openSemantics = "<semantics>";
+		var openAnnotation = "<annotation";
+		var mathmlWithoutSemantics = mathml;
+		var startSemantics = mathml.indexOf(openSemantics);
+		if(startSemantics != -1) {
+			var startAnnotation = mathml.indexOf(openAnnotation,startSemantics + openSemantics.length);
+			if(startAnnotation != -1) mathmlWithoutSemantics = mathml.substring(0,startSemantics) + mathml.substring(startSemantics + openSemantics.length,startAnnotation) + mathTagEnd;
+		}
+		return mathmlWithoutSemantics;
+	}
 	,replaceNodes: function(mathNodes,n,asynchronously,callbackFunc) {
 		if(n >= mathNodes.length) return;
 		var mathNode = mathNodes[n];
 		var mathml = null;
 		var browser = new com.wiris.js.JsBrowser();
 		if(browser.getBrowser() == "Explorer" && (browser.getVersion() == "6" || browser.getVersion() == "7") && navigator.appVersion.indexOf("Trident") == -1) {
-			if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("Is ie7",{ fileName : "JsPluginViewer.hx", lineNumber : 370, className : "com.wiris.js.JsPluginViewer", methodName : "replaceNodes"});
+			if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("Is ie7",{ fileName : "JsPluginViewer.hx", lineNumber : 475, className : "com.wiris.js.JsPluginViewer", methodName : "replaceNodes"});
 			mathml = this.getMathML_IE7(mathNode);
 		}
 		var container = js.Lib.document.createElement("span");
@@ -1312,21 +1381,39 @@ com.wiris.js.JsPluginViewer.prototype = {
 		var self = this;
 		self.replaceNodes(mathNodes,n + 1,asynchronously,callbackFunc);
 	}
-	,findLatex: function(node) {
-		var dollarIndex = node.nodeValue.indexOf("$$");
-		var stringLocation = 0;
-		var foundLatex = false;
-		var latexArray = [];
-		while(dollarIndex != -1) {
-			var firstDollars = dollarIndex;
-			dollarIndex = node.nodeValue.indexOf("$$",dollarIndex + 2);
-			if(dollarIndex != -1) {
-				latexArray.push({ begin : firstDollars + 2, end : dollarIndex});
-				dollarIndex = node.nodeValue.indexOf("$$",dollarIndex + 2);
-				foundLatex = true;
+	,replaceLatexInTextNode: function(pos,node,asynchronously,callbackFunc) {
+		var textContent;
+		textContent = node.textContent;
+		if(pos < textContent.length) {
+			var nextLatexPosistion = this.getNextLatexPos(pos,textContent);
+			if(nextLatexPosistion != null) {
+				var leftText = textContent.substring(pos,nextLatexPosistion.start);
+				var leftTextNode = js.Lib.document.createTextNode(leftText);
+				node.parentNode.insertBefore(leftTextNode,node);
+				var latex = textContent.substring(nextLatexPosistion.start + "$$".length,nextLatexPosistion.end);
+				this.latexToMathml(latex,leftTextNode,asynchronously,callbackFunc);
+				this.replaceLatexInTextNode(nextLatexPosistion.end + "$$".length,node,asynchronously,callbackFunc);
+			} else {
+				var text = textContent.substring(pos);
+				var textNode = js.Lib.document.createTextNode(text);
+				node.parentNode.insertBefore(textNode,node);
+				node.parentNode.removeChild(node);
 			}
+		} else node.parentNode.removeChild(node);
+	}
+	,getNextLatexPos: function(pos,text) {
+		var firstLatexTags = text.indexOf("$$",pos);
+		var secondLatexTags = firstLatexTags == -1?-1:text.indexOf("$$",firstLatexTags + "$$".length);
+		return firstLatexTags != -1 && secondLatexTags != -1?{ start : firstLatexTags, end : secondLatexTags}:null;
+	}
+	,findLatex: function(node) {
+		var foundLatex = false;
+		var dollarIndex = node.nodeValue.indexOf("$$");
+		if(dollarIndex != -1) {
+			dollarIndex = node.nodeValue.indexOf("$$",dollarIndex + 2);
+			if(dollarIndex != -1) foundLatex = true;
 		}
-		return foundLatex?latexArray:null;
+		return foundLatex;
 	}
 	,parseLatexDocument: function(asynchronously,callbackFunc) {
 		this.parseLatexElement(js.Lib.document,asynchronously,callbackFunc);
@@ -1342,8 +1429,7 @@ com.wiris.js.JsPluginViewer.prototype = {
 		var i = 0;
 		while(i < domTextNodes.length) {
 			var node = domTextNodes[i];
-			var findLatexResult = this.findLatex(node);
-			if(findLatexResult != null) latexToProcess.push({ node : node, indexes : findLatexResult});
+			if(this.findLatex(node)) latexToProcess.push(node);
 			i++;
 		}
 		if(latexToProcess.length == 0) {
@@ -1360,18 +1446,8 @@ com.wiris.js.JsPluginViewer.prototype = {
 			var _g1 = 0, _g = latexToProcess.length;
 			while(_g1 < _g) {
 				var i1 = _g1++;
-				var latex_index = latexToProcess[i1].indexes[0];
-				var node = latexToProcess[i1].node;
-				var latex = node.textContent.substring(latex_index.begin,latex_index.end);
-				var splitedTextNode = node.splitText(latex_index.begin - 2);
-				var finaltext = splitedTextNode.textContent;
-				finaltext = finaltext.substring(finaltext.indexOf("$$",2) + 2);
-				var newNode = node.cloneNode(true);
-				newNode.textContent = finaltext;
-				node.parentElement.insertBefore(newNode,node.nextSibling);
-				this.latexToMathml(latex,newNode,asynchronously,callbackFunc);
-				var finalIndex = splitedTextNode.textContent.lastIndexOf("$$",2);
-				splitedTextNode.textContent = latex_index.begin == latex_index.end?splitedTextNode.nodeValue.substring(2,finalIndex):splitedTextNode.nodeValue.substring(0,finalIndex);
+				var node = latexToProcess[i1];
+				this.replaceLatexInTextNode(0,node,asynchronously,callbackFunc);
 			}
 		}
 	}
@@ -1425,11 +1501,57 @@ com.wiris.js.JsPluginViewer.prototype = {
 		}
 		this.replaceNodes(arr,0,asynchronously,callbackFunc);
 	}
-	,parseDocument: function(asynchronously,callbackFunc) {
-		this.parseElement(js.Lib.document,asynchronously,callbackFunc);
+	,parseDocument: function(asynchronously,callbackFunc,safeXml) {
+		if(safeXml) this.parseSafeMathMLElement(js.Lib.document,asynchronously,callbackFunc); else this.parseElement(js.Lib.document,asynchronously,callbackFunc);
+	}
+	,getMathMLPositionsAtNode: function(node,mathmlPositions) {
+		var safeXMLCharacters = com.wiris.js.JsCharacters.getSafeXMLCharacters();
+		if(node.nodeType == 3) {
+			var startMathmlTag = safeXMLCharacters.tagOpener + "math";
+			var endMathmlTag = safeXMLCharacters.tagOpener + "/math" + safeXMLCharacters.tagCloser;
+			var start = node.textContent.indexOf(startMathmlTag);
+			var end = 0;
+			while(start != -1) {
+				end = node.textContent.indexOf(endMathmlTag,start + startMathmlTag.length);
+				if(end == -1) break;
+				var nextMathML = node.textContent.indexOf(startMathmlTag,end + endMathmlTag.length);
+				if(nextMathML >= 0 && end > nextMathML) break;
+				var safeMathml = node.textContent.substring(start,end + endMathmlTag.length);
+				node.textContent = node.textContent.substring(0,start) + node.textContent.substring(end + endMathmlTag.length);
+				node = node.splitText(start);
+				start = node.textContent.indexOf(startMathmlTag);
+				mathmlPositions.push({ safeMML : safeMathml, nextElement : node});
+			}
+		}
+	}
+	,getMathMLPositionsAtElementAndChildren: function(element,mathmlPositions) {
+		this.getMathMLPositionsAtNode(element,mathmlPositions);
+		var childNodes = Array.from(element.childNodes);
+		if(childNodes.length > 0) {
+			var _g1 = 0, _g = childNodes.length;
+			while(_g1 < _g) {
+				var i = _g1++;
+				var child = childNodes[i];
+				this.getMathMLPositionsAtElementAndChildren(child,mathmlPositions);
+			}
+		}
+	}
+	,parseSafeMathMLElement: function(element,asynchronously,callbackFunc) {
+		if(!this.ready) throw "Document is not loaded.";
+		var mathmlPositions = [];
+		this.getMathMLPositionsAtElementAndChildren(element,mathmlPositions);
+		var _g1 = 0, _g = mathmlPositions.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			var mathmlPosition = mathmlPositions[i];
+			var newNode = document.createElement("math");
+			mathmlPosition.nextElement.parentNode.insertBefore(newNode,mathmlPosition.nextElement);
+			newNode.outerHTML = com.wiris.js.JsMathML.decodeSafeMathML(mathmlPosition.safeMML);
+		}
+		this.parseElement(element,asynchronously,callbackFunc);
 	}
 	,doLoad: function() {
-		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("doLoad",{ fileName : "JsPluginViewer.hx", lineNumber : 118, className : "com.wiris.js.JsPluginViewer", methodName : "doLoad"});
+		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("doLoad",{ fileName : "JsPluginViewer.hx", lineNumber : 120, className : "com.wiris.js.JsPluginViewer", methodName : "doLoad"});
 		this.scriptName = "WIRISplugins.js";
 		var col;
 		col = js.Lib.document.getElementsByTagName("script");
@@ -1448,7 +1570,7 @@ com.wiris.js.JsPluginViewer.prototype = {
 					var query = HxOverrides.substr(src,k + 1,null);
 					this.params = this.queryToParams(query);
 				}
-				if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace(this.baseURL,{ fileName : "JsPluginViewer.hx", lineNumber : 137, className : "com.wiris.js.JsPluginViewer", methodName : "doLoad"});
+				if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace(this.baseURL,{ fileName : "JsPluginViewer.hx", lineNumber : 139, className : "com.wiris.js.JsPluginViewer", methodName : "doLoad"});
 			}
 		}
 		this.tech = this.getTechnology();
@@ -1477,18 +1599,19 @@ com.wiris.js.JsPluginViewer.prototype = {
 			this.absoluteURL = "/wirispluginengine/integration";
 		}
 		this.ready = true;
-		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("Tech:" + this.tech,{ fileName : "JsPluginViewer.hx", lineNumber : 168, className : "com.wiris.js.JsPluginViewer", methodName : "doLoad"});
+		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("Tech:" + this.tech,{ fileName : "JsPluginViewer.hx", lineNumber : 169, className : "com.wiris.js.JsPluginViewer", methodName : "doLoad"});
 		if(this.params.exists("viewer")) this.viewer = this.params.get("viewer");
 		this.asyncParam = this.params.exists("async") && this.params.get("async") == "true"?true:false;
 		if(this.params.exists("zoom")) this.zoom = Std.parseFloat(this.params.get("zoom"));
 		if(this.params.exists("dpi")) this.zoom *= Std.parseFloat(this.params.get("dpi")) / 96;
 		if(this.params.exists("lang")) this.lang = this.params.get("lang"); else this.lang = "en";
+		if(this.params.exists("safeXml")) this.safeXml = this.params.get("safeXml") == "true"?true:false; else this.safeXml = false;
 		if(this.lang == "inherit") this.lang = js.Lib.document.getElementsByTagName("html")[0].lang;
-		if(this.viewer == "image") this.parseDocument(); else if(this.viewer == "latex") this.parseLatexDocument(this.asyncParam); else if(this.viewer == "all") {
+		if(this.viewer == "image") this.parseDocument(this.asyncParam,null,this.safeXml); else if(this.viewer == "latex") this.parseLatexDocument(this.asyncParam); else if(this.viewer == "all") {
 			this.parseLatexDocument(this.asyncParam);
 			this.parseDocument(this.asyncParam);
 		}
-		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("Language:" + this.lang,{ fileName : "JsPluginViewer.hx", lineNumber : 198, className : "com.wiris.js.JsPluginViewer", methodName : "doLoad"});
+		if(com.wiris.js.JsPluginViewer.DEBUG) haxe.Log.trace("Language:" + this.lang,{ fileName : "JsPluginViewer.hx", lineNumber : 205, className : "com.wiris.js.JsPluginViewer", methodName : "doLoad"});
 		com.wiris.js.JsPluginViewer.instance = this;
 		com.wiris.js.JsPluginViewer.bypassEncapsulation();
 	}
@@ -1507,6 +1630,7 @@ com.wiris.js.JsPluginViewer.prototype = {
 	,ready: null
 	,javaServicePath: null
 	,tech: null
+	,safeXml: null
 	,lang: null
 	,wiriseditormathmlattribute: null
 	,performanceenabled: null
@@ -1803,12 +1927,6 @@ com.wiris.system.JsDOMUtils.addEventListenerImpl = function(element,eventName,ha
 			}
 		},useCapture));
 	}
-	if(eventName == "fullscreenchange") {
-		com.wiris.system.JsDOMUtils.addEventListenerImpl(element,"webkitfullscreenchange",handler,useCapture);
-		com.wiris.system.JsDOMUtils.addEventListenerImpl(element,"mozfullscreenchange",handler,useCapture);
-		com.wiris.system.JsDOMUtils.addEventListenerImpl(element,"MSFullscreenChange",handler,useCapture);
-		com.wiris.system.JsDOMUtils.addEventListenerImpl(element,"wrs_fullscreenchange",handler,useCapture);
-	}
 	if(element.attachEvent) element.attachEvent("on" + eventName,function() {
 		handler(window.event);
 	}); else element.addEventListener(eventName,handler,useCapture);
@@ -1863,6 +1981,12 @@ com.wiris.system.JsDOMUtils.getComputedStyleProperty = function(element,name) {
 	} else value = element.style[com.wiris.system.JsDOMUtils.camelize(name)];
 	return value;
 }
+com.wiris.system.JsDOMUtils.getPixelRatio = function() {
+	var context = document.createElement("canvas").getContext("2d");
+	var dpr = window.devicePixelRatio || 1;
+	var bsr = context.webkitBackingStorePixelRatio || context.mozBackingStorePixelRatio || context.msBackingStorePixelRatio || context.oBackingStorePixelRatio || context.backingStorePixelRatio || 1;
+	return dpr / bsr;
+}
 com.wiris.system.JsDOMUtils.camelize = function(str) {
 	var start = 0;
 	var pos;
@@ -1914,10 +2038,29 @@ com.wiris.system.JsDOMUtils.getWindowScroll = function() {
 	}
 	return scroll;
 }
+com.wiris.system.JsDOMUtils.setWindowScroll = function(scroll) {
+	var x = scroll[0] | 0;
+	var y = scroll[1] | 0;
+	js.Lib.window.scrollTo(x,y);
+}
+com.wiris.system.JsDOMUtils.isLeftBidiAware = function(keyCode,rtl) {
+	return keyCode == 37 && !rtl || keyCode == 39 && rtl;
+}
+com.wiris.system.JsDOMUtils.getFirstDisplayedChild = function(parent) {
+	var child = parent != null?parent.firstChild:parent;
+	while(child != null) {
+		if(com.wiris.system.JsDOMUtils.getComputedStyleProperty(child,"display") != "none") return child;
+		child = child.nextSibling;
+	}
+	return null;
+}
 com.wiris.system.JsDOMUtils.isDescendant = function(parent,possibleDescendant) {
-	if(possibleDescendant.parentNode == null) return false;
-	if(possibleDescendant.parentNode == parent) return true;
-	return com.wiris.system.JsDOMUtils.isDescendant(parent,possibleDescendant.parentNode);
+	if(parent == null || possibleDescendant == null) return false;
+	while(possibleDescendant.parentNode != null) {
+		if(possibleDescendant.parentNode == parent) return true;
+		possibleDescendant = possibleDescendant.parentNode;
+	}
+	return false;
 }
 com.wiris.system.JsDOMUtils.parseDimension = function(x) {
 	return x < 0 || x == null?0:x;
@@ -1997,6 +2140,18 @@ com.wiris.system.JsDOMUtils.getMousePositionImpl = function(target,e,elementScro
 	position[1] = e.clientY - com.wiris.system.JsDOMUtils.getTop(target) - border + elementScroll[1];
 	return position;
 }
+com.wiris.system.JsDOMUtils.getMousePagePosition = function(target,e) {
+	var pagePosition = new Array();
+	pagePosition[0] = e.pageX;
+	pagePosition[1] = e.pageY;
+	return pagePosition;
+}
+com.wiris.system.JsDOMUtils.getScrollPosition = function(target,e) {
+	var elementScroll = new Array();
+	elementScroll[0] = target.scrollLeft;
+	elementScroll[1] = target.scrollTop;
+	return elementScroll;
+}
 com.wiris.system.JsDOMUtils.inFixedParent = function(element) {
 	while(element != null) {
 		if(com.wiris.system.JsDOMUtils.getComputedStyleProperty(element,"position") == "fixed") return true;
@@ -2017,12 +2172,9 @@ com.wiris.system.JsDOMUtils.getTouchPositionImpl = function(target,touch,element
 	return position;
 }
 com.wiris.system.JsDOMUtils.getStandardButton = function(e) {
-	if(com.wiris.system.JsDOMUtils.browser.isTouchable()) return 0;
-	var button = e.button;
-	if(com.wiris.system.JsDOMUtils.browser.isIE()) {
-		if(button == 1) button = 0; else if(button == 4) button = 1;
-	}
-	return button;
+	if(e.touches) return 1;
+	if("button" in e) return e.button + 1;
+	return 0;
 }
 com.wiris.system.JsDOMUtils.vibrate = function(milliseconds) {
 	if(navigator.vibrate) navigator.vibrate(milliseconds);
@@ -2064,22 +2216,6 @@ com.wiris.system.JsDOMUtils.createCSSRules = function(selector,rules) {
 	js.Lib.document.getElementsByTagName("head")[0].appendChild(style);
 	if(style.sheet != null && style.sheet.insertRule != null) style.sheet.insertRule(selector + "{" + rules + "}",0); else if(style.styleSheet != null) style.styleSheet.addRule(selector,rules); else if(style.sheet != null) style.sheet.addRule(selector,rules);
 }
-com.wiris.system.JsDOMUtils.enterFullscreen = function(element) {
-	document.wrs_fullscreen = true;
-	document.wrs_fullscreenElement = element;
-	com.wiris.system.JsDOMUtils.addClass(element,"wrs_fullscreen");
-	com.wiris.system.JsDOMUtils.fireEvent(document,"wrs_fullscreenchange");
-}
-com.wiris.system.JsDOMUtils.exitFullscreen = function() {
-	if(document.wrs_fullscreenElement != null) com.wiris.system.JsDOMUtils.removeClass(document.wrs_fullscreenElement,"wrs_fullscreen");
-	document.wrs_fullscreenElement = null;
-	document.wrs_fullscreen = false;
-	com.wiris.system.JsDOMUtils.fireEvent(document,"wrs_fullscreenchange");
-}
-com.wiris.system.JsDOMUtils.isFullscreen = function(element) {
-	if(element == null) return document.wrs_fullscreen || document.fullscreen || document.mozFullScreen || document.webkitIsFullScreen || document.msFullscreenElement;
-	return document.wrs_fullscreenElement == element || document.fullscreenElement == element || document.mozFullScreenElement == element || document.webkitFullscreenElement || document.msFullscreenElement == element;
-}
 com.wiris.system.JsDOMUtils.execCommand = function(command) {
 	return document.execCommand(command);
 }
@@ -2095,6 +2231,136 @@ com.wiris.system.JsDOMUtils.findServicePath = function(scriptName) {
 	}
 	if(servicePath != null && StringTools.startsWith(servicePath,"http://") && js.Lib.window.location.protocol == "https:") servicePath = "https://" + HxOverrides.substr(servicePath,"http://".length,null);
 	return servicePath;
+}
+com.wiris.system.JsDOMUtils.loadTextFile = function(elem,func) {
+	var w = js.Lib.window;
+	if(w.File && w.FileReader && w.FileList && w.Blob) {
+		var d = elem.ownerDocument;
+		var fileInput = d.createElement("input");
+		fileInput.setAttribute("name","data");
+		fileInput.setAttribute("type","file");
+		elem.appendChild(fileInput);
+		com.wiris.system.JsDOMUtils.init();
+		com.wiris.system.JsDOMUtils.addEventListener(fileInput,"change",function(e) {
+			if(fileInput.files.length) {
+				var file = fileInput.files[0];
+				var reader = new FileReader();
+				reader.onload = function(le) {
+					func(le.target.result);
+				};
+				reader.readAsText(file);
+			}
+			elem.removeChild(fileInput);
+		});
+		fileInput.click();
+	} else throw "Browser incompatible with JavaScript File API.";
+}
+com.wiris.system.JsDOMUtils.saveTextFile = function(elem,filename,filetype,contents) {
+	var d = elem.ownerDocument;
+	var w = js.Lib.window;
+	if(w.Blob) {
+		var blob = new Blob([contents], {'type': filetype});
+		var a = d.createElement("a");
+		if('download' in a && w.URL) {
+			a.href = w.URL.createObjectURL(blob);
+			a.download = filename;
+			elem.appendChild(a);
+			a.click();
+			elem.removeChild(a);
+			return;
+		}
+	}
+	throw "Browser incompatible with HTML object download anchors.";
+}
+com.wiris.system.JsDOMUtils.trapFocus = function(disabledFocusContainer,focusableContainer) {
+	var lastScroll = com.wiris.system.JsDOMUtils.getWindowScroll();
+	var previousFocused = focusableContainer;
+	var descriptor = com.wiris.system.JsDOMUtils.addEventListener(js.Lib.document,"focusin",function(e) {
+		previousFocused = com.wiris.system.JsDOMUtils.getEventTarget(e);
+	});
+	descriptor.subDescriptors.push(com.wiris.system.JsDOMUtils.addEventListener(disabledFocusContainer,"focusin",function(e) {
+		var focusedElement = com.wiris.system.JsDOMUtils.getEventTarget(e);
+		if(!com.wiris.system.JsDOMUtils.isDescendant(focusableContainer,focusedElement)) {
+			com.wiris.system.JsDOMUtils.setWindowScroll(lastScroll);
+			var focusableElements = com.wiris.system.JsDOMUtils.getFocusableElements(js.Lib.document.body);
+			var focusedElementIndex = 0;
+			while(focusedElementIndex < focusableElements.length) {
+				if(focusableElements[focusedElementIndex] == focusedElement) break;
+				++focusedElementIndex;
+			}
+			var direction = previousFocused == focusedElement || com.wiris.system.JsDOMUtils.elementIsBefore(previousFocused,focusedElement)?1:-1;
+			var alternative = com.wiris.system.JsDOMUtils.findFocusableAlternative(focusableElements,disabledFocusContainer,focusableContainer,focusedElementIndex,direction);
+			if(alternative != null) alternative.focus();
+			e.stopPropagation();
+		} else lastScroll = com.wiris.system.JsDOMUtils.getWindowScroll();
+	}));
+	var focusedElement = js.Lib.document.activeElement;
+	if(!com.wiris.system.JsDOMUtils.isDescendant(focusableContainer,focusedElement)) {
+		com.wiris.system.JsDOMUtils.setWindowScroll(lastScroll);
+		var focusableElements = com.wiris.system.JsDOMUtils.getFocusableElements(js.Lib.document.body);
+		var focusedElementIndex = 0;
+		while(focusedElementIndex < focusableElements.length) {
+			if(focusableElements[focusedElementIndex] == focusedElement) break;
+			++focusedElementIndex;
+		}
+		var alternative = com.wiris.system.JsDOMUtils.findFocusableAlternative(focusableElements,disabledFocusContainer,focusableContainer,focusedElementIndex,1);
+		if(alternative != null) alternative.focus();
+	}
+	return descriptor;
+}
+com.wiris.system.JsDOMUtils.findFocusableAlternative = function(focusableElements,disabledFocusContainer,focusableContainer,focusedElementIndex,direction,stopOnIndex) {
+	if(stopOnIndex == null) stopOnIndex = -100;
+	var originalFocusedElementIndex = focusedElementIndex;
+	focusedElementIndex += direction;
+	while(focusedElementIndex >= 0 && focusedElementIndex < focusableElements.length && com.wiris.system.JsDOMUtils.isDescendant(disabledFocusContainer,focusableElements[focusedElementIndex]) && !com.wiris.system.JsDOMUtils.isDescendant(focusableContainer,focusableElements[focusedElementIndex])) {
+		focusedElementIndex += direction;
+		if(focusedElementIndex == stopOnIndex) return null;
+	}
+	if(focusedElementIndex < 0) return com.wiris.system.JsDOMUtils.findFocusableAlternative(focusableElements,disabledFocusContainer,focusableContainer,focusableElements.length - 1,-1,originalFocusedElementIndex);
+	if(focusedElementIndex >= focusableElements.length) return com.wiris.system.JsDOMUtils.findFocusableAlternative(focusableElements,disabledFocusContainer,focusableContainer,0,1,originalFocusedElementIndex);
+	return focusableElements[focusedElementIndex];
+}
+com.wiris.system.JsDOMUtils.untrapFocus = function(descriptor) {
+	com.wiris.system.JsDOMUtils.removeEventListener(descriptor);
+}
+com.wiris.system.JsDOMUtils.getFocusableElements = function(container) {
+	var elements = container.querySelectorAll("button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])");
+	var focusableElements = new Array();
+	var i = 0;
+	while(i < elements.length) {
+		if(com.wiris.system.JsDOMUtils.getComputedStyleProperty(elements[i],"display") != "none" && com.wiris.system.JsDOMUtils.getComputedStyleProperty(elements[i],"visibility") != "hidden") focusableElements.push(elements[i]);
+		++i;
+	}
+	return focusableElements;
+}
+com.wiris.system.JsDOMUtils.elementIsBefore = function(elementA,elementB) {
+	if(elementA == elementB) throw "Trying to compare the same element.";
+	var pathA = com.wiris.system.JsDOMUtils.getElementPath(elementA);
+	var pathB = com.wiris.system.JsDOMUtils.getElementPath(elementB);
+	var i = 1;
+	var n = Math.min(pathA.length,pathB.length) | 0;
+	while(i < n) {
+		if(pathA[i] != pathB[i]) return com.wiris.system.JsDOMUtils.getElementChildIndex(pathA[i]) < com.wiris.system.JsDOMUtils.getElementChildIndex(pathB[i]);
+		++i;
+	}
+	return false;
+}
+com.wiris.system.JsDOMUtils.getElementPath = function(element) {
+	var path = new Array();
+	while(element != null) {
+		path.splice(0,0,element);
+		element = element.parentNode;
+	}
+	return path;
+}
+com.wiris.system.JsDOMUtils.getElementChildIndex = function(element) {
+	if(element.parentNode == null) return -1;
+	var i = 0;
+	while(i < element.parentNode.childNodes.length) {
+		if(element.parentNode.childNodes[i] == element) return i;
+		++i;
+	}
+	return -1;
 }
 var haxe = haxe || {}
 haxe.Http = $hxClasses["haxe.Http"] = function(url) {
@@ -3640,8 +3906,8 @@ js.XMLHttpRequest = window.XMLHttpRequest?XMLHttpRequest:window.ActiveXObject?fu
 }(this));
 com.wiris.js.JsPluginViewer.USE_CREATE_IMAGE = 1;
 com.wiris.js.JsPluginViewer.DEBUG = false;
-com.wiris.js.JsPluginViewer.TECH = "php";
-com.wiris.js.JsPluginViewer.VERSION = "7.0.0.1387";
+com.wiris.js.JsPluginViewer.TECH = "@param.js.tech.discover@";
+com.wiris.js.JsPluginViewer.VERSION = "7.17.0.1426";
 com.wiris.system.JsDOMUtils.TOUCHHOLD_MOVE_MARGIN = 10;
 com.wiris.system.JsDOMUtils.browser = new com.wiris.system.JsBrowser();
 com.wiris.system.JsDOMUtils.initialized = false;
