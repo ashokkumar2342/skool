@@ -60,7 +60,7 @@ class com_wiris_plugin_impl_FolderTreeStorageAndCache implements com_wiris_plugi
 			$_ex_ = ($»e instanceof HException) ? $»e->e : $»e;
 			$e = $_ex_;
 			{
-				throw new HException("Error: can't write on cache: " . Std::string($e->getMessage()));
+				// throw new HException("Error: can't write on cache: " . Std::string($e->getMessage()));
 			}
 		}
 		return $digest;
