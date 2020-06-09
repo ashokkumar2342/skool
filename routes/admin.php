@@ -919,6 +919,8 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('attendance-import/{classtest_id}', 'Exam\ClassTestController@attendenceImport')->name('admin.exam.classtest.attendance.import'); 
 			    Route::get('marks-verify/{classtest_id}', 'Exam\ClassTestController@marksVerify')->name('admin.exam.classtest.marks.verify'); 
 			    Route::get('send-sms-test/{classtest_id}', 'Exam\ClassTestController@sendSmsTest')->name('admin.exam.classtest.sens.sms.test'); 
+			    Route::get('test-date-wise-send-sms', 'Exam\ClassTestController@testDateWiseSendSMS')->name('admin.exam.classtest.test.date.wise.send.sms'); 
+			    Route::post('test-date-wise-send-sms-show', 'Exam\ClassTestController@testDateWiseSendSMSShow')->name('admin.exam.classtest.test.date.wise.send.sms.show'); 
 			 });
 			//------------------------- Exam marks details ---------------------------------
 			Route::group(['prefix' => 'exam-marks-details'], function() {
@@ -933,6 +935,8 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::post('send-sms-marks-final-filter-send', 'Exam\MarkDetailController@sendSmsMarksFilterSend')->name('admin.mark.detail.send.sms.marks.test.filter.send');
 			    Route::get('compile/{classtest_id}', 'Exam\MarkDetailController@compile')->name('admin.mark.detail.compile');	 
 			    Route::get('cancel-test/{classtest_id}', 'Exam\MarkDetailController@cancelTest')->name('admin.mark.detail.cancel.test');	 
+			    Route::get('cancel-test-filter', 'Exam\MarkDetailController@cancelTestFilter')->name('admin.mark.detail.cancel.test.filter');
+			    Route::post('cancel-test-filter-store', 'Exam\MarkDetailController@cancelTestFilterStore')->name('admin.mark.detail.cancel.test.filter.store');	 
 			    Route::get('re-cancel-test/{classtest_id}', 'Exam\MarkDetailController@reCancelTest')->name('admin.mark.detail.re.cancel.test');	 
 			 });
 			   //------------------------- Exam Test Details ---------------------------------

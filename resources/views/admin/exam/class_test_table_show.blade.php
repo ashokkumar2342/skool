@@ -69,10 +69,10 @@
                   <a href="#" id="" class="btn btn-xs btn-success" success-popup="true" onclick="callAjax(this,'{{ route('admin.mark.detail.send.sms.marks.test',$classTest->id) }}')">SMS Send Marks Info</a>
              @endif 
              @if ($status7==1)
-                  <a href="#" id="" class="btn btn-xs btn-danger" button-click="btn_class_test_show" success-popup="true" onclick="callAjax(this,'{{ route('admin.mark.detail.cancel.test',$classTest->id) }}')">Cancel Test</a>
+                  <a href="#" id="" class="btn btn-xs btn-danger"  onclick="callPopupLarge(this,'{{ route('admin.mark.detail.cancel.test',$classTest->id) }}')">Cancel Test</a>
              @endif
              @if ($status8==1) 
-                  <a href="#" id="" class="btn btn-xs btn-warning" button-click="btn_class_test_show" success-popup="true" onclick="callAjax(this,'{{ route('admin.mark.detail.re.cancel.test',$classTest->id) }}')">Cancel Test</a> 
+                  <a href="#" id="" class="btn btn-xs btn-warning" button-click="btn_class_test_show" success-popup="true" onclick="callAjax(this,'{{ route('admin.mark.detail.re.cancel.test',$classTest->id) }}')">Re Cancel Test</a> 
              @endif
               @if ($status9==1)
                   <a href="#" class="btn btn-xs btn-danger" button-click="btn_class_test_show" success-popup="true" onclick="if (confirm('Are you Sure delete')){callAjax(this,'{{ route('admin.exam.classtest.delete',Crypt::encrypt($classTest->id)) }}')} else{console_Log('cancel') }">Delete</a>

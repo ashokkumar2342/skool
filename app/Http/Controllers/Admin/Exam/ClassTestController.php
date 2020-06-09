@@ -167,11 +167,28 @@ class ClassTestController extends Controller
      {
         $user_id=Auth::guard('admin')->user()->id;  
         $sendSmsTest=DB::select(DB::raw("call up_sms_classTestInform ('$classTest_id','$user_id','1','1','1','1')"));
+        $cancelTest=ClassTest::find($classTest_id);
+          if ($cancelTest->status==2) {
+             $sendSmsTest=DB::select(DB::raw("call up_sms_classTestReschedule_cancel ('$classTest_id','$user_id','1','1','1','1')"));   
+          }  
         $response = array();
         $response['status'] = 1;
         $response['msg'] = 'SMS Send Successfully';
         return response()->json($response);   
-     } 
+     }
+     public function testDateWiseSendSMS()
+    {
+        return view('admin.exam.test_date_wise_send_sms',compact('students','classTest_id'));   
+    } 
+    public function testDateWiseSendSMSShow(Request $request)
+   {
+     $classTests=ClassTest::where('test_date',$request->test_date)->get();
+     $response = array();
+     $response['status'] = 1;
+     $response['data'] = view('admin.exam.test_date_wise_send_sms_table',compact('classTests'))->render();  
+     return response()->json($response); 
+      
+   }
     public function downloadSyllabus($path)
     {
         $documentUrl = Storage_path() . '/app/student/classtest';

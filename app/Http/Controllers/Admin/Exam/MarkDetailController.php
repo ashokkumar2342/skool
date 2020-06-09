@@ -146,9 +146,43 @@ class MarkDetailController extends Controller
       }
       public function cancelTest($classTest_id)
        {
-           $classTest=ClassTest::find($classTest_id);
-           $classTest->status=2;
-           $classTest->sms_test_status=0;
+         return view('admin.exam.cancel_popup',compact('classTest_id'));   
+       }
+       public function cancelTestFilter(Request $request)
+       {
+            $option=$request->id;
+            $classTest_id=$request->classTest_id;
+            return view('admin.exam.cancel_remaks',compact('option','classTest_id'));   
+       }
+       public function cancelTestFilterStore(Request $request)
+       {  
+           if ($request->option==1) {
+            $rules=[  
+            'remaks' => 'required',  
+            ];
+            }
+            elseif ($request->option==2) {
+            $rules=[  
+            'test_date' => 'required',  
+            'remaks' => 'required',  
+            ];
+            } 
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+           $classTest=ClassTest::find($request->classTest_id);
+           if ($request->option==1) {
+           $classTest->status=3; 
+           }
+           elseif ($request->option==2) {
+           $classTest->status=2; 
+           }
+           $classTest->Remaks=$request->remaks;
            $classTest->save();
            $response = array();
            $response['status'] = 1;
@@ -251,8 +285,31 @@ class MarkDetailController extends Controller
         return view('admin.exam.send_sms_final_filter',compact('classTests','condition_id'));
     }
     public function sendSmsMarksFilterSend(Request $request)
-    {
-       return $request;
+    { return $request;
+       $user_id=Auth::guard('admin')->user()->id;
+        if ($request->condition_id==2) {
+         foreach ($request->class_test_id as $key => $id) {
+          $sendSmsTest=DB::select(DB::raw("call up_sms_classTestmarks ('$id','$user_id','1','1','1','1')"));
+          $sendSmsTest->sms_marks_status=1;
+          $sendSmsTest->save();    
+         } 
+       }else{
+         foreach ($request->class_test_id as $key => $id) {
+          $sendSmsTest=DB::select(DB::raw("call up_sms_classTestInform ('$id','$user_id','1','1','1','1')"));
+          $sendSmsTest->sms_test_status=1;   
+          $sendSmsTest->save();
+          $cancelTest=ClassTest::find($id);
+          if ($cancelTest->status==2) {
+             $sendSmsTest=DB::select(DB::raw("call up_sms_classTestReschedule_cancel ('$id','$user_id','1','1','1','1')"));   
+          }   
+         } 
+       }
+        
+        
+        $response = array();
+        $response['status'] = 1;
+        $response['msg'] = 'SMS Send Successfully';
+        return response()->json($response);
     }
 
     /**
