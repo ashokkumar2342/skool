@@ -23,7 +23,7 @@
                   <th>Sr.No.</th>                  
                   <th>Menu Name</th>                   
                   <th>Sub Menu</th>                   
-                  <th>R - W - D</th>                  
+                  <th class="text-nowrap">R - W - D</th>                  
                   <th>Status</th>
                 </tr>
                 </thead>

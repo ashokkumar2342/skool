@@ -1,7 +1,7 @@
 @extends('admin.layout.base')
 @section('body')
 <section class="content-header">
-    <h1>Student Fee Details </h1>
+    <h1>Assign Fee Class Wise</h1>
     
 </section>
     <section class="content">

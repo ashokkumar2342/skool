@@ -14,6 +14,8 @@ use App\Model\GuardianRelationType;
 use App\Model\IncomeRange;
 use App\Model\Profession;
 use App\Model\Religion;
+use App\Model\ReportTemplate;
+use App\Model\ReportsType;
 use App\Model\StudentStatus;
 use App\Model\Subject;
 use App\Model\Syllabus;
@@ -766,5 +768,32 @@ class MasterController extends Controller
         $documentUrl = Storage_path() . '/app/student/admissionschedule/syllabus/'.$id;
         @mkdir($documentUrl, 0755, true);  
         return response()->file($documentUrl); 
+       }
+
+       //--------------report-Template------------------------------------------//
+
+       public function reportTemplate()
+       {
+          $ReportsTypes=ReportsType::orderBy('id','ASC')->get();
+          return view('admin.master.reportTemplate.index',compact('ReportsTypes'));
+       }
+       public function reportTemplateOnChange(Request $request)
+       {
+          $ReportTemplates=ReportTemplate::where('reports_type_id',$request->id)->get();
+          return view('admin.master.reportTemplate.table',compact('ReportTemplates'));  
+       }
+       public function reportTemplateStatus($id,$reports_type_id)
+       {
+          $ReportTemplates =ReportTemplate::where('reports_type_id',$reports_type_id)->get(); 
+          foreach ($ReportTemplates as  $value) {
+             $ReportTemplates =ReportTemplate::find($value->id);
+             $ReportTemplates->status=0;
+             $ReportTemplates->save(); 
+          }
+          $ReportTemplates =ReportTemplate::find($id); 
+          $ReportTemplates->status=1;
+          $ReportTemplates->save();
+          $response=['status'=>1,'msg'=>'Change Successfully'];
+          return response()->json($response);
        }
 }

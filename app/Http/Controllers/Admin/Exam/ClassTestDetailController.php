@@ -163,20 +163,7 @@ class ClassTestDetailController extends Controller
         $marksDetail->save(); 
        
     }
-    public function compile(Request $request,$id)
-    { 
-         
-       $classTestDetail=ClassTestDetail::where('class_test_id',$id)->pluck('marksobt')->toArray();
-       $maximum = max($classTestDetail);
-       $average = collect($classTestDetail)->avg();
-       $classTests=ClassTest::find($id);
-       $classTests->highest_marks=$maximum;
-       $classTests->avg_marks=$average;
-       $classTests->save();
-       return  redirect()->back()->with(['message'=>'Compile Successfully','class'=>'success']);
-
-       
-   }
+    
     /**
      * Display the specified resource.
      *

@@ -38,11 +38,12 @@
                    
                   <div class="col-lg-6 form-group">
                     <label>Receipt Header</label>
-                    <textarea class="form-control summernote" name="rec_header" style="height: 120px;width: 636px">{{ @$feedefaultvalue->rec_header}}</textarea> 
+                    <textarea class="form-control summernote" name="rec_header" style="height: 120px;width: 636px">{{ @$AppSetting->Fee_Receipt_Header}}</textarea> 
                   </div>
+                  <input type="hidden"  name="app_setting_id" value="{{ @$AppSetting->id }}">
                   <div class="col-lg-6 form-group">
                     <label>Receipt Note</label>
-                    <textarea class="form-control summernote" name="rec_note" style="height: 120px;width: 636px">{{ @$feedefaultvalue->rec_note}}</textarea> 
+                    <textarea class="form-control summernote" name="rec_note" style="height: 120px;width: 636px">{{ @$AppSetting->Fee_Receipt_Footer}}</textarea> 
                   </div>
                 </div> 
                   <div class="row">
