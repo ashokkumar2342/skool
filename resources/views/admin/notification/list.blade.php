@@ -13,7 +13,7 @@
      
     <h4 style="margin-left:0px" onclick="callAjax(this,'{{ route('notification.read.status',Crypt::encrypt($notification->id)) }}')">
       {{ $notification->message }}
-      <small><i class="fa fa-clock-o"></i> {{ $notification->created_at->diffForHumans() }}</small>
+      <small><i class="fa fa-clock-o"></i> {{ $notification->created_at != null?$notification->created_at->diffForHumans():'' }}</small>
     </h4>
     {{-- <p>{{ $notification->message }}</p> --}}
   </a>
