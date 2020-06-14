@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-info btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.student.CharacterCertificateApplication.add.form',$studentdetail->id) }}')" style="margin: 7px">Application</button>
+<button type="button" class="btn btn-info btn-sm pull-right" onclick="callPopupLarge(this,'{{ route('admin.student.CharacterCertificateApplication.add.form',$studentdetail->id) }}')" style="margin: 7px;width: 200px">Application</button>
 <div class="panel panel-default">
 	<div class="panel-heading">Student Details</div>
 	<div class="panel-body">

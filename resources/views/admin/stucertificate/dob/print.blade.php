@@ -48,9 +48,9 @@
    <div class="col-lg-12">
     <p>Certified that Master/Miss <b><span class="underlin text-center"> {{ $student->name }} </span></b>Son/Daughter of  
     (Mother's Name) Smt. <b><span class="underlin text-center"> {{ $student->parents[1]->parentInfo->name or ''}} </span></b> & (Father's Name) 
-     Sh. <b><span class="underlin3 text-center"> {{ $student->parents[0]->parentInfo->name or ''}}</span></b> Reg.No. <b><span class="underlin4 text-center">{{ $student->registration_no }} </span></b>  
-     <p>is a bonafide student  of Clss 8th of this school His/Her date of birth as per our school record is 
-     <b><span class="underlin2 text-center"> {{ date('d-m-Y',strtotime($CharCertIssueDetail->DOB)) }} </span></b>(Eigtheenth November Two Thousand Six). Guardian has submitted D.O.B Certificate (issued By Municipal Committed) in our school as a proof of it.
+     Sh. <b><span class="underlin3 text-center"> {{ $student->parents[0]->parentInfo->name or ''}}</span></b> Admission No. <b><span class="underlin4 text-center">{{ $CharCertIssueDetail->AdmissionNo }} </span></b>  
+     <p>is a bonafide student  of Clss <b>{{ $student->classes->name or '' }}</b> of this school His/Her date of birth as per our school record is 
+     <b><span class="underlin2 text-center"> {{ date('d-M-Y',strtotime($CharCertIssueDetail->DOB)) }} </span></b>(Eigtheenth November Two Thousand Six). Guardian has submitted D.O.B Certificate (issued By Municipal Committed) in our school as a proof of it.
      </p>
    </p>  
    

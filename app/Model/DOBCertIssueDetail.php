@@ -4,11 +4,11 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CharCertIssueDetail extends Model
+class DOBCertIssueDetail extends Model
 {
     protected $fillable=[
     	'id',];
-    protected $table='charcertissuedetail';
+    protected $table='dobcertissuedetail';
     public $timestamps = false;
 
     public function students(){

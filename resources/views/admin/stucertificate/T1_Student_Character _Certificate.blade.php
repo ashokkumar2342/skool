@@ -44,13 +44,14 @@
 @include('schoolDetails.logo_header')
 <div class="row" style="margin-top: -20px">
 <div class="panel panel">
-  <div class="panel-heading text-center"><u><h3><b>TO Whomsoever It May Concern</b></h3></u></div> 
+  <div class="panel-heading text-center"><u><h3><b>CHARACTER CERTIFICATE</b></h3></u></div> 
    <div class="col-lg-12">
     <p>Certified that Master/Miss <b><span class="underlin text-center"> {{ $student->name }} </span></b>Son/Daughter of  
     (Mother's Name) Smt. <b><span class="underlin text-center"> {{ $student->parents[1]->parentInfo->name or ''}} </span></b> & (Father's Name) 
-     Sh. <b><span class="underlin3 text-center"> {{ $student->parents[0]->parentInfo->name or ''}}</span></b> Reg.No. <b><span class="underlin4 text-center">{{ $student->registration_no }} </span></b>  
-     <p>is a bonafide student  of Clss 8th of this school His/Her date of birth as per our school record is 
-     <b><span class="underlin2 text-center"> {{ date('d-m-Y',strtotime($CharCertIssueDetail->DOB)) }} </span></b>(Eigtheenth November Two Thousand Six). Guardian has submitted D.O.B Certificate (issued By Municipal Committed) in our school as a proof of it.
+     Sh. <b><span class="underlin3 text-center"> {{ $student->parents[0]->parentInfo->name or ''}} </span></b>Has Passed <b><span class="underlin2 text-center"> {{ $CharCertIssueDetail->classes->name or '' }} </span></b> Examination
+     vide Board's Roll No. <b><span class="underlin4 text-center"> {{ $CharCertIssueDetail->ExamRollNo or '' }} </span></b> Held in <b><span class="underlin4 text-center"> {{ $CharCertIssueDetail->ExamHeldOn }}  </span></b> as a
+     <p>regular student of this institution His/Her date of Birth as per our school record is</p> 
+     <p><b><span class="underlin2 text-center"> {{ date('d-m-Y',strtotime($CharCertIssueDetail->DOB)) }} </span></b>
      </p>
    </p>  
    

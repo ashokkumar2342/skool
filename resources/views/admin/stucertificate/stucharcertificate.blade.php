@@ -9,13 +9,13 @@
         <div class="box-body">
           <form action="{{ route('admin.student.showStudent') }}" method="post" class="add_form" success-content-id="studentshow" no-reset="true">
             {{csrf_field()}}
-            <div class="row">
-              <div class="col-lg-3">
+            <div class="row"> 
+              <div class="col-lg-4">
                 <label>Registration No.</label>
                 <input type="text" name="regsno" class="form-control" maxlength="{{$regmaxlength->reg_length}}" >
               </div>
-               <div class="col-lg-3">
-                <input type="submit" id="btn_studentshow" class="btn btn-success" style="margin-top: 24px" value="Show" >
+               <div class="col-lg-4">
+                <input type="submit" id="btn_studentshow" class="btn btn-success form-control" style="margin-top: 24px" value="Show" >
               </div>
             </div>
           </form>

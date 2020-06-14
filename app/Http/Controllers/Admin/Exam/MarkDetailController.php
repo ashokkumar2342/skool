@@ -158,13 +158,13 @@ class MarkDetailController extends Controller
        {  
            if ($request->option==1) {
             $rules=[  
-            'remaks' => 'required',  
+            'Remarks' => 'required',  
             ];
             }
             elseif ($request->option==2) {
             $rules=[  
             'test_date' => 'required',  
-            'remaks' => 'required',  
+            'Remarks' => 'required',  
             ];
             } 
             $validator = Validator::make($request->all(),$rules);
@@ -182,7 +182,7 @@ class MarkDetailController extends Controller
            elseif ($request->option==2) {
            $classTest->status=2; 
            }
-           $classTest->Remaks=$request->remaks;
+           $classTest->Remarks=$request->Remarks;
            $classTest->save();
            $response = array();
            $response['status'] = 1;
@@ -285,20 +285,21 @@ class MarkDetailController extends Controller
         return view('admin.exam.send_sms_final_filter',compact('classTests','condition_id'));
     }
     public function sendSmsMarksFilterSend(Request $request)
-    { return $request;
+    {
        $user_id=Auth::guard('admin')->user()->id;
         if ($request->condition_id==2) {
          foreach ($request->class_test_id as $key => $id) {
-          $sendSmsTest=DB::select(DB::raw("call up_sms_classTestmarks ('$id','$user_id','1','1','1','1')"));
-          $sendSmsTest->sms_marks_status=1;
-          $sendSmsTest->save();    
+          $sendSmsTest=DB::select(DB::raw("call up_sms_classTestmarks ('$id','$user_id','1','1','1')"));
+          $cancelTest=ClassTest::find($id);
+          $cancelTest->sms_marks_status=1;
+          $cancelTest->save();    
          } 
        }else{
          foreach ($request->class_test_id as $key => $id) {
           $sendSmsTest=DB::select(DB::raw("call up_sms_classTestInform ('$id','$user_id','1','1','1','1')"));
-          $sendSmsTest->sms_test_status=1;   
-          $sendSmsTest->save();
           $cancelTest=ClassTest::find($id);
+          $cancelTest->sms_test_status=1;   
+          $cancelTest->save();
           if ($cancelTest->status==2) {
              $sendSmsTest=DB::select(DB::raw("call up_sms_classTestReschedule_cancel ('$id','$user_id','1','1','1','1')"));   
           }   

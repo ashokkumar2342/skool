@@ -6,7 +6,7 @@
 @endif
 <div class="col-lg-12 form-group">
 	<label>Remaks</label>
-	<textarea class="form-control" name="remaks" style="height: 50px"></textarea>
+	<textarea class="form-control" name="Remarks" style="height: 50px"></textarea>
 	
 </div>
 <div class="col-lg-12 form-group text-center">

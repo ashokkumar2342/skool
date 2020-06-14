@@ -56,7 +56,7 @@
                             <input type="button" id="btn_attadance_{{ $student->id }}"  class="btn btn-xs {{ $btn_class }}" value="{{ $btn_att }}" onclick="chageButtonValue('btn_attadance_{{ $student->id }}',{{ $student->registration_no }},this.value)">
                         </td>
                         <td>
-                            <input type="text" name="marksobt[{{ $student->id }}]" onkeyup="this.value = minmax(this.value,'',{{ $classTest->max_marks }})"/ value="{{ $student->marks }}"> 
+                            <input type="text" name="marksobt[{{ $student->id }}]" onkeyup="this.value = minmax(this.value,'',{{ $classTest->max_marks }})"/ value="{{ $student->marks }}" id="btn_attadance_{{ $student->id }}{{ $student->registration_no }}"> 
                         </td>
                         <td>
                             <input type="text" name="any_remarks[{{ $student->id }}]"  value="{{$classTest->any_remarks }}" maxlength="100">
@@ -82,19 +82,20 @@
          $('#'+id).val('A')   
          $('#'+id).removeClass('btn-success')
          $('#'+id).addClass('btn-danger')   
-         $('#'+reg).val(2) 
-          
-           
+         $('#'+reg).val(2)
+         $('#'+id+reg).val('')
+         $('#'+id+reg).prop("disabled", true); 
         }if(val=='A'){
          $('#'+id).val('L')   
          $('#'+id).removeClass('btn-danger')
          $('#'+id).addClass('btn-warning')
-          $('#'+reg).val(3)
+         $('#'+reg).val(3) 
         }if(val=='L'){
          $('#'+id).val('P') 
          $('#'+id).removeClass('btn-warning')
          $('#'+id).addClass('btn-success')
-          $('#'+reg).val(1)
+         $('#'+reg).val(1)
+         $('#'+id+reg).prop("disabled", false); 
         }
     }
 

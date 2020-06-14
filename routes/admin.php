@@ -464,29 +464,75 @@ Route::group(['middleware' => 'admin'], function() {
 	 Route::group(['prefix' => 'StuCertificate'], function() {
 	     Route::get('Application', 'StudentCertificateController@index')->name('admin.student.CharacterCertificateApplication');
 	     Route::post('showstudentdetail', 'StudentCertificateController@showStudent')->name('admin.student.showStudent'); 
-	     Route::get('add_form/{student_id}', 'StudentCertificateController@addForm')->name('admin.student.CharacterCertificateApplication.add.form'); 
-	     Route::post('store', 'StudentCertificateController@store')->name('admin.student.CharacterCertificateApplication.store'); 
+	     Route::get('character-certificate-add-form/{student_id}', 'StudentCertificateController@characterCcertificateAddForm')->name('admin.student.CharacterCertificateApplication.add.form'); 
+	     Route::post('character-certificate-store', 'StudentCertificateController@characterCcertificateStore')->name('admin.student.CharacterCertificateApplication.store');
+	//------------BirthCertificateApplication-------------------------------------------// 
+	     Route::get('BirthCertificateApplication', 'StudentCertificateController@BirthCertificateApplication')->name('admin.student.BirthCertificateApplication');
+	     Route::get('BirthCertificateApplicationForm', 'StudentCertificateController@BirthCertificateApplicationForm')->name('admin.student.BirthCertificateApplicationForm');
+	     Route::post('BirthCertificateApplicationStore', 'StudentCertificateController@BirthCertificateApplicationStore')->name('admin.student.BirthCertificateApplicationStore');
+	//------------LeavingCertificateApplication-----------------------------------------// 
+	     Route::get('LeavingCertificateApplication', 'StudentCertificateController@LeavingCertificateApplication')->name('admin.student.LeavingCertificateApplication');
+	     Route::get('LeavingCertificateApplicationForm', 'StudentCertificateController@LeavingCertificateApplicationForm')->name('admin.student.LeavingCertificateApplicationForm');
+	     Route::post('LeavingCertificateApplicationStore', 'StudentCertificateController@LeavingCertificateApplicationStore')->name('admin.student.LeavingCertificateApplicationStore');
+
+                   //------------Issue------//
+    //------------CharacterCertificateIssue----------------------------------------------//
+	     Route::get('CharacterCertificateIssue', 'StudentCertificateController@CharacterCertificateIssue')->name('admin.student.CharacterCertificateIssue');
+	     Route::get('CharacterCertificateIssueClick', 'StudentCertificateController@CharacterCertificateIssueClick')->name('admin.student.CharacterCertificateIssueClick');
+	     Route::get('CharacterCertificateIssueTake/{id}', 'StudentCertificateController@CharacterCertificateIssueTake')->name('admin.student.CharacterCertificateIssueTake');
+	     Route::post('CharacterCertificateIssueTakeStore/{id}', 'StudentCertificateController@CharacterCertificateIssueTakeStore')->name('admin.student.CharacterCertificateIssueTakeStore');
+
+   //-------------BirthCertificateIssue--------------------------------------------------//
+	     Route::get('BirthCertificateIssue', 'StudentCertificateController@BirthCertificateIssue')->name('admin.student.BirthCertificateIssue');
+	     Route::get('BirthCertificateIssueClick', 'StudentCertificateController@BirthCertificateIssueClick')->name('admin.student.BirthCertificateIssueClick');
+	     Route::get('BirthCertificateIssueTake/{id}', 'StudentCertificateController@BirthCertificateIssueTake')->name('admin.student.BirthCertificateIssueTake');
+	     Route::post('BirthCertificateIssueTakeStore/{id}', 'StudentCertificateController@BirthCertificateIssueTakeStore')->name('admin.student.BirthCertificateIssueTakeStore');
+   //-------------LeavingCertificateIssue--------------------------------------------------//
+	     Route::get('LeavingCertificateIssue', 'StudentCertificateController@LeavingCertificateIssue')->name('admin.student.LeavingCertificateIssue');
+	     Route::get('LeavingCertificateIssueClick', 'StudentCertificateController@LeavingCertificateIssueClick')->name('admin.student.LeavingCertificateIssueClick');
+	     Route::get('LeavingCertificateIssueTake/{id}', 'StudentCertificateController@LeavingCertificateIssueTake')->name('admin.student.LeavingCertificateIssueTake');
+	     Route::post('LeavingCertificateIssueTakeStore/{id}', 'StudentCertificateController@LeavingCertificateIssueTakeStore')->name('admin.student.LeavingCertificateIssueTakeStore');
+
+	              //------------Approval------//
+    //------------CharacterCertificateApproval----------------------------------------------//
+	     Route::get('CharacterCertificateApproval', 'StudentCertificateController@CharacterCertificateApproval')->name('admin.student.CharacterCertificateApproval');
+	     Route::get('CharacterCertificateApprovalClick', 'StudentCertificateController@CharacterCertificateApprovalClick')->name('admin.student.CharacterCertificateApprovalClick');
+	     Route::get('CharacterCertificateApprovalTake/{id}', 'StudentCertificateController@CharacterCertificateApprovalTake')->name('admin.student.CharacterCertificateApprovalTake');
+	     Route::post('CharacterCertificateApprovalTakeStore/{id}', 'StudentCertificateController@CharacterCertificateApprovalTakeStore')->name('admin.student.CharacterCertificateApprovalTakeStore');
+   //-------------BirthCertificateApproval--------------------------------------------------//
+	     Route::get('BirthCertificateApproval', 'StudentCertificateController@BirthCertificateApproval')->name('admin.student.BirthCertificateApproval');
+	     Route::get('BirthCertificateApprovalClick', 'StudentCertificateController@BirthCertificateApprovalClick')->name('admin.student.BirthCertificateApprovalClick');
+	     Route::get('BirthCertificateApprovalTake/{id}', 'StudentCertificateController@BirthCertificateApprovalTake')->name('admin.student.BirthCertificateApprovalTake');
+	     Route::post('BirthCertificateApprovalTakeStore/{id}', 'StudentCertificateController@BirthCertificateApprovalTakeStore')->name('admin.student.BirthCertificateApprovalTakeStore');
+   //-------------LeavingCertificateApproval--------------------------------------------------//
+	     Route::get('LeavingCertificateApproval', 'StudentCertificateController@LeavingCertificateApproval')->name('admin.student.LeavingCertificateApproval');
+	     Route::get('LeavingCertificateApprovalClick', 'StudentCertificateController@LeavingCertificateApprovalClick')->name('admin.student.LeavingCertificateApprovalClick');
+	     Route::get('LeavingCertificateApprovalTake/{id}', 'StudentCertificateController@LeavingCertificateApprovalTake')->name('admin.student.LeavingCertificateApprovalTake');
+	     Route::post('LeavingCertificateApprovalTakeStore/{id}', 'StudentCertificateController@LeavingCertificateApprovalTakeStore')->name('admin.student.LeavingCertificateApprovalTakeStore');
+	//------------------Download---------------------------------------------------------------//
+	     Route::get('CertificateList', 'StudentCertificateController@CertificateList')->name('admin.student.CertificatePrint');
+	     Route::get('CertificateDownload/{id}/{condition_id}', 'StudentCertificateController@CertificateDownload')->name('admin.student.CertificateDownload');
 	     
 	 });
 	   // ---------------Certificate----------------------------------------
-	 Route::group(['prefix' => 'certificate'], function() {
-	     Route::get('/', 'CertificateIssueDetailController@index')->name('admin.student.certificateIssu.list');	 	
-	     Route::get('show', 'CertificateIssueDetailController@create')->name('admin.student.certificateIssu.apply');
-	     Route::get('table-show', 'CertificateIssueDetailController@tableShow')->name('admin.student.certificateIssu.apply.table.show');
-	     Route::get('print/{certificate}', 'CertificateIssueDetailController@print')->name('admin.student.certificateIssu.print');
-	     Route::post('store', 'CertificateIssueDetailController@store')->name('admin.student.certificateIssu.post');
-	     Route::get('edit/{id}', 'CertificateIssueDetailController@verifyStatus')->name('admin.student.certificateIssu.edit');
-	     Route::get('show/{certificate}', 'CertificateIssueDetailController@show')->name('admin.student.certificateIssu.show'); 
-	     Route::get('update/{id}', 'CertificateIssueDetailController@verifyRejectStatus')->name('admin.student.certificateIssu.update');
-	     Route::get('download/{certificate}', 'CertificateIssueDetailController@download')->name('admin.student.attachment.download');
-	     Route::get('attachdownload/{id?}', 'CertificateIssueDetailController@attachDownload')->name('admin.student.attachment.attachdownload');
-	     Route::get('verify', 'CertificateIssueDetailController@verify')->name('admin.student.attachment.virify');
-	     Route::get('approval', 'CertificateIssueDetailController@approval')->name('admin.student.attachment.approval');
-	     Route::get('aproval-check/{id}', 'CertificateIssueDetailController@approvalCheck')->name('admin.student.attachment.approval.check');
-	     Route::get('aproval/{id}', 'CertificateIssueDetailController@approvalReject')->name('admin.student.attachment.approval.status');
-	     Route::get('check-status', 'CertificateIssueDetailController@checkStatus')->name('admin.student.certificate.check.status');
-	     Route::post('check-status-show', 'CertificateIssueDetailController@checkStatusShow')->name('admin.student.certificate.check.status.show');
-	 });
+	 // Route::group(['prefix' => 'certificate'], function() {
+	 //     Route::get('/', 'CertificateIssueDetailController@index')->name('admin.student.certificateIssu.list');	 	
+	 //     Route::get('show', 'CertificateIssueDetailController@create')->name('admin.student.certificateIssu.apply');
+	 //     Route::get('table-show', 'CertificateIssueDetailController@tableShow')->name('admin.student.certificateIssu.apply.table.show');
+	 //     Route::get('print/{certificate}', 'CertificateIssueDetailController@print')->name('admin.student.certificateIssu.print');
+	 //     Route::post('store', 'CertificateIssueDetailController@store')->name('admin.student.certificateIssu.post');
+	 //     Route::get('edit/{id}', 'CertificateIssueDetailController@verifyStatus')->name('admin.student.certificateIssu.edit');
+	 //     Route::get('show/{certificate}', 'CertificateIssueDetailController@show')->name('admin.student.certificateIssu.show'); 
+	 //     Route::get('update/{id}', 'CertificateIssueDetailController@verifyRejectStatus')->name('admin.student.certificateIssu.update');
+	 //     Route::get('download/{certificate}', 'CertificateIssueDetailController@download')->name('admin.student.attachment.download');
+	 //     Route::get('attachdownload/{id?}', 'CertificateIssueDetailController@attachDownload')->name('admin.student.attachment.attachdownload');
+	 //     Route::get('verify', 'CertificateIssueDetailController@verify')->name('admin.student.attachment.virify');
+	 //     Route::get('approval', 'CertificateIssueDetailController@approval')->name('admin.student.attachment.approval');
+	 //     Route::get('aproval-check/{id}', 'CertificateIssueDetailController@approvalCheck')->name('admin.student.attachment.approval.check');
+	 //     Route::get('aproval/{id}', 'CertificateIssueDetailController@approvalReject')->name('admin.student.attachment.approval.status');
+	 //     Route::get('check-status', 'CertificateIssueDetailController@checkStatus')->name('admin.student.certificate.check.status');
+	 //     Route::post('check-status-show', 'CertificateIssueDetailController@checkStatusShow')->name('admin.student.certificate.check.status.show');
+	 // });
 	   // ---------------Tuition Fee Certificate----------------------------------------
 	 Route::group(['prefix' => 'certificate-tuition'], function() {
 	     Route::get('/', 'CertificateIssueDetailController@tuitionFeeShowForm')->name('admin.student.certificateIssu.tuition');	 
