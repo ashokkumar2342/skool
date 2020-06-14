@@ -173,7 +173,12 @@ class FeeCollectionController extends Controller
         if (!empty($request->cheeque_no[1])) {
             $cheeque_no2 = $request->cheeque_no[1];  
         } 
-       $temp_id= $request->template;
+       $ReportTemplate=ReportTemplate::where('reports_type_id',1)->where('status',1)->first();
+       if (empty($ReportTemplate)) {
+        $temp_id='T1_Fee_Receipt';  
+       }else{
+        $temp_id=$ReportTemplate->name;  
+       }
        $feedefaultvalue= DefaultFeeValue::where('userid',$user_id)->first();
         $receipt_id =array();
         foreach ($students as $key => $student_id) { 
@@ -198,7 +203,7 @@ class FeeCollectionController extends Controller
              'logOutputFile' => storage_path('logs/log.htm'),
              'tempDir' => storage_path('logs/')
          ])
-         ->loadView('admin.finance.feecollection.pdf_'.$temp_id.'',compact('feeDetails','student','payment_mode','cheeque_no','bank_name','feedefaultvalue'))->save($path.$r_id.'.pdf'); 
+         ->loadView('admin.finance.feecollection.'.$temp_id.'',compact('feeDetails','student','payment_mode','cheeque_no','bank_name','feedefaultvalue'))->save($path.$r_id.'.pdf'); 
            
         }
         
