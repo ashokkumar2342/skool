@@ -16,6 +16,7 @@
   	</style>
   </head>
   <body class="page">
+    @include('schoolDetails.logo_header')
   	    <div id="p1" style="font-family:Arial;text-align:center">    
   	        <center>
   	            @php
