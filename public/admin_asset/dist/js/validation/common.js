@@ -53,6 +53,10 @@ function callJqueryDefault(divId){
 			errorMsg(response.msg)
 			//$('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button> <strong>'+response.msg+'</strong>'+response.data+'</div>').insertAfter(formObj);
 			formObj.reset();
+		}else if(formObj.getAttribute('error-popup')){
+			
+			callErrorPopup(response.msg);	
+			//successMsg(response.msg)
 		}else{
 			if(formObj.getAttribute('error-id')){
 				$('#'+formObj.getAttribute('error-id')).html(response.msg);

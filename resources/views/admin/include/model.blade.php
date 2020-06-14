@@ -62,6 +62,7 @@
 </div>
 
 
+
 <div id="success-popup" class="modal fade" role="dialog" data-backdrop="static">
   <div class="modal-dialog  modal-small">
   <div class="modal-content">
@@ -75,6 +76,19 @@
 			<strong>Success!</strong> 
 			<p id="success-popup-content-id">This alert box indicates a successful or positive action.</p>
 		</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="error-popup" class="modal fade" role="dialog" data-backdrop="static">
+  <div class="modal-dialog  modal-small">
+  <div class="modal-content">
+      <div class="modal-header" >
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Error</h4>
+      </div>
+      <div class="modal-body" id="error-popup-content-id">
+     
       </div>
     </div>
   </div>

@@ -13,6 +13,7 @@ use App\Model\FeeStructureLastDate;
 use App\Model\FineScheme;
 use App\Model\Month;
 use App\Model\PaymentMode;
+use App\Model\ReportTemplate;
 use App\Model\Schoolinfo;
 use App\Model\SiblingGroup;
 use App\Model\StudentAddressDetail;

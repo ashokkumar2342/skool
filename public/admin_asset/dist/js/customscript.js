@@ -561,6 +561,11 @@ function errorMsg(msg){
  	// 	stack: 6
  	// }); 
 }
+function callErrorPopup(msg){
+	$('#error-popup').modal("show"); 
+	$('#error-popup-content-id').html(msg); 
+}
+ 
 
 
 function callchildTable(url,divId,tableId){

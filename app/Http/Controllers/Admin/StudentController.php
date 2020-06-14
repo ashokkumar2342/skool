@@ -865,38 +865,49 @@ class StudentController extends Controller
         $default = StudentDefaultValue::find(1);  
         return view('admin.student.studentdetails.import',compact('classes','sessions','default','genders','religions','categories'));
     }
-    public function importStudent(Request $request){
-        // dd($request->all());
-        // if($request->hasFile('excel_file')){
-        //     $path = $request->file('excel_file')->getRealPath();
-        //     $data = \Excel::load($path)->get();
-
-        //     if($data->count()){
-        //         foreach ($data as $key => $value) {
-        //             $arr[] = ['name' => $value->name, 'email' => $value->email];
-        //         }
-        //         if(!empty($arr)){
-        //             DB::table('students')->insert($arr);
-        //             dd('Insert Recorded successfully.');
-        //         }
-        //     }
-        // }
-        // dd('Request data does not have any files to import.'); 
-
-        
-        $file = Input::file('excel_file');
-      
+    public function importStudent(Request $request){  
+        $rules=[
+        'class' => 'required',
+        'section' => 'required',                 
+        'excel_file' => 'required|max:10000',
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if($validator->fails()){
+            $errors = $validator->errors()->all();
+            $response=array();
+            $response["status"]=0;
+            $response["msg"]=$errors[0];
+            return response()->json($response);// response as json
+        }
+        $file = Input::file('excel_file'); 
         $file_name = $file->getClientOriginalName();
         $file->move('files/',$file_name);
         $results = Excel::load('files/'.$file_name,function($reader){
             $reader->all();
-        })->get();
+        })->get(); 
 
+       foreach($results as $key => $value){   
+         
+        
+           $rules=[
+           'name' => 'required', 
+           'nick_name' => 'required', 
+           ]; 
+           $validator = Validator::make($value->toArray(),$rules);
+           if($validator->fails()){
+              $errors = $validator->errors()->all(); 
+             $responseError[$key]=$errors;
+           }
+       } 
        
-        foreach ($results as $key => $value) {  
-
-             if ($value->registration_no!=null) {
-                    // dd($value); 
+       if ($responseError!=null) {
+         $response['msg']= view('admin.include.errorMessage',compact('responseError'))->render();
+       
+         $response["status"]=0;
+         return response()->json($response);// response as json
+       }else{
+              foreach ($results as $key => $value) {  
+              
                 $admin_id = Auth::guard('admin')->user()->id;
                 $username = str_random('10');
                 $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
@@ -923,49 +934,20 @@ class StudentController extends Controller
                 $student->username= 'ISKOOL10'.$student->id;
                 $student->save();
 
-                $subjects = Subject::where('classType_id',$student->class_id)->get();
-                if ($subjects != NULL) {
-                    foreach ($subjects as $subject){                 
-                     $studentSubject = StudentSubject::firstOrNew(['subject_type_id' => $subject->subject_type_id, 'student_id' => $student->id]);
-                     $studentSubject->subject_type_id = $subject->subjectType_id;
-                     $studentSubject->student_id = $student->id;
-                     $studentSubject->isoptional_id = $subject->isoptional_id; 
-                     $studentSubject->save();                     
-                    }
-                
-                } 
-                // if ($student->father_name != NULL) {                                 
-                //      $parentsinfo = new ParentsInfo();                
-                //      $parentsinfo->student_id = $student->id; 
-                //      $parentsinfo->relation_type_id = 1; 
-                //      $parentsinfo->name = $student->father_name; 
-                //      $parentsinfo->mobile = $student->father_mobile; 
-                //      $parentsinfo->save();  
-                // }
-                // if ($student->mother_name != NULL) {
-                                     
-                //      $parentsinfo = new ParentsInfo();
-                //      $parentsinfo->student_id = $student->id;                
-                //     $parentsinfo->relation_type_id = 2;                
-                //      $parentsinfo->name = $student->mother_name; 
-                //      $parentsinfo->mobile = $student->mother_mobile; 
-                //      $parentsinfo->save();  
-                // }  
-             }else {    
-                    // $students= Student::where('class_id',$request->class)->where('section_id',$request->section)->where('student_status_id',1)->get();
-                    // return view('admin.student.studentdetails.show',compact('students'));
-     
-             }
+                $subjects = Subject::where('classType_id',$student->class_id)->get(); 
 
-        }
+              }
+           }   
+         //upload file
+         $files = $request->file('file'); 
+         $files->store('act_document/'.$request->country.'/'.$request->act);
+         //upload data  
+         $response=array();
+         $response['status']=1;
+         $response['msg']='Excel Import Data successfully';
+          return $response;
          
-
-           $response=array();
-           $response['status']=1;
-           $response['msg']='Excel Import Data successfully';
-            return $response;
-        // return redirect()->back()->with(['message'=>'Excel Import Data successfully']);
-
+       
  
     }
     /**
