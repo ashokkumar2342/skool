@@ -52,7 +52,7 @@
                         <td>{{ $student->registration_no   }}</td>
                         <td class="text-center">
                             <input type="hidden" name="attendance[{{ $student->id }}]" id="{{ $student->registration_no }}" value="{{ $student->attendance }}">
-                            <input type="button" id="btn_attadance_{{ $student->id }}"  class="btn btn-xs {{ $btn_class }}" value="{{ $btn_att }}" onclick="chageButtonValue('btn_attadance_{{ $student->id }}',{{ $student->registration_no }},this.value)">
+                            <input type="button" id="btn_attadance_{{ $student->id }}"  class="btn btn-xs {{ $btn_class }}" value="{{ $btn_att }}" onclick="chageButtonValue('btn_attadance_{{ $student->id }}','{{ $student->registration_no }}',this.value)">
                         </td>
                         <td>
                             <input type="text" name="marksobt[{{ $student->id }}]" onkeyup="this.value = minmax(this.value,'',{{ $classTest->max_marks }})"/ value="{{ $student->marks }}" id="btn_attadance_{{ $student->id }}{{ $student->registration_no }}"> 
