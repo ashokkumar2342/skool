@@ -463,8 +463,7 @@ Route::group(['middleware' => 'admin'], function() {
 
 	 Route::group(['prefix' => 'StuCertificate'], function() {
 	     Route::get('Application', 'StudentCertificateController@index')->name('admin.student.CharacterCertificateApplication');
-	     Route::post('showstudentdetail', 'StudentCertificateController@showStudent')->name('admin.student.showStudent'); 
-	     Route::get('character-certificate-add-form/{student_id}', 'StudentCertificateController@characterCcertificateAddForm')->name('admin.student.CharacterCertificateApplication.add.form'); 
+	     Route::get('showstudentdetail', 'StudentCertificateController@showStudent')->name('admin.student.showStudent');  
 	     Route::post('character-certificate-store', 'StudentCertificateController@characterCcertificateStore')->name('admin.student.CharacterCertificateApplication.store');
 	//------------BirthCertificateApplication-------------------------------------------// 
 	     Route::get('BirthCertificateApplication', 'StudentCertificateController@BirthCertificateApplication')->name('admin.student.BirthCertificateApplication');

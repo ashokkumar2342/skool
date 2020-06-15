@@ -40,8 +40,8 @@ class StudentCertificateController extends Controller
      */
     public function showStudent(Request $request)
     {
-       $certificate_type=$request->certificate_type;
-        $student=Student::where('registration_no',$request->regsno)->first();
+        
+        $student=Student::where('registration_no',$request->Registration_no)->first();
         if (empty($student->registration_no)) {
           $response=array();
           $response["status"]=0;
@@ -50,21 +50,11 @@ class StudentCertificateController extends Controller
          }
         $CharCertIssueDetails=CharCertIssueDetail::where('StudentInfoId',$student->id)->get();  
         $st=new Student();
-        $studentdetail=$st->getStudentDetailsById($student->id); 
-        $response = array();
-        $response['status'] = 1;
-        $response['data'] = view('admin.stucertificate.showstudent',compact('studentdetail','CharCertIssueDetails'))->render();
-        return $response; 
+        $studentdetail=$st->getStudentDetailsById($student->id);
+        $classTypes=MyFuncs::getClassByHasUser();
+        $sportsActivityName=StudentSportHobby::where('student_id',$student->id)->first(); 
+        return view('admin.stucertificate.showstudent',compact('studentdetail','CharCertIssueDetails','classTypes','sportsActivityName'));
        
-    }
-
-    public function characterCcertificateAddForm($student_id)
-    {
-     $classTypes=MyFuncs::getClassByHasUser();
-     $student=Student::find($student_id);   
-     $sportsActivityName=StudentSportHobby::where('student_id',$student_id)->first();
-     
-     return view('admin.stucertificate.stucharcertificate_add_form',compact('classTypes','sportsActivityName','student'));    
     } 
     public function characterCcertificateStore(Request $request)
     { 
