@@ -53,10 +53,10 @@
 		  	<input type="hidden" name="net_amount" id="net_amount" value="{{ $net_amount }}">
  		</div>
  		<div class="col-lg-6"> 
- 			<input type="checkbox" class="checked_all" name="sibling" id="siblig_chk" onclick="showHide()">
+ 			<input type="checkbox"  class="checked_all" name="sibling" id="siblig_chk" onclick="showHide()">
 			 Sibling Details
-			 <div id="siblig_div" style="display: none;">
-		 		<table class="table border table-striped table-bordered"> 
+			 <div id="siblig_div"  style="display: none;">
+		 		<table class="table border table-striped table-bordered" id="sibling_table"> 
 		 	 		<thead>
 		 	 			<tr>
 		 	 				<th>#</th>
@@ -97,9 +97,9 @@
  			   <tr id="id1" class="tr_clone">
  			       <td style="width: 200px;">
  			         <label class="control-label mb-2 text-left">Payment Mode <span style="color:red;">*</span></label> 
- 			           <select name="payment_mode[]" class="form-control" id="payment_mode">
+ 			           <select name="payment_mode[]" class="form-control" id="payment_mode" onchange="siblingDisabled(this.value)">
 		  						@foreach ($paymentModes as $mode)
-		  							<option value="{{ $mode->id }}"{{ @$feedefaultvalue->payment_mode==$mode->id?'selected' : '' }}>{{ $mode->name }}</option> 
+		  							<option value="{{ $mode->id }}"{{$mode->id==1?'selected' : '' }}>{{ $mode->name }}</option> 
 		  						@endforeach 
 		  					</select>  
  			       </td>

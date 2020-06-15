@@ -15,7 +15,7 @@
                       <div class="col-lg-4">                           
                            <div class="form-group">
                             {{ Form::label('student_id','Registration No',['class'=>' control-label']) }}
-                            <input type="text" name="registration_no" class="form-control" maxlength="{{ $schoolinfo->reg_length }}">
+                            <input type="text" name="registration_no" id="registration_no" class="form-control" maxlength="{{ $schoolinfo->reg_length }}">
                              {{-- {{ Form::select('student_id',$students,null,['class'=>'form-control student_list_select','placeholder'=>"Select Registration",'required',]) }}
                              <p class="errorAmount1 text-center alert alert-danger hidden"></p> --}}
                            </div>    
@@ -95,7 +95,21 @@
      
 /////////////////////shwo fee detaila//////////////
    
+     function RegistrationNoFill(val) {
+         $("#registration_no").val(val);
+      }
+      function siblingDisabled(val) {  
+     if (val==1){ 
+      $('#siblig_chk').prop("disabled", false); 
+      $('#siblig_chk').click();
       
+     }
+     else {  
+      $('#siblig_chk').click(); 
+      $('#siblig_chk').prop("disabled", true); 
+      $('#sibling_table').prop("disabled", true); 
+     }
+  } 
 
     function showHide(){ 
 

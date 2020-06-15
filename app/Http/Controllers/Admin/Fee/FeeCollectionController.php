@@ -147,7 +147,8 @@ class FeeCollectionController extends Controller
              return response()->json($response);// response as json
          }
        
-        $students = array_reverse($request->student_id); 
+        $students = array_reverse($request->student_id);
+        $studentID=$request->student_id[0]; 
         $amount_deposits= array_reverse($request->amount_deposit); 
         $user_id = Auth::guard('admin')->user()->id;
         $date = date('Y-m-d');
@@ -173,6 +174,11 @@ class FeeCollectionController extends Controller
         $cheeque_no2 ='';
         if (!empty($request->cheeque_no[1])) {
             $cheeque_no2 = $request->cheeque_no[1];  
+        }
+        $remarks1 = $request->remarks[0]; 
+        $remarks2 ='';
+        if (!empty($request->remarks[1])) {
+            $remarks2 = $request->remarks[1];  
         } 
        $ReportTemplate=ReportTemplate::where('reports_type_id',1)->where('status',1)->first();
        if (empty($ReportTemplate)) {
@@ -182,9 +188,16 @@ class FeeCollectionController extends Controller
        }
        $feedefaultvalue= DefaultFeeValue::where('userid',$user_id)->first();
         $receipt_id =array();
-        foreach ($students as $key => $student_id) { 
-          $deposit = $amount_deposits[$key];     
-         $receipt_id[]= $FeeDetails= DB::select(DB::raw("call up_stu_fee_submit ('$user_id','$student_id','$request->month','$request->year','$deposit','$payment_mode1','$amount1','$bank_name1','$cheeque_no1','$date','$payment_mode2','$amount2','$bank_name2','$cheeque_no2','$date')"));   
+        if ($payment_mode1==1) { 
+            foreach ($students as $key => $student_id) { 
+              $deposit = $amount_deposits[$key];     
+             $receipt_id[]= $FeeDetails= DB::select(DB::raw("call up_stu_fee_submit ('$user_id','$student_id','$request->month','$request->year','$deposit','$payment_mode1','$amount1','$bank_name1','$cheeque_no1','$date','$payment_mode2','$amount2','$bank_name2','$cheeque_no2','$date')"));   
+            } 
+        }
+        elseif ($payment_mode1!=1) {  
+             $deposit = $request->net_amount;     
+             $receipt_id[]= $FeeDetails= DB::select(DB::raw("call up_stu_fee_submit ('$user_id','$studentID','$request->month','$request->year','$deposit','$payment_mode1','$amount1','$bank_name1','$cheeque_no1','$date','$payment_mode2','$amount2','$bank_name2','$cheeque_no2','$date')"));   
+            
         }
         $response = array();
         $response['status']=1;
