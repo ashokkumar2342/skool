@@ -151,10 +151,16 @@ class StudentCertificateController extends Controller
            $st=new Student();
            $student=$st->getStudentDetailsById($CharCertIssueDetail->StudentInfoId);
            $reportTemplate=ReportTemplate::where('reports_type_id',2)->where('status',1)->first();
+           if (empty($reportTemplate)) {
+            $pages='T2_Student_Character_Certificate';
+           }
+           elseif (!empty($reportTemplate)) {
+            $pages=$reportTemplate->name;
+           }
            if ($request->take==4) {
             $documentUrl = Storage_path() . '/app/student/certificate/character/';   
                @mkdir($documentUrl, 0755, true); 
-            $pdf = PDF::loadView('admin.stucertificate.'.$reportTemplate->name.'',compact('student','CharCertIssueDetail'))->save($documentUrl.$student->registration_no.'_character'.'.pdf');
+            $pdf = PDF::loadView('admin.stucertificate.'.$pages,compact('student','CharCertIssueDetail'))->save($documentUrl.$student->registration_no.'_character'.'.pdf');
             $CharCertIssueDetail->Certificate_Path='student/certificate/character/'.$student->registration_no.'_character'.'.pdf';
             $CharCertIssueDetail->save();
             $response=['status'=>1,'msg'=>'Approval Successfully'];
@@ -276,11 +282,17 @@ class StudentCertificateController extends Controller
            // $CharCertIssueDetail->save(); 
            $st=new Student();
            $student=$st->getStudentDetailsById($CharCertIssueDetail->StudentInfoId);
-           $reportTemplate=ReportTemplate::where('reports_type_id',2)->where('status',1)->first();
+           $reportTemplate=ReportTemplate::where('reports_type_id',4)->where('status',1)->first();
+           if (empty($reportTemplate)) {
+            $pages='T2_Student_Birth_Certificate';
+           }
+           elseif (!empty($reportTemplate)) {
+            $pages=$reportTemplate->name;
+           }
            if ($request->take==4) {
             $documentUrl = Storage_path() . '/app/student/certificate/dob/';   
                @mkdir($documentUrl, 0755, true); 
-            $pdf = PDF::loadView('admin.stucertificate.dob.print',compact('student','CharCertIssueDetail'))->save($documentUrl.$student->registration_no.'_dob'.'.pdf');
+            $pdf = PDF::loadView('admin.stucertificate.dob.'.$pages,compact('student','CharCertIssueDetail'))->save($documentUrl.$student->registration_no.'_dob'.'.pdf');
             $CharCertIssueDetail->Certificate_Path='student/certificate/dob/'.$student->registration_no.'_dob'.'.pdf';
             $CharCertIssueDetail->save();
             $response=['status'=>1,'msg'=>'Approval Successfully'];
@@ -438,10 +450,17 @@ class StudentCertificateController extends Controller
            $SLCIssueDetails->status=$request->take;  
            $SLCIssueDetails->save();
            $student=Student::find($SLCIssueDetails->StudentInfoId);
+           $reportTemplate=ReportTemplate::where('reports_type_id',3)->where('status',1)->first();
+           if (empty($reportTemplate)) {
+            $pages='T2_Student_SLC_Certificate';
+           }
+           elseif (!empty($reportTemplate)) {
+            $pages=$reportTemplate->name;
+           }
            if ($request->take==4) {
             $documentUrl = Storage_path() . '/app/student/certificate/slc/';   
                @mkdir($documentUrl, 0755, true); 
-            $pdf = PDF::loadView('admin.stucertificate.leaving.print',compact('student','SLCIssueDetails'))->save($documentUrl.$student->registration_no.'_slc'.'.pdf');
+            $pdf = PDF::loadView('admin.stucertificate.leaving.'.$pages,compact('student','SLCIssueDetails'))->save($documentUrl.$student->registration_no.'_slc'.'.pdf');
             $response=['status'=>1,'msg'=>'Approval Successfully'];
             return response()->json($response);
            }

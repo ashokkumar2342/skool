@@ -11,6 +11,7 @@ use App\Model\CertificateIssueDetail;
 use App\Model\ClassType;
 use App\Model\HistoryCertificateIssue;
 use App\Model\ReportRequest;
+use App\Model\ReportTemplate;
 use App\Model\Section;
 use App\Model\Sms\SmsTemplate;
 use App\Model\StudentDefaultValue;
@@ -406,6 +407,12 @@ class CertificateIssueDetailController extends Controller
         
             $st=new Student(); 
             $student=$st->getStudentDetailsById($request->registration_no);
+            $reporttemplate=ReportTemplate::where('reports_type_id',5)->where('status',1)->first();
+            if (empty($reporttemplate)) {
+              $pages='T2_Fee_certificate';   
+            }elseif (!empty($reporttemplate)) {
+              $pages=$reporttemplate->name;   
+            }
            if ($request->report_wise==2) { 
                 if ($request->report_for==1) {
                 $documentUrl = Storage_path() . '/app/student/document/certificate/fee_certificate/'.'/'.$student->classes->name.'/'.$student->sectionTypes->name;   
@@ -414,7 +421,7 @@ class CertificateIssueDetailController extends Controller
                 'logOutputFile' => storage_path('logs/log.htm'),
                 'tempDir' => storage_path('logs/')
                 ])
-                ->loadView('admin.certificate.tuitionfee.print',compact('student'))->save($documentUrl.'/'.$request->academic_year_id.'year'.'_'.$student->registration_no.'_fee_certificate.pdf');
+                ->loadView('admin.certificate.tuitionfee.'.$pages,compact('student'))->save($documentUrl.'/'.$request->academic_year_id.'year'.'_'.$student->registration_no.'_fee_certificate.pdf');
                 return $pdf->stream('fee_certificate.pdf'); 
                 
                  }  
