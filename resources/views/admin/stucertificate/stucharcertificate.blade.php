@@ -7,7 +7,7 @@
     <section class="content"> 
       <div class="box"> 
         <div class="box-body">
-        <form action="{{ route('admin.student.CharacterCertificateApplication.store') }}" method="post" class="add_form">
+        <form action="{{ route('admin.student.CharacterCertificateApplication.store') }}" method="post" class="add_form" no-reset="true" button-click="btn_studentshow">
           {{csrf_field()}} 
             <div class="row"> 
               <div class="col-lg-2">
