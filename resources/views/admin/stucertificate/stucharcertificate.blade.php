@@ -15,7 +15,7 @@
                 <input type="text" name="regsno" id="Registration_no" class="form-control" maxlength="{{$regmaxlength->reg_length}}" >
               </div>
               <div class="col-lg-1">
-                <input type="button" id="btn_studentshow" class="btn btn-success" style="margin-top: 24px" value="Show" onclick="callAjax(this,'{{ route('admin.student.showStudent') }}'+'?Registration_no='+$('#Registration_no').val(),'studentshow')"> 
+                <input type="button" id="btn_studentshow" class="btn btn-success" style="margin-top: 24px" value="Show" success-popup="true" onclick="callAjax(this,'{{ route('admin.student.showStudent') }}'+'?Registration_no='+$('#Registration_no').val(),'studentshow')"> 
                </div> 
               <div id="studentshow">
               </div>
