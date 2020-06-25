@@ -7,12 +7,12 @@
  <form action="{{ route('admin.student.CharacterCertificateIssueTakeStore',$CharCertIssueDetails->id) }}" method="post" class="add_form" button-click="btn_close,btn_slc_table_show">
   <div class="row form-group">
     <div class="col-lg-12 form-group">
-      <label>Remarks</label>
+      <label>Remarks Verify</label>
       <textarea class="form-control" name="remarks" style="height: 100px"></textarea> 
     </div>
     <input type="hidden" name="take" value="0" id="take">
     <div class="col-lg-12 form-group text-center">
-      <input type="submit" class="btn btn-primary" value="Issue" onclick="$('#take').val(2)">
+      <input type="submit" class="btn btn-primary" value="Verify" onclick="$('#take').val(2)">
       <input type="submit" class="btn btn-danger" value="Reject" onclick="$('#take').val(3)"> 
      </div> 
   </div> 

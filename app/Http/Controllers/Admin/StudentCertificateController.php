@@ -116,7 +116,7 @@ class StudentCertificateController extends Controller
            $CharCertIssueDetail->status=$request->take;  
            $CharCertIssueDetail->save(); 
            if ($request->take==2) { 
-            $response=['status'=>1,'msg'=>'Issue Successfully'];
+            $response=['status'=>1,'msg'=>'Verify Successfully'];
             return response()->json($response);
            }
            elseif ($request->take==3) {
@@ -253,7 +253,7 @@ class StudentCertificateController extends Controller
            $DOBCertIssueDetail->status=$request->take;  
            $DOBCertIssueDetail->save(); 
            if ($request->take==2) { 
-            $response=['status'=>1,'msg'=>'Issue Successfully'];
+            $response=['status'=>1,'msg'=>'Verify Successfully'];
             return response()->json($response);
            }
            elseif ($request->take==3) {
@@ -414,7 +414,7 @@ class StudentCertificateController extends Controller
            $SLCIssueDetails->status=$request->take;  
            $SLCIssueDetails->save(); 
            if ($request->take==2) { 
-            $response=['status'=>1,'msg'=>'Issue Successfully'];
+            $response=['status'=>1,'msg'=>'Verify Successfully'];
             return response()->json($response);
            }
            elseif ($request->take==3) {
