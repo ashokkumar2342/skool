@@ -159,8 +159,12 @@ class StudentCertificateController extends Controller
            }
            if ($request->take==4) {
             $documentUrl = Storage_path() . '/app/student/certificate/character/';   
-               @mkdir($documentUrl, 0755, true); 
-            $pdf = PDF::loadView('admin.stucertificate.'.$pages,compact('student','CharCertIssueDetail'))->save($documentUrl.$student->registration_no.'_character'.'.pdf');
+               @mkdir($documentUrl, 0755, true);
+            $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.stucertificate.'.$pages'',compact('student','CharCertIssueDetail'))->save($documentUrl.$student->registration_no.'_character'.'.pdf');
             $CharCertIssueDetail->Certificate_Path='student/certificate/character/'.$student->registration_no.'_character'.'.pdf';
             $CharCertIssueDetail->save();
             $response=['status'=>1,'msg'=>'Approval Successfully'];
