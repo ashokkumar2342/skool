@@ -3,7 +3,7 @@
     <section class="content"> 
       <div class="box">
       	<div class="box-header">
-              <h3 class="box-title">SLC Certificate Issue</h3>
+              <h3 class="box-title">SLC Certificate Verification</h3>
         </div>
         <div class="box-body">
         <button type="hidden" class="hidden" id="btn_slc_table_show" onclick="callAjax(this,'{{ route('admin.student.LeavingCertificateIssueClick') }}','slc_table')"></button>
