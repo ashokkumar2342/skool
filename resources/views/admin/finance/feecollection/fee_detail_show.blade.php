@@ -91,28 +91,33 @@
 		 	 	<b>Grand Total  <input type="button" class="btn btn-default btn-sm" id="grand_total" value="{{ $net_amount + $sib }}"></b>
 			 </div> 
  		</div> 
- 		<div class="col-md-12">
+ 		<div class="table-responsive col-md-12">
  			<table class="table table-striped" style="font-size: 100%;margin-bottom:0px;">
  			
  			   <tr id="id1" class="tr_clone">
- 			       <td style="width: 200px;">
+ 			       <td>
  			         <label class="control-label mb-2 text-left">Payment Mode <span style="color:red;">*</span></label> 
- 			           <select name="payment_mode[]" class="form-control" id="payment_mode" onchange="siblingDisabled(this.value)">
+ 			           <select name="payment_mode[]" class="" id="payment_mode" onchange="siblingDisabled(this.value)" style="width:120px;">
 		  						@foreach ($paymentModes as $mode)
 		  							<option value="{{ $mode->id }}"{{$mode->id==1?'selected' : '' }}>{{ $mode->name }}</option> 
 		  						@endforeach 
 		  					</select>  
  			       </td>
- 			       <td style="width: 200px;">
+ 			       <td>
  			         <label class="control-label mb-2 text-left">Amount <span style="color:red;">*</span></label> 
- 			           <input type="text"  name="amount[]" onkeyup="feeSum()" value="{{ $net_amount }}" class="form-control fee_sum">    
- 			       </td style="width: 250px;">
- 			       <td><label class="control-label mb-2 text-left">Transaction / Cheque No</label> 
- 			       	<input type="text"  name="cheeque_no[]" class="form-control cheeque_no"></td>
+ 			           <input type="text"  name="amount[]" onkeyup="feeSum()" value="{{ $net_amount }}" class=" fee_sum" style="width:120px;">    
+ 			       </td>
+ 			       <td><label class="control-label mb-2 text-left">Trans./Cheque No.</label> 
+ 			       	<input type="text"  name="cheeque_no[]" class="cheeque_no" style="width:120px;"></td>
+ 			       	@php
+ 			       		$date=date('Y-m-d');
+ 			       	@endphp
+ 			       	<td><label class="control-label mb-2 text-left">Trans. Date</label> 
+ 			       	<input type="date"  name="date[]" style="width:130px;" value="{{ $date }}"></td>
  			       <td><label class="control-label mb-2 text-left">Bank Name </label> 
- 			           <input type="text"  name="bank_name[]" class="form-control bank_name"></td>
+ 			           <input type="text"  name="bank_name[]" class="bank_name" style="width:120px;"></td>
  			       <td><label class="control-label mb-2 text-left">Remarks </label> 
- 			           <textarea type="text" name="remarks[]" class="form-control"></textarea></td>
+ 			           <textarea type="text" name="remarks[]" class="" style="height: 24px"></textarea></td>
  			       <td> <br><br> 
  			        <img src="{!! asset('img/details_open.png') !!}" class="tr_clone_add">   
  			        <img src="{!! asset('img/details_close.png') !!}" onclick="cloneRemove(this)">   

@@ -2,7 +2,7 @@
 @section('body')
   <!-- Main content -->
   <section class="content-header"> 
-    <h1>Test Date Wise Send SMS<small></small></h1>
+    <h1>Status Change For Class Test<small></small></h1>
     </section>  
     <section class="content"> 
       <div class="box"> 
@@ -14,7 +14,7 @@
               @endphp
               <div class="col-lg-4 form-group">
                 <label>Test Date</label>
-                <input type="date" name="test_date" class="form-control" min="{{ date('Y-m-d',strtotime($date)) }}"> 
+                <input type="date" name="test_date" class="form-control"> 
               </div>
               <div class="col-lg-4 form-group"> 
                 <input type="submit"   class="btn btn-success form-control" value="Test Show" style="margin-top: 24px"> 
@@ -25,7 +25,7 @@
               <table id="route_table" class="display table">                     
                   <thead>
                       <tr>
-                          <th class="label-warning" style="width: 90px"><input class="checked_all" type="checkbox">Checked</th> 
+                          <th style="width: 90px"><input class="checked_all" type="checkbox"></th> 
                           <th>Year</th> 
                           <th>Class/Section</th>  
                           <th>Subject</th>                                             
@@ -40,10 +40,21 @@
                       
                   </tbody> 
               </table>
-              <div class="col-lg-12 text-center">
-               <input type="submit" class="btn btn-primary" value="SMS Send" name="">
+              <div class="panel panel-primary"> 
+              <div class="col-lg-10 text-center" style="margin: 10px">
+                <label>Status</label>
+                <select name="status" class="" style="width: 110px">
+                  <option selected disabled>Select Status</option>
+                  <option value="">Add Marks</option>
+                  <option value="">Verify Marks</option>
+                  <option value="">Compile</option>
+                  <option value="">Send Test Info</option>
+                  <option value="">Send Marks Info</option>
+                </select>
+               <input type="submit" class="btn btn-primary btn-sm" value="Status Change" name="">
+              </div>
               </div> 
-            </form>
+            </form> 
         </div>
       </div>
     </section> 
@@ -58,18 +69,8 @@
     $(document).ready(function(){
         $('#room_table').DataTable();
     });
- </script>
- <script type="text/javascript">
-        $('.checked_all').on('change', function() {   
+     $('.checked_all').on('change', function() {   
                 $('.checkbox').prop('checked', $(this).prop("checked"));              
         });
-        //deselect "checked all", if one of the listed checkbox product is unchecked amd select "checked all" if all of the listed checkbox product is checked
-        // $('.checkbox').change(function(){ //".checkbox" change 
-        //     if($('.checkbox:checked').length == $('.checkbox').length){
-        //            $('.checked_all').prop('checked',true);
-        //     }else{
-        //            $('.checked_all').prop('checked',false);
-        //     }
-        // });       
-</script>
+ </script>
   @endpush

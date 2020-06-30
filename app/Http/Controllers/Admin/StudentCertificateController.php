@@ -10,12 +10,14 @@ use App\Model\CharCertIssueDetail;
 use App\Model\DOBCertIssueDetail;
 use App\Model\ReportTemplate;
 use App\Model\SLCIssueDetail;
+use App\Model\SLCSubjects;
 use App\Model\Schoolinfo;
 use App\Model\StudentSportHobby;
 use App\Model\SubjectType;
 use App\Student;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 
@@ -296,7 +298,11 @@ class StudentCertificateController extends Controller
            if ($request->take==4) {
             $documentUrl = Storage_path() . '/app/student/certificate/dob/';   
                @mkdir($documentUrl, 0755, true); 
-            $pdf = PDF::loadView('admin.stucertificate.dob.'.$pages,compact('student','CharCertIssueDetail'))->save($documentUrl.$student->registration_no.'_dob'.'.pdf');
+            $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.stucertificate.dob.'.$pages,compact('student','CharCertIssueDetail'))->save($documentUrl.$student->registration_no.'_dob'.'.pdf');
             $CharCertIssueDetail->Certificate_Path='student/certificate/dob/'.$student->registration_no.'_dob'.'.pdf';
             $CharCertIssueDetail->save();
             $response=['status'=>1,'msg'=>'Approval Successfully'];
@@ -364,13 +370,10 @@ class StudentCertificateController extends Controller
         $SLCIssueDetail->ClassAdmitted=$request->Class_Admitted;
         $SLCIssueDetail->LastClass=$request->Last_Class;
         $SLCIssueDetail->Failed=$request->Failed;
-        $SLCIssueDetail->Subjects=$request->Subjects;
+        
         $SLCIssueDetail->Qualified=$request->Qualified;
         $SLCIssueDetail->ClassQualified=$request->Class_Qualified;
-        $SLCIssueDetail->ClassQualifiedWords=$request->Class_Qualified_Words;
-        $subjectname=SubjectType::find($request->Subjects);
-        $SLCIssueDetail->Subjects=$subjectname->name;
-        $SLCIssueDetail->SubjectsID=$request->Subjects;
+        $SLCIssueDetail->ClassQualifiedWords=$request->Class_Qualified_Words; 
         $SLCIssueDetail->FeePaidUpto=$request->fee_paid_upto; 
         $SLCIssueDetail->AnyFeeConcession=$request->AnyFeeConcession; 
         $SLCIssueDetail->ClassQualifiedWords=$request->Class_Qualified_Words; 
@@ -386,6 +389,12 @@ class StudentCertificateController extends Controller
         $SLCIssueDetail->Remarks=$request->Remarks; 
         $SLCIssueDetail->Status=1; 
         $SLCIssueDetail->save();
+        foreach ($request->Subjects as $key => $value) {
+          $SLCSubjects=new SLCSubjects();
+          $SLCSubjects->slcissuedetail=$SLCIssueDetail->id; 
+          $SLCSubjects->SubjectId=$value; 
+          $SLCSubjects->save(); 
+        }
         $response=['status'=>1,'msg'=>'Submit Successfully'];
         return response()->json($response);
         } 
@@ -455,6 +464,7 @@ class StudentCertificateController extends Controller
            $SLCIssueDetails->save();
            $student=Student::find($SLCIssueDetails->StudentInfoId);
            $reportTemplate=ReportTemplate::where('reports_type_id',3)->where('status',1)->first();
+           $Slcsubjects=SLCSubjects::where('slcissuedetail',$id)->get();
            if (empty($reportTemplate)) {
             $pages='T2_Student_SLC_Certificate';
            }
@@ -464,7 +474,11 @@ class StudentCertificateController extends Controller
            if ($request->take==4) {
             $documentUrl = Storage_path() . '/app/student/certificate/slc/';   
                @mkdir($documentUrl, 0755, true); 
-            $pdf = PDF::loadView('admin.stucertificate.leaving.'.$pages,compact('student','SLCIssueDetails'))->save($documentUrl.$student->registration_no.'_slc'.'.pdf');
+            $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.stucertificate.leaving.'.$pages,compact('student','SLCIssueDetails','Slcsubjects'))->save($documentUrl.$student->registration_no.'_slc'.'.pdf');
             $response=['status'=>1,'msg'=>'Approval Successfully'];
             return response()->json($response);
            }
@@ -484,7 +498,9 @@ class StudentCertificateController extends Controller
           return view('admin.stucertificate.certificate_download',compact('CharCertIssueDetails','SLCIssueDetails','DOBCertIssueDetails'));  
         } 
         public function CertificateDownload($id,$condition_id)
-        { 
+        {  
+          $id=Crypt::decrypt($id);
+           $condition_id=Crypt::decrypt($condition_id);
           if ($condition_id==1) {
            $CertificateIssueDetail=CharCertIssueDetail::where('id',$id)->first(); 
            $documentUrl = Storage_path() . '/app/'.$CertificateIssueDetail->Certificate_Path; 

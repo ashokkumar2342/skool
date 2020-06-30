@@ -131,7 +131,11 @@
 <tbody>
 <tr>
 <td style="width: 28px;">11.</td>
-<td style="width: 481px;">Subject Studied  &nbsp;&nbsp;<b>1.{{$SLCIssueDetails->Subjects }}</b></td> 
+<td style="width: 481px;">Subject Studied :- 
+  @foreach ($Slcsubjects as $Slcsubject)
+  <b>{{ $Slcsubject->subjects->name or '' }},</b>
+  @endforeach
+</td> 
 </tr>
 </tbody>
 </table>

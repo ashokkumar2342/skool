@@ -2,17 +2,17 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html/jpg/png; charset=utf-8"/>
 <head>
-<style>
-   p{
+    <style> 
+        p{
     font-size: 18px;
     letter-spacing: 1px;
 
     text-align: justify;
     }
-</style>     
-@include('admin.include.boostrap')
+    </style>
+    @include('admin.include.boostrap')
 </head> 
-<body > 
+<body> 
 @include('schoolDetails.logo_header')
 <div class="row" style="margin-top: -20px">
 <div class="panel panel">

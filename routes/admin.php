@@ -974,6 +974,8 @@ Route::group(['middleware' => 'admin'], function() {
 			    Route::get('send-sms-test/{classtest_id}', 'Exam\ClassTestController@sendSmsTest')->name('admin.exam.classtest.sens.sms.test'); 
 			    Route::get('test-date-wise-send-sms', 'Exam\ClassTestController@testDateWiseSendSMS')->name('admin.exam.classtest.test.date.wise.send.sms'); 
 			    Route::post('test-date-wise-send-sms-show', 'Exam\ClassTestController@testDateWiseSendSMSShow')->name('admin.exam.classtest.test.date.wise.send.sms.show'); 
+			    Route::get('status-change', 'Exam\ClassTestController@statusChange')->name('admin.exam.classtest.status.change'); 
+			    Route::get('print/{class_test_id}', 'Exam\ClassTestController@print')->name('admin.exam.classtest.print'); 
 			 });
 			//------------------------- Exam marks details ---------------------------------
 			Route::group(['prefix' => 'exam-marks-details'], function() {

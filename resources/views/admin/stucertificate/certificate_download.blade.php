@@ -26,7 +26,7 @@
                 <td>{{ $CharCertIssueDetail->students->name or '' }}</td>
                 <td>{{ date('d-m-Y',strtotime($CharCertIssueDetail->DOB)) }}</td>
                 <td>
-                  <a class="btn btn-xs btn-success" target="blank" href="{{ route('admin.student.CertificateDownload',[$CharCertIssueDetail->id,1]) }}" title="Download"><i class="fa fa-download"></i></a>
+                  <a class="btn btn-xs btn-success" target="blank" href="{{ route('admin.student.CertificateDownload',[Crypt::encrypt($CharCertIssueDetail->id),Crypt::encrypt(1)]) }}" title="Download"><i class="fa fa-download"></i></a>
                 </td>
               </tr> 
               @endforeach
@@ -53,7 +53,7 @@
                 <td>{{ $DOBCertIssueDetail->students->name or '' }}</td>
                 <td>{{ date('d-m-Y',strtotime($DOBCertIssueDetail->DOB)) }}</td>
                 <td>
-                  <a class="btn btn-xs btn-success" target="blank" href="{{ route('admin.student.CertificateDownload',[$DOBCertIssueDetail->id,2]) }}" title="Download"><i class="fa fa-download"></i></a>
+                  <a class="btn btn-xs btn-success" target="blank" href="{{ route('admin.student.CertificateDownload',[Crypt::encrypt($DOBCertIssueDetail->id),Crypt::encrypt(2)]) }}" title="Download"><i class="fa fa-download"></i></a>
                 </td>
               </tr> 
               @endforeach
@@ -80,7 +80,7 @@
                 <td>{{ $SLCIssueDetail->students->name or '' }}</td>
                 <td>{{ date('d-m-Y',strtotime($SLCIssueDetail->DOB)) }}</td>
                 <td>
-                  <a class="btn btn-xs btn-success" target="blank" href="{{ route('admin.student.CertificateDownload',[$SLCIssueDetail->id,3]) }}" title="Download"><i class="fa fa-download"></i></a>
+                  <a class="btn btn-xs btn-success" target="blank" href="{{ route('admin.student.CertificateDownload',[Crypt::encrypt($SLCIssueDetail->id),Crypt::encrypt(3)]) }}" title="Download"><i class="fa fa-download"></i></a>
                 </td>
               </tr> 
               @endforeach

@@ -64,11 +64,11 @@
           </div>
           <div class="col-lg-4 form-group">
             <label for="exampleInputPassword1">Date of Admission</label>
-            <input type="date" name="DateofAdmission" class="form-control" id="exampleInputPassword1" placeholder="Password" value="{{ $studentdetail->date_of_admission }}">
+            <input type="date" name="DateofAdmission" class="form-control" id="exampleInputPassword1" value="{{ $studentdetail->date_of_admission }}">
           </div>
           <div class="col-lg-4 form-group">
-            <label for="exampleInputPassword1">Date of Birht</label>
-            <input type="date" name="DateofAdmission" class="form-control disabled" disabled="disabled" id="exampleInputPassword1" placeholder="Password" value="{{ $studentdetail->dob }}">
+            <label for="exampleInputPassword1">Date of Birth</label>
+            <input type="date" name="DateofAdmission" class="form-control disabled" disabled="disabled" id="exampleInputPassword1" value="{{ $studentdetail->dob }}">
           </div>
           <div class="col-lg-4 form-group">
             <label for="exampleInputPassword1">Class Admitted</label>
@@ -89,24 +89,24 @@
           </div>
           <div class="col-lg-4 form-group">
             <label for="exampleInputPassword1">LastResult</label>
-            <input type="text" name="LastResult" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input type="text" name="LastResult" class="form-control" id="exampleInputPassword1">
           </div>
           <div class="col-lg-4 form-group">
-            <label for="exampleInputPassword1">Failed</label>
-            <input type="text" name="Failed" class="form-control" id="exampleInputPassword1" placeholder="Password">
-          </div>
-          <div class="col-lg-4 form-group">
-            <label for="exampleInputPassword1">Subjects</label>
-            <select name="Subjects" class="form-control">
-              <option selected disabled>--Select Subject--</option>
+            <label for="exampleInputPassword1">Subjects</label><br>
+            <select name="Subjects[]" class="form-control multiselect" multiple="multiple">
+               
               @foreach ($subjects as $subject)
               <option value="{{ $subject->id }}">{{ $subject->name }}</option>  
               @endforeach
             </select>
           </div>
           <div class="col-lg-4 form-group">
+            <label for="exampleInputPassword1">Failed</label>
+            <input type="text" name="Failed" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="col-lg-4 form-group">
             <label for="exampleInputPassword1">Qualified</label>
-            <input type="text" name="Qualified" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input type="text" name="Qualified" class="form-control" id="exampleInputPassword1">
           </div>
           <div class="col-lg-4 form-group">
             <label for="exampleInputPassword1">Class Qualified</label>
@@ -119,7 +119,7 @@
           </div>
           <div class="col-lg-4 form-group">
             <label for="exampleInputPassword1">Class Qualified Words</label>
-            <input type="text" name="Class_Qualified_Words" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input type="text" name="Class_Qualified_Words" class="form-control" id="exampleInputPassword1">
           </div> 
          <div class="col-lg-4 form-group">
             <label for="exampleInputPassword1">Fee Paid Upto:</label> 
@@ -176,7 +176,7 @@
             <textarea   name="Remarks" class="form-control" id="exampleInputPassword1" placeholder=""></textarea>
           </div>
           <div class="col-lg-12 text-center">
-            <input type="submit" class="btn btn-success" name="">
+            <input type="submit" class="btn btn-success">
             <input type="button" class="btn btn-success" name="" value="Back" onclick="refreshPage()">
           </div>
          

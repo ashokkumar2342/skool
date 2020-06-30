@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Model\AcademicYear;
 use App\Model\ClassType;
 use App\Model\Exam\ClassTest;
+use App\Model\ReportTemplate;
 use App\Model\Sms\SmsTemplate;
 use App\Model\StudentDefaultValue;
 use App\Model\Subject;
@@ -19,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class ClassTestController extends Controller
 {
@@ -193,6 +195,29 @@ class ClassTestController extends Controller
     {
         $documentUrl = Storage_path() . '/app/student/classtest';
         return response()->file($documentUrl.'/'.$path);
+           
+    }
+    public function statusChange()
+    {
+        return view('admin.exam.status_change',compact('classTests'));   
+    }
+    public function print($class_test_id)
+    {
+       $classTest = ClassTest::find($class_test_id);
+       $st=new Student();
+       $students=$st->getStudentByClassSection($classTest->class_id,$classTest->section_id);
+       $reportTemplate=ReportTemplate::where('reports_type_id',6)->where('status',1)->first();
+       if (empty($reportTemplate)) {
+         $page='T1_Class_Test_Award';   
+       }else{
+        $page=$reportTemplate->name;  
+       }
+        $pdf=PDF::setOptions([
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])
+        ->loadView('admin.exam.'.$page,compact('students'));
+        return $pdf->stream('exam.pdf');
            
     }
 

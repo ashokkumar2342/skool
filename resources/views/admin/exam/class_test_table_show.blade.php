@@ -77,7 +77,7 @@
               @if ($status9==1)
                   <a href="#" class="btn btn-xs btn-danger" button-click="btn_class_test_show" success-popup="true" onclick="if (confirm('Are you Sure delete')){callAjax(this,'{{ route('admin.exam.classtest.delete',Crypt::encrypt($classTest->id)) }}')} else{console_Log('cancel') }">Delete</a>
              @endif
-             
+             <a class="btn btn-xs btn-warning" href="{{ route('admin.exam.classtest.print',$classTest->id) }}" target="blank">Print</a>
               @endforeach 
            {{--  <i title="Delete" class="fa fa-trash text-danger" href="{{ route('admin.exam.classtest.delete',Crypt::encrypt($classTest->id)) }}"  onclick="return confirm('Are you sure you want to delete this item?');"></i> 
             @if ($classTest->sylabus==null)
