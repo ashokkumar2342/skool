@@ -492,9 +492,9 @@ class StudentCertificateController extends Controller
   //----------------print-----------------------------------------------------------
         public function CertificateList()
         {
-          $CharCertIssueDetails=CharCertIssueDetail::orderBy('StudentInfoId','ASC')->get();  
-          $SLCIssueDetails=SLCIssueDetail::orderBy('StudentInfoId','ASC')->get();  
-          $DOBCertIssueDetails=DOBCertIssueDetail::orderBy('StudentInfoId','ASC')->get();  
+          $CharCertIssueDetails=CharCertIssueDetail::where('status',4)->orderBy('StudentInfoId','ASC')->get();  
+          $SLCIssueDetails=SLCIssueDetail::where('status',4)->orderBy('StudentInfoId','ASC')->get();  
+          $DOBCertIssueDetails=DOBCertIssueDetail::where('status',4)->orderBy('StudentInfoId','ASC')->get();  
           return view('admin.stucertificate.certificate_download',compact('CharCertIssueDetails','SLCIssueDetails','DOBCertIssueDetails'));  
         } 
         public function CertificateDownload($id,$condition_id)

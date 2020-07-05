@@ -884,78 +884,35 @@ class StudentController extends Controller
         $file->move('files/',$file_name);
         $results = Excel::load('files/'.$file_name,function($reader){
             $reader->all();
-        })->get(); 
-
-       foreach($results as $key => $value){   
-         
-        
-           $rules=[
-           'name' => 'required', 
-           'nick_name' => 'required', 
-           ]; 
-           $validator = Validator::make($value->toArray(),$rules);
-           if($validator->fails()){
-              $errors = $validator->errors()->all(); 
-             $responseError[$key]=$errors;
-           }
+        })->get();  
+       foreach ($results as $key => $value) {   dd($value[0]->registration_no);
+        $admin_id = Auth::guard('admin')->user()->id;
+        $username = str_random('10');
+        $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
+        $student= Student::firstOrNew(['registration_no' => $value->registration_no]);
+        $student->username= $username;    
+        $student->password = bcrypt($char);
+        $student->tem_pass = $char; 
+        $student->admin_id = $admin_id; 
+        $student->class_id= $request->class;
+        $student->section_id= $request->section;     
+        $student->registration_no = $value->registration_no;     
+        $student->admission_no= $value->admission_no;     
+        $student->roll_no= $value->roll_no;     
+        $student->date_of_admission= $value->date_of_admission == null ? $value->date_of_admission : date('Y-m-d',strtotime($value->date_of_admission));
+        $student->date_of_leaving= $value->date_of_leaving == null ? $value->date_of_leaving : date('Y-m-d',strtotime($value->date_of_leaving)); 
+        $student->date_of_activation= $value->date_of_activation == null ? $value->date_of_activation : date('Y-m-d',strtotime($value->date_of_activation));
+        $student->name= $value->name;
+        $student->nick_name= $value->nick_name; 
+        $student->dob= $value->dob == null ? $value->dob : date('Y-m-d',strtotime($value->dob));
+        $student->gender_id= $value->gender_id;  
        } 
-       
-       if ($responseError!=null) {
-         $response['msg']= view('admin.include.errorMessage',compact('responseError'))->render();
-       
-         $response["status"]=0;
-         return response()->json($response);// response as json
-       }else{
-              foreach ($results as $key => $value) {  
-              
-                $admin_id = Auth::guard('admin')->user()->id;
-                $username = str_random('10');
-                $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
-                $student= Student::firstOrNew(['registration_no' => $value->registration_no]);
-                $student->username= $username;    
-                $student->password = bcrypt($char);
-                $student->tem_pass = $char; 
-                $student->admin_id = $admin_id; 
-                $student->class_id= $request->class;
-                $student->section_id= $request->section;     
-                $student->registration_no = $value->registration_no;     
-                $student->admission_no= $value->admission_no;     
-                $student->roll_no= $value->roll_no;     
-                $student->date_of_admission= $value->date_of_admission == null ? $value->date_of_admission : date('Y-m-d',strtotime($value->date_of_admission));
-                $student->date_of_leaving= $value->date_of_leaving == null ? $value->date_of_leaving : date('Y-m-d',strtotime($value->date_of_leaving)); 
-                $student->date_of_activation= $value->date_of_activation == null ? $value->date_of_activation : date('Y-m-d',strtotime($value->date_of_activation));
-                $student->name= $value->name;
-                $student->nick_name= $value->nick_name;
-                 
-                $student->dob= $value->dob == null ? $value->dob : date('Y-m-d',strtotime($value->dob));
-                $student->gender_id= $value->gender_id;
-                         
-                $student->save() ;          
-                $student->username= 'ISKOOL10'.$student->id;
-                $student->save();
-
-                $subjects = Subject::where('classType_id',$student->class_id)->get(); 
-
-              }
-           }   
-         //upload file
-         $files = $request->file('file'); 
-         $files->store('act_document/'.$request->country.'/'.$request->act);
-         //upload data  
-         $response=array();
-         $response['status']=1;
-         $response['msg']='Excel Import Data successfully';
-          return $response;
-         
-       
- 
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\StudentDetails  $studentDetails
-     * @return \Illuminate\Http\Response
-     */
+       $response=array();
+       $response['status']=1;
+       $response['msg']='Excel Import Data successfully';
+        return $response; 
+       }
+    
     public function destroy(Student $student)
     {  
        
