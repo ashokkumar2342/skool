@@ -182,7 +182,7 @@ class FeeCollectionController extends Controller
         } 
        $ReportTemplate=ReportTemplate::where('reports_type_id',1)->where('status',1)->first();
        if (empty($ReportTemplate)) {
-        $temp_id='T1_Fee_Receipt';  
+        $temp_id='T_Fee_Receipt';  
        }else{
         $temp_id=$ReportTemplate->name;  
        }
