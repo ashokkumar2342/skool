@@ -156,7 +156,7 @@ class FeeCollectionController extends Controller
         $cheeque_no =$request->cheeque_no; 
         $bank_name =$request->bank_name; 
         $payment_mode1 = $request->payment_mode[0]; 
-        $payment_mode2='';
+        $payment_mode2=0;
         if (!empty($request->payment_mode[1])) {
           $payment_mode2 = $request->payment_mode[1]; 
         }        
