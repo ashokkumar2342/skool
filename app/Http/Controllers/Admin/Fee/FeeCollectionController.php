@@ -189,7 +189,7 @@ class FeeCollectionController extends Controller
        $feedefaultvalue= DefaultFeeValue::where('userid',$user_id)->first();
         $receipt_id =array();
         if ($payment_mode1==1) {
-          if (empty($payment_mode2)) { 
+          if ($payment_mode2==0) { 
             foreach ($students as $key => $student_id) { 
               $deposit = $amount_deposits[$key];     
              $receipt_id[]= $FeeDetails= DB::select(DB::raw("call up_stu_fee_submit ('$user_id','$student_id','$request->month','$request->year','$deposit','$payment_mode1','$amount1','$bank_name1','$cheeque_no1','$date','$payment_mode2','$amount2','$bank_name2','$cheeque_no2','$date')"));   
@@ -197,7 +197,7 @@ class FeeCollectionController extends Controller
           }
         }
         elseif ($payment_mode1!=1) {
-          if (!empty($payment_mode2)) {  
+          if ($payment_mode2!=0) {  
              $deposit = $request->net_amount;     
              $receipt_id[]= $FeeDetails= DB::select(DB::raw("call up_stu_fee_submit ('$user_id','$studentID','$request->month','$request->year','$deposit','$payment_mode1','$amount1','$bank_name1','$cheeque_no1','$date','$payment_mode2','$amount2','$bank_name2','$cheeque_no2','$date')"));
           }      
