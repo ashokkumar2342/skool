@@ -16,6 +16,7 @@ use App\Model\StudentSportHobby;
 use App\Model\SubjectType;
 use App\Student;
 use Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
@@ -159,6 +160,7 @@ class StudentCertificateController extends Controller
            elseif (!empty($reportTemplate)) {
             $pages=$reportTemplate->name;
            }
+           
            if ($request->take==4) {
             $documentUrl = Storage_path() . '/app/student/certificate/character/';   
                @mkdir($documentUrl, 0755, true); 
@@ -166,8 +168,8 @@ class StudentCertificateController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.stucertificate.'.$pages,compact('student','CharCertIssueDetail'))->save($documentUrl.$student->registration_no.'_character'.'.pdf');
-            $CharCertIssueDetail->Certificate_Path='student/certificate/character/'.$student->registration_no.'_character'.'.pdf';
+        ->loadView('admin.stucertificate.'.$pages,compact('student','CharCertIssueDetail'))->save($documentUrl.$student->registration_no.'_'.$pages.'.pdf');
+            $CharCertIssueDetail->Certificate_Path='student/certificate/character/'.$student->registration_no.'_'.$pages.'.pdf';
             $CharCertIssueDetail->save();
             $response=['status'=>1,'msg'=>'Approval Successfully'];
             return response()->json($response);
@@ -302,8 +304,8 @@ class StudentCertificateController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.stucertificate.dob.'.$pages,compact('student','CharCertIssueDetail'))->save($documentUrl.$student->registration_no.'_dob'.'.pdf');
-            $CharCertIssueDetail->Certificate_Path='student/certificate/dob/'.$student->registration_no.'_dob'.'.pdf';
+        ->loadView('admin.stucertificate.dob.'.$pages,compact('student','CharCertIssueDetail'))->save($documentUrl.$student->registration_no.$pages.'.pdf');
+            $CharCertIssueDetail->Certificate_Path='student/certificate/dob/'.$student->registration_no.$pages.'.pdf';
             $CharCertIssueDetail->save();
             $response=['status'=>1,'msg'=>'Approval Successfully'];
             return response()->json($response);
@@ -343,8 +345,9 @@ class StudentCertificateController extends Controller
            $subjects=SubjectType::orderBy('name','ASC')->get();
            $feeStructureLastDates =new  MyFuncs();
            $uptoMonthYears =$feeStructureLastDates->getMonthYear();
-           $Categorys=Category::orderBy('name','ASC')->get();  
-           return view('admin.stucertificate.leaving.add_form',compact('studentdetail','SLCIssueDetails','classTypes','subjects','uptoMonthYears','Categorys'));
+           $Categorys=Category::orderBy('name','ASC')->get();
+           $studentFeeDues=DB::select(DB::raw("select SUM(`SFD`.`fee_amount`) - SUM(`SFD`.`concession_amount`) as `DueAmt`from `student_fee_details` `SFD`where `SFD`.`student_id` =$student->id and `SFD`.`paid` = 0"));   
+           return view('admin.stucertificate.leaving.add_form',compact('studentdetail','SLCIssueDetails','classTypes','subjects','uptoMonthYears','Categorys','studentFeeDues'));
          } 
     }
     public function LeavingCertificateApplicationStore(Request $request)
@@ -358,7 +361,12 @@ class StudentCertificateController extends Controller
           $response["msg"]=$errors[0];
           return response()->json($response);// response as json
         }
-        
+        if ($request->fee_due!=0) {
+         $response=array();
+          $response["status"]=0;
+          $response["msg"]='Please Pay Fee Due Amount In Apply';
+          return response()->json($response);  
+        } 
         $user_id=Auth::guard('admin')->user();
         $SLCIssueDetail=new SLCIssueDetail();
         $SLCIssueDetail->UserId=$user_id->id;
@@ -478,7 +486,7 @@ class StudentCertificateController extends Controller
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
-        ->loadView('admin.stucertificate.leaving.'.$pages,compact('student','SLCIssueDetails','Slcsubjects'))->save($documentUrl.$student->registration_no.'_slc'.'.pdf');
+        ->loadView('admin.stucertificate.leaving.'.$pages,compact('student','SLCIssueDetails','Slcsubjects'))->save($documentUrl.$student->registration_no.$pages.'.pdf');
             $response=['status'=>1,'msg'=>'Approval Successfully'];
             return response()->json($response);
            }

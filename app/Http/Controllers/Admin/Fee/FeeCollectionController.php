@@ -214,6 +214,7 @@ class FeeCollectionController extends Controller
           $feeDetails =DB::select(DB::raw("call up_show_fee_receipt_fee_detail ('$r_id')"));
          $student=DB::select(DB::raw("call up_show_fee_receipt_stu_detail ('$r_id')"));
          
+        
          //pdf generate reciept
          $path =Storage_path() . '/app/student/feereceipt/';          
            @mkdir($path, 0755, true); 

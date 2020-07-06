@@ -67,37 +67,19 @@
      <p>Has been a bona fide student of class <b><span class="underlin2 text-center"> {{ $student->classes->name or ''}} </span></b>  of this school.</p>  
      </p>
      </p> 
-     <p style="margin-top: 30px">The guardian has paid a sum of Rs. <b><span class="underlin2 text-center">1234</span></b><br>
-     <b>(<span class="underlin5 text-center"> One Thousand Three Hundred Forty Only </span>)</b><br> towards the fee of his/her ward from<b><span class="underlin6 text-center">April-2020</span></b> To <b><span class="underlin6 text-center">March-2020</span></b> as per detail below:<b>-</b> 
-      <table style="height: 122px; width: 471px;" class="text-center">
+     <p style="margin-top: 30px">The guardian has paid a sum of Rs. <b><span class="underlin2 text-center">{{ $studentFeeTotal[0]->FAmount }}</span></b><br>
+     <b>(<span class="underlin5 text-center"> {{ $studentFeeTotal[0]->FAmtWords }} </span>)</b><br> towards the fee of his/her ward from<b><span class="underlin6 text-center">{{ date('F-Y',strtotime($academicYears->start_date)) }}</span></b> To <b><span class="underlin6 text-center">{{ date('F-Y',strtotime($academicYears->end_date)) }}</span></b> as per detail below:<b>-</b> 
+      <table style="height: 122px; width: 471px;font-size: 18px" class="text-center">
       <tbody>
-      <tr>
-      <td style="width: 329px;">Annual Charge</td>
-      <td style="width: 126px;" class="text-right">1234567.00</td>
-      </tr>
-      <tr>
-      <td style="width: 329px;">Annual Charge</td>
-      <td style="width: 126px;" class="text-right">1234567.00</td>
-      </tr>
-      <tr>
-      <td style="width: 329px;">Annual Charge</td>
-      <td style="width: 126px;" class="text-right">4567.00</td>
-      </tr>
-      <tr>
-      <td style="width: 329px;">Annual Charge</td>
-      <td style="width: 126px;" class="text-right">1234567.00</td>
-      </tr>
-      <tr>
-      <td style="width: 329px;">Annual Charge</td>
-      <td style="width: 126px;" class="text-right">1234567.00</td>
-      </tr>
-      <tr>
-      <td style="width: 329px;">Annual Charge</td>
-      <td style="width: 126px;" class="text-right">567.00</td>
-      </tr>
+        @foreach ($studentFees as $studentFee) 
+          <tr>
+          <td style="width: 329px;">{{ $studentFee->name }}</td>
+          <td style="width: 126px;" class="text-right">{{ $studentFee->FAmount }}</td>
+          </tr> 
+        @endforeach
       </tbody>
       </table>
-     <p style="margin-top: 30px">The School academic session is from <b>April</b> to <b>March</b></p>
+     <p style="margin-top: 30px">The School academic session is from <b>{{ date('F',strtotime($academicYears->start_date)) }}</b> to <b>{{ date('F',strtotime($academicYears->end_date)) }}</b></p>
    </p>
   </div> 
   <div class="col-lg-10"> 

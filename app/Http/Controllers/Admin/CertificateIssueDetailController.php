@@ -18,6 +18,7 @@ use App\Model\StudentDefaultValue;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 use Storage;
@@ -408,6 +409,9 @@ class CertificateIssueDetailController extends Controller
             $st=new Student(); 
             $student=$st->getStudentDetailsById($request->registration_no);
             $reporttemplate=ReportTemplate::where('reports_type_id',5)->where('status',1)->first();
+            $studentFees=DB::select(DB::raw("call up_FeeRep_TutionFeeCertificate ($request->academic_year_id, '$student->id')")); 
+            $studentFeeTotal=DB::select(DB::raw("select SUM(`SFD`.`fee_amount`) - SUM(`SFD`.`concession_amount`) as `FAmount`, concat('Rupees ',`uf_AmountToWords`(SUM(`SFD`.`fee_amount`) - SUM(`SFD`.`concession_amount`)), ' Only') As `FAmtWords`from `student_fee_details` `SFD`where `SFD`.`student_id` =$student->id and `SFD`.`year_id` = $request->academic_year_id and `SFD`.`paid` = 1"));
+            $academicYears=AcademicYear::find($request->academic_year_id);  
             if (empty($reporttemplate)) {
               $pages='T2_Fee_certificate';   
             }elseif (!empty($reporttemplate)) {
@@ -421,7 +425,7 @@ class CertificateIssueDetailController extends Controller
                 'logOutputFile' => storage_path('logs/log.htm'),
                 'tempDir' => storage_path('logs/')
                 ])
-                ->loadView('admin.certificate.tuitionfee.'.$pages,compact('student'))->save($documentUrl.'/'.$request->academic_year_id.'year'.'_'.$student->registration_no.'_fee_certificate.pdf');
+                ->loadView('admin.certificate.tuitionfee.'.$pages,compact('student','studentFees','studentFeeTotal','academicYears'))->save($documentUrl.'/'.$request->academic_year_id.'year'.'_'.$student->registration_no.'_fee_certificate.pdf');
                 return $pdf->stream('fee_certificate.pdf'); 
                 
                  }  

@@ -13,7 +13,7 @@
             </table> 
           </div>
         </div>
-          <div class="col-lg-12"> 
+          <div class="col-lg-8"> 
            <div class="panel panel-primary"> 
              <div class="panel-body">
              <table class="bg-info table">
@@ -49,6 +49,27 @@
             </div> 
            </div>
          </div>
+         <div class="col-lg-4"> 
+           <div class="panel panel-danger"> 
+             <div class="panel-body">
+             <table class="bg-danger table">
+                <thead>
+                  <tr>
+                    <th class="text-center">Fee Due Amount</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($studentFeeDues as $studentFeeDue)
+                  <tr>
+                    <td class="text-center">{{ $studentFeeDue->DueAmt }}</td> 
+                  </tr> 
+                  @endforeach
+                </tbody>
+              </table> 
+            </div> 
+           </div>
+         </div>
+          <input type="hidden" name="fee_due" value="{{ $studentFeeDue->DueAmt }}">
           <input type="hidden" name="student_id" value="{{ $studentdetail->id }}">
           <input type="hidden" name="dob" value="{{ $studentdetail->dob }}">
           @php
