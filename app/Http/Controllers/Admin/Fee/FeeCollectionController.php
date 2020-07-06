@@ -239,7 +239,7 @@ class FeeCollectionController extends Controller
         $pdfMerge = new Fpdi();
         $dt =array();         
         foreach ($r_arr_id as $key => $value) { 
-            $dt[]=Storage_path() . '/app/student/feereceipt/'.$key.'.pdf'; 
+            $dt[]=Storage_path() . '/app/student/feereceipt/'.$key.'_'.'.pdf'; 
         }       
         
         $files =$dt;
