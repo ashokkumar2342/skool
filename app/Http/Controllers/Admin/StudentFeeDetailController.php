@@ -356,7 +356,7 @@ class StudentFeeDetailController extends Controller
     public function previousRecieptDownload($receipt_no)
     {
       $documentUrl = Storage_path() . '/app/student/feereceipt'; 
-      return response()->file($documentUrl.'/'.$receipt_no.'_'.'.pdf');
+      return response()->file($documentUrl.'/'.$receipt_no.'.pdf');
        
     }
     

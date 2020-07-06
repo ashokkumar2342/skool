@@ -151,7 +151,7 @@ class FeeCollectionController extends Controller
         $studentID=$request->student_id[0]; 
         $amount_deposits= array_reverse($request->amount_deposit); 
         $user_id = Auth::guard('admin')->user()->id;
-        $date = date('Y-m-d');
+        $date = $request->date[0];
         $payment_mode =PaymentMode::whereIn('id',$request->payment_mode)->get(); 
         $cheeque_no =$request->cheeque_no; 
         $bank_name =$request->bank_name; 
@@ -222,7 +222,7 @@ class FeeCollectionController extends Controller
              'logOutputFile' => storage_path('logs/log.htm'),
              'tempDir' => storage_path('logs/')
          ])
-         ->loadView('admin.finance.feecollection.'.$temp_id,compact('feeDetails','student','payment_mode','cheeque_no','bank_name','feedefaultvalue'))->save($path.$r_id.'_'.'.pdf'); 
+         ->loadView('admin.finance.feecollection.'.$temp_id,compact('feeDetails','student','payment_mode','cheeque_no','bank_name','feedefaultvalue'))->save($path.$r_id.'.pdf'); 
            
         }
         
@@ -239,7 +239,7 @@ class FeeCollectionController extends Controller
         $pdfMerge = new Fpdi();
         $dt =array();         
         foreach ($r_arr_id as $key => $value) { 
-            $dt[]=Storage_path() . '/app/student/feereceipt/'.$key.'_'.'.pdf'; 
+            $dt[]=Storage_path() . '/app/student/feereceipt/'.$key.'.pdf'; 
         }       
         
         $files =$dt;
