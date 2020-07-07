@@ -22,7 +22,7 @@
 <div class="row" style="margin-top: -20px">
 <div class="panel panel-default">
   <div class="panel-heading text-center" style="font-size: 16px">Academic Year <b> 2020-2021 </b>, Class <b> First </b>, Subject <b> Physics </b>, Marks <b> 1000 </b></div>
-  </div>  
+  
  <table class="table  table-bordered">
                          
       <thead>
@@ -50,6 +50,7 @@
            @endforeach
       </tbody>
   </table>
+  </div>
   </div> 
      <div class="row text-right" style="margin-top: 40px">
      <span class="underlin2 text-center" style="float:right; "></span>  

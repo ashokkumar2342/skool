@@ -16,9 +16,9 @@
 @include('schoolDetails.logo_header')
 <div class="row" style="margin-top: -20px">
 <div class="panel panel-default">
-  <div class="panel-heading text-center" style="font-size: 16px">Academic Year <b> 2020-2021 </b>, Class <b> First </b>, Subject <b> Physics </b>, Marks <b> 1000 </b></div>
-  </div>  
-  <table class="table">
+  <div class="panel-heading text-center" style="font-size: 16px">Academic Year <b> 2020-2021 </b>, Class <b> First </b>, Subject <b> Physics </b>, Marks <b> 1000 </b></div> 
+   
+  <table class="table table-bordered">
   <thead>
      <tr>
        <th>Sr.No</th>
@@ -26,7 +26,7 @@
        <th>Reg.No.</th>
        <th>Marks</th>
        <th>Remarks</th>
-       <th class="text-center">--</th>
+        
        <th>Sr.No</th>
         <th>Name</th>
         <th>Reg.No.</th>
@@ -47,8 +47,8 @@
           <td> {{ $student->name }}</td>
           <td>{{ $student->registration_no }}</td>
           <td>10000</td>
-          <td>Good</td>
-          <td></td>
+          <td>Telephone</td>
+          
         @if ($time ==2)
           </tr>
         @endif
@@ -63,6 +63,8 @@
          @endforeach 
       </tbody>
     </table>
+  </div>
+  </div>
   </div>  
  </body> 
  </html>
