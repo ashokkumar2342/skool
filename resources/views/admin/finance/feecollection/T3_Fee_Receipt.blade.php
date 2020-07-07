@@ -100,7 +100,7 @@ width: 700px;
 		  		@endif
 		  	</tbody>
 		  </table>
-		  Amount In Words : Rs <b> Four Hundred Only</b>
+		  Amount In Words : Rs <b> {{ $student->amt_in_words }}</b>
 		 <div class="panel panel-info">
          <div class="panel-heading" style="height: 10px;line-height: 10px;"><b>Payment Details</b></div>
          <div class="panel-body">
