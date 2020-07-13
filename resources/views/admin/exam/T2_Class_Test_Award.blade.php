@@ -46,8 +46,8 @@
           <td class="text-center">{{ $id++ }}</td>
           <td> {{ $student->name }}</td>
           <td>{{ $student->registration_no }}</td>
-          <td>10000</td>
-          <td>Telephone</td>
+          <td>{{ $student->marks }}</td> 
+          <td>{{ $student->remarks }}</td> 
           
         @if ($time ==2)
           </tr>

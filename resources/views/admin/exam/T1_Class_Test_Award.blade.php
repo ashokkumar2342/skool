@@ -32,6 +32,7 @@
               <th class="text-nowarp">Registration No.</th>
               <th class="text-nowarp">Marks</th>
               <th class="text-nowarp">Marks In Word</th>
+              <th class="text-nowarp">Remarks</th>
               
           </tr>
       </thead>
@@ -44,8 +45,9 @@
                   <td>{{ $arrayId ++ }}</td>
                   <td>{{ $student->name }}</td>
                   <td>{{ $student->registration_no }}</td>
-                  <td>1000</td>
-                  <td>remarks</td> 
+                  <td>{{ $student->marks }}</td>
+                  <td>{{ $student->marksinwords }}</td> 
+                  <td>{{ $student->remarks }}</td> 
               </tr>
            @endforeach
       </tbody>

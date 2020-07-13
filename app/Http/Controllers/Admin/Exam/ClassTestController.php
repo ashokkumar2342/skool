@@ -203,9 +203,7 @@ class ClassTestController extends Controller
     }
     public function print($class_test_id)
     {
-       $classTest = ClassTest::find($class_test_id);
-       $st=new Student();
-       $students=$st->getStudentByClassSection($classTest->class_id,$classTest->section_id);
+       $students=DB::select(DB::raw("call up_Report_student_Test_Award ('$class_test_id')")); 
        $reportTemplate=ReportTemplate::where('reports_type_id',6)->where('status',1)->first();
        if (empty($reportTemplate)) {
          $page='T1_Class_Test_Award';   

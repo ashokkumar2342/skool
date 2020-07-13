@@ -57,7 +57,7 @@
                    		    <th>Father Mobile No</th> 
                    		    <th>Mobile No</th>                                    
                           <th>E-mail</th>                                    
-                   		    <th>Action</th>                                    
+                   		    <th class="text-center">Action</th>                                    
                    		  </tr>
                    		  </thead>
                    		  <tbody id="search_result">
@@ -71,12 +71,8 @@
                           <td>{{ $student->parents[0]->parentInfo->mobile or '' }}</td>
                           <td>{{ $student->addressDetails->address->primary_mobile or '' }}</td>
                           <td>{{ $student->addressDetails->address->primary_email or '' }}</td>
-                   		    <td>
-                   		    	<a  href="{{ route('admin.birthday.card.pdf',$student->id) }}" target="blank"  class="btn btn-info btn-xs"><i class="fa fa-print"></i> </a>
-
-                            <a  href="{{ route('admin.birthday.card.sms.send',[$student->id,1]) }}" class="btn btn-primary btn-xs"><i class="fa fa-send"></i>Send Sms</a>
-
-                            <a  href="{{ route('admin.birthday.card.sms.send',[$student->id,2]) }}" class="btn btn-danger btn-xs"><i class="fa fa-envelope"></i>E-mail</a>
+                   		    <td class="text-nowrap">
+                   		    	<a  href="{{ route('admin.birthday.card.pdf',$student->id) }}" target="blank"  class="btn btn-info btn-xs" target="blank"><i class="fa fa-print"></i> </a>  
                    		    </td> 
                    		  </tr>
                    		  @endforeach
@@ -84,13 +80,13 @@
                    		   
                    		</table>
                       <div class="row">
-                      <div class="col-lg-1">
+                      <div class="col-lg-2">
                           <button class="checkbox btn btn-success" type="submit" name="action" value="generate">Generate PDF</button>
                       </div> 
-                      <div class="col-lg-1 text-right">
+                      <div class="col-lg-2 text-right">
                           <button class="checkbox btn btn-primary" type="submit" name="action" value="send_sms">SMS</button>
                       </div> 
-                      <div class="col-lg-1">
+                      <div class="col-lg-2">
                           <button class="checkbox btn btn-danger" type="submit" name="action" value="send_email"> E-mail</button>
                       </div> 
                       </div>

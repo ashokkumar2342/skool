@@ -26,6 +26,7 @@ use App\Model\ParentsInfo;
 use App\Model\PaymentType;
 use App\Model\Profession;
 use App\Model\Religion;
+use App\Model\ReportTemplate;
 use App\Model\RequestUpdate;
 use App\Model\Schoolinfo;
 use App\Model\Section;
@@ -54,7 +55,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
-
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
@@ -959,19 +959,23 @@ class StudentController extends Controller
 
     //birthday print one
     public function birthdayPrint($id){
-         $userid=Auth::guard('admin')->user()->id;
-         $studentDefaultValue=StudentDefaultValue::where('user_id',$userid)->first();
-        $template = BirthdayTemplate::where('id',$studentDefaultValue->birthday_template_id)->first();
-        $viewUrl = 'admin.student.birthday.template_'.$studentDefaultValue->birthday_template_id;
-        $student = Student::find($id);
+          
+         $reportTemplate=ReportTemplate::where('reports_type_id',7)->where('status',1)->first();
+         if (empty($reportTemplate)) {
+             $page='T1_Student_Birthday';
+          }else{
+            $page=$reportTemplate->name;
+          } 
+         $viewUrl = 'admin.student.birthday.'.$page;
+         $student = Student::find($id);
          $students = Student::where('id',$id)->get();
-         $customPaper = array(0,0,355.00,530.80);   
-        $pdf = PDF::setOptions([
+         $customPaper = array(0,0,655.00,530.80);   
+         $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
         ])
         ->loadView($viewUrl,compact('students','template'))->setPaper($customPaper, 'landscape');;  
-        return $pdf->download($student->registration_no.'_birthday_card.pdf');
+        return $pdf->stream($student->registration_no.'_birthday_card.pdf');
     }
 
     //birthday print all
@@ -984,12 +988,18 @@ class StudentController extends Controller
             'student' => 'required', 
         ]);
         $message='';   
-        $students = Student::whereIn('id',$request->student)->get(); 
-         $customPaper = array(0,0,355.00,530.80);
+        $students = Student::whereIn('id',$request->student)->get();
+        $reportTemplate=ReportTemplate::where('reports_type_id',7)->where('status',1)->first();
+         if (empty($reportTemplate)) {
+             $page='T1_Student_Birthday';
+          }else{
+            $page=$reportTemplate->name;
+          } 
+         $customPaper = array(0,0,655.00,530.80);   
         $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
-        ])->loadView('admin.student.birthday.birthday_card', compact('students','message'))->setPaper($customPaper, 'landscape'); 
+        ])->loadView('admin.student.birthday.'.$page, compact('students','message'))->setPaper($customPaper, 'landscape'); 
        
         return $pdf->stream('_birthday_card.pdf');
             break;

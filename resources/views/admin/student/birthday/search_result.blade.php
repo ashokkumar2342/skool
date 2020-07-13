@@ -11,9 +11,8 @@
     <td>{{ $student->addressDetails->address->primary_mobile or '' }}</td> 
     <td>{{ $student->addressDetails->address->primary_email or '' }}</td> 
     <td>
-    	<a href="{{ route('admin.birthday.card.pdf',$student->id) }}"  class="btn btn-info btn-xs"><i class="fa fa-print"></i> </a>
-      <a  href="{{ route('admin.birthday.card.sms.send',[$student->id,1]) }}" target="blank"  class="btn btn-primary btn-xs"><i class="fa fa-send"></i>Send Sms</a>
-      <a  href="{{ route('admin.birthday.card.sms.send',[$student->id,2]) }}" class="btn btn-danger btn-xs"><i class="fa fa-envelope"></i>Email</a>
+    	<a href="{{ route('admin.birthday.card.pdf',$student->id) }}"  class="btn btn-success btn-xs" target="blank"><i class="fa fa-download"></i> </a>
+      
     </td> 
   </tr>
   @endforeach

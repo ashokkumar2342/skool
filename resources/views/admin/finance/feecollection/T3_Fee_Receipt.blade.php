@@ -57,7 +57,7 @@ width: 700px;
 		<td>Name</td>
 		<td><b>{{ $student->stu_name }}</b></td> 
 		<td>Mobile No</td>
-		<td><b>1821828283</b></td>
+		<td><b>{{ $student->mobileno }}</b></td>
 		</tr>
 		<tr>
 		<td>Father's Name</td>

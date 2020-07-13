@@ -148,7 +148,6 @@ class FeeCollectionController extends Controller
          }
        
         $students = array_reverse($request->student_id);
-        $studentID=$request->student_id[0]; 
         $amount_deposits= array_reverse($request->amount_deposit); 
         $user_id = Auth::guard('admin')->user()->id;
         $date = $request->date[0];
@@ -187,22 +186,11 @@ class FeeCollectionController extends Controller
         $temp_id=$ReportTemplate->name;  
        }
        $feedefaultvalue= DefaultFeeValue::where('userid',$user_id)->first();
-        $receipt_id =array();
-        if ($payment_mode1==1) {  
-          if ($payment_mode2==0) { 
-            foreach ($students as $key => $student_id) { 
-              $deposit = $amount_deposits[$key];     
-             $receipt_id[]= $FeeDetails= DB::select(DB::raw("call up_stu_fee_submit ('$user_id','$student_id','$request->month','$request->year','$deposit','$payment_mode1','$amount1','$bank_name1','$cheeque_no1','$date','$payment_mode2','$amount2','$bank_name2','$cheeque_no2','$date')"));   
-            } 
-          }
-        }
-        elseif ($payment_mode1!=1) {  
-           
-             $deposit = $request->net_amount;     
-             $receipt_id[]= $FeeDetails= DB::select(DB::raw("call up_stu_fee_submit ('$user_id','$studentID','$request->month','$request->year','$deposit','$payment_mode1','$amount1','$bank_name1','$cheeque_no1','$date','$payment_mode2','$amount2','$bank_name2','$cheeque_no2','$date')"));
-            
-            
-        }
+        $receipt_id =array(); 
+        foreach ($students as $key => $student_id) { 
+          $deposit = $amount_deposits[$key];     
+         $receipt_id[]= $FeeDetails= DB::select(DB::raw("call up_stu_fee_submit ('$user_id','$student_id','$request->month','$request->year','$deposit','$payment_mode1','$amount1','$bank_name1','$cheeque_no1','$date','$payment_mode2','$amount2','$bank_name2','$cheeque_no2','$date')")); 
+        }  
         $response = array();
         $response['status']=1;
         $response['msg']='Fee Submit Successfully.';

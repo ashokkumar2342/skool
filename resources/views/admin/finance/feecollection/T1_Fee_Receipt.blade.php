@@ -77,7 +77,7 @@
   	            	   	                        </td>
   	            	   	                        <td>
   	            	   	                            
-  	            	   	                            <span id="lblMother1" style="font-size:Small;">4444444444</span>
+  	            	   	                            <span id="lblMother1" style="font-size:Small;">{{ $student->mobileno }}</span>
   	            	   	                        </td>
   	            	   	                        
   	            	   	                    </tr>
