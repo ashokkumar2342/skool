@@ -75,8 +75,8 @@ class StudentIdCardController extends Controller
         ->loadView('admin.student.idCard.temp1',compact('students','studentP','data'))->setPaper($customPaper, 'landscape'); 
         return $pdf->stream('student_all_report.pdf');
            
-         } if ($request->template_name==2) {
-         $customPaper = array(0,0,306.00,202.80);
+         }  
+        $customPaper = array(0,0,215.00,322.80);  
         $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/')
@@ -84,7 +84,7 @@ class StudentIdCardController extends Controller
         ->loadView('admin.student.idCard.temp2',compact('students'))->setPaper($customPaper, 'landscape'); 
         return $pdf->stream('student_all_report.pdf');
            
-         } if ($request->template_name==3) {
+      if ($request->template_name==3) {
          $customPaper = array(0,0,215.00,322.80);
         $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),

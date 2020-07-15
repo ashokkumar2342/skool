@@ -1,27 +1,7 @@
 @extends('admin.layout.base')
 @push('links')
 <style type="text/css" media="screen">
-  .btn {
-      display: inline-block;
-      padding: 6px 12px;
-      margin-bottom: 0;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.42857143;
-      text-align: left;
-      white-space: nowrap;
-      vertical-align: middle;
-      -ms-touch-action: manipulation;
-      touch-action: manipulation;
-      cursor: pointer;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      background-image: none;
-      border: 1px solid transparent;
-      border-radius: 4px;
-  }
+   
 </style>
 @endpush
 @section('body')
@@ -46,15 +26,7 @@
                 </div>
                 <div id="class_wise"> 
                  </div> 
-                <div class="col-lg-3">
-                  <label>Select Template</label>
-                  <select name="template_name" class="form-control">
-                    <option selected disabled>Select Template</option> 
-                    @foreach ($studentIDCards as $studentIDCard) 
-                    <option value="{{ $studentIDCard->id }}">{{ $studentIDCard->name }}</option> 
-                    @endforeach
-                  </select> 
-                </div>
+                
                  <div class="col-lg-1" style="padding-top: 20px"> 
                   
                 <input type="radio" name="barcode" checked="" hidden="" id="student_idcard" value="1">
