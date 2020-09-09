@@ -66,6 +66,8 @@ Route::get('test', function(Request $request){
     Route::get('event/{id}', 'Api\AdminController@event'); 
     Route::get('remarks/{id}', 'Api\AdminController@remarks'); 
     Route::get('quotes/{id}', 'Api\AdminController@quotes'); 
+    Route::get('getclass/{id}', 'Api\AdminController@getClass'); 
+    Route::get('getsection/{user_id}/{class_id}', 'Api\AdminController@getSection'); 
   
  });
 

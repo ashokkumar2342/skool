@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Api;
 use App\Admin;
 use App\Events\SmsEvent;
+use App\Helper\MyFuncs;
 use App\Http\Controllers\Controller;
 use App\Mail\SendMail;
 use App\Model\AcademicYear;
@@ -338,6 +339,28 @@ class AdminController extends Controller
             return $e;
         }
        
+    }
+    public function getClass(Request $request,$id){ 
+        try {  
+           $classes = MyFuncs::getClassByuserId($id); 
+            if (empty($classes)) {
+              return abort(404);     
+            }
+             return $classes;  
+        } catch (Exception $e) {
+            return $e;
+        } 
+    }
+    public function getSection(Request $request,$user_id,$class_id){ 
+        try {  
+           $sections = MyFuncs::getSectionsByuserId($user_id,$class_id); 
+            if (empty($sections)) {
+              return abort(404);     
+            }
+             return $sections;  
+        } catch (Exception $e) {
+            return $e;
+        } 
     }
         
 }
