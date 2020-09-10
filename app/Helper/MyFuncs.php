@@ -251,13 +251,13 @@ class MyFuncs {
    
   public static function getClassByuserId($user_id){ 
       $userClass = UserClassType::where('admin_id',$user_id)->distinct()->get(['class_id']);
-      return $classes = array_pluck(ClassType::whereIn('id',$userClass)->get(['id','name'])->toArray(),'name', 'id');
+      return $classes = ClassType::whereIn('id',$userClass)->get(['id','name']);
   }
   public static function getSectionsByuserId($user_id,$class_id){
        
       $userClass = UserClassType::where('admin_id',$user_id)->distinct()->get(['class_id']);
       $userSections = UserClassType::where('admin_id',$user_id)->where('class_id',$class_id)->get(['section_id']);  
-     return SectionType::whereIn('id',$userSections)->get();
+     return SectionType::whereIn('id',$userSections)->get(['id','name']);
      
   }
 
