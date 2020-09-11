@@ -199,6 +199,26 @@ class AdminController extends Controller
             return $e;
         }
        
+    }   
+    public function homeworkStore(Request $request){ 
+        try {  
+            $homework = new Homework();
+            $homework->class_id = $request->class_id;
+            $homework->section_id = $request->section_id;
+            $homework->homework = $request->homework;
+            $homework->created_by = $request->user_id;
+            $homework->date = $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
+             
+            $homework->save();
+            $response = array();
+            $response['status'] = 1;
+            $response['msg'] = "Homework Created Successfully";
+            return $response;
+             
+        } catch (Exception $e) {
+            return $e;
+        }
+       
     }
     public function homeworkToday(Request $request,$id){ 
         try {   
