@@ -209,7 +209,8 @@ class AdminController extends Controller
             $homework->created_by = $request->user_id;
             $homework->date = $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
              
-            $homework->save();
+            // $homework->save();
+            \Log::info($homework);
             $response = array();
             $response['status'] = 1;
             $response['msg'] = "Homework Created Successfully";
