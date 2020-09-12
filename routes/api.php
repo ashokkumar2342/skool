@@ -69,7 +69,7 @@ Route::get('test', function(Request $request){
     Route::get('quotes/{id}', 'Api\AdminController@quotes'); 
     Route::get('getclass/{id}', 'Api\AdminController@getClass'); 
     Route::get('getsection/{user_id}/{class_id}', 'Api\AdminController@getSection'); 
-  
+    Route::get('getsubject/{user_id}/{class_id}', 'Api\AdminController@getSubject'); 
  });
 
 

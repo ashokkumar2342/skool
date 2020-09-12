@@ -383,5 +383,16 @@ class AdminController extends Controller
             return $e;
         } 
     }
+    public function getSubject(Request $request,$user_id,$class_id){ 
+        try {  
+           $sections = MyFuncs::getSectionsByuserId($user_id,$class_id); 
+            if (empty($sections)) {
+              return abort(404);     
+            }
+             return $sections;  
+        } catch (Exception $e) {
+            return $e;
+        } 
+    }
         
 }
