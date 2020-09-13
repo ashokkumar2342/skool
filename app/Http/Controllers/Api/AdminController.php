@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 class AdminController extends Controller
 {
     /**
@@ -202,6 +203,20 @@ class AdminController extends Controller
     }   
     public function homeworkStore(Request $request){ 
         try {  
+            $rules=[ 
+            'class_id' => 'required',
+            'section_id' => 'required',
+            'homework' => 'required', 
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
             $homework = new Homework();
             $homework->class_id = $request->class_id;
             $homework->section_id = $request->section_id;
