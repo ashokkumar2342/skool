@@ -385,11 +385,11 @@ class AdminController extends Controller
     }
     public function getSubject(Request $request,$user_id,$class_id){ 
         try {  
-           $sections = MyFuncs::getSectionsByuserId($user_id,$class_id); 
-            if (empty($sections)) {
+           $subjects = MyFuncs::getSubject($user_id,$class_id); 
+            if (empty($subjects)) {
               return abort(404);     
             }
-             return $sections;  
+             return $subjects;  
         } catch (Exception $e) {
             return $e;
         } 

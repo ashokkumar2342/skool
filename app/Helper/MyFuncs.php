@@ -13,6 +13,7 @@ use App\Model\SectionType;
 use App\Model\StudentDefaultValue;
 use App\Model\StudentUserMap;
 use App\Model\SubMenu;
+use App\Model\Subject;
 use App\Model\UserClassType;
 use DateInterval;
 use DatePeriod;
@@ -258,6 +259,12 @@ class MyFuncs {
       $userClass = UserClassType::where('admin_id',$user_id)->distinct()->get(['class_id']);
       $userSections = UserClassType::where('admin_id',$user_id)->where('class_id',$class_id)->get(['section_id']);  
      return SectionType::whereIn('id',$userSections)->get(['id','name']);
+     
+  }
+  public static function getSubject($user_id,$class_id){
+       
+      $subject =new Subject();
+     return $subject->getSubjectByuserIdOrClassId($user_id,$class_id);
      
   }
 

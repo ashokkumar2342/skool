@@ -25,4 +25,16 @@ class Subject extends Model
     Public function isoptional(){
      	return $this->hasOne('App\Model\Isoptional','id','isoptional_id');
      }
+
+     function getSubjectByuserIdOrClassId($user_id,$class_id){
+        try {  
+           return  $this->leftjoin('class_types','class_types.id','subjects.classType_id')
+            ->leftjoin('subject_types','subject_types.id','subjects.subjectType_id')
+            ->where('subjects.classType_id',$class_id)
+            ->selectRaw('subject_types.id,subject_types.name')
+            ->get();
+        } catch (Exception $e) {
+            
+        }
+    } 
 }
