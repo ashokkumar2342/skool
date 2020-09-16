@@ -409,5 +409,17 @@ class AdminController extends Controller
             return $e;
         } 
     }
+    public function getStudent(Request $request,$class_id,$section_id){ 
+        try {  
+           $student = new Student(); 
+           $students=$student->getStudentByClassOrSection($class_id,$section_id);
+            if (empty($students)) {
+              return abort(404);     
+            }
+             return $students;  
+        } catch (Exception $e) {
+            return $e;
+        } 
+    }
         
 }
