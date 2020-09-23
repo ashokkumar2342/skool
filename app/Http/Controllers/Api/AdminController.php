@@ -256,11 +256,7 @@ class AdminController extends Controller
                 $response["msg"]=$errors[0];
                 return response()->json($response);// response as json
             }
-            foreach ($request->attendenceType_id as $key => $value) {
-                \Log::info($value['id']);
-                \Log::info($value['type']);
-                 
-                return $value;
+            foreach ($request->attendenceType_id as $key => $value) { 
                $studentAttendance = StudentAttendance::where(['date'=>date('Y-m-d',strtotime($date)),'student_id'=>$key])->firstOrNew(['student_id'=>$key]); 
                $studentAttendance->student_id = $value['id'];
                $studentAttendance->attendance_type_id = $value['type'];
