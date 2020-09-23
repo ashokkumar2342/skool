@@ -236,6 +236,43 @@ class AdminController extends Controller
         }
        
     }
+    public function attendanceStore(Request $request){ 
+        try {  
+            \Log::info($request);
+            $rules=[ 
+            'class_id' => 'required', 
+            'section_id' => 'required', 
+            'date' => "required", 
+            'attendenceType_id' => "required", 
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+            $homework = new Homework();
+            $homework->class_id = $request->class_id;
+            $homework->section_id = $request->section_id;
+            $homework->homework = $request->homework;
+            $homework->created_by = $request->user_id;
+            $homework->date = $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
+             
+            $homework->save(); 
+            $response = array();
+            $response['status'] = 1;
+            $response['msg'] = "Homework Created Successfully";
+            return $response;
+             
+        } catch (Exception $e) {
+            \Log::info($e->message());
+            return $e;
+        }
+       
+    }
     public function homeworkToday(Request $request,$id){ 
         try {   
            $student =Student::find($id); 
