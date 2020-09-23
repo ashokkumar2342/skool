@@ -18,6 +18,7 @@ use App\Model\Religion;
 use App\Model\Remark\Remark;
 use App\Model\SessionDate;
 use App\Model\StudentAttendance;
+use App\Model\StudentAttendanceClass;
 use App\Model\StudentDefaultValue;
 use App\Model\StudentRemark;
 use App\Student;
@@ -238,8 +239,7 @@ class AdminController extends Controller
     }
     public function attendanceStore(Request $request){ 
         try {  
-            \Log::info($request->all());
-            return $request->all();
+            $user_id=$request->user_id;
             $rules=[ 
             'class_id' => 'required', 
             'section_id' => 'required', 
@@ -255,17 +255,27 @@ class AdminController extends Controller
                 $response["msg"]=$errors[0];
                 return response()->json($response);// response as json
             }
-            $homework = new Homework();
-            $homework->class_id = $request->class_id;
-            $homework->section_id = $request->section_id;
-            $homework->homework = $request->homework;
-            $homework->created_by = $request->user_id;
-            $homework->date = $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
-             
-            $homework->save(); 
+            foreach ($request->attendenceType_id as $key => $value) {
+               $studentAttendance = StudentAttendance::where(['date'=>date('Y-m-d',strtotime($date)),'student_id'=>$key])->firstOrNew(['student_id'=>$key]); 
+               $studentAttendance->student_id = $value[$key]['id'];
+               $studentAttendance->attendance_type_id = $value[$key]['type'];
+               $studentAttendance->date = date('Y-m-d',strtotime($date));
+               $studentAttendance->last_updated_by = $user_id;
+               $studentAttendance->verified_attendance_type_id =0;
+               $studentAttendance->verified =0;
+               $studentAttendance->save(); 
+            }
+            $studentAttendanceClass=StudentAttendanceClass::firstOrNew(['date'=>date('Y-m-d',strtotime($date)),'class_id'=>$request->class_id,'section_id'=>$request->section_id]);
+            $studentAttendanceClass->class_id=$request->class_id;
+            $studentAttendanceClass->section_id=$request->section_id;
+            $studentAttendanceClass->last_updated_by = $user_id; 
+            $studentAttendanceClass->attendance =1; 
+            $studentAttendanceClass->verified =0;
+            $studentAttendanceClass->sms_sent =0;
+            $studentAttendanceClass->save(); 
             $response = array();
             $response['status'] = 1;
-            $response['msg'] = "Homework Created Successfully";
+            $response['msg'] = "Save  Successfully";
             return $response;
              
         } catch (Exception $e) {
