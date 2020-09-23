@@ -238,7 +238,8 @@ class AdminController extends Controller
     }
     public function attendanceStore(Request $request){ 
         try {  
-            \Log::info($request);
+            \Log::info($request->all());
+            return $request->all();
             $rules=[ 
             'class_id' => 'required', 
             'section_id' => 'required', 
@@ -449,7 +450,7 @@ class AdminController extends Controller
     public function getStudent(Request $request,$class_id,$section_id){ 
         try {  
            $student = new Student(); 
-           $students=$student->getStudentByClassOrSection($class_id,$section_id);
+           $students=$student->getStudentByClassSection($class_id,$section_id);
             if (empty($students)) {
               return abort(404);     
             }

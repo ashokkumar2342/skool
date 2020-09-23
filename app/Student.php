@@ -212,7 +212,7 @@ class Student extends Authenticatable
               'parents_infos.mobile as f_mobile' ,
               'student_perent_details.relation_id'
             )    
-            ->get(); 
+            ->distinct('students.id')->get(); 
             return $datas; 
          } catch (Exception $e) {
             
