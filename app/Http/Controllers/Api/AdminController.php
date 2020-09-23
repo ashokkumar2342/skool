@@ -240,6 +240,7 @@ class AdminController extends Controller
     public function attendanceStore(Request $request){ 
         try {  
             $user_id=$request->user_id;
+            $date=$request->date;
             $rules=[ 
             'class_id' => 'required', 
             'section_id' => 'required', 
