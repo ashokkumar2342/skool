@@ -259,6 +259,8 @@ class AdminController extends Controller
             foreach ($request->attendenceType_id as $key => $value) { 
                $studentAttendance = StudentAttendance::where(['date'=>date('Y-m-d',strtotime($date)),'student_id'=>$value['id']])->firstOrNew(['student_id'=>$value['id']]); 
                $studentAttendance->student_id = $value['id'];
+               $studentAttendance->class_id = $request->class_id;
+               $studentAttendance->section_id = $request->section_id;
                $studentAttendance->attendance_type_id = $value['type'];
                $studentAttendance->date = date('Y-m-d',strtotime($date));
                $studentAttendance->last_updated_by = $user_id;
