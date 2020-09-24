@@ -61,6 +61,7 @@ Route::get('test', function(Request $request){
     Route::post('homework/store', 'Api\AdminController@homeworkStore'); 
     Route::get('homework-latest/{id}', 'Api\AdminController@homeworkToday'); 
     Route::get('attendance/{id}', 'Api\AdminController@attendance'); 
+    Route::get('get-attendance', 'Api\AdminController@getAttendance'); 
     Route::post('attendance/store', 'Api\AdminController@attendanceStore'); 
     Route::get('fee/{id}', 'Api\AdminController@feeDetails'); 
     Route::get('last-fee/{id}', 'Api\AdminController@lastFee'); 
