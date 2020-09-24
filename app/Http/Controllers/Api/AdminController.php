@@ -287,27 +287,8 @@ class AdminController extends Controller
         }
        
     }
-    public function getAttendance(Request $request){ 
-        try {   
-            $rules=[ 
-            'class_id' => 'required', 
-            'section_id' => 'required', 
-            'date' => "required", 
-            ];
-
-            $validator = Validator::make($request->all(),$rules);
-            if ($validator->fails()) {
-                $errors = $validator->errors()->all();
-                $response=array();
-                $response["status"]=0;
-                $response["msg"]=$errors[0];
-                return response()->json($response);// response as json
-            }
-            $user_id=$request->user_id;
-            $date=$request->date;
-            $class_id=$request->class_id;
-            $section_id=$request->section_id;
-
+    public function getAttendance($class_id,$section_id,$date){ 
+        try {    
             $StudentAttendance=new StudentAttendance(); 
             $StudentAttendances=$StudentAttendance->getStudentAttendance($class_id,$section_id,$date); 
             if (!empty($StudentAttendances)) {
