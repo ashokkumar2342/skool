@@ -289,6 +289,7 @@ class AdminController extends Controller
     }
     public function getAttendance($class_id,$section_id,$date){ 
         try {    
+            \Log::info($class_id,$section_id,$date);
             $StudentAttendance=new StudentAttendance(); 
             $StudentAttendances=$StudentAttendance->getStudentAttendance($class_id,$section_id,$date); 
             if (!empty($StudentAttendances)) {
