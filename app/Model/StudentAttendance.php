@@ -24,7 +24,7 @@ class StudentAttendance extends Model
         try {
             return $this->where('class_id',$class_id)
             ->where('section_id',$section_id)
-            ->where('date',$date)
+            ->whereDate('date',$date)
             ->get();
         } catch (Exception $e) {
             
