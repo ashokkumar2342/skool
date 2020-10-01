@@ -56,6 +56,7 @@ Route::get('test', function(Request $request){
 
  Route::group(['prefix' => 'admin'], function() {
  	Route::get('details/{id}', 'Api\AdminController@index'); 
+    Route::get('academic-year', 'Api\AdminController@academicYear'); 
     Route::get('image/{id}', 'Api\AdminController@image'); 
     Route::get('homework/{id}', 'Api\AdminController@homework'); 
     Route::post('homework/store', 'Api\AdminController@homeworkStore'); 

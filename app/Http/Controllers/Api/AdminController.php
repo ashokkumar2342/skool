@@ -52,6 +52,19 @@ class AdminController extends Controller
         }
        
     }
+    public function academicYear()
+    {
+        try {  
+            $AcademicYear =AcademicYear::get(); 
+            if (empty($AcademicYear)) {
+              return abort(404);     
+            } 
+            return response()->json($AcademicYear);    
+        } catch (Exception $e) {
+           return $e; 
+        }
+       
+    }
 
     public function image($id){ 
         try {
