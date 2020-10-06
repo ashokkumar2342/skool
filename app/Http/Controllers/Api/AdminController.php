@@ -278,6 +278,11 @@ class AdminController extends Controller
             $classTest->test_date = $request->test_date == null ? $request->test_date : date('Y-m-d',strtotime($request->test_date));
             $classTest->max_marks = $request->max_marks;
             $classTest->discription = $request->description; 
+            if ($request->is_include_term_exam==null) {
+             $classTest->is_include_term_exam =0;   
+            }else{
+            $classTest->is_include_term_exam =$request->is_include_term_exam; 
+            }
             $classTest->save(); 
             $response = array();
             $response['status'] = 1;
