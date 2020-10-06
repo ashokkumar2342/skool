@@ -10,6 +10,7 @@ use App\Model\Cashbook;
 use App\Model\Category;
 use App\Model\ClassType;
 use App\Model\Event\EventDetails;
+use App\Model\Exam\ClassTest;
 use App\Model\Gender;
 use App\Model\Homework;
 use App\Model\ParentRegistration;
@@ -239,6 +240,45 @@ class AdminController extends Controller
             $homework->date = $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date)); 
              
             $homework->save(); 
+            $response = array();
+            $response['status'] = 1;
+            $response['msg'] = "Homework Created Successfully";
+            return $response;
+             
+        } catch (Exception $e) {
+            \Log::info($e->message());
+            return $e;
+        }
+       
+    }
+    public function classTestStore(Request $request){ 
+        try {  \Log::info($request->all());
+            $rules=[ 
+            'academic_year_id' => 'required', 
+            'class_id' => 'required', 
+            'section_id' => 'required', 
+            'subject' => 'required',  
+            'test_date' => 'required',  
+            'max_marks' => 'required',  
+            ];
+
+            $validator = Validator::make($request->all(),$rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                $response=array();
+                $response["status"]=0;
+                $response["msg"]=$errors[0];
+                return response()->json($response);// response as json
+            }
+            $classTest = new ClassTest();
+            $classTest->academic_year_id = $request->academic_year_id;
+            $classTest->class_id = $request->class_id;
+            $classTest->section_id = $request->section_id;
+            $classTest->subject_id = $request->subject;
+            $classTest->test_date = $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date));
+            $classTest->max_marks = $request->max_marks;
+            $classTest->discription = $request->description; 
+            $classTest->save(); 
             $response = array();
             $response['status'] = 1;
             $response['msg'] = "Homework Created Successfully";
