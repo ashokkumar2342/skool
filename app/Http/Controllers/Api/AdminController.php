@@ -252,7 +252,7 @@ class AdminController extends Controller
        
     }
     public function classTestStore(Request $request){ 
-        try {  \Log::info($request->all());
+        try { 
             $rules=[ 
             'academic_year_id' => 'required', 
             'class_id' => 'required', 
@@ -275,13 +275,13 @@ class AdminController extends Controller
             $classTest->class_id = $request->class_id;
             $classTest->section_id = $request->section_id;
             $classTest->subject_id = $request->subject;
-            $classTest->test_date = $request->date == null ? $request->date : date('Y-m-d',strtotime($request->date));
+            $classTest->test_date = $request->test_date == null ? $request->test_date : date('Y-m-d',strtotime($request->test_date));
             $classTest->max_marks = $request->max_marks;
             $classTest->discription = $request->description; 
             $classTest->save(); 
             $response = array();
             $response['status'] = 1;
-            $response['msg'] = "Homework Created Successfully";
+            $response['msg'] = "Class Test Created Successfully";
             return $response;
              
         } catch (Exception $e) {
