@@ -304,8 +304,8 @@ class AdminController extends Controller
             $array['subject_id'] = $request->subject;
             $array['test_date'] = $request->test_date == null ? $request->test_date : date('Y-m-d',strtotime($request->test_date));
             $classTest = new ClassTest(); 
-            $classTests=$classTest->getResult($array);
-            if (!isset($classTests)) {
+            $classTests=$classTest->getResult($array); 
+            if (isset($classTests)) {
               return response()->json(['data'=>$classTests,'status'=>'1','msg'=>'success']);   
             }
              return response()->json(['data'=>null,'status'=>'0']); 
