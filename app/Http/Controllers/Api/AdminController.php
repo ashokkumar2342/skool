@@ -295,6 +295,28 @@ class AdminController extends Controller
         }
        
     }
+    public function classTestShow(Request $request){ 
+        try { 
+            $array = array();
+            $array['academic_year_id'] = $request->academic_year_id;
+            $array['class_id'] = $request->class_id;
+            $array['section_id'] = $request->section_id;
+            $array['subject_id'] = $request->subject;
+            $array['test_date'] = $request->test_date == null ? $request->test_date : date('Y-m-d',strtotime($request->test_date));
+            $classTest = new ClassTest(); 
+            $classTests=$classTest->getResult($array);
+            if (!empty($classTests)) {
+              return $classTests;   
+            }
+             return response()->json(['data'=>'null','status'=>'Not Found']); 
+             
+             
+        } catch (Exception $e) {
+            \Log::info($e->message());
+            return $e;
+        }
+       
+    }
     public function attendanceStore(Request $request){ 
         try {  
             $user_id=$request->user_id;

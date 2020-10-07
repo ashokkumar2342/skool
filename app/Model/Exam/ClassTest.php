@@ -32,4 +32,16 @@ class ClassTest extends Model
      Public function grade(){
         return $this->hasOne('App\Model\Exam\Grade','id','grade');
      }
+
+    Public function getResult($array){
+        try {
+           return $this->orWhere('academic_year_id',$array['academic_year_id'])->orWhere('class_id',$array['class_id'])
+                ->orWhere('section_id',$array['section_id'])   
+                ->orWhere('subject_id',$array['subject_id'])   
+                ->orWhere('test_date',$array['test_date'])
+                ->get();   
+        } catch (Exception $e) {
+            return $e;
+        }
+    } 
 }

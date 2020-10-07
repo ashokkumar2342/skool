@@ -75,6 +75,7 @@ Route::get('test', function(Request $request){
     Route::get('getsubject/{user_id}/{class_id}', 'Api\AdminController@getSubject'); 
     Route::get('getstudent/{class_id}/{section_id}', 'Api\AdminController@getStudent'); 
     Route::post('classtest/store', 'Api\AdminController@classTestStore');
+    Route::post('classtest/show', 'Api\AdminController@classTestShow');
  });
 
 
