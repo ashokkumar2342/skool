@@ -35,11 +35,18 @@ class ClassTest extends Model
 
     Public function getResult($array){
         try {
-           return $this->orWhere('academic_year_id',$array['academic_year_id'])->orWhere('class_id',$array['class_id'])
-                ->orWhere('section_id',$array['section_id'])   
-                ->orWhere('subject_id',$array['subject_id'])   
-                ->orWhere('test_date',$array['test_date'])
-                ->get();   
+           $query= $this->where('academic_year_id',$array['academic_year_id'])
+                ->where('class_id',$array['class_id']);
+                if (isset($array['section_id'])) {
+                     $query->where('section_id',$array['section_id']);
+                } 
+                if (isset($array['subject_id'])) {
+                    $query->where('subject_id',$array['subject_id']); 
+                } 
+                if (isset($array['test_date'])) {
+                    $query->whereDate('test_date',$array['test_date']);
+                } 
+               return  $query->get();   
         } catch (Exception $e) {
             return $e;
         }
