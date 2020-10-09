@@ -25,6 +25,7 @@ use App\Model\StudentRemark;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -310,6 +311,21 @@ class AdminController extends Controller
             }
              return response()->json(['data'=>null,'status'=>'0']); 
              
+             
+        } catch (Exception $e) {
+            \Log::info($e->message());
+            return $e;
+        }
+       
+    }
+    public function classTestStatus($id){ 
+        try {   
+            $classTestStatuss=DB::select(DB::raw("call up_check_classtest_status ('$id')")); 
+            
+             if (isset($classTestStatuss)) {
+               return response()->json(['data'=>$classTestStatuss,'status'=>'1','msg'=>'success']);   
+             }
+              return response()->json(['data'=>null,'status'=>'0']);
              
         } catch (Exception $e) {
             \Log::info($e->message());
