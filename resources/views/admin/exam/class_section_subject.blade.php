@@ -10,7 +10,7 @@
 	<label>Subject</label>
 	<select name="subject" id="subject" class="form-control">
 		@foreach ($subjects as $subject)
-		<option value="{{ $subject->id }}">{{ $subject->subjectTypes->name or ''}}</option> 
+		<option value="{{ $subject->id }}">{{ $subject->name}}</option> 
 		@endforeach
 	</select> 
 </div> 

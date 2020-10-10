@@ -31,11 +31,11 @@
         </div>
         <div class="row"> 
           <div class="col-lg-4 form-group">
-            <label>test_date</label>
+            <label>Test Date</label>
             <input type="date"  name="test_date" class="form-control"> 
           </div> 
           <div class="col-lg-4 form-group">
-            <label>max_marks</label>
+            <label>Max Marks</label>
             <input type="text"  name="max_marks" class="form-control"> 
           </div>
           <div class="col-lg-4 form-group">

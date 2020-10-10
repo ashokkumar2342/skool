@@ -118,9 +118,10 @@ class ClassTestController extends Controller
     }
     public function classSectionSubject(Request $request)
     {
+        $user_id=Auth::guard('admin')->user()->id;
         $StudentDefaultValue=MyFuncs::UserWiseStudentDefaultValue(); 
         $sections = MyFuncs::getSections($request->id);
-        $subjects = Subject::where('classType_id',$request->id)->get();
+        $subjects = MyFuncs::getSubject($user_id,$request->id);
         return view('admin.exam.class_section_subject',compact('sections','subjects','StudentDefaultValue'));
     }
     public function tableShow(Request $request)
