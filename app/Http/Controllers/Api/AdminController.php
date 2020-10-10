@@ -320,8 +320,9 @@ class AdminController extends Controller
     }
     public function classTestStatus($id){ 
         try {   
-            $classTestStatus=DB::select(DB::raw("call up_check_classtest_status ('$id')")); 
-            $classTestStatuss=implode(',', $classTestStatus);
+             $classTestStatus=DB::select(DB::raw("call up_check_classtest_status ('$id')")); 
+
+           $classTestStatuss=explode(',', $classTestStatus[0]->TestStatus); 
              if (isset($classTestStatuss)) {
                return response()->json(['data'=>$classTestStatuss,'status'=>'1','msg'=>'success']);   
              }
