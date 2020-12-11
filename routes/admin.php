@@ -14,6 +14,7 @@ Route::prefix('resitration')->group(function () {
 });
 //registration end 
 Route::get('/', 'Auth\LoginController@index')->name('admin.home');
+Route::get('loginapi/{id}', 'Auth\LoginController@loginApi')->name('admin.login');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('admin.login'); 
 Route::get('admin-password/reset', 'Auth\ForgetPasswordController@sendResetLinkEmail')->name('admin.password.email');
 Route::get('passwordreset/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');

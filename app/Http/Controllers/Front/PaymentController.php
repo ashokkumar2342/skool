@@ -16,7 +16,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $parent_id =Auth::user()->id;
+        $parent_id =Auth::guard('admin')->user()->id;
         $orders = Payment::where('parent_id',$parent_id)->get();
         return view('front.payment.payment',compact('orders'));
     }
@@ -40,7 +40,7 @@ class PaymentController extends Controller
    public function store(Request $request)
        {
         $order_id = uniqid();
-        $parent_id = Auth::user()->id;
+        $parent_id = Auth::guard('admin')->user()->id;
         $order = new Payment();
         $order->order_id = $order_id;
         $order->parent_id = $parent_id;
