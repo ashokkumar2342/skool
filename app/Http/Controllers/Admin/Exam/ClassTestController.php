@@ -30,12 +30,21 @@ class ClassTestController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    { 
         $academicYears=AcademicYear::orderBy('id','ASC')->get();
         $classTypes =MyFuncs::getClassByHasUser();
         $subjects = SubjectType::orderBy('id','name')->get();
         $StudentDefaultValue=MyFuncs::UserWiseStudentDefaultValue();
         return view('admin.exam.class_test',compact('classTypes','subjects','classTests','academicYears','StudentDefaultValue'));
+    }
+    public function indexApi(Request $request)
+    {   $id= $request->id;
+        $user= auth()->guard('admin')->loginUsingId($id);
+        $academicYears=AcademicYear::orderBy('id','ASC')->get();
+        $classTypes =MyFuncs::getClassByHasUser();
+        $subjects = SubjectType::orderBy('id','name')->get();
+        $StudentDefaultValue=MyFuncs::UserWiseStudentDefaultValue();
+        return view('admin.exam.api.class_test',compact('classTypes','subjects','classTests','academicYears','StudentDefaultValue'));
     }
 
     /**

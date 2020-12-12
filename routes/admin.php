@@ -1776,11 +1776,9 @@ Route::group(['middleware' => 'admin'], function() {
          	Route::get('clear-all','Notification\NotificationController@clearAll')->name('notification.clear.all'); 
          	Route::get('clear/{id}','Notification\NotificationController@noficationClear')->name('notification.clear'); 
          	Route::get('read/{id}','Notification\NotificationController@readStatus')->name('notification.read.status'); 	 
- 		});   
-            
-            
-           
-
-            
+ 		});  
 
 });
+ Route::group(['prefix' => 'class-test-api'], function() {
+		Route::get('/', 'Exam\ClassTestController@indexApi');
+ });    
