@@ -1,8 +1,13 @@
 @extends('admin.layout.base')
 @section('body')
+<style type="text/css">
+.btn-primary:hover {
+    background-color: black;
+}
+</style>
 <section class="content-header">
       
-      <a  onclick="callPopupLarge(this,'{{ route('admin.adminssion.seat.add') }}')" class="btn btn-info btn-sm pull-right">Add Admission Schedule</a>
+      <a  onclick="callPopupLarge(this,'{{ route('admin.adminssion.seat.add') }}')" class="btn btn-primary btn-sm pull-right">Add Admission Schedule</a>
     <h1>Admission Schedule</h1>
 </section>
     <section class="content">

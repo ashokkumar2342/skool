@@ -62,5 +62,20 @@ $data =storage_path('app/student/barcode/'.$student->registration_no.'.'.'png');
 <span style="float:center;padding-top: 215px;font-size: 14px;color: white;text-align:center">&nbsp;&nbsp;&nbsp;&nbsp;Contact : <b>{{ $student->addressDetails->address->primary_mobile or ''}}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Academic Year : <b>2020-2021</b></span>  
 <span style="float: right;padding-top: 180px;margin:10px">Principal</span> 
 </body>
+<body style="margin: 0px; padding:0px; background-color: #eca8ea">  
+<div  id="front"> 
+<div style="background-color:#d60aac;text-align:center;color: #fff;height: 30px"> 
+<b class="ddd"><span><span class="ddd" style="font-size: 14px"></span></span></b><br>
+  
+</div>  
+ 
+ 
+</div>
+<div id="footer" style="background-color:#d60aac;text-align:center ">
+     
+ </div>
+</div>
+ 
+</body>
 @endforeach
 </html>

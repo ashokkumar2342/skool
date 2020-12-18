@@ -8,6 +8,7 @@ use App\Model\ClassType;
 use App\Model\Event\EveneFor;
 use App\Model\IdCard\IdCardTemplate;
 use App\Model\ReportFor;
+use App\Model\ReportTemplate;
 use App\Student;
 use Barryvdh\DomPDF\Facade as PDF;
 use CodeItNow\BarcodeBundle\Utils\BarcodeGenerator;
@@ -64,39 +65,58 @@ class StudentIdCardController extends Controller
        file_put_contents($path, $data); 
        }
     }  
+    $template=ReportTemplate::where('reports_type_id',8)->where('status',1)->first();
       if ($request->student_idcard==1) {
-         
-         if ($request->template_name==1) {
-         $customPaper = array(0,0,322.00,202.80);
-        $pdf = PDF::setOptions([
-            'logOutputFile' => storage_path('logs/log.htm'),
-            'tempDir' => storage_path('logs/')
-        ])
-        ->loadView('admin.student.idCard.temp1',compact('students','studentP','data'))->setPaper($customPaper, 'landscape'); 
-        return $pdf->stream('student_all_report.pdf');
+               //--T1_Identity_Card---//
+               if (empty($template)) {
+                $customPaper = array(0,0,322.00,202.80);
+                $pdf = PDF::setOptions([
+                  'logOutputFile' => storage_path('logs/log.htm'),
+                  'tempDir' => storage_path('logs/')
+                ])
+                ->loadView('admin.student.idCard.T1_Identity_Card',compact('students','studentP','data'))->setPaper($customPaper, 'landscape'); 
+                return $pdf->stream('student_all_report.pdf');   
+                } 
+               elseif ($template->name=='T1_Identity_Card') {
+               $customPaper = array(0,0,322.00,202.80);
+               $pdf = PDF::setOptions([
+                  'logOutputFile' => storage_path('logs/log.htm'),
+                  'tempDir' => storage_path('logs/')
+                ])
+               ->loadView('admin.student.idCard.T1_Identity_Card',compact('students','studentP','data'))->setPaper($customPaper, 'landscape'); 
+               return $pdf->stream('student_all_report.pdf');
+                 
+               }
+               elseif ($template->name=='T2_Identity_Card') {  
+               $customPaper = array(0,0,215.00,322.80);  
+               $pdf = PDF::setOptions([
+                  'logOutputFile' => storage_path('logs/log.htm'),
+                  'tempDir' => storage_path('logs/')
+               ])
+               ->loadView('admin.student.idCard.T2_Identity_Card',compact('students'))->setPaper($customPaper, 'landscape'); 
+               return $pdf->stream('student_all_report.pdf');
            
-         }  
-        $customPaper = array(0,0,215.00,322.80);  
-        $pdf = PDF::setOptions([
-            'logOutputFile' => storage_path('logs/log.htm'),
-            'tempDir' => storage_path('logs/')
-        ])
-        ->loadView('admin.student.idCard.temp2',compact('students'))->setPaper($customPaper, 'landscape'); 
-        return $pdf->stream('student_all_report.pdf');
-           
-      if ($request->template_name==3) {
-         $customPaper = array(0,0,215.00,322.80);
-        $pdf = PDF::setOptions([
-            'logOutputFile' => storage_path('logs/log.htm'),
-            'tempDir' => storage_path('logs/')
-        ])
-        ->loadView('admin.student.idCard.temp3',compact('students'))->setPaper($customPaper, 'landscape'); 
-        return $pdf->stream('student_all_report.pdf');
-           
-         } 
-      }
-      if ($request->student_idcard==2) {
-         
+              }
+               elseif ($template->name=='T3_Identity_Card') {
+               $customPaper = array(0,0,215.00,322.80);
+               $pdf = PDF::setOptions([
+              'logOutputFile' => storage_path('logs/log.htm'),
+              'tempDir' => storage_path('logs/')
+               ])
+               ->loadView('admin.student.idCard.T3_Identity_Card',compact('students'))->setPaper($customPaper, 'landscape'); 
+               return $pdf->stream('student_all_report.pdf'); 
+               }
+               elseif ($template->name=='T4_Identity_Card') {
+               $customPaper = array(0,0,322.00,202.80);
+               $pdf = PDF::setOptions([
+                  'logOutputFile' => storage_path('logs/log.htm'),
+                  'tempDir' => storage_path('logs/')
+               ])
+               ->loadView('admin.student.idCard.T4_Identity_Card',compact('students'))->setPaper($customPaper, 'landscape'); 
+               return $pdf->stream('student_all_report.pdf'); 
+              }
+       }       
+      if ($request->student_idcard==2) { 
         $customPaper = array(0,0,208.00,307.80);
         $pdf = PDF::setOptions([
             'logOutputFile' => storage_path('logs/log.htm'),
