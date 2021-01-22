@@ -62,7 +62,7 @@ class SendSms extends Command
       $sentEmailDetailsFinalDatas=SentEmailDetail::where('sent_status',2)->get(); 
       foreach ($sentEmailDetailsFinalDatas as $sentEmailDetailsFinalData) { 
             $message =$sentEmailDetailsFinalData->email_text;         
-            $emailto = $admin->email;         
+            $emailto = $sentEmailDetailsFinalData->email;         
             $subject = $sentEmailDetailsFinalData->email_subject;
             $template_purpose =$sentEmailDetailsFinalData->purpose;
             $temp_name='';
