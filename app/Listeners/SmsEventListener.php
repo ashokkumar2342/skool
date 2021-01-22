@@ -32,8 +32,9 @@ class SmsEventListener
         $smsApi=SmsApi::where('status',1)->first(); 
         $admin=Admin::where('role_id',1)->first();        
          $msg=urlencode($event->message);
+         $mobile=$event->mobile;
          
-         $url = "$smsApi->url?user=$smsApi->user_id&pwd=$smsApi->password&senderid=$smsApi->sender_id&mobileno=$admin->mobile&msgtext=$msg";
+         $url = "$smsApi->url?user=$smsApi->user_id&pwd=$smsApi->password&senderid=$smsApi->sender_id&mobileno=$mobile&msgtext=$msg";
          $ch = curl_init($url);
          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          $curl_scraped_page = curl_exec($ch);
