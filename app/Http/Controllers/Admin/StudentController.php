@@ -421,7 +421,7 @@ class StudentController extends Controller
         $genders=Gender::orderBy('genders','ASC')->get();
         $schoolinfo=Schoolinfo::first();
         $studentStatus=DB::select(DB::raw("call up_check_user_student_status ('$userId->id')")); 
-        if ($student->student_status_id==1) {
+        if ($studentStatus->student_status_id==1) {
             $showHide='';
         }else{
             $showHide='hidden';
