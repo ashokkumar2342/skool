@@ -56,7 +56,7 @@
                     </div>
                     <div class="form-group col-lg-4">
                         <label>Pincode</label> <span class="fa fa-asterisk"></span>
-                        <input type="number" name="p_pincode" id="p_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200" >
+                        <input type="text" name="p_pincode" id="p_pincode" class="form-control" maxlength="6" onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
                     </div>
                     <div class="form-group col-lg-2 text-center">
                         <input type="checkbox" id="addressCheck" name="addressCheck" style="margin-top: 30px">
@@ -68,7 +68,7 @@
                     </div> 
                     <div class="form-group col-lg-4">
                         <label>Pincode</label><span class="fa fa-asterisk"></span>
-                        <input type="number" name="c_pincode" id="c_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200">
+                        <input type="number" name="c_pincode" id="c_pincode" class="form-control" maxlength="6" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                     </div>
                     <div class="form-group col-lg-12 text-center" style="margin-top: 10px">
                         <input type="submit" class="btn btn-success">

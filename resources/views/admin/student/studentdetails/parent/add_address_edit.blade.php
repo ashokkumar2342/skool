@@ -60,7 +60,7 @@
             </div>
             <div class="form-group col-lg-4">
               <label>Pincode</label> <span class="fa fa-asterisk"></span>
-              <input type="number" name="p_pincode" id="p_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200" required="" value="{{ $address->p_pincode }}">
+              <input type="number" name="p_pincode" id="p_pincode" class="form-control" maxlength="6" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="{{ $address->p_pincode }}">
             </div>
               <div class="form-group col-lg-12 text-center">
               <input type="checkbox" id="addressCheck" name="addressCheck" style="margin-top: 30px">
@@ -72,7 +72,7 @@
             </div> 
             <div class="form-group col-lg-4">
               <label>Pincode</label>
-              <input type="number" name="c_pincode" id="c_pincode" class="form-control" maxlength="6" placeholder="" maxlength="200" value="{{ $address->c_pincode }}">
+              <input type="number" name="c_pincode" id="c_pincode" class="form-control" maxlength="6" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="{{ $address->c_pincode }}">
             </div>
           <div class="form-group col-lg-12 text-center" style="margin-top: 10px">
             <input type="submit" value="Update" class="btn btn-success">

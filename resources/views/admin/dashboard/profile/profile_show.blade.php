@@ -45,15 +45,15 @@
                     <div class="active tab-pane" id="activity">
                      <ul class="list-group list-group-unbordered mb-3">
                       <li class="list-group-item"> 
-                        <b>Name</b> <a class="float-right"> <input type="text" name="first_name" class="form-control" id="first_name" maxlength="50" value="{{ $admins->first_name or '' }}"> </a>
+                        <b>Name</b> <span class="fa fa-asterisk"></span> <a class="float-right"> <input type="text" name="first_name" class="form-control" id="first_name" maxlength="50" value="{{ $admins->first_name or '' }}"> </a>
                       </li> 
                       <li class="list-group-item"> 
-                        <b>Mobile.No.</b> <a class="float-right"> <input type="text" name="mobile" class="form-control" value="{{ $admins->mobile or '' }}"  maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' > </a>
+                        <b>Mobile.No.</b> <span class="fa fa-asterisk"></span> <a class="float-right"> <input type="text" name="mobile" class="form-control" value="{{ $admins->mobile or '' }}"  maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' > </a>
                       </li>
                        <li class="list-group-item"> 
-                        <b>Date of Birth</b> <a class="float-right"> <input type="date" name="dob" class="form-control" value="{{ $admins->dob }}"> </a>
+                        <b>Date of Birth</b> <span class="fa fa-asterisk"></span> <a class="float-right"> <input type="date" name="dob" class="form-control" value="{{ $admins->dob }}"> </a>
                       </li> <li class="list-group-item"> 
-                        <b>Email</b> <a class="float-right"> <input type="email" name="email" class="form-control" value="{{ $admins->email or '' }}" maxlength="50"> </a>
+                        <b>Email</b> <span class="fa fa-asterisk"></span> <a class="float-right"> <input type="email" name="email" class="form-control" value="{{ $admins->email or '' }}" maxlength="50"> </a>
                       </li> 
                     </ul>
                      <input type="submit" value="Update" class="btn btn-success" style="margin-left: 350px">
