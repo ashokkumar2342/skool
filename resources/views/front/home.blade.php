@@ -138,12 +138,12 @@
                         <a href="#">Buy Now!</a>
                     </div>
                 </li> --}}
-                <li class="swiper-slide">
-                    <img src="{{asset('front_asset/extra-images/banner-03.jpg')}}" alt="">
+                <li class="swiper-slide" style="height: 750px">
+                    <img src="{{asset('front_asset/extra-images/banner-1.jpg')}}" alt="">
                     <div class="gt_banner_text gt_slide_3">
-                        <h3>Web Based</h3>
+                        {{-- <h3>Web Based</h3>
                         <h2>School Management System</h2> 
-                        <a href="{{ route('try.demo') }}">Try Demo</a>
+                        <a href="{{ route('try.demo') }}">Try Demo</a> --}}
                     </div>
                 </li>
              </ul>
