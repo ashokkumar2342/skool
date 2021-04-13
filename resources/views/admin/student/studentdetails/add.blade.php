@@ -71,7 +71,7 @@
                                                     <div class="form-group">
                                                     {{ Form::label('emailid','Email Id',['class'=>' control-label']) }}
                                                         <span class="fa fa-asterisk"></span>
-                                                        <input type="text"  name="emailid" id="email" class="form-control">
+                                                        <input type="email"  name="emailid" id="email" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>  
