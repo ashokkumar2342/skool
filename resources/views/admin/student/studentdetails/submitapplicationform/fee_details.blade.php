@@ -40,18 +40,9 @@
 @php
 	$admissionApplication=App\Model\AdmissionApplication::where('student_id',$student->id)->first();
 @endphp
-@if (!empty($admissionApplication))
-  @if ($admissionApplication->status==3)
+
+  @if ($admissionApplication->status<3)
 		<div class="col-lg-12 text-center" style="margin-top: 20px"> 
 			<input type="submit" hidden class="btn btn-warning hidden" value="Receipt"> 
 		</div>
-   @else 
-   <div class="col-lg-12 text-center" style="margin-top: 20px"> 
-			<input type="submit" class="btn btn-warning" value="Receipt"> 
-		</div>
   @endif
-@else
-<div class="col-lg-12 text-center" style="margin-top: 20px"> 
-	<input type="submit" class="btn btn-warning" value="Receipt"> 
-</div>	 
-@endif
