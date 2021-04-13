@@ -724,7 +724,8 @@ class StudentController extends Controller
     }
 
     public function viewUpdate(Request $request, Student $student)
-    { 
+    {  
+        // $reg_length=$request->reg_length;
        $userId=Auth::guard('admin')->user();
        if ($userId->role_id!=12) { 
             $rules=[ 
@@ -733,7 +734,7 @@ class StudentController extends Controller
                 "nick_name" => 'max:30|nullable', 
                 "class" => 'required', 
                 "section" => 'required',
-                'registration_no' => 'required|max:$request->reg_length|min:$request->reg_length|unique:students,registration_no,'.$student->id,
+                'registration_no' => "required|max:$request->reg_length|min:$request->reg_length|unique:students,registration_no,".$student->id,
 
                 // "registration_no" => 'required|max:20|unique:students,registration_no,'.$student->id, 
                 "roll_no" => 'required|max:20', 
