@@ -733,8 +733,8 @@ class StudentController extends Controller
                 "nick_name" => 'max:30|nullable', 
                 "class" => 'required', 
                 "section" => 'required',
-                'registration_no' => "required|unique:students|min:$request->reg_length|max:$request->reg_length".$student->id,
-                 
+                'registration_no' => 'required|max:$request->reg_length|min:$request->reg_length|unique:students,registration_no,'.$student->id,
+
                 // "registration_no" => 'required|max:20|unique:students,registration_no,'.$student->id, 
                 "roll_no" => 'required|max:20', 
                 "admission_no" => 'required|max:10|unique:students,admission_no,'.$student->id,
