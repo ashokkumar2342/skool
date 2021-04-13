@@ -123,6 +123,8 @@ b{
                                         @endforeach 
                                         </select> 
                                         </div>
+                                        <input type="hidden" name="reg_length" value="{{ $schoolinfo->reg_length }}">
+                                             
                                         <div  class="col-lg-6 form-group {{ $hidden }}">
                                         <label>Registration No.</label> <span class="fa fa-asterisk"></span>
                                         <input type="text" value="{{ $student->registration_no or ''}}" name="registration_no" id="registration_no" maxlength="{{ $schoolinfo->reg_length }}" class="form-control" min="{{ $schoolinfo->reg_length }}"> 
