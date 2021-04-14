@@ -43,6 +43,6 @@
 
   @if ($admissionApplication->status==2)
 		<div class="col-lg-12 text-center" style="margin-top: 20px"> 
-			<input type="submit" hidden class="btn btn-warning hidden" value="Receipt"> 
+			<input type="submit" hidden class="btn btn-warning" value="Receipt"> 
 		</div>
   @endif
