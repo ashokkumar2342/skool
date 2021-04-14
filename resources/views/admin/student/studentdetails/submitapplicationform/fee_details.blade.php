@@ -41,7 +41,7 @@
 	$admissionApplication=App\Model\AdmissionApplication::where('student_id',$student->id)->first();
 @endphp
 
-  @if ($admissionApplication->status<3)
+  @if ($admissionApplication->status==2)
 		<div class="col-lg-12 text-center" style="margin-top: 20px"> 
 			<input type="submit" hidden class="btn btn-warning hidden" value="Receipt"> 
 		</div>
