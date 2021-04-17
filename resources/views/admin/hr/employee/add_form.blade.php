@@ -103,7 +103,7 @@
                             </div>
                             <div class="col-lg-12 form-group">
                                 <label>Pan No.</label><span class="fa fa-asterisk"></span>
-                                <input type="text" name="pan_number" class="form-control"  maxlength="20" placeholder="Enter Pan No." value="{{ @$Employee->pan_number }}"> 
+                                <input type="text" name="pan_number" class="form-control"  maxlength="10" placeholder="Enter Pan No." value="{{ @$Employee->pan_number }}"> 
                             </div> 
                             <div class="col-lg-12 form-group">
                                 <label>PF Account No.</label><span class="fa fa-asterisk"></span>

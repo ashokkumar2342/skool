@@ -14,7 +14,7 @@
       </div>
       <div class="modal-body"> 
         <form action="" method="get" accept-charset="utf-8">
-          <label>Remark</label>
+          <label>Remarks</label>
       		<textarea class="form-control">{{ $leaveRecord->remark }}</textarea>
          
         </form>

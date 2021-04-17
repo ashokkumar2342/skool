@@ -1,5 +1,5 @@
 <div class="panel panel-success">
-        <div class="panel-heading">Student Summery</div>
+        <div class="panel-heading">Student Summary</div>
         <div class="panel-body">
         	 <table class="table" style="font-size: 12px">
         	 	<thead>
@@ -32,7 +32,7 @@
 			<th>Apply Date</th>
 			<th>From Date</th>
 			<th>To Date</th>
-			<th>Remark</th>
+			<th>Remarks</th>
 			<th>Attachment</th>
 			<th>Status</th>
 			{{-- <th>Action</th> --}}

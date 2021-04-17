@@ -65,7 +65,7 @@
                     </div>
                     <div class="col-lg-8">
                       <div class="form-group">
-                        <label>Remark</label>
+                        <label>Remarks</label>
                         <input type="text" name="remark" class="form-control"  > 
                       </div> 
                     </div><div class="col-lg-4">
