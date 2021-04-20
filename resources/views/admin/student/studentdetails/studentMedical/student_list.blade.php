@@ -8,22 +8,16 @@
           <thead>
             <tr>
               <th>Student Name</th>
-              <th>Registration No.</th>
-              <th>Father's Name</th>
-              <th>Mother's Name</th>
-              <th>Mobile No.</th>
-              <th>Email</th>
+               
             </tr>
           </thead>
           <tbody>
+            @foreach ($students as $student)
             <tr>
-              <td>{{ $student->name }}</td>
-              <td>{{ $student->registration_no }}</td>
-              <td>{{ $student->parents[0]->parentInfo->name or '' }}</td>
-              <td>{{ $student->parents[1]->parentInfo->name or '' }}</td>
-              <td>{{ $student->addressDetails->address->primary_mobile or '' }}</td>
-              <td>{{ $student->addressDetails->address->primary_email or '' }}</td>
-            </tr>
+               <td>{{ $student->parent_name }}</td>  
+               <td>{{ $student->relation_name }}</td>   
+            </tr> 
+            @endforeach
           </tbody>
         </table>
         
@@ -35,7 +29,7 @@
        
        <div class="row"> 
         <div class="col-md-12"> 
-                <input type="hidden" name="student_id" value="{{ $student->id }}">                  
+                <input type="hidden" name="student_id" value="{{ $student_id->id }}">                  
                     <div class="form-group col-md-4">
 
                          {{ Form::label('ondate','On Date',['class'=>' control-label']) }} 

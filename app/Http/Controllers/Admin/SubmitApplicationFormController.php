@@ -72,6 +72,12 @@ class SubmitApplicationFormController extends Controller
      return view('admin.student.studentdetails.applicationscrutiny.remark',compact('id','status'));
     }
     public function remarkStore(Request $request,$id){
+      if ($request->status==5) {
+          $response= array();                       
+          $response['status']= 1; 
+          $response['msg']= 'The Remarks field is required.'; 
+          return  $response; 
+     }
      $admissionApplications=AdmissionApplication::find($id);
      $admissionApplications->remark=$request->remark;
      $admissionApplications->status=$request->status;

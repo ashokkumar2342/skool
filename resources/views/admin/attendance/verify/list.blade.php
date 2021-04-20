@@ -17,6 +17,7 @@
                     <th class="text-nowrap">Apply Date</th>
                     <th class="text-nowrap">From Date</th>
                     <th class="text-nowrap">To Date</th>
+                    <th class="text-nowrap">Total Days</th>
                     <th class="text-nowrap">Remark</th>
                     <th class="text-nowrap">Attachment</th>
                     <th class="text-nowrap">Action</th>
@@ -34,6 +35,7 @@
                     <td class="text-nowrap">{{ date('d-m-Y',strtotime( $leaveRecord->apply_date))}}</td>
                     <td class="text-nowrap">{{ date('d-m-Y',strtotime( $leaveRecord->from_date))}}</td>
                     <td class="text-nowrap">{{ date('d-m-Y',strtotime( $leaveRecord->to_date))}}</td>
+                    <td class="text-nowrap">{{$leaveRecord->total_days}}</td>
                     <td class="text-nowrap">{{$leaveRecord->remark}}</td>
                     <td><a href="{{ route('admin.attendance.leave.delete',$leaveRecord->attachment) }}" target="blank" style="margin:10px">{{ $leaveRecord->attachment?'Open the Attachment!' : '' }}</a></td>
                     <td class="text-nowrap">

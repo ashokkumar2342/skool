@@ -32,6 +32,7 @@
 			<th>Apply Date</th>
 			<th>From Date</th>
 			<th>To Date</th>
+			<th>Total Days</th>
 			<th>Remarks</th>
 			<th>Attachment</th>
 			<th>Status</th>
@@ -48,6 +49,7 @@
 			<td>{{ date('d-m-Y',strtotime( $leaveRecord->apply_date))}}</td>
 			<td>{{ date('d-m-Y',strtotime( $leaveRecord->from_date))}}</td>
 			<td>{{ date('d-m-Y',strtotime( $leaveRecord->to_date))}}</td>
+			<td>{{$leaveRecord->total_days}}</td>
 			<td>{{$leaveRecord->remark}}</td>
 			<td><a href="{{ route('admin.attendance.leave.delete',$leaveRecord->attachment) }}" target="blank" style="margin:10px">{{ $leaveRecord->attachment?'Open the Attachment!' : '' }}</a></td>
 			 

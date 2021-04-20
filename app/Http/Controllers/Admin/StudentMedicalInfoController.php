@@ -35,6 +35,7 @@ use App\Model\SubjectType;
 use App\Student;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 
@@ -360,16 +361,16 @@ class StudentMedicalInfoController extends Controller
        return view('admin.student.studentdetails.studentMedical.view',compact('student','schoolinfo'));  
     }
     public function studentShow(Request $request)
-    {  
+    {   
         $user_id=Auth::guard('admin')->user()->id;
-        $st= new Student();
-        $student=$st->getDetailByRegistrationNo($request->registration_no);
-        $student_id=$request->id; 
+        $student_id=Student::where('registration_no',$request->registration_no)->first();
+        $students=DB::select(DB::raw("call up_get_parentDetail($student_id->id)"));
+         
         $default = StudentDefaultValue::where('user_id',$user_id)->first(); 
         $bloodgroups = array_pluck(BloodGroup::orderBy('name','ASC')->get(['id','name'])->toArray(),'name', 'id'); 
         $complextions=Complextion::orderBy('name','ASC')->get();
         
        
-       return view('admin.student.studentdetails.studentMedical.student_list',compact('student','bloodgroups','default','complextions'));
+       return view('admin.student.studentdetails.studentMedical.student_list',compact('students','bloodgroups','default','complextions','student_id'));
     }
 }

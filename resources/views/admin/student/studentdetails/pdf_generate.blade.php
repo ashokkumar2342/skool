@@ -249,6 +249,12 @@ $default_image =public_path('profile-img/user.png');
             <td style="width: 181px;"></td>
             </tr>
             <tr>
+                <tr>
+            <td style="width: 181px;">Email</td>
+            <td style="width: 181px;"class="fontBold">{{ $parent->parentInfo->email or ''}}</td>
+            <td style="width: 181px;"></td>
+            </tr>
+            <tr>
             <td style="width: 181px;">Date of Birth</td>
             <td style="width: 181px;"class="fontBold">{{$parent->parentInfo->dob? date('d-m-Y', strtotime($parent->parentInfo->dob)) : null}}</td>
             <td style="width: 181px;">&nbsp;</td>
@@ -412,6 +418,35 @@ $studentSubjectDetails=App\Model\StudentSubject::where('student_id',$student->id
             <tr>
             <td> {{ $studentSubject->SubjectTypes->name or '' }}</td>
             <td>{{ $studentSubject->ISOptionals->name or ''}}</td>
+            </tr>
+            @endforeach 
+
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>@php
+$StudentSportHobbys=App\Model\StudentSportHobby::where('student_id',$student->id)->get();
+@endphp
+<div class="panel panel-success">
+    <div class="panel-heading">Sport's Details</div>
+    <div class="panel-body">
+        <div class="row">
+            <table class="table"> 
+            <thead>
+            <tr>
+            <th>Academic Year</th>
+            <th>Sports Activity Name</th>
+            <th>Level</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($StudentSportHobbys as $StudentSportHobby)
+
+            <tr>
+            <td>{{$StudentSportHobby->sessions->name or ''  }}</td>
+            <td>{{ $StudentSportHobby->sports_activity_name }}</td>
+            <td>{{ $StudentSportHobby->awardLevel->name or '' }}</td>
             </tr>
             @endforeach 
 

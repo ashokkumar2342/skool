@@ -443,4 +443,34 @@ $studentSubjectDetails=App\Model\StudentSubject::where('student_id',$student->id
         </div>
     </div>          
     </div>
+    @php
+$StudentSportHobbys=App\Model\StudentSportHobby::where('student_id',$student->id)->get();
+@endphp
+<div class="panel panel-success">
+    <div class="panel-heading">Sport's Details</div>
+    <div class="panel-body">
+        <div class="row">
+            <table class="table"> 
+            <thead>
+            <tr>
+            <th>Academic Year</th>
+            <th>Sports Activity Name</th>
+            <th>Level</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($StudentSportHobbys as $StudentSportHobby)
+
+            <tr>
+            <td>{{$StudentSportHobby->sessions->name or ''  }}</td>
+            <td>{{ $StudentSportHobby->sports_activity_name }}</td>
+            <td>{{ $StudentSportHobby->awardLevel->name or '' }}</td>
+            </tr>
+            @endforeach 
+
+            </tbody>
+            </table>
+        </div>
+    </div>          
+    </div>
 </div>

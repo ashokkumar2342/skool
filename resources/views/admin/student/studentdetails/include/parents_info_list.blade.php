@@ -35,6 +35,14 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-4" style="padding:5px">
+                                Email  
+                            </div>
+                            <div class="col-lg-8" style="padding:5px">
+                                <b>{{ $parent->parentInfo->email or ''}}</b>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4" style="padding:5px">
                               Date of Birth    
                             </div>
                             <div class="col-lg-8" style="padding:5px">
