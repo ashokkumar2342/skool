@@ -1280,6 +1280,9 @@ class StudentController extends Controller
 
     public function studentSearchByRegisterNo(Request $request)
     {  
+        if(trim($request->id) == ''){
+          return '<p style="color:red">Plz Enter Sibling Registration No.</p>';  
+        }
         $st =new Student();
         $std= $st->getDetailByRegistrationNo($request->id);
         if ($std==null) {

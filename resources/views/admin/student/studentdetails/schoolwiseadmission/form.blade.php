@@ -55,8 +55,8 @@
                             }">
                             <option selected disabled>Select Sibling Registration</option>
                             <option value="no">No Sibling</option>
-                            <option value="yes">Choose Sibling From Registration No.</option>
-                            <option value="app">Choose Sibling From Application No.</option>
+                            <option value="yes">Select Sibling From Registration No.</option>
+                            <option value="app">Select Sibling From Application No.</option>
 
                         </select>
                     </div>
@@ -188,13 +188,13 @@
                     <input type="text" name="marks_percent" maxlength="6" class="form-control" placeholder="Enter Marks Percent"> 
                  </div>
 
-                @if(App\Helper\MyFuncs::menuPermission()->d_status == 1)
+                {{-- @if(App\Helper\MyFuncs::menuPermission()->d_status == 1) --}}
 
                 <div class="col-md-12 text-center">
                     <button class="btn btn-success" type="submit">Submit</button>
                 </div>
             </div>  
-            @endif
+            {{-- @endif --}}
         </form>
 
 
