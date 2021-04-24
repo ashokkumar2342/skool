@@ -96,5 +96,44 @@ class SubmitApplicationFormController extends Controller
        $response['msg']= $message; 
        return  $response;
     }
+
+    public function applicationUpdate($value='')
+    {
+      return view('admin.student.studentdetails.updateapplication.form',compact('id','status'));
+    }
+    public function applicationUpdateRedirect(Request $request)
+    {
+        
+        try {
+        $rules=[
+             'application_no' => 'required',
+             
+         ];
+          
+         $validator = Validator::make($request->all(),$rules);
+         if ($validator->fails()) {
+             $errors = $validator->errors()->all();
+             $response=array();
+             $response["status"]=0;
+             $response["msg"]=$errors[0];
+             return response()->json($response);// response as json
+         }
+         $Application=AdmissionApplication::where('id',$request->application_no)->first();
+         if (empty($Application)) {
+             $response=array();
+             $response['status']=0;
+             $response['msg']='Invalied Application No.';
+             return $response;
+          }
+         $response=array();
+         $response['status']=1;
+         $response['msg']='Application Form Redirecting';   
+         $response['student_id']=Crypt::encrypt($Application->student_id);   
+         return $response;  
+       } catch (Exception $e) {
+         Log::error('Student store :'.$e);
+       }
+ 
+    }
     
 }

@@ -181,19 +181,18 @@ Route::group(['middleware' => 'admin'], function() {
 	//---------------Student--------------------------------------------------------------------
 	 Route::group(['prefix' => 'student'], function() {
 	     Route::get('add', 'StudentController@create')->name('admin.student.form');	
-	     Route::get('view/{student}', 'StudentController@show')->name('admin.student.view');	   
+	     Route::get('view/{student}/{source?}', 'StudentController@show')->name('admin.student.view');	   
 	     Route::get('preview/{id}', 'StudentController@previewshow')->name('admin.student.preview');	   
 	     Route::get('pdf/{id}', 'StudentController@pdfGenerate')->name('admin.student.pdf.generate');	   
 	     Route::get('{student}/edit', 'StudentController@edit')->name('admin.student.edit');
 	     Route::get('{student}/delete', 'StudentController@destroy')->name('admin.student.delete');
-	     Route::get('{student}/profileedit', 'StudentController@profileedit')->name('admin.student.profileedit');
 	     Route::get('{student}/totalfeeedit', 'StudentController@totalfeeedit')->name('admin.student.totalfeeedit');
 	     Route::post('{student}/totalfeeupdate', 'StudentController@totalfeeupdate')->name('admin.student.totalfeeupdate');
 	     Route::post('add', 'StudentController@store')->name('admin.student.post');
 	     Route::post('{student}/update', 'StudentController@update')->name('admin.student.update');
 	     Route::post('{student}/view-update', 'StudentController@viewUpdate')->name('admin.student.view-update');
 	     Route::post('{student}/profileupdate', 'StudentController@profileupdate')->name('admin.student.profileupdate');
-	     Route::post('list/{menuPermission}', 'StudentController@index')->name('admin.student.list'); 
+	     Route::post('list/{menuPermission}/{type}', 'StudentController@index')->name('admin.student.list'); 
 	     Route::get('show-form', 'StudentController@showForm')->name('admin.student.show');
 	     Route::get('student-image-upload', 'StudentController@studentImageUpload')->name('admin.student.image.upload');
 	     Route::get('student-image-upload-list/{id?}', 'StudentController@studentImageUploadList')->name('admin.student.image.upload.list');
@@ -290,6 +289,11 @@ Route::group(['middleware' => 'admin'], function() {
 	    Route::post('remark-store/{id}', 'SubmitApplicationFormController@remarkStore')->name('admin.submit.application.remark.store');
 	    
 	  
+	    
+	 });
+	 Route::group(['prefix' => 'application'], function() {
+	    Route::get('update', 'SubmitApplicationFormController@applicationUpdate')->name('admin.submit.application.update');
+	    Route::post('update-redirect', 'SubmitApplicationFormController@applicationUpdateRedirect')->name('admin.submit.application.update.redirect');
 	    
 	 });
 	 Route::group(['prefix' => 'default-Value'], function() {

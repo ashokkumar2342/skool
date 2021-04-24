@@ -181,7 +181,7 @@
                  </div>
                  <div class="col-lg-3 form-group">
                     <label>Marks OBT</label>
-                    <input type="text" name="marks_obt" maxlength="6" class="form-control" placeholder="Enter Marks OBT"> 
+                    <input type="text" name="marks_obt" maxlength="6" class="form-control" placeholder="Enter Marks OBT"  > 
                  </div>
                  <div class="col-lg-3 form-group">
                     <label>Marks Percent</label>

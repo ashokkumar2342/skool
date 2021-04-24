@@ -70,9 +70,9 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request,$menuPermissionId)
-    { 
-        
+    public function index(Request $request,$menuPermissionId,$type)
+    {   
+        $source=$type;        
         if ($request->class!=null) {
           $st =new Student();           
           $students =$st->getStudentByClassSection($request->class,$request->section); 
@@ -86,6 +86,16 @@ class StudentController extends Controller
           }  
           $st =new Student();           
           $students =$st->getStudentDetailsByArrId([$student->id]);
+        }elseif($request->application_no!=null){
+          $application_no=AdmissionApplication::where('id',$request->application_no)->first();
+          if (empty($application_no)) {
+           $response=array();
+            $response["status"]=0;
+            $response["msg"]='Application No Not Exist';
+            return response()->json($response);
+          }  
+          $st =new Student();           
+          $students =$st->getStudentDetailsByArrId([$application_no->student_id]);
         }elseif($request->search_id!=null){
           $st =new Student();           
           $students =$st->getStudentsSearchDetilas($request->search_id);
@@ -102,7 +112,7 @@ class StudentController extends Controller
              $response['status'] = 1;
              return $response;
          }
-        $response['data']= view('admin.student.studentdetails.list',compact('students','menuPermision','fatherDetail'))->render();
+        $response['data']= view('admin.student.studentdetails.list',compact('students','menuPermision','fatherDetail','source'))->render();
             $response['status'] = 1;
             return $response;
     }
@@ -392,8 +402,8 @@ class StudentController extends Controller
      * @param  \App\StudentDetails  $studentDetails
      * @return \Illuminate\Http\Response
      */
-    public function show($student_id)
-    {
+    public function show($student_id,$source)
+    {    
         $studentId= Crypt::decrypt($student_id);
         $st=new Student();
         $student=$st->getStudentDetailsById($studentId);
@@ -427,7 +437,7 @@ class StudentController extends Controller
             $showHide='hidden';
         } 
          
-        return view('admin.student.studentdetails.view',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','awardLevels','subjectTypes','bloodgroups','professions','classes','sections','houses','genders','userId','schoolinfo','showHide'));
+        return view('admin.student.studentdetails.view',compact('student','parentsType','incomes','documentTypes','isoptionals','sessions','awardLevels','subjectTypes','bloodgroups','professions','classes','sections','houses','genders','userId','schoolinfo','showHide','source'));
     }
     public function excelData(){
 
