@@ -277,5 +277,18 @@ class Student extends Authenticatable
     }
     }
 
+
+  //Functions for Admission Forms
+
+    //input type :: 1-registration no, 2-Application No.
+  public function getSiblingDetail($regis_app_no, $input_type){
+    try {
+      $sibDetail=DB::select(DB::raw("call `up_get_sibling_detail_app_form`('$regis_app_no', $input_type);"));   
+      return $sibDetail;
+    } catch (QueryException $e) {
+      return $e; 
+    }
+  }//function End
+
     
 }

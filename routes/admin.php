@@ -230,7 +230,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::post('reset-roll-no-update', 'StudentController@resetRollNoUpdate')->name('admin.student.reset.roll.no.update');
 		Route::get('student-request-update', 'StudentController@studentRequestUpdate')->name('admin.student.request.update');
 		Route::get('student-serach/{menu_id}', 'StudentController@studentSearch')->name('admin.student.view.search');
-		Route::get('student-serach-by-register-no/', 'StudentController@studentSearchByRegisterNo')->name('admin.student.details.show');
+		Route::get('student-serach-by-register-no/{type}', 'StudentController@studentSearchByRegisterNo')->name('admin.student.details.show');
 		//----------student role url -------------------
 		Route::get('registration-form', 'StudentController@registrationForm')->name('admin.student.registration.form');	
 		Route::get('admission-class-avalval', 'StudentController@academicYearOnchange')->name('admin.student.registration.academicYear'); 

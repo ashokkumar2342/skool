@@ -1288,19 +1288,23 @@ class StudentController extends Controller
         return view('admin.student.requestUpdation.request_list',compact('studentRequests')); 
     }
 
-    public function studentSearchByRegisterNo(Request $request)
-    {  
-        if(trim($request->id) == ''){
-          return '<p style="color:red">Plz Enter Sibling Registration No.</p>';  
-        }
-        $st =new Student();
-        $std= $st->getDetailByRegistrationNo($request->id);
-        if ($std==null) {
-           return '<p style="color:red">Sibling Registration No Invalid</p>';
-        }
-        $student= $st->getStudentDetailsById($std->id);
-        return view('admin.student.studentdetails.details',compact('student'))->render();
-    }
+    // public function studentSearchByRegisterNo(Request $request,$type)
+    // {  
+    //   //return $type;
+    //     if(trim($request->id) == ''){
+    //       return '<p style="color:red">Plz Enter Sibling Registration No.</p>';  
+    //     }
+
+    //     $st =new Student();
+    //     $std= $st->getDetailByRegistrationNo($request->id);
+    //     if ($std==null) {
+    //        return '<p style="color:red">Sibling Registration No Invalid</p>';
+    //     }
+    //     $student= $st->getStudentDetailsById($std->id);
+    //     return view('admin.student.studentdetails.details',compact('student'))->render();
+    // }
+
+
 
     //----------------- student registraion -------------
     public function registrationForm($value='')
@@ -1413,94 +1417,7 @@ class StudentController extends Controller
         $default = StudentDefaultValue::find(1); 
         return view('admin.student.studentdetails.schoolwiseadmission.form',compact('classes','academicYears','default','genders','religions','categories','houses','user'));
     }
-    public function schoolWiseAdmissionStore(Request $request)
-    {
-       
-        try {
-        $rules=[
-             'academic_year_id' => 'required',
-             'sibling_registration' => 'required',
-             'sibling_registration_no' => 'required_if:sibling_registration,yes',
-             // 'mobileno' => 'required_if:sibling_registration,no|unique:students',
-             // 'emailid' => 'required_if:sibling_registration,no|unique:students', 
-             'sibling_application_no' => 'required_if:sibling_registration,app', 
-             'class' => 'required', 
-             "student_name" => 'required|max:199', 
-             "dob" => 'required|date',
-             "gender" => "required", 
-             "aadhaar_no" => "required|digits:12|unique:students,adhar_no",
-         ];
-         if ($request->sibling_registration=='no') {
-           $rules['mobileno']= 'required_if:sibling_registration,no|unique:students,mobileno';
-           $rules['emailid'] ='required_if:sibling_registration,no|unique:students,emailid'; 
-          }
-         $validator = Validator::make($request->all(),$rules);
-         if ($validator->fails()) {
-             $errors = $validator->errors()->all();
-             $response=array();
-             $response["status"]=0;
-             $response["msg"]=$errors[0];
-             return response()->json($response);// response as json
-         } 
-         else { 
-
-         $admin_id = Auth::guard('admin')->user()->id;
-         $username = str_random('10');
-         $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
-         $student= new Student();
-         if ($request->sibling_registration=='yes') {  
-           $sibling= $student->getDetailByRegistrationNo($request->sibling_registration_no);
-           if (is_null($sibling)) {
-             $response=array();
-             $response['status']=0;
-             $response['msg']='Sibling Invalied Ragistration No.';
-             return $response;
-           }
-           $student->siblingId= $sibling->id;
-         }elseif ($request->sibling_registration=='app') {
-           $studentApp=new AdmissionApplication();  
-           $siblingApplication= $studentApp->getStudentIdByApplicationNo($request->sibling_application_no);
-           if (is_null($siblingApplication)) {
-             $response=array();
-             $response['status']=0;
-             $response['msg']='Sibling Invalied Application No.';
-             return $response;
-           }
-           $student->siblingId= $sibling->id;
-         } 
-         $student->emailid= $request->emailid;  
-         $student->mobileno= $request->mobileno; 
-         $student->dpassword= $char;  
-         $student->dpassword_encrypt= bcrypt($char);  
-         $student->roll_no=$request->academic_year_id; 
-         $student->admin_id = $admin_id; 
-         $student->class_id= $request->class; 
-         $student->name= $request->student_name;
-         $student->nick_name= $request->nick_name; 
-         $student->dob= $request->date_of_birth == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
-         $student->gender_id= $request->gender;        
-         $student->adhar_no= $request->aadhaar_no; 
-         $student->student_status_id=8; 
-         $student->save();
-         $AdmissionApplication=AdmissionApplication::orderBy('id','DESC')->first();
-         $AdmissionApplication=AdmissionApplication::find($AdmissionApplication->id);
-         $AdmissionApplication->last_school_name=$request->last_school_name;
-         $AdmissionApplication->marks_max=$request->max_marks;
-         $AdmissionApplication->marks_obt=$request->marks_obt;
-         $AdmissionApplication->marks_percentage=$request->marks_percent;
-         $AdmissionApplication->save();
-         $response=array();
-         $response['status']=1;
-         $response['msg']='Registration Successfully';   
-         $response['student_id']=Crypt::encrypt($student->id);   
-         return $response; 
-         } 
-         
-       } catch (Exception $e) {
-         Log::error('Student store :'.$e);
-       }
- 
-    }
+    
     public function registrationFinalSubmit($student_id)
     {
        $st =new Student();
@@ -1771,5 +1688,130 @@ class StudentController extends Controller
                     return response()->json($response); 
    }
 
-   
+  
+    //Admission Form Functions
+
+    //code for admission form Author :: Amit Bansal
+    public function studentSearchByRegisterNo(Request $request,$type)
+    { 
+      $message_type = '';
+      $error = 0;
+      if($type==1){
+        $message_type = 'Registration';
+      } else{
+        $message_type = 'Application';
+      } 
+      if(trim($request->id) == ''){
+        return '<p style="color:red">Plz Enter Sibling '.$message_type.' No.</p>';  
+      }
+
+      $st =new Student();
+      $student = $st->getSiblingDetail($request->id, $type);
+      $error = $student[0]->error;
+      if($error > 0){
+        return '<p style="color:red">'.$message_type.' No. not found, please enter correct '.$message_type.' no.</p>';;  
+      }else{
+        return view('admin.student.studentdetails.details',compact('student'))->render();  
+      }
+      
+    }
+
+
+    //Code Modified By Amit Bansal
+    public function schoolWiseAdmissionStore(Request $request)
+    {
+      $sib_type_select = 0;
+      $regis_app_no = '';
+      $message_type = '';
+      $error = 0;
+      try{
+        $rules=[
+          'academic_year_id' => 'required',
+          'sibling_registration' => 'required',
+          'sibling_registration_no' => 'required_if:sibling_registration,yes',
+          'sibling_application_no' => 'required_if:sibling_registration,app', 
+          'class' => 'required', 
+          "student_name" => 'required|max:199', 
+          "dob" => 'required|date',
+          "gender" => "required", 
+          "aadhaar_no" => "required|digits:12|unique:students,adhar_no",
+        ];
+        if ($request->sibling_registration=='no') {
+          $rules['mobileno']= 'required_if:sibling_registration,no|unique:admins,mobile';
+          $rules['emailid'] ='required_if:sibling_registration,no|unique:admins,email'; 
+        }
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+          $errors = $validator->errors()->all();
+          $response=array();
+          $response["status"]=0;
+          $response["msg"]=$errors[0];
+          return response()->json($response);// response as json
+        }
+
+        $admin_id = Auth::guard('admin')->user()->id;
+        $username = str_random('10');
+        $char = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz0123456789" ), 0, 6 );
+        $student= new Student();
+
+        if ($request->sibling_registration=='yes'){
+          $sib_type_select = 1;
+          $regis_app_no = $request->sibling_registration_no;
+          $message_type = 'Registration';  
+        }elseif ($request->sibling_registration=='app'){
+          $sib_type_select = 2;
+          $regis_app_no = $request->sibling_application_no;  
+          $message_type = 'Application';
+        }
+
+
+        if($sib_type_select > 0){
+          
+          $sib_detail = $student->getSiblingDetail($regis_app_no, $sib_type_select);
+          $error = $sib_detail[0]->error;
+          if($error > 0){
+            $response=array();
+            $response['status']=0;
+            $response['msg']='Sibling '.$message_type.' No. is not valid, Please enter correct detail';
+            return $response;
+          }
+          $student->siblingId= $sib_detail[0]->sib_id;
+        }
+
+
+
+
+        $student->emailid= $request->emailid;  
+        $student->mobileno= $request->mobileno; 
+        $student->dpassword= $char;  
+        $student->dpassword_encrypt= bcrypt($char);  
+        $student->roll_no=$request->academic_year_id; 
+        $student->admin_id = $admin_id; 
+        $student->class_id= $request->class; 
+        $student->name= $request->student_name;
+        $student->nick_name= $request->nick_name; 
+        $student->dob= $request->date_of_birth == null ? $request->dob : date('Y-m-d',strtotime($request->dob));
+        $student->gender_id= $request->gender;        
+        $student->adhar_no= $request->aadhaar_no; 
+        $student->student_status_id=8; 
+        $student->save();
+        $AdmissionApplication=AdmissionApplication::orderBy('id','DESC')->first();
+        $AdmissionApplication=AdmissionApplication::find($AdmissionApplication->id);
+        $AdmissionApplication->last_school_name=$request->last_school_name;
+        $AdmissionApplication->marks_max=$request->max_marks;
+        $AdmissionApplication->marks_obt=$request->marks_obt;
+        $AdmissionApplication->marks_percentage=$request->marks_percent;
+        $AdmissionApplication->save();
+        $response=array();
+        $response['status']=1;
+        $response['msg']='Registration Successfully';   
+        $response['student_id']=Crypt::encrypt($student->id);   
+        return $response; 
+
+      }catch (Exception $e){
+        Log::error('Application Form :'.$e);
+      } 
+    }//Function End
+
+
 }
