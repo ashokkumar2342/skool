@@ -66,7 +66,7 @@
                         <div class="form-group">
                             {{ Form::label('sibling_register','Sibling Registration No.',['class'=>' control-label']) }}
                             <span class="fa fa-asterisk"></span>
-                            <input type="text" onblur="callAjax(this,'{{ route('admin.student.details.show') }}','sibling_details')" name="sibling_registration_no" id="sibling_registration_no" class="form-control">
+                            <input type="text" maxlength="20" onblur="callAjax(this,'{{ route('admin.student.details.show',1) }}','sibling_details')" name="sibling_registration_no" id="sibling_registration_no" class="form-control">
                         </div>
                     </div>  
                     <div class="col-lg-4">                         
@@ -80,11 +80,11 @@
                         <div class="form-group">
                             {{ Form::label('sibling_register','Sibling Application No.',['class'=>' control-label']) }}
                             <span class="fa fa-asterisk"></span>
-                            <input type="text" {{-- onblur="callAjax(this,'{{ route('admin.student.details.show') }}','sibling_details')" --}} name="sibling_application_no" id="sibling_application_no" class="form-control">
+                            <input type="text" maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onblur="callAjax(this,'{{ route('admin.student.details.show',2) }}','sibling_detail')" name="sibling_application_no" id="sibling_application_no" class="form-control">
                         </div>
                     </div>  
-                    <div class="col-lg-6">                         
-                        <div class="form-group" id="sibling_details">
+                    <div class="col-lg-4">                         
+                        <div class="form-group" id="sibling_detail">
 
                         </div>
                     </div>  
